@@ -1,0 +1,1913 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
+    <meta name="keywords" content="http, 苍穹之下">
+    <meta name="description" content="想要属于一个自己的网站,菜鸡前端拼命前行">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>http | 苍穹之下</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+     <!-- 雪花特效 -->
+    <link rel="stylesheet" href="/css/snow.css">
+	<div id="snowzone">
+	</div> 
+	<script src="/js/snow.js"></script>
+
+    <script src="/libs/jquery/jquery.min.js"></script>
+
+<meta name="generator" content="Hexo 5.4.0"><!-- hexo-inject:begin --><!-- hexo-inject:end --></head>
+
+
+    
+
+                <body>
+                    <!-- hexo-inject:begin --><!-- hexo-inject:end --><header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">苍穹之下</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/contact" class="waves-effect waves-light">
+      
+      <i class="fas fa-comments" style="zoom: 0.6;"></i>
+      
+      <span>留言板</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">苍穹之下</div>
+        <div class="logo-desc">
+            
+            想要属于一个自己的网站,菜鸡前端拼命前行
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/contact" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-comments"></i>
+			
+			留言板
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+    </nav>
+
+</header>
+
+                        
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/16.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">http</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        width: 345px;
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        padding: 35px 0 15px 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content {
+        padding-bottom: 30px;
+        overflow: auto;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+
+        position: absolute;
+        right: 23.5vw;
+        display: block;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 15px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/config/">
+                                <span class="chip bg-color">config</span>
+                            </a>
+                        
+                            <a href="/tags/HTTP/">
+                                <span class="chip bg-color">HTTP</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/config/" class="post-category">
+                                config
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2021-11-08
+                </div>
+                
+
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
+                    2021-11-09
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
+                    3k
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                    10 分
+                </div>
+                
+
+                
+                    <div id="busuanzi_container_page_pv" class="info-break-policy">
+                        <i class="far fa-eye fa-fw"></i>阅读次数:&nbsp;&nbsp;
+                        <span id="busuanzi_value_page_pv"></span>
+                    </div>
+				
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+        <!-- 是否加载使用自带的 prismjs. -->
+        <link rel="stylesheet" href="/libs/prism/prism.css">
+        
+
+        
+        <!-- 代码块折行 -->
+        <style type="text/css">
+            code[class*="language-"], pre[class*="language-"] { white-space: pre-wrap !important; }
+        </style>
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h2 id="应用层协议"><a href="#应用层协议" class="headerlink" title="应用层协议"></a>应用层协议</h2><ul>
+<li>应用进程交换的报文类型,如<strong>请求报文</strong>和<strong>响应报文</strong></li>
+<li>各种报文类型的语法,如报文中各个字段极其响应描述</li>
+<li>字段的语义,即包含在字段中的各个字段极其详细描述</li>
+<li>进程何时,如何发送报文,以及对报文进行响应的规则</li>
+</ul>
+<blockquote>
+<p>应用层协议只是网络应用的一部分.应用层的许多协议都是基于客户服务其方式</p>
+</blockquote>
+<h3 id="DNS"><a href="#DNS" class="headerlink" title="DNS"></a>DNS</h3><blockquote>
+<p>DNS-从域名解析出ip地址</p>
+</blockquote>
+<ul>
+<li>把待解析的域名放在DNS请求报文中,以UDP用户数据报方式发给本地域名服务器.<ul>
+<li>本地域名服务器找到域名后,把对应的ip地址放在回答报文中返回</li>
+<li>应用进程获得目的主机的ip地址后即可进行通信</li>
+</ul>
+</li>
+<li>若本地域名服务器不能回答该请求<ul>
+<li>则此服务器端暂时成为DNS的另一个客户,并向其它域名发送查询请求</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>DNS高效率:DNS的大部分名字都在本地进行解析,仅少量的解析需要在互联网上通信.</p>
+</blockquote>
+<ul>
+<li><code>mail.cctv.com</code><ul>
+<li><code>mail</code>是三级域名</li>
+<li><code>cctv</code>是二级域名</li>
+<li><code>com</code>是一级域名</li>
+</ul>
+</li>
+</ul>
+<h3 id="万维网-www"><a href="#万维网-www" class="headerlink" title="万维网(www)"></a>万维网(www)</h3><blockquote>
+<ul>
+<li>万维网是一个大规模的,联机式的信息储藏所,简称Web</li>
+<li>万维网是一个分布式的超媒体系统,他是超文本系统的扩充</li>
+</ul>
+</blockquote>
+<ul>
+<li>万维网以客户服务器的方式工作<ul>
+<li>客户程序向服务程序发出请求,服务程序向客户程序送回客户所要的万维网文档<ul>
+<li><code>超文本文档</code>仅包含文本信息</li>
+<li><code>超媒体文档</code>还包含其它表示方式的信息,如图像,声音,视频等</li>
+</ul>
+</li>
+<li>如何标志分布在整个互联网上的万维网文档<ul>
+<li>统一资源定位符<strong>URI</strong></li>
+</ul>
+</li>
+<li>用什么样的协议实现万维网上的各种链接<ul>
+<li>超文本传输协议(<code>HTTP</code>)</li>
+</ul>
+</li>
+<li>如何使用户能方便找到用户信息<ul>
+<li>使用<strong>超文本标记语言HTML</strong></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="URI"><a href="#URI" class="headerlink" title="URI"></a>URI</h3><blockquote>
+<p>URI:统一资源标识符,URI包含URL和URN,由于URL过于普及,默认作为URI</p>
+</blockquote>
+<ul>
+<li><p>URL:统一资源定位符</p>
+</li>
+<li><p>URN:统一资源名称</p>
+</li>
+<li><p>例:例如一个文件<code>a.html</code>可以用<code>https://www.baidu.com/a.html</code>  </p>
+<ul>
+<li>也可以用<code>URN</code>:<code>urn:a:1535-3613</code></li>
+</ul>
+</li>
+<li><p><img src="URI.png" alt="URI"></p>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>名称</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>scheme</td>
+<td>协议名,比如http, https</td>
+</tr>
+<tr>
+<td>user:passwd@</td>
+<td>登录主机时的用户信息,不过很不安全,不推荐使用,也不常用</td>
+</tr>
+<tr>
+<td>host:port</td>
+<td>主机名(<strong>域名或者IP地址</strong>)和端口</td>
+</tr>
+<tr>
+<td>path</td>
+<td>请求路径,标记资源所在位置</td>
+</tr>
+<tr>
+<td>query</td>
+<td>查询参数,为<code>key=val</code>这种形式,多个键值对之间用&amp;隔开</td>
+</tr>
+<tr>
+<td>fragment</td>
+<td>URI 所定位的资源内的一个锚点,浏览器可以根据这个锚点跳转到对应的位置</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>参考:<a target="_blank" rel="noopener" href="https://sanyuan0704.top/blogs/net/http/003.html#uri-%E7%9A%84%E7%BB%93%E6%9E%84">https://sanyuan0704.top/blogs/net/http/003.html#uri-%E7%9A%84%E7%BB%93%E6%9E%84</a></p>
+</blockquote>
+<ul>
+<li><code>https</code>就是<code>scheme</code></li>
+<li><code>sanyuan0704.top</code>就是<code>host:port</code>,(http,https)默认端口是80,443可以省略不写</li>
+<li><code>/blogs/net/http/003.html</code>就是<code>path</code></li>
+<li><code>uri-%E7%9A%84%E7%BB%93%E6%9E%84</code>就是<code>fragment</code></li>
+</ul>
+<blockquote>
+<p>关于URI编码</p>
+</blockquote>
+<ul>
+<li>URI只能使用ASCII, ASCII之外的字符是不支持显示的,而且还有一部分符号是界定符,如果不加以处理就会导致解析出错.<ul>
+<li>URI引入了编码机制,将所有非ASCII码字符和界定符转为十六进制字节值,然后在前面加个%.</li>
+<li>空格被转义成了%20,<code>的结构</code>就被转译成<code>%E7%9A%84%E7%BB%93%E6%9E%84</code></li>
+</ul>
+</li>
+</ul>
+<h3 id="HTTP的操作过程-特点"><a href="#HTTP的操作过程-特点" class="headerlink" title="HTTP的操作过程(特点)"></a>HTTP的操作过程(特点)</h3><blockquote>
+<p>每个万维网的网点都有一个服务进程,他不断的监听<code>TCP</code>的端口<code>80</code>,一遍发现浏览器向它发出连接建立请求</p>
+</blockquote>
+<ul>
+<li><p><strong>HTTP的协议本身是无连接的</strong></p>
+<ol>
+<li>HTTP使用了面向连接的TCP作为传输层协议,保证数据的可靠传输</li>
+<li>虽然HTTP使用TCP连接,但通信的双方在交换HTTP报文之前不需要先建立HTTP建立</li>
+</ol>
+</li>
+<li><p><strong>HTTP协议是无状态的</strong>  </p>
+<ol>
+<li>协议对于事务处理没有记忆能力</li>
+<li>同一个客户第二次访问同一个服务器上的页面时,服务器响应与第一次访问时相同</li>
+<li>每次的请求都是独立的,它的执行情况和结果与前面的请求和之后的请求是无直接关系的,它不会受前面的请求应答情况直接影响,也不会直接影响后面的请求应答情况(<code>无直接联系</code>)</li>
+<li>服务器中没有保存客户端的状态,客户端必须每次带上自己的状态去请求服务器</li>
+</ol>
+</li>
+<li><p><strong>明文传输</strong></p>
+<ol>
+<li>即协议里的报文(主要指头部)不使用二进制数据.而是文本形式</li>
+<li>方便调试的同时,HTTP的报文信息暴露给了外界,给攻击者也提供了便利</li>
+</ol>
+</li>
+<li><p><strong>队头阻塞问题</strong></p>
+<ol>
+<li>http开启长连接时,使用同一个TCP连接</li>
+<li>同一时刻只能处理同一个请求,当前请求时间过长,其它请求只能处于阻塞状态</li>
+</ol>
+</li>
+<li><p><strong>HTTP协议首先要和服务器建立TCP连接</strong></p>
+<ol>
+<li>建立TCP连接三次握手的前面两部分完成后(即经过了一个RTT时间后)</li>
+<li>万维网客户就把HTTP请求报文,<strong>作为建立TCP连接的第三个报文</strong>的数据发送给万维网数据</li>
+<li>服务器收到HTTP请求报文后,就把所请求的文档作文响应报文返回给客户</li>
+</ol>
+</li>
+</ul>
+<p><img src="%E8%AF%B7%E6%B1%82%E4%B8%80%E4%B8%AA%E6%96%87%E6%A1%A3%E6%89%80%E9%9C%80%E7%9A%84%E6%97%B6%E9%97%B4.png" alt="请求一个文档所需的时间"></p>
+<ul>
+<li>该文档的传输时间(与文档大小成正比)加上两倍往返时间(RTT)<ul>
+<li>一个RTT用于连接TCP连接</li>
+<li>另一个RTT用于请求和接收万维网文档</li>
+<li>TCP建立的第三个报文段中的数据就是客户端对万维网的请求报文</li>
+</ul>
+</li>
+</ul>
+<h3 id="串行连接、持久连接、管道化持久连接、http-2-0多路复用简介"><a href="#串行连接、持久连接、管道化持久连接、http-2-0多路复用简介" class="headerlink" title="串行连接、持久连接、管道化持久连接、http/2.0多路复用简介"></a>串行连接、持久连接、管道化持久连接、http/2.0多路复用简介</h3><ul>
+<li><p><strong>串行连接</strong>:HTTP有<code>无连接的特性,即每次连接只能处理一个请求,收到响应后立即断开连接</code>.<code>HTTP/1.0</code>版本称为<strong>串行连接或短连接、短轮询</strong>中每次HTTP通信后都要断开TCP连接,所以每个新的HTTP请求都需要建立一个新的连接.但在现在网站动则几十条HTTP请求的情况下,很容易达到浏览器请求上限,并且每次请求都建立新的tcp连接(每次都有三次握手四次挥别)<span style="color:red">极大的增加了通信开销</span>.</p>
+</li>
+<li><p><strong>持久连接</strong>:为解决这个问题,有人提出了<code>持久连接(也叫长连接、长轮询)</code>.一定时间内,同一域名下的HTTP请求,只要两端都没有提出断开连接,则<strong>持久保持TCP连接状态</strong>,其他请求可以<code>复用这个连接通道</code>.<code>HTTP/1.1</code> 实现并<u style="color:red">默认了所有连接都是持久连接</u>,这样客户端发起多个HTTP请求时就减少了TCP握手造成的网络资源和通信时间的浪费.<span style="color:red">但是持久连接采用阻塞模式,下次请求必须等到上次响应返回后才能发起,如果上次的请求还没返回响应内容,下次请求就只能等着</span>(就是常说的线头阻塞)</p>
+</li>
+<li><p><strong>管道化持久连接</strong>:管道化则可以不用等待响应返回而发送下个请求并按顺序返回响应,现代浏览器并未默认开启管道化.</p>
+</li>
+<li><p><strong>HTTP/2.0多路复用</strong>： 每个HTTP请求都有一个<strong>序列标识符</strong>,这样浏览器可以并发多个请求,服务器接收到数据后,再根据序列标识符重新排序成不同的请求报文,而不会导致数据错乱.同样,服务端也可以并发返回多个响应给浏览器,浏览器收到后根据序列标识重新排序并归入各自的请求的响应报文.<span style="color:red">并且同一个域名下的所有请求都复用同一个TCP连接,极大增加了服务器处理并发的上限</span>.</p>
+</li>
+<li><p><strong>WebSocket</strong>： WebSocket是HTML5提出的一种客户端和服务端通讯的全双工协议,由客户端发起请求,<u>建立连接之后不仅客户端可以主动向服务端发送请求,服务端可以主动向客户端推送信息.</u></p>
+</li>
+</ul>
+<p><img src="%E8%BF%9E%E6%8E%A5.jpg" alt="连接"></p>
+<blockquote>
+<p>参考:<a target="_blank" rel="noopener" href="https://juejin.cn/post/6844903844216832007#heading-3">https://juejin.cn/post/6844903844216832007#heading-3</a></p>
+</blockquote>
+<h3 id="代理服务器"><a href="#代理服务器" class="headerlink" title="代理服务器"></a>代理服务器</h3><ul>
+<li>代理服务器相当于中间人<ul>
+<li>它既可以当作客户端发送请求,也可以当作服务端响应请求</li>
+</ul>
+</li>
+</ul>
+<p><img src="%E4%BB%A3%E7%90%86%E6%9C%8D%E5%8A%A1%E5%99%A8.png" alt="代理服务器"></p>
+<h3 id="HTTP2-0"><a href="#HTTP2-0" class="headerlink" title="HTTP2.0"></a>HTTP2.0</h3><blockquote>
+<p>HTTP/2而言性能的提升主要两点:</p>
+</blockquote>
+<ul>
+<li>头部压缩</li>
+<li>多路复用</li>
+</ul>
+<h4 id="头部压缩"><a href="#头部压缩" class="headerlink" title="头部压缩"></a>头部压缩</h4><ul>
+<li>关于请求体压缩的方式<ul>
+<li>使用<code>Content-Encoding</code>可以指定头部字段来指定请求体响应的压缩编码过程</li>
+</ul>
+</li>
+<li>HTTP/2针对头部字段,也采用对应的压缩算法–<strong>HPACK</strong>,对请求头进行压缩</li>
+</ul>
+<blockquote>
+<p>HPACK算法专门为HTTP/2服务</p>
+</blockquote>
+<ul>
+<li>首先是在服务器和客户端之间建立哈希表,将用到的字段存放在这张表中,那么在传输的时候对于之前出现过的值,只需要把索引(比如0,1,2,…)传给对方即可,对方拿到索引查表就行了.</li>
+</ul>
+<p><img src="%E5%A4%B4%E9%83%A8%E5%8E%8B%E7%BC%A9.png" alt="头部压缩"></p>
+<blockquote>
+<p>HTTP/2 当中废除了起始行的概念,将起始行中的请求方法、URI、状态码转换成了头字段,不过这些字段都有一个”:”前缀,用来和其它请求头区分开.</p>
+</blockquote>
+<ul>
+<li>参考:<a target="_blank" rel="noopener" href="https://sanyuan0704.top/blogs/net/http/017.html#%E5%A4%B4%E9%83%A8%E5%8E%8B%E7%BC%A9">https://sanyuan0704.top/blogs/net/http/017.html#%E5%A4%B4%E9%83%A8%E5%8E%8B%E7%BC%A9</a></li>
+</ul>
+<h4 id="多路复用"><a href="#多路复用" class="headerlink" title="多路复用"></a>多路复用</h4><blockquote>
+<p>在HTTP/2中,有两个非常重要的概念,分别是帧<code>frame</code>和流<code>stream</code>,理解这两个概念是理解下面多路复用的前提.<strong>帧代表数据传输的最小的单位</strong>,每个帧都有序列标识表明该帧属于哪个流,<strong>流也就是多个帧组成的数据流</strong>,每个流表示一个请求.</p>
+</blockquote>
+<ul>
+<li><p>http队头阻塞:在同一个 TCP 长连接中，前面的请求没有得到响应，后面的请求就会被阻塞</p>
+<ul>
+<li>解决1:使用<strong>并发连接</strong>和<strong>域名分片</strong>的方式来解决,<span style="color:red">只是增加了 TCP 连接,并没有解决HTTP层面的问题</span></li>
+</ul>
+</li>
+<li><p>HTTP/2 便从 HTTP 协议本身解决了队头阻塞问题。</p>
+</li>
+<li><p>注意，这里并不是指的<code>TCP队头阻塞</code>，而是<code>HTTP队头阻塞</code>，两者并不是一回事。<u>TCP的队头阻塞是在数据包层面，单位是数据包</u>，前一个报文没有收到便不会将后面收到的报文上传给 HTTP，而HTTP 的队头阻塞是在 HTTP <strong>请求-响应层面</strong>，前一个请求没处理完，后面的请求就要阻塞住。两者所在的层次不一样。</p>
+</li>
+</ul>
+<blockquote>
+<p>解决对头阻塞的问题(二进制分帧)</p>
+</blockquote>
+<ul>
+<li>首先HTTP/2之前使用的明文传输,不方便计算机的解析.列如回车换行是内容还是分割符,所以HTTP/2就把报文全部转换为二进制<ul>
+<li>将<code>Headers + Body</code>的报文格式如今被拆分成了一个个二进制的帧</li>
+<li>用Headers帧存放头部字段，Data帧存放请求体数据</li>
+<li>分帧之后不再是一个个完整的HTTP请求报文,而是一堆乱序的二进制帧</li>
+<li>二进制帧没有先后关系,也不存在队头阻塞</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>关于通信双方给对方互相发送的二进制帧的双向传输的序列就是<strong>流(stream)</strong>.HTTP/2 </p>
+</blockquote>
+<ul>
+<li><strong>多路复用</strong>:用<strong>流</strong>来在一个 TCP 连接上来进行多个数据帧的通信</li>
+</ul>
+<blockquote>
+<p>参考:<a target="_blank" rel="noopener" href="https://sanyuan0704.top/blogs/net/http/017.html#%E4%BA%8C%E8%BF%9B%E5%88%B6%E5%88%86%E5%B8%A7">https://sanyuan0704.top/blogs/net/http/017.html#%E4%BA%8C%E8%BF%9B%E5%88%B6%E5%88%86%E5%B8%A7</a></p>
+</blockquote>
+<h3 id="http报文属性"><a href="#http报文属性" class="headerlink" title="http报文属性"></a>http报文属性</h3><ul>
+<li><a href="https://zyjcould.ltd/2021/09/20/nodejs/#toc-heading-9">https://zyjcould.ltd/2021/09/20/nodejs/#toc-heading-9</a></li>
+</ul>
+
+                
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">Jack-zhang</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="http://zyjcould.ltd/2021/11/08/ji-suan-ji-wang-luo-ying-yong-ceng/">http://zyjcould.ltd/2021/11/08/ji-suan-ji-wang-luo-ying-yong-ceng/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/about" target="_blank">Jack-zhang</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/config/">
+                                    <span class="chip bg-color">config</span>
+                                </a>
+                            
+                                <a href="/tags/HTTP/">
+                                    <span class="chip bg-color">HTTP</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+                <style>
+    #reward {
+        margin: 40px 0;
+        text-align: center;
+    }
+
+    #reward .reward-link {
+        font-size: 1.4rem;
+        line-height: 38px;
+    }
+
+    #reward .btn-floating:hover {
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2), 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    #rewardModal {
+        width: 320px;
+        height: 350px;
+    }
+
+    #rewardModal .reward-title {
+        margin: 15px auto;
+        padding-bottom: 5px;
+    }
+
+    #rewardModal .modal-content {
+        padding: 10px;
+    }
+
+    #rewardModal .close {
+        position: absolute;
+        right: 15px;
+        top: 15px;
+        color: rgba(0, 0, 0, 0.5);
+        font-size: 1.3rem;
+        line-height: 20px;
+        cursor: pointer;
+    }
+
+    #rewardModal .close:hover {
+        color: #ef5350;
+        transform: scale(1.3);
+        -moz-transform:scale(1.3);
+        -webkit-transform:scale(1.3);
+        -o-transform:scale(1.3);
+    }
+
+    #rewardModal .reward-tabs {
+        margin: 0 auto;
+        width: 210px;
+    }
+
+    .reward-tabs .tabs {
+        height: 38px;
+        margin: 10px auto;
+        padding-left: 0;
+    }
+
+    .reward-content ul {
+        padding-left: 0 !important;
+    }
+
+    .reward-tabs .tabs .tab {
+        height: 38px;
+        line-height: 38px;
+    }
+
+    .reward-tabs .tab a {
+        color: #fff;
+        background-color: #ccc;
+    }
+
+    .reward-tabs .tab a:hover {
+        background-color: #ccc;
+        color: #fff;
+    }
+
+    .reward-tabs .wechat-tab .active {
+        color: #fff !important;
+        background-color: #22AB38 !important;
+    }
+
+    .reward-tabs .alipay-tab .active {
+        color: #fff !important;
+        background-color: #019FE8 !important;
+    }
+
+    .reward-tabs .reward-img {
+        width: 210px;
+        height: 210px;
+    }
+</style>
+
+<div id="reward">
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-medium waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close modal-close"><i class="fas fa-times"></i></a>
+            <h4 class="reward-title">你的赏识是我前进的动力</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs row">
+                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
+                    </ul>
+                    <div id="alipay">
+                        <img src="/medias/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                    <div id="wechat">
+                        <img src="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('.tabs').tabs();
+    });
+</script>
+
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+        <style>
+    .valine-card {
+        margin: 1.5rem auto;
+    }
+
+    .valine-card .card-content {
+        padding: 20px 20px 5px 20px;
+    }
+
+    #vcomments textarea {
+        box-sizing: border-box;
+        background: url("/medias/comment_bg.png") 100% 100% no-repeat;
+    }
+
+    #vcomments p {
+        margin: 2px 2px 10px;
+        font-size: 1.05rem;
+        line-height: 1.78rem;
+    }
+
+    #vcomments blockquote p {
+        text-indent: 0.2rem;
+    }
+
+    #vcomments a {
+        padding: 0 2px;
+        color: #4cbf30;
+        font-weight: 500;
+        text-decoration: none;
+    }
+
+    #vcomments img {
+        max-width: 100%;
+        height: auto;
+        cursor: pointer;
+    }
+
+    #vcomments ol li {
+        list-style-type: decimal;
+    }
+
+    #vcomments ol,
+    ul {
+        display: block;
+        padding-left: 2em;
+        word-spacing: 0.05rem;
+    }
+
+    #vcomments ul li,
+    ol li {
+        display: list-item;
+        line-height: 1.8rem;
+        font-size: 1rem;
+    }
+
+    #vcomments ul li {
+        list-style-type: disc;
+    }
+
+    #vcomments ul ul li {
+        list-style-type: circle;
+    }
+
+    #vcomments table, th, td {
+        padding: 12px 13px;
+        border: 1px solid #dfe2e5;
+    }
+
+    #vcomments table, th, td {
+        border: 0;
+    }
+
+    table tr:nth-child(2n), thead {
+        background-color: #fafafa;
+    }
+
+    #vcomments table th {
+        background-color: #f2f2f2;
+        min-width: 80px;
+    }
+
+    #vcomments table td {
+        min-width: 80px;
+    }
+
+    #vcomments h1 {
+        font-size: 1.85rem;
+        font-weight: bold;
+        line-height: 2.2rem;
+    }
+
+    #vcomments h2 {
+        font-size: 1.65rem;
+        font-weight: bold;
+        line-height: 1.9rem;
+    }
+
+    #vcomments h3 {
+        font-size: 1.45rem;
+        font-weight: bold;
+        line-height: 1.7rem;
+    }
+
+    #vcomments h4 {
+        font-size: 1.25rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    #vcomments h5 {
+        font-size: 1.1rem;
+        font-weight: bold;
+        line-height: 1.4rem;
+    }
+
+    #vcomments h6 {
+        font-size: 1rem;
+        line-height: 1.3rem;
+    }
+
+    #vcomments p {
+        font-size: 1rem;
+        line-height: 1.5rem;
+    }
+
+    #vcomments hr {
+        margin: 12px 0;
+        border: 0;
+        border-top: 1px solid #ccc;
+    }
+
+    #vcomments blockquote {
+        margin: 15px 0;
+        border-left: 5px solid #42b983;
+        padding: 1rem 0.8rem 0.3rem 0.8rem;
+        color: #666;
+        background-color: rgba(66, 185, 131, .1);
+    }
+
+    #vcomments pre {
+        font-family: monospace, monospace;
+        padding: 1.2em;
+        margin: .5em 0;
+        background: #272822;
+        overflow: auto;
+        border-radius: 0.3em;
+        tab-size: 4;
+    }
+
+    #vcomments code {
+        font-family: monospace, monospace;
+        padding: 1px 3px;
+        font-size: 0.92rem;
+        color: #e96900;
+        background-color: #f8f8f8;
+        border-radius: 2px;
+    }
+
+    #vcomments pre code {
+        font-family: monospace, monospace;
+        padding: 0;
+        color: #e8eaf6;
+        background-color: #272822;
+    }
+
+    #vcomments pre[class*="language-"] {
+        padding: 1.2em;
+        margin: .5em 0;
+    }
+
+    #vcomments code[class*="language-"],
+    pre[class*="language-"] {
+        color: #e8eaf6;
+    }
+
+    #vcomments [type="checkbox"]:not(:checked), [type="checkbox"]:checked {
+        position: inherit;
+        margin-left: -1.3rem;
+        margin-right: 0.4rem;
+        margin-top: -1px;
+        vertical-align: middle;
+        left: unset;
+        visibility: visible;
+    }
+
+    #vcomments b,
+    strong {
+        font-weight: bold;
+    }
+
+    #vcomments dfn {
+        font-style: italic;
+    }
+
+    #vcomments small {
+        font-size: 85%;
+    }
+
+    #vcomments cite {
+        font-style: normal;
+    }
+
+    #vcomments mark {
+        background-color: #fcf8e3;
+        padding: .2em;
+    }
+
+    #vcomments table, th, td {
+        padding: 12px 13px;
+        border: 1px solid #dfe2e5;
+    }
+
+    table tr:nth-child(2n), thead {
+        background-color: #fafafa;
+    }
+
+    #vcomments table th {
+        background-color: #f2f2f2;
+        min-width: 80px;
+    }
+
+    #vcomments table td {
+        min-width: 80px;
+    }
+
+    #vcomments [type="checkbox"]:not(:checked), [type="checkbox"]:checked {
+        position: inherit;
+        margin-left: -1.3rem;
+        margin-right: 0.4rem;
+        margin-top: -1px;
+        vertical-align: middle;
+        left: unset;
+        visibility: visible;
+    }
+</style>
+
+<div class="card valine-card" data-aos="fade-up">
+    <div class="comment_headling" style="font-size: 20px; font-weight: 700; position: relative; padding-left: 20px; top: 15px; padding-bottom: 5px;">
+        <i class="fas fa-comments fa-fw" aria-hidden="true"></i>
+        <span>评论</span>
+    </div>
+    <div id="vcomments" class="card-content" style="display: grid">
+    </div>
+</div>
+
+<script src="/libs/valine/av-min.js"></script>
+<script src="/libs/valine/Valine.min.js"></script>
+<script>
+    new Valine({
+        el: '#vcomments',
+        appId: 'ha91At85XM1oBPn1UB63Rkxc-9Nh9j0Va',
+        appKey: 'd4sclrxt1coswQE8xKNb0CEP',
+        notify: 'false' === 'true',
+        verify: 'false' === 'true',
+        visitor: 'true' === 'true',
+        avatar: 'mm',
+        pageSize: '10',
+        lang: 'zh-cn',
+        placeholder: 'just go go'
+    });
+</script>
+
+<!--酷Q推送-->
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/2021/11/14/guan-yu-webpack/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/6.jpg" class="responsive-img" alt="关于webpack">
+                        
+                        <span class="card-title">关于webpack</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            webpack5的配置和特性
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2021-11-14
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/config/" class="post-category">
+                                    config
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/JS/">
+                        <span class="chip bg-color">JS</span>
+                    </a>
+                    
+                    <a href="/tags/TS/">
+                        <span class="chip bg-color">TS</span>
+                    </a>
+                    
+                    <a href="/tags/config/">
+                        <span class="chip bg-color">config</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2021/11/06/guan-yu-bfc-bu-ju/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/12.jpg" class="responsive-img" alt="BFC布局">
+                        
+                        <span class="card-title">BFC布局</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            css中块级上下文的理解
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-11-06
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/CSS/" class="post-category">
+                                    CSS
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/CSS/">
+                        <span class="chip bg-color">CSS</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+<script>
+    $('#articleContent').on('copy', function (e) {
+        // IE8 or earlier browser is 'undefined'
+        if (typeof window.getSelection === 'undefined') return;
+
+        var selection = window.getSelection();
+        // if the selection is short let's not annoy our users.
+        if (('' + selection).length < Number.parseInt('120')) {
+            return;
+        }
+
+        // create a div outside of the visible area and fill it with the selected text.
+        var bodyElement = document.getElementsByTagName('body')[0];
+        var newdiv = document.createElement('div');
+        newdiv.style.position = 'absolute';
+        newdiv.style.left = '-99999px';
+        bodyElement.appendChild(newdiv);
+        newdiv.appendChild(selection.getRangeAt(0).cloneContents());
+
+        // we need a <pre> tag workaround.
+        // otherwise the text inside "pre" loses all the line breaks!
+        if (selection.getRangeAt(0).commonAncestorContainer.nodeName === 'PRE' || selection.getRangeAt(0).commonAncestorContainer.nodeName === 'CODE') {
+            newdiv.innerHTML = "<pre>" + newdiv.innerHTML + "</pre>";
+        }
+
+        var url = document.location.href;
+        newdiv.innerHTML += '<br />'
+            + '来源: 苍穹之下<br />'
+            + '文章作者: Jack-zhang<br />'
+            + '文章链接: <a href="' + url + '">' + url + '</a><br />'
+            + '本文章著作权归作者所有，任何形式的转载都请注明出处。';
+
+        selection.selectAllChildren(newdiv);
+        window.setTimeout(function () {bodyElement.removeChild(newdiv);}, 200);
+    });
+</script>
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录
+            </div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+    <div id="floating-toc-btn" class="hide-on-med-and-down">
+        <a class="btn-floating btn-large bg-color">
+            <i class="fas fa-list-ul"></i>
+        </a>
+    </div>
+    
+
+        <script src="/libs/tocbot/tocbot.min.js"></script>
+        <script>
+            $(function () {
+                tocbot.init({
+                    tocSelector: '#toc-content',
+                    contentSelector: '#articleContent',
+                    headingsOffset: -($(window).height() * 0.4 - 45),
+                    collapseDepth: Number('0'),
+                    headingSelector: 'h2, h3, h4'
+                });
+
+                // modify the toc link href to support Chinese.
+                let i = 0;
+                let tocHeading = 'toc-heading-';
+                $('#toc-content a').each(function () {
+                    $(this).attr('href', '#' + tocHeading + (++i));
+                });
+
+                // modify the heading title id to support Chinese.
+                i = 0;
+                $('#articleContent').children('h2, h3, h4').each(function () {
+                    $(this).attr('id', tocHeading + (++i));
+                });
+
+                // Set scroll toc fixed.
+                let tocHeight = parseInt($(window).height() * 0.4 - 64);
+                let $tocWidget = $('.toc-widget');
+                $(window).scroll(function () {
+                    let scroll = $(window).scrollTop();
+                    /* add post toc fixed. */
+                    if (scroll > tocHeight) {
+                        $tocWidget.addClass('toc-fixed');
+                    } else {
+                        $tocWidget.removeClass('toc-fixed');
+                    }
+                });
+
+        
+                    /* 修复文章卡片 div 的宽度. */
+                    let fixPostCardWidth = function (srcId, targetId) {
+                        let srcDiv = $('#' + srcId);
+                        if (srcDiv.length === 0) {
+                            return;
+                        }
+
+                        let w = srcDiv.width();
+                        if (w >= 450) {
+                            w = w + 21;
+                        } else if (w >= 350 && w < 450) {
+                            w = w + 18;
+                        } else if (w >= 300 && w < 350) {
+                            w = w + 16;
+                        } else {
+                            w = w + 14;
+                        }
+                        $('#' + targetId).width(w);
+                    };
+
+                    // 切换TOC目录展开收缩的相关操作.
+                    const expandedClass = 'expanded';
+                    let $tocAside = $('#toc-aside');
+                    let $mainContent = $('#main-content');
+                    $('#floating-toc-btn .btn-floating').click(function () {
+                        if ($tocAside.hasClass(expandedClass)) {
+                            $tocAside.removeClass(expandedClass).hide();
+                            $mainContent.removeClass('l9');
+                        } else {
+                            $tocAside.addClass(expandedClass).show();
+                            $mainContent.addClass('l9');
+                        }
+                        fixPostCardWidth('artDetail', 'prenext-posts');
+                    });
+        
+    });
+        </script>
+    
+
+</main>
+
+
+
+
+                            <footer class="page-footer bg-color">
+    
+        <link rel="stylesheet" href="/libs/aplayer/APlayer.min.css">
+<style>
+    .aplayer .aplayer-lrc p {
+        
+        display: none;
+        
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 16px !important;
+    }
+
+    .aplayer .aplayer-lrc p.aplayer-lrc-current {
+        
+        display: none;
+        
+        font-size: 15px;
+        color: #42b983;
+    }
+
+    
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
+        left: -66px !important;
+    }
+
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
+        left: 0px !important;
+    }
+
+    
+</style>
+<div class="">
+    
+    <div class="row">
+        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
+                   server="netease"
+                   type="playlist"
+                   id="2296283905"
+                   fixed='true'
+                   autoplay='true'
+                   theme='#42b983'
+                   loop='all'
+                   order='random'
+                   preload='auto'
+                   volume='0.1'
+                   list-folded='false'
+        >
+        </meting-js>
+    </div>
+</div>
+
+<script src="/libs/aplayer/APlayer.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/meting@2/dist/Meting.min.js"></script>
+
+            
+
+                <div class="container row center-align"
+                    style="margin-bottom: 15px !important;">
+                    <div class="col s12 m8 l8 copy-right">
+                        Copyright&nbsp;&copy;
+                        
+                                <span id="year">
+                                    2021
+                                </span>
+                                
+                                    <span id="year">
+                                        2021
+                                    </span>
+                                    <a href="/about" target="_blank">
+                                        Jack-zhang
+                                    </a>
+                                    <br>
+                                    
+                                        &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数
+                                            :&nbsp;<span class="white-color">
+                                                105.5k
+                                            </span>
+                                            
+                                                
+                                                    
+                                                        
+                                                            
+                                                                
+                                                                    <span id="busuanzi_container_site_pv">
+                                                                        &nbsp;|&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;
+                                                                            <span id="busuanzi_value_site_pv"
+                                                                                class="white-color"></span>
+                                                                    </span>
+                                                                    
+                                                                        
+                                                                            <span id="busuanzi_container_site_uv">
+                                                                                &nbsp;|&nbsp;<i
+                                                                                    class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;
+                                                                                    <span id="busuanzi_value_site_uv"
+                                                                                        class="white-color"></span>
+                                                                            </span>
+                                                                            
+                                                                                <br>
+
+                                                                                <!-- 运行天数提醒. -->
+                                                                                
+                                                                                    <span id="sitetime"> Loading
+                                                                                        ...</span>
+                                                                                    <script>
+                                                                                        var calcSiteTime = function () {
+                                                                                            var seconds = 1000;
+                                                                                            var minutes = seconds * 60;
+                                                                                            var hours = minutes * 60;
+                                                                                            var days = hours * 24;
+                                                                                            var years = days * 365;
+                                                                                            var today = new Date();
+                                                                                            var startYear = "2021";
+                                                                                            var startMonth = "8";
+                                                                                            var startDate = "22";
+                                                                                            var startHour = "0";
+                                                                                            var startMinute = "0";
+                                                                                            var startSecond = "0";
+                                                                                            var todayYear = today.getFullYear();
+                                                                                            var todayMonth = today.getMonth() + 1;
+                                                                                            var todayDate = today.getDate();
+                                                                                            var todayHour = today.getHours();
+                                                                                            var todayMinute = today.getMinutes();
+                                                                                            var todaySecond = today.getSeconds();
+                                                                                            var t1 = Date.UTC(startYear, startMonth, startDate, startHour, startMinute, startSecond);
+                                                                                            var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
+                                                                                            var diff = t2 - t1;
+                                                                                            var diffYears = Math.floor(diff / years);
+                                                                                            var diffDays = Math.floor((diff / days) - diffYears * 365);
+
+                                                                                            // 区分是否有年份.
+                                                                                            var language = 'zh-CN';
+                                                                                            if (startYear === String(todayYear)) {
+                                                                                                document.getElementById("year").innerHTML = todayYear;
+                                                                                                var daysTip = 'This site has been running for ' + diffDays + ' days';
+                                                                                                if (language === 'zh-CN') {
+                                                                                                    daysTip = '本站已运行 ' + diffDays + ' 天';
+                                                                                                } else if (language === 'zh-HK') {
+                                                                                                    daysTip = '本站已運行 ' + diffDays + ' 天';
+                                                                                                }
+                                                                                                document.getElementById("sitetime").innerHTML = daysTip;
+                                                                                            } else {
+                                                                                                document.getElementById("year").innerHTML = startYear + " - " + todayYear;
+                                                                                                var yearsAndDaysTip = 'This site has been running for ' + diffYears + ' years and '
+                                                                                                    + diffDays + ' days';
+                                                                                                if (language === 'zh-CN') {
+                                                                                                    yearsAndDaysTip = '本站已运行 ' + diffYears + ' 年 ' + diffDays + ' 天';
+                                                                                                } else if (language === 'zh-HK') {
+                                                                                                    yearsAndDaysTip = '本站已運行 ' + diffYears + ' 年 ' + diffDays + ' 天';
+                                                                                                }
+                                                                                                document.getElementById("sitetime").innerHTML = yearsAndDaysTip;
+                                                                                            }
+                                                                                        }
+
+                                                                                        calcSiteTime();
+                                                                                    </script>
+                                                                                    
+                                                                                        <br>
+                                                                                        
+                                                                                            <span id="icp"><img
+                                                                                                    src="/medias/icp.png"
+                                                                                                    style="vertical-align: text-bottom;" />
+                                                                                                <a href="/tags/"
+                                                                                                    target="_blank">
+                                                                                                    苏ICP备2021008174号
+                                                                                                </a>
+                                                                                            </span>
+                                                                                            
+                    </div>
+                    <div class="col s12 m4 l4 social-link social-statis">
+                        
+    <a href="https://github.com/Jack-Zhang-1314" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+
+
+
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1553198027" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 1553198027" data-position="top" data-delay="50">
+        <i class="fab fa-qq"></i>
+    </a>
+
+
+
+
+
+
+
+
+                    </div>
+                </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+                                <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+                                    <!-- 添加深色模式 -->
+<svg aria-hidden="true" style="position: absolute; overflow: hidden; width: 0; height: 0">
+    <symbol id="icon-sun" viewBox="0 0 1024 1024">
+        <path d="M960 512l-128 128v192h-192l-128 128-128-128H192v-192l-128-128 128-128V192h192l128-128 128 128h192v192z"
+            fill="#FFD878" p-id="8420"></path>
+        <path d="M736 512a224 224 0 1 0-448 0 224 224 0 1 0 448 0z" fill="#FFE4A9" p-id="8421">
+        </path>
+        <path
+            d="M512 109.248L626.752 224H800v173.248L914.752 512 800 626.752V800h-173.248L512 914.752 397.248 800H224v-173.248L109.248 512 224 397.248V224h173.248L512 109.248M512 64l-128 128H192v192l-128 128 128 128v192h192l128 128 128-128h192v-192l128-128-128-128V192h-192l-128-128z"
+            fill="#4D5152" p-id="8422"></path>
+        <path
+            d="M512 320c105.888 0 192 86.112 192 192s-86.112 192-192 192-192-86.112-192-192 86.112-192 192-192m0-32a224 224 0 1 0 0 448 224 224 0 0 0 0-448z"
+            fill="#4D5152" p-id="8423"></path>
+    </symbol>
+    <symbol id="icon-moon" viewBox="0 0 1024 1024">
+        <path
+            d="M611.370667 167.082667a445.013333 445.013333 0 0 1-38.4 161.834666 477.824 477.824 0 0 1-244.736 244.394667 445.141333 445.141333 0 0 1-161.109334 38.058667 85.077333 85.077333 0 0 0-65.066666 135.722666A462.08 462.08 0 1 0 747.093333 102.058667a85.077333 85.077333 0 0 0-135.722666 65.024z"
+            fill="#FFB531" p-id="11345"></path>
+        <path
+            d="M329.728 274.133333l35.157333-35.157333a21.333333 21.333333 0 1 0-30.165333-30.165333l-35.157333 35.157333-35.114667-35.157333a21.333333 21.333333 0 0 0-30.165333 30.165333l35.114666 35.157333-35.114666 35.157334a21.333333 21.333333 0 1 0 30.165333 30.165333l35.114667-35.157333 35.157333 35.157333a21.333333 21.333333 0 1 0 30.165333-30.165333z"
+            fill="#030835" p-id="11346"></path>
+    </symbol>
+</svg>
+<a onclick="switchNightMode()" class="icon-V hidden" title="切换主题">
+    <svg width="48" height="48" viewBox="0 0 1024 1024">
+        <use id="modeicon" xlink:href="#icon-moon"></use>
+    </svg>
+</a>
+<script>
+    function checkNightMode() {
+        '1' === localStorage.getItem('isDark') ? ($('body').addClass('DarkMode'), $('#changeMode-top').removeClass('fa-moon').addClass('fa-sun'), $('#modeicon').attr('xlink:href', '#icon-sun')) : '0' === localStorage.getItem('isDark') ? $('#modeicon').attr('xlink:href', '#icon-moon') : new Date().getHours() >= 20 || new Date().getHours() < 7 ? ($('body').addClass('DarkMode'), $('#changeMode-top').removeClass('fa-moon').addClass('fa-sun'), $('#modeicon').attr('xlink:href', '#icon-sun')) : matchMedia('(prefers-color-scheme: dark)').matches ? ($('body').addClass('DarkMode'), $('#changeMode-top').removeClass('fa-moon').addClass('fa-sun'), $('#modeicon').attr('xlink:href', '#icon-sun')) : $('#modeicon').attr('xlink:href', '#icon-moon')
+    }
+    function switchNightMode() {
+        $('<div class="Cuteen_DarkSky"><div class="Cuteen_DarkPlanet"></div></div>').appendTo($('body')),
+            setTimeout(function () {
+                $('body').hasClass('DarkMode') ? ($('body').removeClass('DarkMode'), localStorage.setItem('isDark', '0'), $('#changeMode-top').removeClass('fa-sun').addClass('fa-moon'), $('#modeicon').attr('xlink:href', '#icon-moon')) : ($('body').addClass('DarkMode'), localStorage.setItem('isDark', '1'), $('#changeMode-top').removeClass('fa-moon').addClass('fa-sun'), $('#modeicon').attr('xlink:href', '#icon-sun')),
+                    setTimeout(function () {
+                        $('.Cuteen_DarkSky').fadeOut(1e3, function () {
+                            $(this).remove()
+                        })
+                    }, 2e3)
+            })
+    }
+    function switchNightModeTop() {
+        $('body').hasClass('DarkMode') ? ($('body').removeClass('DarkMode'), localStorage.setItem('isDark', '0'), $('#changeMode-top').removeClass('fa-sun').addClass('fa-moon'), $('#modeicon').attr('xlink:href', '#icon-moon')) : ($('body').addClass('DarkMode'), localStorage.setItem('isDark', '1'), $('#changeMode-top').removeClass('fa-moon').addClass('fa-sun'), $('#modeicon').attr('xlink:href', '#icon-sun'))
+    }
+    checkNightMode()
+</script>
+<!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+                                        <script
+                                            src="/libs/materialize/materialize.min.js"></script>
+                                        <script
+                                            src="/libs/masonry/masonry.pkgd.min.js"></script>
+                                        <script
+                                            src="/libs/aos/aos.js"></script>
+                                        <script
+                                            src="/libs/scrollprogress/scrollProgress.min.js"></script>
+                                        <script
+                                            src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+                                        <script
+                                            src="/js/matery.js"></script>
+
+                                        <!-- Baidu Analytics -->
+
+                                            <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+                                                
+                                                    <script
+                                                        src="/libs/others/clicklove.js"
+                                                        async="async"></script>
+                                                    
+                                                        
+                                                            <script async
+                                                                src="/libs/others/busuanzi.pure.mini.js"></script>
+                                                            
+
+                                                                
+
+                                                                        
+
+                                                                                <!--腾讯兔小巢-->
+                                                                                
+                                                                                        
+
+                                                                                                
+
+                                                                                                            
+
+                                                                                                                    
+                                                                                                                        <script
+                                                                                                                            src="/libs/instantpage/instantpage.js"
+                                                                                                                            type="module"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+                                                                                                                        
+
+                </body>
+
+</html>

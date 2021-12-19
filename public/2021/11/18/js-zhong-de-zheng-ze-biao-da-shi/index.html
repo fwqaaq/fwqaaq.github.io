@@ -1,0 +1,2147 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
+    <meta name="keywords" content="js中的正则表达式, 苍穹之下">
+    <meta name="description" content="想要属于一个自己的网站,菜鸡前端拼命前行">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>js中的正则表达式 | 苍穹之下</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+     <!-- 雪花特效 -->
+    <link rel="stylesheet" href="/css/snow.css">
+	<div id="snowzone">
+	</div> 
+	<script src="/js/snow.js"></script>
+
+    <script src="/libs/jquery/jquery.min.js"></script>
+
+<meta name="generator" content="Hexo 5.4.0"><!-- hexo-inject:begin --><!-- hexo-inject:end --></head>
+
+
+    
+
+                <body>
+                    <!-- hexo-inject:begin --><!-- hexo-inject:end --><header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">苍穹之下</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/contact" class="waves-effect waves-light">
+      
+      <i class="fas fa-comments" style="zoom: 0.6;"></i>
+      
+      <span>留言板</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">苍穹之下</div>
+        <div class="logo-desc">
+            
+            想要属于一个自己的网站,菜鸡前端拼命前行
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/contact" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-comments"></i>
+			
+			留言板
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+    </nav>
+
+</header>
+
+                        
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/21.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">js中的正则表达式</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        width: 345px;
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        padding: 35px 0 15px 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content {
+        padding-bottom: 30px;
+        overflow: auto;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+
+        position: absolute;
+        right: 23.5vw;
+        display: block;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 15px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/JS/">
+                                <span class="chip bg-color">JS</span>
+                            </a>
+                        
+                            <a href="/tags/TS/">
+                                <span class="chip bg-color">TS</span>
+                            </a>
+                        
+                            <a href="/tags/config/">
+                                <span class="chip bg-color">config</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/config/" class="post-category">
+                                config
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2021-11-18
+                </div>
+                
+
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
+                    2021-12-15
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
+                    2.2k
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                    9 分
+                </div>
+                
+
+                
+                    <div id="busuanzi_container_page_pv" class="info-break-policy">
+                        <i class="far fa-eye fa-fw"></i>阅读次数:&nbsp;&nbsp;
+                        <span id="busuanzi_value_page_pv"></span>
+                    </div>
+				
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+        <!-- 是否加载使用自带的 prismjs. -->
+        <link rel="stylesheet" href="/libs/prism/prism.css">
+        
+
+        
+        <!-- 代码块折行 -->
+        <style type="text/css">
+            code[class*="language-"], pre[class*="language-"] { white-space: pre-wrap !important; }
+        </style>
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h2 id="正则表达式"><a href="#正则表达式" class="headerlink" title="正则表达式"></a><a href="#%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F">正则表达式</a></h2><blockquote>
+<p>js正则语法</p>
+</blockquote>
+<ul>
+<li>语法:</li>
+</ul>
+<pre class="line-numbers language-js" data-language="js"><code class="language-js"><span class="token keyword">new</span> <span class="token class-name">RegExp</span><span class="token punctuation">(</span>pattern<span class="token punctuation">,</span>flags<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<ul>
+<li>语法糖:<code>/pattern/flags</code></li>
+</ul>
+<blockquote>
+<p>关于flags参数:</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>选项</th>
+<th>参数</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>g</td>
+<td>全局匹配.找到所有匹配,而不是再第一个匹配结束</td>
+</tr>
+<tr>
+<td>i</td>
+<td>忽略字母大小写</td>
+</tr>
+<tr>
+<td>m</td>
+<td>多行,将(^和$)视为多行工作,不只是匹配整个输入字符串最开始和结束</td>
+</tr>
+<tr>
+<td>s</td>
+<td>dotAll模式,匹配任何字符串,例如<code>\n</code></td>
+</tr>
+<tr>
+<td>u</td>
+<td>uniCode,将模式视为Unicode序列点的序列</td>
+</tr>
+<tr>
+<td>y</td>
+<td>粘性匹配.从上次匹配成功的下个位置开始后续匹配.若下个相符内容不紧接在后,则不继续匹配</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>元字符的表达方式</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>元字符</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>.</td>
+<td>句号匹配任意单个字符除了换行符</td>
+</tr>
+<tr>
+<td>[]</td>
+<td>匹配方括号内的任意字符</td>
+</tr>
+<tr>
+<td>[^]</td>
+<td>匹配除了方括号里的任意字符</td>
+</tr>
+<tr>
+<td>*</td>
+<td>匹配&gt;=0个重复的再*号之前的字符</td>
+</tr>
+<tr>
+<td>+</td>
+<td>匹配&gt;0个重复的再+号之前的字符</td>
+</tr>
+<tr>
+<td>?</td>
+<td>标记?之间的字符为可选</td>
+</tr>
+<tr>
+<td>(xyz)</td>
+<td>匹配与xyz完全相等的字符</td>
+</tr>
+<tr>
+<td>|</td>
+<td>或,匹配符号前或后的任意字符</td>
+</tr>
+<tr>
+<td>\</td>
+<td>转义字符,用于匹配保留一些字符</td>
+</tr>
+<tr>
+<td>^</td>
+<td>从开始行开始匹配</td>
+</tr>
+<tr>
+<td>$</td>
+<td>从末端开始匹配</td>
+</tr>
+<tr>
+<td>{n}</td>
+<td>指定出现的次数,<code>/8&#123;n&#125;5/g</code>,指定8出现的次数</td>
+</tr>
+<tr>
+<td>{n,}</td>
+<td>指定至少出现的次数,<code>/8&#123;n,&#125;5/g</code>,指定8至少出现n次</td>
+</tr>
+<tr>
+<td>{n,m}</td>
+<td>指定至少出现n次,至多出现m次</td>
+</tr>
+<tr>
+<td>\w</td>
+<td>任意的本义字符,[0-9a-zA-Z_]的简写形式</td>
+</tr>
+<tr>
+<td>\W</td>
+<td>任意的非本义字符,除了[0-9a-zA-Z_]的字符</td>
+</tr>
+<tr>
+<td>\d</td>
+<td>等价于[0-9]</td>
+</tr>
+<tr>
+<td>\D</td>
+<td>等价于[^0-9]</td>
+</tr>
+<tr>
+<td>\s</td>
+<td>任意空白</td>
+</tr>
+<tr>
+<td>\S</td>
+<td>任意非空白</td>
+</tr>
+<tr>
+<td>\n</td>
+<td>换行</td>
+</tr>
+<tr>
+<td>\t</td>
+<td>制表</td>
+</tr>
+<tr>
+<td>(…)</td>
+<td>代表一个捕获组,捕获括号中的匹配项</td>
+</tr>
+</tbody></table>
+<h2 id="常用正则表示"><a href="#常用正则表示" class="headerlink" title="常用正则表示"></a><a href="#%E5%B8%B8%E7%94%A8%E6%AD%A3%E5%88%99%E8%A1%A8%E7%A4%BA">常用正则表示</a></h2><blockquote>
+<p>[ ]表示区间</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>选项</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>[abc]</td>
+<td>单个a或b或c</td>
+</tr>
+<tr>
+<td>[^abc]</td>
+<td>非a或b或c</td>
+</tr>
+<tr>
+<td>[a-Z]</td>
+<td>相当于[a-zA-Z],匹配任意的大小写字母</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>关于文件中的正则匹配</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>选项</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>.(css|less)$</code></td>
+<td>以css或less结尾的文件</td>
+</tr>
+<tr>
+<td><code>*.ts</code></td>
+<td>所有以ts结尾的文件</td>
+</tr>
+<tr>
+<td><code>**/index.html</code></td>
+<td>所有文件下的index.html</td>
+</tr>
+</tbody></table>
+<ul>
+<li>一个*代表文件,两个**代表文件夹</li>
+</ul>
+<h2 id="使用正则匹配位置"><a href="#使用正则匹配位置" class="headerlink" title="使用正则匹配位置"></a>使用正则匹配位置</h2><blockquote>
+<p><code>^ $ \b \B (?=p) (?!p)</code> 六个锚字符</p>
+</blockquote>
+<ul>
+<li><p>把位置理解空字符,是对位置非常有效的理解方式</p>
+</li>
+<li><p>例如hello字符等价于:</p>
+</li>
+</ul>
+<pre class="line-numbers language-js" data-language="js"><code class="language-js"><span class="token string">"hello"</span> <span class="token operator">==</span> <span class="token string">""</span> <span class="token operator">+</span> <span class="token string">"h"</span> <span class="token operator">+</span> <span class="token string">""</span> <span class="token operator">+</span> <span class="token string">"e"</span> <span class="token operator">+</span> <span class="token string">""</span> <span class="token operator">+</span> <span class="token string">"l"</span> <span class="token operator">+</span> <span class="token string">""</span> <span class="token operator">+</span> <span class="token string">"l"</span> <span class="token operator">+</span> <span class="token string">"o"</span> <span class="token operator">+</span> <span class="token string">""</span>
+<span class="token string">"hello"</span> <span class="token operator">==</span> <span class="token string">""</span> <span class="token operator">+</span> <span class="token string">""</span> <span class="token operator">+</span> <span class="token string">"hello"</span>
+<span class="token keyword">const</span> result <span class="token operator">=</span> <span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">^^hello?$</span><span class="token regex-delimiter">/</span></span><span class="token punctuation">.</span><span class="token function">test</span><span class="token punctuation">(</span><span class="token string">"hello"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>result<span class="token punctuation">)</span>
+<span class="token comment">//true</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="和"><a href="#和" class="headerlink" title="^和$"></a>^和$</h3><ul>
+<li>^匹配开头</li>
+<li>$匹配结尾</li>
+</ul>
+<pre class="line-numbers language-js" data-language="js"><code class="language-js"><span class="token keyword">const</span> result<span class="token operator">=</span><span class="token string">"hello"</span><span class="token punctuation">.</span><span class="token function">replace</span><span class="token punctuation">(</span><span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">^|$</span><span class="token regex-delimiter">/</span><span class="token regex-flags">g</span></span><span class="token punctuation">,</span> <span class="token string">'#'</span><span class="token punctuation">)</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>result<span class="token punctuation">)</span>
+<span class="token comment">//"#hello#"</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="b和-B"><a href="#b和-B" class="headerlink" title="\b和\B"></a>\b和\B</h3><p>\b是单词边界,具体就是\w和\W之间的位置,也包括\w和^之间的位置,也包括\w和$之间的位置</p>
+<pre class="line-numbers language-js" data-language="js"><code class="language-js"><span class="token keyword">const</span> result <span class="token operator">=</span> <span class="token string">"[JS] Lesson_01.mp4"</span><span class="token punctuation">.</span><span class="token function">replace</span><span class="token punctuation">(</span><span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">\b</span><span class="token regex-delimiter">/</span><span class="token regex-flags">g</span></span><span class="token punctuation">,</span> <span class="token string">'#'</span><span class="token punctuation">)</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>result<span class="token punctuation">)</span>
+<span class="token comment">//"[#JS#] #Lesson_01#.#mp4#"</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="p-和-p"><a href="#p-和-p" class="headerlink" title="(?=p)和(?!p)"></a>(?=p)和(?!p)</h3><blockquote>
+<p><code>?=p</code>p前面的位置,<code>?&lt;=p</code>:p后面的位置</p>
+</blockquote>
+<pre class="line-numbers language-js" data-language="js"><code class="language-js"><span class="token keyword">const</span> result <span class="token operator">=</span> <span class="token string">"petter"</span><span class="token punctuation">.</span><span class="token function">replace</span><span class="token punctuation">(</span><span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">(?=p)</span><span class="token regex-delimiter">/</span><span class="token regex-flags">g</span></span><span class="token punctuation">,</span> <span class="token string">'#'</span><span class="token punctuation">)</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>result<span class="token punctuation">)</span><span class="token comment">//#petter</span>
+<span class="token keyword">const</span> result <span class="token operator">=</span> <span class="token string">"petter"</span><span class="token punctuation">.</span><span class="token function">replace</span><span class="token punctuation">(</span><span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">(?&lt;=p)</span><span class="token regex-delimiter">/</span><span class="token regex-flags">g</span></span><span class="token punctuation">,</span> <span class="token string">'#'</span><span class="token punctuation">)</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>result<span class="token punctuation">)</span><span class="token comment">//p#etter</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<blockquote>
+<p><code>?!p</code>:除了p前面的位置,匹配其它所有位置.<code>?!&lt;p</code>:除了p后面的位置,匹配其它所有位置</p>
+</blockquote>
+<pre class="line-numbers language-js" data-language="js"><code class="language-js"><span class="token keyword">const</span> result <span class="token operator">=</span> <span class="token string">"petter"</span><span class="token punctuation">.</span><span class="token function">replace</span><span class="token punctuation">(</span><span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">(?&lt;!p)</span><span class="token regex-delimiter">/</span><span class="token regex-flags">g</span></span><span class="token punctuation">,</span> <span class="token string">'#'</span><span class="token punctuation">)</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>result<span class="token punctuation">)</span><span class="token comment">//#pe#t#t#e#r#</span>
+<span class="token keyword">const</span> result <span class="token operator">=</span> <span class="token string">"petter"</span><span class="token punctuation">.</span><span class="token function">replace</span><span class="token punctuation">(</span><span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">(?!p)</span><span class="token regex-delimiter">/</span><span class="token regex-flags">g</span></span><span class="token punctuation">,</span> <span class="token string">'#'</span><span class="token punctuation">)</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>result<span class="token punctuation">)</span><span class="token comment">//p#e#t#t#e#r#</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="正则中-的作用"><a href="#正则中-的作用" class="headerlink" title="正则中()的作用"></a>正则中()的作用</h2><ol>
+<li>分组:匹配连续出现的<code>ab</code>时<code>/(ab)+/</code></li>
+<li>分支:多选分支结构<code>(p1|p2)</code></li>
+</ol>
+<blockquote>
+<p>引用分组:使用相应API来引用分组</p>
+</blockquote>
+<ol>
+<li>关于正则匹配的构造函数的全局属性:<code>$1,$2...$99</code>分别代表分组匹配到的参数</li>
+</ol>
+<pre class="line-numbers language-js" data-language="js"><code class="language-js"><span class="token keyword">const</span> regex <span class="token operator">=</span> <span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">(\d&#123;4&#125;)-(\d&#123;2&#125;)-(\d&#123;2&#125;)</span><span class="token regex-delimiter">/</span></span><span class="token punctuation">;</span>
+<span class="token keyword">const</span> string <span class="token operator">=</span> <span class="token string">"2021-12-12"</span>
+<span class="token keyword">const</span> result1 <span class="token operator">=</span> string<span class="token punctuation">.</span><span class="token function">replace</span><span class="token punctuation">(</span>regex<span class="token punctuation">,</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+ <span class="token keyword">return</span> RegExp<span class="token punctuation">.</span>$<span class="token number">2</span> <span class="token operator">+</span> <span class="token string">"/"</span> <span class="token operator">+</span> RegExp<span class="token punctuation">.</span>$<span class="token number">3</span> <span class="token operator">+</span> <span class="token string">"/"</span> <span class="token operator">+</span> RegExp<span class="token punctuation">.</span>$<span class="token number">1</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>result<span class="token punctuation">)</span><span class="token comment">//"12/12/2021"</span>
+<span class="token comment">//等价</span>
+<span class="token keyword">const</span> result2 <span class="token operator">=</span> string<span class="token punctuation">.</span><span class="token function">replace</span><span class="token punctuation">(</span>regex<span class="token punctuation">,</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token parameter">match<span class="token punctuation">,</span> year<span class="token punctuation">,</span> month<span class="token punctuation">,</span> day</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+  <span class="token keyword">return</span> month <span class="token operator">+</span> <span class="token string">"/"</span> <span class="token operator">+</span> day <span class="token operator">+</span> <span class="token string">"/"</span> <span class="token operator">+</span> year<span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>result2<span class="token punctuation">)</span><span class="token comment">//"12/12/2021"</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<blockquote>
+<p>反向引用:在正则本身里引用分组,但只能引用之前出现的分组</p>
+</blockquote>
+<pre class="line-numbers language-js" data-language="js"><code class="language-js"><span class="token keyword">const</span> regex <span class="token operator">=</span> <span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">\d&#123;4&#125;(-|\/|\.)\d&#123;2&#125;\1\d&#123;2&#125;</span><span class="token regex-delimiter">/</span></span><span class="token punctuation">;</span>
+<span class="token keyword">const</span> stringArr <span class="token operator">=</span> 
+<span class="token punctuation">[</span>
+  <span class="token string">"2017-06-12"</span><span class="token punctuation">,</span> 
+  <span class="token string">"2017/06/12"</span><span class="token punctuation">,</span> 
+  <span class="token string">"2017.06.12"</span><span class="token punctuation">,</span> 
+  <span class="token string">"2017/06.12"</span>
+<span class="token punctuation">]</span>
+<span class="token keyword">const</span> result <span class="token operator">=</span> stringArr<span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token parameter">value</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
+  <span class="token keyword">return</span> regex<span class="token punctuation">.</span><span class="token function">test</span><span class="token punctuation">(</span>value<span class="token punctuation">)</span>
+<span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>result<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<ol>
+<li>例如<code>\1,\2...\99</code>,分别代表1-99的分组</li>
+<li><span style="color:red">反向引用保证前后的分割符前后一致</span></li>
+<li>引用不存在的分组,正则不会报错,匹配到反向引用的字符本身,例如<code>\2</code>表示对2进行了转义</li>
+<li>括号嵌套:以<span style="color:red">左括号</span>为准</li>
+</ol>
+<pre class="line-numbers language-js" data-language="js"><code class="language-js"><span class="token keyword">const</span> regex <span class="token operator">=</span> <span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">((\d)(\d(\d)))</span><span class="token regex-delimiter">/</span></span>
+<span class="token keyword">const</span> string <span class="token operator">=</span> <span class="token string">"1231231233"</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span> regex<span class="token punctuation">.</span><span class="token function">test</span><span class="token punctuation">(</span>string<span class="token punctuation">)</span> <span class="token punctuation">)</span> <span class="token comment">// true</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span> RegExp<span class="token punctuation">.</span>$<span class="token number">1</span> <span class="token punctuation">)</span> <span class="token comment">// 123</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span> RegExp<span class="token punctuation">.</span>$<span class="token number">2</span> <span class="token punctuation">)</span> <span class="token comment">// 1</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span> RegExp<span class="token punctuation">.</span>$<span class="token number">3</span> <span class="token punctuation">)</span> <span class="token comment">// 23</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span> RegExp<span class="token punctuation">.</span>$<span class="token number">4</span> <span class="token punctuation">)</span> <span class="token comment">// 3</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<ol>
+<li><code>$1</code>匹配的是<code>((\d)(\d(\d)))</code></li>
+<li><code>$2</code>匹配的是<code>(\d)</code></li>
+<li><code>$3</code>匹配的是<code>(\d(\d))</code></li>
+<li><code>$4</code>匹配的是<code>(\d)</code></li>
+</ol>
+<blockquote>
+<p>非捕获分组<code>(?:)</code>:只想要括号最原始的功能,但不会引用它,即不在API里引用,也不在正则里反向引用</p>
+</blockquote>
+<pre class="line-numbers language-js" data-language="js"><code class="language-js"><span class="token keyword">const</span> regex <span class="token operator">=</span> <span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">(?:ab)+</span><span class="token regex-delimiter">/</span><span class="token regex-flags">g</span></span>
+<span class="token keyword">const</span> string <span class="token operator">=</span> <span class="token string">"ababa abbb ababab"</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span> string<span class="token punctuation">.</span><span class="token function">match</span><span class="token punctuation">(</span>regex<span class="token punctuation">)</span> <span class="token punctuation">)</span>
+<span class="token comment">//["abab", "ab", "ababab"]</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="回溯法"><a href="#回溯法" class="headerlink" title="回溯法"></a>回溯法</h2><ol>
+<li>没有回溯的匹配:<ul>
+<li>例如:<code>/ab&#123;1,3&#125;c/</code>,匹配字符串<code>abbbc</code></li>
+</ul>
+</li>
+<li>有回溯的匹配:<ul>
+<li>例如:<code>/ab&#123;1,3&#125;c/</code>,匹配字符串<code>abbc</code></li>
+<li>当匹配到第三个b时,发现接下来的字符串时”c”,就会回到之前的状态</li>
+</ul>
+</li>
+<li>常见回溯的形式:贪婪量词,惰性量词,分支结构</li>
+</ol>
+<blockquote>
+<p>本质:<span style="color:red">深度优先搜索算法</span>.倒退到之前的某一部着一过程,称之为<code>回溯</code></p>
+</blockquote>
+<h3 id="贪婪量词"><a href="#贪婪量词" class="headerlink" title="贪婪量词"></a>贪婪量词</h3><blockquote>
+<p>例如<code>b&#123;1,3&#125;</code>:多个贪婪量词挨着,会按顺序优先匹配</p>
+</blockquote>
+<pre class="line-numbers language-js" data-language="js"><code class="language-js"><span class="token keyword">const</span> string <span class="token operator">=</span> <span class="token string">"12345"</span>
+<span class="token keyword">const</span> regex <span class="token operator">=</span> <span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">(\d&#123;1,3&#125;)(\d&#123;1,3&#125;)</span><span class="token regex-delimiter">/</span></span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>string<span class="token punctuation">.</span><span class="token function">match</span><span class="token punctuation">(</span>regex<span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token comment">//["12345","123","45"]</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="惰性量词"><a href="#惰性量词" class="headerlink" title="惰性量词"></a>惰性量词</h3><blockquote>
+<p>惰性量词就是在贪婪量词后面加个问号:<span style="color:red">尽可能少的匹配</span></p>
+</blockquote>
+<pre class="line-numbers language-js" data-language="js"><code class="language-js"><span class="token keyword">const</span> string <span class="token operator">=</span> <span class="token string">"12345"</span>
+<span class="token keyword">const</span> regex <span class="token operator">=</span> <span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">(\d&#123;1,3&#125;?)(\d&#123;1,3&#125;)</span><span class="token regex-delimiter">/</span></span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>string<span class="token punctuation">.</span><span class="token function">match</span><span class="token punctuation">(</span>regex<span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token comment">// ["12345","1","345"]</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="分支结构"><a href="#分支结构" class="headerlink" title="分支结构"></a>分支结构</h3><blockquote>
+<p>分支结构也是惰性的:<code>/can|candy/</code>,去匹配字符串”candy”,得到的结果是<code>&quot;can&quot;</code>.分支会一个一个尝试,如果前面的满足了,后面就不会再试验</p>
+</blockquote>
+<h2 id="正则相关的api"><a href="#正则相关的api" class="headerlink" title="正则相关的api"></a>正则相关的api</h2><h3 id="test"><a href="#test" class="headerlink" title="test"></a>test</h3><blockquote>
+<p>检测一个字符串是否匹配某个模式</p>
+</blockquote>
+<ul>
+<li>返回值<ol>
+<li>成功:true</li>
+<li>失败:false</li>
+</ol>
+</li>
+</ul>
+<pre class="line-numbers language-js" data-language="js"><code class="language-js"><span class="token keyword">const</span> string <span class="token operator">=</span> <span class="token string">"abc12345"</span>
+<span class="token keyword">const</span> regex <span class="token operator">=</span> <span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">\w+\d+</span><span class="token regex-delimiter">/</span><span class="token regex-flags">g</span></span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>regex<span class="token punctuation">.</span><span class="token function">test</span><span class="token punctuation">(</span>string<span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token comment">//true</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="exec"><a href="#exec" class="headerlink" title="exec"></a>exec</h3><blockquote>
+<p>该方法再指定一个字符串中执行一个搜索匹配.匹配返回一个数组或者null</p>
+<p>设置<code>g</code>或者<code>y</code>,<code>exec()</code>可对当字符串的多次匹配结果<strong>进行逐条遍历</strong>,(通过更新<code>lastIndex</code>).然而<code>match</code>只会匹配到返回的结果</p>
+<p>只会返回第一个成功的匹配</p>
+</blockquote>
+<ul>
+<li>返回值:<ol>
+<li>成功:返回一个数组(包括index何input),并更新<code>lastIndex</code>属性<ul>
+<li><code>index</code>:匹配到的字符位于原始字符串的基于0的索引值</li>
+<li><code>input</code>:原始字符串</li>
+<li><code>lastIndex</code>:下一次匹配开始的位置</li>
+</ul>
+</li>
+<li>失败:返回null</li>
+</ol>
+</li>
+</ul>
+<pre class="line-numbers language-js" data-language="js"><code class="language-js"><span class="token keyword">const</span> regex <span class="token operator">=</span> <span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">(\d&#123;4&#125;)\D(\d&#123;2&#125;)\D(\d&#123;2&#125;).?</span><span class="token regex-delimiter">/</span><span class="token regex-flags">g</span></span>
+<span class="token keyword">const</span> string <span class="token operator">=</span> <span class="token string">"2017-06-26,2018-09-12,2018-09-12"</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>regex<span class="token punctuation">.</span><span class="token function">exec</span><span class="token punctuation">(</span>string<span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token comment">//['2017-06-26,', '2017', '06', '26', index: 0, input: '2017-06-26,2018-09-12,2018-09-12', groups: undefined]</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>regex<span class="token punctuation">.</span><span class="token function">exec</span><span class="token punctuation">(</span>string<span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token comment">//['2018-09-12,', '2018', '09', '12', index: 11, input: '2017-06-26,2018-09-12,2018-09-12', groups: undefined]</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="match"><a href="#match" class="headerlink" title="match"></a>match</h3><blockquote>
+<p>在字符串内检索指定的值,或找到一个或多个正则表达式的匹配.</p>
+</blockquote>
+<ul>
+<li>返回值:<ol>
+<li>存放匹配结果的数组.该数组内容很大程度依赖于<code>g</code></li>
+<li>如果没找到匹配结果返回null</li>
+</ol>
+</li>
+</ul>
+<pre class="line-numbers language-js" data-language="js"><code class="language-js"><span class="token keyword">const</span> regex <span class="token operator">=</span> <span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">(\d&#123;4&#125;)\D(\d&#123;2&#125;)\D(\d&#123;2&#125;)</span><span class="token regex-delimiter">/</span><span class="token regex-flags">g</span></span>
+<span class="token keyword">const</span> string <span class="token operator">=</span> <span class="token string">"2017-06-262018-09-12"</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>string<span class="token punctuation">.</span><span class="token function">match</span><span class="token punctuation">(</span>regex<span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token comment">//['2017-06-26', '2018-09-12']</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="search"><a href="#search" class="headerlink" title="search"></a>search</h3><blockquote>
+<p>用于检索字符串中指定的子字符串,或检索与正则表达式相匹配的子字符串</p>
+</blockquote>
+<ul>
+<li>返回值<ol>
+<li>成功:返回到匹配到子串的起始位置</li>
+<li>失败:返回-1</li>
+</ol>
+</li>
+</ul>
+<blockquote>
+<p>注意:不执行全局匹配,他将忽略<code>g</code></p>
+</blockquote>
+<pre class="line-numbers language-js" data-language="js"><code class="language-js"><span class="token keyword">const</span> string <span class="token operator">=</span> <span class="token string">"abc12345"</span>
+<span class="token keyword">const</span> regex <span class="token operator">=</span> <span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">\d</span><span class="token regex-delimiter">/</span></span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>string<span class="token punctuation">.</span><span class="token function">search</span><span class="token punctuation">(</span>regex<span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token comment">//3</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="split"><a href="#split" class="headerlink" title="split"></a>split</h3><blockquote>
+<p>方法使用指定的分隔符字符串将一个String对象分割成子字符串数组,以一个指定的分割字串来决定每个拆分的位置</p>
+</blockquote>
+<ul>
+<li>参数:<ol>
+<li><code>separator</code>:指定表示每个拆分应发生的点的字符串.separator 可以是一个字符串或正则表达式</li>
+<li><code>limit</code>:限定返回的分割片段数量</li>
+</ol>
+</li>
+</ul>
+<pre class="line-numbers language-js" data-language="js"><code class="language-js"><span class="token keyword">const</span> regex <span class="token operator">=</span> <span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">\,</span><span class="token regex-delimiter">/</span></span>
+<span class="token keyword">const</span> string <span class="token operator">=</span> <span class="token string">"2017-06-26,2018-09-12,2018-09-12"</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>string<span class="token punctuation">.</span><span class="token function">split</span><span class="token punctuation">(</span>regex<span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token comment">//['2017-06-26', '2018-09-12']</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="replace和replaceAll"><a href="#replace和replaceAll" class="headerlink" title="replace和replaceAll"></a>replace和replaceAll</h3><blockquote>
+<p>参数:</p>
+</blockquote>
+<ol>
+<li>regexp|substr:正则表达式或者匹配的字符</li>
+<li>newSubstr|function:要替换的字符或者函数</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th>function参数</th>
+<th>解释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>match</td>
+<td>匹配的子串</td>
+</tr>
+<tr>
+<td>p1, p2, …</td>
+<td>括号中的捕获组找到的第n个字符串</td>
+</tr>
+<tr>
+<td>offset</td>
+<td>被检查的整个字符串中匹配子字符串的偏移量</td>
+</tr>
+<tr>
+<td>string</td>
+<td>正在检查的整个字符串</td>
+</tr>
+</tbody></table>
+<ul>
+<li>不同:<ol>
+<li>replace只会匹配第一个匹配到的字符,replaceAll会匹配所有字符</li>
+<li>如果是正则,replaceAll必须加上全局修饰符<code>g</code></li>
+</ol>
+</li>
+</ul>
+<pre class="line-numbers language-js" data-language="js"><code class="language-js">console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">"xxx"</span><span class="token punctuation">.</span><span class="token function">replace</span><span class="token punctuation">(</span><span class="token string">"x"</span><span class="token punctuation">,</span> <span class="token string">"."</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token comment">//.xx</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">"xxx"</span><span class="token punctuation">.</span><span class="token function">replaceAll</span><span class="token punctuation">(</span><span class="token string">"x"</span><span class="token punctuation">,</span> <span class="token string">"."</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token comment">//...</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<pre class="line-numbers language-js" data-language="js"><code class="language-js"><span class="token string">"123xxx8add444"</span><span class="token punctuation">.</span><span class="token function">replaceAll</span><span class="token punctuation">(</span><span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">(\d+).+([a-z])</span><span class="token regex-delimiter">/</span><span class="token regex-flags">g</span></span><span class="token punctuation">,</span> 
+  <span class="token punctuation">(</span><span class="token parameter">match<span class="token punctuation">,</span> p1<span class="token punctuation">,</span> p2<span class="token punctuation">,</span> offset<span class="token punctuation">,</span> str</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
+    console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>match<span class="token punctuation">)</span>
+    console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>p1<span class="token punctuation">)</span>
+    console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>p2<span class="token punctuation">)</span>
+    console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>offset<span class="token punctuation">)</span>
+    console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>str<span class="token punctuation">)</span>
+  <span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
+<span class="token comment">//123xxx8add</span>
+<span class="token comment">//123</span>
+<span class="token comment">//d</span>
+<span class="token comment">//0</span>
+<span class="token comment">//123xxx8add444  </span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="eval"><a href="#eval" class="headerlink" title="eval"></a>eval</h3><blockquote>
+<p>可以将任意的字符串类型正则转换成正则对象</p>
+</blockquote>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><blockquote>
+<p><a target="_blank" rel="noopener" href="https://juejin.cn/post/6844903487155732494#heading-24">https://juejin.cn/post/6844903487155732494#heading-24</a></p>
+</blockquote>
+
+                
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">Jack-zhang</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="http://zyjcould.ltd/2021/11/18/js-zhong-de-zheng-ze-biao-da-shi/">http://zyjcould.ltd/2021/11/18/js-zhong-de-zheng-ze-biao-da-shi/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/about" target="_blank">Jack-zhang</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/JS/">
+                                    <span class="chip bg-color">JS</span>
+                                </a>
+                            
+                                <a href="/tags/TS/">
+                                    <span class="chip bg-color">TS</span>
+                                </a>
+                            
+                                <a href="/tags/config/">
+                                    <span class="chip bg-color">config</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+                <style>
+    #reward {
+        margin: 40px 0;
+        text-align: center;
+    }
+
+    #reward .reward-link {
+        font-size: 1.4rem;
+        line-height: 38px;
+    }
+
+    #reward .btn-floating:hover {
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2), 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    #rewardModal {
+        width: 320px;
+        height: 350px;
+    }
+
+    #rewardModal .reward-title {
+        margin: 15px auto;
+        padding-bottom: 5px;
+    }
+
+    #rewardModal .modal-content {
+        padding: 10px;
+    }
+
+    #rewardModal .close {
+        position: absolute;
+        right: 15px;
+        top: 15px;
+        color: rgba(0, 0, 0, 0.5);
+        font-size: 1.3rem;
+        line-height: 20px;
+        cursor: pointer;
+    }
+
+    #rewardModal .close:hover {
+        color: #ef5350;
+        transform: scale(1.3);
+        -moz-transform:scale(1.3);
+        -webkit-transform:scale(1.3);
+        -o-transform:scale(1.3);
+    }
+
+    #rewardModal .reward-tabs {
+        margin: 0 auto;
+        width: 210px;
+    }
+
+    .reward-tabs .tabs {
+        height: 38px;
+        margin: 10px auto;
+        padding-left: 0;
+    }
+
+    .reward-content ul {
+        padding-left: 0 !important;
+    }
+
+    .reward-tabs .tabs .tab {
+        height: 38px;
+        line-height: 38px;
+    }
+
+    .reward-tabs .tab a {
+        color: #fff;
+        background-color: #ccc;
+    }
+
+    .reward-tabs .tab a:hover {
+        background-color: #ccc;
+        color: #fff;
+    }
+
+    .reward-tabs .wechat-tab .active {
+        color: #fff !important;
+        background-color: #22AB38 !important;
+    }
+
+    .reward-tabs .alipay-tab .active {
+        color: #fff !important;
+        background-color: #019FE8 !important;
+    }
+
+    .reward-tabs .reward-img {
+        width: 210px;
+        height: 210px;
+    }
+</style>
+
+<div id="reward">
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-medium waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close modal-close"><i class="fas fa-times"></i></a>
+            <h4 class="reward-title">你的赏识是我前进的动力</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs row">
+                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
+                    </ul>
+                    <div id="alipay">
+                        <img src="/medias/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                    <div id="wechat">
+                        <img src="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('.tabs').tabs();
+    });
+</script>
+
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+        <style>
+    .valine-card {
+        margin: 1.5rem auto;
+    }
+
+    .valine-card .card-content {
+        padding: 20px 20px 5px 20px;
+    }
+
+    #vcomments textarea {
+        box-sizing: border-box;
+        background: url("/medias/comment_bg.png") 100% 100% no-repeat;
+    }
+
+    #vcomments p {
+        margin: 2px 2px 10px;
+        font-size: 1.05rem;
+        line-height: 1.78rem;
+    }
+
+    #vcomments blockquote p {
+        text-indent: 0.2rem;
+    }
+
+    #vcomments a {
+        padding: 0 2px;
+        color: #4cbf30;
+        font-weight: 500;
+        text-decoration: none;
+    }
+
+    #vcomments img {
+        max-width: 100%;
+        height: auto;
+        cursor: pointer;
+    }
+
+    #vcomments ol li {
+        list-style-type: decimal;
+    }
+
+    #vcomments ol,
+    ul {
+        display: block;
+        padding-left: 2em;
+        word-spacing: 0.05rem;
+    }
+
+    #vcomments ul li,
+    ol li {
+        display: list-item;
+        line-height: 1.8rem;
+        font-size: 1rem;
+    }
+
+    #vcomments ul li {
+        list-style-type: disc;
+    }
+
+    #vcomments ul ul li {
+        list-style-type: circle;
+    }
+
+    #vcomments table, th, td {
+        padding: 12px 13px;
+        border: 1px solid #dfe2e5;
+    }
+
+    #vcomments table, th, td {
+        border: 0;
+    }
+
+    table tr:nth-child(2n), thead {
+        background-color: #fafafa;
+    }
+
+    #vcomments table th {
+        background-color: #f2f2f2;
+        min-width: 80px;
+    }
+
+    #vcomments table td {
+        min-width: 80px;
+    }
+
+    #vcomments h1 {
+        font-size: 1.85rem;
+        font-weight: bold;
+        line-height: 2.2rem;
+    }
+
+    #vcomments h2 {
+        font-size: 1.65rem;
+        font-weight: bold;
+        line-height: 1.9rem;
+    }
+
+    #vcomments h3 {
+        font-size: 1.45rem;
+        font-weight: bold;
+        line-height: 1.7rem;
+    }
+
+    #vcomments h4 {
+        font-size: 1.25rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    #vcomments h5 {
+        font-size: 1.1rem;
+        font-weight: bold;
+        line-height: 1.4rem;
+    }
+
+    #vcomments h6 {
+        font-size: 1rem;
+        line-height: 1.3rem;
+    }
+
+    #vcomments p {
+        font-size: 1rem;
+        line-height: 1.5rem;
+    }
+
+    #vcomments hr {
+        margin: 12px 0;
+        border: 0;
+        border-top: 1px solid #ccc;
+    }
+
+    #vcomments blockquote {
+        margin: 15px 0;
+        border-left: 5px solid #42b983;
+        padding: 1rem 0.8rem 0.3rem 0.8rem;
+        color: #666;
+        background-color: rgba(66, 185, 131, .1);
+    }
+
+    #vcomments pre {
+        font-family: monospace, monospace;
+        padding: 1.2em;
+        margin: .5em 0;
+        background: #272822;
+        overflow: auto;
+        border-radius: 0.3em;
+        tab-size: 4;
+    }
+
+    #vcomments code {
+        font-family: monospace, monospace;
+        padding: 1px 3px;
+        font-size: 0.92rem;
+        color: #e96900;
+        background-color: #f8f8f8;
+        border-radius: 2px;
+    }
+
+    #vcomments pre code {
+        font-family: monospace, monospace;
+        padding: 0;
+        color: #e8eaf6;
+        background-color: #272822;
+    }
+
+    #vcomments pre[class*="language-"] {
+        padding: 1.2em;
+        margin: .5em 0;
+    }
+
+    #vcomments code[class*="language-"],
+    pre[class*="language-"] {
+        color: #e8eaf6;
+    }
+
+    #vcomments [type="checkbox"]:not(:checked), [type="checkbox"]:checked {
+        position: inherit;
+        margin-left: -1.3rem;
+        margin-right: 0.4rem;
+        margin-top: -1px;
+        vertical-align: middle;
+        left: unset;
+        visibility: visible;
+    }
+
+    #vcomments b,
+    strong {
+        font-weight: bold;
+    }
+
+    #vcomments dfn {
+        font-style: italic;
+    }
+
+    #vcomments small {
+        font-size: 85%;
+    }
+
+    #vcomments cite {
+        font-style: normal;
+    }
+
+    #vcomments mark {
+        background-color: #fcf8e3;
+        padding: .2em;
+    }
+
+    #vcomments table, th, td {
+        padding: 12px 13px;
+        border: 1px solid #dfe2e5;
+    }
+
+    table tr:nth-child(2n), thead {
+        background-color: #fafafa;
+    }
+
+    #vcomments table th {
+        background-color: #f2f2f2;
+        min-width: 80px;
+    }
+
+    #vcomments table td {
+        min-width: 80px;
+    }
+
+    #vcomments [type="checkbox"]:not(:checked), [type="checkbox"]:checked {
+        position: inherit;
+        margin-left: -1.3rem;
+        margin-right: 0.4rem;
+        margin-top: -1px;
+        vertical-align: middle;
+        left: unset;
+        visibility: visible;
+    }
+</style>
+
+<div class="card valine-card" data-aos="fade-up">
+    <div class="comment_headling" style="font-size: 20px; font-weight: 700; position: relative; padding-left: 20px; top: 15px; padding-bottom: 5px;">
+        <i class="fas fa-comments fa-fw" aria-hidden="true"></i>
+        <span>评论</span>
+    </div>
+    <div id="vcomments" class="card-content" style="display: grid">
+    </div>
+</div>
+
+<script src="/libs/valine/av-min.js"></script>
+<script src="/libs/valine/Valine.min.js"></script>
+<script>
+    new Valine({
+        el: '#vcomments',
+        appId: 'ha91At85XM1oBPn1UB63Rkxc-9Nh9j0Va',
+        appKey: 'd4sclrxt1coswQE8xKNb0CEP',
+        notify: 'false' === 'true',
+        verify: 'false' === 'true',
+        visitor: 'true' === 'true',
+        avatar: 'mm',
+        pageSize: '10',
+        lang: 'zh-cn',
+        placeholder: 'just go go'
+    });
+</script>
+
+<!--酷Q推送-->
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/2021/11/22/xiao-yuan-wang-tong-xin/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/4.jpg" class="responsive-img" alt="校园网通信">
+                        
+                        <span class="card-title">校园网通信</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            关于校园网络之间的通信
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2021-11-22
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/config/" class="post-category">
+                                    config
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/config/">
+                        <span class="chip bg-color">config</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2021/11/17/diao-shi/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/18.jpg" class="responsive-img" alt="调试">
+                        
+                        <span class="card-title">调试</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            使用vscode调试代码
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-11-17
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/config/" class="post-category">
+                                    config
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/JS/">
+                        <span class="chip bg-color">JS</span>
+                    </a>
+                    
+                    <a href="/tags/TS/">
+                        <span class="chip bg-color">TS</span>
+                    </a>
+                    
+                    <a href="/tags/config/">
+                        <span class="chip bg-color">config</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+<script>
+    $('#articleContent').on('copy', function (e) {
+        // IE8 or earlier browser is 'undefined'
+        if (typeof window.getSelection === 'undefined') return;
+
+        var selection = window.getSelection();
+        // if the selection is short let's not annoy our users.
+        if (('' + selection).length < Number.parseInt('120')) {
+            return;
+        }
+
+        // create a div outside of the visible area and fill it with the selected text.
+        var bodyElement = document.getElementsByTagName('body')[0];
+        var newdiv = document.createElement('div');
+        newdiv.style.position = 'absolute';
+        newdiv.style.left = '-99999px';
+        bodyElement.appendChild(newdiv);
+        newdiv.appendChild(selection.getRangeAt(0).cloneContents());
+
+        // we need a <pre> tag workaround.
+        // otherwise the text inside "pre" loses all the line breaks!
+        if (selection.getRangeAt(0).commonAncestorContainer.nodeName === 'PRE' || selection.getRangeAt(0).commonAncestorContainer.nodeName === 'CODE') {
+            newdiv.innerHTML = "<pre>" + newdiv.innerHTML + "</pre>";
+        }
+
+        var url = document.location.href;
+        newdiv.innerHTML += '<br />'
+            + '来源: 苍穹之下<br />'
+            + '文章作者: Jack-zhang<br />'
+            + '文章链接: <a href="' + url + '">' + url + '</a><br />'
+            + '本文章著作权归作者所有，任何形式的转载都请注明出处。';
+
+        selection.selectAllChildren(newdiv);
+        window.setTimeout(function () {bodyElement.removeChild(newdiv);}, 200);
+    });
+</script>
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录
+            </div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+    <div id="floating-toc-btn" class="hide-on-med-and-down">
+        <a class="btn-floating btn-large bg-color">
+            <i class="fas fa-list-ul"></i>
+        </a>
+    </div>
+    
+
+        <script src="/libs/tocbot/tocbot.min.js"></script>
+        <script>
+            $(function () {
+                tocbot.init({
+                    tocSelector: '#toc-content',
+                    contentSelector: '#articleContent',
+                    headingsOffset: -($(window).height() * 0.4 - 45),
+                    collapseDepth: Number('0'),
+                    headingSelector: 'h2, h3, h4'
+                });
+
+                // modify the toc link href to support Chinese.
+                let i = 0;
+                let tocHeading = 'toc-heading-';
+                $('#toc-content a').each(function () {
+                    $(this).attr('href', '#' + tocHeading + (++i));
+                });
+
+                // modify the heading title id to support Chinese.
+                i = 0;
+                $('#articleContent').children('h2, h3, h4').each(function () {
+                    $(this).attr('id', tocHeading + (++i));
+                });
+
+                // Set scroll toc fixed.
+                let tocHeight = parseInt($(window).height() * 0.4 - 64);
+                let $tocWidget = $('.toc-widget');
+                $(window).scroll(function () {
+                    let scroll = $(window).scrollTop();
+                    /* add post toc fixed. */
+                    if (scroll > tocHeight) {
+                        $tocWidget.addClass('toc-fixed');
+                    } else {
+                        $tocWidget.removeClass('toc-fixed');
+                    }
+                });
+
+        
+                    /* 修复文章卡片 div 的宽度. */
+                    let fixPostCardWidth = function (srcId, targetId) {
+                        let srcDiv = $('#' + srcId);
+                        if (srcDiv.length === 0) {
+                            return;
+                        }
+
+                        let w = srcDiv.width();
+                        if (w >= 450) {
+                            w = w + 21;
+                        } else if (w >= 350 && w < 450) {
+                            w = w + 18;
+                        } else if (w >= 300 && w < 350) {
+                            w = w + 16;
+                        } else {
+                            w = w + 14;
+                        }
+                        $('#' + targetId).width(w);
+                    };
+
+                    // 切换TOC目录展开收缩的相关操作.
+                    const expandedClass = 'expanded';
+                    let $tocAside = $('#toc-aside');
+                    let $mainContent = $('#main-content');
+                    $('#floating-toc-btn .btn-floating').click(function () {
+                        if ($tocAside.hasClass(expandedClass)) {
+                            $tocAside.removeClass(expandedClass).hide();
+                            $mainContent.removeClass('l9');
+                        } else {
+                            $tocAside.addClass(expandedClass).show();
+                            $mainContent.addClass('l9');
+                        }
+                        fixPostCardWidth('artDetail', 'prenext-posts');
+                    });
+        
+    });
+        </script>
+    
+
+</main>
+
+
+
+
+                            <footer class="page-footer bg-color">
+    
+        <link rel="stylesheet" href="/libs/aplayer/APlayer.min.css">
+<style>
+    .aplayer .aplayer-lrc p {
+        
+        display: none;
+        
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 16px !important;
+    }
+
+    .aplayer .aplayer-lrc p.aplayer-lrc-current {
+        
+        display: none;
+        
+        font-size: 15px;
+        color: #42b983;
+    }
+
+    
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
+        left: -66px !important;
+    }
+
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
+        left: 0px !important;
+    }
+
+    
+</style>
+<div class="">
+    
+    <div class="row">
+        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
+                   server="netease"
+                   type="playlist"
+                   id="2296283905"
+                   fixed='true'
+                   autoplay='true'
+                   theme='#42b983'
+                   loop='all'
+                   order='random'
+                   preload='auto'
+                   volume='0.1'
+                   list-folded='false'
+        >
+        </meting-js>
+    </div>
+</div>
+
+<script src="/libs/aplayer/APlayer.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/meting@2/dist/Meting.min.js"></script>
+
+            
+
+                <div class="container row center-align"
+                    style="margin-bottom: 15px !important;">
+                    <div class="col s12 m8 l8 copy-right">
+                        Copyright&nbsp;&copy;
+                        
+                                <span id="year">
+                                    2021
+                                </span>
+                                
+                                    <span id="year">
+                                        2021
+                                    </span>
+                                    <a href="/about" target="_blank">
+                                        Jack-zhang
+                                    </a>
+                                    <br>
+                                    
+                                        &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数
+                                            :&nbsp;<span class="white-color">
+                                                105.5k
+                                            </span>
+                                            
+                                                
+                                                    
+                                                        
+                                                            
+                                                                
+                                                                    <span id="busuanzi_container_site_pv">
+                                                                        &nbsp;|&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;
+                                                                            <span id="busuanzi_value_site_pv"
+                                                                                class="white-color"></span>
+                                                                    </span>
+                                                                    
+                                                                        
+                                                                            <span id="busuanzi_container_site_uv">
+                                                                                &nbsp;|&nbsp;<i
+                                                                                    class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;
+                                                                                    <span id="busuanzi_value_site_uv"
+                                                                                        class="white-color"></span>
+                                                                            </span>
+                                                                            
+                                                                                <br>
+
+                                                                                <!-- 运行天数提醒. -->
+                                                                                
+                                                                                    <span id="sitetime"> Loading
+                                                                                        ...</span>
+                                                                                    <script>
+                                                                                        var calcSiteTime = function () {
+                                                                                            var seconds = 1000;
+                                                                                            var minutes = seconds * 60;
+                                                                                            var hours = minutes * 60;
+                                                                                            var days = hours * 24;
+                                                                                            var years = days * 365;
+                                                                                            var today = new Date();
+                                                                                            var startYear = "2021";
+                                                                                            var startMonth = "8";
+                                                                                            var startDate = "22";
+                                                                                            var startHour = "0";
+                                                                                            var startMinute = "0";
+                                                                                            var startSecond = "0";
+                                                                                            var todayYear = today.getFullYear();
+                                                                                            var todayMonth = today.getMonth() + 1;
+                                                                                            var todayDate = today.getDate();
+                                                                                            var todayHour = today.getHours();
+                                                                                            var todayMinute = today.getMinutes();
+                                                                                            var todaySecond = today.getSeconds();
+                                                                                            var t1 = Date.UTC(startYear, startMonth, startDate, startHour, startMinute, startSecond);
+                                                                                            var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
+                                                                                            var diff = t2 - t1;
+                                                                                            var diffYears = Math.floor(diff / years);
+                                                                                            var diffDays = Math.floor((diff / days) - diffYears * 365);
+
+                                                                                            // 区分是否有年份.
+                                                                                            var language = 'zh-CN';
+                                                                                            if (startYear === String(todayYear)) {
+                                                                                                document.getElementById("year").innerHTML = todayYear;
+                                                                                                var daysTip = 'This site has been running for ' + diffDays + ' days';
+                                                                                                if (language === 'zh-CN') {
+                                                                                                    daysTip = '本站已运行 ' + diffDays + ' 天';
+                                                                                                } else if (language === 'zh-HK') {
+                                                                                                    daysTip = '本站已運行 ' + diffDays + ' 天';
+                                                                                                }
+                                                                                                document.getElementById("sitetime").innerHTML = daysTip;
+                                                                                            } else {
+                                                                                                document.getElementById("year").innerHTML = startYear + " - " + todayYear;
+                                                                                                var yearsAndDaysTip = 'This site has been running for ' + diffYears + ' years and '
+                                                                                                    + diffDays + ' days';
+                                                                                                if (language === 'zh-CN') {
+                                                                                                    yearsAndDaysTip = '本站已运行 ' + diffYears + ' 年 ' + diffDays + ' 天';
+                                                                                                } else if (language === 'zh-HK') {
+                                                                                                    yearsAndDaysTip = '本站已運行 ' + diffYears + ' 年 ' + diffDays + ' 天';
+                                                                                                }
+                                                                                                document.getElementById("sitetime").innerHTML = yearsAndDaysTip;
+                                                                                            }
+                                                                                        }
+
+                                                                                        calcSiteTime();
+                                                                                    </script>
+                                                                                    
+                                                                                        <br>
+                                                                                        
+                                                                                            <span id="icp"><img
+                                                                                                    src="/medias/icp.png"
+                                                                                                    style="vertical-align: text-bottom;" />
+                                                                                                <a href="/tags/"
+                                                                                                    target="_blank">
+                                                                                                    苏ICP备2021008174号
+                                                                                                </a>
+                                                                                            </span>
+                                                                                            
+                    </div>
+                    <div class="col s12 m4 l4 social-link social-statis">
+                        
+    <a href="https://github.com/Jack-Zhang-1314" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+
+
+
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1553198027" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 1553198027" data-position="top" data-delay="50">
+        <i class="fab fa-qq"></i>
+    </a>
+
+
+
+
+
+
+
+
+                    </div>
+                </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+                                <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+                                    <!-- 添加深色模式 -->
+<svg aria-hidden="true" style="position: absolute; overflow: hidden; width: 0; height: 0">
+    <symbol id="icon-sun" viewBox="0 0 1024 1024">
+        <path d="M960 512l-128 128v192h-192l-128 128-128-128H192v-192l-128-128 128-128V192h192l128-128 128 128h192v192z"
+            fill="#FFD878" p-id="8420"></path>
+        <path d="M736 512a224 224 0 1 0-448 0 224 224 0 1 0 448 0z" fill="#FFE4A9" p-id="8421">
+        </path>
+        <path
+            d="M512 109.248L626.752 224H800v173.248L914.752 512 800 626.752V800h-173.248L512 914.752 397.248 800H224v-173.248L109.248 512 224 397.248V224h173.248L512 109.248M512 64l-128 128H192v192l-128 128 128 128v192h192l128 128 128-128h192v-192l128-128-128-128V192h-192l-128-128z"
+            fill="#4D5152" p-id="8422"></path>
+        <path
+            d="M512 320c105.888 0 192 86.112 192 192s-86.112 192-192 192-192-86.112-192-192 86.112-192 192-192m0-32a224 224 0 1 0 0 448 224 224 0 0 0 0-448z"
+            fill="#4D5152" p-id="8423"></path>
+    </symbol>
+    <symbol id="icon-moon" viewBox="0 0 1024 1024">
+        <path
+            d="M611.370667 167.082667a445.013333 445.013333 0 0 1-38.4 161.834666 477.824 477.824 0 0 1-244.736 244.394667 445.141333 445.141333 0 0 1-161.109334 38.058667 85.077333 85.077333 0 0 0-65.066666 135.722666A462.08 462.08 0 1 0 747.093333 102.058667a85.077333 85.077333 0 0 0-135.722666 65.024z"
+            fill="#FFB531" p-id="11345"></path>
+        <path
+            d="M329.728 274.133333l35.157333-35.157333a21.333333 21.333333 0 1 0-30.165333-30.165333l-35.157333 35.157333-35.114667-35.157333a21.333333 21.333333 0 0 0-30.165333 30.165333l35.114666 35.157333-35.114666 35.157334a21.333333 21.333333 0 1 0 30.165333 30.165333l35.114667-35.157333 35.157333 35.157333a21.333333 21.333333 0 1 0 30.165333-30.165333z"
+            fill="#030835" p-id="11346"></path>
+    </symbol>
+</svg>
+<a onclick="switchNightMode()" class="icon-V hidden" title="切换主题">
+    <svg width="48" height="48" viewBox="0 0 1024 1024">
+        <use id="modeicon" xlink:href="#icon-moon"></use>
+    </svg>
+</a>
+<script>
+    function checkNightMode() {
+        '1' === localStorage.getItem('isDark') ? ($('body').addClass('DarkMode'), $('#changeMode-top').removeClass('fa-moon').addClass('fa-sun'), $('#modeicon').attr('xlink:href', '#icon-sun')) : '0' === localStorage.getItem('isDark') ? $('#modeicon').attr('xlink:href', '#icon-moon') : new Date().getHours() >= 20 || new Date().getHours() < 7 ? ($('body').addClass('DarkMode'), $('#changeMode-top').removeClass('fa-moon').addClass('fa-sun'), $('#modeicon').attr('xlink:href', '#icon-sun')) : matchMedia('(prefers-color-scheme: dark)').matches ? ($('body').addClass('DarkMode'), $('#changeMode-top').removeClass('fa-moon').addClass('fa-sun'), $('#modeicon').attr('xlink:href', '#icon-sun')) : $('#modeicon').attr('xlink:href', '#icon-moon')
+    }
+    function switchNightMode() {
+        $('<div class="Cuteen_DarkSky"><div class="Cuteen_DarkPlanet"></div></div>').appendTo($('body')),
+            setTimeout(function () {
+                $('body').hasClass('DarkMode') ? ($('body').removeClass('DarkMode'), localStorage.setItem('isDark', '0'), $('#changeMode-top').removeClass('fa-sun').addClass('fa-moon'), $('#modeicon').attr('xlink:href', '#icon-moon')) : ($('body').addClass('DarkMode'), localStorage.setItem('isDark', '1'), $('#changeMode-top').removeClass('fa-moon').addClass('fa-sun'), $('#modeicon').attr('xlink:href', '#icon-sun')),
+                    setTimeout(function () {
+                        $('.Cuteen_DarkSky').fadeOut(1e3, function () {
+                            $(this).remove()
+                        })
+                    }, 2e3)
+            })
+    }
+    function switchNightModeTop() {
+        $('body').hasClass('DarkMode') ? ($('body').removeClass('DarkMode'), localStorage.setItem('isDark', '0'), $('#changeMode-top').removeClass('fa-sun').addClass('fa-moon'), $('#modeicon').attr('xlink:href', '#icon-moon')) : ($('body').addClass('DarkMode'), localStorage.setItem('isDark', '1'), $('#changeMode-top').removeClass('fa-moon').addClass('fa-sun'), $('#modeicon').attr('xlink:href', '#icon-sun'))
+    }
+    checkNightMode()
+</script>
+<!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+                                        <script
+                                            src="/libs/materialize/materialize.min.js"></script>
+                                        <script
+                                            src="/libs/masonry/masonry.pkgd.min.js"></script>
+                                        <script
+                                            src="/libs/aos/aos.js"></script>
+                                        <script
+                                            src="/libs/scrollprogress/scrollProgress.min.js"></script>
+                                        <script
+                                            src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+                                        <script
+                                            src="/js/matery.js"></script>
+
+                                        <!-- Baidu Analytics -->
+
+                                            <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+                                                
+                                                    <script
+                                                        src="/libs/others/clicklove.js"
+                                                        async="async"></script>
+                                                    
+                                                        
+                                                            <script async
+                                                                src="/libs/others/busuanzi.pure.mini.js"></script>
+                                                            
+
+                                                                
+
+                                                                        
+
+                                                                                <!--腾讯兔小巢-->
+                                                                                
+                                                                                        
+
+                                                                                                
+
+                                                                                                            
+
+                                                                                                                    
+                                                                                                                        <script
+                                                                                                                            src="/libs/instantpage/instantpage.js"
+                                                                                                                            type="module"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+                                                                                                                        
+
+                </body>
+
+</html>
