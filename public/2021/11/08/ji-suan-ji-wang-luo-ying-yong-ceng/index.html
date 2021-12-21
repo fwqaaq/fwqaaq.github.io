@@ -28,7 +28,9 @@
     <link rel="stylesheet" type="text/css" href="/css/my.css">
      <!-- 雪花特效 -->
     <link rel="stylesheet" href="/css/snow.css">
-	<div id="snowzone">
+	<!-- artitalk -->
+    <link rel="stylesheet" type="text/css" href="/libs/artitalk/artitalk.min.css">
+    <div id="snowzone">
 	</div> 
 	<script src="/js/snow.js"></script>
 
@@ -53,94 +55,121 @@
             </div>
             
 
-<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
-<ul class="right nav-menu">
-  
-  <li class="hide-on-med-and-down nav-item">
+  <a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+  <ul class="right nav-menu">
     
-    <a href="/" class="waves-effect waves-light">
+      <li class="hide-on-med-and-down nav-item">
+        
+          <a href="/" class="waves-effect waves-light">
+            
+              <i class="fas fa-home" style="zoom: 0.6;"></i>
+              
+                <span>
+                  首页
+                </span>
+          </a>
+          
+      </li>
       
-      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      <li class="hide-on-med-and-down nav-item">
+        
+          <a href="/tags" class="waves-effect waves-light">
+            
+              <i class="fas fa-tags" style="zoom: 0.6;"></i>
+              
+                <span>
+                  标签
+                </span>
+          </a>
+          
+      </li>
       
-      <span>首页</span>
-    </a>
-    
-  </li>
-  
-  <li class="hide-on-med-and-down nav-item">
-    
-    <a href="/tags" class="waves-effect waves-light">
+      <li class="hide-on-med-and-down nav-item">
+        
+          <a href="/categories" class="waves-effect waves-light">
+            
+              <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+              
+                <span>
+                  分类
+                </span>
+          </a>
+          
+      </li>
       
-      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      <li class="hide-on-med-and-down nav-item">
+        
+          <a href="/archives" class="waves-effect waves-light">
+            
+              <i class="fas fa-archive" style="zoom: 0.6;"></i>
+              
+                <span>
+                  归档
+                </span>
+          </a>
+          
+      </li>
       
-      <span>标签</span>
-    </a>
-    
-  </li>
-  
-  <li class="hide-on-med-and-down nav-item">
-    
-    <a href="/categories" class="waves-effect waves-light">
+      <li class="hide-on-med-and-down nav-item">
+        
+          <a href="/about" class="waves-effect waves-light">
+            
+              <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+              
+                <span>
+                  关于
+                </span>
+          </a>
+          
+      </li>
       
-      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      <li class="hide-on-med-and-down nav-item">
+        
+          <a href="/contact" class="waves-effect waves-light">
+            
+              <i class="fas fa-comments" style="zoom: 0.6;"></i>
+              
+                <span>
+                  留言板
+                </span>
+          </a>
+          
+      </li>
       
-      <span>分类</span>
-    </a>
-    
-  </li>
-  
-  <li class="hide-on-med-and-down nav-item">
-    
-    <a href="/archives" class="waves-effect waves-light">
+      <li class="hide-on-med-and-down nav-item">
+        
+          <a href="/friends" class="waves-effect waves-light">
+            
+              <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+              
+                <span>
+                  友情链接
+                </span>
+          </a>
+          
+      </li>
       
-      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      <li class="hide-on-med-and-down nav-item">
+        
+          <a href="/artitalk" class="waves-effect waves-light">
+            
+              <i class="fas fa-heartbeat" style="zoom: 0.6;"></i>
+              
+                <span>
+                  说说
+                </span>
+          </a>
+          
+      </li>
       
-      <span>归档</span>
-    </a>
-    
-  </li>
-  
-  <li class="hide-on-med-and-down nav-item">
-    
-    <a href="/about" class="waves-effect waves-light">
-      
-      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
-      
-      <span>关于</span>
-    </a>
-    
-  </li>
-  
-  <li class="hide-on-med-and-down nav-item">
-    
-    <a href="/contact" class="waves-effect waves-light">
-      
-      <i class="fas fa-comments" style="zoom: 0.6;"></i>
-      
-      <span>留言板</span>
-    </a>
-    
-  </li>
-  
-  <li class="hide-on-med-and-down nav-item">
-    
-    <a href="/friends" class="waves-effect waves-light">
-      
-      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
-      
-      <span>友情链接</span>
-    </a>
-    
-  </li>
-  
-  <li>
-    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
-      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
-    </a>
-  </li>
-</ul>
+        <li>
+          <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+            <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+          </a>
+        </li>
+  </ul>
 
-
+  
 <div id="mobile-nav" class="side-nav sidenav">
 
     <div class="mobile-head bg-color">
@@ -236,10 +265,20 @@
           
         </li>
         
+        <li class="m-nav-item">
+	  
+		<a href="/artitalk" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-heartbeat"></i>
+			
+			ArtiTalk
+		</a>
+          
+        </li>
+        
         
     </ul>
 </div>
-
 
         </div>
 
@@ -1565,7 +1604,7 @@
                                     
                                         &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数
                                             :&nbsp;<span class="white-color">
-                                                105.5k
+                                                106.1k
                                             </span>
                                             
                                                 

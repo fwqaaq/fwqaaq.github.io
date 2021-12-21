@@ -28,7 +28,9 @@
     <link rel="stylesheet" type="text/css" href="/css/my.css">
      <!-- 雪花特效 -->
     <link rel="stylesheet" href="/css/snow.css">
-	<div id="snowzone">
+	<!-- artitalk -->
+    <link rel="stylesheet" type="text/css" href="/libs/artitalk/artitalk.min.css">
+    <div id="snowzone">
 	</div> 
 	<script src="/js/snow.js"></script>
 
@@ -53,94 +55,121 @@
             </div>
             
 
-<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
-<ul class="right nav-menu">
-  
-  <li class="hide-on-med-and-down nav-item">
+  <a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+  <ul class="right nav-menu">
     
-    <a href="/" class="waves-effect waves-light">
+      <li class="hide-on-med-and-down nav-item">
+        
+          <a href="/" class="waves-effect waves-light">
+            
+              <i class="fas fa-home" style="zoom: 0.6;"></i>
+              
+                <span>
+                  首页
+                </span>
+          </a>
+          
+      </li>
       
-      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      <li class="hide-on-med-and-down nav-item">
+        
+          <a href="/tags" class="waves-effect waves-light">
+            
+              <i class="fas fa-tags" style="zoom: 0.6;"></i>
+              
+                <span>
+                  标签
+                </span>
+          </a>
+          
+      </li>
       
-      <span>首页</span>
-    </a>
-    
-  </li>
-  
-  <li class="hide-on-med-and-down nav-item">
-    
-    <a href="/tags" class="waves-effect waves-light">
+      <li class="hide-on-med-and-down nav-item">
+        
+          <a href="/categories" class="waves-effect waves-light">
+            
+              <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+              
+                <span>
+                  分类
+                </span>
+          </a>
+          
+      </li>
       
-      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      <li class="hide-on-med-and-down nav-item">
+        
+          <a href="/archives" class="waves-effect waves-light">
+            
+              <i class="fas fa-archive" style="zoom: 0.6;"></i>
+              
+                <span>
+                  归档
+                </span>
+          </a>
+          
+      </li>
       
-      <span>标签</span>
-    </a>
-    
-  </li>
-  
-  <li class="hide-on-med-and-down nav-item">
-    
-    <a href="/categories" class="waves-effect waves-light">
+      <li class="hide-on-med-and-down nav-item">
+        
+          <a href="/about" class="waves-effect waves-light">
+            
+              <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+              
+                <span>
+                  关于
+                </span>
+          </a>
+          
+      </li>
       
-      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      <li class="hide-on-med-and-down nav-item">
+        
+          <a href="/contact" class="waves-effect waves-light">
+            
+              <i class="fas fa-comments" style="zoom: 0.6;"></i>
+              
+                <span>
+                  留言板
+                </span>
+          </a>
+          
+      </li>
       
-      <span>分类</span>
-    </a>
-    
-  </li>
-  
-  <li class="hide-on-med-and-down nav-item">
-    
-    <a href="/archives" class="waves-effect waves-light">
+      <li class="hide-on-med-and-down nav-item">
+        
+          <a href="/friends" class="waves-effect waves-light">
+            
+              <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+              
+                <span>
+                  友情链接
+                </span>
+          </a>
+          
+      </li>
       
-      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      <li class="hide-on-med-and-down nav-item">
+        
+          <a href="/artitalk" class="waves-effect waves-light">
+            
+              <i class="fas fa-heartbeat" style="zoom: 0.6;"></i>
+              
+                <span>
+                  说说
+                </span>
+          </a>
+          
+      </li>
       
-      <span>归档</span>
-    </a>
-    
-  </li>
-  
-  <li class="hide-on-med-and-down nav-item">
-    
-    <a href="/about" class="waves-effect waves-light">
-      
-      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
-      
-      <span>关于</span>
-    </a>
-    
-  </li>
-  
-  <li class="hide-on-med-and-down nav-item">
-    
-    <a href="/contact" class="waves-effect waves-light">
-      
-      <i class="fas fa-comments" style="zoom: 0.6;"></i>
-      
-      <span>留言板</span>
-    </a>
-    
-  </li>
-  
-  <li class="hide-on-med-and-down nav-item">
-    
-    <a href="/friends" class="waves-effect waves-light">
-      
-      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
-      
-      <span>友情链接</span>
-    </a>
-    
-  </li>
-  
-  <li>
-    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
-      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
-    </a>
-  </li>
-</ul>
+        <li>
+          <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+            <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+          </a>
+        </li>
+  </ul>
 
-
+  
 <div id="mobile-nav" class="side-nav sidenav">
 
     <div class="mobile-head bg-color">
@@ -236,10 +265,20 @@
           
         </li>
         
+        <li class="m-nav-item">
+	  
+		<a href="/artitalk" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-heartbeat"></i>
+			
+			ArtiTalk
+		</a>
+          
+        </li>
+        
         
     </ul>
 </div>
-
 
         </div>
 
@@ -412,14 +451,14 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    97
+                    758
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    1 分
+                    3 分
                 </div>
                 
 
@@ -459,6 +498,127 @@
 <h2 id="使用webhook自动化部署"><a href="#使用webhook自动化部署" class="headerlink" title="使用webhook自动化部署"></a>使用webhook自动化部署</h2><blockquote>
 <p>强烈建议使用ssh,而不是https</p>
 </blockquote>
+<h3 id="设置node环境"><a href="#设置node环境" class="headerlink" title="设置node环境"></a>设置node环境</h3><ul>
+<li>在官网下载最新版的node:<code>https://nodejs.org/en/download/</code></li>
+</ul>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">wget https:&#x2F;&#x2F;nodejs.org&#x2F;dist&#x2F;v16.13.1&#x2F;node-v16.13.1-linux-x64.tar.xz<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<ul>
+<li>解压</li>
+</ul>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">xz -d node-v9.3.0-linux-x64.tar.xz
+tar -xf node-v9.3.0-linux-x64.tar<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<ul>
+<li>配置环境:在<code>/etc/profile</code>最后一行加入</li>
+<li>注意:<span style="color:red">是node所在的路径</span>,我这里就是在<code>/</code>目录下</li>
+</ul>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">export PATH&#x3D;$PATH:&#x2F;node-v16.13.1-linux-x64&#x2F;bin<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<ul>
+<li>测试</li>
+</ul>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">npm -v
+node -v<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<h3 id="构建服务"><a href="#构建服务" class="headerlink" title="构建服务"></a>构建服务</h3><blockquote>
+<p>安装插件(按照自己的想法动手配置)</p>
+</blockquote>
+<ol>
+<li>在目录<code>\opt</code>下创建文件夹<code>webhook</code>,初始化插件</li>
+</ol>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">npm init -y
+npm i -S github-webhook-handler
+npm i pm2 -g<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<ol start="2">
+<li>构建webhook服务</li>
+</ol>
+<blockquote>
+<ul>
+<li><code>secret</code>设置必须何github后台的一致</li>
+<li>端口也必须和github的后台一致</li>
+</ul>
+</blockquote>
+<pre class="line-numbers language-js" data-language="js"><code class="language-js"><span class="token keyword">var</span> http <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'http'</span><span class="token punctuation">)</span>
+<span class="token keyword">var</span> createHandler <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'github-webhook-handler'</span><span class="token punctuation">)</span>
+<span class="token keyword">var</span> handler <span class="token operator">=</span> <span class="token function">createHandler</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span> path<span class="token operator">:</span> <span class="token string">'/'</span><span class="token punctuation">,</span> secret<span class="token operator">:</span> <span class="token string">'secret'</span> <span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
+<span class="token comment">// 上面的 secret 保持和 GitHub 后台设置的一致文章后面会提到。</span>
+<span class="token keyword">function</span> <span class="token function">run_cmd</span><span class="token punctuation">(</span><span class="token parameter">cmd<span class="token punctuation">,</span> args<span class="token punctuation">,</span> callback</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+  <span class="token keyword">var</span> spawn <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'child_process'</span><span class="token punctuation">)</span><span class="token punctuation">.</span>spawn<span class="token punctuation">;</span>
+  <span class="token keyword">var</span> child <span class="token operator">=</span> <span class="token function">spawn</span><span class="token punctuation">(</span>cmd<span class="token punctuation">,</span> args<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">var</span> resp <span class="token operator">=</span> <span class="token string">""</span><span class="token punctuation">;</span>
+  child<span class="token punctuation">.</span>stdout<span class="token punctuation">.</span><span class="token function">on</span><span class="token punctuation">(</span><span class="token string">'data'</span><span class="token punctuation">,</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token parameter">buffer</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span> resp <span class="token operator">+=</span> buffer<span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  child<span class="token punctuation">.</span>stdout<span class="token punctuation">.</span><span class="token function">on</span><span class="token punctuation">(</span><span class="token string">'end'</span><span class="token punctuation">,</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span> <span class="token function">callback</span> <span class="token punctuation">(</span>resp<span class="token punctuation">)</span> <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+http<span class="token punctuation">.</span><span class="token function">createServer</span><span class="token punctuation">(</span><span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token parameter">req<span class="token punctuation">,</span> res</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+  <span class="token function">handler</span><span class="token punctuation">(</span>req<span class="token punctuation">,</span> res<span class="token punctuation">,</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token parameter">err</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    res<span class="token punctuation">.</span>statusCode <span class="token operator">=</span> <span class="token number">404</span>
+    res<span class="token punctuation">.</span><span class="token function">end</span><span class="token punctuation">(</span><span class="token string">'gggggggggg'</span><span class="token punctuation">)</span>
+  <span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
+<span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">listen</span><span class="token punctuation">(</span><span class="token number">7777</span><span class="token punctuation">)</span>
+handler<span class="token punctuation">.</span><span class="token function">on</span><span class="token punctuation">(</span><span class="token string">'error'</span><span class="token punctuation">,</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token parameter">err</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+  console<span class="token punctuation">.</span><span class="token function">error</span><span class="token punctuation">(</span><span class="token string">'Error:'</span><span class="token punctuation">,</span> err<span class="token punctuation">.</span>message<span class="token punctuation">)</span>
+<span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
+handler<span class="token punctuation">.</span><span class="token function">on</span><span class="token punctuation">(</span><span class="token string">'push'</span><span class="token punctuation">,</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token parameter">event</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+  console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'Received a push event for %s to %s'</span><span class="token punctuation">,</span>
+    event<span class="token punctuation">.</span>payload<span class="token punctuation">.</span>repository<span class="token punctuation">.</span>name<span class="token punctuation">,</span>
+    event<span class="token punctuation">.</span>payload<span class="token punctuation">.</span>ref<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">run_cmd</span><span class="token punctuation">(</span><span class="token string">'sh'</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token string">'./deploy.sh'</span><span class="token punctuation">,</span>event<span class="token punctuation">.</span>payload<span class="token punctuation">.</span>repository<span class="token punctuation">.</span>name<span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token parameter">text</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span> console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>text<span class="token punctuation">)</span> <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="github设置"><a href="#github设置" class="headerlink" title="github设置"></a>github设置</h3><ol>
+<li>在设置中打开开发者设置<code>Developer settings</code></li>
+<li>打开个人访问令牌<code>Personal access tokens</code>,生成令牌</li>
+<li>打开存储库的设置中的网络钩子<code>webhooks</code><ul>
+<li><code>secret</code>:就是个人访问令牌<code>Personal access tokens</code></li>
+<li><code>url</code>:端口一定要在安全组开放</li>
+<li>可以先看阮一峰的<code>github actions</code>:<a target="_blank" rel="noopener" href="https://www.ruanyifeng.com/blog/2019/09/getting-started-with-github-actions.html">https://www.ruanyifeng.com/blog/2019/09/getting-started-with-github-actions.html</a></li>
+</ul>
+</li>
+<li>会出现连接不到主机的状况(等待做完以下步骤)</li>
+</ol>
+<p><img src="webhooks.png" alt="webhooks"></p>
+<h3 id="执行shell脚本"><a href="#执行shell脚本" class="headerlink" title="执行shell脚本"></a>执行shell脚本</h3><ol>
+<li>在服务器端生成ssh密钥(ssh存在于<code>/root/.ssh</code>文件夹),将公钥<code>pub</code>存入<code>github</code>中</li>
+<li><code>ssh-keygen -t rsa -C &quot;zyj17715640603@gmail.com&quot;</code>(自己的账号)</li>
+<li>配置<code>git</code>:</li>
+</ol>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">git config --gloabl user.name&#x3D;&quot;jack&quot;
+git config --gloabl user.email&#x3D;1553198027@qq.com<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<ol start="4">
+<li>使用<code>git clone git@...</code>克隆仓库</li>
+</ol>
+<blockquote>
+<p>在<code>webhook</code>目录下创建<code>deploy.sh</code>写入以下内容</p>
+</blockquote>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">#!&#x2F;bin&#x2F;bash
+# 网站的根目录,用自己的目录。
+WEB_PATH&#x3D;&#39;&#x2F;opt&#x2F;web&#x2F;Jack-Zhang-1314.github.io.git&#39;
+
+echo “start deployment”
+cd $WEB_PATH
+echo “fetching from remote…”
+
+git fetch –all
+git reset –hard origin&#x2F;master
+echo “done”<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<blockquote>
+<p>由于linux权限问题,建议先执行<code>chmod 777 ./deploy.sh</code></p>
+</blockquote>
+<ul>
+<li>然后运行<code>webhook.js</code></li>
+</ul>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">pm2 start webhook.js<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<h3 id="nginx配置"><a href="#nginx配置" class="headerlink" title="nginx配置"></a>nginx配置</h3><blockquote>
+<p>nginx代理开启网页:<a target="_blank" rel="noopener" href="http://mail.zyjcould.ltd/2021/10/30/fu-wu-qi-bu-shu/#toc-heading-8">http://mail.zyjcould.ltd/2021/10/30/fu-wu-qi-bu-shu/#toc-heading-8</a></p>
+</blockquote>
+<ul>
+<li>参考:<a target="_blank" rel="noopener" href="http://mail.zyjcould.ltd/2021/10/30/fu-wu-qi-bu-shu/#toc-heading-8">http://mail.zyjcould.ltd/2021/10/30/fu-wu-qi-bu-shu/#toc-heading-8</a></li>
+</ul>
 
                 
             </div>
@@ -1299,7 +1459,7 @@
                                     
                                         &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数
                                             :&nbsp;<span class="white-color">
-                                                105.5k
+                                                106.1k
                                             </span>
                                             
                                                 
