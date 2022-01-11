@@ -565,21 +565,21 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2021-11-29
+                    2022-01-09
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    1.9k
+                    1.6k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    8 分
+                    7 分
                 </div>
                 
 
@@ -607,106 +607,7 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="理解原生Ajax"><a href="#理解原生Ajax" class="headerlink" title="理解原生Ajax"></a>理解原生Ajax</h2><blockquote>
-<p>ajax本质是在 HTTP 协议的基础上以异步的方式与服务器进行通信.</p>
-<blockquote>
-<p>异步：指某段程序执行时不会阻塞其它程序执行，其表现形式为程序的执行顺序不依赖程序本身的书写顺序，相反则为同步.</p>
-</blockquote>
-</blockquote>
-<ul>
-<li>使用<code>XMLHttpRequest</code> 对象的 <code>open()</code> 和 <code>send()</code> 方法</li>
-</ul>
-<pre class="line-numbers language-js" data-language="js"><code class="language-js"><span class="token keyword">var</span> xhr <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">XMLHttpRequest</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-xhr<span class="token punctuation">.</span><span class="token function">open</span><span class="token punctuation">(</span><span class="token string">'GET'</span><span class="token punctuation">,</span> <span class="token string">'url'</span><span class="token punctuation">,</span> <span class="token boolean">true</span><span class="token punctuation">)</span>
-xhr<span class="token punctuation">.</span><span class="token function">send</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-xhr<span class="token punctuation">.</span><span class="token function-variable function">onload</span><span class="token operator">=</span><span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
-  console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>xhr<span class="token punctuation">.</span>responseText<span class="token punctuation">)</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<table>
-<thead>
-<tr>
-<th>方法</th>
-<th>描述</th>
-</tr>
-</thead>
-<tbody><tr>
-<td><code>open(method,url,async)</code></td>
-<td>规定请求的类型、URL 以及是否异步处理请求,method：请求的类型.url：文件在服务器上的位置.async：true（异步）或 false（同步）</td>
-</tr>
-<tr>
-<td><code>send(string)</code></td>
-<td>将请求发送到服务器。string：适用于 POST 请求</td>
-</tr>
-</tbody></table>
-<ul>
-<li>其它的属性</li>
-</ul>
-<table>
-<thead>
-<tr>
-<th>属性</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody><tr>
-<td><code>status</code></td>
-<td>200: “OK”</td>
-</tr>
-<tr>
-<td><code>responseText</code></td>
-<td>获得字符串形式的响应数据。</td>
-</tr>
-<tr>
-<td><code>responseXML</code></td>
-<td>获得 XML 形式的响应数据。</td>
-</tr>
-<tr>
-<td><code>setRequestHeader</code></td>
-<td>设置请求头</td>
-</tr>
-<tr>
-<td><code>readyState</code></td>
-<td>存有 XMLHttpRequest 的状态。请求发送到后台后，状态会从 0 到 4 发生变化</td>
-</tr>
-<tr>
-<td><code>onreadystatechange</code></td>
-<td>绑定readyState改变监听</td>
-</tr>
-<tr>
-<td><code>reponseType</code></td>
-<td>指定响应函数的数据类型，如果是json，得到响应后自动解析响应体函数</td>
-</tr>
-<tr>
-<td><code>response</code></td>
-<td>响应体数据，类型取决于responseType的指定</td>
-</tr>
-<tr>
-<td><code>timeout</code></td>
-<td>指定请求超时时间，默认为0代表没有限制</td>
-</tr>
-<tr>
-<td><code>ontimeout</code></td>
-<td>绑定超时的监听</td>
-</tr>
-<tr>
-<td><code>onerror</code></td>
-<td>绑定请求网络错误的监听</td>
-</tr>
-<tr>
-<td><code>abort()</code></td>
-<td>中断请求</td>
-</tr>
-<tr>
-<td><code>getResponseHeader(name)</code></td>
-<td>获取指定名称的响应头值</td>
-</tr>
-<tr>
-<td><code>getAllResponseHeaders()</code></td>
-<td>获取所有的响应头组成的字符串</td>
-</tr>
-</tbody></table>
-<h2 id="Axios"><a href="#Axios" class="headerlink" title="Axios"></a>Axios</h2><blockquote>
+                <h2 id="Axios"><a href="#Axios" class="headerlink" title="Axios"></a>Axios</h2><blockquote>
 <p>关于axios:是用promise对ajax的封装,支持promise的API</p>
 </blockquote>
 <ul>
@@ -1903,7 +1804,7 @@ export default service<span aria-hidden="true" class="line-numbers-rows"><span><
                                     
                                         &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数
                                             :&nbsp;<span class="white-color">
-                                                108.1k
+                                                114.3k
                                             </span>
                                             
                                                 

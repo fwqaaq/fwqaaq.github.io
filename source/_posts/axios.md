@@ -7,47 +7,6 @@ tags:
    - Axios
 summary: axios使用以及封装
 ---
-
-## 理解原生Ajax
-
-> ajax本质是在 HTTP 协议的基础上以异步的方式与服务器进行通信.
->>异步：指某段程序执行时不会阻塞其它程序执行，其表现形式为程序的执行顺序不依赖程序本身的书写顺序，相反则为同步.
-
-* 使用`XMLHttpRequest` 对象的 `open()` 和 `send()` 方法
-
-```js
-var xhr = new XMLHttpRequest()
-xhr.open('GET', 'url', true)
-xhr.send()
-xhr.onload=function(){
-  console.log(xhr.responseText)
-}
-```
-
-| 方法                     | 描述                                                                                                                      |
-| ------------------------ | ------------------------------------------------------------------------------------------------------------------------- |
-| `open(method,url,async)` | 规定请求的类型、URL 以及是否异步处理请求,method：请求的类型.url：文件在服务器上的位置.async：true（异步）或 false（同步） |
-| `send(string)`           | 将请求发送到服务器。string：适用于 POST 请求                                                                              |
-
-* 其它的属性
-
-| 属性                      | 说明                                                                   |
-| ------------------------- | ---------------------------------------------------------------------- |
-| `status`                  | 200: "OK"                                                              |
-| `responseText`            | 获得字符串形式的响应数据。                                             |
-| `responseXML`             | 获得 XML 形式的响应数据。                                              |
-| `setRequestHeader`        | 设置请求头                                                             |
-| `readyState`              | 存有 XMLHttpRequest 的状态。请求发送到后台后，状态会从 0 到 4 发生变化 |
-| `onreadystatechange`      | 绑定readyState改变监听                                                 |
-| `reponseType`             | 指定响应函数的数据类型，如果是json，得到响应后自动解析响应体函数       |
-| `response`                | 响应体数据，类型取决于responseType的指定                               |
-| `timeout`                 | 指定请求超时时间，默认为0代表没有限制                                  |
-| `ontimeout`               | 绑定超时的监听                                                         |
-| `onerror`                 | 绑定请求网络错误的监听                                                 |
-| `abort()`                 | 中断请求                                                               |
-| `getResponseHeader(name)` | 获取指定名称的响应头值                                                 |
-| `getAllResponseHeaders()` | 获取所有的响应头组成的字符串                                           |
-
 ## Axios
 
 > 关于axios:是用promise对ajax的封装,支持promise的API

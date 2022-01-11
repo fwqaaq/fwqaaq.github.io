@@ -13,7 +13,13 @@ summary: TS基本语法
 * 全局下载typescript,```npm i typescript -g```
   * 编译ts->js,```tsc hello.ts```
   * 简化编译,全局下载ts-node,```npm i ts-node -g```
-  * 编译ts文件,```ts-node hello.ts```
+  * 编译ts文件,```ts-node hello.ts```,cjs,esm通用
+
+* 由`esbuild`提供支持的`TypeScript`可替代`ts-node`的编译工具
+  * 全局下载`npm i esno -g`
+  * 编译ts文件,`esno index.ts`
+  * `esno-` CJS 模式下的命令
+  * `esmo-` ESM 模式下的命令
 
 * 问题:
   * 解决方案一: ```Do you need to change your target library? Try changing the 'lib' compiler option to include 'dom'```:使用:```ts-node -T hello.ts```
