@@ -561,21 +561,21 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2021-12-01
+                    2022-01-15
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    950
+                    1.4k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    3 分
+                    5 分
                 </div>
                 
 
@@ -768,7 +768,7 @@ obj1<span class="token punctuation">.</span>name <span class="token operator">=<
 console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>obj2<span class="token punctuation">.</span>name<span class="token punctuation">)</span><span class="token comment">//"jack"</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
 
 <ul>
-<li><p><img src="https://www.zyjcould.ltd/img/markdown%E5%BC%95%E7%94%A8%E7%B1%BB%E5%9E%8B.png" alt="引用类型"></p>
+<li><p><img src="%E5%BC%95%E7%94%A8%E7%B1%BB%E5%9E%8B.png" alt="引用类型"></p>
 </li>
 <li><p>obj1保存的是这个实例对象的地址,obj2也是引用的实例的地址值(即浅拷贝)</p>
 <ul>
@@ -777,6 +777,85 @@ console<span class="token punctuation">.</span><span class="token function">log<
 </ul>
 </li>
 </ul>
+<h2 id="JS按位操作符"><a href="#JS按位操作符" class="headerlink" title="JS按位操作符"></a>JS按位操作符</h2><blockquote>
+<p>按位操作符会将操作数被转换为<strong>32位二进制表示</strong>(0和1).超过32位的数字将丢弃其最高有效位.</p>
+</blockquote>
+<h3 id="原码"><a href="#原码" class="headerlink" title="原码"></a>原码</h3><blockquote>
+<p>以八位二进制举例,第一位表示符号位,其余位表示值(正数该位为0，负数该位为1)</p>
+</blockquote>
+<ul>
+<li>+1 = 0b0000 0001(原)</li>
+<li>-1 = 0b1000 0001(原)</li>
+</ul>
+<h3 id="反码"><a href="#反码" class="headerlink" title="反码"></a>反码</h3><blockquote>
+<p>正数的反码是他本身,负数的反码在源码的基础上符号位不变,其余各位取反</p>
+</blockquote>
+<ul>
+<li>+1 = 00000001(原) = 00000001(反)</li>
+<li>-1 = 10000001(原) = 11111110(反)</li>
+</ul>
+<h3 id="补码"><a href="#补码" class="headerlink" title="补码"></a>补码</h3><blockquote>
+<p>正数的补码就是本身,负数的补码在反码的基础上加1</p>
+</blockquote>
+<ul>
+<li>+1 = 00000001(原) = 00000001(反) = 00000001(补)</li>
+<li>-1 = 10000001(原) = 11111110(反) = 11111111(补)</li>
+</ul>
+<h3 id="按位操作符"><a href="#按位操作符" class="headerlink" title="按位操作符"></a>按位操作符</h3><blockquote>
+<p>所有进制的数都会装换成二进制的数进行操作</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>运算符</th>
+<th>用法</th>
+<th>描述</th>
+<th>例子</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>按位与（ AND）</td>
+<td>a &amp; b</td>
+<td>对于每一个比特位，只有两个操作数相应的比特位都是1时，结果才为1，否则为0。</td>
+<td>0b1110 &amp; 0b1101 === 0b1100</td>
+</tr>
+<tr>
+<td>按位或（OR）</td>
+<td>a | b</td>
+<td>对于每一个比特位，当两个操作数相应的比特位至少有一个1时，结果为1，否则为0。</td>
+<td>0b1110</td>
+</tr>
+<tr>
+<td>按位异或（XOR）</td>
+<td>a ^ b</td>
+<td>对于每一个比特位，当两个操作数相应的比特位有且只有一个1时，结果为1，否则为0。</td>
+<td>0b1110 ^ 0b1101 === 0b0011</td>
+</tr>
+<tr>
+<td>按位非（NOT）</td>
+<td>~ a</td>
+<td>反转操作数的比特位，即0变成1，1变成0。</td>
+<td>~0b1110 === -0b1111</td>
+</tr>
+<tr>
+<td>左移（Left shift）</td>
+<td>a &lt;&lt; b</td>
+<td>将 a 的二进制形式向左移 b (&lt; 32) 比特位，右边用0填充。</td>
+<td>0b00001110 &lt;&lt; 2 === 0b00111000</td>
+</tr>
+<tr>
+<td>有符号右移</td>
+<td>a &gt;&gt; b</td>
+<td>将 a 的二进制表示向右移b(&lt; 32) 位，丢弃被移出的位。</td>
+<td>0b00001110 &gt;&gt;2 === 0b00000011</td>
+</tr>
+<tr>
+<td>无符号右移</td>
+<td>a &gt;&gt;&gt; b</td>
+<td>将 a 的二进制表示向右移b(&lt; 32) 位，丢弃被移出的位，并使用 0 在左侧填充。</td>
+<td>-1 &gt;&gt;&gt; 1 === 2147483647, -1 &gt;&gt;&gt;31 ===1</td>
+</tr>
+</tbody></table>
 <h2 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h2><blockquote>
 <p>函数是<code>javasceipt</code>中的一等公民,会在其作用域提升,率先执行</p>
 </blockquote>
@@ -815,7 +894,7 @@ console<span class="token punctuation">.</span><span class="token function">log<
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="http://zyjcould.ltd/2021/10/29/js-ji-chu-wen-ti/">http://zyjcould.ltd/2021/10/29/js-ji-chu-wen-ti/</a>
+                    <a href="http://mail.zyjcould.ltd/2021/10/29/js-ji-chu-wen-ti/">http://mail.zyjcould.ltd/2021/10/29/js-ji-chu-wen-ti/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -1639,7 +1718,7 @@ console<span class="token punctuation">.</span><span class="token function">log<
                                     
                                         &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数
                                             :&nbsp;<span class="white-color">
-                                                114.3k
+                                                118.3k
                                             </span>
                                             
                                                 

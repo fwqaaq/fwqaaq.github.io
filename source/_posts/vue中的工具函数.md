@@ -80,7 +80,7 @@ startsWith(searchString: string, position?: number): boolean;
 export const extend = Object.assign
 ```
 
->用于合并对象,可以参考一下我之前写的<https://zyjcould.ltd/2021/10/20/js-kao-bei-fang-shi/>
+>用于合并对象,可以参考一下我之前写的<http://mail.zyjcould.ltd/2021/10/20/js-de-kao-bei-fang-shi/>
 
 ### remove
 

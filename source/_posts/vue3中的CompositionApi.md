@@ -567,7 +567,7 @@ import { getCurrentInstance } from 'vue'
 
 ## 自定义指令
 
-参考:<https://zyjcould.ltd/2021/09/27/vue3-zi-ding-yi-zhi-ling/>
+参考:<http://mail.zyjcould.ltd/2021/09/27/vue3-zhong-zi-ding-yi-zhi-ling/>
 
 ## nexttick
 

@@ -561,14 +561,14 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2021-12-19
+                    2022-01-15
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    758
+                    773
                 </div>
                 
 
@@ -623,8 +623,8 @@
 <ul>
 <li>解压</li>
 </ul>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">xz -d node-v9.3.0-linux-x64.tar.xz
-tar -xf node-v9.3.0-linux-x64.tar<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">xz -d node-v16.13.1-linux-x64.tar.xz
+tar -xf node-v16.13.1-linux-x64.tar<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 
 <ul>
 <li>配置环境:在<code>/etc/profile</code>最后一行加入</li>
@@ -633,7 +633,10 @@ tar -xf node-v9.3.0-linux-x64.tar<span aria-hidden="true" class="line-numbers-ro
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">export PATH&#x3D;$PATH:&#x2F;node-v16.13.1-linux-x64&#x2F;bin<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 <ul>
-<li>测试</li>
+<li><p><span style="color:red">在终端输入<code>source /etc/profile</code>,使设置生效</span></p>
+</li>
+<li><p>测试</p>
+</li>
 </ul>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">npm -v
 node -v<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
@@ -718,9 +721,10 @@ echo “start deployment”
 cd $WEB_PATH
 echo “fetching from remote…”
 
-git fetch –all
-git reset –hard origin&#x2F;master
-echo “done”<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+git fetch --all
+git reset --hard origin&#x2F;master 
+git pull
+echo “done”<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <blockquote>
 <p>由于linux权限问题,建议先执行<code>chmod 777 ./deploy.sh</code></p>
@@ -731,10 +735,10 @@ echo “done”<span aria-hidden="true" class="line-numbers-rows"><span></span><
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">pm2 start webhook.js<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 <h3 id="nginx配置"><a href="#nginx配置" class="headerlink" title="nginx配置"></a>nginx配置</h3><blockquote>
-<p>nginx代理开启网页:<a target="_blank" rel="noopener" href="http://mail.zyjcould.ltd/2021/10/30/fu-wu-qi-bu-shu/#toc-heading-8">http://mail.zyjcould.ltd/2021/10/30/fu-wu-qi-bu-shu/#toc-heading-8</a></p>
+<p>nginx代理开启网页:<a href="http://mail.zyjcould.ltd/2021/10/30/fu-wu-qi-bu-shu/#toc-heading-8">http://mail.zyjcould.ltd/2021/10/30/fu-wu-qi-bu-shu/#toc-heading-8</a></p>
 </blockquote>
 <ul>
-<li>参考:<a target="_blank" rel="noopener" href="http://mail.zyjcould.ltd/2021/10/30/fu-wu-qi-bu-shu/#toc-heading-8">http://mail.zyjcould.ltd/2021/10/30/fu-wu-qi-bu-shu/#toc-heading-8</a></li>
+<li>参考:<a href="http://mail.zyjcould.ltd/2021/10/30/fu-wu-qi-bu-shu/#toc-heading-8">http://mail.zyjcould.ltd/2021/10/30/fu-wu-qi-bu-shu/#toc-heading-8</a></li>
 </ul>
 
                 
@@ -762,7 +766,7 @@ echo “done”<span aria-hidden="true" class="line-numbers-rows"><span></span><
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="http://zyjcould.ltd/2021/12/15/githubpages/">http://zyjcould.ltd/2021/12/15/githubpages/</a>
+                    <a href="http://mail.zyjcould.ltd/2021/12/15/githubpages/">http://mail.zyjcould.ltd/2021/12/15/githubpages/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -1574,7 +1578,7 @@ echo “done”<span aria-hidden="true" class="line-numbers-rows"><span></span><
                                     
                                         &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数
                                             :&nbsp;<span class="white-color">
-                                                114.3k
+                                                118.3k
                                             </span>
                                             
                                                 

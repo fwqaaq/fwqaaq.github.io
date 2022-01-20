@@ -33,8 +33,8 @@ wget https://nodejs.org/dist/v16.13.1/node-v16.13.1-linux-x64.tar.xz
 * 解压
 
 ```shell
-xz -d node-v9.3.0-linux-x64.tar.xz
-tar -xf node-v9.3.0-linux-x64.tar
+xz -d node-v16.13.1-linux-x64.tar.xz
+tar -xf node-v16.13.1-linux-x64.tar
 ```
 
 * 配置环境:在`/etc/profile`最后一行加入
@@ -43,6 +43,8 @@ tar -xf node-v9.3.0-linux-x64.tar
 ```shell
 export PATH=$PATH:/node-v16.13.1-linux-x64/bin
 ```
+
+* <span style="color:red">在终端输入`source /etc/profile`,使设置生效</span>
 
 * 测试
 
@@ -133,8 +135,9 @@ echo “start deployment”
 cd $WEB_PATH
 echo “fetching from remote…”
 
-git fetch –all
-git reset –hard origin/master
+git fetch --all
+git reset --hard origin/master 
+git pull
 echo “done”
 ```
 

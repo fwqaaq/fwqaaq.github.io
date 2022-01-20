@@ -11,7 +11,7 @@ summary:  vue2生命周期,内置关系
 
 ## vue的生命周期
 
-![vue生命周期](https://www.zyjcould.ltd/img/markdownlifecycle.png)
+![vue生命周期](lifestyle.png)
 
 1. ```beforeCreate```:在实例初始化之后,数据观测和时间配置之前被调用,此时的组件选项还没有被创建,el和data未初始化
 
@@ -166,7 +166,7 @@ const routes=[
 
 ## vue中重要的内置关系
 
-![vue生命周期](https://www.zyjcould.ltd/img/markdown6.vue%E7%BB%84%E4%BB%B6%E5%86%85%E7%BD%AE%E5%85%B3%E7%B3%BB.png)
+![vue生命周期](vue组件内置关系.png)
 
 > 1. 一个重要的内置关系:```VueComponent.prototype.__proto__===Vue.prototype```
 > 2. 为什么要有这个关系:让<span style="color:red">组件实例对象(vc)可以访问到Vue中的原型上的属性,方法</span>

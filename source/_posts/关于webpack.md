@@ -545,7 +545,7 @@ new VueLoaderPlugin()
 * 以上配置可以支持`App.vue`的写法
 
 > 关于编译时会出现的警告:
-> ![vue构建出现的警告](https://www.zyjcould.ltd/img/markdownVueBuildError.png)
+> ![vue构建出现的警告](markdownVueBuildError.png)
 
 * <span style="color:red">建议正确配置它们以便在最终包中获得适当的 tree-shaking</span>
 
@@ -615,7 +615,7 @@ devServer:{
     * 会生成两个文件:`.json`文件是对js需要更改的文件模块的映射
     * `.js`是更新后端文件
 
-![HMR](https://www.zyjcould.ltd/img/markdownHMR.png)
+![HMR](markdownHMR.png)
 
 ### Proxy
 

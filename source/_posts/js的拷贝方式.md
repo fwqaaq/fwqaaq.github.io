@@ -10,7 +10,7 @@ summary: js的拷贝方式
 
 ## 浅拷贝与深拷贝
 
-![浅拷贝与深拷贝](https://www.zyjcould.ltd/img/markdownjs%E6%8B%B7%E8%B4%9D.png)
+![浅拷贝与深拷贝](拷贝.png)
 
 ### 浅拷贝
 

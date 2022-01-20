@@ -30,7 +30,7 @@ summary: TS基本语法
 1. 安装```typescript,ts-node```开发依赖,```npm i typescript ts-node -D```
 2. 配置```launch.json```文件
 
->参考:<https://zyjcould.ltd/2021/11/17/diao-shi/>
+>参考:<http://mail.zyjcould.ltd/2021/11/17/diao-shi/>
 
 ## 基本语法
 

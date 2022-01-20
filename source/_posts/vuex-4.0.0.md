@@ -12,7 +12,7 @@ summary:  vue3的状态管理器
 
 ## vuex
 
-![vuex](https://www.zyjcould.ltd/img/markdownvuex.png)
+![vuex](markdownvuex.png)
 
 > 状态之间相互会存在依赖,一个状态的变化会引起另一个状态的变化,View页面也有可能会引起状态的变化,所以管理不断变化的state本身是非常困难的
 
@@ -119,7 +119,7 @@ getters:{
 })
 ```
 
-- 参考<https://zyjcould.ltd/2021/09/30/vuex-4mapstate-he-mapgetters/#toc-heading-1>
+- 参考<http://mail.zyjcould.ltd/2021/09/30/vuex4mapstate-he-mapgetters/>
 
 ## Actions
 
