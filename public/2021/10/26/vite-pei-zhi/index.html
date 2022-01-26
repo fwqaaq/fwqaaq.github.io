@@ -573,14 +573,14 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2021-11-29
+                    2022-01-20
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    356
+                    412
                 </div>
                 
 
@@ -629,6 +629,14 @@
 console.log(path.resolve(&quot;src&quot;))
 console.log(path.resolve(__dirname,&quot;src&quot;))<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
 
+<blockquote>
+<p><code>path.basename()</code>:返回路径的最后一部分. 第二个参数可以过滤掉文件的扩展名</p>
+</blockquote>
+<pre class="line-numbers language-js" data-language="js"><code class="language-js">console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>path<span class="token punctuation">.</span><span class="token function">basename</span><span class="token punctuation">(</span><span class="token string">"/source/_posts/axios.md"</span><span class="token punctuation">,</span><span class="token string">".md"</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token comment">//axios</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>path<span class="token punctuation">.</span><span class="token function">basename</span><span class="token punctuation">(</span><span class="token string">"/source/_posts/axios.md"</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token comment">//axios.md</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
 <h3 id="在tsconfig-json中配置路径别名"><a href="#在tsconfig-json中配置路径别名" class="headerlink" title="在tsconfig.json中配置路径别名"></a>在<code>tsconfig.json</code>中配置路径别名</h3><blockquote>
 <p><code>compilerOptions</code>中配置两个选项:<code>baseUrl</code>和<code>paths</code></p>
 </blockquote>
@@ -653,10 +661,10 @@ console.log(path.resolve(__dirname,&quot;src&quot;))<span aria-hidden="true" cla
 <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <ul>
-<li><p>在src下目录开始查找</p>
-</li>
-<li><p>在<code>resolve</code>属性的<code>alias</code>配置别名</p>
-</li>
+<li>在src下目录开始查找</li>
+</ul>
+<h3 id="在vite-config-ts配置别名"><a href="#在vite-config-ts配置别名" class="headerlink" title="在vite.config.ts配置别名"></a>在<code>vite.config.ts</code>配置别名</h3><ul>
+<li>在<code>resolve</code>属性的<code>alias</code>配置别名</li>
 </ul>
 <pre class="line-numbers language-ts" data-language="ts"><code class="language-ts">resolve: &#123;
   alias: &#123;
@@ -1529,7 +1537,7 @@ console.log(path.resolve(__dirname,&quot;src&quot;))<span aria-hidden="true" cla
                                     
                                         &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数
                                             :&nbsp;<span class="white-color">
-                                                118.3k
+                                                126.3k
                                             </span>
                                             
                                                 

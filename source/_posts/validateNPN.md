@@ -2,10 +2,11 @@
 title: validateNPN
 date: 2022-01-02 21:04:36
 author: Jack-zhang
-categories: config
+categories: sourceCode
 tags:
    - JS
    - config
+   - sourceCode
 summary: 检测npm包是否符合标准
 ---
 

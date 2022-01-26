@@ -2,9 +2,10 @@
 title: remoteGitTags
 date: 2021-12-31 14:05:03
 author: Jack-zhang
-categories: git
+categories: sourceCode
 tags:
    - git
+   - sourceCode
 summary: 获取远程仓库的标签
 ---
 

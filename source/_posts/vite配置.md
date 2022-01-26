@@ -27,6 +27,15 @@ console.log(path.resolve("src"))
 console.log(path.resolve(__dirname,"src"))
 ```
 
+> `path.basename()`:返回路径的最后一部分. 第二个参数可以过滤掉文件的扩展名
+
+```js
+console.log(path.basename("/source/_posts/axios.md",".md"))
+//axios
+console.log(path.basename("/source/_posts/axios.md"))
+//axios.md
+```
+
 ### 在`tsconfig.json`中配置路径别名
 
 > `compilerOptions`中配置两个选项:`baseUrl`和`paths`
@@ -50,6 +59,8 @@ console.log(path.resolve(__dirname,"src"))
 ```
 
 * 在src下目录开始查找
+
+### 在`vite.config.ts`配置别名
 
 * 在`resolve`属性的`alias`配置别名
 
