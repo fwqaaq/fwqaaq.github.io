@@ -573,21 +573,21 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2021-10-27
+                    2022-01-28
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    1.5k
+                    2.1k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    6 分
+                    8 分
                 </div>
                 
 
@@ -669,7 +669,7 @@ max_line_length = off
 trim_trailing_whitespace = false<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <h2 id="prettier工具"><a href="#prettier工具" class="headerlink" title="prettier工具"></a><a href="#prettier%E5%B7%A5%E5%85%B7">prettier工具</a></h2><blockquote>
-<p>说明:一款强大的代码格式化工具，支持 <code>JavaScript</code>,<code>TypeScript</code>,<code>CSS</code>,<code>SCSS</code>,<code>Less</code>,<code>JSX</code>,<code>Angular</code>,<code>Vue</code>,<code>GraphQL</code>,<code>JSON</code>,<code>Markdown</code> 等语言</p>
+<p>说明:一款强大的代码格式化工具,支持 <code>JavaScript</code>,<code>TypeScript</code>,<code>CSS</code>,<code>SCSS</code>,<code>Less</code>,<code>JSX</code>,<code>Angular</code>,<code>Vue</code>,<code>GraphQL</code>,<code>JSON</code>,<code>Markdown</code> 等语言</p>
 </blockquote>
 <ul>
 <li>vue脚手架并不会集成<code>prettier</code>插件,要自己安装<ul>
@@ -686,27 +686,27 @@ trim_trailing_whitespace = false<span aria-hidden="true" class="line-numbers-row
 </thead>
 <tbody><tr>
 <td>useTabs</td>
-<td>使用tab缩进还是空格缩进，选择false</td>
+<td>使用tab缩进还是空格缩进,选择false</td>
 </tr>
 <tr>
 <td>tabWidth</td>
-<td>tab是空格的情况下，是几个空格，选择2个</td>
+<td>tab是空格的情况下,是几个空格,选择2个</td>
 </tr>
 <tr>
 <td>printWidth</td>
-<td>当行字符的长度，推荐80</td>
+<td>当行字符的长度,推荐80</td>
 </tr>
 <tr>
 <td>singleQuote</td>
-<td>使用单引号还是双引号，选择true，使用单引号</td>
+<td>使用单引号还是双引号,选择true,使用单引号</td>
 </tr>
 <tr>
 <td>trailingComma</td>
-<td>在多行输入的尾逗号是否添加，设置为 <code>none</code></td>
+<td>在多行输入的尾逗号是否添加,设置为 <code>none</code></td>
 </tr>
 <tr>
 <td>semi</td>
-<td>语句末尾是否要加分号，默认值true，选择false表示不加</td>
+<td>语句末尾是否要加分号,默认值true,选择false表示不加</td>
 </tr>
 </tbody></table>
 <pre class="line-numbers language-json" data-language="json"><code class="language-json"><span class="token punctuation">&#123;</span>
@@ -756,13 +756,13 @@ trim_trailing_whitespace = false<span aria-hidden="true" class="line-numbers-row
 
 <h2 id="git-Husky和eslint"><a href="#git-Husky和eslint" class="headerlink" title="git Husky和eslint"></a><a href="#git-husky%E5%92%8Ceslint">git Husky和eslint</a></h2><blockquote>
 <ul>
-<li>说明husky是一个git hook工具，可以帮助我们触发git提交的各个阶段：<code>pre-commit</code>,<code>commit-msg</code>,<code>pre-push</code></li>
-<li>项目虽然使用eslint了，但是不能保证组员提交代码之前都将<code>eslint</code>中的问题解决掉</li>
+<li>说明husky是一个git hook工具,可以帮助我们触发git提交的各个阶段：<code>pre-commit</code>,<code>commit-msg</code>,<code>pre-push</code></li>
+<li>项目虽然使用eslint了,但是不能保证组员提交代码之前都将<code>eslint</code>中的问题解决掉</li>
 </ul>
 </blockquote>
 <ul>
 <li>保证代码仓库中的代码都是符合eslint规范</li>
-<li>在组员执行 <code>git commit</code> 命令的时候对其进行校验，如果不符合eslint规范，那么自动通过规范进行修复</li>
+<li>在组员执行 <code>git commit</code> 命令的时候对其进行校验,如果不符合eslint规范,那么自动通过规范进行修复</li>
 </ul>
 <ol>
 <li>安装相关依赖:<code>npm install husky -D</code></li>
@@ -788,17 +788,28 @@ trim_trailing_whitespace = false<span aria-hidden="true" class="line-numbers-row
 <p>说明:<code>Commitizen</code> 是一个帮助我们编写规范 <code>commit message</code> 的工具</p>
 </blockquote>
 <ul>
-<li>git commit会按照统一的风格来提交，这样可以快速定位每次提交的内容，方便之后对版本进行控制</li>
+<li>git commit会按照统一的风格来提交,这样可以快速定位每次提交的内容,方便之后对版本进行控制</li>
 </ul>
 <ol>
-<li>安装相关依赖:<code>npm install commitizen -D</code></li>
+<li>安装相关依赖:<code>npm install commitizen -g</code>(产生两个命令行工具)<ul>
+<li><code>cz</code>:根据约定用于提交,如果是<code>-g</code>,可以使用<code>git-cz</code></li>
+<li><code>git-cz</code>是<code>cz</code>的别名</li>
+<li><code>commitizen</code>:将适配器安装到项目中</li>
+</ul>
+</li>
+<li>详细的使用方法:<code>commitizen init &lt; adapter-npm-name &gt; (args)</code><ul>
+<li>从npm安装一个commizen适配器,并将其添加到你的<code>package.json</code></li>
+</ul>
+</li>
 <li>安装<code>cz-conventional-changelog</code>并且初始化<code>cz-conventional-changelog</code></li>
 </ol>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">npx commitizen init cz-conventional-changelog --save-dev --save-exact<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">npx commitizen init cz-conventional-changelog --save-dev --save-exact
+# --save-exact固定依赖包的版本,不要带^或~,避免出现小版本<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 
 <ul>
-<li>这个命令会帮助我们安装<code>cz-conventional-changelog</code>依赖</li>
-<li>并且在 <code>package.json</code>中进行配置</li>
+<li>在项目中安装<code>cz-conventional-changelog</code> 适配器依赖</li>
+<li>将适配器依赖保存到<code>package.json</code>的<code>devDependencies</code>字段信息</li>
+<li>在<code>package.json</code>中新增<code>config.commitizen</code>字段信息,主要用于配置cz工具的适配器路径</li>
 <li><img src="commit%E8%A7%84%E8%8C%83.jpg" alt="配置生成"></li>
 </ul>
 <h4 id="使用命令以及配置脚本"><a href="#使用命令以及配置脚本" class="headerlink" title="使用命令以及配置脚本"></a>使用命令以及配置脚本</h4><ul>
@@ -809,89 +820,133 @@ trim_trailing_whitespace = false<span aria-hidden="true" class="line-numbers-row
 </li>
 </ul>
 <h4 id="commit-message的选项"><a href="#commit-message的选项" class="headerlink" title="commit message的选项"></a><a href="#commit-message%E7%9A%84%E9%80%89%E9%A1%B9">commit message的选项</a></h4><blockquote>
-<p>选项一:本次更新的类型</p>
+<ul>
+<li>选项一:本次更新的类型(Select the type of change that you’re committing)</li>
+<li>选项二:本次修改的范围,可以事先约定好,例如:<code>login</code>,<code>main</code>等(What is the scope of this change)</li>
+<li>选项三:提交的信息(Write a short, imperative tense description of the change)</li>
+<li>选项四:提交详细的描述信息(Provide a longer description of the change)</li>
+<li>选项五:是否为一次重大的更改(Are there any breaking changes)</li>
+<li>选项六:是否影响到某个为解决的问题(Does this change affect any open issues)</li>
+</ul>
 </blockquote>
+<h5 id="git提交结构"><a href="#git提交结构" class="headerlink" title="git提交结构"></a>git提交结构</h5><blockquote>
+<p>git提交说明可以分成三个部分<strong>Header</strong>,<strong>Body</strong>(commit的详细描述,说明代码提交的详细说明) 和 <strong>Footer</strong></p>
+</blockquote>
+<h6 id="Header"><a href="#Header" class="headerlink" title="Header"></a>Header</h6><blockquote>
+<p><strong>Header</strong>部分包括三个字段<strong>type</strong>(必需),<strong>scope</strong>(可选)和<strong>subject</strong>(必需)</p>
+</blockquote>
+<ul>
+<li><strong>Type</strong>:用于说明commit的提交性质</li>
+</ul>
 <table>
 <thead>
 <tr>
 <th>Type</th>
 <th>作用</th>
+<th>解释</th>
 </tr>
 </thead>
 <tbody><tr>
 <td><code>feat</code></td>
-<td>新增特性 (feature)</td>
+<td>新增特性</td>
+<td>(feature)</td>
 </tr>
 <tr>
 <td><code>fix</code></td>
-<td>修复 Bug(bug fix)</td>
+<td>修复</td>
+<td>Bug(bug fix)</td>
 </tr>
 <tr>
 <td><code>docs</code></td>
-<td>修改文档 (documentation)</td>
+<td>修改文档</td>
+<td>(documentation)</td>
 </tr>
 <tr>
 <td><code>style</code></td>
-<td>代码格式修改(white-space, formatting, missing semi colons, etc)</td>
+<td>代码格式修改</td>
+<td>(white-space, formatting, missing semi colons, etc)</td>
 </tr>
 <tr>
 <td><code>refactor</code></td>
-<td>代码重构(refactor)</td>
+<td>代码重构</td>
+<td>(refactor)</td>
 </tr>
 <tr>
 <td><code>perf</code></td>
-<td>改善性能(A code change that improves performance)</td>
+<td>改善性能</td>
+<td>(A code change that improves performance)</td>
 </tr>
 <tr>
 <td><code>test</code></td>
-<td>测试(when adding missing tests)</td>
+<td>测试</td>
+<td>(when adding missing tests)</td>
 </tr>
 <tr>
 <td><code>build</code></td>
-<td>变更项目构建或外部依赖（例如 scopes: webpack、gulp、npm 等）</td>
+<td>变更项目构建或外部依赖</td>
+<td>（例如 scopes: webpack、gulp、npm 等）</td>
 </tr>
 <tr>
 <td><code>ci</code></td>
-<td>更改持续集成软件的配置文件和 package 中的 scripts 命令，例如 scopes: Travis, Circle 等</td>
+<td>更改持续集成软件的配置文件和package中的scripts</td>
+<td>例如 scopes: Travis, Circle 等</td>
 </tr>
 <tr>
 <td><code>chore</code></td>
-<td>变更构建流程或辅助工具(比如更改测试环境)</td>
+<td>变更构建流程或辅助工具</td>
+<td>(比如更改测试环境)</td>
 </tr>
 <tr>
 <td><code>revert</code></td>
 <td>代码回退</td>
+<td></td>
 </tr>
 </tbody></table>
-<blockquote>
 <ul>
-<li>选项二:本次修改的范围</li>
-<li>可以事先约定好,例如:<code>login</code>,<code>main</code>等</li>
-<li>选项三:提交的信息</li>
-<li>选项四:提交详细的描述信息</li>
-<li>选项五:是否为一次重大的更改</li>
-<li>选项六:是否影响到某个为解决的问题</li>
+<li><strong>scope</strong>:说明commit影响的范围.scope依据项目而定,例如在业务项目中可以依据菜单或者功能模块划分,如果是组件库开发,则可以依据组件划分<ul>
+<li><code>scope</code>可以省略</li>
 </ul>
+</li>
+<li><strong>subject</strong>:是对<code>commit</code>的简短描述</li>
+</ul>
+<h6 id="Footer"><a href="#Footer" class="headerlink" title="Footer"></a>Footer</h6><blockquote>
+<p>如果代码的提交是不兼容变更或关闭缺陷,则Footer必需,否则可以省略。</p>
 </blockquote>
-<h3 id="代码的提交验证"><a href="#代码的提交验证" class="headerlink" title="代码的提交验证"></a><a href="#%E4%BB%A3%E7%A0%81%E7%9A%84%E6%8F%90%E4%BA%A4%E9%AA%8C%E8%AF%81">代码的提交验证</a></h3><blockquote>
+<ul>
+<li><strong>不兼容变更</strong>:当前代码与上一个版本不兼容,则Footer以<code>BREAKING CHANGE</code>开头,后面是对变动的描述,以及变动的理由和迁移方法。</li>
+<li><strong>关闭缺陷</strong>:如果当前提交是针对特定的issue,那么可以在Footer部分填写需要关闭的单个 issue 或一系列issues</li>
+</ul>
+<h4 id="commitizen代码的提交验证"><a href="#commitizen代码的提交验证" class="headerlink" title="commitizen代码的提交验证"></a><a href="#commitizen%E4%BB%A3%E7%A0%81%E7%9A%84%E6%8F%90%E4%BA%A4%E9%AA%8C%E8%AF%81">commitizen代码的提交验证</a></h4><blockquote>
 <p>说明:如果<code>git commit</code> 按照不规范的格式提交,可以通过commitlint来限制提交</p>
 </blockquote>
 <ol>
-<li>安装依赖:<ul>
+<li><p>安装依赖:</p>
+<ul>
 <li><code>npm i @commitlint/config-conventional @commitlint/cli -D</code></li>
 </ul>
 </li>
-<li>在根目录创建<code>commitlint.config.js</code>文件，配置<code>commitlint</code>:</li>
-</ol>
+<li><p>在根目录创建<code>commitlint.config.js</code>文件,配置<code>commitlint</code>:</p>
 <pre class="line-numbers language-js" data-language="js"><code class="language-js">module<span class="token punctuation">.</span>exports <span class="token operator">=</span> <span class="token punctuation">&#123;</span>
   <span class="token keyword">extends</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">'@commitlint/config-conventional'</span><span class="token punctuation">]</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-
-<ol start="3">
-<li>使用husky生成<code>commit-msg</code>文件，验证提交信息</li>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre></li>
+<li><p>使用husky生成<code>commit-msg</code>文件,验证提交信息</p>
+</li>
 </ol>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">npx husky add .husky&#x2F;commit-msg &quot;npx --no-install commitlint --edit $1&quot;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
+<h4 id="Commitizen日志"><a href="#Commitizen日志" class="headerlink" title="Commitizen日志"></a><a href="#Commitizen%E6%97%A5%E5%BF%97">Commitizen日志</a></h4><blockquote>
+<p>如果使用了以上的工具集,那么就可以使用<code>conventional-changelog-cli</code>快速生成开发日志</p>
+</blockquote>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">npm install conventional-changelog-cli -g<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<ul>
+<li>在<code>package.json</code>脚本中添加日志命令</li>
+</ul>
+<pre class="line-numbers language-json" data-language="json"><code class="language-json"><span class="token property">"version"</span><span class="token operator">:</span> <span class="token string">"conventional-changelog -p angular -i CHANGELOG.md -s -r 0 &amp;&amp; git add CHANGELOG.md"</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<blockquote>
+<p>执行<code>npm run version</code>后可查看产生的日志<strong>CHANGELOG.md</strong><br><span style="color:red">注意要使用正确的Header的type,否则生成的日志会不准确,这里只是一个示例,生成的日志不是很严格</span></p>
+</blockquote>
 <h2 id="生产环境-开发环境-测试环境"><a href="#生产环境-开发环境-测试环境" class="headerlink" title="生产环境,开发环境,测试环境"></a><a href="#%E7%94%9F%E4%BA%A7%E7%8E%AF%E5%A2%83%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E6%B5%8B%E8%AF%95%E7%8E%AF%E5%A2%83">生产环境,开发环境,测试环境</a></h2><ul>
 <li>根据<code>process.env.NODE_ENV</code>区分<ul>
 <li>开发环境: <code>development</code></li>
@@ -1783,7 +1838,7 @@ export &#123; BASE_URL, TIME_OUT &#125;<span aria-hidden="true" class="line-numb
                                     
                                         &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数
                                             :&nbsp;<span class="white-color">
-                                                126.3k
+                                                130.8k
                                             </span>
                                             
                                                 

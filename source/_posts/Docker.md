@@ -4,7 +4,6 @@ date: 2022-01-21 11:20:30
 author: Jack-zhang
 categories: config
 tags:
-   - JS
    - Docker
    - config
 summary: docker的简单应用
