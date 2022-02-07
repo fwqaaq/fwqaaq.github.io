@@ -854,3 +854,275 @@ docker run -it --name centos02 --net mynet centos
 ```
 
 * <span style="color:red">在tomcat01中可以ping通mynet网中的任意一个容器</sapn>
+
+## [Docker Compose](https://docs.docker.com/compose/)
+
+>Compose 适用于所有环境：生产、登台、开发、测试以及 CI 工作流程。您可以在常见用例中了解有关每个案例的更多信息。
+
+* 使用 Compose 基本上是一个三步过程：
+   1. 定义您的应用程序的环境，Dockerfile以便可以在任何地方复制它。
+   2. 定义构成您的应用程序的服务，`docker-compose.yml` 以便它们可以在隔离环境中一起运行。
+   3. 运行`docker compose up`，**Docker compose 命令**启动并运行您的整个应用程序。docker-compose up也可以使用二进制`docker-compose`文件运行。
+
+* `docker-compose.yml`看起来像这样：
+
+```yml
+version: "3.9"  # optional since v1.27.0
+services:
+  web:
+    build: .
+    ports:
+      - "5000:5000"
+    volumes:
+      - .:/code
+      - logvolume01:/var/log
+    links:
+      - redis
+  redis:
+    image: redis
+volumes:
+  logvolume01: {}
+```
+
+### 安装
+
+> windows
+
+* Docker Desktop for Windows包括 Compose 以及其他 Docker 应用程序，因此大多数 Windows 用户不需要单独安装 Compose
+
+>Linux
+
+```shell
+# 使用国内的地址
+curl -L "https://get.daocloud.io/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+```
+
+* 对二进制文件应用可执行权限:`chmod +x /usr/local/bin/docker-compose`
+* 测试安装`docker-compose --version`
+
+>官网的流程
+
+1. 一个应用`app.py`
+2. `Dockerfile`应用打包为镜像
+3. `Docker-compose.yaml`文件:定义整个服务需要的环境.web,redis.完整的上线服务
+4. 启动`docker-compose up`
+
+```shell
+Creating composetest_web_1   ... done
+Creating composetest_redis_1 ... done
+```
+
+>docker执行的流程
+
+1. 创建网络
+2. 执行`Docker-compose.yaml`
+3. 启动服务
+   * 根据文件名`composetest`创建服务
+
+   ```yaml
+   version: "3.9"
+   services:
+     web:
+       build: .
+       ports:
+         - "5000:5000"
+     redis:
+       image: "redis:alpine"
+   ```
+
+### yaml配置
+
+>* 第一层,`version`:编写文件格式对应的[`docker engine`](https://docs.docker.com/compose/compose-file/compose-file-v3/)
+>* 第二层.`services`:编写文件对应的服务(可以无限往下写)
+
+```yaml
+services:
+  web:
+    build: .
+    ports:
+      - "5000:5000"
+    images:
+    ...
+  redis:
+    image: "redis:alpine"
+    ...
+  ...  
+```
+
+>* 第三层:其它配置,网络卷,全局规则
+
+```yaml
+volumes:
+networks:
+configs:
+```
+
+#### 每个服务里的编写规则
+
+>`build`用于服务中构建项目
+
+1. `content`:指定为包含构建上下文路径的字符串
+2. `dockerfile`:指定在上下文中可选的`Dockerfile`
+3. `image: webapp:tag`:生成一个名为webapp并标记为tag的镜像
+4. `cache_from`:用于解析缓存的镜像
+
+   ```yaml
+   build:
+     context: .
+     cache_from:
+       - alpine:latest
+       - corp/web_app:3.14
+   ```
+
+5. `network`RUN在构建期间设置容器连接网络(如果是none,则禁止网络)
+
+> `command`:
+
+1. 覆盖默认命令:`command: bundle exec thin -p 3000`
+2. 该命令也可以是一个列表:`command: ["bundle", "exec", "thin", "-p", "3000"]`
+
+>`container_name: my-web-container`指定容器名称
+
+* 容器名称必须是唯一的，因此如果您指定了自定义名称，则无法将服务扩展到超过 1 个容器
+
+>`depends_on`:表达服务之间的依赖关系(<span style="color:red">yml中的文件从下往上依次执行,要注意顺序</span>)
+
+```yml
+depends_on:
+  - db
+  - redis
+```
+
+> `deploy`:与集群相关的部署
+
+* 参考:<https://docs.docker.com/compose/compose-file/compose-file-v3/#deploy>
+  
+> `entrypoint`:默认进入容器的入口
+
+1. 终端形式:`entrypoint:/code/entrypoint.sh`
+2. 列表:`entrypoint: ["php", "-d", "memory_limit=-1", "vendor/bin/phpunit"]`
+
+>`environment`:环境变量,可以设置数据库账号密码等
+
+1. 如果您的服务指定了构建environment选项，则在构建期间定义的变量 不会自动可见。
+2. 使用 args子选项build定义构建的环境变量.可以直接在这里获取
+
+```yml
+environment:
+  - RACK_ENV=development
+  - SHOW=true # 布尔值不会被编译
+  - SESSION_SECRET # 从args获取
+```
+
+>`expose`:公开端口而不将它们发布到主机 - 它们只能被链接服务访问。只能指定内部端口
+
+```yml
+expose:
+  - "3000"
+  - "8000"
+```
+
+>`images`:指定启动容器的镜像。可以是`存储库/标签`或`镜像ID`
+
+```yml
+image: ubuntu:18.04
+image: a4bc65fd
+```
+
+>`networks`:要加入的网络，引用顶级`networkskey`下的条目
+
+```yml
+services:
+  some-service:
+    networks:
+     - some-network
+     - other-network
+```
+
+>`ports`:映射的端口号.如果有这个network_mode: host`,不会启用
+
+1. 指定两个端口 (HOST:CONTAINER)
+2. 仅指定容器端口(为主机端口选择一个临时主机端口)
+3. 指定要绑定到两个端口的主机 IP 地址（默认为 0.0.0.0，表示所有接口）：( IPADDR:HOSTPORT:CONTAINERPORT)。如果 HOSTPORT 为空（例如127.0.0.1::80），则选择一个临时端口来绑定到主机上
+
+* **使用长语法**:长格式语法允许配置无法以短格式表示的附加字段。
+  1. `target`: 容器内的端口
+  2. `published`: 公开的端口
+  3. `protocol`：端口协议（tcp或udp）
+  4. `mode`：host用于在每个节点上发布主机端口，或ingress用于集群模式端口进行负载平衡
+
+```yml
+ports:
+  - target: 80
+    published: 8080
+    protocol: tcp
+    mode: host
+```
+
+> `restart`:什么情况下重启项目
+
+1. `no`:默认的重启策略，在任何情况下都不重启容器。
+2. `always`:容器总是重新启动。
+3. `on-failure`:如果退出代码指示出现故障错误，则该 策略会重新启动容器。
+4. `unless-stopped`:总是重新启动容器，除非容器停止（手动或其他方式）
+
+>`volumes`可以将主机路径挂载为单个服务定义的一部分，无需在顶级(第三层)volumes键中定义它
+
+1. type: 挂载类型volume, bind,tmpfs或npipe
+2. source: 挂载的来源，主机上用于绑定挂载的路径，或者在 顶级volumeskey中定义的卷的名称。不适用于 tmpfs 挂载。
+3. target: 容器中安装卷的路径
+4. read_only: 将卷设置为只读的标志
+5. bind: 配置额外的绑定选项
+   * propagation：用于绑定的传播模式
+6. volume：配置额外的音量选项
+   * nocopy: 创建卷时禁止从容器复制数据的标志
+7. tmpfs: 配置额外的 tmpfs 选项
+   * size: tmpfs 挂载的大小（以字节为单位）
+
+```yml
+volumes:
+  - type: volume
+    source: mydata
+    target: /data
+    volume:
+      nocopy: true
+  - type: bind
+    source: ./static
+    target: /opt/app/static
+```
+
+* **短语法**:直接使用短语挂载`data-volume:/var/lib/backup/data`
+
+#### network配置
+
+```yaml
+networks:
+  network1:
+    ...
+  network2:
+    ...
+  ...  
+```
+
+>[`driver`](https://docs.docker.com/compose/compose-file/compose-file-v3/#host-or-none):指定应为此网络使用的驱动程序
+
+1. `bridge`:桥接模式(docker默认)
+2. `overlay`:参考文档
+3. `host`和`none`:和主机共享网络或者不配置网络
+
+>`external`:如果设置为true，则指定此网络是在 Compose 之外创建的
+
+```yml
+networks:
+  outside:
+    external: true
+```
+
+>`name`:为此网络设置自定义名称
+
+```yaml
+# 不创建新网络,加入已存在的网络
+networks:
+  network1: true
+  name: my-app-net
+```

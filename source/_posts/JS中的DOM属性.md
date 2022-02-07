@@ -334,11 +334,11 @@ console.log(box1.innerHTML);// <div> 内容</div>:标签以及内容
 
 * 语法：```元素.style.样式名=样式值```
 * <span style="color:red">注意:</span>
-  1. 如果css的样式中含有-,
-  2. 这种名称再JS中是不合法的：比如background-color
+  1. 如果css的样式中含有`-`,
+  2. 这种名称再JS中是不合法的：比如`background-color`
   3. 需要将这种样式修改为驼峰命名法:去掉-,然后将-后的字母大写
   4. <span style="color:red">通过stytle属性设置的样式都是内联式:而内联式样式有较高的优先级,所以通过JS修改的样式往往会立即显示</span>
-  5. 如果样式中写了!important,则此时样式会有最高的优先级,即使通过JS也不能覆盖改样式,此时会导致JS修改样式失效,所以尽量不要为样式添加```!important```
+  5. 如果样式中写了`!important`,则此时样式会有最高的优先级,即使通过JS也不能覆盖改样式,此时会导致JS修改样式失效,所以尽量不要为样式添加```!important```
 
 * ```getComputedStyle()```:这个方法来获取元素当前的样式,这个方法是window的方法,可以直接使用
 * 需要两个参数：

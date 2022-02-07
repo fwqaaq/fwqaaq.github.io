@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    :root {
+      --main-bg-color: black;
+    }
+
+    body {
+      background-color: var(--main-bg-color);
+    }
+
+    .box {
+      width: 200px;
+      height: 200px;
+      --bg-color: green;
+      background-color: var(--bg-color);
+    }
+  </style>
+</head>
+
+<body>
+  <div class="box">
+
+  </div>
+  <script>
+    let box = document.querySelector('.box');
+    box.style.width = "300px";
+    console.log(getComputedStyle(box).width);
+  </script>
+</body>
+
+</html>

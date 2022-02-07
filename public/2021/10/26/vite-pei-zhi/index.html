@@ -573,21 +573,21 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2022-01-20
+                    2022-02-06
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    412
+                    2k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    1 分
+                    8 分
                 </div>
                 
 
@@ -615,7 +615,190 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="关于别名的配置"><a href="#关于别名的配置" class="headerlink" title="关于别名的配置"></a>关于别名的配置</h2><h3 id="使用node中的路径模块"><a href="#使用node中的路径模块" class="headerlink" title="使用node中的路径模块"></a>使用node中的路径模块</h3><blockquote>
+                <h2 id="共享配置"><a href="#共享配置" class="headerlink" title="共享配置"></a>共享配置</h2><h3 id="基础配置"><a href="#基础配置" class="headerlink" title="基础配置"></a>基础配置</h3><blockquote>
+<p><code>defineConfig</code>,通过vite的智能提示实现vite的智能提示</p>
+</blockquote>
+<ul>
+<li><span style="color:yellow">提示</span>:也可所以使用<code>jsDoc</code>或者<code>tsDoc</code></li>
+</ul>
+<pre class="line-numbers language-ts" data-language="ts"><code class="language-ts">import &#123; defineConfig &#125; from &#39;vite&#39;
+
+export default defineConfig(&#123;
+  &#x2F;&#x2F; ...
+&#125;)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<ul>
+<li><p><code>root</code>:项目根目录所在的位置(即<code>index.html</code>所在的位置).默认是<code>process.cwd()</code></p>
+</li>
+<li><p><code>base</code>:开发或者生产环境的公共基础路径.默认值是<code>/</code></p>
+<ul>
+<li>一般开发环境使用<code>./</code>(linux中只有这一种的相对路径)</li>
+</ul>
+</li>
+<li><p><code>plugins</code>:需要用到的插件数组</p>
+ <pre class="line-numbers language-ts" data-language="ts"><code class="language-ts">plugins: [vue()],<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></li>
+<li><p><code>publicDir</code>:设置静态资源服务的文件夹.一般为<code>public</code>,如果为<code>false</code>不会生成静态资源到<code>outDir</code>(一般是<code>dist</code>目录)根目录中.可以是相对路径也可以是绝对路径</p>
+</li>
+<li><p><code>extensions</code>:导入时省略的扩展名列表(import 导入包的时候不需要带后缀)</p>
+<ul>
+<li>默认:`[‘.mjs’, ‘.js’, ‘.ts’, ‘.jsx’, ‘.tsx’, ‘.json’]</li>
+<li>不建议自定义导入类型的扩展名例如<code>.vue</code></li>
+</ul>
+</li>
+</ul>
+<h3 id="配置css"><a href="#配置css" class="headerlink" title="配置css"></a>配置css</h3><h4 id="配置css预设"><a href="#配置css预设" class="headerlink" title="配置css预设"></a>配置css预设</h4><blockquote>
+<p>只需要下载预设,vite会自动集成配置,不需要像<code>webpack</code>一样需要<code>css-loader</code>,<code>style-loader</code>配置</p>
+</blockquote>
+<ul>
+<li>直接使用npm下载<code>npm i scss -D</code>之后就可以直接使用,<code>less</code>等也都一样</li>
+</ul>
+<blockquote>
+<p>处理css预处理的选项(到scss或者less等其它官网找到配置)</p>
+</blockquote>
+<pre class="line-numbers language-js" data-language="js"><code class="language-js">css<span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+  preprocessorOptions<span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+    scss<span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+      additionalData<span class="token operator">:</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">$injectedColor: orange;</span><span class="token template-punctuation string">`</span></span>
+    <span class="token punctuation">&#125;</span>
+  <span class="token punctuation">&#125;</span>
+ <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h4 id="配置css模块"><a href="#配置css模块" class="headerlink" title="配置css模块"></a>配置css模块</h4><blockquote>
+<p><code>css.modules</code>的配置会传递给<code>postcss.modules</code></p>
+</blockquote>
+<pre class="line-numbers language-js" data-language="js"><code class="language-js">css<span class="token operator">:</span><span class="token punctuation">&#123;</span>
+  modules<span class="token operator">:</span><span class="token punctuation">&#123;</span>
+    <span class="token comment">// 是否使用 hash</span>
+    generateScopedName<span class="token operator">:</span> <span class="token string">'[name]__[local]___[hash:base64:5]'</span><span class="token punctuation">,</span>
+    hashPrefix<span class="token operator">:</span> <span class="token string">'prefix'</span>
+  <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<ul>
+<li><code>hash配置的参考</code>:<a target="_blank" rel="noopener" href="https://github.com/webpack/loader-utils#interpolatename">https://github.com/webpack/loader-utils#interpolatename</a></li>
+<li>样式文件名必须是<code>XXX.module.css[less,scss,style等]</code>,否则不生效的</li>
+</ul>
+<h4 id="关于css-postcss配置"><a href="#关于css-postcss配置" class="headerlink" title="关于css.postcss配置"></a>关于css.postcss配置</h4><blockquote>
+<p>vite滋生已经集成<code>postcss</code>,无需再次安装.并且也无需单独创建postcss文件,已经集成到<code>vit.config.ts</code>中.vite会自动在<code>*.vue</code>中所有的style标签以及所有导入到<code>.css</code>文件中应用postcss</p>
+</blockquote>
+<ol>
+<li>使用配置文件<code>postcss.config.js</code>,默认基于项目根目录</li>
+<li>使用内联的<code>postcss</code>,格式于<code>postcss.config.js</code>一样</li>
+</ol>
+<blockquote>
+<p>PostCSS插件:嵌套CSS样式写法解决方案</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>插件</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>postcss-import</td>
+<td>支持@import写法</td>
+</tr>
+<tr>
+<td>postcss-url</td>
+<td>支持@url写法</td>
+</tr>
+<tr>
+<td>postcss-bem</td>
+<td>支持BEM元素规则命名</td>
+</tr>
+<tr>
+<td>postcss-nested</td>
+<td>支持类选择器嵌套写法,模拟SASS嵌套选择器写法.</td>
+</tr>
+<tr>
+<td>postcss-nesting</td>
+<td>支持符合W3C规范的嵌套类选择器写法</td>
+</tr>
+<tr>
+<td>postcss-simple-vars</td>
+<td>支持变量</td>
+</tr>
+<tr>
+<td>postcss-advanced-variables</td>
+<td>支持类似SASS自定义变量并引用,实现编写变量,条件,循环.</td>
+</tr>
+<tr>
+<td>postcss-preset-env</td>
+<td>支持变量运算</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>PostCSS插件:H5移动端屏幕适用性解决方案</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>插件</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>cssnano</td>
+<td>优化和压缩CSS,已包含autoprefixer插件.</td>
+</tr>
+<tr>
+<td>postcss-aspect-ratio-mini</td>
+<td>容器比匹配</td>
+</tr>
+<tr>
+<td>postcss-cssnext</td>
+<td>实现嵌套编程</td>
+</tr>
+<tr>
+<td>postcss-px-to-viewport</td>
+<td>将px转换为vw以适应各种屏幕</td>
+</tr>
+<tr>
+<td>postcss-write-svg</td>
+<td>1px细线的绘制</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>PostCSS通过@import将样式表合并到一起,当需要通过@import将第三方类库导入到主样式表时,首先需要运行的是@import插件.</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>插件</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>postcss-import</td>
+<td>支持通过内联内容来转换@import规则</td>
+</tr>
+<tr>
+<td>postcss-partial-import</td>
+<td>让CSS文件支持@import语法,支持W3C的写法,也支持SASS写法.</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>浏览器自动添加前缀<code>autoprefixer</code></p>
+</blockquote>
+<ol>
+<li><p>使用内联的方式,首先下载<code>autoprefixer</code>添加到项目中</p>
+<pre class="line-numbers language-ts" data-language="ts"><code class="language-ts">css:&#123;
+  postcss: &#123;
+    plugins: [autoprefixer()]
+  &#125;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+<li><p>在根目录创建文件<code>.browserslistrc</code>添加浏览器适配</p>
+</li>
+</ol>
+<pre class="line-numbers language-.browserslistrc" data-language=".browserslistrc"><code class="language-.browserslistrc">defaults
+not ie &lt; 11
+last 2 versions
+&gt; 1%
+iOS 7
+last 3 iOS versions<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="关于别名的配置"><a href="#关于别名的配置" class="headerlink" title="关于别名的配置"></a>关于别名的配置</h3><h4 id="使用node中的路径模块"><a href="#使用node中的路径模块" class="headerlink" title="使用node中的路径模块"></a>使用node中的路径模块</h4><blockquote>
 <ul>
 <li><code>path</code>模块中的<code>resolve</code>方法,用于获取目录的路径.</li>
 <li>可以传任意多的字符,返回一个绝对路径地址</li>
@@ -637,12 +820,12 @@ console.log(path.resolve(__dirname,&quot;src&quot;))<span aria-hidden="true" cla
 console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>path<span class="token punctuation">.</span><span class="token function">basename</span><span class="token punctuation">(</span><span class="token string">"/source/_posts/axios.md"</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
 <span class="token comment">//axios.md</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
 
-<h3 id="在tsconfig-json中配置路径别名"><a href="#在tsconfig-json中配置路径别名" class="headerlink" title="在tsconfig.json中配置路径别名"></a>在<code>tsconfig.json</code>中配置路径别名</h3><blockquote>
+<h4 id="在tsconfig-json中配置路径别名"><a href="#在tsconfig-json中配置路径别名" class="headerlink" title="在tsconfig.json中配置路径别名"></a>在<code>tsconfig.json</code>中配置路径别名</h4><blockquote>
 <p><code>compilerOptions</code>中配置两个选项:<code>baseUrl</code>和<code>paths</code></p>
 </blockquote>
 <ul>
-<li>设置baseUrl不会影响相对模块导入，因为它们始终相对于导入文件进行解析<ul>
-<li>例如:<code>&quot;baseUrl&quot;: &quot;./src&quot;</code>，然后jquery应该映射到<code>&quot;../node_modules/jquery/dist/jquery&quot;</code></li>
+<li>设置baseUrl不会影响相对模块导入,因为它们始终相对于导入文件进行解析<ul>
+<li>例如:<code>&quot;baseUrl&quot;: &quot;./src&quot;</code>,然后jquery应该映射到<code>&quot;../node_modules/jquery/dist/jquery&quot;</code></li>
 <li>参考: <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/46696498">https://zhuanlan.zhihu.com/p/46696498</a></li>
 </ul>
 </li>
@@ -653,17 +836,26 @@ console<span class="token punctuation">.</span><span class="token function">log<
 </blockquote>
 <pre class="line-numbers language-json" data-language="json"><code class="language-json"><span class="token property">"compilerOptions"</span><span class="token operator">:</span><span class="token punctuation">&#123;</span>
   <span class="token property">"baseUrl"</span><span class="token operator">:</span> <span class="token string">"./src"</span><span class="token punctuation">,</span>
-    <span class="token property">"paths"</span><span class="token operator">:</span><span class="token punctuation">&#123;</span>
-      <span class="token property">"@/*"</span><span class="token operator">:</span><span class="token punctuation">[</span>
-        <span class="token string">"*"</span>
-      <span class="token punctuation">]</span>
-    <span class="token punctuation">&#125;</span>
+  <span class="token property">"paths"</span><span class="token operator">:</span><span class="token punctuation">&#123;</span>
+    <span class="token property">"@/*"</span><span class="token operator">:</span><span class="token punctuation">[</span>
+      <span class="token string">"*"</span>
+    <span class="token punctuation">]</span>
+  <span class="token punctuation">&#125;</span>
 <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <ul>
-<li>在src下目录开始查找</li>
+<li>在src下目录开始查找(<code>baseUrl</code>最好设置为根路径)</li>
 </ul>
-<h3 id="在vite-config-ts配置别名"><a href="#在vite-config-ts配置别名" class="headerlink" title="在vite.config.ts配置别名"></a>在<code>vite.config.ts</code>配置别名</h3><ul>
+<pre class="line-numbers language-json" data-language="json"><code class="language-json"><span class="token property">"compilerOptions"</span><span class="token operator">:</span><span class="token punctuation">&#123;</span>
+  <span class="token property">"baseUrl"</span><span class="token operator">:</span> <span class="token string">"./"</span><span class="token punctuation">,</span>
+  <span class="token property">"paths"</span><span class="token operator">:</span><span class="token punctuation">&#123;</span>
+    <span class="token property">"@/*"</span><span class="token operator">:</span><span class="token punctuation">[</span>
+      <span class="token string">"src/*"</span>
+    <span class="token punctuation">]</span>
+  <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h4 id="在vite-config-ts配置别名"><a href="#在vite-config-ts配置别名" class="headerlink" title="在vite.config.ts配置别名"></a>在<code>vite.config.ts</code>配置别名</h4><ul>
 <li>在<code>resolve</code>属性的<code>alias</code>配置别名</li>
 </ul>
 <pre class="line-numbers language-ts" data-language="ts"><code class="language-ts">resolve: &#123;
@@ -687,6 +879,127 @@ console<span class="token punctuation">.</span><span class="token function">log<
     &#125;
   ]
 &#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="env"><a href="#env" class="headerlink" title="env"></a>env</h3><blockquote>
+<ul>
+<li>.env文件会在Vite启动一开始就被加载,改动会在重启服务器后生效</li>
+<li>开头以<code>VITE_APP</code>开头才可以</li>
+<li>也可以通过<code>import.meta.env</code>取到环境变量的值.例如<code>import.meta.env.VITE_APP_API</code></li>
+</ul>
+</blockquote>
+<ul>
+<li><code>.env</code>                # 所有情况下都会加载</li>
+<li><code>.env.local</code>          # 所有情况下都会加载,但会被 git 忽略</li>
+<li><code>.env.[mode]</code>         # 只在指定模式下加载</li>
+<li><code>.env.[mode].local</code>   # 只在指定模式下加载,但会被 git 忽略</li>
+</ul>
+<h2 id="build配置"><a href="#build配置" class="headerlink" title="build配置"></a>build配置</h2><blockquote>
+<p>一些基础配置</p>
+</blockquote>
+<ul>
+<li><code>target</code>:构建浏览器兼容的选项.默认值是<code>modules</code>,支持远程ES模块的浏览器<ul>
+<li>可以是单个es版本,例如<code>es2015</code>.同时也支持数组</li>
+</ul>
+</li>
+<li><code>outDir</code>:指定输出路径.默认值是<code>dist</code>,可以改成自己想配置的路径,例如<code>build</code></li>
+<li><code>assetsDir</code>:指定生成的静态资源存放路径(相对于<code>outDir</code>).默认值<code>assets</code></li>
+</ul>
+<h3 id="assetsInlineLimit"><a href="#assetsInlineLimit" class="headerlink" title="assetsInlineLimit"></a>assetsInlineLimit</h3><blockquote>
+<p>将小于阈值的导入或引用资源将内联为 base64 编码,一般用于图片,避免额外的http请求.优化浏览器速度</p>
+</blockquote>
+<ul>
+<li>默认值是:<code>4096(4kb)</code></li>
+</ul>
+<h3 id="sourcemap"><a href="#sourcemap" class="headerlink" title="sourcemap"></a>sourcemap</h3><blockquote>
+<p>常用于调试,默认值是false,一般开发环境不选false</p>
+</blockquote>
+<ul>
+<li><p>类型:<code>boolean | &#39;inline&#39; | &#39;hidden&#39;</code></p>
+</li>
+<li><p>如果为<code>true</code>:将会创建一个独立的 <code>source map</code> 文件</p>
+</li>
+<li><p>如果为 <code>&#39;inline&#39;</code>,<code>source map</code>的内容将会附加在输出文件中</p>
+</li>
+<li><p><code>&#39;hidden&#39;</code>的工作原理与’true’相似,只是 <code>bundle</code>(包) 文件中相应的注释将不被保留</p>
+</li>
+</ul>
+<h3 id="删除调试项"><a href="#删除调试项" class="headerlink" title="删除调试项"></a>删除调试项</h3><blockquote>
+<p><code>build.minify</code>指定混淆器,默认为<code>esbuid</code>(速度最快)</p>
+</blockquote>
+<ul>
+<li>可选值: <code>boolean | &#39;terser&#39; | &#39;esbuild&#39;</code></li>
+<li>如果需要删除调试输出的,需要手动开启<code>terser</code></li>
+</ul>
+<blockquote>
+<p><code>build.terserOptions</code>:配置terser默认导出的接口</p>
+</blockquote>
+<pre class="line-numbers language-js" data-language="js"><code class="language-js">build<span class="token operator">:</span><span class="token punctuation">&#123;</span>
+    minify<span class="token operator">:</span> <span class="token string">'terser'</span><span class="token punctuation">,</span>
+    terserOptions<span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+      compress<span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+        <span class="token comment">//删除生成的console</span>
+        drop_console<span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+        drop_debugger<span class="token operator">:</span> <span class="token boolean">true</span>
+      <span class="token punctuation">&#125;</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="rollupOptions"><a href="#rollupOptions" class="headerlink" title="rollupOptions"></a>rollupOptions</h3><pre class="line-numbers language-js" data-language="js"><code class="language-js">rollupOptions<span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+    
+    input<span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">default</span><span class="token operator">:</span> <span class="token string">'./index.html'</span>
+    <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+    output<span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+        entryFileNames<span class="token operator">:</span> <span class="token string">'js/[name]-[hash].js'</span><span class="token punctuation">,</span>
+        chunkFileNames<span class="token operator">:</span> <span class="token string">'js/[name]-[hash].js'</span><span class="token punctuation">,</span>
+        assetFileNames<span class="token operator">:</span> <span class="token string">'assets/[name]-[hash].[ext]'</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span class="token punctuation">,</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<ol>
+<li><code>input</code>:指定打包的入口文件,默认是<code>./index.html</code></li>
+<li><code>output</code>:指定文件输出的配置<ul>
+<li><code>entryFileNames</code>:用于从入口点创建的块的打包输出格式</li>
+<li><code>chunkFileNames</code>:用于命名代码拆分时创建的共享块的输出命名</li>
+<li><code>assetFileNames</code>:用于输出静态资源的命名.</li>
+</ul>
+</li>
+</ol>
+<h3 id="server"><a href="#server" class="headerlink" title="server"></a>server</h3><ol>
+<li><code>host</code>:指定监听那个IP地址,默认是<code>127.0.0.1</code></li>
+<li><code>port</code>:指定端口号,默认是3000</li>
+<li><code>open</code>:指定在浏览器打开的应用程序.可以是<code>boolean</code>或者<code>string</code></li>
+<li><code>cors</code>:为开发服务器配置cors.默认启用并允许任何源</li>
+</ol>
+<ul>
+<li>以上都可以使用cli执行(可以直接写进脚本中)</li>
+</ul>
+<pre class="line-numbers language-json" data-language="json"><code class="language-json"><span class="token property">"scripts"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+  <span class="token property">"dev"</span><span class="token operator">:</span> <span class="token string">"vite --open"</span><span class="token punctuation">,</span>
+  <span class="token property">"build"</span><span class="token operator">:</span> <span class="token string">"vue-tsc --noEmit &amp;&amp; vite build"</span><span class="token punctuation">,</span>
+  <span class="token property">"preview"</span><span class="token operator">:</span> <span class="token string">"vite preview --port 5050 --open"</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h4 id="proxy"><a href="#proxy" class="headerlink" title="proxy"></a>proxy</h4><blockquote>
+<p>为服务器配置自定义代理规则</p>
+</blockquote>
+<pre class="line-numbers language-js" data-language="js"><code class="language-js">proxy<span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+  <span class="token string">'/api'</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+    target<span class="token operator">:</span> <span class="token string">''</span><span class="token punctuation">,</span>
+    changeOrigin<span class="token operator">:</span><span class="token boolean">true</span><span class="token punctuation">,</span>
+    <span class="token function-variable function">rewrite</span><span class="token operator">:</span> <span class="token punctuation">(</span><span class="token parameter">path</span><span class="token punctuation">)</span> <span class="token operator">=></span> path<span class="token punctuation">.</span><span class="token function">replace</span><span class="token punctuation">(</span><span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">^\/api</span><span class="token regex-delimiter">/</span></span><span class="token punctuation">,</span> <span class="token string">''</span><span class="token punctuation">)</span>
+  <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<ol>
+<li><code>target</code>:目标更改选项</li>
+<li><code>changeOrigin</code>:是否将主机的源更改为目标源</li>
+<li><code>rewrite</code>:重写目标源</li>
+</ol>
+<h2 id="插件"><a href="#插件" class="headerlink" title="插件"></a>插件</h2><blockquote>
+<p><code>vite-plugin-compression</code>:<a target="_blank" rel="noopener" href="https://github.com/vbenjs/vite-plugin-compression">用于压缩资源</a></p>
+<p><code>vite-plugin-cdn-import</code>:<a target="_blank" rel="noopener" href="https://github.com/MMF-FE/vite-plugin-cdn-import">允许指定 modules 在生产环境中使用 CDN 引入</a></p>
+</blockquote>
 
                 
             </div>
@@ -1537,7 +1850,7 @@ console<span class="token punctuation">.</span><span class="token function">log<
                                     
                                         &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数
                                             :&nbsp;<span class="white-color">
-                                                130.8k
+                                                138.8k
                                             </span>
                                             
                                                 
