@@ -57,41 +57,34 @@ summary: css语法以及css3的相关内容,媒体查询,动画和盒子模型�
 #### 复合选择器
 
 1. 后代选择器:元素1 元素2{样式},例```ul li {color:red;}```
-  
-* <span style="color:red">注意:元素2必须是子级,只要是元素的子级都可以选到</sapn>
-
-* 元素1和2可以是任意基础选择器
-
+   * <span style="color:red">注意:元素2必须是子级,只要是元素的子级都可以选到</sapn>
+   * 元素1和2可以是任意基础选择器
 2. 子选择器(重要):元素1>元素2(样式声明),表示选择元素1里的所有直接后代的(子元素)元素2,例:```div > a{color:red;}```
+   * 元素1是父级,元素2是子级,最终选择的元素是元素2
+   * 元素2必须是最近一级的子级(亲儿子),子子集(孙子)等都不归他管
 
-* 元素1是父级,元素2是子级,最终选择的元素是元素2
-
-* 元素2必须是最近一级的子级(亲儿子),子子集(孙子)等都不归他管
-
-```html
-<style>
-  div > a{color:red;}
-</style>
-
-...
-<div>
-  <a href="#">你好</a>
-  <p>
-    <a href="#">你好(选不到)</a>
-  </p>
-</div>
-```
+   ```html
+   <style>
+     div > a{color:red;}
+   </style>
+   ...
+   <div>
+     <a href="#">你好</a>
+     <p>
+       <a href="#">你好(选不到)</a>
+     </p>
+   </div>
+   ```
 
 3. 并集选择器:可以选择多组标签,同时定义相同的样式,用于集体声明```div,ul, .pig(class) li{color:red;}```
-
 4. 伪类选择器:给选择器添加特殊效果,特点:<span style="color:red">用冒号(:)</span>,比如: :hover,:first-child
 
 * 链接伪类选择器:
 
-  * a:link   /*选择所有未被访问的链接*/  
-  * a:visited   /*选择所有已被访问的链接*/  
-  * a:hover   /*选择所有指针位于其上的链接*/  
-  * a:active   /*选择所有活动的链接(鼠标按下未弹起)*/
+  * `a:link`   /*选择所有未被访问的链接*/  
+  * `a:visited`   /*选择所有已被访问的链接*/  
+  * `a:hover`   /*选择所有指针位于其上的链接*/  
+  * `a:active`   /*选择所有活动的链接(鼠标按下未弹起)*/
   
   * 注意:  
     * <span style="color:red">请按照LVHA的顺序声明:link-:visited-:hover-:active</span>
@@ -102,49 +95,31 @@ summary: css语法以及css3的相关内容,媒体查询,动画和盒子模型�
 ### 字体属性
 
 1. 字体:```font-family:"Arial";```,属性可以写英文可以写中文
-
 2. 字体大小: ```font-size:20px;```,属性是数值
-
 3. 字体粗细:```font-weight:属性;```,提倡用数字表示(无单位),
-
-* normal:不加粗,等同于400
-
-* bold: 加粗,等同于700
-
+   * normal:不加粗,等同于400
+   * bold: 加粗,等同于700
 4. 文字样式:```font-style:属性;```,```normal```:默认值,标准样式;```italic```:斜体字体样式
-
 5. 简写 ```font:font-style font-weight font-size/line-height font-family```(<span style="color:red">不能颠倒顺序,且font-size和font-family不能省略</span>)
 
 ### 文本属性
 
 1. 文本颜色:```color:red```
-
-> 预定义颜色:red等; 十六进制:#FF0000等; RGB:rgb(255,0,0)
-
+   * 预定义颜色:red等; 十六进制:#FF0000等; RGB:rgb(255,0,0)
 2. 对齐文本:```text-align:center```,只能实现水平对齐
-
-> 左对齐:left;  右对齐:right;  居中对齐:center
-
+   * 左对齐:left;  右对齐:right;  居中对齐:center
 3. 装饰文本:```text-decoration:none;```
-
-> none:默认,无装饰;underline:下划线:<span style="color:red">链接a自带下划线</span>;overline:上划线;line-through:上划线
-
+   * none:默认,无装饰;underline:下划线:<span style="color:red">链接a自带下划线</span>;overline:上划线;line-through:上划线
 4. 文本缩进:首行缩进,```text-indent:2em;```,em是当前文字的大小,<span style="color:red">1em=16px</span>
-
 5. 行间距: ```line-height:50px;```;<span style="color:red">行间距=上间距+文本高度(默认16px)+下间距</span>
 
 ### Emment语法
 
 1. 生成多个相同标签,用*,例如:div*3
-
 2. 父子级关系标签,用>,例如,ul>li
-
 3. 兄弟级关系的标签,用+,例如div+p  
-
 4. 生成带有类名的或者id名的,直接写.demo或者#two, tab键
-
 5. 如果生成div类名是有顺序的,可以用自增符号,例:```.demo$*5```
-
 6. 如果在生成的标签内部些内容,可以用{}表示,```div{你好}```,tab键
 
 ### 元素的显示模式
@@ -191,37 +166,32 @@ summary: css语法以及css3的相关内容,媒体查询,动画和盒子模型�
 2. 背景图片:```background-image:url();```,默认是none
 3. 背景平铺:```background-repeat:repeat;```,默认情况下是repeat
 
- | 属性:      | 值       |
- | ---------- | -------- |
- | repeat:    | 平铺     |
- | no-repeat: | 不平铺   |
- | repeat-y:  | 纵向平铺 |
- | repeat-x:  | 横向平铺 |
+   | 属性:      | 值       |
+   | ---------- | -------- |
+   | repeat:    | 平铺     |
+   | no-repeat: | 不平铺   |
+   | repeat-y:  | 纵向平铺 |
+   | repeat-x:  | 横向平铺 |
 
-* 注意:页面元素可以添加背景颜色也可以添加背景图片  只不过背景图片会压住背景颜色
+   * 注意:页面元素可以添加背景颜色也可以添加背景图片  只不过背景图片会压住背景颜色
 
 4. 背景位置:```background-position:x y;```,可以使用<span style="color:red">方位名词</span>或者<span style="color:red">精确单位</span>
-
-* 参数是方位名词:```background-position:center top;```
-  * 其中方位名词,和顺序无关
-  * 如果只指定了一个方位名词,另一个省略,则第二个默认居中对齐```background-position:top;```
-
-* 参数是精确单位:```background-position:20px 50px;```
-  * 其中x一定是第一个,第二个一定是y
-  * 如果只指定一个数值,那么该数值一定会是x坐标,另一个默认垂直居中```background-position:50px;```
-
-* 参数是混合单位:```background-position:20px top;```
-  * 如果指定的两个值是精确单位和方位名词混合使用,则第一个值是x坐标,第二个值是y坐标
-
+   * 参数是方位名词:```background-position:center top;```
+     * 其中方位名词,和顺序无关
+     * 如果只指定了一个方位名词,另一个省略,则第二个默认居中对齐```background-position:top;```
+   * 参数是精确单位:```background-position:20px 50px;```
+     * 其中x一定是第一个,第二个一定是y
+     * 如果只指定一个数值,那么该数值一定会是x坐标,另一个默认垂直居中```background-position:50px;```
+   * 参数是混合单位:```background-position:20px top;```
+     * 如果指定的两个值是精确单位和方位名词混合使用,则第一个值是x坐标,第二个值是y坐标
 5. 背景图像固定(背景附着):```background-attachment:scroll;```,背景图像是否固定或者随着页面的其余部分滚动,<span style="color:red">默认:滚动</span>
 
-  | 参数   | 作用                       |
-  | ------ | -------------------------- |
-  | scroll | 背景图像是随着对象内容滚动 |
-  | fixed  | 背景图像固定               |
+   | 参数   | 作用                       |
+   | ------ | -------------------------- |
+   | scroll | 背景图像是随着对象内容滚动 |
+   | fixed  | 背景图像固定               |
 
 6. 背景复合写法```background:背景颜色 背景图片地址 背景平铺 背景图像滚动 背景图片位置```,<span style="color:red">无顺序要求</span>
-
 7. 背景图片半透明效果:```background:rgba(0,0,0,0.3)```,第四个参数(alpha透明度)取值范围在0~1之间
 
 | 属性                  | 作用     | 值                                         |
@@ -261,8 +231,7 @@ summary: css语法以及css3的相关内容,媒体查询,动画和盒子模型�
 | 行内样式style=""    | 1,0,0,0    |
 | !important重要的    | 无穷大     |
 
-注意:
-
+* 注意:
    1. 权重是有4组数字,不会有进位
    2. 从左向右判断,如果某一位数值相同,则判断下一位数值
    3. <span style="color:red">继承的权重是0,(重要)</span>,如果该元素没有直接选中,不管父元素权重多高,子元素得到的权重都是0
@@ -317,19 +286,17 @@ summary: css语法以及css3的相关内容,媒体查询,动画和盒子模型�
 
 1. margin属性用于设置外边距,用于控制盒子与盒子之间的距离
 
-| 属性          | 作用     |
-| ------------- | -------- |
-| margin-left   | 左外边距 |
-| margin-right  | 右外边距 |
-| margin-top    | 上外边距 |
-| margin-bottom | 下外边距 |
+   | 属性          | 作用     |
+   | ------------- | -------- |
+   | margin-left   | 左外边距 |
+   | margin-right  | 右外边距 |
+   | margin-top    | 上外边距 |
+   | margin-bottom | 下外边距 |
 
 2. 外边距可以让块级盒子水平居中,但是必须要满足两个条件
    * 盒子必须指定宽度(width)
    * <span style="color:red">盒子的左右的外边框都设置为auto</span>
-
-<span style="color:red">注意:</span>以上方法是让块级元素水平居中,<span style="color:red">行内元素或者行内块元素水平居中给其父元素添加  text-align:center;即可</span>
-
+   * <span style="color:red">注意:</span>以上方法是让块级元素水平居中,<span style="color:red">行内元素或者行内块元素水平居中给其父元素添加  text-align:center;即可</span>
 3. 嵌套块元素垂直外边距的塌陷
    * 对于来攻嵌套关系(父子关系)的块元素,父元素有上外边距同时子元素也有上外边据,此时父元素会塌陷较大的外边距值
    * 解决方案:
@@ -337,7 +304,7 @@ summary: css语法以及css3的相关内容,媒体查询,动画和盒子模型�
      2. 可以为父元素定义上内边框
      3. 可以为父元素添加```overflow:hidden```(不会增加盒子的大小)
 
-<span style="color:red">注意:如果```margin:0 auto;```,会让div布局水平居中在浏览器中</span>
+* <span style="color:red">注意:如果```margin:0 auto;```,会让div布局水平居中在浏览器中</span>
 
 ### 清除内外边距
 
@@ -357,9 +324,7 @@ summary: css语法以及css3的相关内容,媒体查询,动画和盒子模型�
 > css3:border-radius属性设置元素的外边框圆角```border-radius:length;```,length是圆的半径,用⚪替代矩形的角
 
 1. 如果是一个正方形,```border-radius:50%;```得到一个圆,50%就是高度的一半.
-
 2. 如果是一个矩形,设置高度的一半,得到一个圆角矩形
-
 3. 该属性是一个简写属性,可以写4个值,分别代表左上角,右上角,右下角,左下角<span style="color:red">border-top-left-radius/border-top-right-radius/border-bottom-right-radius/border-bottom-left-radius</span>
 
 ### 盒子阴影
@@ -376,8 +341,7 @@ summary: css语法以及css3的相关内容,媒体查询,动画和盒子模型�
 | color    | 可选,阴影的颜色                     |
 | inset    | 可选,将外部阴影(outset)改为内部阴影 |
 
-<span style="color:red">注意:</span>
-
+* <span style="color:red">注意:</span>
    1. 默认的是外阴影(ouset),但是不可以写这个单词,否则导致阴影无效
    2. 盒子阴影不占用空间,不会影响其他盒子排列
 
@@ -408,15 +372,12 @@ summary: css语法以及css3的相关内容,媒体查询,动画和盒子模型�
 * 浮动特性:
   1. <span style="color:red">浮动元素会脱离标准流</span>
       * 浮动的盒子<span style="color:red">不再保留原先的位置</span>
-  
   2. 浮动的元素会一行内显示并且元素顶部对齐
       * 如果多个盒子设置了浮动,则他们会按照属性值--行内显示并且顶端对齐排列
       * <span style="color:red">注意:浮动的元素是相互考在一起的(不会右缝隙),如果父级宽度装不下这些浮动的盒子,多出的盒子会另起一行对齐</span>
   3. 浮动的元素会具有行内块元素的特性
       * 如果块级盒子没有设置宽度,默认宽度和父级一样宽,但是添加浮动后,他的大小根据内容来决定
-
 * 浮动元素经常和标准流父元素搭配使用:用标准流的父元素排列上下位置,之后内部子元素采取浮动排列左右位置,符合网页布局的第一准则
-
 * <span style="color:red">浮动的盒子只会影响盒子后面的标准流,不会影响前面的标准流</span>
 
 ### 清除浮动
@@ -439,49 +400,48 @@ summary: css语法以及css3的相关内容,媒体查询,动画和盒子模型�
 * 清楚浮动的方法
    1. 额外标签法(隔墙法):<span style="color:red">缺点:结构化比较差</span>
 
-     ```html
-     <style>
-       .clear{
-         clear:both;
-       }
-     </style>
-     ...
-    <div>
-     <div style="float:right">你好</div>
-     <div style="float:right">不错</div>
-     <div class="clear"></div><!-- 且新增的盒子必须是块级元素,不能是行内元素 -->
-    </div> 
-     ```
+       ```html
+       <style>
+         .clear{
+           clear:both;
+         }
+       </style>
+       ...
+      <div>
+       <div style="float:right">你好</div>
+       <div style="float:right">不错</div>
+       <div class="clear"></div><!-- 且新增的盒子必须是块级元素,不能是行内元素 -->
+      </div> 
+       ```
 
    2. 父级添加overflow属性<span style="color:red">缺点:无法显示溢出部分</span>
 
-     ```html
-     <div style="overflow:hidden">
-      <div style="float:right">你好</div>
-      <div style="float:right">不错</div>
-      <div style="float:right">真的</div>
-    </div> 
-     ```
+      ```html
+      <div style="overflow:hidden">
+       <div style="float:right">你好</div>
+       <div style="float:right">不错</div>
+       <div style="float:right">真的</div>
+      </div> 
+      ```
 
    3. 父级添加after伪元素<span style="color:red">优点:没有增加标签,结构简单</span>
 
-    ```html
-    <style>
-       .clearfix:after{
-         content:"";
-         clear:both;
-         height:0;
-         visibility:hidden;
-       }
-     </style>
-    
-    ...
-     <div class="clearfix">
-      <div style="float:right">你好</div>
-      <div style="float:right">不错</div>
-      <div style="float:right">真的</div>
-    </div> 
-    ```
+      ```html
+      <style>
+         .clearfix:after{
+           content:"";
+           clear:both;
+           height:0;
+           visibility:hidden;
+         }
+       </style>
+      ...
+      <div class="clearfix">
+        <div style="float:right">你好</div>
+        <div style="float:right">不错</div>
+        <div style="float:right">真的</div>
+      </div> 
+      ```
 
    4. 父级添加双伪元素<span style="color:red">代码更简洁</span>
 
@@ -496,7 +456,6 @@ summary: css语法以及css3的相关内容,媒体查询,动画和盒子模型�
          clear:both;
        }
      </style>
-    
     ...
      <div class="clearfix">
       <div style="float:right">你好</div>
@@ -519,12 +478,12 @@ summary: css语法以及css3的相关内容,媒体查询,动画和盒子模型�
 
 1. 定位模式:通过css的```position```属性来设定
 
-| 值       | 语义     |
-| -------- | -------- |
-| static   | 静态定位 |
-| relative | 相对定位 |
-| absolute | 绝对定位 |
-| fixed    | 固定定位 |
+   | 值       | 语义     |
+   | -------- | -------- |
+   | static   | 静态定位 |
+   | relative | 相对定位 |
+   | absolute | 绝对定位 |
+   | fixed    | 固定定位 |
 
 2. 边偏移:top,bottom,left,right4个值(相对于父元素而言)
 
@@ -586,7 +545,7 @@ summary: css语法以及css3的相关内容,媒体查询,动画和盒子模型�
 
 ### 绝对定位盒子居中
 
-1. 水平居中
+* 水平居中
 
 ```css
 .class{
@@ -599,7 +558,7 @@ summary: css语法以及css3的相关内容,媒体查询,动画和盒子模型�
 
 ```
 
-1. 垂直居中
+* 垂直居中
 
 ```css
 .class{
@@ -794,46 +753,46 @@ summary: css语法以及css3的相关内容,媒体查询,动画和盒子模型�
 2. 视频标签
    * ```<video src="url" controls="controls"></video>```视频标签
 
-| 属性       | 值           | 描述                                                          |
-| ---------- | ------------ | ------------------------------------------------------------- |
-| autoplay   | autoplay     | 视频就绪自动播放(谷歌浏览器需要添加```muted="muted"```来解决) |
-| controls   | controls     | 向用户显示播放控件                                            |
-| width      | pixels(像素) | 设置播放器宽度                                                |
-| height     | pixels(像素) | 设置播放器高度                                                |
-| loop       | loop         | 播放完是否继续播放该视频，循环播放                            |
-| preload    | proload      | 是否等加载完再播放                                            |
-| src        | url          | 视频url地址                                                   |
-| poster     | Imgurl       | 加载等待的画面图片                                            |
-| autobuffer | autobuffer   | 设置为浏览器缓冲方式，不设置autopaly才有效                    |
-| muted      | muted        | 静音播放                                                      |
+   | 属性       | 值           | 描述                                                          |
+   | ---------- | ------------ | ------------------------------------------------------------- |
+   | autoplay   | autoplay     | 视频就绪自动播放(谷歌浏览器需要添加```muted="muted"```来解决) |
+   | controls   | controls     | 向用户显示播放控件                                            |
+   | width      | pixels(像素) | 设置播放器宽度                                                |
+   | height     | pixels(像素) | 设置播放器高度                                                |
+   | loop       | loop         | 播放完是否继续播放该视频，循环播放                            |
+   | preload    | proload      | 是否等加载完再播放                                            |
+   | src        | url          | 视频url地址                                                   |
+   | poster     | Imgurl       | 加载等待的画面图片                                            |
+   | autobuffer | autobuffer   | 设置为浏览器缓冲方式，不设置autopaly才有效                    |
+   | muted      | muted        | 静音播放                                                      |
 
 3. 音频标签
     * ```<audio src="url" controls="controls"></audio>```音频标签
 
-| 属性     | 值       | 描述                               |
-| -------- | -------- | ---------------------------------- |
-| autoplay | autoplay | 音频就绪自动播放                   |
-| controls | controls | 向用户显示播放控件                 |
-| loop     | loop     | 播放完是否继续播放该音频，循环播放 |
-| src      | url      | 音频url地址                        |
+   | 属性     | 值       | 描述                               |
+   | -------- | -------- | ---------------------------------- |
+   | autoplay | autoplay | 音频就绪自动播放                   |
+   | controls | controls | 向用户显示播放控件                 |
+   | loop     | loop     | 播放完是否继续播放该音频，循环播放 |
+   | src      | url      | 音频url地址                        |
 
-* 注意:谷歌浏览器把音频和视频自动播放禁止了
+   * 注意:谷歌浏览器把音频和视频自动播放禁止了
 
 4. 新增input类型
 
-| 属性          | 说明                                                                       |
-| ------------- | -------------------------------------------------------------------------- |
-| type="email"  | 避免自己编写js代码对邮箱格式进行校验                                       |
-| type="tel"    | 该类型没有对输入内容进行校验,在移动端输入时弹出数字键盘;                   |
-| type="url"    | 对输入的网址内容合法性校验,且必须以http或https开头;                        |
-| type="number" | 表示该文本框只能输入数字(包括小数点)                                       |
-| type="search" | 表示搜索时的文本框,该文本框输入时有提示,右侧有删除的"X"号可以将文本框清空; |
-| type="range"  | 表示范围:                                                                  |
-| type="data"   | 表示必须输入日期类型                                                       |
-| type="time"   | 表示必须输入为日期类型                                                     |
-| type="month"  | 表示必须输入月类型                                                         |
-| type="month"  | 表示必须输入月类型                                                         |
-| type="color"  | 表示必须输入颜色类型                                                       |
+   | 属性          | 说明                                                                       |
+   | ------------- | -------------------------------------------------------------------------- |
+   | type="email"  | 避免自己编写js代码对邮箱格式进行校验                                       |
+   | type="tel"    | 该类型没有对输入内容进行校验,在移动端输入时弹出数字键盘;                   |
+   | type="url"    | 对输入的网址内容合法性校验,且必须以http或https开头;                        |
+   | type="number" | 表示该文本框只能输入数字(包括小数点)                                       |
+   | type="search" | 表示搜索时的文本框,该文本框输入时有提示,右侧有删除的"X"号可以将文本框清空; |
+   | type="range"  | 表示范围:                                                                  |
+   | type="data"   | 表示必须输入日期类型                                                       |
+   | type="time"   | 表示必须输入为日期类型                                                     |
+   | type="month"  | 表示必须输入月类型                                                         |
+   | type="month"  | 表示必须输入月类型                                                         |
+   | type="color"  | 表示必须输入颜色类型                                                       |
 
 5. 表单新增属性
 
@@ -849,13 +808,14 @@ summary: css语法以及css3的相关内容,媒体查询,动画和盒子模型�
 
 1. 属性选择器
 
-| 选择符        | 简介                                  |
-| ------------- | ------------------------------------- |
-| E[att]        | 选择具有att属性的E元素                |
-| E[att="val"]  | 选择具有att属性且属性值等于val的E元素 |
-| E[att^="val"] | 匹配具有att属性且值以val开头的E元素   |
-| E[att$="val"] | 匹配具有att属性且值以val结尾的E元素   |
-| E[att*="val"] | 匹配具有att属性且值中含有的E元素      |
+   | 选择符        | 简介                                  |
+   | ------------- | ------------------------------------- |
+   | E[att]        | 选择具有att属性的E元素                |
+   | E[att="val"]  | 选择具有att属性且属性值等于val的E元素 |
+   | E[att~="val"] | 选择具有att属性且属性值包含val的E元素 |
+   | E[att^="val"] | 匹配具有att属性且值以val开头的E元素   |
+   | E[att$="val"] | 匹配具有att属性且值以val结尾的E元素   |
+   | E[att*="val"] | 匹配具有att属性且值中含有的E元素      |
 
 2. 结构伪类选择器:主要根据<span style="color:red;">文档结构</span>,常用于根据父级选择器里的子元素
   
@@ -982,7 +942,6 @@ summary: css语法以及css3的相关内容,媒体查询,动画和盒子模型�
    * ```transform:scale(2);``` 只写了一个参数,那第二个参数和第一个一样是scale(2,2)
    * ```transform:scale(0.5,0.5);```缩小
    * scale缩放最大的优势:可以设置旋转中心缩放,默认以中心点缩放,而且不影响其它盒子
-
 
 ><span style="color:red">注意</span>
 

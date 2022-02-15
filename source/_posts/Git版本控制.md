@@ -10,8 +10,8 @@ summary: 使用git进行代码的版本控制
 
 ## 初始化
 
-- $ `git config --gloabl user.name="jack"`
-- $ `git config --gloabl user.email=1553198027@qq.com`
+- `git config --gloabl user.name="jack"`
+- `git config --gloabl user.email=1553198027@qq.com`
 - 检查配置信息 `git config--list`
 - `git init` 生成仓库
 
@@ -98,7 +98,7 @@ summary: 使用git进行代码的版本控制
   - 如何撤回自己在工作目录中的修改(git checkout --filename)
   - git restore 文件名
 - 暂存区
-  - 如何撤回自己的暂存:(git rset HEAD fileman)
+  - 如何撤回自己的暂存:(git reset HEAD fileman)
   - git restore --staged 文件名
 - 版本库
   - 如何撤回自己的提交
@@ -124,7 +124,7 @@ summary: 使用git进行代码的版本控制
 - `HEAD~`指针跟一个整数,指的是你要回退几次提交
    1. `git reset --soft HEAD~  (--amend)`:只动HEAD(带着分支一起移动)
    2. `git reset [--mixed] HEAD~`动HEAD(带着分支一起移动),动了暂存区
-   3. `git reset --hard HEAD~`动HEAD(带着分支一起移动),动了暂存区 动了工作目录
+   3. `git reset --hard HEAD~`动HEAD(带着分支一起移动),动了暂存区 动了工作目录(<span style="color:red">需要谨慎</span>)
 
 ##### revert
 
