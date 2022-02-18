@@ -240,6 +240,122 @@ summary: css语法以及css3的相关内容,媒体查询,动画和盒子模型�
 
 ## 盒子模型
 
+### 内容(content)
+
+#### 替换元素
+
+>替换元素:通过修改某个属性值呈现的内容就可以被替换的元素就称为替换元素(例如\<img>,\<input>登都是典型的替换元素)
+
+1. 内容外观不受页面上的css的影响.即样式表现在css之外
+2. 有自己的尺寸.默认的尺寸(不包括边框)是300px*150px,像\<video>等.也有如\<img>这样替换元素为0px的.
+3. 在css属性上有一套自己的表现规则
+
+* \<select>:首先内容可以替换,如果设置multiple属性,下拉就变成了展开直选多选的模式.并且样式外部的css很难更改.最后他也有自己的尺寸
+
+> 替换元素的默认display
+
+* 一般替换元素是内联元素(`inline`)或者是行内块元素(`inline-block`)
+
+> 替换元素的尺寸
+
+1. 固有尺寸:替换内容原本的尺寸
+2. HTML尺寸,这些HTML原生的尺寸.例如\<img>的width,height,\<input>的size,\<textarea>的cols和rows
+3. CSS尺寸,通过css属性的width和height或者max-width/min-width和max-height/min-height设置尺寸
+
+* 注意
+  * 如果固有尺寸含有固有的宽高比例,同时设置了宽度和高度,则元素依然按照固有的宽高比例
+  * \<img>中如果图片缺省,不需要使用`src=""`,只要有`src=""`就会产生请求
+
+>`object-fit`:替换内容的适配方式
+
+1. 默认是`fill`,也就是外部设定的尺寸多大,我就填满,跟着一样大
+2. `none`:图片的尺寸完全不受控制.会保持图片原来的大小.如果设置了大小,超过范围不会显示
+3. `contain`:保持图片比例,尽可能利用html的尺寸但是不会超出的显示方式
+
+* 同时在伪元素中可以使用`content:attr()`获取html标签中的属性例如`attr(alt)`.url等也可以使用
+
+>content元素与替换元素
+
+* `content`属性生成的对象被称为匿名替换元素
+
+1. 使用content生成的文本是无法选中的,也是无法复制的.同时content生成的文本无法被屏幕设备阅读,搜索引擎抓取
+2. 不能左右`:empty`(当元素中没有内容时进行匹配)伪类
+3. 动态生成的值无法获取(自动累加,计数器)
+
+#### content内容生成
+
+> content设置成空字符串,然后利用其他的css代码生成辅助元素,或实现图形,或实现特定布局.
+
+1. content中图片生成,直接使用`content:url()`不易控制图片.
+
+   ```css
+   div::before{
+     content:'';
+     background:url();
+   }
+   ```
+
+2. attr属性值生成内容.除了原生的html属性.也可以使用自定义的html属性
+
+> content计数器.两个属性`counter-reset`和`counter-increment`.两个方法`counter()`和`increment()`
+
+1. **counter-reset**:计数器-重置,默认是从0开始,可以使用负数或者小数(各个浏览器不同)
+   * 同时可以多个计数器同时命名
+2. **counter-increment**:计数器递增.值为`counter-reset`的一个或者多个关键字,后面可以跟数字,表示每次计数的变化值
+
+    ```html
+    <style>
+      .counter {
+        counter-reset: cun 2;
+        counter-increment: cun 1;
+      }
+      .counter:before {
+        content: counter(cun);
+      }
+    </style>
+    <body>
+      <p class="counter"></p>
+      <p class="counter"></p>
+    </body>
+    ```
+
+3. `counter()/counters()`:显示计数
+   * `counter(name,style)`,其中style支持的参数就是`list-style-type`支持的参数
+   * `counters(name,string,style)`string参数是字符串,表示子序号的连接字符串
+     * 使用这个方法可以实现序列的嵌套.通过子辈对父辈的`counter-reset`重置,配合counters()方法
+
+```html
+<style>
+  .reset {
+    counter-reset: cun 0;
+  }
+  .counter:before {
+    counter-increment: cun 1;
+    content: counters(cun, ".");
+  }
+</style>
+
+<body>
+  <div class="reset">
+    <div class="counter">
+    </div>
+    <div class="reset">
+      <div class="counter">大儿子</div>
+      <div class="counter">二儿子</div>
+      <div class="counter">三儿子</div>
+    </div>
+    <div class="counter">王小三</div>
+    <div class="reset">
+      <div class="counter">大儿子</div>
+      <div class="counter">二儿子</div>
+      <div class="counter">三儿子</div>
+    </div>
+  </div>
+</body>
+```
+
+* 由于一个容器的普照元素`reset`应该是固定的,一但子元素出现,其实就已经进入下一级嵌套
+
 ### 边框(border)
 
 * 简写:```border:border-width || border-style || border-color;```,没有顺序
@@ -258,6 +374,19 @@ summary: css语法以及css3的相关内容,媒体查询,动画和盒子模型�
   2. 如果测量的时候包含了边框,则需要width/height减去边框宽度
 
 ### 内边距(padding)
+
+> 在使用padding时尽量不要使用`box-sizing:border-box`.局部使用尽量使用无宽度以及宽度分离准则
+
+* 内联元素的padding依然会对垂直方向的元素有影响.不过内联元素没有可视化的宽高(clientHight和clientWidth永远是0)
+  * 垂直方向的行为完全受`line-height`和`vertical-align`的影响
+  * 不过视觉上并不会改变上一行和下一行内容的间距(需要加上一些效果,例如`background-color`)
+
+>css中出现这种层叠的现象
+
+1. 一类是纯视觉层叠,不影响外部尺寸.(例如relative元素的定位,box-shadow,以及outline等)
+2. 另一种会影响外部尺寸.例如`padding`
+
+* 区分:给父级设置`overflow:auto`,如果层叠区域超出父容器,没有出现滚动条,则是纯视觉的;如果出现滚动条,则会影响尺寸,影响布局
 
 1. padding属性用于设置内边距,即边框与内容之间的距离
   
@@ -279,12 +408,44 @@ summary: css语法以及css3的相关内容,媒体查询,动画和盒子模型�
   1. 内容和边框有了距离,添加内边框
   2. padding影响盒子实际大小
   3. 如果盒子有了高度和宽度,此时指定内边框,会撑大盒子
-     * 解决方案: 让<span style="color:red">width/height减去多出来的内边距大小</span>
+     * 解决方案: 让width/height减去多出来的内边距大小
   4. 如果盒子本身没有指定width/height属性,则此时paddiong不会撑开盒子大小
+
+> padding的百分比值:<span style="color:red">无论是水平方向还是垂直方向均是相对于宽度计算的</span>
+
+* 很多表单元素都会内置`padding`
+  * 内置padding的元素:\<input>,\<textarea>,\<button>,\<select>
+  * 单选框不内置,\<radio>,\<checkbox>
+
+>使用padding回值双层圆点
+
+```css
+.box {
+  display: inline-block;
+  width: 100px;
+  height: 100px;
+  padding: 10px;
+  border: 10px solid;
+  border-radius: 50%;
+  background-color: black;
+  background-clip: content-box;
+}
+```
 
 ### 外边距(margin)
 
-1. margin属性用于设置外边距,用于控制盒子与盒子之间的距离
+>margin对尺寸没有影响,只是元素是<span style="color:green">充分利用可用空间</span>状态的时候.margin才可以改变元素的可视尺寸
+
+* 对于普通的块状元素,在默认的水平流下,margin之恶能改变左右的内部尺寸,垂直方向无法改变(这是由`margin:auto`的计算规则决定的)
+  
+> margin的百分比值也是相对于宽度计算的
+
+1. 不过由于margin无法在垂直方向上改变元素自身的内部尺寸,往往需要父元素作为载体
+2. 并且由于margin合并的问题,垂直方向往往需要双倍尺寸 
+
+>margin属性
+
+* margin属性用于设置外边距,用于控制盒子与盒子之间的距离
 
    | 属性          | 作用     |
    | ------------- | -------- |
@@ -293,18 +454,76 @@ summary: css语法以及css3的相关内容,媒体查询,动画和盒子模型�
    | margin-top    | 上外边距 |
    | margin-bottom | 下外边距 |
 
-2. 外边距可以让块级盒子水平居中,但是必须要满足两个条件
-   * 盒子必须指定宽度(width)
-   * <span style="color:red">盒子的左右的外边框都设置为auto</span>
-   * <span style="color:red">注意:</span>以上方法是让块级元素水平居中,<span style="color:red">行内元素或者行内块元素水平居中给其父元素添加  text-align:center;即可</span>
-3. 嵌套块元素垂直外边距的塌陷
-   * 对于来攻嵌套关系(父子关系)的块元素,父元素有上外边距同时子元素也有上外边据,此时父元素会塌陷较大的外边距值
-   * 解决方案:
-     1. 可以为父元素定义上边框
-     2. 可以为父元素定义上内边框
-     3. 可以为父元素添加```overflow:hidden```(不会增加盒子的大小)
+> margin合并
 
-* <span style="color:red">注意:如果```margin:0 auto;```,会让div布局水平居中在浏览器中</span>
+* 块级元素的上外边距`margin-top`和下外边距`margin-bottom`有时会合并采购和各位单个外边距
+
+1. 块级元素:但不包括浮动和绝对定位
+2. 只发生在垂直方向(不考虑`writing-mode`)
+
+* margin合并的场景
+  1. 相邻兄弟元素margin合并
+  2. 父级和第一个/最后一个子元素(嵌套块元素垂直外边距的塌陷)
+     * 对于来攻嵌套关系(父子关系)的块元素,父元素有上外边距同时子元素也有上外边据,此时父元素会塌陷较大的外边距值
+     * 解决方案:
+      1. 可以为父元素定义上边框
+      2. 可以为父元素定义上内边框
+      3. 设置格式化上下文,例如父元素添加```overflow:hidden```(不会增加盒子的大小)
+
+* margin合并的计算规则
+  1. 正正取大值
+  2. 正负值相加
+  3. 负负值最负值
+
+* margin负值的意义在于:在页面中任何地方嵌套或者直接放入任何裸\<div>,都不会影响原来的块状布局
+
+#### margin:auto
+
+>有时候元素没有设置width或者height也会自动填充
+
+```html
+<!-- 自动填充 -->
+<div></div>
+
+<!-- 自动填充对应的方位 -->
+<style>
+  div{
+    position:absolute;
+    left:0;right:0;
+  }
+</style>
+```
+
+>margin:auto填充规则
+
+1. 如果一侧是定值,一侧是auto,则auto为剩余空间大小
+2. 如果两侧均是auto,则平分剩余空间大小
+
+* 那就很容易实现右对齐,只要margin-right为0或者不设置
+
+```css
+.son{
+  width:200px;
+  margin-left:auto;
+}
+```
+
+* 水平居中`margin:0 auto`,会让div布局水平居中在浏览器中
+* `margin:auto`不能垂直居中.由于这个属性有一个前提条件,当width或者height为auto时,元素是<span style="color:red">具有对应方向的自动填充特性的</span>.根据html文档流是水平方向自适应的,所以设置垂直方向没用
+
+>设置水平垂直居中(不适用`writing-mode`)
+
+```css
+.father{
+  width:300px;height:200px;
+  position:relative;
+}
+.son{
+  position:absolute;
+  top:0;right:0;bottom:0;left:0;
+  width:150px;height:100px
+}
+```
 
 ### 清除内外边距
 

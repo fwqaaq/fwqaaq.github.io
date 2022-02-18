@@ -14,7 +14,7 @@ summary: 浏览器自带的bom属性
  | ----------------------------- | ---------------------------------------------------------------------------------------- | -------------------------------------- |
  | `innerWidth`,`innerHeight`:   | 返回浏览器窗口中页面**可见视口**的大小<span style="color:red">(不包含边框,工具栏)</span> | `window.innerWidth`                    |
  | `outerWidth`,`outerHeight`:   | 返回浏览器窗口自身的大小(整个浏览器,包含边框,工具栏)                                     | `window.outerWidth`                    |
- | `clientWidth`,`clientHeight`: | 返回**布局视口**的大小                                                                   | `document.documentElement.clientWidth` |
+ | `clientWidth`,`clientHeight`: | 返回**布局视口(元素)**的大小                                                             | `document.documentElement.clientWidth` |
 
 >注意:布局视口相对于可见视口的概念.可见视口只能显示页面的一小部分.
 
