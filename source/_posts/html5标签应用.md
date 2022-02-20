@@ -191,6 +191,36 @@ console.log(getDisplay(a))
 * source元素为媒介元素(如\<video>和\<audio>)定义媒介资源
   * \<source>
 
+### 音频视频标签
+
+1. 视频标签
+   * ```<video src="url" controls="controls"></video>```视频标签
+
+   | 属性       | 值           | 描述                                                          |
+   | ---------- | ------------ | ------------------------------------------------------------- |
+   | autoplay   | autoplay     | 视频就绪自动播放(谷歌浏览器需要添加```muted="muted"```来解决) |
+   | controls   | controls     | 向用户显示播放控件                                            |
+   | width      | pixels(像素) | 设置播放器宽度                                                |
+   | height     | pixels(像素) | 设置播放器高度                                                |
+   | loop       | loop         | 播放完是否继续播放该视频，循环播放                            |
+   | preload    | proload      | 是否等加载完再播放                                            |
+   | src        | url          | 视频url地址                                                   |
+   | poster     | Imgurl       | 加载等待的画面图片                                            |
+   | autobuffer | autobuffer   | 设置为浏览器缓冲方式，不设置autopaly才有效                    |
+   | muted      | muted        | 静音播放                                                      |
+
+2. 音频标签
+    * ```<audio src="url" controls="controls"></audio>```音频标签
+
+   | 属性     | 值       | 描述                               |
+   | -------- | -------- | ---------------------------------- |
+   | autoplay | autoplay | 音频就绪自动播放                   |
+   | controls | controls | 向用户显示播放控件                 |
+   | loop     | loop     | 播放完是否继续播放该音频，循环播放 |
+   | src      | url      | 音频url地址                        |
+
+   * 注意:谷歌浏览器把音频和视频自动播放禁止了
+
 ### 新增的input类型
 
 > 表示必须输入什么样的类型

@@ -561,21 +561,21 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2022-02-07
+                    2022-02-20
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    10.5k
+                    12.6k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    40 分
+                    48 分
                 </div>
                 
 
@@ -603,96 +603,266 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="css基础"><a href="#css基础" class="headerlink" title="css基础"></a>css基础</h2><h3 id="css的引入样式"><a href="#css的引入样式" class="headerlink" title="css的引入样式"></a>css的引入样式</h3><ol>
-<li><p>内部样式表:将代码写在<code>&lt;style&gt;&lt;/style&gt;</code>中</p>
-</li>
-<li><p>行内样式表:<code>&lt;div style=&quot;color:red&quot;&gt;你好&lt;/style&gt;</code></p>
-</li>
-<li><p>外部样式表:<code>&lt;link ref=&quot;stylesheet(样式表)&quot; href=&quot;路径&quot;&gt;</code></p>
-</li>
+                <h2 id="css基础"><a href="#css基础" class="headerlink" title="css基础"></a>css基础</h2><table>
+<thead>
+<tr>
+<th>布局方式</th>
+<th>描述</th>
+<th>特点</th>
+<th>场景</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>静态布局</td>
+<td>Static Layout,传统Web设计,网页上的所有元素的尺寸一律使用px作为单位.不管浏览器尺寸具体是多少,网页布局始终按照最初写代码时的布局来显示.一般需要设置最小宽度</td>
+<td>不能根据用户的屏幕尺寸做出不同的表现</td>
+<td>传统PC网页</td>
+</tr>
+<tr>
+<td>流式布局</td>
+<td>Liquid Layout,页面元素的宽度按照屏幕分辨率进行适配调整,但整体布局不变.代表作栅栏系统（网格系统）</td>
+<td>网页中主要的划分区域的尺寸使用百分数（搭配min-、max-属性使用）</td>
+<td>屏幕分辨率变化时,页面里元素的大小会变化而但布局不变</td>
+</tr>
+<tr>
+<td>自适应布局</td>
+<td>Adaptive Layout,使用@media分别为不同的屏幕分辨率定义布局,即创建多个静态布局,每个静态布局对应一个屏幕分辨率范围</td>
+<td>屏幕分辨率变化时,页面里面元素的位置会变化而大小不会变化</td>
+<td>-</td>
+</tr>
+<tr>
+<td>响应式布局</td>
+<td>Responsive Layout,一个页面在所有终端上（各种尺寸的PC、手机、手表、冰箱的Web浏览器等等）都能显示出令人满意的效果</td>
+<td>每个屏幕分辨率下面会有一个布局样式,即元素位置和大小都会变</td>
+<td>多终端页面</td>
+</tr>
+<tr>
+<td>弹性布局</td>
+<td>rem/em布局,包裹文字的各元素的尺寸采用em/rem做单位,而页面的主要划分区域的尺寸仍使用百分数或px做单位</td>
+<td>理想状态是所有屏幕的高宽比和最初的设计高宽比一样,或者相差不多,完美适应</td>
+<td>移动端</td>
+</tr>
+</tbody></table>
+<ul>
+<li><strong>“流体布局”</strong>,指的是利用元素”流”的特性实现的各类布局效果.因为”流”本身 具有自适应特性,所以”流体布局”往往都是具有自适应性的. 但是,”流体布局”并不等同于 “自适应布局”.</li>
+<li>**”自适应布局”**是对凡是具有自适应特性的一类布局的统称,”流体布局”要狭窄得多.例如,表格布局也可以设置为100%自适应,但表格和”流”不是一路的,并不属于”流体布局”. 通俗的说,流体布局就是在width:auto;或者格式化宽/高中,通过设定<code>margin/border/padding</code>来影响content的布局的方式</li>
+</ul>
+<h3 id="width-auto"><a href="#width-auto" class="headerlink" title="width:auto"></a>width:auto</h3><ol>
+<li><strong>充分利用空间</strong>,块级元素的默认宽度使父级元素宽度的100%</li>
+<li><strong>收缩与包裹</strong>,当元素处于浮动,绝对定位或者为内敛快元素或table元素,父级元素失去原有的宽度收缩到与内部元素一样</li>
+<li><strong>收缩到最小</strong>,这个容易出现在table-layout为auto的表格中,为了超过父级元素的宽度</li>
+<li><strong>超出容器限制</strong>,除非右明确的width相关设置,否则上面三种情况都不会超过父级的容器宽度(如果设置很长的英文,或者<code>white-space:nowrap</code>)</li>
 </ol>
-<h3 id="选择器"><a href="#选择器" class="headerlink" title="选择器"></a>选择器</h3><h4 id="基础选择器"><a href="#基础选择器" class="headerlink" title="基础选择器"></a>基础选择器</h4><ol>
-<li><p>标签选择器: <code>h2&#123;&#125;</code></p>
-</li>
-<li><p>类选择器:样式点定义 结构类(class)调用 一个或多个 </p>
-</li>
-</ol>
+<h4 id="外部尺寸与流体特性"><a href="#外部尺寸与流体特性" class="headerlink" title="外部尺寸与流体特性"></a>外部尺寸与流体特性</h4><ol>
+<li><p>正常流宽度默认是<code>100%</code></p>
+<ul>
+<li>在页面中随便扔一个div元素,其尺寸表现就会和水流一样铺满容器.这就 是block 容器的流特性.</li>
+<li>所谓流动性是一种根据<code>margin/border/padding/content</code>属性对其内容区域自动分配水平空间的机制</li>
+</ul>
 <pre class="line-numbers language-html" data-language="html"><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>style</span><span class="token punctuation">></span></span><span class="token style"><span class="token language-css">
-  <span class="token selector">.red</span><span class="token punctuation">&#123;</span>
-    <span class="token property">color</span><span class="token punctuation">:</span>red<span class="token punctuation">;</span>
-  <span class="token punctuation">&#125;</span>
+<span class="token selector">.width</span> <span class="token punctuation">&#123;</span>
+  <span class="token property">width</span><span class="token punctuation">:</span> 100%<span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+<span class="token selector">.nav</span> <span class="token punctuation">&#123;</span>
+  <span class="token property">background-color</span><span class="token punctuation">:</span> #cd0000<span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+<span class="token selector">.nav-a</span> <span class="token punctuation">&#123;</span>
+  <span class="token property">display</span><span class="token punctuation">:</span> block<span class="token punctuation">;</span>
+  <span class="token property">margin</span><span class="token punctuation">:</span> 0 10px<span class="token punctuation">;</span>
+  <span class="token property">padding</span><span class="token punctuation">:</span> 9px 10px<span class="token punctuation">;</span>
+  <span class="token property">border-bottom</span><span class="token punctuation">:</span> 1px solid #b70000<span class="token punctuation">;</span>
+  <span class="token property">border-top</span><span class="token punctuation">:</span> 1px solid #de3636<span class="token punctuation">;</span>
+  <span class="token property">color</span><span class="token punctuation">:</span> #fff<span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+<span class="token selector">.nav-a:first-child</span> <span class="token punctuation">&#123;</span>
+  <span class="token property">border-top</span><span class="token punctuation">:</span> 0<span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+<span class="token selector">.nav-a + .nav-a + .nav-a</span> <span class="token punctuation">&#123;</span>
+  <span class="token property">border-bottom</span><span class="token punctuation">:</span> 0<span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
 </span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>style</span><span class="token punctuation">></span></span>
-
 ...
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>h2</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>red<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>你好<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>h2</span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>h4</span><span class="token punctuation">></span></span>无宽度,借助流动性<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>h4</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>nav<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>a</span> <span class="token attr-name">href</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span><span class="token punctuation">"</span></span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>nav-a<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>导航1<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>a</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>a</span> <span class="token attr-name">href</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span><span class="token punctuation">"</span></span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>nav-a<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>导航2<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>a</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>a</span> <span class="token attr-name">href</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span><span class="token punctuation">"</span></span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>nav-a<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>导航3<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>a</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>h4</span><span class="token punctuation">></span></span>width:100%<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>h4</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>nav<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>a</span> <span class="token attr-name">href</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span><span class="token punctuation">"</span></span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>nav-a width<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>导航1<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>a</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>a</span> <span class="token attr-name">href</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span><span class="token punctuation">"</span></span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>nav-a width<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>导航2<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>a</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>a</span> <span class="token attr-name">href</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span><span class="token punctuation">"</span></span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>nav-a width<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>导航3<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>a</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+<li><p>格式化宽度</p>
 <ul>
-<li><span style="color:red">注意:可以写多个类名,但是中间必须使用空格</span></li>
+<li>格式化宽度仅出现在”绝对定位模型”中,也就是出现在position属性值为absolute和fixed的元素中,在预设情况下绝对定位元素的宽度表现是”包裹性”,”宽度由内部尺寸决定”,但是有一中情况下由外部尺寸决定.</li>
+<li>在 CSS 中,可替换元素（replaced element）的展现效果不是由 CSS 来控制的.这些元素是一种外部对象,它们外观的渲染,是独立于 CSS 的. 典型的可替换元素有：<iframe><video><embed><img></li>
+<li>对于非替换元素,当 left/right 或 top/bottom 对立方位的属性值同时存在的时候,元素的宽度表现为”格式化宽度”,其宽度大小相对于最近的具有定位特性 (position属性值不是static) 的祖先元素计算</li>
 </ul>
-<ol start="3">
-<li>id选择器:样式#定义,结构id调用,只能调用一次,其它切勿调用</li>
-</ol>
 <pre class="line-numbers language-html" data-language="html"><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>style</span><span class="token punctuation">></span></span><span class="token style"><span class="token language-css">
-  <span class="token selector">#red</span><span class="token punctuation">&#123;</span>
-    <span class="token property">color</span><span class="token punctuation">:</span>red<span class="token punctuation">;</span>
-  <span class="token punctuation">&#125;</span>
+<span class="token selector">.father</span> <span class="token punctuation">&#123;</span>
+   <span class="token property">position</span><span class="token punctuation">:</span> relative<span class="token punctuation">;</span>
+   <span class="token property">width</span><span class="token punctuation">:</span> 300px<span class="token punctuation">;</span>
+   <span class="token property">height</span><span class="token punctuation">:</span> 150px<span class="token punctuation">;</span>
+   <span class="token property">border</span><span class="token punctuation">:</span> 1px solid saddlebrown<span class="token punctuation">;</span>
+ <span class="token punctuation">&#125;</span>
+ <span class="token selector">.father > .son</span> <span class="token punctuation">&#123;</span>
+   <span class="token property">position</span><span class="token punctuation">:</span> absolute<span class="token punctuation">;</span>
+   <span class="token property">top</span><span class="token punctuation">:</span> 0px<span class="token punctuation">;</span>
+   <span class="token property">right</span><span class="token punctuation">:</span> 0px<span class="token punctuation">;</span>
+   <span class="token property">bottom</span><span class="token punctuation">:</span> 0px<span class="token punctuation">;</span>
+   <span class="token property">left</span><span class="token punctuation">:</span> 0px<span class="token punctuation">;</span>
+   <span class="token property">margin</span><span class="token punctuation">:</span> auto<span class="token punctuation">;</span>
+   <span class="token property">width</span><span class="token punctuation">:</span> 100px<span class="token punctuation">;</span>
+   <span class="token property">height</span><span class="token punctuation">:</span> 50px<span class="token punctuation">;</span>
+   <span class="token property">border</span><span class="token punctuation">:</span> 1px solid salmon<span class="token punctuation">;</span>
+ <span class="token punctuation">&#125;</span>
 </span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>style</span><span class="token punctuation">></span></span>
-
-...
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>h2</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>red<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>你好<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>h2</span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<ol start="4">
-<li>通配符选择器:<code>*&#123;&#125;</code>所有标签的属性都会增加</li>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>father<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>son<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
 </ol>
-<h4 id="复合选择器"><a href="#复合选择器" class="headerlink" title="复合选择器"></a>复合选择器</h4><ol>
-<li><p>后代选择器:元素1 元素2{样式},例<code>ul li &#123;color:red;&#125;</code></p>
+<h4 id="内部尺寸与流体特性"><a href="#内部尺寸与流体特性" class="headerlink" title="内部尺寸与流体特性"></a>内部尺寸与流体特性</h4><blockquote>
+<p>所谓”内部尺寸”,简单来讲就是元素的尺寸由内部的元素决定,而非由外部的容器决定.</p>
+</blockquote>
+<ol>
+<li><p>包裹性</p>
 <ul>
-<li><span style="color:red">注意:元素2必须是子级,只要是元素的子级都可以选到</sapn></li>
-<li>元素1和2可以是任意基础选择器</li>
+<li>包裹性”除了”包裹”,还有”自适应性”.所谓”自适应性”指的是元素尺寸由内部元素决定,但永远小于”包含块”容器的尺寸(除非容器尺寸小于元素的”首选最小宽度”).</li>
+<li>按钮就是css世界中极具代表性的inline-block元素,可谓展示”包裹性”最好的例子,具体表现为：按钮文字越多宽度越宽(内部尺寸特性),但如果文字足够多,则会在容器的宽度处自动换行(自适应性)</li>
 </ul>
 </li>
-<li><p>子选择器(重要):元素1&gt;元素2(样式声明),表示选择元素1里的所有直接后代的(子元素)元素2,例:<code>div &gt; a&#123;color:red;&#125;</code></p>
+<li><p>首选最小宽度</p>
 <ul>
-<li>元素1是父级,元素2是子级,最终选择的元素是元素2</li>
-<li>元素2必须是最近一级的子级(亲儿子),子子集(孙子)等都不归他管</li>
+<li>图片和文字的权重要远大于布局,当布局中存在更高权重元素时(如width:0 不生效)最小宽度受其内容影响 (文字中的最小宽度为单个字符宽度)</li>
+<li><code>word-break: break-all</code> break-all 对于non-CJK (CJK 指中文/日文/韩文) 文本,可在任意字符间断行.</li>
 </ul>
-<pre class="line-numbers language-html" data-language="html"><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>style</span><span class="token punctuation">></span></span><span class="token style"><span class="token language-css">
-  <span class="token selector">div > a</span><span class="token punctuation">&#123;</span><span class="token property">color</span><span class="token punctuation">:</span>red<span class="token punctuation">;</span><span class="token punctuation">&#125;</span>
-</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>style</span><span class="token punctuation">></span></span>
-...
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span><span class="token punctuation">></span></span>
-  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>a</span> <span class="token attr-name">href</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>#<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>你好<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>a</span><span class="token punctuation">></span></span>
-  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span><span class="token punctuation">></span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>a</span> <span class="token attr-name">href</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>#<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>你好(选不到)<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>a</span><span class="token punctuation">></span></span>
-  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">></span></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
-<li><p>并集选择器:可以选择多组标签,同时定义相同的样式,用于集体声明<code>div,ul, .pig(class) li&#123;color:red;&#125;</code></p>
 </li>
-<li><p>伪类选择器:给选择器添加特殊效果,特点:<span style="color:red">用冒号(:)</span>,比如: :hover,:first-child</p>
+<li><p>最大宽度</p>
+<ul>
+<li>white-space CSS 属性是用来设置如何处理元素中的空白.</li>
+<li>最大宽度就是元素可以有的最大宽度.”最大宽度”实际等同于”包裹性”元素设置white-space: nowrap 声明后的宽度.(连续的空白符会被合并.但文本内的换行无效) 如果内部没有块级元素或者块级元素没有设定宽度值,则”最大宽度”实际上是最大的连续内联盒子的宽度</li>
+</ul>
 </li>
 </ol>
+<h4 id="css流体布局下的宽度分离原则"><a href="#css流体布局下的宽度分离原则" class="headerlink" title="css流体布局下的宽度分离原则"></a>css流体布局下的宽度分离原则</h4><blockquote>
+<p>所谓”宽度分离原则”就是css中的width属性不与影响宽度的padding/border（有时候包括margin）属性共存, 通过设置 padding,margin,border,内部内容通过 width：auto 自动填充</p>
+</blockquote>
+<h4 id="min-width-max-width和min-height-max-height"><a href="#min-width-max-width和min-height-max-height" class="headerlink" title="min-width/max-width和min-height/max-height"></a>min-width/max-width和min-height/max-height</h4><blockquote>
+<p>为流体而生的min-width/max-width</p>
+</blockquote>
 <ul>
-<li><p>链接伪类选择器:</p>
+<li>比如,网页宽度在1200～1400像素自适应,既满足大屏的大气又满足笔记本的良好显示,此时,<code>min-width/max-width</code>就可以大显神威了</li>
+</ul>
+<pre class="line-numbers language-css" data-language="css"><code class="language-css"><span class="token selector">.container</span> <span class="token punctuation">&#123;</span>
+  <span class="token property">min-width</span><span class="token punctuation">:</span> 1200px<span class="token punctuation">;</span>
+  <span class="token property">max-width</span><span class="token punctuation">:</span> 1400px<span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
 <ul>
-<li><p><code>a:link</code>   /<em>选择所有未被访问的链接</em>/  </p>
-</li>
-<li><p><code>a:visited</code>   /<em>选择所有已被访问的链接</em>/  </p>
-</li>
-<li><p><code>a:hover</code>   /<em>选择所有指针位于其上的链接</em>/  </p>
-</li>
-<li><p><code>a:active</code>   /<em>选择所有活动的链接(鼠标按下未弹起)</em>/</p>
-</li>
-<li><p>注意:  </p>
+<li>公众号的热门文章中,经常会有图片,这些图片都是用户上传产生的,因此尺寸会有大有小,为了避免图片在移动端展示过大的影响体验,常常会有下面的max-width限制</li>
+</ul>
+<pre class="line-numbers language-css" data-language="css"><code class="language-css"><span class="token selector">img</span> <span class="token punctuation">&#123;</span>
+    <span class="token property">max-width</span><span class="token punctuation">:</span> 100%<span class="token punctuation">;</span>
+    <span class="token property">height</span><span class="token punctuation">:</span> auto<span class="token important">!important</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
 <ul>
-<li><span style="color:red">请按照LVHA的顺序声明:link-:visited-:hover-:active</span></li>
-<li>因为链接在浏览器中有单独默认样式,所以在实际工作中需要给链接指定单独样式</li>
+<li>原始图片有设定height,max-widht生效的时候图片就会被水平压缩.强制height为auto可以确保宽度不超出的同时使图片保持原来的比例. 但这样也会有体验上的问题,那就是在加载时图片占据高度会从0变成计算高度,图文会有明显的瀑布式下落</li>
 </ul>
+<blockquote>
+<p>不同的初始值:<code>min-weidht/min-height</code> 的初始值是auto,<code>max-width/max-height</code> 的初始值是 none</p>
+</blockquote>
+<ul>
+<li>超越!important,超越最大.超越!important 指的是 max-width 会覆盖 width</li>
+<li>比方说,针对下面的 HTML 和 CSS 设置,图片最后呈现的宽度是多少？</li>
+</ul>
+<pre class="line-numbers language-html" data-language="html"><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>img</span> <span class="token attr-name">scr</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>1.jpg<span class="token punctuation">"</span></span> <span class="token special-attr"><span class="token attr-name">style</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span><span class="token value css language-css"><span class="token property">width</span><span class="token punctuation">:</span> 480px<span class="token important">!important</span><span class="token punctuation">;</span></span><span class="token punctuation">"</span></span></span><span class="token punctuation">/></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>style</span><span class="token punctuation">></span></span><span class="token style"><span class="token language-css">
+<span class="token selector">img</span> <span class="token punctuation">&#123;</span>
+    <span class="token property">max-width</span><span class="token punctuation">:</span> 256px<span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>style</span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<ul>
+<li><p>答案是256px.style、!important通通靠边站！因为max-width会覆盖width</p>
 </li>
-<li><p>:focus伪类选择器:<span style="color:red">用于获得焦点,焦点就是光标</span>,一般情况下&lt;input&gt;类表单才能获取,主要针对于表单元素<code>input:focus&#123;background-color:red;&#125;</code></p>
+<li><p>超越最大指的是<code>min-width</code>的值大于<code>max-width</code>值时取<code>min-width</code>的值超越最大值得是min-width覆盖max-width,此规则发生在min-width和max-width冲突时</p>
 </li>
 </ul>
+<pre class="line-numbers language-css" data-language="css"><code class="language-css"><span class="token selector">.container</span> <span class="token punctuation">&#123;</span>
+  <span class="token property">min-width</span><span class="token punctuation">:</span> 1400px<span class="token punctuation">;</span>
+  <span class="token property">max-width</span><span class="token punctuation">:</span> 1200px<span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<ul>
+<li>最小宽度比最大宽度设置得还要大,遵循”超越最大”规则(注意不是”后台者居上”规则) 值取<code>min-width,max-width</code>被忽略,于是,.container元素表现为至少1400像素宽</li>
+</ul>
+<h3 id="height-auto"><a href="#height-auto" class="headerlink" title="height:auto"></a>height:auto</h3><blockquote>
+<p>关于<code>height:100%</code>无效</p>
+</blockquote>
+<ul>
+<li>height和width还有一个比较明显的区别就是对百分比单位的支持.对于width属性,就算父元素width为auto,其百分比也是支持的；但是,对于height属性,如果父元素height为auto,只要子元素在文档流中,其百分比值完全就被忽略了.</li>
+</ul>
+<pre class="line-numbers language-css" data-language="css"><code class="language-css"><span class="token selector">div</span> <span class="token punctuation">&#123;</span>
+  <span class="token property">width</span><span class="token punctuation">:</span> 100%<span class="token punctuation">;</span> <span class="token comment">/* 这是多余的 */</span>
+  <span class="token property">height</span><span class="token punctuation">:</span> 100%<span class="token punctuation">;</span> <span class="token comment">/* 这是无效的 */</span>
+  <span class="token property">background</span><span class="token punctuation">:</span> <span class="token url"><span class="token function">url</span><span class="token punctuation">(</span>bg.jpg<span class="token punctuation">)</span></span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<blockquote>
+<p>要明白其中的原因要先了解浏览器渲染的基本原理. 首先,先下载文档内容,加载头部样式资源（如果有的话）,然后按照从上而下、自外而内的顺序渲染DOM内容. 套用本例就是,先渲染父级元素,后渲染子元素,是有先后顺序的.因此,当渲染到父元素的时候,子元素的width:100%并没有渲染,宽度就是图片加文字内容的宽度；等渲染到文字这个元素的时候,父元素的宽度已经固定,此时的width:100%就是已经固定好的父元素的宽度. 宽度不够怎么办？溢出就好了,overflow属性就是为此而生的</p>
+</blockquote>
+<ul>
+<li>由于没有显示定义height,就将height解释成字符串<code>auto</code>=&gt;<code>&#39;auto&#39; * 100/100 = NaN</code></li>
+</ul>
+<blockquote>
+<p>设置显示的高度(或者也可以使用绝对定位)</p>
+</blockquote>
+<pre class="line-numbers language-css" data-language="css"><code class="language-css"><span class="token selector">html, body</span> <span class="token punctuation">&#123;</span>
+    <span class="token property">height</span><span class="token punctuation">:</span> 100%<span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<h4 id="任意高度元素的展开收起动画技术"><a href="#任意高度元素的展开收起动画技术" class="headerlink" title="任意高度元素的展开收起动画技术"></a>任意高度元素的展开收起动画技术</h4><blockquote>
+<p>第一反应就是使用<code>height + overflow:hidden</code>实现,但是,很多时候我们展开的元素内容是动态的,换句话说高度不是固定的,因此,height使用的值是默认的auto,应该都知道的auto是个关键字值,并非数值,正如height: 100%的100%无法和auto相计算一样,从0px到auto是无法计算的,因此无法形成过渡或动画效果</p>
+</blockquote>
+<pre class="line-numbers language-css" data-language="css"><code class="language-css"><span class="token comment">/* 因此,下面代码呈现的效果也是生硬的展开和收起 */</span>
+<span class="token selector">.element</span> <span class="token punctuation">&#123;</span>
+    <span class="token property">height</span><span class="token punctuation">:</span> 0<span class="token punctuation">;</span>
+    <span class="token property">overflow</span><span class="token punctuation">:</span> hidden<span class="token punctuation">;</span>
+    <span class="token property">transition</span><span class="token punctuation">:</span> height .25s<span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token selector">.element.active</span> <span class="token punctuation">&#123;</span>
+    <span class="token property">height</span><span class="token punctuation">:</span> auto<span class="token punctuation">;</span> <span class="token comment">/* 没有transition效果,只是生硬的展开 */</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token comment">/* 难道就没有什么一劳永逸的实现方法吗？有,不妨试试max-height */</span>
+<span class="token selector">.element</span> <span class="token punctuation">&#123;</span>
+    <span class="token property">max-height</span><span class="token punctuation">:</span> 0<span class="token punctuation">;</span>
+    <span class="token property">overflow</span><span class="token punctuation">:</span> hidden<span class="token punctuation">;</span>
+    <span class="token property">transition</span><span class="token punctuation">:</span> max-height .25s<span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token selector">.element.active</span> <span class="token punctuation">&#123;</span>
+    <span class="token property">max-height</span><span class="token punctuation">:</span> 666px <span class="token comment">/* 一个足够大的高度值 */</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<blockquote>
+<p>其中展开后的max-height值,我们只需要设定为保证比展开内容高度大的值就可以,因为max-height值比height计算值大的时候,元素的高度就是height属性的计算高度, 在本交互中,也就是height: auto时候的高度值。于是,一个高度不定的任意元素的展开动画就实现了</p>
+</blockquote>
+<ul>
+<li><p>但是,使用此方法也有一点要注意,既虽然从适用范围讲,max-height值越大使用场景越多,但是,如果max-height值太大,在收起的时候可能会有“效果延迟”的问题。比方说,展开的元素高度是100px,而max-height是1000px,动画时间是250ms,假设动画函数是线性的,则前255ms我们是看不到收起效果的,因为max-height从1000像素到100像素变化这段时间,元素不会有区域被隐藏,会给人动画延迟225ms的感觉</p>
+</li>
+<li><p>因此,建议max-height使用足够安全的最小值,这样,收起时即使有延迟效果,也会因为时间很短,很难给用户察觉,并不会影响体验</p>
 </li>
 </ul>
+<h3 id="css的引入样式"><a href="#css的引入样式" class="headerlink" title="css的引入样式"></a>css的引入样式</h3><ol>
+<li>内部样式表:将代码写在<code>&lt;style&gt;&lt;/style&gt;</code>中</li>
+<li>行内样式表:<code>&lt;div style=&quot;color:red&quot;&gt;你好&lt;/style&gt;</code></li>
+<li>外部样式表:<code>&lt;link ref=&quot;stylesheet(样式表)&quot; href=&quot;路径&quot;&gt;</code></li>
+</ol>
 <h3 id="字体属性"><a href="#字体属性" class="headerlink" title="字体属性"></a>字体属性</h3><ol>
 <li>字体:<code>font-family:&quot;Arial&quot;;</code>,属性可以写英文可以写中文</li>
 <li>字体大小: <code>font-size:20px;</code>,属性是数值</li>
@@ -727,57 +897,6 @@
 <li>生成带有类名的或者id名的,直接写.demo或者#two, tab键</li>
 <li>如果生成div类名是有顺序的,可以用自增符号,例:<code>.demo$*5</code></li>
 <li>如果在生成的标签内部些内容,可以用{}表示,<code>div&#123;你好&#125;</code>,tab键</li>
-</ol>
-<h3 id="元素的显示模式"><a href="#元素的显示模式" class="headerlink" title="元素的显示模式"></a>元素的显示模式</h3><ul>
-<li><p>块元素:&lt;h1&gt;~&lt;h6&gt;,&lt;div&gt;,&lt;p&gt;,&lt;ul&gt;,&lt;ol&gt;,&lt;li&gt;等</p>
-<ol>
-<li>自己独占一行</li>
-<li>高度,宽度,外边距以及内边距都可以控制</li>
-<li>宽度默认是容器(父级宽度)的100%</li>
-<li>是一个容器及盒子,里面可以放行内或者块级元素</li>
-</ol>
-<ul>
-<li>注意:<ol>
-<li>文字类的元素不能使用块级元素</li>
-<li>&lt;p&gt;标签主要用于存放文字,因此&lt;p&gt;里面不能放块级元素,特别是不能放&lt;div&gt;</li>
-<li>同理,&lt;h1&gt;~&lt;h6&gt;等都不能放其它块级元素</li>
-</ol>
-</li>
-</ul>
-</li>
-<li><p>行内元素:&lt;a&gt;,&lt;strong&gt;,&lt;b&gt;,&lt;em&gt;,&lt;i&gt;,&lt;del&gt;,&lt;s&gt;,&lt;ins&gt;,&lt;u&gt;,&lt;span&gt;等,也称内联元素</p>
-<ol>
-<li>相邻行内元素在一行上,一行可以显示多个</li>
-<li>高宽直接设置是无效的</li>
-<li>默认宽度是它本身内容的宽度</li>
-<li>行内元素只能容纳文本或其它行内元素</li>
-</ol>
-<ul>
-<li>注意:<ol>
-<li>链接里面不能再放链接</li>
-<li>特殊情况链接&lt;a&gt;里面可以放块级元素,但是给&lt;a&gt;转换一下块级模式最安全</li>
-</ol>
-</li>
-</ul>
-</li>
-<li><p>行内块元素:&lt;img/&gt;,&lt;input/&gt;,&lt;td&gt;.他们<span style="color:red">同时具有块元素和行内元素的特点</span>,有些资料称他们为行内元素</p>
-<ol>
-<li>和相邻的行内元素(行内块)再一行上,但是他们之间会有空白缝隙,一行可以显示多个(行内元素特点)</li>
-<li>默认宽度就是它本身的宽度(行内元素的特点)</li>
-<li>高度,行高,外边距都可以控制(块级元素的特点)</li>
-</ol>
-</li>
-<li><p>元素显示模式转换:</p>
-<ol>
-<li><code>display:block</code>:行内元素转换为块级元素</li>
-<li><code>display:inline</code>:块级元素转换为行内元素</li>
-<li><code>display:inline-block</code>:转换为行内块元素</li>
-</ol>
-</li>
-</ul>
-<h3 id="垂直居中"><a href="#垂直居中" class="headerlink" title="垂直居中"></a>垂直居中</h3><ol>
-<li>方式<code>line-height=height</code></li>
-<li>原理:行间距(line-height)=上间距+文本高度(默认16px)+下间距,上下间距平分剩余大小</li>
 </ol>
 <h3 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h3><ol>
 <li><p>背景颜色:<code>background-color:red;</code>,默认是<span style="color:red">transparent</span></p>
@@ -901,54 +1020,137 @@
 </ul>
 </li>
 </ul>
-<h3 id="优先级"><a href="#优先级" class="headerlink" title="优先级"></a>优先级</h3><ul>
-<li>选择器相同 执行层叠性</li>
-<li>选择器不同,则根据<span style="color:red">选择器权重</span>执行</li>
-</ul>
-<table>
-<thead>
-<tr>
-<th>选择器</th>
-<th>选择器权重</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>继承或者*</td>
-<td>0,0,0,0</td>
-</tr>
-<tr>
-<td>元素选择器</td>
-<td>0,0,0,1</td>
-</tr>
-<tr>
-<td>类选择器,伪类选择器</td>
-<td>0,0,1,0</td>
-</tr>
-<tr>
-<td>ID选择器</td>
-<td>0,1,0,0</td>
-</tr>
-<tr>
-<td>行内样式style=””</td>
-<td>1,0,0,0</td>
-</tr>
-<tr>
-<td>!important重要的</td>
-<td>无穷大</td>
-</tr>
-</tbody></table>
-<ul>
-<li><p>注意:</p>
+<h2 id="盒子模型"><a href="#盒子模型" class="headerlink" title="盒子模型"></a>盒子模型</h2><h3 id="内容-content"><a href="#内容-content" class="headerlink" title="内容(content)"></a>内容(content)</h3><h4 id="替换元素"><a href="#替换元素" class="headerlink" title="替换元素"></a>替换元素</h4><blockquote>
+<p>替换元素:通过修改某个属性值呈现的内容就可以被替换的元素就称为替换元素(例如&lt;img&gt;,&lt;input&gt;登都是典型的替换元素)</p>
+</blockquote>
 <ol>
-<li>权重是有4组数字,不会有进位</li>
-<li>从左向右判断,如果某一位数值相同,则判断下一位数值</li>
-<li><span style="color:red">继承的权重是0,(重要)</span>,如果该元素没有直接选中,不管父元素权重多高,子元素得到的权重都是0</li>
+<li>内容外观不受页面上的css的影响.即样式表现在css之外</li>
+<li>有自己的尺寸.默认的尺寸(不包括边框)是300px*150px,像&lt;video&gt;等.也有如&lt;img&gt;这样替换元素为0px的.</li>
+<li>在css属性上有一套自己的表现规则</li>
 </ol>
-</li>
-<li><p>权重叠加:如果是复合选择器,则会有权重叠加,需要计算权重</p>
+<ul>
+<li>&lt;select&gt;:首先内容可以替换,如果设置multiple属性,下拉就变成了展开直选多选的模式.并且样式外部的css很难更改.最后他也有自己的尺寸</li>
+</ul>
+<blockquote>
+<p>替换元素的默认display</p>
+</blockquote>
+<ul>
+<li>一般替换元素是内联元素(<code>inline</code>)或者是行内块元素(<code>inline-block</code>)</li>
+</ul>
+<blockquote>
+<p>替换元素的尺寸</p>
+</blockquote>
+<ol>
+<li>固有尺寸:替换内容原本的尺寸</li>
+<li>HTML尺寸,这些HTML原生的尺寸.例如&lt;img&gt;的width,height,&lt;input&gt;的size,&lt;textarea&gt;的cols和rows</li>
+<li>CSS尺寸,通过css属性的width和height或者max-width/min-width和max-height/min-height设置尺寸</li>
+</ol>
+<ul>
+<li>注意<ul>
+<li>如果固有尺寸含有固有的宽高比例,同时设置了宽度和高度,则元素依然按照固有的宽高比例</li>
+<li>&lt;img&gt;中如果图片缺省,不需要使用<code>src=&quot;&quot;</code>,只要有<code>src=&quot;&quot;</code>就会产生请求</li>
+</ul>
 </li>
 </ul>
-<h2 id="盒子模型"><a href="#盒子模型" class="headerlink" title="盒子模型"></a>盒子模型</h2><h3 id="边框-border"><a href="#边框-border" class="headerlink" title="边框(border)"></a>边框(border)</h3><ul>
+<blockquote>
+<p><code>object-fit</code>:替换内容的适配方式</p>
+</blockquote>
+<ol>
+<li>默认是<code>fill</code>,也就是外部设定的尺寸多大,我就填满,跟着一样大</li>
+<li><code>none</code>:图片的尺寸完全不受控制.会保持图片原来的大小.如果设置了大小,超过范围不会显示</li>
+<li><code>contain</code>:保持图片比例,尽可能利用html的尺寸但是不会超出的显示方式</li>
+</ol>
+<ul>
+<li>同时在伪元素中可以使用<code>content:attr()</code>获取html标签中的属性例如<code>attr(alt)</code>.url等也可以使用</li>
+</ul>
+<blockquote>
+<p>content元素与替换元素</p>
+</blockquote>
+<ul>
+<li><code>content</code>属性生成的对象被称为匿名替换元素</li>
+</ul>
+<ol>
+<li>使用content生成的文本是无法选中的,也是无法复制的.同时content生成的文本无法被屏幕设备阅读,搜索引擎抓取</li>
+<li>不能左右<code>:empty</code>(当元素中没有内容时进行匹配)伪类</li>
+<li>动态生成的值无法获取(自动累加,计数器)</li>
+</ol>
+<h4 id="content内容生成"><a href="#content内容生成" class="headerlink" title="content内容生成"></a>content内容生成</h4><blockquote>
+<p>content设置成空字符串,然后利用其他的css代码生成辅助元素,或实现图形,或实现特定布局.</p>
+</blockquote>
+<ol>
+<li><p>content中图片生成,直接使用<code>content:url()</code>不易控制图片.</p>
+<pre class="line-numbers language-css" data-language="css"><code class="language-css"><span class="token selector">div::before</span><span class="token punctuation">&#123;</span>
+  <span class="token property">content</span><span class="token punctuation">:</span><span class="token string">''</span><span class="token punctuation">;</span>
+  <span class="token property">background</span><span class="token punctuation">:</span><span class="token url"><span class="token function">url</span><span class="token punctuation">(</span><span class="token punctuation">)</span></span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre></li>
+<li><p>attr属性值生成内容.除了原生的html属性.也可以使用自定义的html属性</p>
+</li>
+</ol>
+<blockquote>
+<p>content计数器.两个属性<code>counter-reset</code>和<code>counter-increment</code>.两个方法<code>counter()</code>和<code>increment()</code></p>
+</blockquote>
+<ol>
+<li><p><strong>counter-reset</strong>:计数器-重置,默认是从0开始,可以使用负数或者小数(各个浏览器不同)</p>
+<ul>
+<li>同时可以多个计数器同时命名</li>
+</ul>
+</li>
+<li><p><strong>counter-increment</strong>:计数器递增.值为<code>counter-reset</code>的一个或者多个关键字,后面可以跟数字,表示每次计数的变化值</p>
+ <pre class="line-numbers language-html" data-language="html"><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>style</span><span class="token punctuation">></span></span><span class="token style"><span class="token language-css">
+  <span class="token selector">.counter</span> <span class="token punctuation">&#123;</span>
+    <span class="token property">counter-reset</span><span class="token punctuation">:</span> cun 2<span class="token punctuation">;</span>
+    <span class="token property">counter-increment</span><span class="token punctuation">:</span> cun 1<span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span>
+  <span class="token selector">.counter:before</span> <span class="token punctuation">&#123;</span>
+    <span class="token property">content</span><span class="token punctuation">:</span> <span class="token function">counter</span><span class="token punctuation">(</span>cun<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span>
+</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>style</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>body</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>counter<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>counter<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>body</span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+<li><p><code>counter()/counters()</code>:显示计数</p>
+<ul>
+<li><code>counter(name,style)</code>,其中style支持的参数就是<code>list-style-type</code>支持的参数</li>
+<li><code>counters(name,string,style)</code>string参数是字符串,表示子序号的连接字符串<ul>
+<li>使用这个方法可以实现序列的嵌套.通过子辈对父辈的<code>counter-reset</code>重置,配合counters()方法</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<pre class="line-numbers language-html" data-language="html"><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>style</span><span class="token punctuation">></span></span><span class="token style"><span class="token language-css">
+  <span class="token selector">.reset</span> <span class="token punctuation">&#123;</span>
+    <span class="token property">counter-reset</span><span class="token punctuation">:</span> cun 0<span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span>
+  <span class="token selector">.counter:before</span> <span class="token punctuation">&#123;</span>
+    <span class="token property">counter-increment</span><span class="token punctuation">:</span> cun 1<span class="token punctuation">;</span>
+    <span class="token property">content</span><span class="token punctuation">:</span> <span class="token function">counters</span><span class="token punctuation">(</span>cun<span class="token punctuation">,</span> <span class="token string">"."</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span>
+</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>style</span><span class="token punctuation">></span></span>
+
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>body</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>reset<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>counter<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>reset<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>counter<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>大儿子<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>counter<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>二儿子<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>counter<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>三儿子<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>counter<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>王小三<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>reset<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>counter<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>大儿子<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>counter<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>二儿子<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>counter<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>三儿子<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>body</span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<ul>
+<li>由于一个容器的普照元素<code>reset</code>应该是固定的,一但子元素出现,其实就已经进入下一级嵌套</li>
+</ul>
+<h3 id="边框-border"><a href="#边框-border" class="headerlink" title="边框(border)"></a>边框(border)</h3><ul>
 <li>简写:<code>border:border-width || border-style || border-color;</code>,没有顺序</li>
 <li>分开写法:border-right/border-left/border-top/border-bottom  </li>
 </ul>
@@ -982,7 +1184,27 @@
 </ol>
 </li>
 </ul>
-<h3 id="内边距-padding"><a href="#内边距-padding" class="headerlink" title="内边距(padding)"></a>内边距(padding)</h3><ol>
+<h3 id="内边距-padding"><a href="#内边距-padding" class="headerlink" title="内边距(padding)"></a>内边距(padding)</h3><blockquote>
+<p>在使用padding时尽量不要使用<code>box-sizing:border-box</code>.局部使用尽量使用无宽度以及宽度分离准则</p>
+</blockquote>
+<ul>
+<li>内联元素的padding依然会对垂直方向的元素有影响.不过内联元素没有可视化的宽高(clientHight和clientWidth永远是0)<ul>
+<li>垂直方向的行为完全受<code>line-height</code>和<code>vertical-align</code>的影响</li>
+<li>不过视觉上并不会改变上一行和下一行内容的间距(需要加上一些效果,例如<code>background-color</code>)</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>css中出现这种层叠的现象</p>
+</blockquote>
+<ol>
+<li>一类是纯视觉层叠,不影响外部尺寸.(例如relative元素的定位,box-shadow,以及outline等)</li>
+<li>另一种会影响外部尺寸.例如<code>padding</code></li>
+</ol>
+<ul>
+<li>区分:给父级设置<code>overflow:auto</code>,如果层叠区域超出父容器,没有出现滚动条,则是纯视觉的;如果出现滚动条,则会影响尺寸,影响布局</li>
+</ul>
+<ol>
 <li>padding属性用于设置内边距,即边框与内容之间的距离</li>
 </ol>
 <table>
@@ -1038,14 +1260,54 @@
 <li>内容和边框有了距离,添加内边框</li>
 <li>padding影响盒子实际大小</li>
 <li>如果盒子有了高度和宽度,此时指定内边框,会撑大盒子<ul>
-<li>解决方案: 让<span style="color:red">width/height减去多出来的内边距大小</span></li>
+<li>解决方案: 让width/height减去多出来的内边距大小</li>
 </ul>
 </li>
 <li>如果盒子本身没有指定width/height属性,则此时paddiong不会撑开盒子大小</li>
 </ol>
 </li>
 </ul>
-<h3 id="外边距-margin"><a href="#外边距-margin" class="headerlink" title="外边距(margin)"></a>外边距(margin)</h3><ol>
+<blockquote>
+<p>padding的百分比值:<span style="color:red">无论是水平方向还是垂直方向均是相对于宽度计算的</span></p>
+</blockquote>
+<ul>
+<li>很多表单元素都会内置<code>padding</code><ul>
+<li>内置padding的元素:&lt;input&gt;,&lt;textarea&gt;,&lt;button&gt;,&lt;select&gt;</li>
+<li>单选框不内置,&lt;radio&gt;,&lt;checkbox&gt;</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>使用padding回值双层圆点</p>
+</blockquote>
+<pre class="line-numbers language-css" data-language="css"><code class="language-css"><span class="token selector">.box</span> <span class="token punctuation">&#123;</span>
+  <span class="token property">display</span><span class="token punctuation">:</span> inline-block<span class="token punctuation">;</span>
+  <span class="token property">width</span><span class="token punctuation">:</span> 100px<span class="token punctuation">;</span>
+  <span class="token property">height</span><span class="token punctuation">:</span> 100px<span class="token punctuation">;</span>
+  <span class="token property">padding</span><span class="token punctuation">:</span> 10px<span class="token punctuation">;</span>
+  <span class="token property">border</span><span class="token punctuation">:</span> 10px solid<span class="token punctuation">;</span>
+  <span class="token property">border-radius</span><span class="token punctuation">:</span> 50%<span class="token punctuation">;</span>
+  <span class="token property">background-color</span><span class="token punctuation">:</span> black<span class="token punctuation">;</span>
+  <span class="token property">background-clip</span><span class="token punctuation">:</span> content-box<span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="外边距-margin"><a href="#外边距-margin" class="headerlink" title="外边距(margin)"></a>外边距(margin)</h3><blockquote>
+<p>margin对尺寸没有影响,只是元素是<span style="color:green">充分利用可用空间</span>状态的时候.margin才可以改变元素的可视尺寸</p>
+</blockquote>
+<ul>
+<li>对于普通的块状元素,在默认的水平流下,margin之恶能改变左右的内部尺寸,垂直方向无法改变(这是由<code>margin:auto</code>的计算规则决定的)</li>
+</ul>
+<blockquote>
+<p>margin的百分比值也是相对于宽度计算的</p>
+</blockquote>
+<ol>
+<li>不过由于margin无法在垂直方向上改变元素自身的内部尺寸,往往需要父元素作为载体</li>
+<li>并且由于margin合并的问题,垂直方向往往需要双倍尺寸 </li>
+</ol>
+<blockquote>
+<p>margin属性</p>
+</blockquote>
+<ul>
 <li><p>margin属性用于设置外边距,用于控制盒子与盒子之间的距离</p>
 <table>
 <thead>
@@ -1072,28 +1334,89 @@
 </tr>
 </tbody></table>
 </li>
-<li><p>外边距可以让块级盒子水平居中,但是必须要满足两个条件</p>
-<ul>
-<li>盒子必须指定宽度(width)</li>
-<li><span style="color:red">盒子的左右的外边框都设置为auto</span></li>
-<li><span style="color:red">注意:</span>以上方法是让块级元素水平居中,<span style="color:red">行内元素或者行内块元素水平居中给其父元素添加  text-align:center;即可</span></li>
 </ul>
-</li>
-<li><p>嵌套块元素垂直外边距的塌陷</p>
+<blockquote>
+<p>margin合并</p>
+</blockquote>
 <ul>
+<li>块级元素的上外边距<code>margin-top</code>和下外边距<code>margin-bottom</code>有时会合并采购和各位单个外边距</li>
+</ul>
+<ol>
+<li>块级元素:但不包括浮动和绝对定位</li>
+<li>只发生在垂直方向(不考虑<code>writing-mode</code>)</li>
+</ol>
+<ul>
+<li><p>margin合并的场景</p>
+<ol>
+<li>相邻兄弟元素margin合并</li>
+<li>父级和第一个/最后一个子元素(嵌套块元素垂直外边距的塌陷)<ul>
 <li>对于来攻嵌套关系(父子关系)的块元素,父元素有上外边距同时子元素也有上外边据,此时父元素会塌陷较大的外边距值</li>
-<li>解决方案:<ol>
+<li>解决方案:</li>
+</ul>
+<ol>
 <li>可以为父元素定义上边框</li>
 <li>可以为父元素定义上内边框</li>
-<li>可以为父元素添加<code>overflow:hidden</code>(不会增加盒子的大小)</li>
+<li>设置格式化上下文,例如父元素添加<code>overflow:hidden</code>(不会增加盒子的大小)</li>
 </ol>
 </li>
-</ul>
+</ol>
 </li>
+<li><p>margin合并的计算规则</p>
+<ol>
+<li>正正取大值</li>
+<li>正负值相加</li>
+<li>负负值最负值</li>
+</ol>
+</li>
+<li><p>margin负值的意义在于:在页面中任何地方嵌套或者直接放入任何裸&lt;div&gt;,都不会影响原来的块状布局</p>
+</li>
+</ul>
+<h4 id="margin-auto"><a href="#margin-auto" class="headerlink" title="margin:auto"></a>margin:auto</h4><blockquote>
+<p>有时候元素没有设置width或者height也会自动填充</p>
+</blockquote>
+<pre class="line-numbers language-html" data-language="html"><code class="language-html"><span class="token comment">&lt;!-- 自动填充 --></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
+
+<span class="token comment">&lt;!-- 自动填充对应的方位 --></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>style</span><span class="token punctuation">></span></span><span class="token style"><span class="token language-css">
+  <span class="token selector">div</span><span class="token punctuation">&#123;</span>
+    <span class="token property">position</span><span class="token punctuation">:</span>absolute<span class="token punctuation">;</span>
+    <span class="token property">left</span><span class="token punctuation">:</span>0<span class="token punctuation">;</span><span class="token property">right</span><span class="token punctuation">:</span>0<span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span>
+</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>style</span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<blockquote>
+<p>margin:auto填充规则</p>
+</blockquote>
+<ol>
+<li>如果一侧是定值,一侧是auto,则auto为剩余空间大小</li>
+<li>如果两侧均是auto,则平分剩余空间大小</li>
 </ol>
 <ul>
-<li><span style="color:red">注意:如果<code>margin:0 auto;</code>,会让div布局水平居中在浏览器中</span></li>
+<li>那就很容易实现右对齐,只要margin-right为0或者不设置</li>
 </ul>
+<pre class="line-numbers language-css" data-language="css"><code class="language-css"><span class="token selector">.son</span><span class="token punctuation">&#123;</span>
+  <span class="token property">width</span><span class="token punctuation">:</span>200px<span class="token punctuation">;</span>
+  <span class="token property">margin-left</span><span class="token punctuation">:</span>auto<span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<ul>
+<li>水平居中<code>margin:0 auto</code>,会让div布局水平居中在浏览器中</li>
+<li><code>margin:auto</code>不能垂直居中.由于这个属性有一个前提条件,当width或者height为auto时,元素是<span style="color:red">具有对应方向的自动填充特性的</span>.根据html文档流是水平方向自适应的,所以设置垂直方向没用</li>
+</ul>
+<blockquote>
+<p>设置水平垂直居中(不适用<code>writing-mode</code>)</p>
+</blockquote>
+<pre class="line-numbers language-css" data-language="css"><code class="language-css"><span class="token selector">.father</span><span class="token punctuation">&#123;</span>
+  <span class="token property">width</span><span class="token punctuation">:</span>300px<span class="token punctuation">;</span><span class="token property">height</span><span class="token punctuation">:</span>200px<span class="token punctuation">;</span>
+  <span class="token property">position</span><span class="token punctuation">:</span>relative<span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+<span class="token selector">.son</span><span class="token punctuation">&#123;</span>
+  <span class="token property">position</span><span class="token punctuation">:</span>absolute<span class="token punctuation">;</span>
+  <span class="token property">top</span><span class="token punctuation">:</span>0<span class="token punctuation">;</span><span class="token property">right</span><span class="token punctuation">:</span>0<span class="token punctuation">;</span><span class="token property">bottom</span><span class="token punctuation">:</span>0<span class="token punctuation">;</span><span class="token property">left</span><span class="token punctuation">:</span>0<span class="token punctuation">;</span>
+  <span class="token property">width</span><span class="token punctuation">:</span>150px<span class="token punctuation">;</span><span class="token property">height</span><span class="token punctuation">:</span>100px
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
 <h3 id="清除内外边距"><a href="#清除内外边距" class="headerlink" title="清除内外边距"></a>清除内外边距</h3><pre class="line-numbers language-css" data-language="css"><code class="language-css"><span class="token selector">*</span><span class="token punctuation">&#123;</span>
   <span class="token property">margin</span><span class="token punctuation">:</span>0<span class="token punctuation">;</span>
   <span class="token property">padding</span><span class="token punctuation">:</span>0<span class="token punctuation">;</span>
@@ -1420,30 +1743,6 @@
 <li>数字后面不能加单位</li>
 <li>只有定位的盒子才有z-index</li>
 </ul>
-<h3 id="绝对定位盒子居中"><a href="#绝对定位盒子居中" class="headerlink" title="绝对定位盒子居中"></a>绝对定位盒子居中</h3><ul>
-<li>水平居中</li>
-</ul>
-<pre class="line-numbers language-css" data-language="css"><code class="language-css"><span class="token selector">.class</span><span class="token punctuation">&#123;</span>
-  <span class="token property">position</span><span class="token punctuation">:</span>absolute<span class="token punctuation">;</span>
-  <span class="token property">left</span><span class="token punctuation">:</span>50%<span class="token punctuation">;</span><span class="token comment">/* 父容器宽度的一半 */</span>
-  <span class="token property">margin-left</span><span class="token punctuation">:</span>-100px<span class="token punctuation">;</span><span class="token comment">/* margin负值,往左边走,自己盒子宽度的一半 */</span>
-  <span class="token property">width</span><span class="token punctuation">:</span>200px<span class="token punctuation">;</span>
-  <span class="token property">height</span><span class="token punctuation">:</span>200px
-<span class="token punctuation">&#125;</span>
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<ul>
-<li>垂直居中</li>
-</ul>
-<pre class="line-numbers language-css" data-language="css"><code class="language-css"><span class="token selector">.class</span><span class="token punctuation">&#123;</span>
-  <span class="token property">position</span><span class="token punctuation">:</span>absolute<span class="token punctuation">;</span>
-  <span class="token property">top</span><span class="token punctuation">:</span>50%<span class="token punctuation">;</span><span class="token comment">/* 父容器高度的一半 */</span>
-  <span class="token property">margin-top</span><span class="token punctuation">:</span>-100px<span class="token punctuation">;</span><span class="token comment">/* margin负值,往上边走,自己盒子高度的一半 */</span>
-  <span class="token property">width</span><span class="token punctuation">:</span>200px<span class="token punctuation">;</span>
-  <span class="token property">height</span><span class="token punctuation">:</span>200px
-<span class="token punctuation">&#125;</span>
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 <h3 id="定位的特殊性"><a href="#定位的特殊性" class="headerlink" title="定位的特殊性"></a>定位的特殊性</h3><ol>
 <li>行内元素添加绝对或者固定定位,可以直接设置高度和宽度</li>
 <li>块级元素添加绝对或者固定定位,如果不给宽度或者高度,默认是内容的大小</li>
@@ -1629,336 +1928,7 @@
   <span class="token property">border-left</span><span class="token punctuation">:</span>0 solid green<span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<h2 id="CSS3和HTML5"><a href="#CSS3和HTML5" class="headerlink" title="CSS3和HTML5"></a>CSS3和HTML5</h2><h3 id="Html5新增的标签"><a href="#Html5新增的标签" class="headerlink" title="Html5新增的标签"></a>Html5新增的标签</h3><ol>
-<li><p>语义化标签</p>
-<ul>
-<li><code>&lt;header&gt;</code>头部标签</li>
-<li><code>&lt;nav&gt;</code>导航标签</li>
-<li><code>&lt;article&gt;</code>内容标签</li>
-<li><code>&lt;section&gt;</code>定义文档某个区域</li>
-<li><code>&lt;aside&gt;</code>侧边栏标签</li>
-<li><code>&lt;footer&gt;</code>尾部标签</li>
-</ul>
-</li>
-<li><p>视频标签</p>
-<ul>
-<li><code>&lt;video src=&quot;url&quot; controls=&quot;controls&quot;&gt;&lt;/video&gt;</code>视频标签</li>
-</ul>
-<table>
-<thead>
-<tr>
-<th>属性</th>
-<th>值</th>
-<th>描述</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>autoplay</td>
-<td>autoplay</td>
-<td>视频就绪自动播放(谷歌浏览器需要添加<code>muted=&quot;muted&quot;</code>来解决)</td>
-</tr>
-<tr>
-<td>controls</td>
-<td>controls</td>
-<td>向用户显示播放控件</td>
-</tr>
-<tr>
-<td>width</td>
-<td>pixels(像素)</td>
-<td>设置播放器宽度</td>
-</tr>
-<tr>
-<td>height</td>
-<td>pixels(像素)</td>
-<td>设置播放器高度</td>
-</tr>
-<tr>
-<td>loop</td>
-<td>loop</td>
-<td>播放完是否继续播放该视频，循环播放</td>
-</tr>
-<tr>
-<td>preload</td>
-<td>proload</td>
-<td>是否等加载完再播放</td>
-</tr>
-<tr>
-<td>src</td>
-<td>url</td>
-<td>视频url地址</td>
-</tr>
-<tr>
-<td>poster</td>
-<td>Imgurl</td>
-<td>加载等待的画面图片</td>
-</tr>
-<tr>
-<td>autobuffer</td>
-<td>autobuffer</td>
-<td>设置为浏览器缓冲方式，不设置autopaly才有效</td>
-</tr>
-<tr>
-<td>muted</td>
-<td>muted</td>
-<td>静音播放</td>
-</tr>
-</tbody></table>
-</li>
-<li><p>音频标签</p>
-<ul>
-<li><code>&lt;audio src=&quot;url&quot; controls=&quot;controls&quot;&gt;&lt;/audio&gt;</code>音频标签</li>
-</ul>
-<table>
-<thead>
-<tr>
-<th>属性</th>
-<th>值</th>
-<th>描述</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>autoplay</td>
-<td>autoplay</td>
-<td>音频就绪自动播放</td>
-</tr>
-<tr>
-<td>controls</td>
-<td>controls</td>
-<td>向用户显示播放控件</td>
-</tr>
-<tr>
-<td>loop</td>
-<td>loop</td>
-<td>播放完是否继续播放该音频，循环播放</td>
-</tr>
-<tr>
-<td>src</td>
-<td>url</td>
-<td>音频url地址</td>
-</tr>
-</tbody></table>
-<ul>
-<li>注意:谷歌浏览器把音频和视频自动播放禁止了</li>
-</ul>
-</li>
-<li><p>新增input类型</p>
-<table>
-<thead>
-<tr>
-<th>属性</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>type=”email”</td>
-<td>避免自己编写js代码对邮箱格式进行校验</td>
-</tr>
-<tr>
-<td>type=”tel”</td>
-<td>该类型没有对输入内容进行校验,在移动端输入时弹出数字键盘;</td>
-</tr>
-<tr>
-<td>type=”url”</td>
-<td>对输入的网址内容合法性校验,且必须以http或https开头;</td>
-</tr>
-<tr>
-<td>type=”number”</td>
-<td>表示该文本框只能输入数字(包括小数点)</td>
-</tr>
-<tr>
-<td>type=”search”</td>
-<td>表示搜索时的文本框,该文本框输入时有提示,右侧有删除的”X”号可以将文本框清空;</td>
-</tr>
-<tr>
-<td>type=”range”</td>
-<td>表示范围:</td>
-</tr>
-<tr>
-<td>type=”data”</td>
-<td>表示必须输入日期类型</td>
-</tr>
-<tr>
-<td>type=”time”</td>
-<td>表示必须输入为日期类型</td>
-</tr>
-<tr>
-<td>type=”month”</td>
-<td>表示必须输入月类型</td>
-</tr>
-<tr>
-<td>type=”month”</td>
-<td>表示必须输入月类型</td>
-</tr>
-<tr>
-<td>type=”color”</td>
-<td>表示必须输入颜色类型</td>
-</tr>
-</tbody></table>
-</li>
-<li><p>表单新增属性</p>
-</li>
-</ol>
-<table>
-<thead>
-<tr>
-<th>属性</th>
-<th>值</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>autofocus</td>
-<td>autofocus</td>
-<td>自动获取焦点</td>
-</tr>
-<tr>
-<td>autocomplete</td>
-<td>off/on</td>
-<td>当用户在字段开始键入时,浏览器基于之前键入过的值,应该显示出在字段中填写的选项默认已经打开,自动匹配 off关掉自动匹配,在表单内,同时加上name且成功提交</td>
-</tr>
-<tr>
-<td>required</td>
-<td>required</td>
-<td>表单拥有该属性表示其内容不能为空,必填</td>
-</tr>
-<tr>
-<td>placeholder</td>
-<td>文本内容</td>
-<td>表单的提示信息,存在默认值将不显示</td>
-</tr>
-<tr>
-<td>multiple</td>
-<td>multiple</td>
-<td>可以多选文件提交</td>
-</tr>
-</tbody></table>
-<h3 id="CSS3新特性"><a href="#CSS3新特性" class="headerlink" title="CSS3新特性"></a>CSS3新特性</h3><ol>
-<li><p>属性选择器</p>
-<table>
-<thead>
-<tr>
-<th>选择符</th>
-<th>简介</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>E[att]</td>
-<td>选择具有att属性的E元素</td>
-</tr>
-<tr>
-<td>E[att=”val”]</td>
-<td>选择具有att属性且属性值等于val的E元素</td>
-</tr>
-<tr>
-<td>E[att~=”val”]</td>
-<td>选择具有att属性且属性值包含val的E元素</td>
-</tr>
-<tr>
-<td>E[att^=”val”]</td>
-<td>匹配具有att属性且值以val开头的E元素</td>
-</tr>
-<tr>
-<td>E[att$=”val”]</td>
-<td>匹配具有att属性且值以val结尾的E元素</td>
-</tr>
-<tr>
-<td>E[att*=”val”]</td>
-<td>匹配具有att属性且值中含有的E元素</td>
-</tr>
-</tbody></table>
-</li>
-<li><p>结构伪类选择器:主要根据<span style="color:red;">文档结构</span>,常用于根据父级选择器里的子元素</p>
-</li>
-</ol>
-<table>
-<thead>
-<tr>
-<th>选择符</th>
-<th>简介</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>E:first-child</td>
-<td>匹配父元素中的第一个元素E</td>
-</tr>
-<tr>
-<td>E:last-child</td>
-<td>匹配父元素中的最后一个元素E</td>
-</tr>
-<tr>
-<td>E:nth-child(n)</td>
-<td>匹配父元素中的第n个元素E</td>
-</tr>
-<tr>
-<td>E:first-of-type</td>
-<td>指定类型E的第一个</td>
-</tr>
-<tr>
-<td>E:last-of-type</td>
-<td>指定类型E的最后一个</td>
-</tr>
-<tr>
-<td>E:nth-of-type(n)</td>
-<td>指定类型E的第n个</td>
-</tr>
-</tbody></table>
-<ul>
-<li>nth-child(n) 选择某个父元素的一个或多个特定的子元素<ul>
-<li>n可以是数字,关键字和公式</li>
-<li>n如果是数字,就是第n个子元素,里面数字从1开始</li>
-<li>n可以是关键字:even是偶数,odd是奇数</li>
-<li>n可以是公式:常见的公式如下(如果n是公式,则从0开始计算,但是第0个元素或者超出的元素会被忽略)</li>
-</ul>
-</li>
-</ul>
-<table>
-<thead>
-<tr>
-<th>公式</th>
-<th>取值</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>2n</td>
-<td>偶数</td>
-</tr>
-<tr>
-<td>2n+1</td>
-<td>奇数</td>
-</tr>
-<tr>
-<td>5n</td>
-<td>5  10 ….</td>
-</tr>
-<tr>
-<td>n+5</td>
-<td>从第五个开始(包含第五个)到最好</td>
-</tr>
-<tr>
-<td>-n+5</td>
-<td>前五个(包含第五个)</td>
-</tr>
-</tbody></table>
-<ul>
-<li>注意:<code>nth-child(n)</code>给所有元素都排列序号,要求选择器与标签匹配得当</li>
-<li>注意:<code>nth-of-type(n)</code>给指定元素都排列序号</li>
-</ul>
-<ol start="3">
-<li>伪元素选择器</li>
-</ol>
-<p>选择器           简介<br>::before        在元素内部的前面插入内容<br>::before        在元素内部的后面插入内容</p>
-<ul>
-<li><span style="color:red;">注意</span><ol>
-<li>before和after创建一个元素,但是属于行内元素</li>
-<li>新创建的这个元素在文档树中是找不到的,</li>
-<li>语法<code>element::before&#123;&#125;</code></li>
-<li>before和after必须有content属性</li>
-<li>before在父元素内容的前面创建元素.after在父元素内容的后面插入元素</li>
-<li>伪元素选择器和标签选择器一样,权重为1</li>
-</ol>
-</li>
-</ul>
-<h3 id="CSS3盒子模型-box-sizing"><a href="#CSS3盒子模型-box-sizing" class="headerlink" title="CSS3盒子模型(box-sizing)"></a>CSS3盒子模型(box-sizing)</h3><ol>
+<h2 id="CSS3和HTML5"><a href="#CSS3和HTML5" class="headerlink" title="CSS3和HTML5"></a>CSS3和HTML5</h2><h3 id="CSS3盒子模型-box-sizing"><a href="#CSS3盒子模型-box-sizing" class="headerlink" title="CSS3盒子模型(box-sizing)"></a>CSS3盒子模型(box-sizing)</h3><ol>
 <li><code>box-sizing:content-box;</code>盒子大小为width+padding+border(默认的)</li>
 <li><code>box-sizing:border-box;</code>盒子默认大小是width</li>
 </ol>
@@ -2117,43 +2087,43 @@
 </thead>
 <tbody><tr>
 <td>@keyframes</td>
-<td>规定动画。</td>
+<td>规定动画.</td>
 </tr>
 <tr>
 <td>animation</td>
-<td>所有动画属性的简写属性。除了animation-play-state</td>
+<td>所有动画属性的简写属性.除了animation-play-state</td>
 </tr>
 <tr>
 <td>animation-name</td>
-<td>规定 @keyframes 动画的名称。(必须写)</td>
+<td>规定 @keyframes 动画的名称.(必须写)</td>
 </tr>
 <tr>
 <td>animation-duration</td>
-<td>规定动画完成一个周期所花费的秒或毫秒。默认是 0。(必写)</td>
+<td>规定动画完成一个周期所花费的秒或毫秒.默认是 0.(必写)</td>
 </tr>
 <tr>
 <td>animation-timing-function</td>
-<td>规定动画的速度曲线。默认是 “ease”</td>
+<td>规定动画的速度曲线.默认是 “ease”</td>
 </tr>
 <tr>
 <td>animation-fill-mode</td>
-<td>规定当动画不播放时（当动画完成时，或当动画有一个延迟未开始播放时），要应用到元素的样式。默认是backwards,回到起始状态,forwards是停留在结束状态</td>
+<td>规定当动画不播放时（当动画完成时,或当动画有一个延迟未开始播放时）,要应用到元素的样式.默认是backwards,回到起始状态,forwards是停留在结束状态</td>
 </tr>
 <tr>
 <td>animation-delay</td>
-<td>规定动画何时开始。默认是 0。</td>
+<td>规定动画何时开始.默认是 0.</td>
 </tr>
 <tr>
 <td>animation-iteration-count</td>
-<td>规定动画被播放的次数。默认是 1。<code>infinite</code>(指无限循环)</td>
+<td>规定动画被播放的次数.默认是 1.<code>infinite</code>(指无限循环)</td>
 </tr>
 <tr>
 <td>animation-direction</td>
-<td>规定动画是否在下一周期逆向地播放。默认是 “normal”,alternate是反方向走回来,而不是直接跳回来</td>
+<td>规定动画是否在下一周期逆向地播放.默认是 “normal”,alternate是反方向走回来,而不是直接跳回来</td>
 </tr>
 <tr>
 <td>animation-play-state</td>
-<td>规定动画是否正在运行或暂停。默认是 “running”,暂停是pause</td>
+<td>规定动画是否正在运行或暂停.默认是 “running”,暂停是pause</td>
 </tr>
 </tbody></table>
 <ul>
@@ -2239,47 +2209,34 @@
 </ul>
 <h2 id="移动端布局"><a href="#移动端布局" class="headerlink" title="移动端布局"></a>移动端布局</h2><h3 id="meta视口"><a href="#meta视口" class="headerlink" title="meta视口"></a>meta视口</h3><pre class="line-numbers language-html" data-language="html"><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>meta</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>viewport<span class="token punctuation">"</span></span> <span class="token attr-name">content</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>width=device-width,user-scalable=no,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
-<p>属性                 解释说明<br>width                宽度是指的是viewport宽度,可以设置device-width<br>initial-scale        初始缩放比例,大于0的数字<br>maximum-scale        最大缩放比例,大于0的数字<br>minimum-scale        最小缩放比例,大于0的数字<br>user-scalable        用户可以缩放,yes或no(1或0)</p>
-<h3 id="物理像素和物理像素比"><a href="#物理像素和物理像素比" class="headerlink" title="物理像素和物理像素比"></a>物理像素和物理像素比</h3><h3 id="多倍图"><a href="#多倍图" class="headerlink" title="多倍图"></a>多倍图</h3><ol>
-<li>二倍图:手机端图片模糊处理方法</li>
-<li><code>background-size:背景图片宽度 背景图片高度;</code><ul>
-<li>单位:  长度|百分比|cover|contain</li>
-<li>cover把背景图像扩展至足够大,以使背景图像完全覆盖背景区域(可能有背景图片显示不全)</li>
-<li>contain把图像扩展至最大尺寸(等比例拉伸,宽或者高铺满div盒子就不再拉伸了,可能有部分空白区域),以使其宽度和高度完全适应内容区域</li>
-</ul>
-</li>
-</ol>
-<h3 id="开发方案"><a href="#开发方案" class="headerlink" title="开发方案"></a>开发方案</h3><ol>
-<li><p>单独制作移动端页面</p>
-<ul>
-<li>流式布局(百分比布局)<ul>
-<li>max-width 最大宽度(max-height 最大高度) </li>
-<li>min-width 最小宽度(min-height 最小高度) </li>
-</ul>
-</li>
-<li>flex弹性布局</li>
-<li>less+rem+媒体查询</li>
-<li>混合布局</li>
-</ul>
-</li>
-<li><p>响应式</p>
-<ul>
-<li>媒体查询</li>
-<li>bootstrap</li>
-</ul>
-</li>
-</ol>
-<h3 id="特殊样式"><a href="#特殊样式" class="headerlink" title="特殊样式"></a>特殊样式</h3><pre class="line-numbers language-css" data-language="css"><code class="language-css"><span class="token selector">*</span><span class="token punctuation">&#123;</span>
-  <span class="token property">box-sizing</span><span class="token punctuation">:</span>border-box<span class="token punctuation">;</span>
-  <span class="token property">-webkit-box-sizing</span><span class="token punctuation">:</span>border-box<span class="token punctuation">;</span>
-  <span class="token comment">/* 点击高亮我们需要清楚  设置为transparent 完成透明*/</span>
-  <span class="token property">-webkit-tap-highlight-color</span><span class="token punctuation">:</span>transparent<span class="token punctuation">;</span>
-  <span class="token comment">/* 在移动端浏览器默认的外观在ios上加这个属性才能给按钮和输入框自定义样式 */</span>
-  <span class="token property">-webkit-appearance</span><span class="token punctuation">:</span>none<span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span>
-  <span class="token comment">/* 禁用长按页面时的弹出菜单 */</span>
-  <span class="token selector">a,img</span><span class="token punctuation">&#123;</span><span class="token property">-webkit-touch-callout</span><span class="token punctuation">:</span>none<span class="token punctuation">;</span><span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
+<table>
+<thead>
+<tr>
+<th>属性</th>
+<th>解释说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>width</td>
+<td>宽度是指的是viewport宽度,可以设置device-width</td>
+</tr>
+<tr>
+<td>initial-scale</td>
+<td>初始缩放比例,大于0的数字</td>
+</tr>
+<tr>
+<td>maximum-scale</td>
+<td>最大缩放比例,大于0的数字</td>
+</tr>
+<tr>
+<td>minimum-scale</td>
+<td>最小缩放比例,大于0的数字</td>
+</tr>
+<tr>
+<td>user-scalable</td>
+<td>用户可以缩放,yes或no(1或0)</td>
+</tr>
+</tbody></table>
 <h2 id="flex布局"><a href="#flex布局" class="headerlink" title="flex布局"></a>flex布局</h2><h3 id="布局原理"><a href="#布局原理" class="headerlink" title="布局原理"></a>布局原理</h3><ol>
 <li>当为父盒子设为flex布局以后,子元素的float,clear和vertical-align属性将失效</li>
 <li>通过给父盒子添加flex属性,来控制子盒子的位置和排列方式</li>
@@ -2464,126 +2421,84 @@
 <ul>
 <li><code>flex-flow</code>  复合属性,相当于你是设置了flex-direction和flex-wrap,语法:例<code>flex-flow:column wrap;</code></li>
 </ul>
-<h3 id="子元素常见属性"><a href="#子元素常见属性" class="headerlink" title="子元素常见属性"></a>子元素常见属性</h3><ol>
-<li>flex属性:定义子项目分配剩余空间,用flex来表示占多少分数</li>
-</ol>
+<h3 id="子元素常见属性"><a href="#子元素常见属性" class="headerlink" title="子元素常见属性"></a>子元素常见属性</h3><blockquote>
+<p>flex属性:定义子项目分配剩余空间,用flex来表示占多少分数</p>
+</blockquote>
 <pre class="line-numbers language-css" data-language="css"><code class="language-css"><span class="token selector">.item</span><span class="token punctuation">&#123;</span>
   <span class="token property">flex</span><span class="token punctuation">:</span>number<span class="token punctuation">;</span><span class="token comment">/* default 0 */</span>
 <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 
 <ul>
-<li>flex的复合属性:<code>flex:flex-grow flex-shrink flex-basis</code></li>
-</ul>
+<li><p>flex的复合属性:<code>flex:flex-grow flex-shrink flex-basis</code></p>
 <table>
 <thead>
 <tr>
 <th>属性</th>
-<th>描述</th>
+<th>描  述</th>
 </tr>
 </thead>
 <tbody><tr>
 <td>flex-grow</td>
-<td>定义放大比例，默认为0，规定项目相对于其他灵活的项目进行扩展的量</td>
+<td>定义放大比例,默认为0,规定项目相对于其他灵活的项目进行扩展的  量</td>
 </tr>
 <tr>
 <td>flex-shrink</td>
-<td>定义了项目的缩小比例，仅在宽度之和大于容器的时候才会发生收缩，其收缩的大小是依据 flex-shrink 的值，默认为1</td>
+<td>定义了项目的缩小比例,仅在宽度之和大于容器的时候才会发生收缩,其收缩的大小是依据 flex-shrink 的值,默认为  1</td>
 </tr>
 <tr>
 <td>flex-basis</td>
-<td>给上面两个属性分配多余空间之前, 计算项目是否有多余空间, 默认值为 auto, 即项目本身的大小</td>
+<td>给上面两个属性分配多余空间之前, 计算项目是否有多余空间, 默认值为 auto, 即项目本身的大  小</td>
 </tr>
 </tbody></table>
-<ol start="2">
-<li><code>align-self</code> 控制子项自己在侧轴上的排列方式</li>
-</ol>
+</li>
+</ul>
+<blockquote>
+<p><code>align-self</code> 控制子项自己在侧轴上的排列方式</p>
+</blockquote>
 <ul>
 <li><span style="color:red">注意:align-self属性允许单个项目有与其它项目不一样的对齐方式,可覆盖align-items属性</span>默认值auto,表示继承父元素的align-items属性,如果没有父元素,则等同于stretch</li>
 </ul>
-<ol start="3">
-<li><code>order</code>属性定义项目的排列顺序</li>
-</ol>
-<ul>
-<li>数值越小,排列越靠前,默认为0</li>
-<li>注意:和<code>z-index</code>不一样</li>
-</ul>
-<h3 id="rem单位"><a href="#rem单位" class="headerlink" title="rem单位"></a>rem单位</h3><ol>
-<li>rem是一个相对单位</li>
-<li>rem的基准是相对于html元素的字体大小</li>
-</ol>
-<h3 id="媒体查询-Media-Query"><a href="#媒体查询-Media-Query" class="headerlink" title="媒体查询(Media Query)"></a>媒体查询(Media Query)</h3><ul>
-<li><p>@media可以针对不同的屏幕尺寸设置不同的样式</p>
-</li>
-<li><p>语法规范:<code>@media mediatype and|not|only (media feature)&#123;CSS-Code;&#125;</code></p>
-<ul>
-<li><p>用@media开头,注意@符号</p>
-</li>
-<li><p>mediatype 媒体类型</p>
-<table>
-<thead>
-<tr>
-<th>值</th>
-<th>解释说明</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>all</td>
-<td>所有设备</td>
-</tr>
-<tr>
-<td>print</td>
-<td>用于打印机和打印预览</td>
-</tr>
-<tr>
-<td>scree</td>
-<td>用于电脑屏幕,平板电脑,智能手机等</td>
-</tr>
-</tbody></table>
-</li>
-<li><p>关键字 and|not|only</p>
-<ul>
-<li>and:可以将多个媒体特性链接到一起,相当于且</li>
-<li>not:排除某个媒体类型,相当于非的意思,可以省略</li>
-<li>only:指定某个特定的媒体类型,可以省略 </li>
-</ul>
-</li>
-<li><p>media future 媒体特性 必须有小括号包含</p>
-<table>
-<thead>
-<tr>
-<th>值</th>
-<th>解释说明</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>width</td>
-<td>定义输出设备中页面可见区域的宽度</td>
-</tr>
-<tr>
-<td>min-width</td>
-<td>定义输出设备中页面最小可见区域的宽度</td>
-</tr>
-<tr>
-<td>max-width</td>
-<td>定义输出设备中页面最大可见区域的宽度</td>
-</tr>
-</tbody></table>
-</li>
-</ul>
-</li>
-<li><p>例:</p>
-</li>
-</ul>
-<pre class="line-numbers language-css" data-language="css"><code class="language-css"><span class="token comment">/* 表示在频幕上并且最大的宽度是800px,只有在800px以下,才能设置成我们想要的样式 */</span>
-<span class="token atrule"><span class="token rule">@media</span> screen <span class="token keyword">and</span><span class="token punctuation">(</span><span class="token property">max-width</span><span class="token punctuation">:</span>800px<span class="token punctuation">)</span></span><span class="token punctuation">&#123;</span>
-    <span class="token selector">body</span><span class="token punctuation">&#123;</span>
-       <span class="token property">background-color</span><span class="token punctuation">:</span>red<span class="token punctuation">;</span> 
- <span class="token punctuation">&#125;</span> 
-<span class="token punctuation">&#125;</span>
+<blockquote>
+<pre class="line-numbers language-order```属性定义项目的排列顺序" data-language="order```属性定义项目的排列顺序"><code class="language-order```属性定义项目的排列顺序">
+* 数值越小,排列越靠前,默认为0
+* 注意:和&#96;&#96;&#96;z-index&#96;&#96;&#96;不一样
 
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+### 媒体查询(Media Query)
 
-<h3 id="媒体查询-rem实现元素动态大小变化"><a href="#媒体查询-rem实现元素动态大小变化" class="headerlink" title="媒体查询+rem实现元素动态大小变化"></a>媒体查询+rem实现元素动态大小变化</h3><h3 id="引入资源"><a href="#引入资源" class="headerlink" title="引入资源"></a>引入资源</h3><ul>
+* @media可以针对不同的屏幕尺寸设置不同的样式
+* 语法规范:&#96;&#96;&#96;@media mediatype and|not|only (media feature)&#123;CSS-Code;&#125;&#96;&#96;&#96;
+ * 用@media开头,注意@符号
+ * mediatype 媒体类型
+
+     | 值    | 解释说明                         |
+     | ----- | -------------------------------- |
+     | all   | 所有设备                         |
+     | print | 用于打印机和打印预览             |
+     | scree | 用于电脑屏幕,平板电脑,智能手机等 |
+
+ * 关键字 and|not|only
+   * and:可以将多个媒体特性链接到一起,相当于且
+   * not:排除某个媒体类型,相当于非的意思,可以省略
+   * only:指定某个特定的媒体类型,可以省略 
+ * media future 媒体特性 必须有小括号包含
+
+     | 值        | 解释说明                             |
+     | --------- | ------------------------------------ |
+     | width     | 定义输出设备中页面可见区域的宽度     |
+     | min-width | 定义输出设备中页面最小可见区域的宽度 |
+     | max-width | 定义输出设备中页面最大可见区域的宽度 |
+
+* 例:
+
+&#96;&#96;&#96;css
+&#x2F;* 表示在频幕上并且最大的宽度是800px,只有在800px以下,才能设置成我们想要的样式 *&#x2F;
+@media screen and(max-width:800px)&#123;
+   body&#123;
+      background-color:red; 
+&#125; 
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</blockquote>
+<h3 id="媒体查询-rem实现元素动态大小变化"><a href="#媒体查询-rem实现元素动态大小变化" class="headerlink" title="媒体查询+rem实现元素动态大小变化"></a>媒体查询+rem实现元素动态大小变化</h3><ul>
 <li>针对不同的媒体使用不同的stylesheets(样式表),就是在link中判断设备的尺寸,然后应用css文件</li>
 </ul>
 <blockquote>
@@ -3427,7 +3342,7 @@
                                     
                                         &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数
                                             :&nbsp;<span class="white-color">
-                                                143.2k
+                                                148.1k
                                             </span>
                                             
                                                 
