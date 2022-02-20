@@ -296,7 +296,7 @@ rollupOptions: {
     output: {
         entryFileNames: 'js/[name]-[hash].js',
         chunkFileNames: 'js/[name]-[hash].js',
-        assetFileNames: 'assets/[name]-[hash].[ext]'
+        assetFileNames: '[ext]/[name]-[hash].[ext]'
     }
 },
 ```

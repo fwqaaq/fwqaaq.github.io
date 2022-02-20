@@ -575,4 +575,15 @@ import { getCurrentInstance } from 'vue'
 
 1. <span style="color:red">watch回调函数,组件更新,生命周期回调函数</span>会放入微任务中执行
 2. 同步函数放入`nexttick()`钩子中,会放入微任务的最后执行
-  
+
+## CSS
+
+>在vue中当\<style>标签有`scoped`属性时,他的css只会作用于当前组件中的元素,父组件的样式不会渗透到子组件中.如果希望scoped样式可以影响到子组件.可以使用共深度选择器
+
+- 在vue3中推荐使用`:deep(选择器){}`,并且支持sass预处理器
+
+```css
+:deep(.ant-card-head-title){
+    background: yellowgreen;
+  }
+```

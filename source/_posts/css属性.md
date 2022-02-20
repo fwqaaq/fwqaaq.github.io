@@ -10,88 +10,235 @@ summary: css语法以及css3的相关内容,媒体查询,动画和盒子模型�
 
 ## css基础
 
-### css的引入样式
+| 布局方式   | 描述                                                                                                                                                      | 特点                                                                   | 场景                                                |
+| ---------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------- | --------------------------------------------------- |
+| 静态布局   | Static Layout,传统Web设计,网页上的所有元素的尺寸一律使用px作为单位.不管浏览器尺寸具体是多少,网页布局始终按照最初写代码时的布局来显示.一般需要设置最小宽度 | 不能根据用户的屏幕尺寸做出不同的表现                                   | 传统PC网页                                          |
+| 流式布局   | Liquid Layout,页面元素的宽度按照屏幕分辨率进行适配调整,但整体布局不变.代表作栅栏系统（网格系统）                                                          | 网页中主要的划分区域的尺寸使用百分数（搭配min-、max-属性使用）         | 屏幕分辨率变化时,页面里元素的大小会变化而但布局不变 |
+| 自适应布局 | Adaptive Layout,使用@media分别为不同的屏幕分辨率定义布局,即创建多个静态布局,每个静态布局对应一个屏幕分辨率范围                                            | 屏幕分辨率变化时,页面里面元素的位置会变化而大小不会变化                | -                                                   |
+| 响应式布局 | Responsive Layout,一个页面在所有终端上（各种尺寸的PC、手机、手表、冰箱的Web浏览器等等）都能显示出令人满意的效果                                           | 每个屏幕分辨率下面会有一个布局样式,即元素位置和大小都会变              | 多终端页面                                          |
+| 弹性布局   | rem/em布局,包裹文字的各元素的尺寸采用em/rem做单位,而页面的主要划分区域的尺寸仍使用百分数或px做单位                                                        | 理想状态是所有屏幕的高宽比和最初的设计高宽比一样,或者相差不多,完美适应 | 移动端                                              |
 
-1. 内部样式表:将代码写在```<style></style>```中
+* **"流体布局"**,指的是利用元素"流"的特性实现的各类布局效果.因为"流"本身 具有自适应特性,所以"流体布局"往往都是具有自适应性的. 但是,"流体布局"并不等同于 "自适应布局".
+* **"自适应布局"**是对凡是具有自适应特性的一类布局的统称,"流体布局"要狭窄得多.例如,表格布局也可以设置为100%自适应,但表格和"流"不是一路的,并不属于"流体布局". 通俗的说,流体布局就是在width:auto;或者格式化宽/高中,通过设定`margin/border/padding`来影响content的布局的方式
 
-2. 行内样式表:```<div style="color:red">你好</style>```
+### width:auto
 
-3. 外部样式表:```<link ref="stylesheet(样式表)" href="路径">```
+1. **充分利用空间**,块级元素的默认宽度使父级元素宽度的100%
+2. **收缩与包裹**,当元素处于浮动,绝对定位或者为内敛快元素或table元素,父级元素失去原有的宽度收缩到与内部元素一样
+3. **收缩到最小**,这个容易出现在table-layout为auto的表格中,为了超过父级元素的宽度
+4. **超出容器限制**,除非右明确的width相关设置,否则上面三种情况都不会超过父级的容器宽度(如果设置很长的英文,或者`white-space:nowrap`)
 
-### 选择器
+#### 外部尺寸与流体特性
 
-#### 基础选择器
-
-1. 标签选择器: ```h2{}```
-
-2. 类选择器:样式点定义 结构类(class)调用 一个或多个 
-
-```html
-<style>
-  .red{
-    color:red;
-  }
-</style>
-
-...
-<h2 class="red">你好</h2>
-```
-
-* <span style="color:red">注意:可以写多个类名,但是中间必须使用空格</span>
-
-3. id选择器:样式#定义,结构id调用,只能调用一次,其它切勿调用
-
-```html
-<style>
-  #red{
-    color:red;
-  }
-</style>
-
-...
-<h2 id="red">你好</h2>
-```
-
-4. 通配符选择器:```*{}```所有标签的属性都会增加
+1. 正常流宽度默认是`100%`
+   * 在页面中随便扔一个div元素,其尺寸表现就会和水流一样铺满容器.这就 是block 容器的流特性.
+   * 所谓流动性是一种根据`margin/border/padding/content`属性对其内容区域自动分配水平空间的机制
   
-#### 复合选择器
-
-1. 后代选择器:元素1 元素2{样式},例```ul li {color:red;}```
-   * <span style="color:red">注意:元素2必须是子级,只要是元素的子级都可以选到</sapn>
-   * 元素1和2可以是任意基础选择器
-2. 子选择器(重要):元素1>元素2(样式声明),表示选择元素1里的所有直接后代的(子元素)元素2,例:```div > a{color:red;}```
-   * 元素1是父级,元素2是子级,最终选择的元素是元素2
-   * 元素2必须是最近一级的子级(亲儿子),子子集(孙子)等都不归他管
-
    ```html
    <style>
-     div > a{color:red;}
+   .width {
+     width: 100%;
+   }
+   .nav {
+     background-color: #cd0000;
+   }
+   .nav-a {
+     display: block;
+     margin: 0 10px;
+     padding: 9px 10px;
+     border-bottom: 1px solid #b70000;
+     border-top: 1px solid #de3636;
+     color: #fff;
+   }
+   .nav-a:first-child {
+     border-top: 0;
+   }
+   .nav-a + .nav-a + .nav-a {
+     border-bottom: 0;
+   }
    </style>
    ...
-   <div>
-     <a href="#">你好</a>
-     <p>
-       <a href="#">你好(选不到)</a>
-     </p>
+   <h4>无宽度,借助流动性</h4>
+   <div class="nav">
+     <a href="" class="nav-a">导航1</a>
+     <a href="" class="nav-a">导航2</a>
+     <a href="" class="nav-a">导航3</a>
+   </div>
+   <h4>width:100%</h4>
+   <div class="nav">
+     <a href="" class="nav-a width">导航1</a>
+     <a href="" class="nav-a width">导航2</a>
+     <a href="" class="nav-a width">导航3</a>
    </div>
    ```
 
-3. 并集选择器:可以选择多组标签,同时定义相同的样式,用于集体声明```div,ul, .pig(class) li{color:red;}```
-4. 伪类选择器:给选择器添加特殊效果,特点:<span style="color:red">用冒号(:)</span>,比如: :hover,:first-child
+2. 格式化宽度
+   * 格式化宽度仅出现在"绝对定位模型"中,也就是出现在position属性值为absolute和fixed的元素中,在预设情况下绝对定位元素的宽度表现是"包裹性","宽度由内部尺寸决定",但是有一中情况下由外部尺寸决定.
+   * 在 CSS 中,可替换元素（replaced element）的展现效果不是由 CSS 来控制的.这些元素是一种外部对象,它们外观的渲染,是独立于 CSS 的. 典型的可替换元素有：<iframe><video><embed><img>
+   * 对于非替换元素,当 left/right 或 top/bottom 对立方位的属性值同时存在的时候,元素的宽度表现为"格式化宽度",其宽度大小相对于最近的具有定位特性 (position属性值不是static) 的祖先元素计算
 
-* 链接伪类选择器:
+   ```html
+   <style>
+   .father {
+      position: relative;
+      width: 300px;
+      height: 150px;
+      border: 1px solid saddlebrown;
+    }
+    .father > .son {
+      position: absolute;
+      top: 0px;
+      right: 0px;
+      bottom: 0px;
+      left: 0px;
+      margin: auto;
+      width: 100px;
+      height: 50px;
+      border: 1px solid salmon;
+    }
+   </style>
+   <div class="father">
+     <div class="son"></div>
+   </div>
+   ```
 
-  * `a:link`   /*选择所有未被访问的链接*/  
-  * `a:visited`   /*选择所有已被访问的链接*/  
-  * `a:hover`   /*选择所有指针位于其上的链接*/  
-  * `a:active`   /*选择所有活动的链接(鼠标按下未弹起)*/
-  
-  * 注意:  
-    * <span style="color:red">请按照LVHA的顺序声明:link-:visited-:hover-:active</span>
-    * 因为链接在浏览器中有单独默认样式,所以在实际工作中需要给链接指定单独样式
-  
-  * :focus伪类选择器:<span style="color:red">用于获得焦点,焦点就是光标</span>,一般情况下\<input>类表单才能获取,主要针对于表单元素```input:focus{background-color:red;}```
-  
+#### 内部尺寸与流体特性
+
+>所谓"内部尺寸",简单来讲就是元素的尺寸由内部的元素决定,而非由外部的容器决定.
+
+1. 包裹性
+   * 包裹性"除了"包裹",还有"自适应性".所谓"自适应性"指的是元素尺寸由内部元素决定,但永远小于"包含块"容器的尺寸(除非容器尺寸小于元素的"首选最小宽度").
+   * 按钮就是css世界中极具代表性的inline-block元素,可谓展示"包裹性"最好的例子,具体表现为：按钮文字越多宽度越宽(内部尺寸特性),但如果文字足够多,则会在容器的宽度处自动换行(自适应性)
+
+2. 首选最小宽度
+   * 图片和文字的权重要远大于布局,当布局中存在更高权重元素时(如width:0 不生效)最小宽度受其内容影响 (文字中的最小宽度为单个字符宽度)
+   * `word-break: break-all` break-all 对于non-CJK (CJK 指中文/日文/韩文) 文本,可在任意字符间断行.
+
+3. 最大宽度
+   * white-space CSS 属性是用来设置如何处理元素中的空白.
+   * 最大宽度就是元素可以有的最大宽度."最大宽度"实际等同于"包裹性"元素设置white-space: nowrap 声明后的宽度.(连续的空白符会被合并.但文本内的换行无效) 如果内部没有块级元素或者块级元素没有设定宽度值,则"最大宽度"实际上是最大的连续内联盒子的宽度
+
+#### css流体布局下的宽度分离原则
+
+>所谓"宽度分离原则"就是css中的width属性不与影响宽度的padding/border（有时候包括margin）属性共存, 通过设置 padding,margin,border,内部内容通过 width：auto 自动填充
+
+#### min-width/max-width和min-height/max-height
+
+>为流体而生的min-width/max-width
+
+* 比如,网页宽度在1200～1400像素自适应,既满足大屏的大气又满足笔记本的良好显示,此时,`min-width/max-width`就可以大显神威了
+
+```css
+.container {
+  min-width: 1200px;
+  max-width: 1400px;
+}
+```
+
+* 公众号的热门文章中,经常会有图片,这些图片都是用户上传产生的,因此尺寸会有大有小,为了避免图片在移动端展示过大的影响体验,常常会有下面的max-width限制
+
+```css
+img {
+    max-width: 100%;
+    height: auto!important;
+}
+```
+
+* 原始图片有设定height,max-widht生效的时候图片就会被水平压缩.强制height为auto可以确保宽度不超出的同时使图片保持原来的比例. 但这样也会有体验上的问题,那就是在加载时图片占据高度会从0变成计算高度,图文会有明显的瀑布式下落
+
+> 不同的初始值:`min-weidht/min-height` 的初始值是auto,`max-width/max-height` 的初始值是 none
+
+* 超越!important,超越最大.超越!important 指的是 max-width 会覆盖 width
+* 比方说,针对下面的 HTML 和 CSS 设置,图片最后呈现的宽度是多少？
+
+```html
+<img scr="1.jpg" style="width: 480px!important;"/>
+<style>
+img {
+    max-width: 256px;
+}
+</style>
+```
+
+* 答案是256px.style、!important通通靠边站！因为max-width会覆盖width
+
+* 超越最大指的是`min-width`的值大于`max-width`值时取`min-width`的值超越最大值得是min-width覆盖max-width,此规则发生在min-width和max-width冲突时
+
+```css
+.container {
+  min-width: 1400px;
+  max-width: 1200px;
+}
+```
+
+* 最小宽度比最大宽度设置得还要大,遵循"超越最大"规则(注意不是"后台者居上"规则) 值取`min-width,max-width`被忽略,于是,.container元素表现为至少1400像素宽
+
+### height:auto
+
+>关于`height:100%`无效
+
+* height和width还有一个比较明显的区别就是对百分比单位的支持.对于width属性,就算父元素width为auto,其百分比也是支持的；但是,对于height属性,如果父元素height为auto,只要子元素在文档流中,其百分比值完全就被忽略了.
+
+```css
+div {
+  width: 100%; /* 这是多余的 */
+  height: 100%; /* 这是无效的 */
+  background: url(bg.jpg);
+}
+```
+
+>要明白其中的原因要先了解浏览器渲染的基本原理. 首先,先下载文档内容,加载头部样式资源（如果有的话）,然后按照从上而下、自外而内的顺序渲染DOM内容. 套用本例就是,先渲染父级元素,后渲染子元素,是有先后顺序的.因此,当渲染到父元素的时候,子元素的width:100%并没有渲染,宽度就是图片加文字内容的宽度；等渲染到文字这个元素的时候,父元素的宽度已经固定,此时的width:100%就是已经固定好的父元素的宽度. 宽度不够怎么办？溢出就好了,overflow属性就是为此而生的
+
+* 由于没有显示定义height,就将height解释成字符串`auto`=>`'auto' * 100/100 = NaN`
+
+>设置显示的高度(或者也可以使用绝对定位)
+
+```css
+html, body {
+    height: 100%;
+}
+```
+
+#### 任意高度元素的展开收起动画技术
+
+>第一反应就是使用`height + overflow:hidden`实现,但是,很多时候我们展开的元素内容是动态的,换句话说高度不是固定的,因此,height使用的值是默认的auto,应该都知道的auto是个关键字值,并非数值,正如height: 100%的100%无法和auto相计算一样,从0px到auto是无法计算的,因此无法形成过渡或动画效果
+
+```css
+/* 因此,下面代码呈现的效果也是生硬的展开和收起 */
+.element {
+    height: 0;
+    overflow: hidden;
+    transition: height .25s;
+}
+
+.element.active {
+    height: auto; /* 没有transition效果,只是生硬的展开 */
+}
+
+/* 难道就没有什么一劳永逸的实现方法吗？有,不妨试试max-height */
+.element {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height .25s;
+}
+
+.element.active {
+    max-height: 666px /* 一个足够大的高度值 */
+}
+```
+
+>其中展开后的max-height值,我们只需要设定为保证比展开内容高度大的值就可以,因为max-height值比height计算值大的时候,元素的高度就是height属性的计算高度, 在本交互中,也就是height: auto时候的高度值。于是,一个高度不定的任意元素的展开动画就实现了
+
+* 但是,使用此方法也有一点要注意,既虽然从适用范围讲,max-height值越大使用场景越多,但是,如果max-height值太大,在收起的时候可能会有“效果延迟”的问题。比方说,展开的元素高度是100px,而max-height是1000px,动画时间是250ms,假设动画函数是线性的,则前255ms我们是看不到收起效果的,因为max-height从1000像素到100像素变化这段时间,元素不会有区域被隐藏,会给人动画延迟225ms的感觉
+
+* 因此,建议max-height使用足够安全的最小值,这样,收起时即使有延迟效果,也会因为时间很短,很难给用户察觉,并不会影响体验
+
+### css的引入样式
+
+1. 内部样式表:将代码写在```<style></style>```中
+2. 行内样式表:```<div style="color:red">你好</style>```
+3. 外部样式表:```<link ref="stylesheet(样式表)" href="路径">```
+
 ### 字体属性
 
 1. 字体:```font-family:"Arial";```,属性可以写英文可以写中文
@@ -121,44 +268,6 @@ summary: css语法以及css3的相关内容,媒体查询,动画和盒子模型�
 4. 生成带有类名的或者id名的,直接写.demo或者#two, tab键
 5. 如果生成div类名是有顺序的,可以用自增符号,例:```.demo$*5```
 6. 如果在生成的标签内部些内容,可以用{}表示,```div{你好}```,tab键
-
-### 元素的显示模式
-
-* 块元素:\<h1>~\<h6>,\<div>,\<p>,\<ul>,\<ol>,\<li>等
-  1. 自己独占一行
-  2. 高度,宽度,外边距以及内边距都可以控制
-  3. 宽度默认是容器(父级宽度)的100%
-  4. 是一个容器及盒子,里面可以放行内或者块级元素
-  
-  * 注意:
-    1. 文字类的元素不能使用块级元素
-    2. \<p>标签主要用于存放文字,因此\<p>里面不能放块级元素,特别是不能放\<div>
-    3. 同理,\<h1>~\<h6>等都不能放其它块级元素
-
-* 行内元素:\<a>,\<strong>,\<b>,\<em>,\<i>,\<del>,\<s>,\<ins>,\<u>,\<span>等,也称内联元素
-  1. 相邻行内元素在一行上,一行可以显示多个
-  2. 高宽直接设置是无效的
-  3. 默认宽度是它本身内容的宽度
-  4. 行内元素只能容纳文本或其它行内元素
-
-  * 注意:
-     1. 链接里面不能再放链接
-     2. 特殊情况链接\<a>里面可以放块级元素,但是给\<a>转换一下块级模式最安全
-
-* 行内块元素:\<img/>,\<input/>,\<td>.他们<span style="color:red">同时具有块元素和行内元素的特点</span>,有些资料称他们为行内元素
-  1. 和相邻的行内元素(行内块)再一行上,但是他们之间会有空白缝隙,一行可以显示多个(行内元素特点)
-  2. 默认宽度就是它本身的宽度(行内元素的特点)
-  3. 高度,行高,外边距都可以控制(块级元素的特点)
-
-* 元素显示模式转换:
-  1. ```display:block```:行内元素转换为块级元素
-  2. ```display:inline```:块级元素转换为行内元素
-  3. ```display:inline-block```:转换为行内块元素
-
-### 垂直居中
-
-1. 方式```line-height=height```
-2. 原理:行间距(line-height)=上间距+文本高度(默认16px)+下间距,上下间距平分剩余大小
 
 ### 背景
 
@@ -217,28 +326,123 @@ summary: css语法以及css3的相关内容,媒体查询,动画和盒子模型�
   * 如果子元素没有设置行高,则会继承父元素的行高为1.5
   * 此时子u元素的行高是:当前元素的字体大小*1.5
 
-### 优先级
-
-* 选择器相同 执行层叠性
-* 选择器不同,则根据<span style="color:red">选择器权重</span>执行
-
-| 选择器              | 选择器权重 |
-| ------------------- | ---------- |
-| 继承或者*           | 0,0,0,0    |
-| 元素选择器          | 0,0,0,1    |
-| 类选择器,伪类选择器 | 0,0,1,0    |
-| ID选择器            | 0,1,0,0    |
-| 行内样式style=""    | 1,0,0,0    |
-| !important重要的    | 无穷大     |
-
-* 注意:
-   1. 权重是有4组数字,不会有进位
-   2. 从左向右判断,如果某一位数值相同,则判断下一位数值
-   3. <span style="color:red">继承的权重是0,(重要)</span>,如果该元素没有直接选中,不管父元素权重多高,子元素得到的权重都是0
-
-* 权重叠加:如果是复合选择器,则会有权重叠加,需要计算权重
-
 ## 盒子模型
+
+### 内容(content)
+
+#### 替换元素
+
+>替换元素:通过修改某个属性值呈现的内容就可以被替换的元素就称为替换元素(例如\<img>,\<input>登都是典型的替换元素)
+
+1. 内容外观不受页面上的css的影响.即样式表现在css之外
+2. 有自己的尺寸.默认的尺寸(不包括边框)是300px*150px,像\<video>等.也有如\<img>这样替换元素为0px的.
+3. 在css属性上有一套自己的表现规则
+
+* \<select>:首先内容可以替换,如果设置multiple属性,下拉就变成了展开直选多选的模式.并且样式外部的css很难更改.最后他也有自己的尺寸
+
+> 替换元素的默认display
+
+* 一般替换元素是内联元素(`inline`)或者是行内块元素(`inline-block`)
+
+> 替换元素的尺寸
+
+1. 固有尺寸:替换内容原本的尺寸
+2. HTML尺寸,这些HTML原生的尺寸.例如\<img>的width,height,\<input>的size,\<textarea>的cols和rows
+3. CSS尺寸,通过css属性的width和height或者max-width/min-width和max-height/min-height设置尺寸
+
+* 注意
+  * 如果固有尺寸含有固有的宽高比例,同时设置了宽度和高度,则元素依然按照固有的宽高比例
+  * \<img>中如果图片缺省,不需要使用`src=""`,只要有`src=""`就会产生请求
+
+>`object-fit`:替换内容的适配方式
+
+1. 默认是`fill`,也就是外部设定的尺寸多大,我就填满,跟着一样大
+2. `none`:图片的尺寸完全不受控制.会保持图片原来的大小.如果设置了大小,超过范围不会显示
+3. `contain`:保持图片比例,尽可能利用html的尺寸但是不会超出的显示方式
+
+* 同时在伪元素中可以使用`content:attr()`获取html标签中的属性例如`attr(alt)`.url等也可以使用
+
+>content元素与替换元素
+
+* `content`属性生成的对象被称为匿名替换元素
+
+1. 使用content生成的文本是无法选中的,也是无法复制的.同时content生成的文本无法被屏幕设备阅读,搜索引擎抓取
+2. 不能左右`:empty`(当元素中没有内容时进行匹配)伪类
+3. 动态生成的值无法获取(自动累加,计数器)
+
+#### content内容生成
+
+> content设置成空字符串,然后利用其他的css代码生成辅助元素,或实现图形,或实现特定布局.
+
+1. content中图片生成,直接使用`content:url()`不易控制图片.
+
+   ```css
+   div::before{
+     content:'';
+     background:url();
+   }
+   ```
+
+2. attr属性值生成内容.除了原生的html属性.也可以使用自定义的html属性
+
+> content计数器.两个属性`counter-reset`和`counter-increment`.两个方法`counter()`和`increment()`
+
+1. **counter-reset**:计数器-重置,默认是从0开始,可以使用负数或者小数(各个浏览器不同)
+   * 同时可以多个计数器同时命名
+2. **counter-increment**:计数器递增.值为`counter-reset`的一个或者多个关键字,后面可以跟数字,表示每次计数的变化值
+
+    ```html
+    <style>
+      .counter {
+        counter-reset: cun 2;
+        counter-increment: cun 1;
+      }
+      .counter:before {
+        content: counter(cun);
+      }
+    </style>
+    <body>
+      <p class="counter"></p>
+      <p class="counter"></p>
+    </body>
+    ```
+
+3. `counter()/counters()`:显示计数
+   * `counter(name,style)`,其中style支持的参数就是`list-style-type`支持的参数
+   * `counters(name,string,style)`string参数是字符串,表示子序号的连接字符串
+     * 使用这个方法可以实现序列的嵌套.通过子辈对父辈的`counter-reset`重置,配合counters()方法
+
+```html
+<style>
+  .reset {
+    counter-reset: cun 0;
+  }
+  .counter:before {
+    counter-increment: cun 1;
+    content: counters(cun, ".");
+  }
+</style>
+
+<body>
+  <div class="reset">
+    <div class="counter">
+    </div>
+    <div class="reset">
+      <div class="counter">大儿子</div>
+      <div class="counter">二儿子</div>
+      <div class="counter">三儿子</div>
+    </div>
+    <div class="counter">王小三</div>
+    <div class="reset">
+      <div class="counter">大儿子</div>
+      <div class="counter">二儿子</div>
+      <div class="counter">三儿子</div>
+    </div>
+  </div>
+</body>
+```
+
+* 由于一个容器的普照元素`reset`应该是固定的,一但子元素出现,其实就已经进入下一级嵌套
 
 ### 边框(border)
 
@@ -258,6 +462,19 @@ summary: css语法以及css3的相关内容,媒体查询,动画和盒子模型�
   2. 如果测量的时候包含了边框,则需要width/height减去边框宽度
 
 ### 内边距(padding)
+
+> 在使用padding时尽量不要使用`box-sizing:border-box`.局部使用尽量使用无宽度以及宽度分离准则
+
+* 内联元素的padding依然会对垂直方向的元素有影响.不过内联元素没有可视化的宽高(clientHight和clientWidth永远是0)
+  * 垂直方向的行为完全受`line-height`和`vertical-align`的影响
+  * 不过视觉上并不会改变上一行和下一行内容的间距(需要加上一些效果,例如`background-color`)
+
+>css中出现这种层叠的现象
+
+1. 一类是纯视觉层叠,不影响外部尺寸.(例如relative元素的定位,box-shadow,以及outline等)
+2. 另一种会影响外部尺寸.例如`padding`
+
+* 区分:给父级设置`overflow:auto`,如果层叠区域超出父容器,没有出现滚动条,则是纯视觉的;如果出现滚动条,则会影响尺寸,影响布局
 
 1. padding属性用于设置内边距,即边框与内容之间的距离
   
@@ -279,12 +496,44 @@ summary: css语法以及css3的相关内容,媒体查询,动画和盒子模型�
   1. 内容和边框有了距离,添加内边框
   2. padding影响盒子实际大小
   3. 如果盒子有了高度和宽度,此时指定内边框,会撑大盒子
-     * 解决方案: 让<span style="color:red">width/height减去多出来的内边距大小</span>
+     * 解决方案: 让width/height减去多出来的内边距大小
   4. 如果盒子本身没有指定width/height属性,则此时paddiong不会撑开盒子大小
+
+> padding的百分比值:<span style="color:red">无论是水平方向还是垂直方向均是相对于宽度计算的</span>
+
+* 很多表单元素都会内置`padding`
+  * 内置padding的元素:\<input>,\<textarea>,\<button>,\<select>
+  * 单选框不内置,\<radio>,\<checkbox>
+
+>使用padding回值双层圆点
+
+```css
+.box {
+  display: inline-block;
+  width: 100px;
+  height: 100px;
+  padding: 10px;
+  border: 10px solid;
+  border-radius: 50%;
+  background-color: black;
+  background-clip: content-box;
+}
+```
 
 ### 外边距(margin)
 
-1. margin属性用于设置外边距,用于控制盒子与盒子之间的距离
+>margin对尺寸没有影响,只是元素是<span style="color:green">充分利用可用空间</span>状态的时候.margin才可以改变元素的可视尺寸
+
+* 对于普通的块状元素,在默认的水平流下,margin之恶能改变左右的内部尺寸,垂直方向无法改变(这是由`margin:auto`的计算规则决定的)
+  
+> margin的百分比值也是相对于宽度计算的
+
+1. 不过由于margin无法在垂直方向上改变元素自身的内部尺寸,往往需要父元素作为载体
+2. 并且由于margin合并的问题,垂直方向往往需要双倍尺寸 
+
+>margin属性
+
+* margin属性用于设置外边距,用于控制盒子与盒子之间的距离
 
    | 属性          | 作用     |
    | ------------- | -------- |
@@ -293,18 +542,76 @@ summary: css语法以及css3的相关内容,媒体查询,动画和盒子模型�
    | margin-top    | 上外边距 |
    | margin-bottom | 下外边距 |
 
-2. 外边距可以让块级盒子水平居中,但是必须要满足两个条件
-   * 盒子必须指定宽度(width)
-   * <span style="color:red">盒子的左右的外边框都设置为auto</span>
-   * <span style="color:red">注意:</span>以上方法是让块级元素水平居中,<span style="color:red">行内元素或者行内块元素水平居中给其父元素添加  text-align:center;即可</span>
-3. 嵌套块元素垂直外边距的塌陷
-   * 对于来攻嵌套关系(父子关系)的块元素,父元素有上外边距同时子元素也有上外边据,此时父元素会塌陷较大的外边距值
-   * 解决方案:
-     1. 可以为父元素定义上边框
-     2. 可以为父元素定义上内边框
-     3. 可以为父元素添加```overflow:hidden```(不会增加盒子的大小)
+> margin合并
 
-* <span style="color:red">注意:如果```margin:0 auto;```,会让div布局水平居中在浏览器中</span>
+* 块级元素的上外边距`margin-top`和下外边距`margin-bottom`有时会合并采购和各位单个外边距
+
+1. 块级元素:但不包括浮动和绝对定位
+2. 只发生在垂直方向(不考虑`writing-mode`)
+
+* margin合并的场景
+  1. 相邻兄弟元素margin合并
+  2. 父级和第一个/最后一个子元素(嵌套块元素垂直外边距的塌陷)
+     * 对于来攻嵌套关系(父子关系)的块元素,父元素有上外边距同时子元素也有上外边据,此时父元素会塌陷较大的外边距值
+     * 解决方案:
+      1. 可以为父元素定义上边框
+      2. 可以为父元素定义上内边框
+      3. 设置格式化上下文,例如父元素添加```overflow:hidden```(不会增加盒子的大小)
+
+* margin合并的计算规则
+  1. 正正取大值
+  2. 正负值相加
+  3. 负负值最负值
+
+* margin负值的意义在于:在页面中任何地方嵌套或者直接放入任何裸\<div>,都不会影响原来的块状布局
+
+#### margin:auto
+
+>有时候元素没有设置width或者height也会自动填充
+
+```html
+<!-- 自动填充 -->
+<div></div>
+
+<!-- 自动填充对应的方位 -->
+<style>
+  div{
+    position:absolute;
+    left:0;right:0;
+  }
+</style>
+```
+
+>margin:auto填充规则
+
+1. 如果一侧是定值,一侧是auto,则auto为剩余空间大小
+2. 如果两侧均是auto,则平分剩余空间大小
+
+* 那就很容易实现右对齐,只要margin-right为0或者不设置
+
+```css
+.son{
+  width:200px;
+  margin-left:auto;
+}
+```
+
+* 水平居中`margin:0 auto`,会让div布局水平居中在浏览器中
+* `margin:auto`不能垂直居中.由于这个属性有一个前提条件,当width或者height为auto时,元素是<span style="color:red">具有对应方向的自动填充特性的</span>.根据html文档流是水平方向自适应的,所以设置垂直方向没用
+
+>设置水平垂直居中(不适用`writing-mode`)
+
+```css
+.father{
+  width:300px;height:200px;
+  position:relative;
+}
+.son{
+  position:absolute;
+  top:0;right:0;bottom:0;left:0;
+  width:150px;height:100px
+}
+```
 
 ### 清除内外边距
 
@@ -543,34 +850,6 @@ summary: css语法以及css3的相关内容,媒体查询,动画和盒子模型�
 * 数字后面不能加单位
 * 只有定位的盒子才有z-index
 
-### 绝对定位盒子居中
-
-* 水平居中
-
-```css
-.class{
-  position:absolute;
-  left:50%;/* 父容器宽度的一半 */
-  margin-left:-100px;/* margin负值,往左边走,自己盒子宽度的一半 */
-  width:200px;
-  height:200px
-}
-
-```
-
-* 垂直居中
-
-```css
-.class{
-  position:absolute;
-  top:50%;/* 父容器高度的一半 */
-  margin-top:-100px;/* margin负值,往上边走,自己盒子高度的一半 */
-  width:200px;
-  height:200px
-}
-
-```
-
 ### 定位的特殊性
 
 1. 行内元素添加绝对或者固定定位,可以直接设置高度和宽度
@@ -581,20 +860,20 @@ summary: css语法以及css3的相关内容,媒体查询,动画和盒子模型�
 
 ### display
 
-* ```display:none;```隐藏对象,<span style="color:red">不再占有原来的位置</span>
-* ```display:block;```除了转换为块级元素之外,同时还有显示元素的意思
+* `display:none;`隐藏对象,<span style="color:red">不再占有原来的位置</span>
+* `display:block;`除了转换为块级元素之外,同时还有显示元素的意思
 
 ### visibility 可见性
 
-* ```visibility:visible;```元素可见
-* ```visibility:hidden;```元素隐藏<span style="color:red">继续占有原来的位置</span>
+* `visibility:visible;`元素可见
+* `visibility:hidden;`元素隐藏<span style="color:red">继续占有原来的位置</span>
 
 ### overflow 溢出
 
-* ```overflow:visible;```,默认值,显示可见
-* ```overflow:hidden;```,隐藏溢出
-* ```overflow:scroll;```,不管有没有溢出都显示滚动条
-* ```overflow:auto;```,有溢出,才显示滚动条
+* `overflow:visible;`,默认值,显示可见
+* `overflow:hidden;`,隐藏溢出
+* `overflow:scroll;`,不管有没有溢出都显示滚动条
+* `overflow:auto;`,有溢出,才显示滚动条
 
 ## CSS技巧
 
@@ -650,7 +929,7 @@ summary: css语法以及css3的相关内容,媒体查询,动画和盒子模型�
 
 ### 鼠标样式
 
->鼠标样式:```cursor:pointer;```
+>鼠标样式:`cursor:pointer;`
 
 | 属性值      | 描述 |
 | ----------- | ---- |
@@ -662,15 +941,15 @@ summary: css语法以及css3的相关内容,媒体查询,动画和盒子模型�
 
 ### 表单轮廓线
 
-* ```input{outline:none;}```,取消表单轮廓线
-* ```textarea{resize:none;}```,防止拖拽文本域
+* `input{outline:none;}`,取消表单轮廓线
+* `textarea{resize:none;}`,防止拖拽文本域
 
 ### vertical-align 属性的应用
 
 > 经常用于设置图片或者表单(行内块)和文字的垂直对齐.
 > 官方解释:用于设置一个元素的垂直对齐方式,但是只针对域行内块元素或者行内元素有效
 
-* 语法:```vertical-align:baseline | top | middle | bottom;```
+* 语法:`vertical-align:baseline | top | middle | bottom;`
 
 | 值       | 描述                                 |
 | -------- | ------------------------------------ |
@@ -739,125 +1018,6 @@ summary: css语法以及css3的相关内容,媒体查询,动画和盒子模型�
 ```
 
 ## CSS3和HTML5
-
-### Html5新增的标签
-
-1. 语义化标签
-   * ```<header>```头部标签
-   * ```<nav>```导航标签
-   * ```<article>```内容标签
-   * ```<section>```定义文档某个区域
-   * ```<aside>```侧边栏标签
-   * ```<footer>```尾部标签
-
-2. 视频标签
-   * ```<video src="url" controls="controls"></video>```视频标签
-
-   | 属性       | 值           | 描述                                                          |
-   | ---------- | ------------ | ------------------------------------------------------------- |
-   | autoplay   | autoplay     | 视频就绪自动播放(谷歌浏览器需要添加```muted="muted"```来解决) |
-   | controls   | controls     | 向用户显示播放控件                                            |
-   | width      | pixels(像素) | 设置播放器宽度                                                |
-   | height     | pixels(像素) | 设置播放器高度                                                |
-   | loop       | loop         | 播放完是否继续播放该视频，循环播放                            |
-   | preload    | proload      | 是否等加载完再播放                                            |
-   | src        | url          | 视频url地址                                                   |
-   | poster     | Imgurl       | 加载等待的画面图片                                            |
-   | autobuffer | autobuffer   | 设置为浏览器缓冲方式，不设置autopaly才有效                    |
-   | muted      | muted        | 静音播放                                                      |
-
-3. 音频标签
-    * ```<audio src="url" controls="controls"></audio>```音频标签
-
-   | 属性     | 值       | 描述                               |
-   | -------- | -------- | ---------------------------------- |
-   | autoplay | autoplay | 音频就绪自动播放                   |
-   | controls | controls | 向用户显示播放控件                 |
-   | loop     | loop     | 播放完是否继续播放该音频，循环播放 |
-   | src      | url      | 音频url地址                        |
-
-   * 注意:谷歌浏览器把音频和视频自动播放禁止了
-
-4. 新增input类型
-
-   | 属性          | 说明                                                                       |
-   | ------------- | -------------------------------------------------------------------------- |
-   | type="email"  | 避免自己编写js代码对邮箱格式进行校验                                       |
-   | type="tel"    | 该类型没有对输入内容进行校验,在移动端输入时弹出数字键盘;                   |
-   | type="url"    | 对输入的网址内容合法性校验,且必须以http或https开头;                        |
-   | type="number" | 表示该文本框只能输入数字(包括小数点)                                       |
-   | type="search" | 表示搜索时的文本框,该文本框输入时有提示,右侧有删除的"X"号可以将文本框清空; |
-   | type="range"  | 表示范围:                                                                  |
-   | type="data"   | 表示必须输入日期类型                                                       |
-   | type="time"   | 表示必须输入为日期类型                                                     |
-   | type="month"  | 表示必须输入月类型                                                         |
-   | type="month"  | 表示必须输入月类型                                                         |
-   | type="color"  | 表示必须输入颜色类型                                                       |
-
-5. 表单新增属性
-
-| 属性         | 值        | 说明                                                                                                                                              |
-| ------------ | --------- | ------------------------------------------------------------------------------------------------------------------------------------------------- |
-| autofocus    | autofocus | 自动获取焦点                                                                                                                                      |
-| autocomplete | off/on    | 当用户在字段开始键入时,浏览器基于之前键入过的值,应该显示出在字段中填写的选项默认已经打开,自动匹配 off关掉自动匹配,在表单内,同时加上name且成功提交 |
-| required     | required  | 表单拥有该属性表示其内容不能为空,必填                                                                                                             |
-| placeholder  | 文本内容  | 表单的提示信息,存在默认值将不显示                                                                                                                 |
-| multiple     | multiple  | 可以多选文件提交                                                                                                                                  |
-
-### CSS3新特性
-
-1. 属性选择器
-
-   | 选择符        | 简介                                  |
-   | ------------- | ------------------------------------- |
-   | E[att]        | 选择具有att属性的E元素                |
-   | E[att="val"]  | 选择具有att属性且属性值等于val的E元素 |
-   | E[att~="val"] | 选择具有att属性且属性值包含val的E元素 |
-   | E[att^="val"] | 匹配具有att属性且值以val开头的E元素   |
-   | E[att$="val"] | 匹配具有att属性且值以val结尾的E元素   |
-   | E[att*="val"] | 匹配具有att属性且值中含有的E元素      |
-
-2. 结构伪类选择器:主要根据<span style="color:red;">文档结构</span>,常用于根据父级选择器里的子元素
-  
-| 选择符           | 简介                        |
-| ---------------- | --------------------------- |
-| E:first-child    | 匹配父元素中的第一个元素E   |
-| E:last-child     | 匹配父元素中的最后一个元素E |
-| E:nth-child(n)   | 匹配父元素中的第n个元素E    |
-| E:first-of-type  | 指定类型E的第一个           |
-| E:last-of-type   | 指定类型E的最后一个         |
-| E:nth-of-type(n) | 指定类型E的第n个            |
-
-* nth-child(n) 选择某个父元素的一个或多个特定的子元素
-  * n可以是数字,关键字和公式
-  * n如果是数字,就是第n个子元素,里面数字从1开始
-  * n可以是关键字:even是偶数,odd是奇数
-  * n可以是公式:常见的公式如下(如果n是公式,则从0开始计算,但是第0个元素或者超出的元素会被忽略)
-
-| 公式 | 取值                           |
-| ---- | ------------------------------ |
-| 2n   | 偶数                           |
-| 2n+1 | 奇数                           |
-| 5n   | 5  10 ....                     |
-| n+5  | 从第五个开始(包含第五个)到最好 |
-| -n+5 | 前五个(包含第五个)             |
-
-* 注意:```nth-child(n)```给所有元素都排列序号,要求选择器与标签匹配得当
-* 注意:```nth-of-type(n)```给指定元素都排列序号
-
-3. 伪元素选择器
-
-选择器           简介
-::before        在元素内部的前面插入内容
-::before        在元素内部的后面插入内容
-
-* <span style="color:red;">注意</span>
-   1. before和after创建一个元素,但是属于行内元素
-   2. 新创建的这个元素在文档树中是找不到的,
-   3. 语法```element::before{}```
-   4. before和after必须有content属性
-   5. before在父元素内容的前面创建元素.after在父元素内容的后面插入元素
-   6. 伪元素选择器和标签选择器一样,权重为1
 
 ### CSS3盒子模型(box-sizing)
 
@@ -1008,18 +1168,18 @@ div{
 }
 ```
 
-| 属性                      | 描述                                                                                                                                          |
-| ------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------- |
-| @keyframes                | 规定动画。                                                                                                                                    |
-| animation                 | 所有动画属性的简写属性。除了animation-play-state                                                                                              |
-| animation-name            | 规定 @keyframes 动画的名称。(必须写)                                                                                                          |
-| animation-duration        | 规定动画完成一个周期所花费的秒或毫秒。默认是 0。(必写)                                                                                        |
-| animation-timing-function | 规定动画的速度曲线。默认是 "ease"                                                                                                             |
-| animation-fill-mode       | 规定当动画不播放时（当动画完成时，或当动画有一个延迟未开始播放时），要应用到元素的样式。默认是backwards,回到起始状态,forwards是停留在结束状态 |
-| animation-delay           | 规定动画何时开始。默认是 0。                                                                                                                  |
-| animation-iteration-count | 规定动画被播放的次数。默认是 1。```infinite```(指无限循环)                                                                                    |
-| animation-direction       | 规定动画是否在下一周期逆向地播放。默认是 "normal",alternate是反方向走回来,而不是直接跳回来                                                    |
-| animation-play-state      | 规定动画是否正在运行或暂停。默认是 "running",暂停是pause                                                                                      |
+| 属性                      | 描述                                                                                                                                       |
+| ------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------ |
+| @keyframes                | 规定动画.                                                                                                                                  |
+| animation                 | 所有动画属性的简写属性.除了animation-play-state                                                                                            |
+| animation-name            | 规定 @keyframes 动画的名称.(必须写)                                                                                                        |
+| animation-duration        | 规定动画完成一个周期所花费的秒或毫秒.默认是 0.(必写)                                                                                       |
+| animation-timing-function | 规定动画的速度曲线.默认是 "ease"                                                                                                           |
+| animation-fill-mode       | 规定当动画不播放时（当动画完成时,或当动画有一个延迟未开始播放时）,要应用到元素的样式.默认是backwards,回到起始状态,forwards是停留在结束状态 |
+| animation-delay           | 规定动画何时开始.默认是 0.                                                                                                                 |
+| animation-iteration-count | 规定动画被播放的次数.默认是 1.`infinite`(指无限循环)                                                                                       |
+| animation-direction       | 规定动画是否在下一周期逆向地播放.默认是 "normal",alternate是反方向走回来,而不是直接跳回来                                                  |
+| animation-play-state      | 规定动画是否正在运行或暂停.默认是 "running",暂停是pause                                                                                    |
 
 * 动画简写: ```animate:动画名称 持续时间 运动曲线 何时开始 播放次数 是否反方向 动画起始或者结束的状态```
 
@@ -1069,51 +1229,13 @@ div{
 <meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0">
 ```
 
-属性                 解释说明
-width                宽度是指的是viewport宽度,可以设置device-width
-initial-scale        初始缩放比例,大于0的数字
-maximum-scale        最大缩放比例,大于0的数字
-minimum-scale        最小缩放比例,大于0的数字
-user-scalable        用户可以缩放,yes或no(1或0)
-
-### 物理像素和物理像素比
-
-### 多倍图
-
-1. 二倍图:手机端图片模糊处理方法
-2. ```background-size:背景图片宽度 背景图片高度;```
-   * 单位:  长度|百分比|cover|contain
-   * cover把背景图像扩展至足够大,以使背景图像完全覆盖背景区域(可能有背景图片显示不全)
-   * contain把图像扩展至最大尺寸(等比例拉伸,宽或者高铺满div盒子就不再拉伸了,可能有部分空白区域),以使其宽度和高度完全适应内容区域
-
-### 开发方案
-
-1. 单独制作移动端页面
-   * 流式布局(百分比布局)
-     * max-width 最大宽度(max-height 最大高度) 
-     * min-width 最小宽度(min-height 最小高度) 
-   * flex弹性布局
-   * less+rem+媒体查询
-   * 混合布局
-
-2. 响应式
-   * 媒体查询
-   * bootstrap
-
-### 特殊样式
-
-```css
-*{
-  box-sizing:border-box;
-  -webkit-box-sizing:border-box;
-  /* 点击高亮我们需要清楚  设置为transparent 完成透明*/
-  -webkit-tap-highlight-color:transparent;
-  /* 在移动端浏览器默认的外观在ios上加这个属性才能给按钮和输入框自定义样式 */
-  -webkit-appearance:none;
-}
-  /* 禁用长按页面时的弹出菜单 */
-  a,img{-webkit-touch-callout:none;}
-```
+| 属性          | 解释说明                                      |
+| ------------- | --------------------------------------------- |
+| width         | 宽度是指的是viewport宽度,可以设置device-width |
+| initial-scale | 初始缩放比例,大于0的数字                      |
+| maximum-scale | 最大缩放比例,大于0的数字                      |
+| minimum-scale | 最小缩放比例,大于0的数字                      |
+| user-scalable | 用户可以缩放,yes或no(1或0)                    |
 
 ## flex布局
 
@@ -1185,7 +1307,7 @@ user-scalable        用户可以缩放,yes或no(1或0)
 
 ### 子元素常见属性
 
-1. flex属性:定义子项目分配剩余空间,用flex来表示占多少分数
+> flex属性:定义子项目分配剩余空间,用flex来表示占多少分数
 
 ```css
 .item{
@@ -1195,25 +1317,20 @@ user-scalable        用户可以缩放,yes或no(1或0)
 
 * flex的复合属性:```flex:flex-grow flex-shrink flex-basis```
 
- | 属性        | 描述                                                                                                       |
- | ----------- | ---------------------------------------------------------------------------------------------------------- |
- | flex-grow   | 定义放大比例，默认为0，规定项目相对于其他灵活的项目进行扩展的量                                            |
- | flex-shrink | 定义了项目的缩小比例，仅在宽度之和大于容器的时候才会发生收缩，其收缩的大小是依据 flex-shrink 的值，默认为1 |
- | flex-basis  | 给上面两个属性分配多余空间之前, 计算项目是否有多余空间, 默认值为 auto, 即项目本身的大小                    |
+   | 属性        | 描  述                                                                                                    |
+   | ----------- | --------------------------------------------------------------------------------------------------------- |
+   | flex-grow   | 定义放大比例,默认为0,规定项目相对于其他灵活的项目进行扩展的  量                                           |
+   | flex-shrink | 定义了项目的缩小比例,仅在宽度之和大于容器的时候才会发生收缩,其收缩的大小是依据 flex-shrink 的值,默认为  1 |
+   | flex-basis  | 给上面两个属性分配多余空间之前, 计算项目是否有多余空间, 默认值为 auto, 即项目本身的大  小                 |
 
-2. ```align-self``` 控制子项自己在侧轴上的排列方式
+> `align-self` 控制子项自己在侧轴上的排列方式
 
 * <span style="color:red">注意:align-self属性允许单个项目有与其它项目不一样的对齐方式,可覆盖align-items属性</span>默认值auto,表示继承父元素的align-items属性,如果没有父元素,则等同于stretch
 
-3. ```order```属性定义项目的排列顺序
+> ```order```属性定义项目的排列顺序
 
 * 数值越小,排列越靠前,默认为0
 * 注意:和```z-index```不一样
-
-### rem单位
-
-1. rem是一个相对单位
-2. rem的基准是相对于html元素的字体大小
 
 ### 媒体查询(Media Query)
 
@@ -1249,13 +1366,9 @@ user-scalable        用户可以缩放,yes或no(1或0)
        background-color:red; 
  } 
 }
-
-
 ```
 
 ### 媒体查询+rem实现元素动态大小变化
-
-### 引入资源
 
 * 针对不同的媒体使用不同的stylesheets(样式表),就是在link中判断设备的尺寸,然后应用css文件
 

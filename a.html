@@ -7,27 +7,47 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
   <style>
-    html,
-    body {
-      height: 100%;
+    .width {
+      width: 100%;
     }
 
-    .box {
-      height: 20%;
-      width: 300px;
+    .nav {
+      background-color: #cd0000;
     }
 
-    .son {
-      margin: 0 -20px;
-      background-color: black;
+    .nav-a {
+      display: block;
+      margin: 0 10px;
+      padding: 9px 10px;
+      border-bottom: 1px solid #b70000;
+      border-top: 1px solid #de3636;
+      color: #fff;
+    }
+
+    .nav-a:first-child {
+      border-top: 0;
+    }
+
+    .nav-a+.nav-a+.nav-a {
+      border-bottom: 0;
     }
   </style>
 </head>
 
 <body>
-  <div class="box">
-    <div class="son"></div>
+  <h4>无宽度，借助流动性</h4>
+  <div class="nav">
+    <a href="" class="nav-a">导航1</a>
+    <a href="" class="nav-a">导航2</a>
+    <a href="" class="nav-a">导航3</a>
+  </div>
+  <h4>width:100%</h4>
+  <div class="nav">
+    <a href="" class="nav-a width">导航1</a>
+    <a href="" class="nav-a width">导航2</a>
+    <a href="" class="nav-a width">导航3</a>
   </div>
 </body>
+
 
 </html>
