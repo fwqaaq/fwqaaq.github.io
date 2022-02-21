@@ -29,7 +29,7 @@ summary: 浏览器自带的bom属性
 <a href="https://www.baidu.com"></a>
 
 <script>
-  window.oprn("https://www.baidu.com")
+  window.open("https://www.baidu.com")
 </script>
 ```
 

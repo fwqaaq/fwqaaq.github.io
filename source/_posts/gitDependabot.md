@@ -1,5 +1,5 @@
 ---
-title: dependabot
+title: gitDependabot
 date: 2022-02-11 16:46:29
 categories: git
 tags:

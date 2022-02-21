@@ -117,10 +117,10 @@ handler.on('push', function (event) {
 2. `ssh-keygen -t rsa -C "zyj17715640603@gmail.com"`(自己的账号)
 3. 配置`git`:
 
-```shell
-git config --gloabl user.name="jack"
-git config --gloabl user.email=1553198027@qq.com
-```
+   ```shell
+   git config --gloabl user.name="jack"
+   git config --gloabl user.email=1553198027@qq.com
+   ```
 
 4. 使用`git clone git@...`克隆仓库
 

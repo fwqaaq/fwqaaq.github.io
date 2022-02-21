@@ -1,7 +1,11 @@
 ---
 title: css选择器
 date: 2022-02-19 16:23:10
+author: Jack-zhang
+categories: CSS
 tags:
+   - CSS
+summary: css选择器的使用
 ---
 
 ## css选择器
