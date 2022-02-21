@@ -338,3 +338,26 @@ gh issue create -t "测试" -b "问题的内容" -a "@me" -w
 * `-r,--rebase`:将提交重新定位到基础分支
 * `-s,--squash`:将提交压缩到一个提交中，然后将其合并到基础分支中
 * `-t,--subject <text>`:合并提交的主题文本
+
+> `gh pr create [flags]`:创建一个pr
+
+* [-a | -b | -F | -l | -m | -P | -t | -w]
+
+* `-B,--base <branch>`:要将代码合并到其中的分支
+* `-d,--draft`:将拉取请求标记为草稿
+* `-f,--fill`:不要提示标题/正文，只使用提交信息
+* `-H,--head <branch>`:包含拉取请求提交的分支（默认值：当前分支）
+* `--no-maintainer-edit`:禁用维护者修改拉取请求的功能
+* `--recover <string>`:从失败的创建运行中恢复输入
+* `-r,--reviewer <handle>`:按句柄请求人员或团队进行审核
+
+>`gh pr diff [<number> | <url> | <branch>] [flags]`
+
+`--color <string>`:在差异输出中使用颜色：{always|never|auto}
+`--patch`:以补丁格式显示差异
+
+>`gh pr edit [<number> | <url> | <branch>] [flags]`:编辑拉取请求。
+
+--add-assignee <login>| --remove-assignee <login> | --add-label <name> | --remove-label <name> | --add-reviewer <login> | --remove-reviewer <login> | --add-project <name> | --remove-project <name> | -b,--body <string> | -F,--body-file <file> | -m,--milestone <name> | -t,--title <string>
+
+* `-B,--base <branch>`:更改此拉取请求的基本分支
