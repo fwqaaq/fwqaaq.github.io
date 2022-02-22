@@ -38,14 +38,15 @@ summary: 关于vue3组件间通信的应用,兼容vue2
   <Demo id="123" class="aaa" tittle="hhh" content="ggg" :a="a">
   
   //子组件接收父组件数据
-  props: {
+  const props= defineProps<{
     tittle: String,
     content: String,
     a: {
       type: String,
       require: true,
       default: "111",
-    },
+    }>()
+
   ```
 
 * type类型
@@ -60,13 +61,28 @@ summary: 关于vue3组件间通信的应用,兼容vue2
 
 * 注意点:类型有关对象的,默认值要写成一个工厂函数(例如`Array`,`Object`,`Date`,`Function`)<span style="color:red">建议全写成函数</span>
 
-```js
-props:{
-  type:Object,
-  default(){
-    return {}
-  }
+>vue3的顶层setup中使用`defineprops`如果使用的是泛型,不能设置默认值,如果使用定义值的写法,有默认值,但比较繁琐
+
+* 并且如果使用泛型,ts会对其进行检查,但是自定义值不会
+
+```ts
+//使用泛型的写法
+interface test {
+  test: number
+  test2: Object
 }
+const prop = defineProps<{
+  msg: { type: string }
+  obj: test
+}>()
+//使用自定义值
+const prop = defineProps({
+  msg: String,
+  obj: {
+    type: Object,
+    default: () => ({})
+  }
+})
 ```
 
 ### 非Prop的Attribute
@@ -83,27 +99,27 @@ props:{
   2. 通过 `$attrs`来访问所有的 非props的attribute
   3. 使用`v-bind`可以直接解构绑定的对象,而不需要一个个单独传递
   
-  ```html
-  //父组件传值
-  <my-component id="my-id" class="my-class"></my-component>
-
-  //子组件取值
-  <template>
-    <label>
-     <input type="text" v-bind="$attrs" />
-     <!-- 访问所有的属性,且class属性绑定到根节点label上 -->
-     <input type="text" :id="$attrs.id" />
-     <!-- 拿到id属性 -->
-    </label>
-  </template>
-  <script>
-  export default {
-    inheritAttrs: false
-  }
-  </script>
-  ```
+     ```html
+     //父组件传值
+     <my-component id="my-id" class="my-class"></my-component>
+   
+     //子组件取值
+     <template>
+       <label>
+        <input type="text" v-bind="$attrs" />
+        <!-- 访问所有的属性,且class属性绑定到根节点label上 -->
+        <input type="text" :id="$attrs.id" />
+        <!-- 拿到id属性 -->
+       </label>
+     </template>
+     <script>
+     export default {
+       inheritAttrs: false
+     }
+     </script>
+     ```
   
-  3. 多个根节点的attribute如果没有显示的绑定，那么会报警告，我们必须手动的指定要绑定到哪一个属性上(由于vue3取消div根元素包裹)
+  4. 多个根节点的attribute如果没有显示的绑定，那么会报警告，我们必须手动的指定要绑定到哪一个属性上(由于vue3取消div根元素包裹)
 
   ```html
   <template :class="$attrs.class">伞兵一号</template>
@@ -113,64 +129,69 @@ props:{
 
 ## 子组件传递给父组件
 
+### defineEmits
+
 * 使用情景
   * 当子组件有一些事件发生的时候，比如在组件中发生了点击，父组件需要切换内容
   * 子组件有一些内容想要传递给父组件的时候
 
 * 流程
   * 我们需要在子组件中定义好在某些情况下触发的事件名称
-    1. emits使用数组的形式注册:`emits: ["add", "sub","addN"]`
-    2. emits使用对象的形式注册:
-       * 接收一个函数:<span style="color:red">返回值必须是布尔类型</span>,用来判断内容
-       * 在子组件中使用注册过的方法
+  * 和`defineProps`一样,使用泛型可以得到很好的代码提示
   
-  ```js
-  export default {
-    //emits: ["add", "sub","addN"],
-    emits:{
-      add:null,
-      sub:null,
-      addN:(payload)=>{
-        console.log(payload)
-        if(payload===10){
-          return true
-        }
-        return false
-      }
-    },
-    data(){
-      return{
-        num:10
-      }
-    },
-    methods: {
-      increment() {
-        this.$emit("add");
-      },
-      decrement() {
-        this.$emit("sub");
-      },
-      incrementN(){
-        this.$emit("addN",this.num)//可以传入多个参数
-      }
-    },
-  };
-  ```
-
-  * 在父组件中以v-on的方式传入要监听的事件名称，并且绑定到对应的方法中
-
   ```html
-  <Main @add="addOne" @sub="subOne" @addN="addNum"></Main>
-  <h2>当前计数:{{counter}}</h2>
-  ```
-
-  ```js
-    addNum(num){
-      this.counter+=num
+  <h1 @click="butFn" class="green">{{ msg }}</h1>
+  ...
+  <script setup lang="ts">
+  //子组件中给定绑定的名称
+  interface testEmits {
+    (e: 'em', data: number): void
+    (e: 'ws', data: string): void
+  }
+  const emits = defineEmits<testEmits>()
+  const butFn = () => {
+    emits('em', 1)
+  }
+  </script>
+  <!-- 父组件 -->
+  <HelloWorld @em="pageFn" msg="You did it!" />
+  <script setup lang="ts">
+    const pageFn = (val: number) => {
+      console.log(val)
     }
+  </script>
   ```
 
-  * 在子组件中发生某个事件的时候，根据事件名称触发对应的事件
+### defineExpose
+
+>在<script setup>中使用的组件默认是关闭setup函数中的`retrun`,向外暴露属性的,不过可以使用`defineExpose`来暴露子组件的属性
+
+* 问题:如果使用ts,父组件中的ref不能自动推断出子组件暴露的类型
+
+```vue
+<!-- 子组件 -->
+<script setup lang="ts">
+const testExpose = ref({ name: 'zhagnsan' })
+const fn = () => {
+  console.log('testExpose')
+}
+defineExpose({ testExpose, fn })
+</script>
+<!-- 父组件 -->
+<script setup lang="ts">
+const testE = ref()
+const hello = () => {
+  console.log(testE.value.testExpose.name)
+  testE.value.fn()
+}
+</script>
+...
+<template>
+ <div class="wrapper" @click="hello">
+    <HelloWorld ref="testE" @em="pageFn" msg="You did it!" />
+  </div>
+</template>
+```
 
 ## provide和inject
 

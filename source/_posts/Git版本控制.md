@@ -139,6 +139,28 @@ summary: 使用git进行代码的版本控制
 1. `git remote –v`:查看远程版本库信息
 2. `git remote set-url origin git@...`:更改远程仓库地址(ssh)
 
+> `git branch -r`:查看远程分支
+
+- `git branch -a`:查看所有分支
+
+> `git fetch <远程主机> <分支名>`:取回远程主机的分支
+
+- 例如`git fetch origin master`:取回origin的master分支
+
+>合并远程分支
+
+- `git merge origin/master`或者下面这个
+- `git rebase origin/master`
+
+>`git pull`:用于从远程获取代码并合并到本地分支
+
+- 可以看作这两个的简写:`git fetch`和 `git merge FETCH_HEAD`
+
+1. 更新操作:
+   - `git pull`
+   - `git pull origin`
+2. `git pull origin master:bro`:将远程仓库origin的master分支拉取与本地的bro分支合并
+
 #### 分支注意
 
 - 在切换的时候一定要保证当前分支是干净的！！！
