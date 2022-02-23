@@ -13,21 +13,15 @@ summary:  一个简单mongodb使用的介绍,内含CRUD等一些简单的使用.
 ## 2基本概念
 
 * 数据库(databases)
-
 * 集合(collection)
-
 * 文档(document)
-
   * 在MongoDB中,数据库和集合都不需要手动创建,当我们创建文档时,如果文档所在的集合或数据库不存在时,会自动创建数据库和集合
 
 ## 3.基础指令
 
 * show dbs/databases    ---显示当前的所有的数据
-
 * use 数据库名   ---进入到指定的数据库中
-
 * db  ---db表示的是当前的数据库
-
 * show collections    ---显示数据库中所有的集合
 
 ## 4.数据库的CRUD的操作
@@ -35,13 +29,9 @@ summary:  一个简单mongodb使用的介绍,内含CRUD等一些简单的使用.
 ### (1)向数据库中插入文档
 
 * db.\<collection>.insert(doc)  ---向集合中插入一个文档  /insertOne()
-
 * db.\<collection>.insert([doc,doc,...])   ---向集合中插入多个文档  /insertMany()
-
   * 如果没有给文档指定的\__id属性,则数据库会自动为文档添加__id ,该属性用来作为文档的唯一标识
-
   * \__id我们可以自己指定,如果我们指定了数据库就不会在添加了,如果我们指定__id也必须确保他的唯一性
-
     * --例子;向test数据库中的stus集合中插入一个新的学生对象:{name:"孙悟空",age:18,gender:"男"};
 
      ```mongodb
@@ -51,77 +41,59 @@ summary:  一个简单mongodb使用的介绍,内含CRUD等一些简单的使用.
 ### (2)查询
 
 1. db.\<collection>.find()   ---查询当前集合中的所有文档
-
-* find()  用来查询集合中所有符合条件阿德文档
-
-* find()  可以接受一个对象作为条件参数
-
-  * {}  表示查询集合中所有的文档,{属性:值}  查询属性是指定值的文档
-
-  * find()返回的是一个数组,可以加索引[]
-
+   * find()  用来查询集合中所有符合条件阿德文档
+   * find()  可以接受一个对象作为条件参数
+     * {}  表示查询集合中所有的文档,{属性:值}  查询属性是指定值的文档
+     * find()返回的是一个数组,可以加索引[]
 2. db.\<collection>.findOne()
-
-* 用来查询集合中符合条件的第一个文档
-
-* findOne()返回的是第一个文档对象
-
-* ```db.stus.find().count()```--查询所有文档的数量
+   * 用来查询集合中符合条件的第一个文档
+   * findOne()返回的是第一个文档对象
+   * ```db.stus.find().count()```--查询所有文档的数量
 
 ### (3)修改
 
 1. db.\<collection>.update(查询条件,新对象)
-
-* update()默认情况下会使用新对象替换旧对象
-
-* update()默认只会修改第一个
-
-  * 如果需要修改指定的属性,而不是要替换需要使用"修改操作符"来完成修改
+   * update()默认情况下会使用新对象替换旧对象
+   * update()默认只会修改第一个
+     * 如果需要修改指定的属性,而不是要替换需要使用"修改操作符"来完成修改
+     * $set   可以修改文件中的指定属性
   
-  * $set   可以修改文件中的指定属性
-  
-  ```js
-  例:
-      db.stus.update({"_id":ObjectId("60efe2cfa164bbc13d327278")},
-      {$set:
-       {
-        name:"沙和尚",
-        address:"流沙河",
-       },
-       {
-        multi:<boolean>//true指修改多个
-       }
-      })
-  ```
-
-  * $unset   可以删除文档中的指定属性
-
-  ```js
-  例:
-      db.stus.update(
-      {"_id":ObjectId("60efe2cfa164bbc13d327278")},
+     ```js
+     db.stus.update({"_id":ObjectId("60efe2cfa164bbc13d327278")},
+     {$set:
       {
-       $unset:{
-       address:"流沙河"
+       name:"沙和尚",
+       address:"流沙河",
       },
       {
-       multi:<boolean>//true指删除多个
+       multi:<boolean>//true指修改多个
       }
-      })
-  ```
+     })
+     ```
 
-* db.\<collection>.updateMany()    ---可以修改多个符合条件的文档
+   * $unset   可以删除文档中的指定属性
 
-* db.\<collection>.updateOne()      ---修改一个符合条件的文档
+    ```js
+    db.stus.update(
+    {"_id":ObjectId("60efe2cfa164bbc13d327278")},
+    {
+     $unset:{
+     address:"流沙河"
+    },
+    {
+     multi:<boolean>//true指删除多个
+    }
+    })
+    ```
+
+* db.<collection>.updateMany()    ---可以修改多个符合条件的文档
+* db.<collection>.updateOne()      ---修改一个符合条件的文档
 
 ### (4)删除
 
 * db.\<collection>.remove()
-
   * remove()可以根据条件来删除文档,传递的条件和find()一样
-
   * 默认情况下删除符合条件的所有的文档
-
   * 第二个参数填true,只删除一个\<justone>,例:```db.stus.remove({name:28},true)```
 
 * db.\<collection>.drop()   ---删除集合
@@ -238,7 +210,5 @@ db.numbers.find({},{enname:1,_id:0,sal:1})
 ### (1)mongoose为我们提供了几个新的对象
 
 * Schema(模式对象)   定义约束了数据库的文档结构
-
 * Model  作为集合中的所有文档的表示,相当于MongoDB数据库中的集合collection
-
 * Document  表示集合中的具体文档,相当于集合中的一个具体文档

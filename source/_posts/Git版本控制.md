@@ -149,8 +149,12 @@ summary: 使用git进行代码的版本控制
 
 >合并远程分支
 
-- `git merge origin/master`或者下面这个
-- `git rebase origin/master`
+- `git rebase` 和`git merge`的区别是`git rebase`形成的是一条线,会把你当前的几个commit,放到最新commit的后面(所以rebase并没有执行合并操作).`git merge` 会把公共分支和你当前的commit按照提交时间合并在一起,形成一个新的 commit 提交,<span style="color:red">注意不要在公共分支使用rebase</span>
+
+- `git merge origin/master`:合并某个分支到当前分支
+  - **merge**:遇见冲突后会直接停止,等待手动解决冲突并重新提交 commit 后,才能再次 merge
+- `git rebase origin/master`:将一个分支的修改合并到当前分支
+  - **rebase**:遇见冲突后会暂停当前操作,开发者可以选择手动解决冲突,然后 `git rebase --continue` 继续,或者`--skip`跳过(当前分支的修改会直接覆盖目标分支的冲突部分)
 
 >`git pull`:用于从远程获取代码并合并到本地分支
 

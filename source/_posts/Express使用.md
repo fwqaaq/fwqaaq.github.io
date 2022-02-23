@@ -368,10 +368,10 @@ app.listen(3000, () => console.log(`Example app listening on port port!`))
   4. token是三段式的加密字符串:第一段和第三段是不可逆加密哈希散列,第二段是base64可逆
 
 * token验证登录
-  >三段式加密字符串:xxxxxxx.yyyyyy.zzzzzz
+  >三段式加密字符串:header(算法).payload(数据).signature(签名信息)
   >>
   >> * 第一段:头,签证:安全信息验证,你的口令,进行不可逆加密
-  >> * 第二段:你要保存的信息:base64加密后截取的内容
+  >> * 第二段:你要保存的信息:将`header`和`payload`base64编码后进行算法运算得到签名信息
   >> * 第三段:额外信息:不可逆加密
   >>
   >>>  这一段字符串由后端发给前端.在登陆过以后,生成一个token给前端,前端保存这个token如果前端需要登录后查看页面,或者登陆后发送的请求,只要你把token带回来,解密一下
