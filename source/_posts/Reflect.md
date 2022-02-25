@@ -126,6 +126,7 @@ Reflect.has(obj, "doorbell") // true
 ### Reflect.get()
 
 >该方法与从对象`(target[propertyKey])`中读取属性类似,但它是通过一个函数执行来操作的
+
 * <span style="color:red">注意:如果目标对象不是Object类型,则抛出TypeError</span>
 * 返回属性的值
 

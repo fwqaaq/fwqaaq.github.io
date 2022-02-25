@@ -164,6 +164,21 @@ bar.bind(obj, 1, 2)()
 //{name: 'zhangsan', bar: ƒ} 3
 ```
 
+>bind的特性:返回一个新函数,柯里化.这两个是最重要的
+
+* 柯里化就是将多个参数的函数转换成每次只传一个参数的函数
+
+```js
+function test(a, b, c, d) {
+  return a + b + c + d
+}
+let outTest = test.bind(null, 1).bind(null, 2).bind(null, 3).bind(null, 4)
+console.log(outTest())
+console.log(outTest.length)
+```
+
+* 并且bind每次绑定一个实参,`Function.length`(函数期望的参数数量)就会减少一个
+
 ## 内置函数中的this
 
 ### 数组的方法

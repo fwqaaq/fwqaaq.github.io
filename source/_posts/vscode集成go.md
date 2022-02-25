@@ -1,7 +1,7 @@
 ---
 title: vscode集成go
 date: 2021-12-08 22:41:07
-categories: GO
+categories: config
 tags:
    - config
    - GO
