@@ -466,3 +466,28 @@ app.use((err,req,res,next)=>{
   * routes:路由表的封装
   * utils:工具类
   * app:引入
+
+## express创建ts项目
+
+1. `npm install -g express express-generator`:创建脚手架
+2. `express --view ejs server`:使用ejs的模板当作express的视觉引擎,server是工作目录
+3. 添加ts支持
+   * `npm install -g typescript`:全局安装ts检查
+   * `npm install -g ts-node`:安装编译工具
+   * `npm install @types/node @types/express  --save-dev`:安装类型依赖
+4. 配置`tesconfig.json`文件`tsc --init`
+
+   ```json
+    {
+     "compilerOptions": {
+       "target": "es2016",
+       "module": "commonjs",
+       "declaration": true,    
+       "lib": ["es2016","dom"],
+       "outDir": "./dist",
+     },
+     "exclude": ["node_modules"]
+   }
+   ```
+
+5. `tsc`:将ts文件打包成js文件
