@@ -342,7 +342,7 @@ console.log(getDisplay(a))
 
 > 实现拖放的步骤
 >
-> > 想要拖放对象元素的draggable属性设为true`(daggable="true")`.这样才能时该元素进行拖放.另外img与a元素(必须指定href)默认允许拖放 
+> > 想要拖放对象元素的draggable属性设为true`(daggable="true")`.这样才能时该元素进行拖放.另外img与a元素(必须指定href)默认允许拖放
 
 | 事件      | 产生事件的元素           | 描述                               |
 | --------- | ------------------------ | ---------------------------------- |
@@ -369,5 +369,3 @@ console.log(getDisplay(a))
 | types                                     | 存入数据的种类,字符串的伪数组                                                                      |
 | clearData(DOMString format)               | 清楚DataTransfer对象中存放的数据,省略参数format,则清楚全部数据                                     |
 | setDragImage(Element image,long x,long y) | 用img元素来设置拖放图标                                                                            |
-
-## 

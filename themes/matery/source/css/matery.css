@@ -41,8 +41,8 @@ body {
         rgba(88, 10, 10, 0.35)
       )
       0% 0% / cover,
-    url('https://ae01.alicdn.com/kf/H18a4b998752a4ae68b8e85d432a5aef0l.png'),
-    url('https://ae01.alicdn.com/kf/H21b5f6b8496141a1979a33666e1074d9x.jpg') 0px
+    url("https://ae01.alicdn.com/kf/H18a4b998752a4ae68b8e85d432a5aef0l.png"),
+    url("https://ae01.alicdn.com/kf/H21b5f6b8496141a1979a33666e1074d9x.jpg") 0px
       0px;
   background-attachment: fixed;
   margin: 0;
@@ -115,7 +115,7 @@ pre {
 }
 
 .code-area::after {
-  content: ' ';
+  content: " ";
   position: absolute;
   border-radius: 50%;
   background: #ff5f56;
@@ -131,7 +131,7 @@ pre {
 code {
   padding: 1px 5px;
   top: 13px !important;
-  font-family: Inconsolata, Monaco, Consolas, 'Courier New', Courier, monospace;
+  font-family: Inconsolata, Monaco, Consolas, "Courier New", Courier, monospace;
   font-size: 0.91rem;
   color: #e96900;
   background-color: #f8f8f8;
@@ -162,7 +162,7 @@ code {
   right: 46px;
   line-height: 0;
   font-weight: bold;
-  font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+  font-family: Consolas, Monaco, "Andale Mono", "Ubuntu Mono", monospace;
   z-index: 1;
   filter: invert(50%);
   cursor: pointer;
@@ -203,7 +203,7 @@ kbd {
   border: 1px solid #b4b4b4;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25),
     0 2px 1px 0 rgba(255, 255, 255, 0.6) inset;
-  font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+  font-family: Consolas, Monaco, "Andale Mono", "Ubuntu Mono", monospace;
   font-size: 0.9rem;
   font-weight: 600;
   background-color: #f8f8f8;
@@ -420,7 +420,7 @@ header .side-nav .social-link {
 @-moz-keyframes scroll-down {
   0% {
     opacity: 0.4;
-    -ms-filter: 'progid:DXImageTransform.Microsoft.Alpha(Opacity=40)';
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=40)";
     filter: alpha(opacity=40);
     top: 0;
   }
@@ -434,7 +434,7 @@ header .side-nav .social-link {
 
   100% {
     opacity: 0.4;
-    -ms-filter: 'progid:DXImageTransform.Microsoft.Alpha(Opacity=40)';
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=40)";
     filter: alpha(opacity=40);
     top: 0;
   }
@@ -443,7 +443,7 @@ header .side-nav .social-link {
 @-webkit-keyframes scroll-down {
   0% {
     opacity: 0.4;
-    -ms-filter: 'progid:DXImageTransform.Microsoft.Alpha(Opacity=40)';
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=40)";
     filter: alpha(opacity=40);
     top: 0;
   }
@@ -457,7 +457,7 @@ header .side-nav .social-link {
 
   100% {
     opacity: 0.4;
-    -ms-filter: 'progid:DXImageTransform.Microsoft.Alpha(Opacity=40)';
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=40)";
     filter: alpha(opacity=40);
     top: 0;
   }
@@ -466,7 +466,7 @@ header .side-nav .social-link {
 @-o-keyframes scroll-down {
   0% {
     opacity: 0.4;
-    -ms-filter: 'progid:DXImageTransform.Microsoft.Alpha(Opacity=40)';
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=40)";
     filter: alpha(opacity=40);
     top: 0;
   }
@@ -480,7 +480,7 @@ header .side-nav .social-link {
 
   100% {
     opacity: 0.4;
-    -ms-filter: 'progid:DXImageTransform.Microsoft.Alpha(Opacity=40)';
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=40)";
     filter: alpha(opacity=40);
     top: 0;
   }
@@ -489,7 +489,7 @@ header .side-nav .social-link {
 @keyframes scroll-down {
   0% {
     opacity: 0.4;
-    -ms-filter: 'progid:DXImageTransform.Microsoft.Alpha(Opacity=40)';
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=40)";
     filter: alpha(opacity=40);
     top: 0;
   }
@@ -503,7 +503,7 @@ header .side-nav .social-link {
 
   100% {
     opacity: 0.4;
-    -ms-filter: 'progid:DXImageTransform.Microsoft.Alpha(Opacity=40)';
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=40)";
     filter: alpha(opacity=40);
     top: 0;
   }
@@ -573,7 +573,7 @@ header .go-back i {
   display: block;
   left: 0;
   top: 0;
-  content: '';
+  content: "";
 }
 
 .bg-cover .container {
@@ -783,7 +783,7 @@ header .go-back i {
   display: block;
   left: 0;
   top: 0;
-  content: '';
+  content: "";
   background-color: rgba(0, 0, 0, 0.3);
   border-radius: 10px;
 }
@@ -1266,8 +1266,8 @@ thead {
   padding: 6px 6px;
 }
 
-#articleContent [type='checkbox']:not(:checked),
-[type='checkbox']:checked {
+#articleContent [type="checkbox"]:not(:checked),
+[type="checkbox"]:checked {
   position: inherit;
   margin-left: -1.3rem;
   margin-right: 0.4rem;
@@ -1403,7 +1403,7 @@ thead {
 
 #cd-timeline::before {
   /* this is the vertical line */
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: 18px;
@@ -1441,7 +1441,7 @@ thead {
 
 .cd-timeline-block::after {
   clear: both;
-  content: '';
+  content: "";
   display: table;
 }
 
@@ -1513,7 +1513,7 @@ thead {
 
 .cd-timeline-content::after {
   clear: both;
-  content: '';
+  content: "";
   display: table;
 }
 
@@ -1522,7 +1522,7 @@ thead {
 }
 
 .cd-timeline-content::before {
-  content: '';
+  content: "";
   position: absolute;
   top: 18px !important;
   right: 100%;
@@ -2014,7 +2014,7 @@ footer .copy-right {
 /* create the ... style */
 .block-with-text:before {
   /* points in the end */
-  content: '...';
+  content: "...";
   /* absolute position */
   position: absolute;
   /* set position to right bottom corner of block */
@@ -2025,7 +2025,7 @@ footer .copy-right {
 /* hide ... if we have text, which is less than or equal to max lines */
 .block-with-text:after {
   /* points in the end */
-  content: '';
+  content: "";
   /* absolute position */
   position: absolute;
   /* set position to right bottom corner of text */
@@ -2071,7 +2071,7 @@ footer .copy-right {
   color: #000;
 }
 
-.nav-show i[aria-hidden='true'] {
+.nav-show i[aria-hidden="true"] {
   -webkit-transform: rotate(180deg) !important;
   -moz-transform: rotate(180deg) !important;
   -o-transform: rotate(180deg) !important;
@@ -2100,7 +2100,7 @@ footer .copy-right {
 }
 
 .menus_item_child:before {
-  content: '';
+  content: "";
   position: absolute;
   top: -20px;
   left: 50%;
@@ -2201,7 +2201,7 @@ footer .copy-right {
   margin: auto;
   line-height: 30px;
   color: #797979;
-  font-family: 'Linux Biolinum', 'Noto Serif SC', Helvetica, Arial, Menlo,
+  font-family: "Linux Biolinum", "Noto Serif SC", Helvetica, Arial, Menlo,
     Monaco, monospace, sans-serif;
 }
 
@@ -2248,8 +2248,8 @@ body.DarkMode .friends-container .tag-title,
 body.DarkMode .frind-ship .title h1,
 body.DarkMode .card .card-content p,
 body.DarkMode .card .card-content .dss,
-body.DarkMode .v[data-class='v'] .vcount,
-body.DarkMode .v[data-class='v'] .vcount .vnum,
+body.DarkMode .v[data-class="v"] .vcount,
+body.DarkMode .v[data-class="v"] .vcount .vnum,
 body.DarkMode pre code,
 body.DarkMode h1,
 body.DarkMode h2,
@@ -2274,7 +2274,7 @@ body.DarkMode .block-with-text:after {
 }
 /* 背景颜色变黑色 */
 body.DarkMode,
-body.DarkMode .v[data-class='v'] .vcount,
+body.DarkMode .v[data-class="v"] .vcount,
 body.DarkMode #rewardModal .modal-content,
 body.DarkMode .modal,
 body.DarkMode header .side-nav,
@@ -2505,7 +2505,7 @@ body.DarkMode #stars {
   animation: animStar 50s linear infinite;
 }
 body.DarkMode #stars:after {
-  content: ' ';
+  content: " ";
   position: absolute;
   top: 2000px;
   width: 1px;
@@ -2746,7 +2746,7 @@ body.DarkMode #stars2 {
   animation: animStar 100s linear infinite;
 }
 body.DarkMode #stars2:after {
-  content: ' ';
+  content: " ";
   position: absolute;
   top: 2000px;
   width: 2px;
@@ -2837,7 +2837,7 @@ body.DarkMode #stars3 {
   animation: animStar 150s linear infinite;
 }
 body.DarkMode #stars3:after {
-  content: ' ';
+  content: " ";
   position: absolute;
   top: 2000px;
   width: 3px;

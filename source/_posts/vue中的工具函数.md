@@ -363,14 +363,14 @@ export const def = (obj: object, key: string | symbol, value: any) => {
 
 * 属性描述符
 
-| 属性                            | 描述                             | 默认值    |
-| ------------------------------- | -------------------------------- | --------- |
-| value                           | 当试图获取属性时所返回的值       | undefined |
-| writable                        | 该属性是否可写                   | false     |
-| enumerable                      | 该属性在for in循环中是否会被枚举 | false     |
-| configurable 该属性是否可被删除 | false                            |
-| set()                           | 属性的更新操作所调用的函数       | false     |
-| get()                           | 获取属性值时所调用的函数         | false     |
+| 属性         | 描述                             | 默认值    |
+| ------------ | -------------------------------- | --------- |
+| value        | 当试图获取属性时所返回的值       | undefined |
+| writable     | 该属性是否可写                   | false     |
+| enumerable   | 该属性在for in循环中是否会被枚举 | false     |
+| configurable | 该属性是否可被删除               | false     |
+| set()        | 属性的更新操作所调用的函数       | false     |
+| get()        | 获取属性值时所调用的函数         | false     |
 
 1. 数据描述符:enumerable,configurable,value,writable
 2. 存取描述符:enumerable,configurable,set(),get()

@@ -530,3 +530,20 @@ declare module "*.jpg"{
   export default src
 }
 ```
+
+> 在我们构建vue项目时,vue会自己初始化一个`shimes-vue.d.ts`文件
+
+* 其中vue的`.d.ts`文件并没有构建其他的全局属性(或者自己添加的),所以如果要使用,最好加上去 
+
+```ts
+declare module '*.vue' {
+  import type { DefineComponent } from 'vue'
+  const component: DefineComponent<{}, {}, any>
+  export default component
+}
+
+declare module '*.json'
+//暴露两个全局属性
+declare const $store: any
+declare const $filters: any
+```

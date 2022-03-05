@@ -236,6 +236,31 @@ type Omit<T, K extends keyof any> = Pick<T, Exclude<keyof T, K>>;
 1. `Exclude<keyof T, K>`只有本身为`K`才会返回never,其它元素都返回本身
 2. `Pick<T, Exclude<keyof T, K>>`使用`Pick`将所有的键值联合成一个新的字面量
 
+### ReturnType
+
+>构造一个由 function 的返回类型组成的类型Type
+
+* 可以对解释函数进行返回值的推导
+  * test获取的类型是`<T>(...args: T[]) => Function`
+
+```ts
+type test = ReturnType<() => <T>(...args: T[]) => Function>
+
+let useTest:test = function <T>(...args: T[]) {
+  return ()=>{}
+}
+```
+
+* 亦可以使用`typeof`获得一个函数的返回值类型
+
+```ts
+function test<T>(a: T, b: T, c: T) {
+  return "" + a + b + c
+}
+
+type getType = ReturnType<typeof test>
+```
+
 ## typeof和infer
 
 > ts中的`typeof`和js中的`typeof`是有区别的
