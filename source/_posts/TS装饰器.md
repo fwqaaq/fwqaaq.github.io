@@ -28,7 +28,7 @@ class A {}//hello world
 4. 类访问器(Class Accessor)
 5. 类方法参数(Class Method Parameter)
 
-* 因此，应用装饰器很像组成一系列函数，非常像高阶函数或类。使用装饰器，我们可以轻松实现代理模式来减少代码
+* 因此,应用装饰器很像组成一系列函数,非常像高阶函数或类.使用装饰器,我们可以轻松实现代理模式来减少代码
 * 对于这几种装饰器,都可以使用工厂模式来达到传入想要修改属性的目的(或者其它)
 
 ### [代理模式](proxy.md)
@@ -78,17 +78,21 @@ console.log(target.name)
 
 * 类装饰器在类声明之前绑定,可以用来监视,或者修改或者替换类定义
 * 在执行类装饰器函数的时候,会把绑定的类作为器唯一的参数传递给装饰器
-* 如果装饰器返回一个新的类,他会用新的类替换原有的类的定义
+* 参数:**类的构造器**
+  * 如果装饰器返回一个新的类,他会用新的类替换原有的类的定义
+  * <span style="color:red">类装饰器适合用于继承一个现有类并添加一些属性和方法</span>
 
 ```ts
-function target(person:any) {
-  person.prototype.name = "jack"
-  person.prototype.say = function () {
-    console.log(this.name)
+function test() {
+  return function (target: any) {
+    person.prototype.name = "jack"
+    person.prototype.say = function () {
+      console.log(this.name)
+    }
   }
 }
 
-@target
+@test
 class Person {
   name: string
   constructor(name: string) {
@@ -113,7 +117,7 @@ console.log(new Person("fw").name)//fw
 * 方法装饰器写在一个方法的声明之前
 * 方法装饰器可以用来监视,修改或者替换方法定义
 * 方法装饰器表达式会在运行时当作函数被调用,传入一下三个参数
-  1. 对于静态成员来说是类的构造函数，对于实例成员是类的**原型对象**
+  1. 对于静态成员来说是类的构造函数,对于实例成员是类的**原型对象**
   2. 被绑定方法的名字
   3. 被绑定方法的属性描述符
 
@@ -175,30 +179,32 @@ function configurable(value: boolean) {
 
 #### 访问器装饰器
 
-* 访问器装饰器声明在一个访问器的声明之前。
-* 访问器装饰器应用于访问器的属性描述符并且可以用来监视，修改或替换一个访问器的定义
-* 访问器装饰器表达式会在运行时当作函数被调用，传入下列3个参数:
-  * 对于静态成员来说是类的构造函数，对于实例成员是类的**原型对象**。
-  * 成员的名字。
-  * 成员的属性描述符。
+* 访问器装饰器声明在一个访问器的声明之前.
+* 访问器装饰器应用于访问器的属性描述符并且可以用来监视,修改或替换一个访问器的定义
+* 访问器装饰器表达式会在运行时当作函数被调用,传入下列3个参数:
+  * 对于静态成员来说是类的构造函数,对于实例成员是类的**原型对象**.
+  * 成员的名字.
+  * 成员的属性描述符.
 
 ```ts
-function test(target: any, key: string, descriptor: PropertyDescriptor) {
-  console.log(target)//{},原型对象上并没有任何属性
-  console.log(key)//name.构造器的名称
-  console.log(descriptor)
-  //{
-  //get: [Function: get name],
-  //set: [Function: set name],
-  //enumerable: false,
-  //configurable: true
-  //}
-  descriptor.set = function (value) {
-    value = value + "fw"
-    target.myName = value
-  }
-  descriptor.get = function () {
-    return target.myName
+function test() {
+  return function (target: any, key: string, descriptor: PropertyDescriptor) {
+    console.log(target) //{},原型对象上并没有任何属性
+    console.log(key) //name.构造器的名称
+    console.log(descriptor)
+    //{
+    //get: [Function: get name],
+    //set: [Function: set name],
+    //enumerable: false,
+    //configurable: true
+    //}
+    descriptor.set = function (value) {
+      value = value + "fw"
+      target.myName = value
+    }
+    descriptor.get = function () {
+      return target.myName
+    }
   }
 }
 
@@ -228,11 +234,11 @@ console.log(p)// { _name: 'zhangsan' }
 
 #### 参数装饰器
 
-* 参数装饰器写在一个参数声明之前。
-* 参数装饰器表达式会在运行时当作函数被调用，传入下列3个参数：
-  * 对于静态成员来说是类的构造函数，对于实例成员是类的**原型对象**。
-  * 参数所在的方法名称。
-  * 参数在参数列表中的索引。
+* 参数装饰器写在一个参数声明之前.
+* 参数装饰器表达式会在运行时当作函数被调用,传入下列3个参数:
+  * 对于静态成员来说是类的构造函数,对于实例成员是类的**原型对象**.
+  * 参数所在的方法名称.
+  * 参数在参数列表中的索引.
 
 >注意:属性装饰器,参数装饰器最常见的应用场景就是配合元数据(reflect-metadata),在不改变原有结构的同时添加一些额外的信息
 
@@ -256,8 +262,8 @@ class Person {
 #### 属性装饰器
 
 * 属性装饰器写在一个属性声明之前
-* 属性装饰器表达式会在运行时当作函数被调用，传入下列2个参数：
-  * 对于静态成员来说是类的构造函数，对于实例成员是类的**原型对象**
+* 属性装饰器表达式会在运行时当作函数被调用,传入下列2个参数:
+  * 对于静态成员来说是类的构造函数,对于实例成员是类的**原型对象**
   * 成员的名字
 
 ```ts
@@ -275,3 +281,89 @@ class Person{
   static age:number;
 }
 ```
+
+### 装饰器的执行顺序
+
+>不同装饰器的执行顺序是固定的
+
+1. 实例成员:方法/访问器/属性装饰器->参数装饰器
+2. 静态成员:方法/访问器/属性装饰器->参数装饰器
+3. 类装饰器
+4. 构造器:参数装饰器
+
+```ts
+function f(key: string): any {
+  console.log("evaluate: ", key)
+  return function () {
+    console.log("call: ", key)
+  }
+}
+
+@f("Class Decorator")
+class C {
+  @f("Static Property")
+  static prop?: number
+
+  @f("Static Method")
+  static method(@f("Static Method Parameter") foo: number) {}
+
+  constructor(@f("Constructor Parameter") foo: number) {}
+
+  @f("Instance Method")
+  method(@f("Instance Method Parameter") foo: number) {}
+
+  @f("Instance Property")
+  prop?: number
+}
+```
+
+```ts
+//实例方法->参数
+evaluate:  Instance Method
+evaluate:  Instance Method Parameter
+call:  Instance Method Parameter
+call:  Instance Method
+//实例属性
+evaluate:  Instance Property
+call:  Instance Property
+//静态属性
+evaluate:  Static Property
+call:  Static Property
+//静态方法
+evaluate:  Static Method
+evaluate:  Static Method Parameter
+call:  Static Method Parameter
+call:  Static Method
+//类装饰器->构造函数:参数装饰器
+evaluate:  Class Decorator
+evaluate:  Constructor Parameter
+call:  Constructor Parameter
+call:  Class Decorator
+```
+
+* 对于属性访问装饰器(动态/静态)而言,会按照声明的顺序声明它们的装饰器的顺序
+
+>同样方法中不同参数的装饰器的执行顺序是相反的,最后一个参数的装饰器会最先被执行
+
+```ts
+class C {
+  method(@f("Parameter Foo") foo: number, @f("Parameter Bar") bar: number) {}
+}
+```
+
+```ts
+evaluate:  Parameter Foo
+evaluate:  Parameter Bar
+call:  Parameter Bar
+call:  Parameter Foo
+```
+
+> 一些可能用到的场景
+
+* Before/After钩子.
+* 监听属性改变或者方法调用.
+* 对方法的参数做转换.
+* 添加额外的方法和属性.
+* 运行时类型检查.
+* 自动编解码.
+* 依赖注入.

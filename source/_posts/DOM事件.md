@@ -503,3 +503,23 @@ function loseFocus(){
 * 7:表示语音
 * 8:表示组合方式
 * 9:表示脚本
+
+### 其它事件
+
+>`onchange`:用于在 input,textarea,select,radio 等元素中监听的变化
+
+* 当元素的值发生改变时.会发生`onchange`事件。对于单选框和复选框.在被选择的状态改变时.发生`onchange`事件
+
+```html
+<body>
+  <a id="btn" download="index.html">下载</a>
+  <input type="file" id="input">
+</body>
+<script>
+document.getElementById("input").onchange = function (e) {
+  let file = e.target.files[0]
+  let img = new Image()
+  img.src = URL.createObjectURL(file)
+  document.body.appendChild(img)
+}
+```

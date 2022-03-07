@@ -231,6 +231,12 @@ console.log(box1.innerHTML);// <div> 内容</div>:标签以及内容
   6. ```removeChild()```:可以删除一个子节点
      * 语法：父节点.removeChild(子节点);
      * 语法:子节点.parentNode.removeChild(子节点);
+  7. `setAttribute()`:设置指定元素上的某个属性值.如果属性已经存在,则更新该值;否则,使用指定的名称和值添加一个新的属性
+     * 语法:`setAttribute('href', URL.createObjectURL(blob))`
+  8. `getAttribute()`:要获取某个属性当前的值
+     * `element.getAttribute(attributeName)`
+  9. `removeAttribute()`:要删除某个属性
+     * `element.removeAttribute(attrName)`
 
   ```html
   <script type="text/javascript">
