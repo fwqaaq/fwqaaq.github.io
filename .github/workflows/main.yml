@@ -1,5 +1,3 @@
-# This is a basic workflow to help you get started with Actions
-
 name: CI
 
 on:
@@ -30,7 +28,7 @@ jobs:
           host: ${{ secrets.REMOTE_HOST }}
           username: root
           port: 22
-          key: ${{ secrets.SSH_KEY }} # optional
+          key: ${{ secrets.SSH_KEY }}
           password: ${{secrets.REMOTE_PASS}}
           source: "public/"
           target: "/www"
