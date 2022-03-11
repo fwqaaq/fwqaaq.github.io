@@ -22,4 +22,22 @@ jobs:
         run: |
           npm install
           npm install hexo-cli -g
-          hexo -v
+      - name: build app
+        run: npm run build
+      - name: copy doc
+        uses: siva1024/scp-deployer@v1.0
+        with:
+          # ssh remote host
+          host: ${{ secrets.REMOTE_HOST }}
+          # ssh remote user
+          username: root
+          # ssh remote port
+          port: 22 # optional, default is 22
+          # content of ssh private key. ex raw content of ~/.ssh/id_rsa
+           key: ${{ secrets.SSH_KEY }} # optional
+          # ssh remote password
+          password: ${{secrets.REMOTE_PASS}} # optional
+          # source to copy from
+          source: "public/" # optional
+          # destination to download on server
+          target: "www" # optional
