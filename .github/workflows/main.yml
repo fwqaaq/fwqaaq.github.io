@@ -4,7 +4,7 @@ name: CI
 
 on:
   push:
-    branches: [ master ]
+    branches: [master]
   workflow_dispatch:
 
 jobs:
@@ -16,9 +16,10 @@ jobs:
 
       - name: install nodejs
         uses: actions/setup-node@v3.0.0
-        with: 
+        with:
           node-version: "16.x"
       - name: install pkg
-        run: | 
-           npm install
-           hexo -v
+        run: |
+          npm install
+          npm install hexo-cli -g
+          hexo -v
