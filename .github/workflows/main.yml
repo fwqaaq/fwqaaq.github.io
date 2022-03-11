@@ -33,4 +33,4 @@ jobs:
           key: ${{ secrets.SSH_KEY }} # optional
           password: ${{secrets.REMOTE_PASS}}
           source: "public/"
-          target: "www"
+          target: "/www"
