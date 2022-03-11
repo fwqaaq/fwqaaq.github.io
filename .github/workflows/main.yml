@@ -26,7 +26,7 @@ jobs:
         uses: siva1024/scp-deployer@v1.0
         with:
           host: ${{ secrets.REMOTE_HOST }}
-          username: root
+          username: "root"
           port: 22
           key: ${{ secrets.SSH_KEY }}
           password: ${{secrets.REMOTE_PASS}}
