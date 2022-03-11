@@ -22,7 +22,6 @@ jobs:
           npm install hexo-cli -g
       - name: build app
         run: npm run build
-      - name: copy doc
       - name: scp action
         uses: betanzos/scp-upload@v1
         with:
