@@ -99,11 +99,11 @@ on:
 
 >定义工作流的时间表。可以使用 [`POSIX cron`](https://pubs.opengroup.org/onlinepubs/9699919799/utilities/crontab.html#tag_20_25_07) 语法将工作流安排在特定 UTC 时间运行。计划的工作流在默认分支或基本分支上的最新提交上运行。可以运行计划工作流的最短间隔为每 5 分钟一次
 
-1. 分钟 [0，59]
-2. 小时 [0，23]
-3. 本月的一天 [1，31]
-4. 一年中的月份 [1，12]
-5. 星期几([0，6] 与 0 =星期日)
+1. 分钟 [0,59]
+2. 小时 [0,23]
+3. 本月的一天 [1,31]
+4. 一年中的月份 [1,12]
+5. 星期几([0,6] 与 0 =星期日)
 
 ```yml
 on:
@@ -153,7 +153,7 @@ jobs:
 
 #### jobs.<job_id>.needs
 
->needs:指定当前任务的依赖关系，即运行顺序
+>needs:指定当前任务的依赖关系,即运行顺序
 
 ```yml
 jobs:
@@ -164,7 +164,7 @@ jobs:
     needs: [job1, job2]
 ```
 
-- `job1`必须先于`job2`完成，而`job3`等待`job1和job2`的完成才能运行
+- `job1`必须先于`job2`完成,而`job3`等待`job1和job2`的完成才能运行
 
 #### jobs.<job_id>.runs-on
 
@@ -180,7 +180,9 @@ runs-on: ubuntu-latest
 - `jobs.<job_id>.steps.run`:该步骤运行的命令或者 action
 - `jobs.<job_id>.steps.env`:该步骤所需的环境变量
 
->`uses`:选择一个别人写好的`action`，可以理解为若干 `steps.run`，有利于代码复用
+>`uses`:选择一个别人写好的`action`,可以理解为若干 `steps.run`,有利于代码复用
+
+- 例如下面的use就是`actions`用户(github官方的账号)的checkout仓库.`@v1`就是版本号,也可以接分支`@master`
 
 - 当前操作系统中安装 `node:16` 的 action 示例
 
@@ -192,8 +194,23 @@ runs-on: ubuntu-latest
 ```
 
 - 使用docker镜像
-  - 镜像中心:`docker://{image}:{tag}`
-  - 自己发布的镜像:`docker://{host}/{image}:{tag}`
+  - 镜像中心:`docker://{image}:{tag}`,在当前的系统中运行了一个docker镜像.而不是在容器中运行
+    - `container`是指定在容器中运行
+    - 以下就是将node指定在docker中运行
+
+```yml
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    container:
+      image: node:16
+    steps: 
+     - uses: action/checkout@v1
+     - run: | 
+         node -v
+```
+  
+- 自己发布的镜像:`docker://{host}/{image}:{tag}`
 
 ```yml
 jobs:
@@ -205,7 +222,7 @@ jobs:
           args: npm install
 ```
 
->`with`:有的 Action可能会需要我们传入一些特定的值：比如上面的 node 版本啊之类的，这些需要我们传入的参数由 with 关键字来引入
+>`with`:有的 Action可能会需要我们传入一些特定的值：比如上面的 node 版本啊之类的,这些需要我们传入的参数由 with 关键字来引入
 
 ```yml
   with:
@@ -240,3 +257,8 @@ working-directory: ./temp
 > `shell`:指定终端运行脚本命令(run)
 
 - 可以是`bash`,`cmd`,`python`等看具体需求和操作系统
+
+## 实战
+
+> 部署hexo到服务器
+
