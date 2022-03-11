@@ -23,12 +23,14 @@ jobs:
       - name: build app
         run: npm run build
       - name: copy doc
-        uses: siva1024/scp-deployer@v1.0
-        with:
-          host: ${{ secrets.REMOTE_HOST }}
-          username: "root"
-          port: 22
-          key: ${{ secrets.SSH_KEY }}
-          password: ${{secrets.REMOTE_PASS}}
-          source: "public/"
-          target: "/www"
+      - name: scp action
+        uses: betanzos/scp-upload@v1
+          with:
+            source: "public/"
+            host: ${{ secrets.REMOTE_HOST }}
+            port: 22
+            username: "root"
+            key: ${{ secrets.SSH_KEY }}
+            remote_dir: "/www"
+            recursive: true
+
