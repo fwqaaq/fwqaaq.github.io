@@ -262,3 +262,43 @@ working-directory: ./temp
 
 > 部署hexo到服务器
 
+```yml
+name: CI
+
+on:
+  push:
+    branches: [master]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: install nodejs
+        uses: actions/setup-node@v3.0.0
+        with:
+          node-version: "16.x"
+      - name: install pkg
+        run: |
+          npm install
+          npm install hexo-cli -g
+      - name: build app
+        run: npm run build
+      - name: scp action
+        uses: betanzos/scp-upload@v1
+        with:
+          source: "public/"
+          host: ${{ secrets.HOST }}
+          port: 22
+          username: root
+          key: ${{ secrets.SSH_KEY }}
+          remote_dir: "/www"
+          recursive: true
+```
+
+- 其中最要注意的点是ssh密钥的问题
+   1. 在本地生成密钥后,将公钥放入远程服务器的root下的`.ssh`文件夹自己生成的`authorized_keys`文件中
+   2. 需要将私钥上传到secrets中,然后使用环境变量取得
