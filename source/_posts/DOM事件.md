@@ -79,7 +79,7 @@ document.body.onclick = function(){
 ```
 
 * `event.preventDefault()`:用于阻止特定事件的默认动作.比如链接的默认行为是在被单机时导航到href属性指定的url
-* `event.stopPropagation()`:立即组织事件流在DOM结构中传播.取消后续事件捕获或者冒泡
+* `event.stopPropagation()`:立即阻止事件流在DOM结构中传播.取消后续事件捕获或者冒泡
 
 ### 事件的传播
 

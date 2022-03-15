@@ -10,15 +10,45 @@ summary: 浏览器自带的bom属性
 
 ## 浏览器窗口大小
 
- | 元素                          | 描述                                                                                     | 使用                                   |
- | ----------------------------- | ---------------------------------------------------------------------------------------- | -------------------------------------- |
- | `innerWidth`,`innerHeight`:   | 返回浏览器窗口中页面**可见视口**的大小<span style="color:red">(不包含边框,工具栏)</span> | `window.innerWidth`                    |
- | `outerWidth`,`outerHeight`:   | 返回浏览器窗口自身的大小(整个浏览器,包含边框,工具栏)                                     | `window.outerWidth`                    |
- | `clientWidth`,`clientHeight`: | 返回**布局视口(元素)**的大小                                                             | `document.documentElement.clientWidth` |
+1. `innerWidth`,`innerHeight`:返回浏览器窗口中页面**可见视口**的大小(不包含边框,工具栏)  
+   * 使用:`window.innerWidth`
+2. `outerWidth`,`outerHeight`:返回浏览器窗口自身的大小(整个浏览器,包含边框,工具栏)
+   * 使用:`window.outerWidth`
+3. `clientWidth`,`clientHeight`: 返回**布局视口(元素)**的大小
+   * 使用:`document.documentElement.clientWidth`
+4. `screen.height`,`screen.width`:返回屏幕(整个显示器)的大小
+5. `screen.availHeight`,`screen.availWidth`:返回可使用的屏幕高度或者宽度(不会包括固定的任务栏等不可使用的区域)
 
 >注意:布局视口相对于可见视口的概念.可见视口只能显示页面的一小部分.
 
+![浏览器视口](浏览器视口.png)
+
 * **移动窗口**(moveTo,moveBy)和**缩放窗口**(resizeTo,resizeBy)方法一般浏览器会禁用
+
+## DOM元素大小
+
+1. `clientWidth`,`clientHeight`:CSS的width/height和padding属性值之和
+   * 元素边框和滚动条不包括在内,也不包含任何可能的滚动区域
+2. `offsetWidth`,`offsetHeight`:元素在页面中占据的width/height总和,<span style="color:red">包括width,padding,border以及滚动条的宽度</span>
+3. `scrollWidth`,`scrollHeight`当元素不是`overflow:hidden`样式属性时,元素的总宽度(滚动宽度)
+   * 在默认状态下,如果该属性值大于clientWidth属性值,则元素会显示滚动条,以便能够翻阅被隐藏的区域
+
+## event事件上的元素大小
+
+>该元素只会在event(如click,mousemove)上才有的属性
+
+* 以下属性的方位都是相对于左上方为原点的坐标系,越往右/下,值越大
+
+* `offsetX`,`offsetY`:鼠标相对于目标元素的距离.
+  * 参照点是目标元素的左上角
+* `clientX`,`clientY`:鼠标相对于浏览器视口的距离.
+  * 参照点是目标元素的左上角,计算鼠标点距离浏览器内容区域的左上角的距离(不包含任何可能的滚动区域)
+* `layerX`,`layerY`:鼠标相对于定位属性的距离.
+  * 参照点是父元素(<span style="color:red">,如果自身有定位属性的话就是相对于自身</span>),都没有的话:就是相对于body元素
+* `pageX`,`pageY`:鼠标相对与整个页面左上角的距离.
+  * 参照点是页面本身的body原点.会以body左上角计算值,并且把滚动条滚过的高或宽计算在内(受滚动区域影响)
+* `screenX`,`screenY`:鼠标相对于屏幕的距离.
+  * 参照点是屏幕的左上角
 
 ## window.open()
 
