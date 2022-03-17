@@ -21,7 +21,7 @@ summary: 浏览器自带的bom属性
 
 >注意:布局视口相对于可见视口的概念.可见视口只能显示页面的一小部分.
 
-![浏览器视口](浏览器视口.png)
+![浏览器视口](http://zyjcould.ltd/blog/%E6%B5%8F%E8%A7%88%E5%99%A8%E8%A7%86%E5%8F%A3.png)
 
 * **移动窗口**(moveTo,moveBy)和**缩放窗口**(resizeTo,resizeBy)方法一般浏览器会禁用
 
@@ -35,7 +35,7 @@ summary: 浏览器自带的bom属性
 
 ## event事件上的元素大小
 
->该元素只会在event(如click,mousemove)上才有的属性
+>该元素只会在event(如click,mousemove等)上才有的属性
 
 * 以下属性的方位都是相对于左上方为原点的坐标系,越往右/下,值越大
 
