@@ -105,7 +105,7 @@ deploy:
   type: "git"
   #repo: https://github.com/Jack-Zhang-1314/Jack-Zhang-1314.github.io.git
   repository: git@github.com:Jack-Zhang-1314/Jack-Zhang-1314.github.io.git
-  branch: master
+  branch: dev
   skip_render: CNAME
 
   search:

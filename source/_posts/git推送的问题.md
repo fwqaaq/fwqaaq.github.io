@@ -26,3 +26,34 @@ summary: 分享一下git上遇到的一些问题,很多东西我也不是很懂,
   * 将连接方案改成ssh连接:
     * repository: git@github.com:Jack-Zhang-1314/Jack-Zhang-1314.github.io.git
     * 放域名的文件名为```CNAME```
+
+## git推送时出现的问题
+
+> 大多数是由于代理端口号产生的问题
+
+```bash
+fatal: unable to access 'https://github.com/Jack-Zhang-1314/demo.git/': OpenSSL SSL_connect: Connection was reset in connection to github.com:443
+exit status 128
+```
+
+* 找到自己的端口号，然后进行git全局代理
+
+```bash
+git config --global http.proxy 127.0.0.1:7890
+git config --global https.proxy 127.0.0.1:7890
+```
+
+* 如果想取消配置
+
+```bash
+git config --global --unset https.proxy 
+git config --global --unset https.proxy 
+```
+
+* 查看git配置
+
+```bash
+git config --global http.proxy #查看git的http代理配置
+git config --global https.proxy #查看git的https代理配置
+git config --global -l #查看git的所有配置
+```
