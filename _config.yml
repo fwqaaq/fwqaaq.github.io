@@ -130,3 +130,4 @@ feed:
   path: atom.xml
   limit: 20
   content_limit: 140 #指定内容的长度作为摘要,仅仅在上面content设置为false和没有自定义的描述出现
+
