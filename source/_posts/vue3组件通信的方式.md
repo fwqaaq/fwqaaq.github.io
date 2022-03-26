@@ -1,5 +1,5 @@
 ---
-title: vue3中组件间通信
+title: vue3组件通信的方式
 date: 2021-09-24 22:36:20
 author: Jack-zhang
 categories: vue
@@ -8,7 +8,6 @@ tags:
    - JS
 summary: 关于vue3组件间通信的应用,兼容vue2
 ---
-
 ## 父传子的方式
 
 ### 使用props
@@ -23,7 +22,7 @@ summary: 关于vue3组件间通信的应用,兼容vue2
   ```js
   //父组件传递数据
   <Demo :name="xxx"/>//可以动态的绑定
-
+  
   //子组件接收数据
   props:["name"]
   ```
@@ -46,7 +45,6 @@ summary: 关于vue3组件间通信的应用,兼容vue2
       require: true,
       default: "111",
     }>()
-
   ```
 
 * type类型
@@ -164,7 +162,7 @@ const prop = defineProps({
 
 ### defineExpose
 
->在<script setup>中使用的组件默认是关闭setup函数中的`retrun`,向外暴露属性的,不过可以使用`defineExpose`来暴露子组件的属性
+>在\<script setup>中使用的组件默认是关闭setup函数中的`retrun`,向外暴露属性的,不过可以使用`defineExpose`来暴露子组件的属性
 
 * 问题:如果使用ts,父组件中的ref不能自动推断出子组件暴露的类型
 

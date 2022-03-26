@@ -602,7 +602,7 @@ artitalk:
   serverURL: https://ha91at85.lc-cn-e1-shared.com
   lang: zh # 语言设置，zh为汉语，en为英语
   pageSize: 10 #每页说说的显示数量
-  avatar: ./matery/medias/avatar.jpg #自定义头像url的输入框的占位符
+  avatar: https://zyjcould.ltd/blog/avatar.jpg #自定义头像url的输入框的占位符
   motion: 0 #加载动画的开关，1为开，0为关，默认为开
   # bgImg: #说说输入框背景图片url
   color1: linear-gradient(45deg, rgb(109, 208, 242) 15%, rgb(245, 154, 190) 85%) #说说背景颜色1&按钮颜色1

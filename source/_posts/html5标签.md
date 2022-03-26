@@ -285,7 +285,45 @@ console.log(getDisplay(a))
 
 > **designMode**和**contentEditable**(略)
 
-## 表单验证
+## 表单属性
+
+```html
+<form id="form" action="" name="test">
+  <input type="text" name="account">账号
+  <input type="text" name="account">账号
+  <input type="text" name="password">密码
+</form>
+```
+
+1. 在html5中可以直接使用id的签名获取标签对象
+2. 如果只有一个不重名的name属性,使用`document.name`会获取该对象
+   * 如果有多个重名的name属性,会<span style="color:red">获取一个数组</span>(这个方式就是`nameItem()`的简写)
+   * 同样可以使用`document.forms.namedItem('test')`获取元素,'test'是`name`属性的名称
+      * 如果**有重名的name属性**,只会获取第一个name属性
+  
+   ```js
+   console.log(document.test === form)//true
+   ```
+
+3. `document.forms`获得的是一个表单的集合(`HTMLCollection`)
+   * 可以使用索引的方式:`document.forms[0]`.其实这也就是`document.forms.item(0)`的属性的简写
+
+>获取表单的元素.同样,由于forms返回的是`HTMLCollections`,完全可以使用Item,nameItem()等或者简写的方式
+
+* 当然同样可以使用id元素或者索引来获取元素
+
+   ```js
+   console.log(form.accountOne === form.elements[0])//true
+   ```
+
+* 和表单元素不同的是,获取表单内元素需要使用`elements`属性
+  * 可以使用`name`属性的名称来获取表单元素
+
+  ```js
+  console.log(form.elements["account"] === form.elements.account)//true
+  ```
+
+### 表单验证
 
 > `required`可用在大多数元素上(除了隐藏元素,图片元素按钮上)
 

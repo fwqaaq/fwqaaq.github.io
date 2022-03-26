@@ -55,7 +55,7 @@ blob.text().then(res => console.log(res))
   3. `contentType`可选.默认值为空字符串.要分配给新 Blob 的内容类型
 * `blob.arrayBuffer()`:返回一个 Promise,该 Promise 将 blob 的内容解析为`ArrayBuffer`中包含的二进制数据
 
-> 文件的下载.<a>中在h5中有一个新属性`download`(可以设置下载的名称),当链接的地址是同源的时候会进行下载
+> 文件的下载.\<a>中在h5中有一个新属性`download`(可以设置下载的名称),当链接的地址是同源的时候会进行下载
 
 * windows上的`URL.createObjectURL()`静态方法创建一个`DOMString`,其中返回值表示参数中给定对象的URL.
 * URL 生存期与创建文档的窗口中的文档相关联.新对象 URL 表示指定的`File对象`或`Blob 对象`.
@@ -77,7 +77,7 @@ blob.text().then(res => console.log(res))
 
 ### File()
 
->首先了解`Filelist`,此类型是由HTML<input type="file">元素的属性返回
+>首先了解`Filelist`,此类型是由HTML\<input type="file">元素的属性返回
 
 ```html
 <input id="fileItem" type="file">
@@ -104,7 +104,7 @@ var file = document.getElementById('fileItem').files[0];
 
 > `FileReader`对象允许网络程序或异步读取存储在计算机上应用的数据文件(或原始数据用户)的内容,使用File或Blob 指定要读取的文件
 
-* 通常情况下:文件对象可以是来自其中一个<input>元素上选择文件的`FileList`对象
+* 通常情况下:文件对象可以是来自其中一个\<input>元素上选择文件的`FileList`对象
 * 同样这是一个构造函数`new FileReader()`
 
 >属性

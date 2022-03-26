@@ -24,8 +24,8 @@ summary: 关于直接操控DOM属性,编译速度大于任何框架,但是不利
 * 方法
 
 1. ```getElementById(id)```,通过id属性来获取一组元素
-2. ```getElementByTagName(tag)```,通过标签来获取一组元素,此方法会给我们返回一组类数组对象,所有查询到的元素都会封装到对象中.(即使只有一个,也会封装到数组中).
-3. ```getElementByName(name)```,查找name=name的所有节点,返回一个数组
+2. ```getElementsByTagName(tag)```,通过标签来获取一组元素,此方法会给我们返回一组类数组对象,所有查询到的元素都会封装到对象中.(即使只有一个,也会封装到数组中).
+3. ```getElementsByName(name)```,查找name=name的所有节点,返回一个数组
 4. ```getElementsByClassName(class)```:可以根据class属性值获取一组元素节点对象
 5. ```querySelector()```:需要一个选择器的字符串作为参数,可以根据一个CSS选择器来查询一个元素节点对象
    * 注意:使用该方法总会返回唯一的一个元素,如果满足条件的有多个,那么它只会返回第一个
