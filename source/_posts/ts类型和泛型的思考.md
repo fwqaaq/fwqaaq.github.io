@@ -303,3 +303,42 @@ const Person:person<IPerson>={
 * 再举一个例子:`<T[]>`和`(infer v)[]`类型也是符合
 
 > 参考:<https://zhuanlan.zhihu.com/p/361968852>
+
+## 类型递归
+
+>像大多数编程语言中一样,类型也是可以递归的
+
+```ts
+type FillArray<
+  Item,
+  N extends number,
+  Arr extends Item[] = []
+> = Arr["length"] extends N ? Arr : FillArray<Item, N, [...Arr, Item]>
+
+type Foos = FillArray<number, 3>//[number,number,number]
+```
+
+1. 对于特定number类型的约束,例如,`N extends 3`,N必须是3才能成功的约束(true)
+2. `[number] extends number[]`这样返回的是true,<span style="color:red">数组的约束,只要实现数组类型的约束,和长度无关</span>
+   * `Arr extends Item[] = []`,Arr这个数组受到Item[]的约束.每次只能返回特定的(这里是Item类型的)元组
+3. 递归边界:`Arr["length"] extends N`,只有数组的长度达到N,才可以结束
+
+## 类型展平
+
+>依然使用递归的方式
+
+```ts
+type Flattern<T> = T extends Array<any> ? T[number] : T
+```
+
+* 使用`T[number]`的方式去掉数组的一层嵌套
+
+```ts
+let str:Flattern<string[]> = "str"
+```
+
+* 如果想去掉多层嵌套可以使用递归这个条件类型的方式
+
+```ts
+type Flattern<T> = T extends Array<any> ? Flattern<T[number]> : T
+```

@@ -58,6 +58,10 @@ console.log(getDisplay(a))
 * 设置属性为false:
   * 不写属性值:\<input type="checkbox">
 
+* `hidden`:元素的隐藏与显示.不会影响别的元素(可以看做`display:none`的简写)
+* `contentEditable`:使元素变成可更改的.富文本操作的原理
+  * `document.body.contentEditable=true`:使整个页面可更改
+
 ## html5结构
 
 > 关于内容区块的编排,可以分为**显示编排**和**隐式编排**
