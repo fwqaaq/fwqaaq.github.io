@@ -8,16 +8,25 @@ tags:
 summary: 浏览器自带的bom属性
 ---
 
-## 浏览器窗口大小
+## Viewport
+
+>视口代表一个可看见的多边形区域(通常是矩形).在浏览器的范畴里,他代表的就是浏览器网站中可见内容的部分,视口外的内容在被滚动进来前都是不可见的
+
+* **可见视口**:视口当前可见的部分.可见视口可能回避布局视口更小,因为当用户缩小浏览器的比例,布局视口不变,而可见视口会变小
+* **布局视口**:是浏览器在其中绘制网页的视口.从本质上讲,它表示可查看的内容,而可视视口表示用户显示设备上当前可见的内容
+
+### 浏览器窗口大小
 
 1. `innerWidth`,`innerHeight`:返回浏览器窗口中页面**可见视口**的大小(不包含边框,工具栏)  
    * 使用:`window.innerWidth`
 2. `outerWidth`,`outerHeight`:返回浏览器窗口自身的大小(整个浏览器,包含边框,工具栏)
    * 使用:`window.outerWidth`
-3. `clientWidth`,`clientHeight`: 返回**布局视口(元素)**的大小
+3. `scrollX`,`scrollY`:返回文档当前水平滚动和垂直滚动的像素数
+   * 使用`window.scroll(0,0)`:这样会把文档重新滚动到左上角
+4. `clientWidth`,`clientHeight`: 返回**布局视口(元素)**的大小
    * 使用:`document.documentElement.clientWidth`
-4. `screen.height`,`screen.width`:返回屏幕(整个显示器)的大小
-5. `screen.availHeight`,`screen.availWidth`:返回可使用的屏幕高度或者宽度(不会包括固定的任务栏等不可使用的区域)
+5. `screen.height`,`screen.width`:返回屏幕(整个显示器)的大小
+6. `screen.availHeight`,`screen.availWidth`:返回可使用的屏幕高度或者宽度(不会包括固定的任务栏等不可使用的区域)
 
 >注意:布局视口相对于可见视口的概念.可见视口只能显示页面的一小部分.
 
@@ -25,7 +34,7 @@ summary: 浏览器自带的bom属性
 
 * **移动窗口**(moveTo,moveBy)和**缩放窗口**(resizeTo,resizeBy)方法一般浏览器会禁用
 
-## DOM元素大小
+### DOM元素大小
 
 1. `clientWidth`,`clientHeight`:CSS的width/height和padding属性值之和
    * 元素边框和滚动条不包括在内,也不包含任何可能的滚动区域
@@ -33,7 +42,7 @@ summary: 浏览器自带的bom属性
 3. `scrollWidth`,`scrollHeight`当元素不是`overflow:hidden`样式属性时,元素的总宽度(滚动宽度)
    * 在默认状态下,如果该属性值大于clientWidth属性值,则元素会显示滚动条,以便能够翻阅被隐藏的区域
 
-## event事件上的元素大小
+### event事件上的元素大小
 
 >该元素只会在event(如click,mousemove等)上才有的属性
 

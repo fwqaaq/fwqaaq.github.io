@@ -10,9 +10,9 @@ summary: 使用git进行代码的版本控制
 
 ## 初始化
 
-- `git config --gloabl user.name="jack"`
-- `git config --gloabl user.email=1553198027@qq.com`
-- 检查配置信息 `git config--list`
+- `git config --global user.name "jack"`
+- `git config --global user.email "1553198027@qq.com"`
+- 检查配置信息 `git config --list`
 - `git init` 生成仓库
 
 ### 区域

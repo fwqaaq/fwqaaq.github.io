@@ -180,7 +180,7 @@ console.log(arr)//[5,2,4,4,9,11]
 console.log(arrRemove3)//[7]
 ~~~
 
-### indexOf()和 lastIndexOf()
+### indexOf()和lastIndexOf()
 
 1. indexOf()：接收两个参数：要查找的项和（可选的）表示查找起点位置的索引.其中. 从数组的开头（位置 0）开始向后查找.
 2. lastIndexOf：接收两个参数：要查找的项和（可选的）表示查找起点位置的索引.其中. 从数组的末尾开始向前查找.
@@ -196,7 +196,9 @@ console.log(arr.lastIndexOf(5,4))//2
 console.log(arr.indexOf("5"))//-1
 ~~~
 
-### includes判断一个数组是否包含一个指定的值
+### includes()
+
+>用于判断一个数组是否包含一个指定的值
 
 | 参数            | 描述                                                                                             |
 | --------------- | ------------------------------------------------------------------------------------------------ |
@@ -211,11 +213,41 @@ arr.includes('c', 3);   //false
 arr.includes('c');   //true
 ~~~
 
+### fill()(改变原数组)
+
+>将数组用其他元素填充或者替换
+
+1. `value`:填充的值
+2. `start`?:开始填充的位置
+3. `end`?:结束填充的位置
+
+~~~js
+let arr=[1,2,3,4,5]
+//如果end越界,会按照最后一个值计算
+//如果start为负数:start+数组的索引>0,则会按照此时的索引位置计算
+//如果start+数组的索引<=0,则会按照=0计算
+console.log(arr.fill(0,2,5))//[1,2,0,0,0]
+~~~
+
+### at()
+
+>接收一个整数值,并返回该索引的项目,允许正数以及负数
+
+* 如果是负数,则从数组尾部开始
+
+~~~js
+let arr =[1,2,3]
+arr.at(0) //1
+arr.at(-1) //3
+~~~
+
 ### 数组的迭代方法
 
 > ECMAScript为数组定义了五个迭代方法.每个方法都接收两个参数：要在每一项上面运行的函数和运行该函数的作用域——影响this的值.传入这些方法的函数会接收三个参数（数组项的值.索引.数组本身）
 
-#### forEach()  对数组的每一项运行给定函数.该方法没有返回值(<span style="color:red">不改变原数组</span>)
+#### forEach()(<span style="color:red">不改变原数组</span>)
+
+>对数组的每一项运行给定函数.该方法没有返回值
 
 ~~~js
 let arr=[1,2,3,4,5]
@@ -233,7 +265,9 @@ arr.forEach(function(item,index,arry)){
 console.log(arr);//(5)[1,2,3,4,5]
 ~~~
 
-#### some（）： 对数组中的每一项运行给定函数.如果该函数对任一项返回true.则返回true(<span style="color:red">不改变原数组</span>)
+#### some()(<span style="color:red">不改变原数组</span>)
+
+>对数组中的每一项运行给定函数.如果该函数对任一项返回true.则返回true
 
 ~~~js
 let arr=[1,2,3,4,5]
@@ -249,7 +283,9 @@ console.log(c)//true
 console.log(arr);//(5)[1,2,3,4,5]
 ~~~
 
-#### every()  对数组中的每一项运行都给定函数.如果该函数对每一项都返回true.则返回true(<span style="color:red">不改变原数组</span>)
+#### every()(<span style="color:red">不改变原数组</span>)
+
+>对数组中的每一项运行都给定函数.如果该函数对每一项都返回true.则返回true
 
 ~~~js
 let arr=[1,2,3,4,5]
@@ -260,7 +296,9 @@ console.log(b)//false
 console.log(arr);//(5)[1,2,3,4,5]
 ~~~
 
-#### filter（） ：对数组的每一项运行给定函数.返回该函数会返回true的项组成的数组(<span style="color:red">不改变原数组</span>)
+#### filter()(<span style="color:red">不改变原数组</span>)
+
+>对数组的每一项运行给定函数.返回该函数会返回true的项组成的数组
 
 ~~~js
 let arr=[1,2,3,4,5]
@@ -274,7 +312,9 @@ console.log(arr);//(5)[1,2,3,4,5]
 
 * <span style="color:red">注意:</span>对新数组变化不会影响原数组的改变
 
-#### map（） ：对数组的每一项运行给定函数.返回每次函数调用结果所组成的数组(<span style="color:red">不改变原数组</span>)
+#### map()(<span style="color:red">不改变原数组</span>)
+
+>对数组的每一项运行给定函数.返回每次函数调用结果所组成的数组
 
 ~~~js
 let arr=[1,2,3,4,5]
@@ -285,6 +325,21 @@ let a=arr.filter(function(value){
 console.log(a)//[3,6,9,12,15]
 console.log(arr);//(5)[1,2,3,4,5]
 ~~~
+
+#### find()(<span style="color:red">不改变原数组</span>)
+
+>返回符合测试条件的第一个数组元素的值.如果没有符合条件的则返回undefined
+
+~~~js
+const arr = [1,2,3,4,5,6]
+
+let value = arr.find((value)=>{
+   return value > 4
+})//5
+~~~
+
+* 补充
+  * `findIndex()`:与find()方法相同,只是返回的是符合条件的索引
 
 ### 迭代方法
 
