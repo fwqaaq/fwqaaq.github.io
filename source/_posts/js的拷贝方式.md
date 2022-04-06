@@ -135,3 +135,18 @@ const obj1 = {
 var obj2 = _.cloneDeep(obj1);
 console.log(obj1.c.d === obj2.c.d);//false
 ```
+
+### structuredClone
+
+>浏览器原生支持的深拷贝方式:`structuredClone(value, { transfer })`
+
+* `value`:要克隆的对象.这可以是任何结构化可克隆类型
+* `transfer`:可选.可转移的对象,为一个数组,其中的值将被移动到新的对象,而不是克隆至新的对象
+  * 可转移对象:<https://developer.mozilla.org/en-US/docs/Glossary/Transferable_objects>
+* **返回值**:返回的值是原始的深层副本value
+
+```js
+let s = { name: 'zhangsan', friends: { name: 'lisi', age: 18 } };
+let clone = structuredClone(s);
+console.log(clone === s)//false
+```

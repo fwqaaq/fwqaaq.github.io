@@ -569,7 +569,7 @@ CMD ["/bin/bash"]
 | WORKDIR            | 镜像的工作目录                                                                |
 | VOLUME             | 挂载的目录                                                                    |
 | EXPOSE             | 暴露端口(不暴露就需要用`-p`)                                                  |
-| CMD                | 指定容器启动时候要运行的命令,只有最后一个会生效,可被替代                      |
+| CMD                | 指定容器启动时候要运行的命令,只有最后一个会生效,可被ENTRYPOINT替代            |
 | ENTRYPOINT         | 指定容器启动时候要运行的命令,可以追加命令                                     |
 | ONBUILD            | 构建一个被继承的`DockerFile`就会运行`ONBUILD`指令,触发指令                    |
 | COPY               | 类似ADD,将文件拷贝到镜像中                                                    |
@@ -603,21 +603,51 @@ CMD /bin/bash
 
 > `CMD`和`ENTRYPOINT`的区别
 
-```shell
-FROM centos
-CMD ["ls","-a"]
-```
-
-1. 构建完之后,直接`docker run 镜像id`没有任何问题
-2. 追加命令:`docker run 镜像id -l`:报错(<span style="color:red">CMD会替换["ls","-a"]命令,`-l`不是命令所以报错)</span>
+* 大部分linux发行版的基础镜像里面调用CMD命名,指定容器启动后直接执行`/bin/bash`或者`/bin/sh`,这样镜像就会默认进入交互的`shell`
 
 ```shell
 FROM centos
-ENTORYPOINT ["ls","-a"]
+...
+CMD "/bin/bash"
 ```
 
-1. 构建完之后,直接`docker run 镜像id`没有任何问题
-2. 追加命令:`docker run 镜像id -l`:没有任何问题(<span style="color:red">追加的命令是直接拼接再`ENTORYPOINT`之后的</sapn>)
+* CMD给出的是一个容器的默认可执行体,也就是容器启动以后,默认的执行命名.
+
+* 也就是说,如果<span style="color:red">docker run没有指定的任何的执行命名或者dockfile里面也没有entrypoint</span>,那么就会执行cmd指定的默认的执行命名执行
+* 有三种用法:
+  1. shell格式的形式:例如`npm install`.命令默认是在`/bin/sh -c`下执行的.
+
+     ```dockerFile
+     FROM centos
+     ...
+     CMD echo "hello"
+     ```
+
+     * 当我们运行`docker run...`的时候,会调用`/bin/bsah`然后打印出`hello`
+  2. exec格式的形式(推荐使用):例如`["npm","install"]`.并且第一个参数必须是全路径,并且一个`dockerfile`只能有一个cmd,如果有多个,则指会后最后一个生效.
+     * 上面的方式改写:`["/bin/bash","-c","echo","hello"]`
+     * <span style="color:red">如果我们在run的时候指定了命令或者有entrypoint,那么cmd就会被覆盖</span>
+       * `docker run ... echo "world"`,那么控制台就会打印`world`,而不是默认的hello
+
+* `ENTRYPOINT`默认是在shell环境下执行的,与CMD有区别.
+  * 如果run命名后有东西,那么全部会作为`entrypoint`的参数.
+  * 如果run后面没有东西,但是CMD有,那么CMD的全部内容会作为entrypoint的参数,这同时是cmd的第三种用法
+
+* exec形式:将CMD当作默认的参数
+
+  ```doeckerFile
+  FROM centeos
+  ...
+  CMD ["hello"]
+  ENTRYPOINT ["echo","hello"]
+  ```
+
+  * 如果运行`doecker run ...`,会直接打印`hello hello`
+  * 如果运行`docker run ... world`,那么cmd就会被覆盖,打印`hello world`
+
+* 如果使用shell模式:shell的形式会使`ENTRYPOINT`忽略任何CMD或者docker运行的命令行参数
+* 如果需要提供默认的命令或在docker容器运行时可以从命令行覆盖的参数时,使用`CMD`
+* 最好的选择是使用`exec`,而不是shell命令
 
 ### 自己手动配置tomcat的Dockerfile
 

@@ -12,6 +12,12 @@ summary: vite的一些技巧
 
 ## 共享配置
 
+> 你可以显式地通过`--config`命令行选项指定一个配置文件（相对于cwd路径进行解析）
+
+```bash
+vite --config my-config.js
+```
+
 ### 基础配置
 
 >`defineConfig`,通过vite的智能提示实现vite的智能提示
@@ -139,7 +145,37 @@ last 3 iOS versions
 
 ### 关于别名的配置
 
+#### [import.meta](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import.meta)
+
+>`import.meta`对象向 JavaScript 模块公开特定于上下文的元数据.它包含有关模块的信息,如模块的 URL
+
+* `import.meta`的原型为null.该对象是可扩展的,其属性是可写的,可配置的和可枚举的
+  * 使用:必须设置`type="module"`
+
+  ```html
+  <script type="module" src="my-module.js"></script>
+  ```
+
+* 可以通过`import.meta`对象获取这个模块的元数据信息
+
+  ```js
+  console.log(import.meta); // { url: "file:///home/user/my-module.mjs" }
+  ```
+
+* 注意,url也可能包含参数或者哈希(比如后缀?或#)
+
+```html
+<script type="module">
+import './index.mjs?someURLInfo=5'
+</script>
+```
+
+* Vite会在CommonJS和TypeScript配置文件中替换`__filename`,`__dirname`以及`import.meta.url`
+* 即使项目没有在`package.json`中开启 `type: "module"`,Vite 也支持在配置文件中使用 ESM 语法
+
 #### 使用node中的路径模块
+
+* 建议直接使用`import.meta.url`而不是commonjs模块的__dirname等  
 
 >* `path`模块中的`resolve`方法,用于获取目录的路径.
   >* 可以传任意多的字符,返回一个绝对路径地址
@@ -237,6 +273,48 @@ resolve: {
 * `.env.local`          # 所有情况下都会加载,但会被 git 忽略
 * `.env.[mode]`         # 只在指定模式下加载
 * `.env.[mode].local`   # 只在指定模式下加载,但会被 git 忽略
+
+* `.env`类文件会在Vite启动一开始时被加载,而改动会在重启服务器后生效
+* 一份用于指定模式的文件(例如`.env.production`)会比通用形式的优先级更高(例如`.env`)
+
+> model属性可以是`production`,`development`
+
+* `.env.production`或者`.env.development`文件
+
+```env
+# .env.production
+VITE_APP_TITLE=My App
+```
+
+* `**模式**是一个更广泛的概念`
+  * 如果希望有一个`staging”`(预发布|预上线)模式.它应该具有类似于生产的行为，但环境变量与生产环境略有不同
+
+  ```bash
+  vite build --mode staging
+  ```
+
+  * 或者使用`.env.staging`
+  
+  ```env
+  # .env.staging
+  NODE_ENV=production
+  VITE_APP_TITLE=My App (staging)
+  ```
+
+>`env.d.ts`:代码中获取这些以VITE_为前缀的用户自定义环境变量的TypeScript智能提示
+
+```ts
+/// <reference types="vite/client" />
+
+interface ImportMetaEnv {
+  readonly VITE_APP_TITLE: string
+  // 更多环境变量...
+}
+
+interface ImportMeta {
+  readonly env: ImportMetaEnv
+}
+```
 
 ## build配置
 
