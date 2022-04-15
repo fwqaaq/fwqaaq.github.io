@@ -125,6 +125,7 @@ const service = axios.create({
   后端要设置Access-Control-Allow-Origin为你的源地址，
   例如http://localhost:8080，不能是*，
   而且还要设置header(‘Access-Control-Allow-Credentials: true’); */
+  //如果不是同一个域,在这里就需要设置的源地址就是http://localhost:4000
   withCredentials: false,//默认值false
 })
 //对于拦截器的设定

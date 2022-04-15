@@ -38,19 +38,19 @@ document.addEventListener(
 
 * 在操作期间,有一些事件的类型可能会被多次触发(例如`drag`和`dragover`)
 
-| 事件      | On型事件处理程序 | 触发时刻                                                              |
-| --------- | ---------------- | --------------------------------------------------------------------- |
-| drag      | ondrag           | 当拖拽元素或选中的文本时触发或者到达可放置区域触发                    |
-| dragstart | ondragstart      | 当用户开始拖拽一个元素或选中的文本时触发                              |
-| dragend   | ondragend        | 当拖拽操作结束时触发(**比如松开鼠标按键或敲Esc键**)                   |
-| dragexit  | ondragexit       | 当元素变得不再是拖拽操作的选中目标时触发(官网并没有详细说明)          |
-| dragenter | ondragenter      | 当拖拽元素或选中的文本到一个可释放目标时触发(指定释放目标)            |
-| dragleave | ondragleave      | 当拖拽元素或选中的文本离开一个可释放目标时触发                        |
-| dragover  | ondragover       | 当元素或选中的文本被**拖到一个可释放目标上时触发**(每100毫秒触发一次) |
-| drop      | ondrop           | 当元素在可放置区域时触发(此时可以取消浏览器的默认行为)                |
+| 事件      | On型事件处理程序 | 触发时刻                                                                |
+| --------- | ---------------- | ----------------------------------------------------------------------- |
+| dragstart | ondragstart      | 当用户开始拖拽一个元素或选中的文本时触发                                |
+| drag      | ondrag           | 当拖拽元素或选中的文本时触发或者到达可放置区域触发                      |
+| dragend   | ondragend        | 当拖拽操作结束时触发(**比如松开鼠标按键或敲Esc键**)                     |
+| dragexit  | ondragexit       | 当元素变得不再是拖拽操作的选中目标时触发(官网并没有详细说明)            |
+| dragenter | ondragenter      | 当拖拽元素或选中的文本**刚进入**到一个可释放目标时触发                  |
+| dragover  | ondragover       | 当元素或选中的文本被**拖入到一个可释放目标内时触发**(每100毫秒触发一次) |
+| dragleave | ondragleave      | 当拖拽元素或选中的文本离开一个可释放目标时触发                          |
+| drop      | ondrop           | 当元素放置在可放置区域时触发(此时可以取消浏览器的默认行为)              |
 
 * 被拖动的元素事件有:`drag`,`dragstart`,`dragend`,`dragexit`
-* 目的地对象事件有:`dragenter`,`dragleave`,`dragover`,`drop`
+* 目的地对象事件有:`dragenter`,`dragover`,`dragleave`,`drop`
 
 * `dragenter`和`dragover`事件的默认行为是拒绝接受任何被拖放的元素.
   * 需要使用`event.preventDefault()`阻止默认行为
@@ -256,3 +256,45 @@ container.addEventListener("drop", function (e) {
 
 1. `DataTransfer`和`DataTransferItem`接口的一个主要的不同是前者使用同步的`getData()`方法去得到拖拽项的数据,而后者使用异步的`getAsString()`方法得到拖拽项的数据
 2. 使用`e.preventDefault()`这个属性可以取消一些不必要的浏览器的默认事件
+
+## mouse
+
+>使用`mousedown`,`mousemove`,`mouseup`配合绝对定位`absolute`来进行拖拽
+
+![mouse](mouse.png)
+
+1. `mousedown`:这个阶段首先确定的就是鼠标相对于盒子内部的距离`ol = pageX-offsetLeft`
+   * 不光是`pageX`,也可以使用`clientX`.在合适的情况下选择合适的属性
+2. `mousemove`:在执行阶段,目标是算出偏移量的距离.使用`pageX-ol`.
+   * ol就是鼠标距离拖拽目标的距离(是固定的)
+3. `mouseup`:在抬起阶段,解绑mousemove事事件.
+
+```html
+<style type="text/css">
+  #box1 {
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    background-color: red;
+    cursor: pointer;
+  }
+</style>
+<body>
+  <div id="box1"></div>
+</body>
+<script>
+  box1.addEventListener("mousedown", (e) => {
+    e.preventDefault();
+    bl = e.pageX - box1.offsetLeft
+    br = e.pageY - box1.offsetTop
+    function move(e) {
+      box1.style.left = e.pageX - bl + "px"
+      box1.style.top = e.pageY - br + "px"
+    }
+    document.addEventListener("mousemove", move, false)
+    document.addEventListener("mouseup", () => {
+      document.removeEventListener("mousemove", move)
+    })
+  })
+</script>
+```

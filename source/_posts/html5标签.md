@@ -46,7 +46,7 @@ console.log(getDisplay(a))
 * 可以省略全部标记的元素:
   * html,body,head,colgroup,tbody.
 
-* 例:`<br>...</br>`是错误的,正确的是</br>,HTML5之前的\<br>也是可以的
+* 例:`<br>...</br>`是错误的,正确的是\</br>,HTML5之前的\<br>也是可以的
 * 例:可以省略全部标记的元素,如将`body`元素省略不写,但是<span style="color:red">他在文档结构中还是存在,可以使用`document.html`访问到</span>
 
 > 具有`boolean`值的属性
@@ -86,14 +86,14 @@ console.log(getDisplay(a))
 
 > 章节,页眉,页脚或页面中的其它部分,可以与h1,h2,h3,h4,h5,h6
 >
-> >取代的是\<div>...</div>
+> >取代的是\<div>...\</div>
 
-1. \<section>...</section>:**分段分块**
+1. \<section>...\</section>:**分段分块**
    * 对网站或者应用程序中页面上的内容进行分块
    * 注意:
      * 当一个容器需要被直接定义样式或者通过脚本定义行为是,推荐使用div而非section
      * 不推荐为那些没有标题的内同使用section
-2. \<article>...</article>:**强调独立性**
+2. \<article>...\</article>:**强调独立性**
    * 代表文档,页面或者应用程序中独立的,完整的,可以独自被外部引用的内容
    * 可以为博客或报刊中的文中,独立的帖子,独立的插件或者任意独立的内容
    * 注意:
@@ -101,27 +101,27 @@ console.log(getDisplay(a))
      2. 不要将section元素用作<span style="color:red">设置样式的页面容器</span>,那是div元素的工作
      3. 如果article,aside或nav更符合使用条件,不要使用section元素
      4. 不要为没有标题的内容区块使用section元素
-3. \<nav>...</nav>取代的是:\<ul></ul>
+3. \<nav>...\</nav>取代的是:\<ul>\</ul>
    * 用作页面导航的链接组
    * 只需要将主要的,基本的链接组放进nav元素
    * 一个页面可以使用多个nav
-4. \<aside>...</aside>
+4. \<aside>...\</aside>
    * 表示当前页面的附属信息部分
    * 可以包含当前页面或主要内容相关的引用,侧边栏,广告等有别于主要内容
-5. \<time></time>,取代的\<span></span>
+5. \<time>\</time>,取代的\<span>\</span>
    * 表示24小时某个时刻或者某个日期
 
 ### 新增的非主体结构元素
 
-* \<header>...</header>
+* \<header>...\</header>
   * 引导和导航作用的结构元素,通常防止整个页面或页面中的一个内容区块的标题
   * 例如数据表格,搜索表单或相关的logo
-* \<hgroup>...</hgroup>
+* \<hgroup>...\</hgroup>
   * 将标题极其子标题进行分组的元素
-* \<footer>...</footer>
+* \<footer>...\</footer>
   * 可以作为上层父级内容区块或是一个跟区块的脚注
   * 通常包括起教官区块的脚注信息,如作者,相关阅读链接等
-* \<address>...</address>
+* \<address>...\</address>
   * 用来在文档中呈现联系信息,包括文档作者或文档维护者的网站链接,电子邮箱,名字,手机号等
 
 > figure元素:表示一段独立的流内容,一般表示文档主体流内容中的一个独立单元.使用`figcaption`元素为figure元素组添加标签
@@ -147,17 +147,17 @@ console.log(getDisplay(a))
 ### 新增的其它元素
 
 * video元素定义视频,比如电影片段或其它视频流:
-  * \<video src="moive.ogg" controls="controls">video元素</video>
+  * \<video src="moive.ogg" controls="controls">video元素\</video>
 * audio元素定义音频:
-  * \<audio src="someaudio.wav">audio元素</audio>
+  * \<audio src="someaudio.wav">audio元素\</audio>
 * embed元素用来插入各种多媒体,格式可以是Midi,Wav,AIFF,AU,MP3:
-  * \<embed src="horse.wav"></embed>
+  * \<embed src="horse.wav">\</embed>
 * mark元素主要用来在视觉上向用户呈现那些需要突出显示或高亮显示的文字
-  * \<mark></mark>取代\<span></span>
+  * \<mark>\</mark>取代\<span>\</span>
 * progress元素表示JavaScript中耗费时间的函数的进程
-  * \<progress></progress>,需要使用js脚本控制
+  * \<progress>\</progress>,需要使用js脚本控制
 * meter元素规定范围内的数值  
-  * \<meter></meter>
+  * \<meter>\</meter>
 
 | 属性    | 描述                                |
 | ------- | ----------------------------------- |
@@ -187,9 +187,9 @@ console.log(getDisplay(a))
 ```
 
 * datalist元素表示可选数据列表,与input元素配合使用,可以制作输入值的下拉列表
-  * \<datalist></datalist>
+  * \<datalist>\</datalist>
 * datagrid表示可选数据列表,他以树形列表的形式来显示
-  * \<datagrid></datagrid>
+  * \<datagrid>\</datagrid>
 * keygen元素表示生成密钥
   * \<keygen>
 * source元素为媒介元素(如\<video>和\<audio>)定义媒介资源

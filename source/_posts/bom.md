@@ -39,7 +39,8 @@ summary: 浏览器自带的bom属性
 1. `clientWidth`,`clientHeight`:CSS的width/height和padding属性值之和
    * 元素边框和滚动条不包括在内,也不包含任何可能的滚动区域
 2. `offsetWidth`,`offsetHeight`:元素在页面中占据的width/height总和,<span style="color:red">包括width,padding,border以及滚动条的宽度</span>
-3. `scrollWidth`,`scrollHeight`当元素不是`overflow:hidden`样式属性时,元素的总宽度(滚动宽度)
+3. `offsetLeft`,`offsetTop`:只读.返回元素左上角相对于`HTMLElement.offsetParent`(父元素不是`display:none`)节点的左或者上边界的偏移量
+4. `scrollWidth`,`scrollHeight`当元素不是`overflow:hidden`样式属性时,元素的总宽度(滚动宽度)
    * 在默认状态下,如果该属性值大于clientWidth属性值,则元素会显示滚动条,以便能够翻阅被隐藏的区域
 
 ### event事件上的元素大小
