@@ -63,14 +63,14 @@ summary: tsconfig.json中的配置
 
 21. ```noImplicitAny```,是否允许隐式的any类型存在
 
-```ts
-function sum(a,b){
-  return a+b
-}//隐式any类型
-```
+    ```ts
+    function sum(a,b){
+      return a+b
+    }//隐式any类型
+    ```
 
-12. ```noImplicitAny```,是否允许不明确的this存在
+22. ```noImplicitAny```,是否允许不明确的this存在
 
-13. ```strictNullChecks```,严格检查空格
+23. ```strictNullChecks```,严格检查空格
 
-14. ```strict```,所有严格检查的总开关(建议开)
+34. ```strict```,所有严格检查的总开关(建议开)
