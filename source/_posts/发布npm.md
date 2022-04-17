@@ -206,11 +206,12 @@ Sets tag 'latest' if no --tag specified
 ```json
 {
   "compilerOptions": {
-    "target": "es2016",                                  
-     "rootDir": "./src",                                 
-     "declaration": true,                              
-     "sourceMap": true,                                
-     "outDir": "./dist", 
+    "target": "es2016",  
+    "module": "CommonJS",                                
+    "rootDir": "./src",                                 
+    "declaration": true,                              
+    "sourceMap": true,                                
+    "outDir": "./dist", 
     "esModuleInterop": true,                             
     "forceConsistentCasingInFileNames": true,           
     "strict": true,
