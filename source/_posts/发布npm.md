@@ -92,8 +92,11 @@ summary: 发布一个属于自己的npm
    "homepage": "https://github.com/owner/project#readme"
    ```
 
-   >`main`:程序的主要入口点
+   >`main`:程序的主要入口点.一般用于require的引入
    * 也就是说,如果您的包被命名为foo,并且用户安装了它,然后会执行`require("foo")`,则将返回主模块的exports 对象
+
+   >`module`:一般是esm模块的入口点,用于import的引入
+   * 如果包module被命名为foo,用户安装之后,然后执行`import...from "foo"`,会返回主模块
 
    > `author`:作者信息
 

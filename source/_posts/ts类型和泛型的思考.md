@@ -86,6 +86,66 @@ const obj3: Union = {
 //同上
 ```
 
+### 类型系统
+
+> 在ts中,相同类型结构的可以称为父子类型
+
+```ts
+//父类型
+interface Father {
+  name: string
+}
+
+//子类型
+interface Son {
+  name: string
+  age: number
+}
+
+type isEqual = Son extends Father ? true : false //true
+```
+
+* 在ts类型系统中,只要类型结构相似,就可以称为父子类型
+  * 对于子类型相对于父类型考虑:子类型会更加具体,父类型是更加松散的
+  * 例如联合类型产生的新类型,他的类型可能会变多,它产生的类型就是父类型
+  * 例如交叉类型产生的新类型,他的类型会更加具体,它产生的类型就是子类型
+* 在使用`&`产生的新类型(交叉类型),会让新类型更具体
+
+```ts
+type Fn = ((name: string) => string) & ((name: number) => number)
+type s<T> = Fn extends T ? T : never
+type x = s<(name: string) => string>
+//(name: string) => string
+```
+
+* 在使用`|`产生的新类型(联合类型),会让新类型更松散
+
+```ts
+interface Father {
+  name: string
+  x: number
+}
+
+interface Son {
+  name: string
+  age: number
+}
+
+type FatherOrSon = Father extends Father | Son ? true : false
+//true
+```
+
+### 分布式条件类型
+
+>当类型参数为联合类型,并且在条件类型左边直接引用该类型参数的时候,TypeScript 会把每一个元素单独传入来做类型运算,最后再合并成联合类型
+
+```ts
+type Union = 'a' | 'b' | 'c';
+type UppercaseA<Item extends string> = 
+    Item extends 'a' ?  Uppercase<Item> : Item;
+type res = UppercaseA<Union>// 'b' | 'c' | 'A'
+```
+
 ## extends关键字
 
 > `A extends B`可以理解为A是B的子集(一直都对)
@@ -322,23 +382,3 @@ type Foos = FillArray<number, 3>//[number,number,number]
 2. `[number] extends number[]`这样返回的是true,<span style="color:red">数组的约束,只要实现数组类型的约束,和长度无关</span>
    * `Arr extends Item[] = []`,Arr这个数组受到Item[]的约束.每次只能返回特定的(这里是Item类型的)元组
 3. 递归边界:`Arr["length"] extends N`,只有数组的长度达到N,才可以结束
-
-## 类型展平
-
->依然使用递归的方式
-
-```ts
-type Flattern<T> = T extends Array<any> ? T[number] : T
-```
-
-* 使用`T[number]`的方式去掉数组的一层嵌套
-
-```ts
-let str:Flattern<string[]> = "str"
-```
-
-* 如果想去掉多层嵌套可以使用递归这个条件类型的方式
-
-```ts
-type Flattern<T> = T extends Array<any> ? Flattern<T[number]> : T
-```

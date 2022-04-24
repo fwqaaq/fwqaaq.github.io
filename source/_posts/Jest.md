@@ -178,3 +178,43 @@ summary: 对js,ts进行test
    * 这里我是直接使用`NODE_OPTIONS=--experimental-vm-modules npx jest`命令来运行此测试
 
 >如果是ts项目,建议直接使用vitest直接进行TDD开发
+
+* vitest基于vite开发,完全适用于`vite.config.ts`配置
+* 下载`npm i vitest -D`
+
+1. 基于`vite.config.ts`配置vitest
+   * 如果你使用`vite`的`defineConfig`你还需要将三斜线指令写在配置文件的顶部
+
+   ```ts
+   /// <reference types="vitest" />
+   import { defineConfig } from 'vite'
+   
+   export default defineConfig({
+     test: {
+       // ...
+     },
+   })
+   ```
+
+2. 基于`vitest.config.ts`配置vitest.
+   * 此优先级高于`vite.config.ts`,可以直接使用vitest中的`defineConfig`配置
+
+   ```ts
+   import { defineConfig } from 'vitest/config'
+   export default defineConfig({
+     test: {
+       // ...
+     },
+   })
+   ```
+
+3. 排除默认选项,自己配置测试的选项
+
+   ```ts
+   import { configDefaults, defineConfig } from 'vitest/config'
+   export default defineConfig({
+     test: {
+       exclude: [...configDefaults.exclude, 'packages/template/*'],
+     },
+   })
+   ```
