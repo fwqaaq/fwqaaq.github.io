@@ -1,0 +1,106 @@
+---
+title: git回滚与撤销
+date: 2022-04-30 20:12:52
+author: Jack-zhang
+categories: git
+tags:
+   - git
+summary: 使用git进行代码的版本控制
+---
+
+## 撤销
+
+1. 存在工作目录.代码并没有提交到暂存区(没有进行`git add`操作).在工作树中修改
+
+   ```bash
+   # 需要撤销的文件或者 .(当前目录)
+   git checkout <filname>
+   ```
+
+2. 代码提交到暂存区(进行了`git add`),但是想要撤销提交
+
+   ```bash
+   # 需要从暂存区撤销的提交
+   git reset HEAD <filename>
+   ```
+
+3. 代码已经提交(`git commit`)
+   * 已经进行多次提交,但是在最后一次修改后,不再产生新的提交
+
+   ```bash
+   # 注释名为最后一次的
+   git commit --amend -m "最后一次的注释"
+   ```
+
+> 如果想撤销到其中某次commit
+
+* 这些操作分别是对**工作目录**,**暂存区**,**当前HEAD**的位置的改变
+* `git reset [--hard|soft|mixed|merge|keep] [commit|HEAD]`
+  1. `--hard`:重设当前`HEAD`位置.并将之前commit以来的**工作区目录**和**暂存区**的改变都丢弃
+     * 彻底回退到某一个版本.本地所欲的源码也会变为上一个版本的内容
+     * 例如`git reset --hard HEAD~1`:将代码回退到前一次提交,并且将之前的所有改变丢弃
+  2. `--soft`:只重设当前`HEAD`位置.所有更改的文件会回到**工作区目录**和**暂存区**
+     * `git status`可以查看回退的状态.只是回退了提交的信息,不会回退提交的内容.
+  3. `--mixed`:重设当前`HEAD`位置和**暂存区**位置.但是不会重设**工作区**的内容
+     * `git status`:查看回退的状态.已经回退到初始状态(没有使用`git add`之前)
+     * 例如`git reset --mixed HEAD~1`:将代码回退到上一次提交.提交内容保留在工作区
+
+## 回滚
+
+>如果已经使用`git push`,推送到远程仓库中.对已经提交到远程仓库的还原操作叫回滚
+
+1. 撤销本地仓库的提交
+   * `revert`:放弃指定提交的修改,会生成一次新的提交,并且以前的历史记录都在
+     * 例如:`git revert HEAD~1`.将代码回滚到上一次的提交,但是不会销毁之前提交,并且生成一个新的提交
+   * `reset`:是指将HEAD指针指到指定提交,历史记录中不会出现放弃的提交记录(会销毁之前的提交)
+2. 对远程仓库的提交进行回滚(撤销远程仓库的提交)
+   * 需要强制将本地回退的代码推到远程仓库,进行回滚操作
+   * `git push origin 本地分支 --force-with-lease`
+   * `--force-with-lease`并不会像`--force`强制将代码覆盖
+     * 如果远端有其他人推送了新的提交,那么推送将被拒绝,并且和`--force`参数时的拒绝是一样的
+     * 如果远端没有其他人推送,会直接进行强制推送(**回滚**)
+
+> 如果没有其他人推送提交时
+
+```bash
+git reset --hard HEAD~1
+git push origin 本地分支 --force-with-lease
+```
+
+> 当遇到其他人推送新的提交时(产生冲突),需要使用`git fetch`
+
+* 在`git fetch`之后需要合并fetch下的分支.需要考虑使用`rebase`和`merge`情况
+  * `rebase`会将分支合并到一个分支,不会保留被合并分支的提交记录.保证主分支的纯粹
+    * ![ ](rebase.png)
+  * `merge`会将分支合并到一个分支,会保留被合并分支的提交记录
+    * ![ ](merge.png)
+* 在开发中尽量选择rebase合并分支,来保证主分支的清晰
+* 继续推送以达到回滚的效果
+
+### merge和rebase
+
+* `rebase`:下游分支更新上游分支内容的时候使用
+* `merge`:上游分支合并下游分支内容的时候使用
+* `git pull origin dev --rebase`更新当前分支的内容时一定要使用`--rebase`参数
+
+>例如现有上游分支`master`,基于`master`分支拉出来一个开发分支`dev`,在`dev`上开发了一段时间后要把`master`分支提交的新内容更新到 `dev`分支
+>
+>此时切换到`dev`分支,使用`git rebase master`等`dev`分支开发完成了之后,要合并到上游分支`master`上的时候,切换到`master`分支,使用`git merge dev`
+
+### 撤销回退
+
+![ ](resetback.png)
+
+> 如果在回退的时候回退过了怎么办
+
+1. 使用`git reflog`找到当前的提交记录的`commit`值(hash值)
+
+   ```bash
+   bf75e3e (HEAD -> dev, upstream/master, origin/test, origin/master, origin/dev, origin/HEAD) HEAD@{0}: reset: moving to HEAD~1
+   e87c01a HEAD@{1}: reset: moving to HEAD~4
+   ```
+
+2. `git checkout bf75e3e`.检出需要撤销到某一版本的提交
+3. `git branch mer`为需要找回的版本创建新分支
+4. `git branch dev`&&`git rebase mer`切换分支并且合并分支
+5. `git push origin dev --force-with-lease`.强制推送到远程仓库,完成撤销的回退

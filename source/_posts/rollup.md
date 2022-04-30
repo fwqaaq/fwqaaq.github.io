@@ -95,3 +95,37 @@ plugins:[resolve(),commonjs(),json()]
 
 * `output`中的plugins.在编译之后启动,而不是编译之前.一般用于压缩代码.
   * 例如:`rollup-plugin-terser`
+
+### [alias](https://github.com/rollup/plugins/tree/master/packages/alias)
+
+>用于别名的映射
+
+### [babel](https://github.com/rollup/plugins/tree/master/packages/babel)
+
+> 用于打包项目
+
+### [replace](https://github.com/rollup/plugins/tree/master/packages/replace)
+
+> 打包时变量替换(只能是数字或者字符串)
+
+### [typescript](https://github.com/rollup/plugins/tree/master/packages/typescript)
+
+* 使用typescript:`npm install @rollup/plugin-typescript tslib typescript --save-dev`
+
+### [eslint](https://github.com/rollup/plugins/tree/master/packages/eslint)
+
+* 使用eslint:`yarn add -D @rollup/plugin-eslint eslint`
+* eslint的一些插件
+  * eslint-config-standard
+  * eslint-plugin-import
+  * eslint-plugin-promise
+  * eslint-plugin-node
+
+### [image](https://github.com/rollup/plugins/tree/master/packages/image)
+
+* 显示图像的 Base64 编码表示形式
+* 静态文件可以使用:`rollup-plugin-copy`
+
+### [strip](https://github.com/rollup/plugins/tree/master/packages/strip)
+
+* 打包时删除类似`debugger`,`assert.equal`和`console.log`函数的语句和函数
