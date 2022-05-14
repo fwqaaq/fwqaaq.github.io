@@ -258,9 +258,43 @@ import './index.mjs?someURLInfo=5'
 * Vite会在CommonJS和TypeScript配置文件中替换`__filename`,`__dirname`以及`import.meta.url`
 * 即使项目没有在`package.json`中开启 `type: "module"`,Vite 也支持在配置文件中使用 ESM 语法
 
+>`import.meta.url`:返回当前的模块的url路径.返回的总是本地路径,即是**file:URL**协议的字符串
+
+* 如果当前模块中还有一个数据文件`data.txt`,可以使用以下代码
+* [`new URL()`](./URL.md):返回一个当前的url地址
+
+```js
+new URL("data.txt",import.meta.url)
+// URL {
+//   href: 'file:///E:/Project/hexoPage/data.txt',
+//   origin: 'null',
+//   protocol: 'file:',
+//   username: '',
+//   password: '',
+//   host: '',
+//   hostname: '',
+//   port: '',
+//   pathname: '/E:/Project/hexoPage/data.txt',
+//   search: '',
+//   searchParams: URLSearchParams {},
+//   hash: ''
+// }
+```
+
+>import.meta.scriptElement:浏览器特有的元属性,返回加载模块的那个\<script>元素,相当于`document.currentScript`属性
+
+```js
+// HTML 代码为
+// <script type="module" src="my-module.js" data-foo="abc"></script>
+
+// my-module.js 内部执行下面的代码
+import.meta.scriptElement.dataset.foo
+// "abc"
+```
+
 #### 使用node中的路径模块
 
-* 建议直接使用`import.meta.url`而不是commonjs模块的__dirname等  
+* 建议直接使用`import.meta.url`而不是commonjs模块的`__dirname`等  
 
 >* `path`模块中的`resolve`方法,用于获取目录的路径.
   >* 可以传任意多的字符,返回一个绝对路径地址
