@@ -19,7 +19,13 @@ summary: 关于直接操控DOM属性,编译速度大于任何框架,但是不利
   * 参数
      1. **事件的字符串,不要on**
      2. 回调函数,当事件触发时,该事件触发时该函数会被调用
-     3. 是否在捕获阶段触发事件,需要一个布尔值,<span style="color:red">默认值false(冒泡阶段调用)</span>
+     3. 是否在捕获阶段触发事件
+        * 一个布尔值,<span style="color:red">默认值false(冒泡阶段调用)</span>
+        * `options`:有关`listener`可选参数对象
+           1. `capture`:`Boolean`.表示`listener`会在该类型的事件捕获阶段传播到该EventTarget时触发
+           2. `once`:`Boolean`,表示listener在添加之后最多只调用一次.如果为`true`,listener会在其被调用之后自动移除
+           3. `passive`:`Boolean`,如果为true,表示listener永远不会调用`preventDefault()`.如果listener仍然调用了这个函数,客户端将会忽略它并抛出一个控制台警告
+           4. `signal`:`AbortSignal`.该AbortSignal的`abort()`方法被调用时,监听器会被移除
   * 注意:
     * 使用`addEventListener()`可以同时为一个元素的相同事件同时绑定多个响应函数.
     * 这样当事件触发时,响应函数将会按照函数的绑定顺序执行
@@ -27,7 +33,7 @@ summary: 关于直接操控DOM属性,编译速度大于任何框架,但是不利
   * 参数和`addEventListener()`相同
 
 ```html
-<script type="text/javascript">
+<script>
   window.onload = function () {
     let btn01 = document.getElementById("btn01");
      btn01.addEventListener("click", function () {
@@ -55,9 +61,52 @@ summary: 关于直接操控DOM属性,编译速度大于任何框架,但是不利
 </body>
 ```
 
-### event对象
+### Event对象
 
->event对象是传给事件处理程序的唯一参数.不管任何方式都会指定`event`(类似arguments)
+>浏览器原生提供了一个`Event`对象,所有的事件都是这个对象的实例,或者说继承了`Event.prototype`对象.事件发生后,作为参数传给监听函数的事件对象
+
+```js
+const event = new Event(type, options)
+```
+
+* Event构造函数的第一个参数是**事件的名称**.第二个参数是一个options对象
+  * `bubbles`:布尔值,可选,默认为false,表示事件的对象是否冒泡
+  * `cancleable`:布尔值,可选,默认为false,表示事件是否可以被取消,即是否可以使用`Event.preventDefault()`取消这个事件.取消之后不会触发浏览器的默认行为
+  * `composed`:布尔值,可选,默认为false,事件是否会在`shadow DOM`根节点之外触发侦听器
+
+```js
+const ev = new Event("look", { "bubbles": true, "cancelable": false });
+document.dispatchEvent(ev);
+```
+
+* 上面代码新建一个look事件实例,然后使用`dispatchEvent`方法触发该事件
+* 注意,如果不是显式指定`bubbles`属性为`true`,生成的事件就只能在**捕获阶段**触发监听函数
+
+> `EventTarget.dispatchEvent`:向一个指定的目标派发一个事件,并以合适的顺序同步的顺序同步调用目标元素的事件处理函数
+
+* 手动的使用`dispatchEvent()`方法派发事件
+
+   ```js
+   // HTML 代码为
+   // <div><p>Hello</p></div>
+   const div = document.querySelector('div');
+   const p = document.querySelector('p');
+   
+   function callback(event) {
+     const tag = event.currentTarget.tagName;
+     console.log(`${tag} was clicked`); // DIV was clicked
+   }
+   
+   div.addEventListener('click', callback, false);
+   
+   const click = new Event('click');
+   p.dispatchEvent(click);
+   ```
+
+  * p元素会发出一个click事件.并且默认是捕获阶段触发.在div上的监听函数是冒泡阶段运行,因此改函数不会触发
+    * 如果写成`div.addEventListener('click', callback, true)`函数在捕获阶段运行
+    * 或者写成`const click = new Event("click",{bubbles:true})`函数会在冒泡阶段运行
+  * 如果`div.dispatchEvent(click)`,无论是捕获阶段还是冒泡阶段,都会触发监听函数.因为div元素是事件的目标,不存在是否冒泡的问题
 
 * `event.type`:获得触发事件的类型
 
@@ -78,8 +127,117 @@ document.body.onclick = function(){
 }
 ```
 
+>Event.bubbles,Event.eventPhase
+
+* `Event.bubbles`:该属性返回一个布尔值.**只读属性**,一般用于Event实例是否可以冒泡
+* `Event.eventPhase`:返回一个整数常量,表示事件所处的目标
+  * `0`:事件目前没有发生
+  * `1`:事件目前处于捕获阶段,即处于从祖先节点向目标节点的传播过程
+  * `2`:事件到达目标节点,`Event.target`属性指向的那个节点
+  * `3`:事件处于冒泡阶段.即处于从目标节点的反向传播过程
+
+> Event.cancelable,Event.cancelBubble,Event.defaultPrevented
+
+* `cancelable`:属性返回一个布尔值,**只读**表示事件是否可以取消
+  * 大多数浏览器原生事件是可以被取消的.比如取消`click`事件,点击链接将无效.除非显示声明,否则默认是不可取消的
+
+   ```js
+   const ev = new Event("click")
+   ev.cancelable//false
+   ```
+
+  * 如果`Event.cancelable = true`,调用`Event.preventDefault()`可以阻止浏览器对该事件的默认行为
+  * 如果事件不能取消,调用Event.preventDefault()会没有任何效果
+* `Event.cancelBubble`属性是一个布尔值,如果设为true,相当于执行`Event.stopPropagation()`,可以阻止事件的传播
+* `Event.defaultPrevented`属性返回一个布尔值,**只读**.表示该事件是否调用过Event.preventDefault方法
+
+> `Event.isTrusted`
+
+* 属性返回一个布尔值,表示事件是否由真实的用户行为产生.比如用户点击链接产生一个click事件,该事件由用户产生;`Event`构造函数生成的事件则是由脚本产生的
+
+   ```js
+   const ev = new Event("foo")
+   ev.isTrusted //false  
+   ```
+
+  * ev是由脚本产生的,所以会返回false
+
+> `Event.detail`
+
+* `Event.detail`属性只有浏览器的UI(用户界面)事件才具有.该属性返回一个数值,表示事件的某种信息.具体含义与事件类型相关
+  * 比如,对于click和dbclick事件,`Event.detail`是鼠标按下的次数(1表示单击,2表示双击,3表示三击)
+  * 对于鼠标滚轮事件,`Event.detail`是滚轮正向滚动的距离,负值就是负向滚动的距离,返回值总是3的倍数
+
+  ```js
+  function giveDetails(e) {
+    console.log(e.detail);
+  }
+  
+  document.querySelector('p').onclick = giveDetails;
+  ```
+
+> Event对象的实例方法
+
 * `event.preventDefault()`:用于阻止特定事件的默认动作.比如链接的默认行为是在被单机时导航到href属性指定的url
-* `event.stopPropagation()`:立即阻止事件流在DOM结构中传播.取消后续事件捕获或者冒泡
+* `event.stopPropagation()`:立即阻止事件流在DOM结构中传播.取消后续事件捕获或者冒泡,不包括当前节点上的其他的事件监听函数
+
+   ```js
+   // 事件传播到 p 元素后，就不再向下传播了
+   p.addEventListener('click', function (event) {
+     event.stopPropagation()
+     console.log(1)
+   }, true)
+   
+   // 事件冒泡到 p 元素后，就不再向上冒泡了
+   p.addEventListener('click', function (event) {
+     console.log(2)
+   }, false)
+   ```
+
+  * p元素绑定的两个click事件的监听函数.`stopPropageation`方法只能组织这个事件向其他元素传播.第二个监听函数会触发,输出是1,然后是2
+* `event.stopImmediatePropagation()`:彻底组织这个事件的传播,不会在触发后面所有的click的监听函数
+  * 将上面的`stopPropagation`改为`stopImmediatePropagation`可以彻底阻止这个事件的传播
+  * 现在只会输出1
+* `Event.composedPath()`:返回一个数组,成员是事件的最底层节点和依次冒泡经过的所有上层节点
+
+   ```js
+    // <div><p>Hello</p></div>
+  const div = document.querySelector("div")
+  div.addEventListener("click", function (e) {
+    console.log(e.composedPath())
+  })
+  //[p, div, body, html, document, Window]
+   ```
+
+### CustomEvent
+
+>用于生成自定义事件的实例.浏览器预定义的事件,虽然可以手动生成,但是往往不能在事件上绑定数据.如果需要在出发事件的同时,传入指定的数据,就可以使用CustomEvent接口生成的自定义事件对象
+
+* 浏览器原生提供CustomEvent构造函数来生成CustomEvent事件实例
+
+   ```js
+   new CustomEvent(type,options)
+   ```
+
+  * 造函数接受两个参数.第一个参数是字符串,表示事件的名字,这是必须的
+  * 第二个参数是事件的配置对象,这个参数是可选的.CustomEvent的配置对象除了接受Event事件的配置属性,只有一个自己的属性
+  * `detail`:事件的附带数据,默认为null
+
+  ```js
+  const myEvent = new CustomEvent('myevent', {
+    detail: {
+      message: 'Hello World'
+    },
+    bubbles: true,
+    cancelable: true
+  });
+  const el = document.querySelector("p")
+  el.addEventListener("myevent", function (e) {
+    console.log(e.detail.message);
+  })
+
+  el.dispatchEvent(myEvent);
+  ```
 
 ### 事件的传播
 
@@ -139,7 +297,6 @@ document.body.onclick = function(){
         </div>
     </div>
 </body>
-
 ```
 
 ### 事件的冒泡(Bubble)
