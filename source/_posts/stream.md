@@ -122,6 +122,20 @@ server.listen(8000, () => {
   * 包括`tcp sockets`,`zlib streams`,`crypto streams`
 * `Transform Stream`转换数据流,可读可写,同时可以转换/处理数据(不常用)
 
+> 流驱动的node api
+
+* `process.stdin`:返回连接到 `stdin` 的流
+* `process.stdout`:返回连接到 `stdout` 的流
+* `process.stderr`:返回连接到 `stderr` 的流
+* `fs.createReadStream()`: 创建文件的可读流
+* `fs.createWriteStream()`: 创建到文件的可写流
+* `net.connect()`: 启动基于流的连接
+* `http.request()`: 返回 `http.ClientRequest` 类的实例,该实例是可写流
+* `zlib.createGzip()`: 使用 `gzip`(压缩算法)将数据压缩到流中
+* `zlib.createGunzip()`: 解压缩 `gzip` 流
+* `zlib.createDeflate()`: 使用 `deflate`（压缩算法）将数据压缩到流中
+* `zlib.createInflate()`: 解压缩 `deflate` 流
+
 >stream 的弊端
 
 1. 使用`rs.pipe(ws)`方式来写文件,不是将rs的文件追加到ws文件之后,而是将rs的内容覆盖ws
