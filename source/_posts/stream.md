@@ -62,6 +62,32 @@ process.stdin.on("data", data => {
 
 >在`source`和`dest`之间有一个来凝结的管道`pipe`,他的基本语法是`source.pipe(dest)`,`source`和`dest`就是通过pipe管道,让数据从`source`流向`dest`
 
+* 大概的实现过程
+* 在生产者写入的速度过快,把队列池装满之后,就会出现背压.这个时候是需要告诉生产者暂停生产,当队列释放之后,Writable Stream会给生产者发送一个`drain`消息,让他回复生产
+
+```js
+Readable.prototype.pipe = function(writable, options){
+  this.on("data",(chunk)=>{
+    let ok = writeable.write(chunk)
+    //true,背压暂停
+    !ok && this.pause()
+  })
+  writable.on("drain",()=>{
+    //回复
+    this.resume()
+  })
+  writable.emit("pipe",this)
+  return writable
+}
+```
+
+* 大概的流程
+  1. `emit(pipe)`:通知写入
+  2. `write()`:新数据过来,写入
+  3. `pause()`:消费者消费速度慢,暂停写入
+  4. `resume()`:消费者完成消费,继续写入
+  5. `return writable`:支持链式调用
+
 ### dest
 
 >stream常见的三种输出方式

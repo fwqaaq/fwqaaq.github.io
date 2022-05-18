@@ -41,6 +41,14 @@ summary: node中的stream机制
 * child process stdin
 * process.stdout, process.stderr
 
+> 写入过程
+
+* 在数据流过来时,会直接写入到资源池.当写入速度表缓慢时或者暂停时,书记流会进入队列吃缓存起来
+
+![ ](node-stream-writable.png)
+
+* 当生产者写入速度过快,把队列池装满了之后.就会出现**背压**.这个时候需要告诉生产者停产,当队列释放之后.`Writable Stream`会给生产者发送一个`drain`消息,让他恢复生产.
+
 > 事件
 
 1. `close`:当流以及底层资源(例如文件描述符)已关闭时,则会触发`close`事件.表明该事件不会再触发更多事件
@@ -86,9 +94,9 @@ summary: node中的stream机制
 
       ```js
       stream.cork()
-      stream.write('some ')
+      stream.write('some')
       stream.cork()
-      stream.write('data ')
+      stream.write('data')
       process.nextTick(() => {
         stream.uncork()
         // 在第二次调用 uncork() 之前不会刷新数据.
@@ -108,13 +116,13 @@ summary: node中的stream机制
 1. `writable.closed`:触发`'close'`之后为 true
 2. `writable.destroyed`:在调用 `writable.destroy()` 之后是 true
 3. `writable.writable`:如果调用 `writable.write()` 是安全的,则为 true,这意味着流没有被销毁、出错或结束
-4. `writable.writableAborted`:返回在触发 'finish' 之前流是被破销毁或出错
-5. `writable.writableEnded`:在调用`writable.end()`之后是 true.此属性不指示数据是否已刷新,为此则使用 `writable.writableFinished` 代替
-6. `writable.writableCorked`:需要调用 `writable.uncork()` 以完全解开流的次数
+4. `writable.writableAborted`:返回在触发`finish`之前流是被破销毁或出错
+5. `writable.writableEnded`:在调用`writable.end()`之后是true.此属性不指示数据是否已刷新,为此则使用`writable.writableFinished`代替
+6. `writable.writableCorked`:需要调用`writable.uncork()`以完全解开流的次数
 7. `writable.errored`:如果流因错误而被销毁,则返回false
 8. `writable.writableFinished`:在触发 'finish' 事件之前立即设置为 true
-9. `writable.writableHighWaterMark`:返回创建此 Writable 时传入的 highWaterMark 的值
-10. `writable.writableLength`:此属性包含队列中准备写入的字节数(或对象数).该值提供有关 `highWaterMark`状态的内省数据
+9. `writable.writableHighWaterMark`:返回创建此`Writable`时传入的`highWaterMark`的值
+10. `writable.writableLength`:此属性包含队列中准备写入的字节数(或对象数).该值提供有关`highWaterMark`状态的内省数据
 11. `writable.writableNeedDrain`:如果流的缓冲区已满并且流将触发 'drain',则为 true
 12. `writable.writableObjectMode`:给定 `Writable` 流的属性 `objectMode` 的获取器
 
@@ -133,32 +141,82 @@ summary: node中的stream机制
 
 `Readable`流以两种模式:**流动和暂停**.这些模式与对象模式是分开的. `Readable`流可以处于或不处于对象模式,无论其是处于流动模式还是暂停模式.
 
-* 在流动模式下,数据会自动从底层系统读取,并通过`EventEmitter`接口使用事件尽快提供给应用程序
-* 在暂停模式下,必须显式调用`stream.read()`方法以从流中读取数据块
+   ```JS
+   import { Readable } from "node:stream"
+   let c = 97
+   const rs = new Readable({
+     encoding: "utf8",
+     read() {
+       if (c >= "z".charCodeAt(0)) rs.push(null)
+       setTimeout(() => {
+         rs.push(String.fromCharCode(++c))
+       })
+     }
+   })
+   ```
 
-* 所有的`Readable`流都以暂停模式开始,但可以通过以下方式之一切换到流动模式
-  * 添加 `'data'` 事件句柄.
-  * 调用 `stream.resume()` 方法.
-  * 调用 `stream.pipe()` 方法将数据发送到 Writable
+1. **在流动模式下**(`flowing mode`),数据会自动从底层系统读取,并通过`EventEmitter`接口使用事件尽快提供给应用程序
+   * stream上绑定ondata方法就会自动触发这个模式
 
-* `Readable`可以使用以下方法之一切换回暂停模式
+   ```js
+   rs.pipe(process.stdout)
+   ```
+
+   * ![ ](node-stream-readable-flowing.png)
+   * 资源的数据流并不是直接流向消费者,而是先push到缓存池,缓存池中有一个水位标记`highWatermark`,超过这个标记阈值,push的时候会返回`false`
+     * 消费者主动执行`pause()`
+     * 消费速度比数据push到缓存吃的生产速度慢
+   * <span style="background-color:red">所有的`Readable`流都以暂停模式开始,但可以通过以下方式之一切换到流动模式</span>
+     * 添加 `'data'` 事件句柄.
+     * 调用 `stream.resume()`方法.
+     * 调用 `stream.pipe()`方法将数据发送到 Writable
+2. **在暂停模式下**(`Non-Flowing Mode`),必须显式调用`stream.read()`方法以从流中读取数据块
+   * ![ ](node-stream-non-flowing.png)
+   * 资源池会不断的往缓冲池输送数据,直到`highWaterMark`阈值,消费者监听了`readable`事件并不会消费数据,需要主动调用`.read([size])`函数才会从缓存池去除,并且可以带上size参数,用多少取多少
+
+   ```js
+   rs.on("readable", () => {
+     let chunk
+     while (null !== (chunk = rs.read())) {
+       console.log(chunk)
+     }
+   })
+   ```
+
+   * 注意:数据没达到缓存池都会触发一次`readable`事件,有可能出现,消费者正在消费数据的时候,触发了一次`readable`事件,那么下从回调中read到的数据可能为空的情况.我们可以通过`_readableState.buffer`查看缓存池到底缓存了多少资源
+
+   ```js
+   let once = false
+   rs.on("readable", (chunk) => {
+     console.log(rs._readableState.buffer.length)
+     if (once) return;
+     once = true;
+     console.log(rs.read());
+   })
+   ```
+
+   * 上面的代码我们只消费一次缓存池的数据,那么在消费后,缓存池又收到了一次资源池的`push`操作,此时还会触发一次`readable`事件,我们可以看看这次存了多大的`buffer`
+   * buffer大小是有上限的,默认设置为`16kb`,也就是16384个字节长度,它最大可设置为8Mb,这个值是Node的`new space memory`的大小
+
+* <span style="background-color:red">`Readable`可以使用以下方法之一切换回暂停模式</span>
   * 如果没有管道目标,则通过调用`stream.pause()`方法.
   * 如果有管道目标,则删除所有管道目标.可以通过调用`stream.unpipe()`方法删除多个管道目标.
 
-* 要记住的重要概念是,在提供消费或忽略该数据的机制之前,`Readable` 不会产生数据.如果消费机制被禁用或移除,则`Readable` 将尝试停止产生数据
+* 注意:在提供消费或忽略该数据的机制之前,`Readable`不会产生数据.如果消费机制被禁用或移除,则`Readable`将尝试停止产生数据
 * 出于向后兼容性的原因,删除`data`事件句柄不会自动暂停流.此外,如果有管道目标,则调用`stream.pause()`将不能保证一旦这些目标排空并要求更多数据,流将保持暂停状态.
-* 如果`Readable`切换到流动模式并且没有消费者可用于处理数据,则数据将被丢失.例如,当调用`readable.resume()`方法而没有绑定到 `data`事件的监听器时,或者当从流中删除`data`事件句柄时,就会发生这种情况.
+* 如果`Readable`切换到**流动模式**并且没有消费者可用于处理数据,则数据将被丢失.
+  * 例如,当调用`readable.resume()`方法而没有绑定到`data`事件的监听器时,或者当从流中删除`data`事件句柄时,就会发生这种情况.
 * 添加`readable`事件句柄会自动使流停止流动,并且必须通过`readable.read()`来消费数据.如果删除了`readable`事件句柄,则如果有`data`事件句柄,流将再次开始流动.
 
 > 三种状态
 
-* `Readable` 流的操作的"两种模式"是对 `Readable` 流实现中发生的更复杂的内部状态管理的简化抽象
-* 具体来说,在任何给定的时间点,每个 Readable 都处于三种可能的状态之一:
-  * `readable.readableFlowing === null`
-  * `readable.readableFlowing === false`
-  * `readable.readableFlowing === true`
-* 当 `readable.readableFlowing` 为 null 时,则不提供消费流数据的机制.因此,流不会生成数据. 在此状态下,为 'data' 事件绑定监听器、调用`readable.pipe()`方法,或调用`readable.resume()`方法会将`readable.readableFlowing`切换到`true`,从而使 `Readable` 在生成数据时开始主动触发事件.
-* 调用`readable.pause()`、`readable.unpipe()`,或者接收背压都会导致`readable.readableFlowing`被设置为 false,暂时停止事件的流动,但不会停止数据的生成.在此状态下,为`'data'`事件绑定监听器不会将`readable.readableFlowing`切换到 true.
+* `Readable`流的操作的"两种模式"是对 `Readable` 流实现中发生的更复杂的内部状态管理的简化抽象
+* 具体来说,在任何给定的时间点,每个`Readable`都处于三种可能的状态之一:
+  * `readable.readableFlowing === null`:暂时没有消费者过来.并且不会生成数据
+    * 在此状态下为`data`事件绑定监听器、调用`readable.pipe()`方法,或调用`readable.resume()`方法会将`readable.readableFlowing`切换到`true`.`Readable`会开始主动接受数据
+  * `readable.readableFlowing === false`:* 调用`readable.pause()`、`readable.unpipe()`,或者接收背压都会导致`readable.readableFlowing`被设置为false,暂时停止事件的流动,但不会停止数据的生成
+    * 在此状态下,为`'data'`事件绑定监听器不会将`readable.readableFlowing`切换到true.
+  * `readable.readableFlowing === true`.流动模式
 
 ```js
 const { PassThrough, Writable } = require('node:stream');
@@ -299,7 +357,7 @@ pass.resume();     // 必须调用才能使流触发 'data'.
     });
     ```
 
-* `readable.resume()`:readable.resume() 方法使被显式暂停的 Readable 流恢复触发 'data' 事件,将流切换到流动模式.
+* `readable.resume()`:`readable.resume()`方法使被显式暂停的 Readable 流恢复触发 'data' 事件,将流切换到流动模式.
   * `readable.resume()`方法可用于完全地消费流中的数据,而无需实际处理任何数据
 
    ```js
@@ -362,3 +420,32 @@ pass.resume();     // 必须调用才能使流触发 'data'.
 * `readable.readableHighWaterMark`:返回创建此 Readable 时传入的 highWaterMark 的值
 * `readable.readableLength`:此属性包含队列中准备读取的字节数(或对象数).该值提供有关 `highWaterMark`状态的内省数据
 * `readable.readableObjectMode`:给定 Readable 流的属性 objectMode 的获取器
+
+### Duplex Stream
+
+>Duplex,双工的意思,它的输入和输出可以没有任何关系
+
+![ ](node-stream-duplex.png)
+
+```js
+import { Duplex } from "node:stream"
+
+const duplex = new Duplex()
+
+//readable
+let i = 2
+duplex._read = function () {
+  this.push(i-- ? 'read' + i : null)
+}
+duplex.on("data", data => console.log(data.toString()))
+
+//writeable
+duplex._write = function (chunk, encoding, callback) {
+  console.log(chunk.toString())
+  callback()
+}
+duplex.write("write")
+// write
+// read1
+// read0
+```
