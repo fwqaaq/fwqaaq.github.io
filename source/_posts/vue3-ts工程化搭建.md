@@ -168,6 +168,7 @@ npx husky add .husky/pre-commit "npm run lint"
    * `commitizen`:将适配器安装到项目中
 2. 详细的使用方法:`commitizen init < adapter-npm-name > (args)`
    * 从npm安装一个commizen适配器,并将其添加到你的`package.json`
+   * 如果是`pnpm`,使用`pnpm add -D -E cz-conventional-changelog`
 3. 安装`cz-conventional-changelog`并且初始化`cz-conventional-changelog`
 
 ```shell
@@ -179,6 +180,10 @@ npx commitizen init cz-conventional-changelog --save-dev --save-exact
 * 将适配器依赖保存到`package.json`的`devDependencies`字段信息
 * 在`package.json`中新增`config.commitizen`字段信息,主要用于配置cz工具的适配器路径
 * ![配置生成](commit规范.jpg)
+
+> 或者也可以自定义提交信息,使用`cz-customizable`
+
+* 参考:<https://www.npmjs.com/package/cz-customizable>
 
 #### 使用命令以及配置脚本
 

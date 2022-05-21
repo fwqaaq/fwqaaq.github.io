@@ -2,7 +2,7 @@
 title: stream
 date: 2022-05-14 19:27:26
 author: Jack-zhang
-categories: stram
+categories: node
 tags:
    - JS
    - node

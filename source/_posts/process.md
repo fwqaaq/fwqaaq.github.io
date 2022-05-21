@@ -2,7 +2,7 @@
 title: process
 date: 2022-05-09 22:55:33
 author: Jack-zhang
-categories: process
+categories: node
 tags:
    - JS
    - node

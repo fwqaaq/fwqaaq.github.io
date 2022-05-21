@@ -2,7 +2,7 @@
 title: child_process
 date: 2022-05-10 19:56:38
 author: Jack-zhang
-categories: process
+categories: node
 tags:
    - JS
    - node

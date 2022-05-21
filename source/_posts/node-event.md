@@ -2,7 +2,7 @@
 title: node_event
 date: 2022-05-17 18:33:13
 author: Jack-zhang
-categories: stram
+categories: node
 tags:
    - JS
    - node

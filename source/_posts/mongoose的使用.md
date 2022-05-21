@@ -12,9 +12,9 @@ summary: Mongoose是在node环境中操作MongoDB数据库的一种便捷的封�
 
 > Mongoose库简而言之就是在node环境中操作MongoDB数据库的一种便捷的封装，一种对象模型工具，类似ORM，Mongoose将数据库中的数据转换为JavaScript对象以供你在应用中使用
 
-1. 下载安装 ```Mongoosenpm i mongoose --save```
-2. 在项目中引入mongoose ```const mongoose = require('mongoose');```
-3. 连接MongoDB数据库 ```mongoose.connect('mongodb://localhost:27017/数据库名', {useNewUrlParser: true, useUnifiedTopology: true});```
+1. 下载安装 `npm i mongoose --save`
+2. 在项目中引入mongoose `const mongoose = require('mongoose');`
+3. 连接MongoDB数据库 `mongoose.connect('mongodb://localhost:27017/数据库名', {useNewUrlParser: true, useUnifiedTopology: true});`
 4. 断开数据库的连接(一般不需要) ```mongoose.disconnect()```
 5. 监听MongoDB数据库的连接状态
   
