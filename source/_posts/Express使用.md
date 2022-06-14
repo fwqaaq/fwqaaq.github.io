@@ -87,7 +87,6 @@ const port = 3000
 app.use("/users",router1)
 app.use("/goods",router2)
 app.listen(port, () => console.log(`Example app listening on port port!`))
-})
 ```
 
 * router:封装路由表

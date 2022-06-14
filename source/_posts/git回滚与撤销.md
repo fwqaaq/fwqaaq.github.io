@@ -104,3 +104,58 @@ git push origin 本地分支 --force-with-lease
 3. `git branch mer`为需要找回的版本创建新分支
 4. `git branch dev`&&`git rebase mer`切换分支并且合并分支
 5. `git push origin dev --force-with-lease`.强制推送到远程仓库,完成撤销的回退
+
+## stash
+
+>`git stash`将工作副本暂时搁置到到一个栈(提交越迟,越早弹出,即索引越小)中,以便切换分支处理其他内容
+
+* `git stash`:如果当前分支中的内容处于已暂存的状态(`git add .`)
+  * `git stash -u`:如果当前分支未暂存,则需要添加`--include-untracked`
+  * **注意:**一些基础配置文件不能暂存,需要立刻提交,如`.gitignore`等
+
+  ```.gitignore
+  *.js
+  ```
+
+  * 如果此时`.gitignore`没有提交,这时候忽略`.js`结尾的文件并不会起作用,`.js`结尾的文件会和`.gitignore`一起被搁置到**栈**中(但是此时切换分支忽略文件依然会被切换到另一个分支)
+* `git stash save "message"`:如果需要搁置多个内容到栈中,则可以使用`message`来命名
+  * 同样,如果没有暂存则需要使用`git stash save "message" -u`
+
+>重新应用搁置栈中的工作副本
+
+1. `git stash apply stash@{index}`:重新应用搁置栈中的工作副本,但是不会删除当前栈中暂存的状态
+   * `git stash drop stash@{index}`:删除某个栈中的工工作副本,需要使用索引
+
+   ```bash
+   git stash drop stash@{0}
+   ```
+
+2. `git stash pop`:弹出最后一次提交到栈中的工作副本,并且同时删除栈中的工作副本
+   * 或者直接指定需要应用的版本,与`apply`相同
+
+   ```bash
+   # index指索引号,索引越小,离栈顶越近
+    git stash ( pop | apply ) --index index
+   # 或者直接使用 stash@{index}
+    git stash ( pop | apply ) stash@{index}
+   ```
+
+> 清理栈中的内容
+
+1. `git stash clear`:将栈中的所有内容清理
+2. `git stash drop`:清理指定版本
+
+>查看存储差异(需要暂存之后才可以比较:`git add .`)
+
+1. `git stash show`:查看存储的摘要
+2. `git stash show -p`:查看存储的完整差异(-p=--patch)
+
+>从stash中创建分支
+
+```bash
+git stash branch <name> stash@{1}
+```
+
+* 在此分支的基础上:创建一个叫做\<name>的分支,同时删除`stash{1}`的存储.此时指针不会指向原来分支,而是会指向\<name>分支
+* 如果在最新版本中遇到冲突时,这将会很有用
+  * 例如你搁置了该文件的更改到栈中,但是之后并没有理会,继续在该文件中做更改,这是就可以使用此方法

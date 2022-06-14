@@ -56,6 +56,7 @@ state() {
       { name: "深入Node", price: 220, count: 2 },
     ]
   }
+}
 ```
 
 - 获取state状态

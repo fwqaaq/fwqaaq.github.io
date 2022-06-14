@@ -10,6 +10,9 @@ summary: 使用gitAction达到CI/CD
 
 >github Action是github提供的持续集成的操作,可以抓取代码,运行测试,登录远程服务器,发布到第三方服务器等等
 
+* [GITHUB ACTION 默认环境变量](https://docs.github.com/cn/actions/learn-github-actions/environment-variables)
+* [GITHUB_TOKEN](https://docs.github.com/cn/actions/security-guides/automatic-token-authentication#permissions-for-the-)
+
 ## 创建一个工作流程
 
 > 基本概念

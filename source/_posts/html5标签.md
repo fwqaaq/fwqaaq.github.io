@@ -242,3 +242,55 @@ console.log(getDisplay(a))
 * 注意: 如果元素的`readOnly`或者`disabled`属性设为true,则不进行检查  
 
 > **designMode**和**contentEditable**(略)
+
+## \<link>标签
+
+>link标签用于规定当前文档与外部资源的关系.该元素常用于链接**样式表**,此外也可以被用来创建站点图标
+
+1. 用来加载网站图标
+
+   ```html
+   <link rel="icon" sizes="144x144" href="./avatar.png">
+   ```
+
+   * 如果是移动平台
+
+   ```html
+   <link rel="apple-touch-icon-precomposed" sizes="114x114"
+        href="apple-icon-114.png" type="image/png"> 
+   ```
+
+   * `sizes`属性表示图标大小,`type`属性包含了链接资源的 MIME 类型
+
+2. 加载css资源,同时可以使用`medias`属性内部进行查询
+
+   ```html
+   <link href="print.css" rel="stylesheet" media="print">
+   <link href="mobile.css" rel="stylesheet" media="screen and (max-width: 600px)">
+   ```
+
+3. 使用`rel="preload"`或者`rel="prefetch"`:使用 fetch 请求,指定页面资源在页面生命周期的早期就开始加载.还需要设置以下值
+   * `href`:属性中的资源路径
+   * `as`:属性中的资源类型
+
+   ```html
+   <link rel="preload" href="style.css" as="style">
+   <link rel="preload" href="main.js" as="script">
+   ```
+
+>as可以预加载以下内容
+
+* `audio`:音频文件,通常用于\<audio>
+* `document`:旨在由\<frame>或\<iframe>嵌入的 HTML 文档
+* `embed`:要嵌入到\<embed>元素中的资源
+* `fetch`:由 fetch 或 XHR 请求访问的资源,例如 ArrayBuffer 或 JSON 文件
+* `font`:字体文件
+* `image`:图像文件
+* `object`:要嵌入到\<object>元素中的资源
+* `script`:JavaScript 文件
+* `style`:CSS 样式表
+* `track`:WebVTT 文件
+* `worker`:JavaScript Web worker 或 shared worker
+* `video`:视频文件,通常用于\<video>
+
+* `rel`:参考<https://developer.mozilla.org/zh-CN/docs/Web/HTML/Link_types>
