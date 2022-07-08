@@ -107,7 +107,7 @@ summary: 使用git进行代码的版本控制
 #### 版本回退(revert和resert)
 
 > `git log`
->>`git reflog`只要是HEAD有变化,那么`git rsflog`就会记录下来
+>>`git reflog`只要是HEAD有变化,那么`git reflog`就会记录下来
 
 1. `git revert`是用一次新的commit来回滚之前的commit,`git reset`是直接删除指定的commit.
 2. `git reset` 是把HEAD**向后移动**了一下,而`git revert`是HEAD**继续前进**
@@ -137,13 +137,18 @@ summary: 使用git进行代码的版本控制
 #### 远程分支
 
 1. `git remote –v`:查看远程版本库信息
-2. `git remote set-url origin git@...`:更改远程仓库地址(ssh)
+2. `git remote show origin`:查看远程仓库的信息
+3. `git remote set-url origin git@...`:更改远程仓库地址(ssh)
 
 > `git branch -r`:查看远程分支
 
 - `git branch -a`:查看所有分支
+- `git branch -vv`:查看本地的分支对应远程的分支
 
 > `git fetch <远程主机> <分支名>`:取回远程主机的分支
+
+- `git fetch --prune`:删除本地有而远程没有的分支或者一些多余的`commit`
+  - `git remote prune`:也可以使用这个
 
 - 例如`git fetch origin master`:取回origin的master分支
 
@@ -187,21 +192,23 @@ summary: 使用git进行代码的版本控制
 
 > git可以对某个版本打上标签(tag),表示本版本为发行版
 
-| 命令               | 解释                   |
-| ------------------ | ---------------------- |
-| git tag            | 查看所有标签           |
-| git tag -l 1.*.*   | 打印符合检索田间的标签 |
-| git checkout 1.0.0 | 查看对应标签的状态     |
+| 命令               | 解释               |
+| ------------------ | ------------------ |
+| git tag            | 查看所有标签       |
+| git tag -l 1.*.*   | 打印符合检索的标签 |
+| git checkout 1.0.0 | 查看对应标签的状态 |
+| git show v1.4      | 完整标签的信息     |
 
 > 创建本地标签
 
-- 针对特定commit版本SHA创建标签
-  - `git tag -a v1.0.0 0c3b62d -m "这是备注信息"`
-  - -a:创建附注标签
-  - <哈希值>:特定commit版本SHA
-  - -m:附注
-  - 都是可选的
-- 创建轻量标签`git tag v1.0.0`
+1. 针对特定commit版本SHA创建标签
+   - `git tag -a v1.0.0 (0c3b62d) -m "message"`
+   - `-a`:创建附注标签
+   - \<哈希值>:特定commit版本SHA
+   - `-m`:附注
+   - 都是可选的
+2. 创建轻量标签
+   - `git tag v1.0.0`
 
 > 推送标签到远程仓库
 
@@ -211,5 +218,3 @@ summary: 使用git进行代码的版本控制
 > 删除本地标签`git tag -d v1.0.0`
 >
 > 删除远程仓库对应的标签`git push origin --delete v1.0.0`
-
-- `git show v1.0.0`:该标签完整的信息

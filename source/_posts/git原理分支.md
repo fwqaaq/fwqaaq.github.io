@@ -113,3 +113,97 @@ git reflog
 git checkout 609f9e5
 git switch -c dev
 ```
+
+## 远程分支
+
+>添加远程分支
+
+```bash
+git remote add origin ssh...
+```
+
+>查看添加的内容`cat .git/config`
+
+```bash
+[remote "origin"]
+        url = https://github.com/Jack-Zhang-1314/hexoPage.git
+        fetch = +refs/heads/*:refs/remotes/origin/*
+```
+
+```bash
+├─logs
+│  │  HEAD
+│  │
+│  ├─refs
+│  │    ├─heads
+│  │    │      dev
+│  │    │      master
+│  │    │
+│  │    └─remotes
+│  │        └─origin
+│  │            │  HEAD
+│  │            └─ master
+├─origin
+│  │     HEAD
+│  └---  master              
+```
+
+* 当提交远程之后,本地分支和远程分支是同步的
+
+```bash
+# commit 4a71286c54dc6629322f13cfded0dfcdb417a1aa (HEAD -> master, origin/master, origin/HEAD)
+```
+
+## 对象压缩
+
+1. 查看git对象文件的大小
+
+    ```bash
+    du -h .git/objects
+    # ...
+    # 1.1M    .git/objects/fa
+    # 944K    .git/objects/fd
+    # 0       .git/objects/info
+    # 22M     .git/objects/pack
+    # 42M     .git/objects
+   ```
+
+2. 使用`git gc`来压缩文件
+
+   ```bash
+   git gc
+   du -h .git/objects
+   # 9.0K    .git/objects/info
+   # 23M     .git/objects/pack
+   # 23M     .git/objects
+   ```
+
+3. 查看`pack`文件下文件的大小.文件被压缩到`.pack`文件中
+
+   ```bash
+   ls -l .git/objects/pack
+   # total 23092
+   # -r--r--r-- 1 15531 197609   122816  7月  2 06:21 pack-04c2ed0bfb1961df8ecdaf3a6a602936173ffc88.idx
+   # -r--r--r-- 1 15531 197609 23521212  7月  2 06:21 pack-04c2ed0bfb1961df8ecdaf3a6a602936173ffc88.pack
+   ```
+
+>解压缩`git unpack-objects`
+
+* 首先`.pack`文件不能再`objects`文件下,将它移到`.git`下后,使用解压缩的命令
+
+```bash
+git unpack-objects < .git/pack-04c2ed0bfb1961df8ecdaf3a6a602936173ffc88.pack
+```
+
+## 垃圾对象清理
+
+> 在大部分时候每次使用`git add`会产生不必要的垃圾对象,这时候就需要使用`git prune`去清理这些不必要的对象
+
+* 不过一般情况下在使用`git gc`完全足够,他会去调用`git prune`清理不必要的对象
+
+```bash
+git prune -n
+# 查看将会删除的不必要的垃圾对象
+git fsck
+#查看仓库的垃圾对象
+```
