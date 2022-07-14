@@ -312,9 +312,9 @@ console.log(arr);//(5)[1,2,3,4,5]
 
 * <span style="color:red">注意:</span>对新数组变化不会影响原数组的改变
 
-#### map()(<span style="color:red">不改变原数组</span>)
+#### map() 和 flatMap()(<span style="color:red">不改变原数组</span>)
 
->对数组的每一项运行给定函数.返回每次函数调用结果所组成的数组
+>* `map`:对数组的每一项运行给定函数.返回每次函数调用结果所组成的数组
 
 ~~~js
 let arr=[1,2,3,4,5]
@@ -326,7 +326,18 @@ console.log(a)//[3,6,9,12,15]
 console.log(arr);//(5)[1,2,3,4,5]
 ~~~
 
-#### find()(<span style="color:red">不改变原数组</span>)
+>* `flatMap()`:方法首先使用映射函数映射每个元素,然后将结果压缩成一个新数组.它与 map 连着深度值为1的flat几乎相同
+
+~~~js
+const arr1 = [1, 2, [3], [4, 5], 6, []];
+
+const flattened = arr1.flatMap(num => num);
+
+console.log(flattened);
+// expected output: Array [1, 2, 3, 4, 5, 6]
+~~~
+
+#### find() 和 findLast()(<span style="color:red">不改变原数组</span>)
 
 >返回符合测试条件的第一个数组元素的值.如果没有符合条件的则返回undefined
 
@@ -336,12 +347,27 @@ const arr = [1,2,3,4,5,6]
 let value = arr.find((value)=>{
    return value > 4
 })//5
+let value = arr.findLast((value)=>{
+   return value > 4
+})//6
 ~~~
 
-* 补充
-  * `findIndex()`:与find()方法相同,只是返回的是符合条件的索引
+#### findIndex() 和 findLastIndex()(<span style="color:red">不改变原数组</span>)
 
-### 迭代方法
+>findIndex()方法返回数组中满足提供的测试函数的第一个元素的索引,若没有找到对应元素则返回-1
+
+~~~js
+const arr = [1,2,3,4,5,6]
+
+let value = arr.findIndex((value)=>{
+   return value > 4
+})//4
+let value = arr.findLastIndex((value)=>{
+   return value > 4
+})//5
+~~~
+
+#### reduce
 
 >ES5新增了两个归并数组的方法：reduce（）和 reduceRight().这两个方法都会迭代数组所有的项.然后构建一个最终的值返回.
 
@@ -362,7 +388,7 @@ console.log(sum)//15
 
 * <span style="color:red">注意:</span>reduceRight（）与reduce（）使用一样.只不过是从后往前遍历.
 
-## 数组扁平化(flat)(不改变原数组)
+## 数组扁平化(flat())(不改变原数组)
 
 * `flat()`:默认参数为1
   * 可选参数一:整数(拉平几层嵌套)

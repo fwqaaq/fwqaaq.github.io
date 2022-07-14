@@ -147,10 +147,12 @@ summary: 使用git进行代码的版本控制
 
 > `git fetch <远程主机> <分支名>`:取回远程主机的分支
 
+- 例如`git fetch origin master`:取回origin的master分支
+
 - `git fetch --prune`:删除本地有而远程没有的分支或者一些多余的`commit`
   - `git remote prune`:也可以使用这个
 
-- 例如`git fetch origin master`:取回origin的master分支
+- `git fetch -v`:查看远程分支的信息
 
 >合并远程分支
 
@@ -164,6 +166,7 @@ summary: 使用git进行代码的版本控制
 >`git pull`:用于从远程获取代码并合并到本地分支
 
 - 可以看作这两个的简写:`git fetch`和 `git merge FETCH_HEAD`
+- `git pull -v`:同时显示拉取信息
 
 1. 更新操作:
    - `git pull`
