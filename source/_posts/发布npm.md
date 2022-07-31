@@ -127,6 +127,19 @@ summary: 发布一个属于自己的npm
    > `license`:许可证.让人知道使用的权利和限制的
    * [参考github](https://docs.github.com/en/communities/setting-up-your-project-for-healthy-contributions/adding-a-license-to-a-repository)
 
+   >`file`:发布时需要包含的文件
+
+   * 一定包含以下文件:`package.json`,`README`,`LICENSE / LICENCE`,`The file in the "main" field`
+   * 同时可以指定需要包含的文件夹
+
+   ```json
+   {
+      "files":[
+         "dist"
+      ]
+   }
+   ```
+
 ### 发布javascript版本的包
 
 1. `name`:字段必须是仓库拥有者的名称,即`npm login`的名称

@@ -224,7 +224,7 @@ MutationObserver.observe(dom, options)
 * 有时候需要保存某个观察者的完整变化记录,那么就保存所有的`MutationRecord` 实例,也就会保存它们引用的节点,而这会妨碍这些节点被回收
 * 如果需要尽快地释放内存,可以从每个`MutationRecord`中抽取出最有用的信息,保存到一个新对象,然后释放`MutationRecord`中的引用
 
-### ResizeObserver(尚在开发)
+### ResizeObserver
 
 * **`ResizeObserver`** 构造器创新一个新的`ResizeObserver`对象,用于接收`Element`内容区域的改变或`SVGElement`的边界框改变改变
 
@@ -252,9 +252,12 @@ resizeObserver.observe(target,options?);
 
 * 只接收一个`ResizeObserverEntry`实例[ResizeObserverEntry - Web API 接口参考(mozilla.org)](https://developer.mozilla.org/zh-CN/docs/Web/API/ResizeObserverEntry)
 
-* 目前只接受两个属性
+* 目前只接受五个属性
   1. `target`:当前改变尺寸大小的元素的引用
   2. `contentRect`:对改变尺寸大小的元素的[`DOMRectReadOnly`](https://developer.mozilla.org/zh-CN/docs/Web/API/DOMRectReadOnly)引用(包含x,y(坐标),width,height,top,right,bottom,left属性)
+  3. `borderBoxSize`:一个对象(`{blockSize:元素的垂直高度, inlineSize:元素的水平高度}`),当运行回调时,该对象包含着正在观察元素的新边框盒的大小
+  4. `contentBoxSize`:一个对象(`{blockSize:元素的垂直高度, inlineSize:元素的水平高度}`),当运行回调时,该对象包含着正在观察元素的新内容盒的大小
+  5. `devicePixelContentBoxSize`:一个对象(`{blockSize:元素的垂直高度, inlineSize:元素的水平高度}`),当运行回调时,该对象包含着正在观察元素的新内容盒的大小**(以设备像素为单位)**
 
 ### PerformanceObserver
 
