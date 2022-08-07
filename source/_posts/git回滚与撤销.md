@@ -32,6 +32,18 @@ summary: 使用git进行代码的版本控制
    git commit --amend -m "最后一次的注释"
    ```
 
+>在 `git 2.3` 版本之后可以使用 restore 来执行 1,2 的操作
+
+   ```bash
+   # 撤销工作区文件修改, 不包括新建文件
+   git restore README.md # 一个文件
+   git restore README.md README2.md # 多个文件
+   git restore . # 当前全部文件
+   
+   # 从暂存区回到工作区
+   git restore --staged README.md
+   ```
+
 > 如果想撤销到其中某次commit
 
 * 这些操作分别是对**工作目录**,**暂存区**,**当前HEAD**的位置的改变
