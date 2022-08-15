@@ -12,7 +12,7 @@ summary: webpack5的配置和特性
 
 ## npx
 
->使用`npx ~`运行局部的脚本命令
+>使用 `npx ~` 运行局部的脚本命令
 
 * 在`scripts`配置脚本命令
 
@@ -22,8 +22,8 @@ summary: webpack5的配置和特性
 }
 ```
 
-* 使用`pnpm run build`可以构建
-* 脚本会直接在**bin**目录下寻找脚本的命令
+* 使用 `pnpm run build` 可以构建
+* 脚本会直接在 **bin** 目录下寻找脚本的命令
 
 > Webpack的依赖图
 
@@ -42,11 +42,11 @@ summary: webpack5的配置和特性
 
 > 导入和导出文件的选项
 
-* **entry**:入口文件
-* **output**:出口文件
-  * **path**:打包后的文件夹(path是一个绝对路径)
-  * **filename**:打包后的文件名
-* **target**:目标选项(可以是`web`或者`node`),什么环境打包
+* **entry**: 入口文件
+* **output**: 出口文件
+  * **path**: 打包后的文件夹(path是一个绝对路径)
+  * **filename**: 打包后的文件名
+* **target**: 目标选项(可以是`web`或者`node`),什么环境打包
 
 ```js
 const path = require("path")

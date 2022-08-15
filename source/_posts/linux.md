@@ -293,3 +293,37 @@ pstree -pu
 ```shell
 kill -9 873518
 ```
+
+## 防火墙
+
+1. 查看防火墙状态
+   * 查看防火墙状态 `systemctl status firewalld`
+   * 开启防火墙 `systemctl start firewalld`
+   * 关闭防火墙 `systemctl stop firewalld`
+   * 开启防火墙 `service firewalld start`
+2. 查看对外开放的端口状态
+   * 查询已开放的端口 `netstat  -ntulp | grep 端口号`:可以具体查看某一个端口号
+   * 查看想开的端口是否已开: `firewall-cmd --query-port=6379/tcp`
+   * 添加指定需要开放的端口: `firewall-cmd --add-port=123/tcp --permanent`
+   * 重载入添加的端口:`firewall-cmd --reload`
+   * 移除指定端口:`firewall-cmd --permanent --remove-port=123/tcp`
+3. 若遇到无法开启
+   * 先用:`systemctl unmask firewalld.service`
+   * 然后:`systemctl start firewalld.service`
+
+>由于你开了防火墙的同时,可能还有 docker 服务,会遇到如下错误
+
+```Shell
+Error response from daemon: driver failed programming external connectivity on endpoint quirky_allen (4127da7466709fd45695a1fbe98e13c2ac30c2a554e18fb902ef5a03ba308438): (iptables failed: iptables --wait -t nat -A DOCKER -p tcp -d 0/0 --dport 9000 -j DNAT --to-destination 172.17.0.2:80 ! -i docker0: iptables: No chain/target/match by that name.
+(exit status 1))
+```
+
+* `firewall` 的底层是使用 `iptables` 进行数据过滤,建立在 `iptables` 之上,这可能会与 `Docker` 产生冲突.
+
+当 firewalld 启动或者重启的时候,将会从 iptables 中移除 DOCKER 的规则,从而影响了 Docker 的正常工作。
+
+当你使用的是 Systemd 的时候, firewalld 会在 Docker 之前启动,但是如果你在 `Docker` 启动之后再启 或者重启 `firewalld`,<sapn style="color:red">你就需要重启 Docker 进程了</sapn>
+
+```shell
+systemctl restart docker
+```
