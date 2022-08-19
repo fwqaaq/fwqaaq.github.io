@@ -31,10 +31,10 @@ summary: linux的简单应用
 | **/sys**        | 2.6之后才有的.该目录安装了2.6内核中出现的新的文件系统sysfs                                                   |
 | **/tmp**        | 存放临时文件,用完即删                                                                                        |
 | **/usr**        | 用户的很多程序文件都在这个目录下,类似于`program files`                                                       |
-**/usr/bin** 系统用户使用的应用程序
-**/usr/sbin** | 超级用户使用的比较高级的管理员程序和系统守护程序
-**/usr/src** | 内核源代码默认存放的目录
-**/var** | 这个目录存放着不断扩充的东子
+| **/usr/bin**    | 系统用户使用的应用程序                                                                                       |
+| **/usr/sbin**   | 超级用户使用的比较高级的管理员程序和系统守护程序                                                             |
+| **/usr/src**    | 内核源代码默认存放的目录                                                                                     |
+| **/var**        | 这个目录存放着不断扩充的东子                                                                                 |
 
 ## 常用命令
 
@@ -327,3 +327,21 @@ Error response from daemon: driver failed programming external connectivity on e
 ```shell
 systemctl restart docker
 ```
+
+## env
+
+1. `env`:查看所有环境变量
+
+   ```Shell
+   env
+   ```
+
+2. `export`:查看所有环境变量
+   * `export PATH="..."`: 在 PATH 最后添加指定变量(环境变量)
+   * 指定的环境变量立即生效
+
+   ```shell
+   source /etc/profile
+   ```
+  
+   * 如果要删除某个环境变量,首先使用 `echo $PATH` 获取所有环境变量,然后使用 `export PATH="..."` 来指定不要删除的环境变量(排除删除的即可)

@@ -124,3 +124,36 @@ summary: tsconfig.json 配置技巧
 * 注意:
   * `module` 后一般接一个路径,而 `namespace` 后一般是一个命名空间名字
   * 但是,现在一般推荐使用 `esmodule`,**如果在 dts 中没有 `import` 或者 `export`,那么所有的类型声明都是全局的,否则是模块内部的**
+
+   ```json
+   //tsconfig.json
+   {
+      "files":["./global.d.ts"],
+      "include":[
+         "./types/**/*",
+         "./src/**/*"
+      ]
+   }
+   ```
+
+  * 以下如果不注释 import，那么 .d.ts 不会是全局的
+
+   ```ts
+   //global.d.ts
+   import * as fs from "fs"
+   declare const fn:(a:number,b:number) => number
+   ```
+
+* `reference` 可以指定使用的模块的类型,所以在 `.d.ts` 文件中使用的是 reference,而不是 import
+
+   ```ts
+   /// <reference types="node">
+   declare const fn:(a:number,b:number) => number
+   ```
+
+  * 或者在一些配置文件中也可以使用,例如 vite 中的 `env.d.ts`
+
+   ```ts
+   /// <reference types="vite/client" />
+   ...
+   ```

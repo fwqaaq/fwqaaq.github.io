@@ -16,7 +16,7 @@ summary: tsconfig.json中的配置
 1. "include":[],是调试用来指定那些ts文件需要编译
    * 路径:**  表示任意目录,*  表示任意文件
 2. "exclude":[],不需要被编译的文件目录 默认值：["node_modules", "bower_components", "jspm_packages"]
-3. "files":[],也是指定ts文件,但是是一个一个ts文件
+3. "files":[],也是指定ts文件,但必须要是一个一个的ts文件(<span style="color:red">防止部分 `.ts` 文件不能被发现</span>)
 
 ### compilerOptions
 
