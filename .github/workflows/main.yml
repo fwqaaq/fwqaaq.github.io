@@ -26,11 +26,6 @@ jobs:
         run: pnpm install
       - name: build app
         run: pnpm run build
-
-  deploy:
-    runs-on: ubuntu-latest
-    needs: build
-    steps:
       - name: deploy gh-pages
         uses: crazy-max/ghaction-github-pages@v3.0.0
         with:
