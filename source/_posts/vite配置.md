@@ -294,30 +294,6 @@ import.meta.scriptElement.dataset.foo
 
 #### 使用node中的路径模块
 
-* 建议直接使用`import.meta.url`而不是commonjs模块的`__dirname`等  
-
->* `path`模块中的`resolve`方法,用于获取目录的路径.
-  >* 可以传任意多的字符,返回一个绝对路径地址
-  >* 如果第一个参数是`__dirname`,一样的效果
->* `__dirname`获取到当前文件下的绝对路径,文件名后缀不包括当前文件
->* `__filename`获取到当前文件下的绝对路径,文件名后缀包括当前文件
-
-```ts
-const path = require("path")
-//这两个是一样的
-console.log(path.resolve("src"))
-console.log(path.resolve(__dirname,"src"))
-```
-
-> `path.basename()`:返回路径的最后一部分. 第二个参数可以过滤掉文件的扩展名
-
-```js
-console.log(path.basename("/source/_posts/axios.md",".md"))
-//axios
-console.log(path.basename("/source/_posts/axios.md"))
-//axios.md
-```
-
 > 在`tsconfig.json`中配置路径别名:`compilerOptions`中配置两个选项:`baseUrl`和`paths`
 
 * 设置baseUrl不会影响相对模块导入,因为它们始终相对于导入文件进行解析
