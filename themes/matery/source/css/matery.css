@@ -2870,3 +2870,7 @@ body.DarkMode #stars3:after {
     466px 1120px #fff, 140px 1675px #fff, 1919px 664px #fff, 1136px 771px #fff,
     1888px 1302px #fff;
 }
+
+html{
+  overflow-y: hidden;
+}
