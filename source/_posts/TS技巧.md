@@ -157,3 +157,108 @@ summary: tsconfig.json 配置技巧
    /// <reference types="vite/client" />
    ...
    ```
+
+## TS模块化开发
+
+* TypeScript的两种支持
+  * 模块化:每个文件可以是一个独立的模块,支持ES Module,也支持CommonJS
+  * 命名空间:通过`nampspace`来声明一个命名空间
+
+### 命名空间
+
+>在TypeScript早期时,称之为内部模块,主要是将一个模块内部再惊醒作用域的划分,防止命名冲突
+
+* 命名空间是在 Web 应用程序中构建代码的好方法，所有依赖项都作为\<script>标签包含在 HTML 页面中
+
+```ts
+export namespace price {
+  export function format(price: number) {
+    return "99.99"
+  }
+}
+```
+
+### 类型查找
+
+* 另外的一种`typescript`文件：`.d.ts`文件
+  * 通常的`TypeScript`文件都是以`.ts`文件输出
+  * 另外一种`.d.ts`文件按,是用来做类型的声明`declare`.(仅仅是用来做类型监测,告知typescript有哪些类型)
+* 三种类型声明
+  * 内置类型声明
+  * 外部定义类型声明
+  * 自己定义类型声明
+
+#### 内置类型声明
+
+* 内置类型声明是`typescript`自带的,帮助我们内置了`JavaScript`运行时的一些标准化API的声明文件
+  * 包括比如`Math,Date`等内置类型，也包括`DOM API`，比如`Window`,`Document`等
+* 内置类型声明通常在我们安装typescript的环境中会带有的:
+  * <https://github.com/microsoft/TypeScript/tree/main/lib>
+
+#### 外部定义类型声明
+
+* 外部类型声明通常是我们使用一些库(比如第三方库)时，需要的一些类型声明
+  * 在自己库中进行类型声明(编写`.d.ts`文件)，比如`axios`
+  * 通过社区的一个公有库`DefinitelyTyped`存放类型声明文件
+    * 该库的GitHub地址:<https://github.com/DefinitelyTyped/DefinitelyTyped/>
+    * 该库查找声明安装方式的地址:<https://www.typescriptlang.org/dt/search?search>=
+    * 比如我们安装react的类型声明: `npm i @types/react --save-dev`
+
+#### 自定义声明
+
+> 何时使用自定义声明
+
+1. 我们使用的第三方库是一个纯的JavaScript库，没有对应的声明文件:比如lodash
+2. 我们给自己的代码中声明一些类型，方便在其他地方直接进行使用
+
+> 变量-函数-类的声明
+
+```ts
+declare let whyHeight: number
+declare function whyFoo(): void
+declare class Person {
+  name: string
+  age: number
+  constructor(name: string, age: number)
+}
+```
+
+> 声明模块
+
+* 我们也可以声明模块，比如lodash模块默认不能使用的情况
+* 声明模块的语法: `declare module '模块名' {}`
+  * 在声明模块的内部，我们可以通过 `export` 导出对应库的类、函数等
+
+```ts
+declare module 'lodash' {
+  export function join(arr: any[]): void
+}
+```
+
+> 声明文件
+
+* 在开发中我们使用了 jpg 这类图片文件，默认`typescript`也是不支持的，也需要对其进行声明
+
+```ts
+declare module "*.jpg"{
+  const src:string
+  export default src
+}
+```
+
+> 在我们构建vue项目时,vue会自己初始化一个`shimes-vue.d.ts`文件
+
+* 其中vue的`.d.ts`文件并没有构建其他的全局属性(或者自己添加的),所以如果要使用,最好加上去
+
+```ts
+declare module '*.vue' {
+  import type { DefineComponent } from 'vue'
+  const component: DefineComponent<{}, {}, any>
+  export default component
+}
+
+declare module '*.json'
+//暴露两个全局属性
+declare const $store: any
+declare const $filters: any
+```
