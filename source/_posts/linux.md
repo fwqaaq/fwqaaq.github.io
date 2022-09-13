@@ -345,3 +345,15 @@ systemctl restart docker
    ```
   
    * 如果要删除某个环境变量,首先使用 `echo $PATH` 获取所有环境变量,然后使用 `export PATH="..."` 来指定不要删除的环境变量(排除删除的即可)
+
+## scp
+
+> 假设我们有两台主机 A and B,但是我们现在在主机 A 中
+
+1. 如果我们想要将主机 A 的文件拷贝到主机 B
+
+   ```bash
+   $scp -r local_folder remote_username@remote_ip:remote_folder
+   # 如果已经有对方公钥的情况
+   $scp -r local_folder remote_ip:remote_folder
+   ```
