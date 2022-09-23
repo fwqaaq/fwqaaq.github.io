@@ -357,3 +357,97 @@ systemctl restart docker
    # 如果已经有对方公钥的情况
    $scp -r local_folder remote_ip:remote_folder
    ```
+
+## curl
+
+> 使用 `curl url` 可以返回对方的响应地址, 默认是 get 请求
+
+```bash
+curl 'https://s1.hdslb.com/bfs/seed/bplus-common/icon-font/2.1.2/bp-icon-font.css' 
+```
+
+* 如果需要发送 post 请求， 需要 `curl -X -POST url` 来发送，当然也可以将 X 和 POST 合起来写 `-XPOST`
+  * 如果要返回数据，需要添加 -d 标志
+
+```bash
+# 添加 json 格式的数据
+curl -XPOST url -d '{"fw":"me"}'
+```
+
+* 更新数据 `-XPUT`
+
+```bash
+curl -XPUT url -d '{"update":"更新数据"}'
+```
+
+* 删除数据 `-XDELETE`
+
+> 如果我们需要添加 header 信息，需要使用 `-H` 选项
+
+```bash
+# 如果需要多个 header，可以添加多个 -H，例如 -H ... -H ...
+curl -XPOST url -H 'Content-Type:application/json' -d '{"fw":"me"}'
+```
+
+* 如果我们想要获取到响应的 header 信息，可以使用 `curl -I url`
+
+```bash
+curl -I 'https://s1.hdslb.com/bfs/seed/bplus-common/icon-font/2.1.2/bp-icon-font.css'
+```
+
+> 如果目标端有资源需要处理，需要使用 `curl -O url`, 会将资源直接下载到当前的目标的文件夹中
+
+```bash
+curl -O 'https://s1.hdslb.com/bfs/seed/bplus-common/icon-font/2.1.2/bp-icon-font.css'
+```
+
+* 当然，如果使用 `-o filename` 就可以修改文件名
+
+```bash
+curl -o fw.css 'https://s1.hdslb.com/bfs/seed/bplus-common/icon-font/2.1.2/bp-icon-font.css'
+```
+
+* 如果下载大文件，并且想要限制速度，可以使用 `--limit-rate 速度` (不设置单位默认是**字节**)
+
+```bash
+curl --limit-rate 100k -o fw.css 'https://s1.hdslb.com/bfs/seed/bplus-common/icon-font/2.1.2/bp-icon-font.css'
+```
+
+* 如果下载中止（可能是<kbd>ctrl</kbd>+<kbd>c</kbd>）这时候可以使用 `-C 其它命令`
+
+```bash
+#因为这里不需要其他参数，所以 -C 后跟 -
+curl -C - -o fw.css 'https://s1.hdslb.com/bfs/seed/bplus-common/icon-font/2.1.2/bp-icon-font.css'
+```
+
+> curl 默认不会跟着重定向
+
+* 为了跟着重定向，我们需要使用 `-L`
+
+```bash
+curl https://www.bilibili.com -L
+```
+
+> 如果想要查看连接的所有信息，需要使用 `-v`
+
+```bash
+curl -v https://www.bilibili.com -L
+```
+
+* 使用代理去请求（`--proxy`），一般情况下，这个都是需要账户和密码的
+
+```bash
+curl --proxy "https://xxx@ip:port" url
+```
+
+* 如果是 ftp 协议，需要用户名和密码，那么就可以用小写的 `-u` 来指定
+
+```bash
+curl -u user:password -O ftp://server/xxx
+```
+
+* 如果上传文件，需要增加 `-T` 后面跟着文件名
+
+```bash
+curl -u user:password -T file ftp://server/xxx
+```
