@@ -451,3 +451,17 @@ curl -u user:password -O ftp://server/xxx
 ```bash
 curl -u user:password -T file ftp://server/xxx
 ```
+
+## alias
+
+设置别名
+
+```bash
+alias rm="rm i"
+```
+
+取消别名
+
+```bash
+unalias rm
+```
