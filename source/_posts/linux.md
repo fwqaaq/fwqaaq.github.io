@@ -465,3 +465,31 @@ alias rm="rm i"
 ```bash
 unalias rm
 ```
+
+## 命令历史
+
+查看所有命令历史
+
+```bash
+history
+```
+
+查看上一条命令
+
+```bash
+!!
+```
+
+## 快捷键
+
+* ctrl + a 移动到行首
+* ctrl + e 移动到行尾
+* ctrl + u 删光所有字符
+* ctrl + k 删除光标之后到
+* ctrl + l 清空屏幕终端的内容
+
+## 文本处理工具
+
+1. grep: 文本过滤工具（模式：pattern）
+2. sed: stream editor；文本编辑工具
+3. awk: 文本报告生成器（支持格式化文本）

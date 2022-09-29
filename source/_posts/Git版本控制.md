@@ -139,6 +139,7 @@ summary: 使用git进行代码的版本控制
 1. `git remote –v`:查看远程版本库信息
 2. `git remote show origin`:查看远程仓库的信息
 3. `git remote set-url origin git@...`:更改远程仓库地址(ssh)
+4. `git remote add origin git@...`:增加远程仓库地址(ssh)
 
 > `git branch -r`:查看远程分支
 
