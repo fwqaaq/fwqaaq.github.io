@@ -241,12 +241,8 @@ MutationObserver.observe(dom, options)
 
 ````js
 const ResizeObserver = new ResizeObserver(callback)
-resizeObserver.observe(target,options?);
+resizeObserver.observe(target);
 ````
-
-* options是一个指定观察设置的可选参数对象.目前只有一个可设置的选项
-  * `box`:设置观察者将以哪种盒子模型来观察变动
-  * 可以设置为`content-box`(默认值),`border-box`或者`device-pixel-content-box`
 
 #### Resize回调函数
 
