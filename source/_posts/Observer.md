@@ -241,8 +241,17 @@ MutationObserver.observe(dom, options)
 
 ````js
 const ResizeObserver = new ResizeObserver(callback)
-resizeObserver.observe(target);
+resizeObserver.observe(target, options?);
 ````
+
+* `box`
+  * `content-box`: 默认值。CSS 中定义的内容区域的大小。
+  * `border-box`: CSS 中定义的边框区域的大小。
+  * `device-pixel-content-box`: 在对元素或其祖先应用任何 CSS 转换之前，CSS 中定义的内容区域的大小，以设备像素为单位
+
+```js
+resizeObserver.observe(target,{box:"content-box"})
+```
 
 #### Resize回调函数
 
