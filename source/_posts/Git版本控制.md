@@ -15,6 +15,13 @@ summary: 使用git进行代码的版本控制
 - 检查配置信息 `git config --list`
 - `git init` 生成仓库
 
+> 生成 ssh 密钥
+
+```bash
+# 使用的是 rsa 密钥
+ssh-keygen -t rsa
+```
+
 ### 区域
 
 >工作区,暂存区,版本库

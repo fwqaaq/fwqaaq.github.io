@@ -161,7 +161,37 @@ chmod 770 filename # rwxrwx---
 
 ### 账号管理
 
-* 使用root账户去管理
+* 以下都需要 root 权限
+
+>一些云服务器会限制使用 root 或者**密码登录**，这时候我们需要更改它的默认配置
+
+1. 切换到 root 权限中, 进入 sshd_config 配置文件中
+
+    ```bash
+    sudo -i
+    cd /etc/ssh/sshd_config
+    ```
+
+2. 修改 sshd_config 配置文件
+
+   ```bash
+   # Authentication:
+   PermitRootLogin yes //默认为no，需要开启root用户访问改为yes
+   # Change to no to disable tunnelled clear text passwords
+   PasswordAuthentication yes //默认为no，改为yes开启密码登陆
+   ```
+
+3. 重新开启 sshd 服务
+
+   ```bash
+   systemctl sshd restart
+   ```
+
+4. 在 root 权限下更改 user 的密码
+
+   ```bash
+   passwd user
+   ```
 
 > 添加用户:`useradd -选项 用户名`
 
