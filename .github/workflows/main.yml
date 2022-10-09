@@ -24,7 +24,7 @@ jobs:
           version: 7
       - name: install pkg
         run: |
-          pnpm install
+          pnpm install --no-frozen-lockfile
           mv renderer.js node_modules/.pnpm/hexo-renderer-marked@5.0.0/node_modules/hexo-renderer-marked/lib/renderer.js
       - name: build app
         run: pnpm run build
