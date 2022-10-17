@@ -184,7 +184,9 @@ chmod 770 filename # rwxrwx---
 3. 重新开启 sshd 服务
 
    ```bash
-   systemctl sshd restart
+   systemctl restart sshd
+   # 或者是 ssh
+   # systemctl restart ssh
    ```
 
 4. 在 root 权限下更改 user 的密码
