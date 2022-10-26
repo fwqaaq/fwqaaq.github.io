@@ -171,6 +171,24 @@ ssh-keygen -t rsa
    - `git pull origin`
 2. `git pull origin master:bro`:将远程仓库origin的master分支拉取与本地的bro分支合并
 
+> 同步远程分支
+
+- 假设我们现在在 main 分支（主分支上）
+
+```shell
+# 首先取回远程分支 dev，并跟踪
+git fetch origin dev
+```
+
+- 然后我们创建新的本地分支，并同步
+
+```shell
+# 创建本地分支 
+git checkout -b dev
+# 同步（合并）远程分支
+git rebase origin/dev
+```
+
 #### 分支注意
 
 - 在切换的时候一定要保证当前分支是干净的！！！
