@@ -85,9 +85,9 @@ summary: 发布一个属于自己的npm
    ```json
    {
       "keywords": [
-      "test",
-      "npm",
-      "app"
+        "test",
+        "npm",
+        "app"
       ]
    }
    ```
@@ -101,7 +101,7 @@ summary: 发布一个属于自己的npm
    >`main`:程序的主要入口点.一般用于require的引入
    * 也就是说,如果您的包被命名为foo,并且用户安装了它,然后会执行`require("foo")`,则将返回主模块的exports 对象
 
-   >`module`:一般是esm模块的入口点,用于import的引入
+   >`module`:一般是 esm 模块的入口点,用于 import 的引入
    * 如果包module被命名为foo,用户安装之后,然后执行`import...from "foo"`,会返回主模块
 
    > `author`:作者信息
@@ -116,7 +116,7 @@ summary: 发布一个属于自己的npm
       }
       ```
 
-   2. 以`author`合并展示
+   2. 以 `author` 合并展示
 
       ```json
       {
@@ -137,6 +137,16 @@ summary: 发布一个属于自己的npm
       "files":[
          "dist"
       ]
+   }
+   ```
+
+   > `engines`: 用于规范 node 的版本
+
+   ```json
+   {
+      "engines":{
+         "node": ">=18"
+      }
    }
    ```
 
@@ -245,6 +255,8 @@ Sets tag 'latest' if no --tag specified
 * 对于`package.json`文件最好把项目放置在源文件`src`中,此时只需要配置打包生成的目录上传包就可以了
 
 ```json
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts"
+"main": "dist/index.js",
+"types": "dist/index.d.ts"
 ```
+
+> 如果想要打包 mjs、cjs 等不同格式的资源，[请移步](./npm.md#module-导入导出)
