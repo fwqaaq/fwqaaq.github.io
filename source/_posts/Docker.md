@@ -617,7 +617,7 @@ CMD "/bin/bash"
 * 有三种用法:
   1. shell格式的形式:例如`npm install`.命令默认是在`/bin/sh -c`下执行的.
 
-     ```dockerFile
+     ```Dockerfile
      FROM centos
      ...
      CMD echo "hello"
@@ -683,6 +683,15 @@ CMD /usr/local/apache-tomcat-9.0.58/bin/startup.sh && tail -F /usr/local/apache-
 
 ```shell
 docker run -d -p 3401:8080 --name diytomcat01 -v /home/tomcat/test:/usr/local/apache-tomcat-9.0.58/webapps/test -v /home/tomcat/logs:/usr/local/apache-tomcat-9.0.58/webapps/logs diytomcat
+```
+
+> 如果我们构建时想要忽略一些文件，我们需要使用 `.dockerignore`
+
+```dockerignore
+node_modules
+.git
+Dockerfile
+.gitignore
 ```
 
 ## 发布镜像
