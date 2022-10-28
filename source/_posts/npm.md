@@ -1,4 +1,13 @@
-# 使用 npm
+---
+title: 使用 npm
+date: 2022-10-16 14:54:05
+categories: config
+tags: 
+   - JS
+   - npm
+   - config
+summary: 关于 npm 的使用
+---
 
 ## 关于代理
 

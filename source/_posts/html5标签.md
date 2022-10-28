@@ -4,7 +4,7 @@ date: 2021-10-31 21:15:40
 author: Jack-zhang
 categories: JS
 tags:
-   - html
+   - HTML
    - JS
 summary: html5的规范
 ---
