@@ -207,6 +207,79 @@ git rebase origin/dev
   - `git stash pop`=`git stash apply+git stash drop`
   - `git stash list`:查看存储
 
+## Cherry-pick
+
+> 此命令用于多分支的代码仓库，可以将代码从一个分支转移到另一个分支。如果，你需要另一个分支的所有代码改动，那么就需要使用 `merge` 或者 `rebase`。如果你只需要部分变动（某几个提交），那么就需要使用 cherry-pick
+
+- 如果你使用的命令指定的是 commit 的 hash，那么就会将指定的 commit hash 应用于当前分支。<span style="color:red">当前分支会产生一个新的 commit，它们的 hash 值会不一样</span>
+
+   ```shell
+   # 以下示例，在真正写的时候都不需要带 <>
+   git cherry-pick <commit-hash>
+   ```
+
+- 如果你使用的命令参数是**分支名**，那么将表示转移该分支的最新提交
+
+   ```shell
+   # 例： main 分支将增加 dev 分支的最新提交
+   git cherry-pick dev
+   ```
+
+- 一次也可以应用多个提交到此分支
+
+   ```shell
+   git cherry-pick <commit-hashA> <commit-hashB> #...
+   # 你也可以转移一系列提交, hashA 必须早于 hashB，否则会失败
+   git cherry-pick <hashA>..<hashB>
+   # 上面的写法不会包含 hashA，如果你想包含 hashA，使用 ^
+   git cherry-pick ^<hashA>..<hashB>
+   ```
+
+> 常见的提交参数
+
+1. `-e`：打开外部编辑器，编辑提交信息
+2. `-n`: 只更新工作区和暂存去，不产生新提交
+3. `-x`: 在提交信息的末尾追加<sapn style="color:red">cherry picked from commit ...</sapn>。方便日后信息查找
+4. `-s`: 在提交信息的末尾追加操作者的签名
+5. `-m parent-number`: 如果原始提交是一个合并节点，来自于两个分支的合并，那么 cherry-pick 默认将失败。`-m` 告诉 git 将采用哪一个分支。它的参数 parent-number 是从 1 开始的参数，表示原始提交的父分支的参数
+   - 1 号分支是**接受变动**的分支，2 号分支是作为**变动来源**的分支
+
+   ```shell
+   git cherry-pick -m 1 <commit-hash>
+   ```
+
+> 解决冲突
+
+- 用户解决冲突之后，首先使用 `git add .` 将修改保存到暂存区，然后使用 `git cherry-pick --continue` 继续执行
+- 如果使用 `--abort`，那么就会放弃合并，回到操作之前到样子
+- 如果使用 `--quit`，表示发生代码冲突，退出 cherry-pick，但是回不到操作前到样子
+
+>也可以获取其它仓库的提交
+
+1. 设置其它仓库为远程仓库
+
+   ```shell
+   git remote add upstaream git://gitUrl
+   ```
+
+2. 同步远程仓库的远程分支
+
+   ```shell
+   git fetch upstream main
+   ```
+
+3. 查看取回的 hash 值
+
+   ```shell
+   git log upstream/main
+   ```
+
+4. 使用 cherry-pick 转移提交
+
+   ```shell
+   git cherry-pick <commit-hash>
+   ```
+
 ## tag
 
 > git可以对某个版本打上标签(tag),表示本版本为发行版
