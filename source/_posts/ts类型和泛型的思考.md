@@ -321,7 +321,48 @@ function test<T>(a: T, b: T, c: T) {
 type getType = ReturnType<typeof test>
 ```
 
-## typeof和infer
+### Record
+
+> 实现，K 只能是 number、string、symbol 三个类型之一，T 可以是任意的类型
+
+```ts
+type Record<K extends keyof any, T> = {
+    [P in K]: T;
+};
+```
+
+> 通过指定的键组合成一个新的对象类型
+
+```ts
+type foo = {
+  name: string
+  age: number
+  heigh: string
+}
+
+type x = Record<keyof foo, string>
+// type x = {
+//   name: string
+//   age: string
+//   heigh: string
+// }
+```
+
+### NonNullable
+
+> 排除 null 和 undefined 类型
+
+```ts
+type u = NonNullable<null> // never
+```
+
+> 实现
+
+```ts
+type NonNullable<T> = T & {};
+```
+
+## typeof 和 infer
 
 > ts中的`typeof`和js中的`typeof`是有区别的
 
@@ -349,7 +390,7 @@ interface IPerson {
   age: number;
 }
 
-type person<T>= T extends infer v ? v : never
+type person<T> = T extends infer v ? v : never
 
 const Person:person<IPerson>={
   name:"string",
@@ -358,9 +399,19 @@ const Person:person<IPerson>={
 ```
 
 * 这里看`T`和待推导泛型`v`是否是类型符合,如果符合,就返回v,否则`never`
-* 简单来说就是,泛型T和待推导v元素是不是都是相同的类型写法
-* 这里将T和v进行对比,T符合v的位置,返回待推导v即T
-* 再举一个例子:`<T[]>`和`(infer v)[]`类型也是符合
+* 简单来说就是,泛型 T 和待推导 v 元素是不是都是相同的类型写法
+* 这里将T和v进行对比,T 符合v的位置,返回待推导 v 即 T
+* 再举一个例子:`<T[]>` 和 `(infer v)[]` 类型也是符合
+
+* 在 4.8 版本之后，可以直接使用 extends 关键字对 infer 推导的结果进行约束
+
+```ts
+type SomeNum = "100" extends `${infer U extends number}` ? U : never;
+// 100
+
+type SomeBigInt = "100" extends `${infer U extends bigint}` ? U : never;
+// 100n
+```
 
 > 参考:<https://zhuanlan.zhihu.com/p/361968852>
 
