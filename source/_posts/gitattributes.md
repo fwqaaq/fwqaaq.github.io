@@ -49,3 +49,31 @@ summary: 如何编写 .gitattributes 文件
 ```
 
 参考: <https://www.cnblogs.com/kidsitcn/p/4769344.html>
+
+### [linguist-language](https://github.com/github/linguist/blob/master/docs/overrides.md)
+
+> github 仓库中一般会对项目使用的语言进行自动统计
+
+* 例如，我们想将 ts 计入 js 中一起进行统计
+
+   ```bash
+   *.ts linguist-language=js
+   ```
+
+* 或者我们想检测某种语言（例如，markdown），默认是可检测的（`true`）
+
+   ```bash
+   *.md linguist-detectable=false 
+   ```
+
+* 如果不想统计某个文件夹（或者文件），如果是文件夹，强制尾随 `*`
+
+   ```bash
+   test/* linguist-vendored
+   # 将覆盖引用于指定文件
+   a.md -linguist-vendored
+   # 将覆盖引用于指定文件和文件夹
+   src/** linguist-vendored
+   ```
+
+* `linguist-documentation` 忽略某个文件，与👆用法一致
