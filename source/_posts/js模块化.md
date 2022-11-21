@@ -238,3 +238,19 @@ async function main(){
 }
 main()
 ```
+
+### 导入断言
+
+#### 静态导入
+
+ ```js
+ import json from "./package.json" assert {type: "json"}
+ // 导入 json 文件中的所有对象
+ ```
+
+#### 动态导入
+
+ ```js
+ const json = 
+      await import("./package.json", { assert: { type: "json" } })
+ ```

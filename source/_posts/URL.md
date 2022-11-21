@@ -147,3 +147,5 @@ console.log(...params.values())
 params.toString()
 //'bar=2&foo=4'
 ```
+
+### data:url

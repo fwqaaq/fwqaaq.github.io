@@ -149,3 +149,25 @@ const foo = require("pro/foo")
 //es
 import foo from "pro/foo"
 ```
+
+## .npmrc
+
+> pnpm 会从命令行、环境变量和 `.npmrc` 文件中获取配置，使用 `pnpm config` 可用于更新和编辑用户和全局的 `.npmrc` 文件
+
+参考:<https://pnpm.io/zh/npmrc>
+
+* 每个项目的配置文件（/path/to/my/project/.npmrc）
+* 每个工作区的配置文件（包含 pnpm-workspace.yaml 文件的目录）
+* 每位用户的配置文件（ ~/.npmrc ）
+* 全局配置文件（ /etc/npmrc ）
+
+### 一些配置
+
+* `shamefully-hoist`: 默认情况下，pnpm 会创建一个半严格的 `node_modules`，这意味着依赖项可以访问那些未声明的依赖项，但是除了 `node_modules` 之外的模块不行，某些工具仅在提升的一来想位于根目录才会有效，因次我们可以设置它为 `true`。
+* 我们也可以设置指定的镜像源
+
+   ```config
+   // .npmrc
+   registry=https://registry.npm.taobao.org
+   ```
+
