@@ -171,3 +171,43 @@ import foo from "pro/foo"
    registry=https://registry.npm.taobao.org
    ```
 
+## pnpm-workspace
+
+> 参考: <https://pnpm.io/zh/workspaces>
+
+使用 pnpm-workspace.yaml 文件可以配置多个工作目录
+
+   ```yaml
+   packages:
+     # packages/ 目录下的所有子目录
+     - 'packages/*'
+     # components/ 目录下的所有子目录
+     - 'components/**'
+     # 排除 test 目录 
+     - '!**/test/**'  
+   ```
+
+* 我们可以在 vue/core 中的 package.json 看到以下的引用（`workspace:*`, `workspace:~` 或 `workspace:^`）
+
+   ```json
+   {
+     "devDependencies": {
+       "@vue/reactivity": "workspace:*",
+       "@vue/runtime-core": "workspace:*",
+       "@vue/runtime-dom": "workspace:*"
+     }
+   }
+   ```
+
+  * 在同一个 Monorepo 仓库的包会转换为相同的版本,可能会像以下这样的版本
+
+   ```json
+   {
+     "devDependencies": {
+       "@vue/reactivity": "3.2.45",
+       "@vue/runtime-core": "3.2.45",
+       "@vue/runtime-dom": "3.2.45"
+     }
+   }
+   ```
+
