@@ -649,6 +649,21 @@ CMD "/bin/bash"
 * 如果需要提供默认的命令或在docker容器运行时可以从命令行覆盖的参数时,使用`CMD`
 * 最好的选择是使用`exec`,而不是shell命令
 
+### 上下文
+
+```bash
+docker build -t nginx:v3 .
+```
+
+* 通常最后的路径就是指定的上下文，并不是 Dockerfile 文件所在的位置，而是打包 Dockerfile 文件内容中的位置
+* 类似于 `.` 这样的，就是 docker build 所执行的位置为路径打包
+
+```Dockerfile
+COPY ./package.json /app/
+```
+
+* 如果需要指定 Dockerfile 位置，`-f ../Dockerfile`，当然它也可以是别的名称
+
 ### 自己手动配置tomcat的Dockerfile
 
 >首先编写`Dockerfile`
