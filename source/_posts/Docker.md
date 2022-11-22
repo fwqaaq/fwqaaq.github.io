@@ -574,6 +574,7 @@ CMD ["/bin/bash"]
 | ONBUILD            | 构建一个被继承的`DockerFile`就会运行`ONBUILD`指令,触发指令                    |
 | COPY               | 类似ADD,将文件拷贝到镜像中                                                    |
 | ENV                | 构建的时候生成环境变量                                                        |
+| SHELL              | 指定 `RUN`、`ENTRYPOINT`、`CMD` 指令的 shell                                  |
 
 >构建centos
 
@@ -586,10 +587,8 @@ WORKDIR ${MYPATH} # 进入容器之后的工作目录
 RUN yum -y install vim # 添加工具
 RUN yum -y install net-tools # 添加工具
 EXPOSE 80 # 暴露端口
-CMD echo $MYPATH
-CMD echo "---------"
 CMD /bin/bash
-
+# SHELL ["/bin/sh", "-c"] linux 默认是此命令
 # 2.通过这个构建镜像
 # 命令 docker build -f (构建的DockerFile文件) -t (输出的镜像名) .
 
@@ -664,49 +663,57 @@ COPY ./package.json /app/
 
 * 如果需要指定 Dockerfile 位置，`-f ../Dockerfile`，当然它也可以是别的名称
 
-### 自己手动配置tomcat的Dockerfile
+### ONBUILD
 
->首先编写`Dockerfile`
+>将项目相关的指令加上 ONBUILD，这样在构建基础镜像的时候，这三行并不会被执行
 
-```shell
-FROM centos
-LABEL name="fw" mail="zyj17715640603@gmail.com"
-COPY  README.md /usr/local/README.md
-ADD jdk-17_linux-x64_bin.tar.gz /usr/local
-ADD apache-tomcat-9.0.58.tar.gz /usr/local
-
-RUN yum -y install vim
-
-ENV MYPATH  /usr/local
-
-WORKDIR ${MYPATH}
-
-ENV JAVA_HOME=/usr/local/jdk-17.0.2
-
-ENV CATALINA_HOME /usr/local/apache-tomcat-9.0.58
-ENV CATALINA_BASH /usr/local/apache-tomcat-9.0.58
-# :代表把之前的路径也加入搜索路径(也就是分割符),windows是 ;
-ENV PATH  $PATH:${JAVA_HOME}/bin:${CATALINA_HOME}/lib:${CATALINA_HOME}/bin
-
-EXPOSE 8080
-
-CMD /usr/local/apache-tomcat-9.0.58/bin/startup.sh && tail -F /usr/local/apache-tomcat-9.0.58/bin/logs/catalina.out
+```Dockerfile
+FROM node:slim
+RUN mkdir /app
+WORKDIR /app
+ONBUILD COPY ./package.json /app
+ONBUILD RUN [ "npm", "install" ]
+ONBUILD COPY . /app/
+CMD [ "npm", "start" ]
 ```
 
-* 构建:`docker build -t diytomcat .`
-* 启动:`tomcat`
+> 然后各个项目的 Dockerfile 就变成了简单地：
 
-```shell
-docker run -d -p 3401:8080 --name diytomcat01 -v /home/tomcat/test:/usr/local/apache-tomcat-9.0.58/webapps/test -v /home/tomcat/logs:/usr/local/apache-tomcat-9.0.58/webapps/logs diytomcat
+```Dockerfile
+FROM my-node
 ```
 
-> 如果我们构建时想要忽略一些文件，我们需要使用 `.dockerignore`
+### 构建 Dokerfile
 
-```dockerignore
-node_modules
-.git
-Dockerfile
-.gitignore
+> Dockerfile 中每一个指令都会建立一层，RUN 也不例外。所以我们尽量在一层做每一层该做的事，并且一定要确保每一层只添加真正需要添加的东西，任何无关的东西都应该清理掉
+
+* 不要忘记每一层构建的最后一定要清理掉无关文件
+
+```Dockerfile
+FROM debian:stretch
+
+RUN set -x; buildDeps='gcc libc6-dev make wget' \
+    && apt-get update \
+    && apt-get install -y $buildDeps \
+    && wget -O redis.tar.gz "http://download.redis.io/releases/redis-5.0.3.tar.gz" \
+    && mkdir -p /usr/src/redis \
+    && tar -xzf redis.tar.gz -C /usr/src/redis --strip-components=1 \
+    && make -C /usr/src/redis \
+    && make -C /usr/src/redis install \
+    && rm -rf /var/lib/apt/lists/* \
+    && rm redis.tar.gz \
+    && rm -r /usr/src/redis \
+    && apt-get purge -y --auto-remove $buildDeps
+```
+
+>容器构建时，我们不能将它简单的使用 systemctl 或者 service 这类守护进程后台运行。
+
+对于容器而言，其启动程序就是容器应用进程，容器就是为了主进程而存在的，主进程退出，容器就失去了存在的意义
+
+所以正确的做法是在前台执行可执行文件
+
+```Dockerfile
+CMD ["nginx", "-g", "daemon off;"]
 ```
 
 ## 发布镜像
