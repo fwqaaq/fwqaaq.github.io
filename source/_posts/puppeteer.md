@@ -93,24 +93,47 @@ const findChrome = require("./node_modules/carlo/lib/find_chrome");
 
 1. 首先打开chrome的快捷方式,在目标后输入`--remote-debugging-port=9222`.大概是下面这样
 
->`"C:\Program Files\Google\Chrome\Application\chrome.exe" --remote-debugging-port=9222`
->
->切记exe后面一定要有空格,这种方式也有缺点,可能会有连接不上的时候
->
->他的url在:`http://localhost:9222/json/version`,可能打开浏览器两三次才会有连接
+   >`"C:\Program Files\Google\Chrome\Application\chrome.exe" --remote-debugging-port=9222`
+   >
+   >切记exe后面一定要有空格,这种方式也有缺点,可能会有连接不上的时候
+   >
+   >他的url在:`http://localhost:9222/json/version`,可能打开浏览器两三次才会有连接
 
-```js
-const puppeteer = require('puppeteer-core');
-const axios = require("axios");
-(async () => {
-  const response = await axios.get("http://localhost:9222/json/version")
-  const { webSocketDebuggerUrl } = response.data
-  const browser = await puppeteer.connect({
-    browserWSEndpoint: webSocketDebuggerUrl,
-    defaultViewport: null
-  });
-  const page = await browser.newPage()
-  ...
-  await browser.disconnect();
-})();
-```
+   ```js
+   const puppeteer = require('puppeteer-core');
+   const axios = require("axios");
+   (async () => {
+     const response = await axios.get("http://localhost:9222/json/version")
+     const { webSocketDebuggerUrl } = response.data
+     const browser = await puppeteer.connect({
+       browserWSEndpoint: webSocketDebuggerUrl,
+       defaultViewport: null
+     });
+     const page = await browser.newPage()
+     ...
+     await browser.disconnect();
+   })();
+   ```
+
+2. 一般我们可以使用 cli 命令直接执行，例如在某linux 发行版中
+
+   ```bash
+   # --user-data-dir 你也可以指定它数据的目录
+   ./chrome --remote-debugging-port=9929
+   ```
+
+   * 我们可以自己写一个自动启动脚本
+
+   ```bash
+   #!/usr/bin/env sh
+   cd /opt/google/chrome/ && ./chrome --add-debugging-port=$1
+   ```
+
+   * 一些权限操作
+
+   ```bash
+   chmod +x ./chrome.sh
+   ln ./chrome.sh /bin/chrome
+   ```
+
+   * 使用 `chrome 9929`
