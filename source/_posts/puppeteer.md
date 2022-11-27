@@ -87,9 +87,11 @@ const findChrome = require("./node_modules/carlo/lib/find_chrome");
 
 ## 关于使用
 
-### 使用connect连接
+### 使用 connect 连接
 
 > 启动带有所有插件和账号的chrome
+
+查看 cdp 协议，在 settings > Experiments > Protocol Monitor 打开
 
 1. 首先打开chrome的快捷方式,在目标后输入`--remote-debugging-port=9222`.大概是下面这样
 
