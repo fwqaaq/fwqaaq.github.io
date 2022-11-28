@@ -211,3 +211,31 @@ import foo from "pro/foo"
    }
    ```
 
+## package.json 中的控制版本字段
+
+* `dependencies`:开发版和发布版都需要的依赖
+* `devDependencies`:这些是只在你的包开发期间需要，但是生产环境不会被安装的包
+* `peerDependencies`：对等依赖。意思是如果你需要开发这个库，必须要使用该包指定的依赖（允许,`~`、`^`...）
+* `overrides`:对**依赖项的依赖项**进行特定更改，例如用已知的安全问题替换依赖项的版本
+* `optionalDependencies`:可选依赖可以用于你的包，但不是必需的。如果可选包没有找到，安装还可以继续
+* `bundledDependencies`:打包依赖是发布你的包时将会一起打包的一个包名数组
+
+   ```json
+   {
+     "bundledDependencies": [
+       "package-4"
+     ]
+   }
+   ```
+
+* `peerDependenciesMeta`:它允许对等依赖项标记为可选
+
+   ```json
+   {
+     "peerDependenciesMeta": {
+       "node-sass": {
+         "optional": true
+       }
+     }
+   }
+   ```
