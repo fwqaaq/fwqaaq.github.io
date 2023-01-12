@@ -72,7 +72,7 @@ module.exports = {
 2. plugin里除了自定义的rules.还可以配置config，即自己的代码检查工具，类似配置好的`.eslintrc.js`(例如`"plugin:vue/essential"`),并且这部分可以在extends里配置:`plugin:config`名称
    * 参考:<https://cn.eslint.org/docs/developer-guide/working-with-plugins#configs-in-plugins>
 
-### **rules**:[可以做下面的任何事情以扩展(或覆盖)规则](https://eslint.org/docs/user-guide/configuring/rules):
+### **rules**:[可以做下面的任何事情以扩展(或覆盖)规则](https://eslint.org/docs/user-guide/configuring/rules)
 
 * `"off"或0`- 关闭规则
 * `"warn"或1`- 打开规则作为警告（不影响退出代码）
@@ -98,14 +98,14 @@ module.exports = {
 
 ### extends和plugins的区别
 
-1. 一般对js来说,extends是针对rules做的规则说明,类似于别人配置好的`.eslintrc.js`.而plugins是一堆规则集合 
+1. 一般对js来说,extends是针对rules做的规则说明,类似于别人配置好的`.eslintrc.js`.而plugins是一堆规则集合
 2. extends一般会加载plugin中的配置集,形成一套核心规则
 3. plugin不仅仅可以 对js做扩展,又可以对除了js之外的做扩展
 
 > 在extends中使用[plugins插件](https://cn.eslint.org/docs/developer-guide/working-with-plugins#configs-in-plugins)
 
 * extends里的config和plugin里的config的区别
-  1. `extends`中的config,是一种命名规范,扩展名称格式必须为eslint-config-<name>	
+  1. `extends`中的config,是一种命名规范,扩展名称格式必须为eslint-config-<name>
   2. plugin中的config,是一个属性,用于配置一堆自定义的规则的集合
 
 ### parserOptions
@@ -159,9 +159,9 @@ scripts:{
 
      ```shell
      # 当前目录下所有目录
-     eslint . --ext .ts,.vue
+     eslint --ext .ts,.vue .
      # 忽略扩展名,匹配src下所有文件
-     eslint src/* --ext .vue
+     eslint --ext .vue ./src/**/*
      ```
   
   2. `--rulesdir`:允许你指定另一个加载规则文件的目录。允许你在运行时动态加载新规则。当你有自定义规则绑定到eslint会很有用。
@@ -174,6 +174,14 @@ scripts:{
      * 当代码传递给 ESLint 时，这个选项抛出一个错误。
      * 这个选项对使用处理器的代码不起作用。
      * 该选项对使用处理器的代码没有影响，除非处理器选择允许自动修复
+
+    ```json
+    {
+      "script": {
+         "lint": "eslint --fix --ext .tsx,.ts ."
+      }
+    }
+    ```
 
 > `.eslintignore`文件:eslint会忽略当前目录下的这些文件.
 
