@@ -202,19 +202,20 @@ scripts:{
 >* 使用prettier去规范代码风格
 >* 参考:<https://prettier.io/>
 
-* 下载关于prettier的插件:`npm i -D prettier eslint-plugin-prettier`
+* 下载关于prettier的插件:`npm i -D prettier eslint-plugin-prettier eslint-config-prettier`
 
 ```js
 module.exports={
   "extends":[
   ...,
+  // 用 eslint-config-prettier
   'plugin:prettier/recommended'
   ],
   plugin:["prettier"]// 避免与 prettier 冲突
 }
 ```
 
->配置[`.prettierrc`](https://prettier.io/docs/en/options.html)文件,同时也可以添加`.prettierrc`文件来忽略不想要检查的文件
+>配置[`.prettierrc`](https://prettier.io/docs/en/options.html)文件,同时也可以添加`.prettierignore`文件来忽略不想要检查的文件
 
 ```js
 {
