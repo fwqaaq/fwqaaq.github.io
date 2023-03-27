@@ -117,9 +117,37 @@ git push origin 本地分支 --force-with-lease
 4. `git branch dev`&&`git rebase mer`切换分支并且合并分支
 5. `git push origin dev --force-with-lease`.强制推送到远程仓库,完成撤销的回退
 
-## 压缩提交(squash commits)
+## 修改提交的历史记录
 
-> `squash commits`指将多个提交合并成一个提交
+> git 提供了针对一系列修改历史记录的操作
+
+```bash
+# Commands:
+#  p, pick = use commit
+#  r, reword = use commit, but edit the commit message
+#  e, edit = use commit, but stop for amending
+#  s, squash = use commit, but meld into previous commit
+#  f, fixup = like "squash", but discard this commit's log message
+#  x, exec = run command (the rest of the line) using shell
+#  d, drop = remove commit
+```
+
+操作 | 信息
+---|---
+pick | 使用此提交，保持原样。
+reword | 使用此提交，但编辑提交消息。
+edit | 使用此提交，但停下来让你编辑文件或进行其他操作。
+squash | 将此提交合并到前一个提交中，并将提交消息合并为一条。
+fixup | 类似于 squash，但忽略此提交的提交消息。
+exec | 运行一个命令，将 rest of the line 作为命令参数。
+drop | 删除此提交，从历史记录中完全删除。
+break | 在这里停止（稍后使用 git rebase --continue 继续重新设置基准）
+label \<label> | 为当前提交添加一个标签。
+reset \<label> | 将 HEAD 重置为标签所指向的提交
+
+### 压缩提交(squash commits)
+
+> `squash commits`指将多个提交合并成一个提交。`git rebase` 进入交互模式（`-i`），常用的命令
 
 ```bash
 git rebase --interactive | -i HEAD~[N]
@@ -129,7 +157,7 @@ git rebase --interactive | -i commit_hash_start commit_hash_end
 
 >使用 `commit_hash` 进行提交压缩
 
-* 注意:<span style="color:red">需要去取合并的提交记录的前一次</span>,例如从 commit2,commit3,commit4,commit5,commit6有五次提交记录,我们需要合并commit3,commit4,commit5,commit6那么开始的提交 id 应该是 commit2 的 hash
+* 注意:<span style="color:red">需要去取合并的提交记录的前一次</span>,例如从 commit2,commit3,commit4,commit5,commit6有五次提交记录,我们需要合并commit3,commit4,commit5,commit6 那么开始的提交 id 应该是 commit2 的 hash
 
 1. 需要回退的范围
 
@@ -152,7 +180,7 @@ git rebase --interactive | -i commit_hash_start commit_hash_end
    s 5c2e562 fw6
    ```
 
-2. 显示所有的提交信息,有需要的可以更改
+2. 显示所有的提交信息,有需要的可以更改,如果是使用的 squash,这些信息会合并到上一个信息中
 
    ```bash
    # This is the 1st commit message:
@@ -192,17 +220,6 @@ git rebase -i HEAD~3
 ```
 
 * 注意:这时候 `HEAD指针` 并不会进入游离态
-
-> `git rebase` 进入交互模式(`-i`),常用的命令
-
-| 参数      | 描述                                                          |
-| --------- | ------------------------------------------------------------- |
-| p, pick   | 保留当前commit，默认                                          |
-| r, reword | 保留当前commit，但编辑提交消息                                |
-| e, edit   | 保留当前commit，但停止修改                                    |
-| s, squash | 保留当前commit，但融入上一次提交                              |
-| b, break  | 在这里停止（稍后使用 git rebase --continue 继续重新设置基准） |
-| d, drop   | 删除当前commit                                                |
 
 ## stash
 
