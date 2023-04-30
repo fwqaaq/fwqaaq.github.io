@@ -26,7 +26,7 @@ jobs:
         run: |
           pnpm install --no-frozen-lockfile
       - name: build app
-        run: pnpm run build
+        run: pnpm start
       - name: deploy gh-pages
         uses: crazy-max/ghaction-github-pages@v3.0.0
         with:

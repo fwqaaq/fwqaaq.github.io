@@ -83,9 +83,9 @@ git push origin 本地分支 --force-with-lease
 
 * 在`git fetch`之后需要合并fetch下的分支.需要考虑使用`rebase`和`merge`情况
   * `rebase`会将分支合并到一个分支,不会保留被合并分支的提交记录.保证主分支的纯粹
-    * ![ ](/git/rebase.png)
+    * ![ ](./git/rebase.png)
   * `merge`会将分支合并到一个分支,会保留被合并分支的提交记录
-    * ![ ](/git/merge.png)
+    * ![ ](./git/merge.png)
 * 在开发中尽量选择rebase合并分支,来保证主分支的清晰
 * 继续推送以达到回滚的效果
 
@@ -101,7 +101,7 @@ git push origin 本地分支 --force-with-lease
 
 ### 撤销回退
 
-![ ](/git/resetback.png)
+![ ](./git/resetback.png)
 
 > 如果在回退的时候回退过了怎么办
 
@@ -210,7 +210,7 @@ git rebase --interactive | -i commit_hash_start commit_hash_end
    git branch -D dev
    ```
 
-![ ](/git/squashcommit.png)
+![ ](./git/squashcommit.png)
 
 > 指定压缩的次数 如 `HEAD~3`(压缩前三次提交信息)
 

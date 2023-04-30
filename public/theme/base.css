@@ -1,0 +1,52 @@
+:root{
+  color-scheme:light dark;
+  color: var(--md-anchor-primitive-light);
+  background-color: var(--body-background-color-light);
+
+  --body-background-color-light: #d48852;
+  --code-block-background-light: #7349a1;
+  --md-anchor-primitive-light: #21053e;
+
+  --body-background-color-dark: #21053e;
+  --code-block-background-dark: #3e2350;
+  --md-anchor-primitive-dark: #df7d1b;
+  --md-block-quote-color: rgb(174, 85, 237);
+  --md-block-quote-background-color: rgba(108, 68, 137, 0.496);
+
+  --md-anchor-hover: #016a5a;
+  --md-background-code-inline: #788f859e;
+  --md-color-code-inline: rgba(5, 252, 133, 0.924);
+  --md-color-a-tag-background-color: rgba(152, 206, 186, 0.84);
+}
+
+*{
+  margin: 0%;
+  padding: 0%;
+}
+
+a {
+  text-decoration: none;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    color: var(--md-anchor-primitive-dark);
+    background-color:var(--body-background-color-dark);
+  }
+  svg{filter: invert(1) hue-rotate(180deg)}
+  .code-block{
+    background-color: var(--code-block-background-dark)
+  }
+  a{
+    color: var(--md-anchor-primitive-dark);
+  }
+}
+
+@media (prefers-color-scheme: light) {
+  .code-block {
+    background-color: var(--code-block-background-light);
+  }
+  a {
+    color: var(--md-anchor-primitive-light);
+  }
+}
