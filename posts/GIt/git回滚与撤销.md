@@ -216,10 +216,23 @@ git rebase --interactive | -i commit_hash_start commit_hash_end
 
 ```bash
 git rebase -i HEAD~3
-#...
+# 与压缩提交类似，这里需要改正 edit 或者 e
 ```
 
 * 注意:这时候 `HEAD指针` 并不会进入游离态
+
+### 修改提交信息
+
+> 修改最后一次提交信息
+
+```bash
+# 仅修改提交信息
+git commit --amend --message="modify message"
+# 修改提交信息并提交
+git commit -m --amend "modify and commit"
+```
+
+> 修改其中的某次提交信息
 
 ## stash
 
