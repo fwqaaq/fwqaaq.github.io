@@ -30,7 +30,7 @@ summary: 浏览器自带的bom属性
 
 >注意:布局视口相对于可见视口的概念.可见视口只能显示页面的一小部分.
 
-![浏览器视口](./bom/浏览器视口.png)
+![浏览器视口](https://github.com/fwqaaq/fwqaaq.github.io/raw/dev/posts/JavaScript/bom/浏览器视口.png)
 
 * **移动窗口**(moveTo,moveBy)和**缩放窗口**(resizeTo,resizeBy)方法一般浏览器会禁用
 

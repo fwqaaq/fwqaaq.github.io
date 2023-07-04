@@ -83,13 +83,13 @@ systemctl restart docker
 
 > helloword的运行原理
 
-![run的运行流程](./docker/run的运行流程.png)
+![run的运行流程](https://github.com/fwqaaq/fwqaaq.github.io/raw/dev/posts/Config/docker/run的运行流程.png)
 
 * 工作流程:
   1. Docker是一个Client-Server结构的系统,Docker的守护进程运行在主机上.通过Socket从客户端访问
   2. `DockerServe`接收到`Docker-Client`的指令就会执行这个命令
 
-![docker的工作流程](./docker/工作流程.png)
+![docker的工作流程](https://github.com/fwqaaq/fwqaaq.github.io/raw/dev/posts/Config/docker/工作流程.png)
 
 * docker与虚拟机对比
 
@@ -136,7 +136,7 @@ systemctl restart docker
 * **bootfs(boot file system)**:包含bootloader和kernel.`bootloader`主要加载`kernel`.Linux刚启动会加载bootfs文件系统,在Docker镜像最底层就是bootfs,并且与典型的Linux/Unix系统是一样的,包含bootf加载器和内核.当bootf加载完成之后整个内核就在**内存**中,此时的内存使用权就有bootfs转交给内核,系统卸载bootfs
 * **rootfs(root file system)**:在bootfs之上.包含的就是典型的Linux系统中的`/dev,/bin,/usr`等.rootfs就是不同操作系统的发行版,比如`Ubuntu`,`Centos`等
 
-![ ](./docker/docker镜像加载原理.png)
+![ ](https://github.com/fwqaaq/fwqaaq.github.io/raw/dev/posts/Config/docker/docker镜像加载原理.png)
 
 * 对于精简过的OS(操作系统),rootfs可以很小,只需要最基本的命令.工具和程序库就可以了,底层使用主机的内核就可以了,自己只需要提供rootfs.
 
@@ -146,14 +146,14 @@ systemctl restart docker
    * 例如Centos创建一个新的镜像,此镜像位于第一层,如果在该镜像中加入Python包,就会在基础镜像层上创建第二个镜像层;如果继续添加,就会创建第三个镜像层
 2. 在添加额外镜像的同时,镜像始终保持所有镜像的组合.
    * 例如下图中,每个层中都有三个文件,且保持相互隔离
-![ ](./docker/dcoker中的分层.png)
+![ ](https://github.com/fwqaaq/fwqaaq.github.io/raw/dev/posts/Config/docker/dcoker中的分层.png)
 
 > 特点
 
 1. docker镜像都是只读的,当容器启动,一个新的科协曾被加载到镜像的顶部
 2. 这一层通常是容器层,容器之下都是镜像层
 
- ![docker镜像的特点](./docker/docker镜像的特点.png)
+ ![docker镜像的特点](https://github.com/fwqaaq/fwqaaq.github.io/raw/dev/posts/Config/docker/docker镜像的特点.png)
 
 ### Commit镜像
 
@@ -426,7 +426,7 @@ root                12339               12319    0        15:58               pt
 8. 停止容器:`docker stop nginx01`
 9. 删除指定容器:`docker rm nginx01`
 
-![端口暴露](./docker/端口暴露.png)
+![端口暴露](https://github.com/fwqaaq/fwqaaq.github.io/raw/dev/posts/Config/docker/端口暴露.png)
 
 >安装`tomcat`
 
@@ -550,7 +550,7 @@ CMD ["/bin/bash"]
 3. \# 表示注释
 4. 每一个指令都会创建一个新的镜像层并提交
 
-![dockerFile构建](./docker/dockerFile构建.png)
+![dockerFile构建](https://github.com/fwqaaq/fwqaaq.github.io/raw/dev/posts/Config/docker/dockerFile构建.png)
 
 * `DockerFile`:构建文件,定义步骤,生成源代码
 * `DockerImages`:通过`DockerFile`构建生成的镜像(最终运行和发布)
@@ -811,7 +811,7 @@ CMD ["nginx", "-g", "daemon off;"]
 4. 没有ping包.下载:`apt install iputils-ping`
 5. 再启动一个tomcat,`tomcat01`ping`tomcat02`(发现可以ping通)
 
-![docker网络](./docker/docker网络.png)
+![docker网络](https://github.com/fwqaaq/fwqaaq.github.io/raw/dev/posts/Config/docker/docker网络.png)
 
 1. tomcat01和tomcat02是公用的一个路由器(`docker0`)
 2. 所有的容器再不指定网络的情况下,都是docker0转发的,docker会给所有容器分配一个默认可用的ip
@@ -894,7 +894,7 @@ docker run -it --name centos02 --net mynet centos
 
 ### 网络连通
 
-![docker网络连通](./docker/网络连通.png)
+![docker网络连通](https://github.com/fwqaaq/fwqaaq.github.io/raw/dev/posts/Config/docker/网络连通.png)
 
 >将tomcat加入到mynet网络中`docker network connect mynet tomcat01`
 
