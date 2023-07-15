@@ -31,13 +31,4 @@ export const templateArticle = handleTemplate`
             <h1>${"title"}</h1>
             <hr>
             ${"content"}
-        </article>
-`
-
-export const templateHead = handleTemplate`
-<head>
-    <meta name="description" content="${'summary'}">
-    <meta name="keywords" content="${'keywords'}">
-    <title> ${'title'} </title>
-</head>
-`
+        </article>`

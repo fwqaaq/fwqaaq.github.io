@@ -40,3 +40,14 @@ export const convertToUSA = (date) => {
     month: "short",
   })
 }
+
+export const replaceHead = async (keywords, description, title) => {
+  const res = new TextDecoder().decode(
+    await Deno.readFile(new URL("head.html", import.meta.url)),
+  )
+
+  return res
+    .replace("<!-- keywords -->", keywords)
+    .replace("<!-- description -->", description)
+    .replace("<!-- title -->", title)
+}
