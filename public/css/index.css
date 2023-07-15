@@ -1,0 +1,125 @@
+html,
+body {
+  padding: 0%;
+  margin: 0%;
+  font-size: 18px;
+  scroll-behavior: smooth;
+  background-color: rgb(220, 216, 208);
+}
+
+body {
+  height: 100%;
+}
+
+:root {
+  --header-height: 4rem;
+  --theme-bg: rgba(25, 24, 48);
+  --theme-color: var(--theme-bg);
+  --header-hover: rgba(72, 69, 138, 0.9);
+  --header-color: rgb(240, 238, 233);
+  --node-bg: rgb(110, 165, 94);
+}
+
+a {
+  text-decoration: none;
+}
+
+header {
+  display: flex;
+  height: var(--header-height);
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--theme-bg);
+
+  & a {
+    width: calc(var(--header-height) - 1rem);
+    height: calc(var(--header-height) - 1rem);
+    padding-inline-start: 0.5rem;
+    color: var(--header-color);
+
+    &>img {
+      width: 100%;
+      border-radius: 50%;
+      cursor: pointer;
+
+      &:hover {
+        transform: scale(1.2);
+      }
+    }
+  }
+
+  &>nav {
+    display: flex;
+    height: 100%;
+
+    & a {
+      height: var(--header-height);
+      line-height: var(--header-height);
+      text-align: center;
+      padding: 0 2rem;
+
+      &:hover {
+        background-color: var(--header-hover);
+      }
+    }
+  }
+}
+
+@media (min-width: 45rem) {
+  main {
+    width: 40rem;
+    margin: 4rem auto;
+  }
+}
+
+main .box {
+  &>.tag a {
+    font-size: 14px;
+    font-weight: 800;
+    border: 0.1rem solid rgb(255, 255, 255);
+    padding: 0.1rem 0.6rem;
+    border-radius: 0.3rem;
+    color: var(--theme-color);
+
+    &:nth-child(n+2) {
+      margin-inline-start: 0.5rem;
+    }
+  }
+}
+
+main :where(article, .box) {
+  padding: 0.8rem 1rem;
+  margin-block-start: 1rem;
+  border-radius: 0.5rem;
+  box-shadow: 0rem 0rem 0.4rem rgb(55, 55, 55);
+}
+
+pre {
+  overflow: auto;
+}
+
+main .pages {
+  display: flex;
+  justify-content: space-between;
+  margin-block-start: 4rem;
+}
+
+footer {
+  position: fixed;
+  width: 100vw;
+  bottom: 0%;
+  text-align: center;
+  background-color: var(--theme-bg);
+  color: var(--header-color);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  &:hover a::after {
+    content: attr(data-anchorjs-icon);
+  }
+}

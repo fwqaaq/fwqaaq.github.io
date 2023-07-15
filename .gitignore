@@ -9,6 +9,7 @@ lerna-debug.log*
 
 node_modules
 dist
+deno.lock
 dist-ssr
 *.local
 
