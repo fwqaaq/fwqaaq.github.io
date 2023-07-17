@@ -24,7 +24,7 @@ export const markdown = async (file) =>
         "aria-hidden": "true",
         "data-anchorjs-icon": "🔗",
       },
-      content: { type: 'text', value: '' }
+      content: { type: "text", value: "" },
     })
     .use(rehypeStringify)
     .process(file)

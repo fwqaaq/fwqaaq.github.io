@@ -37,13 +37,18 @@ async function generatePage(
   iterContent,
   isArticle = false,
 ) {
+  if (!await exists(dist)) await ensureFile(dist)
   let index = await replaceHead(keywrods, description, title)
+
   if (isArticle) {
+    const content = Array.isArray(iterContent)
+      ? iterContent.map((iter) =>
+        `<a class="router tag" href="/./${title}/${iter}/">${iter}</a>`
+      ).join("")
+      : iterContent
     index += templateArticle({
       title,
-      content: iterContent.map((iter) =>
-        `<a class="router tag" href="/./${title}/${iter}/">${iter}</a>`
-      ).join(""),
+      content,
     })
   } else {
     index += iterContent.map(({ title, summary, date, tags }) =>
@@ -80,15 +85,14 @@ async function generatePage(
 
     // Handle the posts
     {
-      const article = await replaceHead(tags.join(", "), summary, title) +
-        templateArticle({ title, content: await markdown(md) })
       const timeDir = new URL(`./posts/${handleUTC(date)}/index.html`, dist)
-
-      if (!await exists(timeDir)) await ensureFile(timeDir)
-
-      await Deno.writeFile(
+      await generatePage(
         timeDir,
-        encoder.encode(article),
+        tags.join(", "),
+        summary,
+        title,
+        await markdown(md),
+        true,
       )
     }
 
@@ -102,15 +106,14 @@ async function generatePage(
   metaData.sort((a, b) => b.date - a.date)
 }
 
-// Handle the public
-{
+// Handle the others source
+async function Others() {
+  // Copy the public dir
   await copy(new URL("../public/", src), new URL("./public/", dist), {
     overwrite: true,
   })
-}
 
-// Generate CNAME... File
-{
+  // Handle the CNAME
   const cname = new URL("./CNAME", dist)
   generateSingleFile(cname, "www.fwqaq.us")
 }
@@ -141,7 +144,6 @@ async function Home() {
         ? lastPage
         : Math.floor((index + 1) / 8)
       const process = templateProcess({
-        // When the number of current pages is metasLength, then using Math.ceil
         before: cur > 2 ? `/./home/${cur - 1}/` : "/",
         page: `${cur} / ${lastPage}`,
         after: index === metasLength ? "#" : `/./home/${cur + 1}/`,
@@ -172,15 +174,8 @@ async function Archive() {
   }
 
   for (const k of map.keys()) {
-    const archiveUrl = new URL(`./${k}/`, archiveDest)
-    await ensureDir(archiveUrl)
-    await generatePage(
-      new URL("./index.html", archiveUrl),
-      k,
-      `fwqaaq ~ ${k}`,
-      k,
-      map.get(k),
-      false,
+    const archiveUrl = new URL(`./${k}/index.html`, archiveDest)
+    await generatePage(archiveUrl, k, `fwqaaq ~ ${k}`, k, map.get(k),
     )
   }
 
@@ -205,15 +200,8 @@ async function Tags() {
   }
 
   for (const k of map.keys()) {
-    const tagsUrl = new URL(`./${k}/`, tagsDest)
-    await ensureDir(tagsUrl)
-    await generatePage(
-      new URL("./index.html", tagsUrl),
-      k,
-      `fwqaaq ~ ${k}`,
-      k,
-      map.get(k),
-      false,
+    const tagsUrl = new URL(`./${k}/index.html`, tagsDest)
+    await generatePage(tagsUrl, k, `fwqaaq ~ ${k}`, k, map.get(k),
     )
   }
 
@@ -227,4 +215,4 @@ async function Tags() {
   )
 }
 
-Promise.all([Home(), Archive(), Tags()])
+Promise.all([Home(), Archive(), Tags(), Others()])
