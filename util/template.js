@@ -14,7 +14,7 @@ export const templateBox = handleTemplate`
         <section class="box">
             <h3><a class="router" href="${"place"}">${"title"}</a></h3>
             <p>${"summary"}<span class="time">···········${"time"}</span></p>
-            <div class="tag">
+            <div>
                 ${"tags"}
             </div>
         </section>`

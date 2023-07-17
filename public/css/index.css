@@ -17,11 +17,21 @@ body {
   --theme-color: var(--theme-bg);
   --header-hover: rgba(72, 69, 138, 0.9);
   --header-color: rgb(240, 238, 233);
-  --node-bg: rgb(110, 165, 94);
+  --color-a-link: rgba(0, 93, 73, 0.7);
+  --color-a-link-hover: #005845;
+  --page-width: 45rem;
 }
 
 a {
   text-decoration: none;
+}
+
+article a {
+  color: var(--color-a-link);
+
+  &:hover {
+    color: var(--color-a-link-hover);
+  }
 }
 
 header {
@@ -67,13 +77,15 @@ header {
 
 @media (min-width: 45rem) {
   main {
-    width: 40rem;
+    width: var(--page-width);
     margin: 4rem auto;
   }
 }
 
-main .box {
-  &>.tag a {
+main {
+
+  .box .tag,
+  article .tag {
     font-size: 14px;
     font-weight: 800;
     border: 0.1rem solid rgb(255, 255, 255);
@@ -94,10 +106,6 @@ main :where(article, .box) {
   box-shadow: 0rem 0rem 0.4rem rgb(55, 55, 55);
 }
 
-pre {
-  overflow: auto;
-}
-
 main .pages {
   display: flex;
   justify-content: space-between;
@@ -111,15 +119,4 @@ footer {
   text-align: center;
   background-color: var(--theme-bg);
   color: var(--header-color);
-}
-
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  &:hover a::after {
-    content: attr(data-anchorjs-icon);
-  }
 }

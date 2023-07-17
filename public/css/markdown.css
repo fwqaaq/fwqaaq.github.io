@@ -1,10 +1,62 @@
-h1,
 h2,
 h3,
 h4,
 h5,
 h6 {
-  &:hover a::after {
+  line-height: 1.2;
+  color: rgb(15, 71, 52);
+
+  &:hover a[class="anchor"]::after {
     content: attr(data-anchorjs-icon);
+  }
+}
+
+h1 {
+  text-align: center;
+}
+
+code {
+  background-color: rgba(24, 159, 114, 0.773);
+  padding: 0.1rem 0.3rem;
+  border-radius: 0.25rem;
+  color: rgb(255, 255, 255);
+}
+
+blockquote {
+  border-left: 0.3rem solid rgba(50, 48, 91, 0.759);
+  padding-inline-start: 0.8rem;
+  margin-inline-start: 1rem;
+  padding-block: 0.3rem;
+  background-color: rgba(25, 24, 48, 0.1);
+  line-height: 1.5;
+}
+
+pre {
+  & code {
+    background-color: inherit;
+  }
+
+  overflow: auto;
+  background-color: rgb(25, 24, 48);
+  padding: 1.5rem 1.2rem;
+  border-radius: 0.8rem;
+  min-height: 2rem;
+  width: calc(0.8 * var(--page-width));
+  margin: 0.4rem auto;
+}
+
+ul li {
+  margin-block: 0.2rem;
+  margin-inline-start: 0rem;
+}
+
+table {
+  margin: 0 auto;
+  border-collapse: collapse;
+
+  & th,
+  td {
+    border: 0.2rem solid black;
+    padding-inline-start: 0.2rem;
   }
 }

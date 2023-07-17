@@ -1,5 +1,5 @@
 ---
-title: .gitattributes
+title: Gitattributes
 date: 2022-11-14 18:13:19
 categories: Git
 tags:
@@ -22,9 +22,9 @@ summary: 如何编写 .gitattributes 文件
 - 一般我们会根据各自系统的情况来控制结尾换行，跨平台的时候，在需要的情况下会转换
   crlf
 
-  ```txt
-  *    text=auto
-  ```
+   ```txt
+   *              text=auto
+   ```
 
 - 我们也可以控制文件的细粒度，但是这一般是没有必要的
   - `*.txt text` 指示如果未检测到 txt 文本，这将手动开启检测
@@ -46,9 +46,9 @@ summary: 如何编写 .gitattributes 文件
 
 - 不同的语言格式可以在它的官网找到
 
-```rust
-*.rs     diff=rust
-```
+   ```rust
+   *.rs     diff=rust
+   ```
 
 参考: <https://www.cnblogs.com/kidsitcn/p/4769344.html>
 
@@ -58,24 +58,24 @@ summary: 如何编写 .gitattributes 文件
 
 - 例如，我们想将 ts 计入 js 中一起进行统计
 
-  ```bash
-  *.ts linguist-language=js
-  ```
+   ```bash
+   *.ts linguist-language=js
+   ```
 
 - 或者我们想检测某种语言（例如，markdown），默认是可检测的（`true`）
 
-  ```bash
-  *.md linguist-detectable=false
-  ```
+   ```bash
+   *.md linguist-detectable=false
+   ```
 
 - 如果不想统计某个文件夹（或者文件），如果是文件夹，强制尾随 `*`
 
-  ```bash
-  test/* linguist-vendored
-  # 将覆盖引用于指定文件
-  a.md -linguist-vendored
-  # 将覆盖引用于指定文件和文件夹
-  src/** linguist-vendored
-  ```
+   ```bash
+   test/* linguist-vendored
+   # 将覆盖引用于指定文件
+   a.md -linguist-vendored
+   # 将覆盖引用于指定文件和文件夹
+   src/** linguist-vendored
+   ```
 
 - `linguist-documentation` 忽略某个文件，与👆用法一致

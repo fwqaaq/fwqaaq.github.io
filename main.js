@@ -18,7 +18,6 @@ import {
   exists,
   existsSync,
 } from "https://deno.land/std@0.194.0/fs/mod.ts"
-import { ensureDirSync } from "https://deno.land/std@0.194.0/fs/ensure_dir.ts"
 
 const metaData = []
 const decoder = new TextDecoder("utf-8"), encoder = new TextEncoder()
@@ -54,7 +53,7 @@ async function generatePage(
         summary,
         time: convertToUSA(date),
         tags: tags.map((tag) =>
-          `<a class="router" href="/./tags/${tag}/index.html">${tag}</a>`
+          `<a class="router tag" href="/./tags/${tag}/index.html">${tag}</a>`
         )
           .join(""),
       })
@@ -128,7 +127,7 @@ async function Home() {
 
   metaData.forEach(async ({ date, title, summary, tags }, index) => {
     const aTags = tags.map((tag) =>
-      `<a class="router" href="/./tags/${tag}/index.html">${tag}</a>`
+      `<a class="router tag" href="/./tags/${tag}/index.html">${tag}</a>`
     ).join("")
     content += templateBox({
       place: `/./posts/${handleUTC(date)}/`,
