@@ -1,6 +1,7 @@
 {
   "tasks": {
-    "dev": "deno run --watch --allow-net --allow-write --allow-read  main.js"
+    "dev": "deno run --watch --allow-net --allow-write --allow-read  main.js",
+    "build": "deno run --allow-net --allow-write --allow-read  main.js"
   },
   "fmt": {
     // "useTabs": true,

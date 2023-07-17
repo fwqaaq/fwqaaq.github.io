@@ -1,6 +1,11 @@
 
 
 document.addEventListener('DOMContentLoaded', () => {
+
+  if (location.pathname.includes('/home') || location.pathname === '/') {
+    console.log(location.pathname)
+    return
+  }
   document.body.addEventListener('click', (e) => {
     if (e.target.matches('a') && e.target.href.includes('/./')) {
       useRoute(e)
@@ -14,7 +19,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
 const renderPage = async () => {
   const path = location.pathname
-  if (path === '/') return
   const res = await fetch(path)
   const html = await res.text()
 

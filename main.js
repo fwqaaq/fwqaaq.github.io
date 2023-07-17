@@ -1,6 +1,7 @@
 import { markdown } from "./util/markdown.js"
 import {
   convertToUSA,
+  generateSingleFile,
   handleUTC,
   parseYaml,
   replaceHead,
@@ -10,203 +11,221 @@ import {
   templateBox,
   templateProcess,
 } from "./util/template.js"
-import { copy, ensureDir } from "https://deno.land/std@0.194.0/fs/mod.ts"
+import {
+  copy,
+  ensureDir,
+  ensureFile,
+  exists,
+  existsSync,
+} from "https://deno.land/std@0.194.0/fs/mod.ts"
+import { ensureDirSync } from "https://deno.land/std@0.194.0/fs/ensure_dir.ts"
 
 const metaData = []
-const src = new URL(import.meta.resolve("./src/"))
-const dist = new URL(import.meta.resolve("./dist/"))
+const decoder = new TextDecoder("utf-8"), encoder = new TextEncoder()
+
+const dist = import.meta.resolve("./dist/"),
+  src = import.meta.resolve("./src/")
+
+if (existsSync(new URL(dist))) {
+  Deno.removeSync(new URL(dist), { recursive: true })
+}
+
+async function generatePage(
+  dist,
+  keywrods,
+  description,
+  title,
+  iterContent,
+  isArticle = false,
+) {
+  let index = await replaceHead(keywrods, description, title)
+  if (isArticle) {
+    index += templateArticle({
+      title,
+      content: iterContent.map((iter) =>
+        `<a class="router tag" href="/./${title}/${iter}/">${iter}</a>`
+      ).join(""),
+    })
+  } else {
+    index += iterContent.map(({ title, summary, date, tags }) =>
+      templateBox({
+        place: `/./posts/${handleUTC(date)}/`,
+        title,
+        summary,
+        time: convertToUSA(date),
+        tags: tags.map((tag) =>
+          `<a class="router" href="/./tags/${tag}/index.html">${tag}</a>`
+        )
+          .join(""),
+      })
+    ).join("")
+  }
+
+  await Deno.writeFile(
+    dist,
+    encoder.encode(index),
+  )
+}
+
+// Handle the meta data
+{
+  const posts = import.meta.resolve("./src/posts/")
+  const iter = Deno.readDir(new URL(posts))[Symbol.asyncIterator]()
+  while (true) {
+    const { value, done } = await iter.next()
+    if (done) break
+    const file = decoder.decode(
+      await Deno.readFile(new URL(value.name, posts)),
+    )
+    const [{ date, title, summary, tags }, md] = parseYaml(file)
+
+    // Handle the posts
+    {
+      const article = await replaceHead(tags.join(", "), summary, title) +
+        templateArticle({ title, content: await markdown(md) })
+      const timeDir = new URL(`./posts/${handleUTC(date)}/index.html`, dist)
+
+      if (!await exists(timeDir)) await ensureFile(timeDir)
+
+      await Deno.writeFile(
+        timeDir,
+        encoder.encode(article),
+      )
+    }
+
+    metaData.push({
+      date,
+      title,
+      summary,
+      tags,
+    })
+  }
+  metaData.sort((a, b) => b.date - a.date)
+}
 
 // Handle the public
 {
   await copy(new URL("../public/", src), new URL("./public/", dist), {
     overwrite: true,
   })
-  await copy(new URL("../index.js", src), new URL("./index.js", dist), {
-    overwrite: true,
-  })
 }
 
-// Handle the posts
+// Generate CNAME... File
 {
-  const postsSrc = new URL("./posts/", src)
-  const postsDist = new URL("./posts/", dist)
-
-  for await (const dir of Deno.readDir(postsSrc)) {
-    const fileURL = new URL(`./${dir.name}`, postsSrc)
-    const file = new TextDecoder().decode(await Deno.readFile(fileURL))
-    const [yaml, md] = parseYaml(file)
-    const { date, title, tags, summary } = yaml
-    const pkgUrl = handleUTC(date) + "/"
-    const childrenPost = new URL(pkgUrl, postsDist)
-    await ensureDir(childrenPost)
-    metaData.push({
-      ...yaml,
-      place: `/./posts/${pkgUrl}index.html`,
-      time: convertToUSA(yaml.date),
-    })
-
-    const head = await replaceHead(tags.join(", "), summary, title)
-    const html = head + templateArticle({
-      title,
-      content: (await markdown(md)).toString(),
-    })
-    await Deno.writeFile(
-      new URL("index.html", childrenPost),
-      new TextEncoder().encode(html),
-    )
-  }
+  const cname = new URL("./CNAME", dist)
+  generateSingleFile(cname, "www.fwqaq.us")
 }
 
 // Home page
-{
+async function Home() {
   const homeDest = new URL("./home/", dist)
-  const indexUrl = new URL("../index.html", src)
-  const collection = []
-  const indexPage = new TextDecoder().decode(await Deno.readFile(indexUrl))
-  await ensureDir(homeDest)
-  metaData.sort((a, b) => b.date - a.date)
-  let counter = 0, currentPage = 0
-  const sum = metaData.length
+  const indexpage = decoder.decode(
+    await Deno.readFile(new URL("../index.html", src)),
+  ),
+    metasLength = metaData.length,
+    lastPage = Math.ceil(metasLength / 8)
+  let content = ""
 
-  for (const meta of metaData) {
-    counter++
-    const { place, title, summary, time, tags } = meta
-    collection.push(templateBox({
-      place,
+  metaData.forEach(async ({ date, title, summary, tags }, index) => {
+    const aTags = tags.map((tag) =>
+      `<a class="router" href="/./tags/${tag}/index.html">${tag}</a>`
+    ).join("")
+    content += templateBox({
+      place: `/./posts/${handleUTC(date)}/`,
       title,
       summary,
-      time,
-      tags: tags.map((tag) =>
-        `<a class="router" href="/./tags/${tag}/index.html">${tag}</a>`
+      time: convertToUSA(date),
+      tags: aTags,
+    })
+    if ((index + 1) % 8 === 0 || index + 1 === metasLength) {
+      const cur = index + 1 === metasLength
+        ? lastPage
+        : Math.floor((index + 1) / 8)
+      const process = templateProcess({
+        // When the number of current pages is metasLength, then using Math.ceil
+        before: cur > 2 ? `/./home/${cur - 1}/` : "/",
+        page: `${cur} / ${lastPage}`,
+        after: index === metasLength ? "#" : `/./home/${cur + 1}/`,
+      })
+      const indexPage = indexpage.replace(
+        "<!-- Template -->",
+        content + process,
       )
-        .join(""),
-    }))
 
-    if (counter % 8 === 0 || counter === sum) {
-      currentPage = Math.ceil(counter / 8)
-      const dest = currentPage === 1
-        ? dist
-        : new URL(`${currentPage}/`, homeDest)
-      await ensureDir(dest)
-      const index = await replaceHead(
-        "HTML, CSS, JavaScript, TypeScript, Vue, Git...",
-        "这是一个可能讨论一切的 Blog",
-        "fwqaaq ~ Blog",
-      ) + collection
-        .slice(counter - 8, counter)
-        .join("")
-        .concat(
-          templateProcess({
-            page: `${currentPage} / ${(Math.ceil(sum / 8))}`,
-            before: currentPage === 1
-              ? "#"
-              : currentPage === 2
-                ? "/"
-                : `/./home/${currentPage - 1}/`,
-            after: counter === sum ? "#" : `/./home/${currentPage + 1}/`,
-          }),
-        )
+      // Generate the home dir
+      if (cur !== 1) await ensureDir(new URL(`${cur}/`, homeDest))
+      const url = cur === 1
+        ? new URL("./index.html", dist)
+        : new URL(`${cur}/index.html`, homeDest)
 
-      await Deno.writeFile(
-        new URL("./index.html", dest),
-        new TextEncoder().encode(
-          currentPage === 1
-            ? indexPage.replace("<!-- Template -->", index)
-            : index,
-        ),
-      )
+      await Deno.writeFile(url, encoder.encode(indexPage))
     }
-  }
+  })
 }
 
 // Archive page
-
-{
+async function Archive() {
   const archiveDest = new URL("./archive/", dist)
-  // for (const meta of metaData) {
-  //   const { place, title, summary, date, tags } = meta
-  // }
-  await ensureDir(archiveDest)
   const map = new Map()
-  metaData.forEach((item) => {
-    const year = new Date(item.date).getFullYear()
-    map.has(year) ? map.get(year).push(item) : map.set(year, [item])
-  })
-  const yearsTags = []
-  for (const k of map.keys()) {
-    const yearUrl = new URL(`./${k}/`, archiveDest)
-    await ensureDir(yearUrl)
-    const index = await replaceHead(k, "fwqaaq's archive", "Archive") +
-      map.get(k).map(({ place, title, summary, time, tags }) =>
-        templateBox({
-          place,
-          title,
-          summary,
-          time,
-          tags: tags.map((tag) =>
-            `<a class="router" href="/./tags/${tag}/index.html">${tag}</a>`
-          )
-            .join(""),
-        })
-      ).join("")
-
-    await Deno.writeFile(
-      new URL("./index.html", yearUrl),
-      new TextEncoder().encode(index),
-    )
-    yearsTags.push(`<a class="router year" href="/./archive/${k}/">${k}</a>`)
+  for (const meta of metaData) {
+    const year = new Date(meta.date).getFullYear()
+    map.has(year) ? map.get(year).push(meta) : map.set(year, [meta])
   }
-  const index = await replaceHead("Archive", "fwqaaq's Archive", "Archive") +
-    templateArticle({
-      title: "Archive",
-      content: yearsTags.join(""),
-    })
-  await Deno.writeFile(
+
+  for (const k of map.keys()) {
+    const archiveUrl = new URL(`./${k}/`, archiveDest)
+    await ensureDir(archiveUrl)
+    await generatePage(
+      new URL("./index.html", archiveUrl),
+      k,
+      `fwqaaq ~ ${k}`,
+      k,
+      map.get(k),
+      false,
+    )
+  }
+
+  await generatePage(
     new URL("./index.html", archiveDest),
-    new TextEncoder().encode(index),
+    [...map.keys()].join(", "),
+    "fwqaaq ~ Archive",
+    "archive",
+    [...map.keys()],
+    true,
   )
 }
 
 // Tags page
-{
+async function Tags() {
   const tagsDest = new URL("./tags/", dist)
   const map = new Map()
-  metaData.forEach((item) => {
-    item.tags.forEach((tag) => {
-      map.has(tag) ? map.get(tag).push(item) : map.set(tag, [item])
+  for (const meta of metaData) {
+    meta.tags.forEach((tag) => {
+      map.has(tag) ? map.get(tag).push(meta) : map.set(tag, [meta])
     })
-  })
-
-  const tagsCollection = []
-  for (const k of map.keys()) {
-    const tagUrl = new URL(`./${k}/`, tagsDest)
-    await ensureDir(tagUrl)
-    const index = await replaceHead(k, "fwqaaq ~ tags", "Tags") +
-      map.get(k).map(({ place, title, summary, time, tags }) =>
-        templateBox({
-          place,
-          title,
-          summary,
-          time,
-          tags: tags.map((tag) =>
-            `<a class="router" href="/./tags/${tag}/index.html">${tag}</a>`
-          )
-            .join(""),
-        })
-      ).join("")
-
-    await Deno.writeFile(
-      new URL("./index.html", tagUrl),
-      new TextEncoder().encode(index),
-    )
-    tagsCollection.push(`<a class="router tag" href="/./tags/${k}/">${k}</a>`)
   }
-  const index = await replaceHead("Tags", "fwqaaq ~ tags", "Tags") + templateArticle({
-    title: "Tags",
-    content: tagsCollection.join(""),
-  })
-  await Deno.writeFile(
+
+  for (const k of map.keys()) {
+    const tagsUrl = new URL(`./${k}/`, tagsDest)
+    await ensureDir(tagsUrl)
+    await generatePage(
+      new URL("./index.html", tagsUrl),
+      k,
+      `fwqaaq ~ ${k}`,
+      k,
+      map.get(k),
+      false,
+    )
+  }
+
+  await generatePage(
     new URL("./index.html", tagsDest),
-    new TextEncoder().encode(index),
+    [...map.keys()].join(", "),
+    "fwqaaq ~ Tags",
+    "tags",
+    [...map.keys()],
+    true,
   )
 }
+
+Promise.all([Home(), Archive(), Tags()])

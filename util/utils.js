@@ -1,3 +1,4 @@
+import { existsSync } from "https://deno.land/std@0.194.0/fs/exists.ts"
 import { parse } from "https://deno.land/std@0.194.0/yaml/mod.ts"
 
 const regxYaml = /---(\n[\s\S]*?\n)---/
@@ -50,4 +51,17 @@ export const replaceHead = async (keywords, description, title) => {
     .replace("<!-- keywords -->", keywords)
     .replace("<!-- description -->", description)
     .replace("<!-- title -->", title)
+}
+
+export const generateSingleFile = (url, content, append = false) => {
+  // if exists, remove it
+  if (existsSync(url)) Deno.removeSync(url, { recursive: true })
+  Deno.writeFileSync(url, new TextEncoder().encode(content), {
+    createNew: true,
+    append,
+  })
+  return {
+    generateSingleFile,
+    end: () => "end",
+  }
 }
