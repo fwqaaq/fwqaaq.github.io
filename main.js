@@ -139,6 +139,7 @@ async function Home() {
       time: convertToUSA(date),
       tags: aTags,
     })
+
     if ((index + 1) % 8 === 0 || index + 1 === metasLength) {
       const cur = index + 1 === metasLength
         ? lastPage
@@ -152,6 +153,9 @@ async function Home() {
         "<!-- Template -->",
         content + process,
       )
+
+      // Reset the content
+      content = ""
 
       // Generate the home dir
       if (cur !== 1) await ensureDir(new URL(`${cur}/`, homeDest))
