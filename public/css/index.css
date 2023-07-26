@@ -3,6 +3,7 @@ body {
   padding: 0%;
   margin: 0%;
   font-size: 18px;
+  word-break: break-all;
   scroll-behavior: smooth;
   background-color: var(--theme-bg);
 }
@@ -11,7 +12,11 @@ body {
   position: relative;
 }
 
-.loading::before {
+body.loading {
+  visibility: visible;
+}
+
+/* .loading::before {
   content: '';
   position: absolute;
   top: 0;
@@ -20,7 +25,8 @@ body {
   height: 100vh;
   background-color: var(--theme-bg);
   z-index: 1;
-}
+  opacity: 1;
+} */
 
 .loading::after {
   content: "";
@@ -32,15 +38,20 @@ body {
   height: 60px;
   margin: -30px 0 0 -30px;
   border-radius: 50%;
-  border-inline-start: 6px solid rgb(7, 88, 88);
-  animation: spin 1s linear infinite;
+  border-width: 4px 4px 4px 0;
+  border-style: solid;
+  border-color: var(--theme-color);
+  animation: spin 1s ease-in-out infinite;
   z-index: 2;
 }
 
 @keyframes spin {
-  to {
-    transform: rotate(360deg);
-    opacity: 0;
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg)
   }
 }
 
@@ -75,13 +86,11 @@ header {
   background-color: var(--theme-color);
 
   & a {
-    width: calc(var(--header-height) - 1rem);
-    height: calc(var(--header-height) - 1rem);
     padding-inline-start: 0.5rem;
     color: var(--header-color);
 
     &>img {
-      width: 100%;
+      width: calc(var(--header-height) - 1rem);
       border-radius: 50%;
       cursor: pointer;
 

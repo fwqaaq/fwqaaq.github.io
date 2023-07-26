@@ -11,8 +11,8 @@ const handler = async (request) => {
   let ext = reqUrl.split(".").pop()
   if (ext === "css") ext = "text/css"
   else if (ext === "js") ext = "text/javascript"
-  else if (ext === "html" || ext === '/') ext = "text/html"
-  else ext = '*'
+  else if (ext === "html" || ext === "/") ext = "text/html"
+  else ext = "*"
   if (reqUrl.endsWith("/")) reqUrl += "index.html"
 
   const file = await Deno.readFile(`./dist${reqUrl}`)

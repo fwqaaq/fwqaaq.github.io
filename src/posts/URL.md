@@ -10,14 +10,14 @@ summary: 浏览器原生的URL方法
 
 ## URL
 
-> URL用于解析,构造,规范化和编码urls.如果浏览器不支持`new URL()`构造函数.可以使用`new window.URL()`
+> URL用于解析,构造,规范化和编码url.如果浏览器不支持`new URL()`构造函数.可以使用`new window.URL()`
 
 ### new URL()
 
 > 构造函数:new URL(url[,base])
 
-- `url`:表示绝对或者相对的url.如果是绝对的url,无论baseurl有没有参数都会被忽略.如果是相对的url,则参数会添加到baseurl后
-- `base`:可选的,表示基准的url.只有url是带协议才可以生效.<span style="color:red">否则报一个TypeError</span>
+- `url`：表示绝对或者相对的url.如果是绝对的url,无论baseurl有没有参数都会被忽略.如果是相对的url,则参数会添加到baseurl后
+- `base`：可选的，表示基准的 url。只有 url 是带协议才可以生效。否则报一个 TypeError
 
 ```js
 let baseurl = "https://www.baidu.com/laji";

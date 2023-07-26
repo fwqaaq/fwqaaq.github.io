@@ -1,64 +1,50 @@
 
-const regex = /([\s\S]*\<\/head\>)[\s\S]*?([\s\S]*)/
+const regex = /(\<head\>[\s\S]*\<\/head\>)[\s\S]*?([\s\S]*)/
 
 document.addEventListener('DOMContentLoaded', () => {
 
-  if (location.pathname.includes('/home') || location.pathname === '/') {
-    return
-  }
+  // if (location.pathname.includes('/home') || location.pathname === '/') {
+  //   return
+  // }
 
-  document.body.insertAdjacentHTML("afterbegin", `<header>
-        <a href="https://github.com/fwqaaq" target="_blank">
-            <img src="https://avatars.githubusercontent.com/u/82551626?v=4" loading="lazy" alt="me" srcset="">
-        </a>
-        <nav class="header-nav">
-            <a href="/">Home</a>
-            <a class="router" href="">About</a>
-            <a class="router" href="/./archive/index.html">Archive</a>
-            <a class="router" href="/./tags/index.html">Tag</a>
-        </nav>
-    </header>`)
+  const stylesheet = document.createElement('link')
+  stylesheet.rel = 'stylesheet'
+  stylesheet.href = '/public/css/markdown.css'
+  document.head.appendChild(stylesheet)
+
   document.body.addEventListener('click', (e) => {
-    if (e.target.matches('a') && e.target.href.includes('/./')) {
-      useRoute(e)
-    }
+    if (e.target.matches('a') && e.target.getAttribute('href').startsWith('/./')) useRoute(e)
   })
 
   self.addEventListener('popstate', renderPage)
 
-  renderPage()
 })
 
-const renderPage = (e) => {
+const renderPage = async (e) => {
   // hash change, do nothing
   if (e && e.type === "popstate" && location.hash) return
 
-  document.body.classList.add('loading')
+  const path = location.pathname
 
-  // const path = location.pathname
-  // const res = await fetch(path)
-  // const html = await res.text()
+  const res = await fetch(path)
+  const html = await res.text()
 
-  // const [, , body] = html.match(regex)
+  const [, , body] = html.match(regex)
+  const newElement = document.createElement('div')
+  newElement.innerHTML = body
+  let [, main] = document.body.children
 
-  const [, ...sections] = document.body.children
-  const fragment = document.createDocumentFragment()
-  const main = document.createElement('main')
-  const footer = document.createElement('footer')
-  footer.innerHTML = `© 2020 ~ 2023 ❤️ fwqaaq`
-  main.append(...sections)
-  fragment.append(main, footer)
-  document.body.appendChild(fragment)
-
-  setTimeout(() => { document.body.classList.remove('loading') }, 300)
+  main.innerHTML = newElement.querySelector('main').innerHTML
 }
 
 /**
  * 
  * @param {MouseEvent} e 
- */
+*/
 const useRoute = (e) => {
   e.preventDefault()
   history.pushState({}, '', e.target.href)
+  document.body.classList.add('loading')
   renderPage()
+  setTimeout(() => document.body.classList.remove('loading'), 200)
 }

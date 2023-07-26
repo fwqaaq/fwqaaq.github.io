@@ -38,32 +38,38 @@ async function generatePage(
   isArticle = false,
 ) {
   if (!await exists(dist)) await ensureFile(dist)
-  let index = await replaceHead(keywrods, description, title)
+  const head = await replaceHead(keywrods, description, title)
 
+  const header = decoder.decode(
+    await Deno.readFile(new URL("../util/header.html", src)),
+  )
+  let body = ""
   if (isArticle) {
     const content = Array.isArray(iterContent)
       ? iterContent.map((iter) =>
         `<a class="router tag" href="/./${title}/${iter}/">${iter}</a>`
       ).join("")
       : iterContent
-    index += templateArticle({
+    body += templateArticle({
       title,
       content,
     })
-  } else {
-    index += iterContent.map(({ title, summary, date, tags }) =>
-      templateBox({
-        place: `/./posts/${handleUTC(date)}/`,
-        title,
-        summary,
-        time: convertToUSA(date),
-        tags: tags.map((tag) =>
-          `<a class="router tag" href="/./tags/${tag}/index.html">${tag}</a>`
-        )
-          .join(""),
-      })
-    ).join("")
   }
+  if (!isArticle) body += iterContent.map(({ title, summary, date, tags }) =>
+    templateBox({
+      place: `/./posts/${handleUTC(date)}/`,
+      title,
+      summary,
+      time: convertToUSA(date),
+      tags: tags.map((tag) =>
+        `<a class="router tag" href="/./tags/${tag}/index.html">${tag}</a>`
+      )
+        .join(""),
+    })
+  ).join("")
+
+
+  const index = `${head}${header}<main>${body}</main>`
 
   await Deno.writeFile(
     dist,
@@ -179,8 +185,7 @@ async function Archive() {
 
   for (const k of map.keys()) {
     const archiveUrl = new URL(`./${k}/index.html`, archiveDest)
-    await generatePage(archiveUrl, k, `fwqaaq ~ ${k}`, k, map.get(k),
-    )
+    await generatePage(archiveUrl, k, `fwqaaq ~ ${k}`, k, map.get(k))
   }
 
   await generatePage(
@@ -205,8 +210,7 @@ async function Tags() {
 
   for (const k of map.keys()) {
     const tagsUrl = new URL(`./${k}/index.html`, tagsDest)
-    await generatePage(tagsUrl, k, `fwqaaq ~ ${k}`, k, map.get(k),
-    )
+    await generatePage(tagsUrl, k, `fwqaaq ~ ${k}`, k, map.get(k))
   }
 
   await generatePage(
