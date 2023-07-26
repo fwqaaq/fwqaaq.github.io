@@ -1,16 +1,16 @@
-import { markdown } from "./util/markdown.js"
+import { markdown } from "./src/util/markdown.js"
 import {
   convertToUSA,
   generateSingleFile,
   handleUTC,
   parseYaml,
   replaceHead,
-} from "./util/utils.js"
+} from "./src/util/utils.js"
 import {
   templateArticle,
   templateBox,
   templateProcess,
-} from "./util/template.js"
+} from "./src/util/template.js"
 import {
   copy,
   ensureDir,
@@ -41,7 +41,7 @@ async function generatePage(
   const head = await replaceHead(keywrods, description, title)
 
   const header = decoder.decode(
-    await Deno.readFile(new URL("../util/header.html", src)),
+    await Deno.readFile(new URL("./util/header.html", src)),
   )
   let body = ""
   if (isArticle) {
@@ -223,4 +223,17 @@ async function Tags() {
   )
 }
 
-Promise.all([Home(), Archive(), Tags(), Others()])
+async function About() {
+  const aboutDest = new URL("./about/index.html", dist)
+  if (!await exists(aboutDest)) await ensureFile(aboutDest)
+  const aboutSrc = new URL("./About/about.md", src)
+  const about = decoder.decode(await Deno.readFile(aboutSrc))
+  const head = decoder.decode(await Deno.readFile(new URL("./util/head.html", src)))
+  const header = decoder.decode(await Deno.readFile(new URL("./util/header.html", src)))
+  const [, md] = parseYaml(about)
+  const content = await markdown(md)
+  const generated = `${head}${header}<main>${templateArticle({ title: "关于我", content })}</main>`
+  await Deno.writeFile(aboutDest, encoder.encode(generated))
+}
+
+Promise.all([Home(), Archive(), Tags(), Others(), About()])

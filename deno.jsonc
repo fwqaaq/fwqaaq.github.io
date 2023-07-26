@@ -2,7 +2,7 @@
   "tasks": {
     "dev": "deno run --watch --allow-net --allow-write --allow-read  main.js",
     "build": "deno run --allow-net --allow-write --allow-read  main.js",
-    "preview": "deno run --allow-all util/http.js"
+    "preview": "deno run --allow-all src/util/http.js"
   },
   "fmt": {
     // "useTabs": true,
@@ -10,6 +10,6 @@
     // "tabWidth": 2,
     // "singleQuote": true,
     "semiColons": false,
-    "include": ["util/", "main.js"]
+    "include": ["src/util/", "main.js"]
   }
 }

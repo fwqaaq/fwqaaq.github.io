@@ -1,5 +1,5 @@
 
-const regex = /(\<head\>[\s\S]*\<\/head\>)[\s\S]*?([\s\S]*)/
+const regex = /\<head\>[\s\S]*\<\/head\>[\s\S]*?\<main\>([\s\S]*)\<\/main\>/
 
 document.addEventListener('DOMContentLoaded', () => {
 
@@ -17,7 +17,6 @@ document.addEventListener('DOMContentLoaded', () => {
   })
 
   self.addEventListener('popstate', renderPage)
-
 })
 
 const renderPage = async (e) => {
@@ -28,13 +27,11 @@ const renderPage = async (e) => {
 
   const res = await fetch(path)
   const html = await res.text()
+  console.log(html)
 
-  const [, , body] = html.match(regex)
-  const newElement = document.createElement('div')
-  newElement.innerHTML = body
-  let [, main] = document.body.children
-
-  main.innerHTML = newElement.querySelector('main').innerHTML
+  const [, body] = html.match(regex)
+  const [, main] = document.body.children
+  main.innerHTML = body
 }
 
 /**
