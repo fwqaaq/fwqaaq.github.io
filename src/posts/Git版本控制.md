@@ -87,7 +87,7 @@ ssh-keygen -t rsa
 
 #### 切换分支
 
-> 在切换分支时,如果当前分支上有<span style="color:red">未暂存的修改(第一次)或者有未提交的的暂存(第一次)</span>分支可以切换成功,但这种操作可能污染其它分支
+> 在切换分支时,如果当前分支上有未暂存的修改(第一次)或者有未提交的的暂存(第一次)分支可以切换成功,但这种操作可能污染其它分支
 
 #### 区域的的更改
 
@@ -121,8 +121,7 @@ ssh-keygen -t rsa
 - `HEAD~`指针跟一个整数,指的是你要回退几次提交
   1. `git reset --soft HEAD~  (--amend)`:只动HEAD(带着分支一起移动)
   2. `git reset [--mixed] HEAD~`动HEAD(带着分支一起移动),动了暂存区
-  3. `git reset --hard HEAD~`动HEAD(带着分支一起移动),动了暂存区
-     动了工作目录(<span style="color:red">需要谨慎</span>)
+  3. `git reset --hard HEAD~`动HEAD(带着分支一起移动),动了暂存区、动了工作目录(需要谨慎)
 
 ##### revert
 
@@ -155,10 +154,8 @@ ssh-keygen -t rsa
 
 > 合并远程分支
 
-- `git rebase`
-  和`git merge`的区别是`git rebase`形成的是一条线,会把你当前的几个commit,放到最新commit的后面(所以rebase并没有执行合并操作).`git merge`
-  会把公共分支和你当前的commit按照提交时间合并在一起,形成一个新的 commit
-  提交,<span style="color:red">注意不要在公共分支使用rebase</span>
+- `git rebase` 和 `git merge` 的区别是 `git rebase` 形成的是一条线,会把你当前的几个commit,放到最新commit的后面(所以rebase并没有执行合并操作).`git merge`
+  会把公共分支和你当前的commit按照提交时间合并在一起,形成一个新的 commit,注意不要在公共分支使用rebase
 
 - `git merge origin/master`:合并某个分支到当前分支
   - **merge**:遇见冲突后会直接停止,等待手动解决冲突并重新提交 commit 后,才能再次
@@ -196,6 +193,14 @@ git checkout -b dev
 git rebase origin/dev
 ```
 
+> 同步上游分支，fork 仓库有多个分支的情况
+
+```rust
+git fetch upstream
+git checkout -b dev upstream/dev
+git push -u origin dev
+```
+
 #### 分支注意
 
 - 在切换的时候一定要保证当前分支是干净的！！！
@@ -220,9 +225,7 @@ git rebase origin/dev
 > `merge` 或者 `rebase`。如果你只需要部分变动（某几个提交），那么就需要使用
 > cherry-pick
 
-- 如果你使用的命令指定的是 commit 的 hash，那么就会将指定的 commit hash
-  应用于当前分支。<span style="color:red">当前分支会产生一个新的 commit，它们的
-  hash 值会不一样</span>
+- 如果你使用的命令指定的是 commit 的 hash，那么就会将指定的 commit hash 应用于当前分支。当前分支会产生一个新的 commit，它们的 hash 值会不一样
 
   ```shell
   # 以下示例，在真正写的时候都不需要带 <>
@@ -250,8 +253,8 @@ git rebase origin/dev
 
 1. `-e`：打开外部编辑器，编辑提交信息
 2. `-n`: 只更新工作区和暂存去，不产生新提交
-3. `-x`: 在提交信息的末尾追加<sapn style="color:red">cherry picked from commit
-   ...</sapn>。方便日后信息查找
+3. `-x`: 在提交信息的末尾追加 cherry picked from commit
+   ...。方便日后信息查找
 4. `-s`: 在提交信息的末尾追加操作者的签名
 5. `-m parent-number`: 如果原始提交是一个合并节点，来自于两个分支的合并，那么
    cherry-pick 默认将失败。`-m` 告诉 git 将采用哪一个分支。它的参数
