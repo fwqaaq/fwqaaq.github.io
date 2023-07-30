@@ -7,10 +7,10 @@ import {
   replaceHead,
 } from "./src/util/utils.js"
 import {
+  giscus,
   templateArticle,
   templateBox,
   templateProcess,
-  giscus
 } from "./src/util/template.js"
 import {
   copy,
@@ -30,14 +30,51 @@ if (existsSync(new URL(dist))) {
   Deno.removeSync(new URL(dist), { recursive: true })
 }
 
+function getPosts(title, content, isPosts = false) {
+  const article = templateArticle({ title, content })
+  return `<main>${article}</main>${isPosts ? giscus : ""}`
+}
+
+function getTags(title, tags) {
+  return tags.map((tag) =>
+    `<a class="router tag" href="/./${title}/${tag}/">${tag}</a>`
+  ).join("")
+}
+
+function getHomePage(_title, iters) {
+  const sections = iters.map(({ title, summary, date, tags }) =>
+    templateBox({
+      place: `/./posts/${handleUTC(date)}/`,
+      title,
+      summary,
+      time: convertToUSA(date),
+      tags: getTags("tags", tags),
+    })
+  ).join("")
+  return `<main>${sections}</main>`
+}
+
+async function completeTask(map, url, dest) {
+  for (const k of map.keys()) {
+    const tagsUrl = new URL(`./${k}/index.html`, url)
+    const task = await generatePage(tagsUrl, k, `fwqaaq ~ ${k}`, k)
+    await task(getHomePage, map.get(k))
+  }
+
+  const task = await generatePage(
+    new URL("./index.html", url),
+    [...map.keys()].join(", "),
+    `fwqaaq ~${dest}`,
+    dest,
+  )
+  await task(getPosts, getTags(dest, [...map.keys()]))
+}
+
 async function generatePage(
   dist,
   keywrods,
   description,
   title,
-  iterContent,
-  isArticle = false,
-  posts = false,
 ) {
   if (!await exists(dist)) await ensureFile(dist)
   const head = await replaceHead(keywrods, description, title)
@@ -45,38 +82,16 @@ async function generatePage(
   const header = decoder.decode(
     await Deno.readFile(new URL("./util/header.html", src)),
   )
-  let body = ""
-  if (isArticle) {
-    const content = Array.isArray(iterContent)
-      ? iterContent.map((iter) =>
-        `<a class="router tag" href="/./${title}/${iter}/">${iter}</a>`
-      ).join("")
-      : iterContent
-    body += templateArticle({
-      title,
-      content,
-    })
+
+  return async (fn, ...params) => {
+    const content = fn(title, ...params)
+    const index = `${head}${header}${content}`
+
+    await Deno.writeFile(
+      dist,
+      encoder.encode(index),
+    )
   }
-  if (!isArticle) body += iterContent.map(({ title, summary, date, tags }) =>
-    templateBox({
-      place: `/./posts/${handleUTC(date)}/`,
-      title,
-      summary,
-      time: convertToUSA(date),
-      tags: tags.map((tag) =>
-        `<a class="router tag" href="/./tags/${tag}/index.html">${tag}</a>`
-      )
-        .join(""),
-    })
-  ).join("")
-
-  let index = `${head}${header}<main>${body}</main>`
-  if (posts) index += giscus
-
-  await Deno.writeFile(
-    dist,
-    encoder.encode(index),
-  )
 }
 
 // Handle the meta data
@@ -94,15 +109,8 @@ async function generatePage(
     // Handle the posts
     {
       const timeDir = new URL(`./posts/${handleUTC(date)}/index.html`, dist)
-      await generatePage(
-        timeDir,
-        tags.join(", "),
-        summary,
-        title,
-        await markdown(md),
-        true,
-        true
-      )
+      const task = await generatePage(timeDir, tags.join(", "), summary, title)
+      await task(getPosts, await markdown(md), true)
     }
 
     metaData.push({
@@ -138,9 +146,7 @@ async function Home() {
   let content = ""
 
   metaData.forEach(async ({ date, title, summary, tags }, index) => {
-    const aTags = tags.map((tag) =>
-      `<a class="router tag" href="/./tags/${tag}/index.html">${tag}</a>`
-    ).join("")
+    const aTags = getTags("tags", tags)
     content += templateBox({
       place: `/./posts/${handleUTC(date)}/`,
       title,
@@ -185,20 +191,7 @@ async function Archive() {
     const year = new Date(meta.date).getFullYear()
     map.has(year) ? map.get(year).push(meta) : map.set(year, [meta])
   }
-
-  for (const k of map.keys()) {
-    const archiveUrl = new URL(`./${k}/index.html`, archiveDest)
-    await generatePage(archiveUrl, k, `fwqaaq ~ ${k}`, k, map.get(k))
-  }
-
-  await generatePage(
-    new URL("./index.html", archiveDest),
-    [...map.keys()].join(", "),
-    "fwqaaq ~ Archive",
-    "archive",
-    [...map.keys()],
-    true,
-  )
+  await completeTask(map, archiveDest, "archive")
 }
 
 // Tags page
@@ -210,20 +203,7 @@ async function Tags() {
       map.has(tag) ? map.get(tag).push(meta) : map.set(tag, [meta])
     })
   }
-
-  for (const k of map.keys()) {
-    const tagsUrl = new URL(`./${k}/index.html`, tagsDest)
-    await generatePage(tagsUrl, k, `fwqaaq ~ ${k}`, k, map.get(k))
-  }
-
-  await generatePage(
-    new URL("./index.html", tagsDest),
-    [...map.keys()].join(", "),
-    "fwqaaq ~ Tags",
-    "tags",
-    [...map.keys()],
-    true,
-  )
+  await completeTask(map, tagsDest, "tags")
 }
 
 async function About() {
@@ -231,11 +211,16 @@ async function About() {
   if (!await exists(aboutDest)) await ensureFile(aboutDest)
   const aboutSrc = new URL("./About/about.md", src)
   const about = decoder.decode(await Deno.readFile(aboutSrc))
-  const head = decoder.decode(await Deno.readFile(new URL("./util/head.html", src)))
-  const header = decoder.decode(await Deno.readFile(new URL("./util/header.html", src)))
+  const head = decoder.decode(
+    await Deno.readFile(new URL("./util/head.html", src)),
+  )
+  const header = decoder.decode(
+    await Deno.readFile(new URL("./util/header.html", src)),
+  )
   const [, md] = parseYaml(about)
   const content = await markdown(md)
-  const generated = `${head}${header}<main>${templateArticle({ title: "关于我", content })}</main>`
+  const generated = `${head}${header}<main>${templateArticle({ title: "关于我", content })
+    }</main>`
   await Deno.writeFile(aboutDest, encoder.encode(generated))
 }
 
