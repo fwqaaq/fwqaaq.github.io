@@ -154,11 +154,18 @@ main .pages {
   margin-block-start: 4rem;
 }
 
-footer {
+.giscus,
+giscus-frame {
+  width: var(--page-width);
+  margin: 0 auto;
+  margin-block-end: 4rem;
+}
+
+/* footer {
   position: fixed;
   width: 100%;
   bottom: 0%;
   text-align: center;
   background-color: var(--theme-color);
   color: var(--header-color);
-}
+} */

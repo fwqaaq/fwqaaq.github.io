@@ -32,3 +32,19 @@ export const templateArticle = handleTemplate`
             <hr>
             ${"content"}
         </article>`
+
+export const giscus = `<script src="https://giscus.app/client.js"
+        data-repo="fwqaaq/fwqaaq.github.io"
+        data-repo-id="R_kgDOHCFK2A"
+        data-category="Show and tell"
+        data-category-id="DIC_kwDOHCFK2M4CYOLh"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="1"
+        data-input-position="bottom"
+        data-theme="preferred_color_scheme"
+        data-lang="zh-CN"
+        crossorigin="anonymous"
+        async>
+</script>`

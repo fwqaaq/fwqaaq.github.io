@@ -10,6 +10,7 @@ import {
   templateArticle,
   templateBox,
   templateProcess,
+  giscus
 } from "./src/util/template.js"
 import {
   copy,
@@ -36,6 +37,7 @@ async function generatePage(
   title,
   iterContent,
   isArticle = false,
+  posts = false,
 ) {
   if (!await exists(dist)) await ensureFile(dist)
   const head = await replaceHead(keywrods, description, title)
@@ -68,8 +70,8 @@ async function generatePage(
     })
   ).join("")
 
-
-  const index = `${head}${header}<main>${body}</main>`
+  let index = `${head}${header}<main>${body}</main>`
+  if (posts) index += giscus
 
   await Deno.writeFile(
     dist,
@@ -99,6 +101,7 @@ async function generatePage(
         title,
         await markdown(md),
         true,
+        true
       )
     }
 

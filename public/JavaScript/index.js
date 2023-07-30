@@ -24,14 +24,49 @@ const renderPage = async (e) => {
   if (e && e.type === "popstate" && location.hash) return
 
   const path = location.pathname
+  if (path.includes("posts")) {
+    const script = document.createElement('script')
+    const { src, crossOrigin, async, dataset } = {
+      src: 'https://giscus.app/client.js',
+      dataset: {
+        repo: 'fwqaaq/fwqaaq.github.io',
+        repoId: 'R_kgDOHCFK2A',
+        category: 'Show and tell',
+        categoryId: 'DIC_kwDOHCFK2M4CYOLh',
+        mapping: 'pathname',
+        strict: '0',
+        reactionsEnabled: '1',
+        emitMetadata: '1',
+        inputPosition: 'bottom',
+        theme: 'preferred_color_scheme',
+        lang: 'zh-CN',
+      },
+      crossOrigin: 'anonymous',
+      async: true,
+    }
+    Object.assign(script, {
+      src,
+      crossOrigin,
+      async,
+    })
+    // dataset only-read
+    for (const [key, value] of Object.entries(dataset)) {
+      script.dataset[key] = value
+    }
+
+    document.body.appendChild(script)
+  }
+
+  if (!path.includes('posts')) {
+    // document.querySelector('script[data-mapping]')?.remove()
+    document.querySelector('div.giscus')?.remove()
+  }
 
   const res = await fetch(path)
   const html = await res.text()
-  console.log(html)
 
-  const [, body] = html.match(regex)
-  const [, main] = document.body.children
-  main.innerHTML = body
+  const [, content] = html.match(regex)
+  document.body.children[1].innerHTML = content
 }
 
 /**
