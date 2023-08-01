@@ -1,10 +1,10 @@
 ---
-title: git原理(对象)
+title: Git 对象原理
 date: 2022-07-02 03:38:49
 categories: Git
 tags:
    - Git
-summary: git原理(对象)
+summary: Git 对象原理剖析
 ---
 
 ## 初始化git

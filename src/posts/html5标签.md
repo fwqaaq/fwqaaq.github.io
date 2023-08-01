@@ -1,11 +1,11 @@
 ---
-title: html5标签
+title: HTML5 标签
 date: 2021-10-31 21:15:40
 categories: HTML
 tags:
    - HTML
    - JavaScript
-summary: html5的规范
+summary: HTML5 的规范
 ---
 
 ## 获取标签属性
@@ -46,7 +46,7 @@ console.log(getDisplay(a));
   - html,body,head,colgroup,tbody.
 
 - 例:`<br>...</br>`是错误的,正确的是\</br>,HTML5之前的\<br>也是可以的
-- 例:可以省略全部标记的元素,如将`body`元素省略不写,但是<span style="color:red">他在文档结构中还是存在,可以使用`document.html`访问到</span>
+- 例:可以省略全部标记的元素,如将`body`元素省略不写,但是他在文档结构中还是存在,可以使用`document.html`访问到
 
 > 具有`boolean`值的属性
 
@@ -97,7 +97,7 @@ console.log(getDisplay(a));
    - 可以为博客或报刊中的文中,独立的帖子,独立的插件或者任意独立的内容
    - 注意:
      1. 将所有页面从属部分,譬如导航条,菜单,版权说明等包含在一个统一的页面,以便统一使用CSS样式来进行装饰
-     2. 不要将section元素用作<span style="color:red">设置样式的页面容器</span>,那是div元素的工作
+     2. 不要将section元素用作设置样式的页面容器,那是div元素的工作
      3. 如果article,aside或nav更符合使用条件,不要使用section元素
      4. 不要为没有标题的内容区块使用section元素
 3. \<nav>...\</nav>取代的是:\<ul>\</ul>

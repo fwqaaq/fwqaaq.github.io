@@ -1,5 +1,5 @@
 ---
-title: gitLFS
+title: GitLFS
 date: 2023-6-30 18:13:19
 categories: Git
 tags:

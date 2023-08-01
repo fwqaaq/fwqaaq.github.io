@@ -1,17 +1,17 @@
 ---
-title: proxy
+title: Proxy
 date: 2021-12-03 22:44:07
 categories: JavaScript
 tags:
    - JavaScript
-summary: proxy代理
+summary: Proxy 代理
 ---
 
 ## Proxy
 
 > - Proxy
   > 对象用于创建一个对象的代理,从而实现基本操作的拦截和自定义(如属性查找,赋值,枚举,函数调用等)
-> - 目标对象既可以直接被操作,也可以通过代理来操作,<span style="color:red">但直接操作会绕过代理实施的行为</span>
+> - 目标对象既可以直接被操作,也可以通过代理来操作,但直接操作会绕过代理实施的行为
 > - proxy在目标对象的外层搭建了一层拦截,**外界对目标对象的某些操作,必须通过这层拦截**
 
 ```js
@@ -388,7 +388,7 @@ console.log(Object.getOwnPropertyNames(p));
 
 #### **handler.apply()**
 
-- 在调用一个<span style='color:red'>目标对象为函数</span>的代理对象时触发该操作
+- 在调用一个目标对象为函数的代理对象时触发该操作
 
 > 可以返回任何值
 
@@ -412,7 +412,7 @@ const p = new Proxy(target, {
 
 #### **handler.construct()**
 
-- 在给一个目标对象为<span style='color:red'>构造函数</span>的代理对象构造实例时触发该操作,<span style='color:red'>用于初始化代理的目标对象自身必须具有[[构造]]内部方法</span>
+- 在给一个目标对象为构造函数的代理对象构造实例时触发该操作,用于初始化代理的目标对象自身必须具有[[构造]]内部方法
 
 > construct 方法必须返回一个对象
 

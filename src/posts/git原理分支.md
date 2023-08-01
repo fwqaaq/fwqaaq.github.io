@@ -1,10 +1,10 @@
 ---
-title: git原理分支.md
+title: Git 原理分支
 date: 2022-07-02 05:05:03
 categories: Git
 tags:
    - Git
-summary: git原理(分支)
+summary: Git 分支原理
 ---
 
 ## 分支

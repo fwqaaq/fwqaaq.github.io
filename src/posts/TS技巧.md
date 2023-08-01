@@ -1,5 +1,5 @@
 ---
-title: TS技巧
+title: TypeScript 技巧
 date: 2022-08-08 05:10:42
 categories: TypeScript
 tags:

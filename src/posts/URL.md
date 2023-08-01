@@ -5,7 +5,7 @@ categories: JavaScript
 tags:
    - TypeScript
    - JavaScript
-summary: 浏览器原生的URL方法
+summary: 浏览器原生的 URL 方法
 ---
 
 ## URL

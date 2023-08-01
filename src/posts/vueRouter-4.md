@@ -1,12 +1,12 @@
 ---
-title: vueRouter@4.0.0
+title: VueRouter
 date: 2021-09-28 19:03:00
 categories: Vue
 tags:
    - Vue
    - JavaScript
    - TypeScript
-summary:  vueRouter使创建单页应用程序很自然
+summary:  vueRouter 创建单页应用程序的方式
 ---
 
 ## 动态路由
@@ -76,7 +76,7 @@ export default {
 
 - 可以在`template`中使用`$route.params.pathMatch`获取路径参数
   - 例如:`user/hhh/111`
-- <span style="color:red">注意在`/:pathMatch(.*)`后面又加了一个 *</span>,即`/:pathMatch(.*)*`时
+- 注意在`/:pathMatch(.*)`后面又加了一个 `*`,即`/:pathMatch(.*)*`时
   - `$route.params.pathMatch`获取路径参数是一个数组["user","hhh","111"]
 
 ## 嵌套路由
@@ -131,7 +131,7 @@ export default {
 - 携带query参数:
   - `router.push({path:'/register',query:{plan:'private'})`
 
-- <span style="color:red">使用可重复使用的params时,使用name属性,或者path这样编写`/user/${username}`</span>
+- 使用可重复使用的params时,使用name属性,或者path这样编写`/user/${username}`
 
 ### 替换当前位置
 
@@ -212,7 +212,7 @@ const about = {
 router.addRoute("home", about);
 ```
 
-- <span style="color:red">如果新增加的路由的位置与原有的路由相匹配，那就需要你手动导航与`router.push()`或`router.replace()`以显示新的路线</span>
+- 如果新增加的路由的位置与原有的路由相匹配，那就需要你手动导航与`router.push()`或`router.replace()`以显示新的路线
 
 ### 删除路由
 
@@ -325,7 +325,7 @@ const routes = [
 
 ### 全局后置后卫
 
-> 不会接受<span style="color:red">返回值</span>也不会改变导航本身
+> 不会接受返回值也不会改变导航本身
 > >用于分析、更改页面标题、声明页面等辅助功能
 
 ```js

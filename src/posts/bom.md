@@ -4,7 +4,7 @@ date: 2022-01-03 11:00:53
 categories: JavaScript
 tags:
    - JavaScript
-summary: 浏览器自带的bom属性
+summary: 浏览器自带的 bom 属性
 ---
 
 ## Viewport
@@ -29,7 +29,7 @@ summary: 浏览器自带的bom属性
 
 > 注意:布局视口相对于可见视口的概念.可见视口只能显示页面的一小部分.
 
-![浏览器视口](https://github.com/fwqaaq/fwqaaq.github.io/raw/dev/posts/JavaScript/bom/浏览器视口.png)
+![浏览器视口](https://media.githubusercontent.com/media/fwqaaq/fwqaaq.github.io/dev/src/picture/浏览器视口.png)
 
 - **移动窗口**(moveTo,moveBy)和**缩放窗口**(resizeTo,resizeBy)方法一般浏览器会禁用
 
@@ -37,7 +37,7 @@ summary: 浏览器自带的bom属性
 
 1. `clientWidth`,`clientHeight`:CSS的width/height和padding属性值之和
    - 元素边框和滚动条不包括在内,也不包含任何可能的滚动区域
-2. `offsetWidth`,`offsetHeight`:元素在页面中占据的width/height总和,<span style="color:red">包括width,padding,border以及滚动条的宽度</span>
+2. `offsetWidth`,`offsetHeight`:元素在页面中占据的width/height总和,包括width,padding,border以及滚动条的宽度
 3. `offsetLeft`,`offsetTop`:只读.返回元素左上角相对于`HTMLElement.offsetParent`(父元素不是`display:none`)节点的左或者上边界的偏移量
 4. `scrollWidth`,`scrollHeight`当元素不是`overflow:hidden`样式属性时,元素的总宽度(滚动宽度)
    - 在默认状态下,如果该属性值大于clientWidth属性值,则元素会显示滚动条,以便能够翻阅被隐藏的区域
@@ -53,7 +53,7 @@ summary: 浏览器自带的bom属性
 - `clientX`,`clientY`:鼠标相对于浏览器视口的距离.
   - 参照点是目标元素的左上角,计算鼠标点距离浏览器内容区域的左上角的距离(不包含任何可能的滚动区域)
 - `layerX`,`layerY`:鼠标相对于定位属性的距离.
-  - 参照点是父元素(<span style="color:red">,如果自身有定位属性的话就是相对于自身</span>),都没有的话:就是相对于body元素
+  - 参照点是父元素(,如果自身有定位属性的话就是相对于自身),都没有的话:就是相对于body元素
 - `pageX`,`pageY`:鼠标相对与整个页面左上角的距离.
   - 参照点是页面本身的body原点.会以body左上角计算值,并且把滚动条滚过的高或宽计算在内(受滚动区域影响)
 - `screenX`,`screenY`:鼠标相对于屏幕的距离.
@@ -73,7 +73,7 @@ summary: 浏览器自带的bom属性
 ```
 
 1. 要加载的url
-2. 目标窗口(会弹出一个新的窗口):<span style="color:red">自己决定名字</span>
+2. 目标窗口(会弹出一个新的窗口):自己决定名字
 3. 特性字符串
 4. 新窗口在浏览器历史记录中是否替代当前加载页面的**布尔值**
 
@@ -84,7 +84,7 @@ summary: 浏览器自带的bom属性
 
 1. `setTimeout()`:指定时间后执行代码.
    - 返回一个超时排期的ID,可用于取消该任务
-   - <span style="color:red">设置循环任务推荐,因为他在满足条件时自动停止</span>.
+   - 设置循环任务推荐,因为他在满足条件时自动停止.
 2. `setInterval()`:指定每隔一段事件后执行某些代码.
    - 也会返回一个循环定时ID
 
@@ -143,7 +143,7 @@ searchParams.toString();
 > 操作地址
 
 - 例如:`location.assign("www.baidu.com")`,如果使用`location.href`设置一个url,也会以同一个url值调用assign()方法
-- <span style="color:red">除了**hash**之外,只要修改了`location`的一个属性,就会导致页面重新加载url</span>
+- 除了**hash**之外,只要修改了`location`的一个属性,就会导致页面重新加载url
 
 > 如果不希望浏览器的操作地址增加,可以使用`location.replace()`,用户不能回到前一页
 >

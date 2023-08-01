@@ -1,11 +1,11 @@
 ---
-title: 发布npm
+title: 发布 npm
 date: 2022-04-15 22:32:15
 categories: JavaScript
 tags: 
    - JavaScript
    - Config
-summary: 发布一个属于自己的npm
+summary: 发布一个属于自己的 npm
 ---
 
 ## 字段
@@ -257,5 +257,3 @@ Sets tag 'latest' if no --tag specified
 "main": "dist/index.js",
 "types": "dist/index.d.ts"
 ```
-
-> 如果想要打包 mjs、cjs 等不同格式的资源，[请移步](./npm.md#module-导入导出)

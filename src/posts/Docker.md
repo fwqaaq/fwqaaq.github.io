@@ -5,7 +5,7 @@ categories: Config
 tags:
    - Docker
    - Config
-summary: docker的简单应用
+summary: Docker 的简单应用
 ---
 
 ## Docker的基本组成
@@ -82,13 +82,13 @@ systemctl restart docker
 
 > helloword的运行原理
 
-![run的运行流程](https://github.com/fwqaaq/fwqaaq.github.io/raw/dev/posts/Config/docker/run的运行流程.png)
+![run的运行流程](https://media.githubusercontent.com/media/fwqaaq/fwqaaq.github.io/dev/src/picture/run的运行流程.png)
 
 - 工作流程:
   1. Docker是一个Client-Server结构的系统,Docker的守护进程运行在主机上.通过Socket从客户端访问
   2. `DockerServe`接收到`Docker-Client`的指令就会执行这个命令
 
-![docker的工作流程](https://github.com/fwqaaq/fwqaaq.github.io/raw/dev/posts/Config/docker/工作流程.png)
+![docker的工作流程](https://media.githubusercontent.com/media/fwqaaq/fwqaaq.github.io/dev/src/picture/工作流程.png)
 
 - docker与虚拟机对比
 
@@ -125,7 +125,7 @@ QoS | Cgroup弱 | Cgroup弱 | 强 | | 安全性 | 中 | 差 | 强 | | GusetOS |
 
 - **UnionFS(联合文件系统)**:Union文件系统(UnifonFS)是一种分层,分量级并且高性能的文件系统,它支持对文件系统的修改作为一次提交来一层层的叠加,同时可以将不同的目录挂载到一个虚拟文件系统下(`unite serveral directories into a single virtual filesystem`).Union
   文件系统时Docker镜像的基础,镜像可以通过分层类进行继承,基于镜像(没有父镜像),可以制作各种具体的应用镜像
-- **特性**:一次同时加载多个文件系统,但是从外面看只能看到一个文件系统,联合加载会把各层文件系统叠加起来,这样<span style="color:red">最终文件系统会包含所有底层的文件和目录</span>(例如底层的centos文件会给所有的容器使用)
+- **特性**:一次同时加载多个文件系统,但是从外面看只能看到一个文件系统,联合加载会把各层文件系统叠加起来,这样最终文件系统会包含所有底层的文件和目录(例如底层的centos文件会给所有的容器使用)
 
 > Docker 镜像加载原理
 
@@ -135,7 +135,7 @@ QoS | Cgroup弱 | Cgroup弱 | 强 | | 安全性 | 中 | 差 | 强 | | GusetOS |
 - **rootfs(root file
   system)**:在bootfs之上.包含的就是典型的Linux系统中的`/dev,/bin,/usr`等.rootfs就是不同操作系统的发行版,比如`Ubuntu`,`Centos`等
 
-![](https://github.com/fwqaaq/fwqaaq.github.io/raw/dev/posts/Config/docker/docker镜像加载原理.png)
+![ ](https://media.githubusercontent.com/media/fwqaaq/fwqaaq.github.io/dev/src/picture/docker镜像加载原理.png)
 
 - 对于精简过的OS(操作系统),rootfs可以很小,只需要最基本的命令.工具和程序库就可以了,底层使用主机的内核就可以了,自己只需要提供rootfs.
 
@@ -145,14 +145,15 @@ QoS | Cgroup弱 | Cgroup弱 | 强 | | 安全性 | 中 | 差 | 强 | | GusetOS |
    - 例如Centos创建一个新的镜像,此镜像位于第一层,如果在该镜像中加入Python包,就会在基础镜像层上创建第二个镜像层;如果继续添加,就会创建第三个镜像层
 2. 在添加额外镜像的同时,镜像始终保持所有镜像的组合.
    - 例如下图中,每个层中都有三个文件,且保持相互隔离
-     ![](https://github.com/fwqaaq/fwqaaq.github.io/raw/dev/posts/Config/docker/dcoker中的分层.png)
+
+     ![ ](https://media.githubusercontent.com/media/fwqaaq/fwqaaq.github.io/dev/src/picture/dcoker中的分层.png)
 
 > 特点
 
 1. docker镜像都是只读的,当容器启动,一个新的科协曾被加载到镜像的顶部
 2. 这一层通常是容器层,容器之下都是镜像层
 
-![docker镜像的特点](https://github.com/fwqaaq/fwqaaq.github.io/raw/dev/posts/Config/docker/docker镜像的特点.png)
+![docker镜像的特点](https://media.githubusercontent.com/media/fwqaaq/fwqaaq.github.io/dev/src/picture/docker镜像的特点.png)
 
 ### Commit镜像
 
@@ -310,7 +311,7 @@ docker ps -a -q|xargs docker rm   # 删除所有的容器
 ```
 
 - 常见的问题:
-  1. <span style="color:red">docker容器使用后台运行,就必须有一个前台进程,docker发现没有应用,就会自动停止</span>
+  1. docker容器使用后台运行,就必须有一个前台进程,docker发现没有应用,就会自动停止
   2. 例如nginx容器启动后,发现自己没有提供服务就会自动停止
 
 #### 查看日志
@@ -351,7 +352,7 @@ root                12339               12319    0        15:58               pt
 1. 第一种:`docker exec -it 7a447721e405 /bin/bash`
 2. 第二种:`docker attach 7a447721e405`
 
-- 注意:<span style="color:red">第一个是进入容器后开启一个新的终端,第二个是进入一个容器正在执行的终端</span>
+- 注意:第一个是进入容器后开启一个新的终端,第二个是进入一个容器正在执行的终端
 
 #### 从容器中拷贝到主机上
 
@@ -426,7 +427,7 @@ root                12339               12319    0        15:58               pt
 8. 停止容器:`docker stop nginx01`
 9. 删除指定容器:`docker rm nginx01`
 
-![端口暴露](https://github.com/fwqaaq/fwqaaq.github.io/raw/dev/posts/Config/docker/端口暴露.png)
+![端口暴露](https://media.githubusercontent.com/media/fwqaaq/fwqaaq.github.io/dev/src/picture/端口暴露.png)
 
 > 安装`tomcat`
 
@@ -466,7 +467,7 @@ docker run -it --rm -p 8888:8080 tomcat:9.0
 ]
 ```
 
-> 安装mongoDB,官网:<https://hub.docker.com/_/mongo>(<span style="color:red">mongoDB的配置文件和数据文件都在/data下面</span>)
+> 安装mongoDB,官网:<https://hub.docker.com/_/mongo>(mongoDB的配置文件和数据文件都在/data下面)
 
 ```shell
 # -v:数据卷挂载
@@ -551,7 +552,7 @@ CMD ["/bin/bash"]
 3. \# 表示注释
 4. 每一个指令都会创建一个新的镜像层并提交
 
-![dockerFile构建](https://github.com/fwqaaq/fwqaaq.github.io/raw/dev/posts/Config/docker/dockerFile构建.png)
+![dockerFile构建](https://media.githubusercontent.com/media/fwqaaq/fwqaaq.github.io/dev/src/picture/dockerFile构建.png)
 
 - `DockerFile`:构建文件,定义步骤,生成源代码
 - `DockerImages`:通过`DockerFile`构建生成的镜像(最终运行和发布)
@@ -596,7 +597,7 @@ CMD /bin/bash
 # 3.查看镜像的构建过程`docker history 镜像名`
 ```
 
-- 注意:<span style="color:red">如果直接将文件命名`Dockerfile`,那么不需要加`-f`docker会自动寻找</span>
+- 注意:如果直接将文件命名`Dockerfile`,那么不需要加`-f`docker会自动寻找
 - 使用`ADD`添加的文件会自动解压,例如`apache-tomcat-8.5.75.tar.gz`
 
 > `CMD`和`ENTRYPOINT`的区别
@@ -611,8 +612,8 @@ CMD "/bin/bash"
 
 - CMD给出的是一个容器的默认可执行体,也就是容器启动以后,默认的执行命名.
 
-- 也就是说,如果<span style="color:red">docker
-  run没有指定的任何的执行命名或者dockfile里面也没有entrypoint</span>,那么就会执行cmd指定的默认的执行命名执行
+- 也就是说,如果docker
+  run没有指定的任何的执行命名或者dockfile里面也没有entrypoint,那么就会执行cmd指定的默认的执行命名执行
 - 有三种用法:
   1. shell格式的形式:例如`npm install`.命令默认是在`/bin/sh -c`下执行的.
 
@@ -625,7 +626,7 @@ CMD "/bin/bash"
      - 当我们运行`docker run...`的时候,会调用`/bin/bsah`然后打印出`hello`
   2. exec格式的形式(推荐使用):例如`["npm","install"]`.并且第一个参数必须是全路径,并且一个`dockerfile`只能有一个cmd,如果有多个,则指会后最后一个生效.
      - 上面的方式改写:`["/bin/bash","-c","echo","hello"]`
-     - <span style="color:red">如果我们在run的时候指定了命令或者有entrypoint,那么cmd就会被覆盖</span>
+     - 如果我们在run的时候指定了命令或者有entrypoint,那么cmd就会被覆盖
        - `docker run ... echo "world"`,那么控制台就会打印`world`,而不是默认的hello
 
 - `ENTRYPOINT`默认是在shell环境下执行的,与CMD有区别.
@@ -816,7 +817,7 @@ CMD ["nginx", "-g", "daemon off;"]
 4. 没有ping包.下载:`apt install iputils-ping`
 5. 再启动一个tomcat,`tomcat01`ping`tomcat02`(发现可以ping通)
 
-![docker网络](https://github.com/fwqaaq/fwqaaq.github.io/raw/dev/posts/Config/docker/docker网络.png)
+![docker网络](https://media.githubusercontent.com/media/fwqaaq/fwqaaq.github.io/dev/src/picture/docker网络.png)
 
 1. tomcat01和tomcat02是公用的一个路由器(`docker0`)
 2. 所有的容器再不指定网络的情况下,都是docker0转发的,docker会给所有容器分配一个默认可用的ip
@@ -894,11 +895,11 @@ docker run -it --name centos01 --net mynet centos
 docker run -it --name centos02 --net mynet centos
 ```
 
-- <span style="color:red">自定义的网络已经帮我们维护对应的关系,而`doker0`需要`--link`</span>推荐使用.保证不同的集群使用不同的网络,保证集群是安全的
+- 自定义的网络已经帮我们维护对应的关系,而`doker0`需要`--link`推荐使用.保证不同的集群使用不同的网络,保证集群是安全的
 
 ### 网络连通
 
-![docker网络连通](https://github.com/fwqaaq/fwqaaq.github.io/raw/dev/posts/Config/docker/网络连通.png)
+![docker网络连通](https://media.githubusercontent.com/media/fwqaaq/fwqaaq.github.io/dev/src/picture/网络连通.png)
 
 > 将tomcat加入到mynet网络中`docker network connect mynet tomcat01`
 
@@ -916,7 +917,7 @@ docker run -it --name centos02 --net mynet centos
 }
 ```
 
-- <span style="color:red">在tomcat01中可以ping通mynet网中的任意一个容器</sapn>
+- 在tomcat01中可以ping通mynet网中的任意一个容器</sapn>
 
 ## [Docker Compose](https://docs.docker.com/compose/)
 
@@ -1054,7 +1055,7 @@ configs:
 - 容器名称必须是唯一的，因此如果您指定了自定义名称，则无法将服务扩展到超过 1
   个容器
 
-> `depends_on`:表达服务之间的依赖关系(<span style="color:red">yml中的文件从下往上依次执行,要注意顺序</span>)
+> `depends_on`:表达服务之间的依赖关系(yml中的文件从下往上依次执行,要注意顺序)
 
 ```yml
 depends_on:
