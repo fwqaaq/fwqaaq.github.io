@@ -5,7 +5,7 @@ categories: JavaScript
 tags:
    - JavaScript
    - Config
-summary: 使用puppeteer做一个爬虫
+summary: 使用 puppeteer 做一个爬虫
 ---
 
 ## 爬取页面或者接口数据

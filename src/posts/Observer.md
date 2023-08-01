@@ -4,6 +4,8 @@ date: 2022-03-15 15:05:01
 categories: JavaScript
 tags:
    - JavaScript
+   - TypeScript
+   - Browser
 summary: 浏览器的监听事件
 ---
 
@@ -58,7 +60,7 @@ let observer = new IntersectionObserver(callback, options?);
 
 > option字段
 
-1. `root`:用作检查**目标可见性的视口的元素**.必须是目标的祖先.<span style="color:red">如果未指定或缺省为浏览器视口(html)</span>
+1. `root`:用作检查**目标可见性的视口的元素**.必须是目标的祖先.如果未指定或缺省为浏览器视口(html)
 2. `rootMargin`
    **根周围的边距**(默认全部为0).语法类似于`margin`可以是百分比或者像素,用于在计算交集之前增大或缩小根元素边界框的矩形偏移量,有效的扩大或者缩小根的判定范围从而满足计算要求.(top,right,bottom,left)
 3. `threshold`:阈值.**单个数字或数字数组**.默认值为

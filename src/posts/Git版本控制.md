@@ -1,10 +1,10 @@
 ---
-title: Git版本控制
+title: Git 版本控制
 date: 2021-10-09 00:17:11
 categories: Git
 tags:
    - Git
-summary: 使用git进行代码的版本控制
+summary: 使用 Git 进行代码的版本控制
 ---
 
 ## 初始化

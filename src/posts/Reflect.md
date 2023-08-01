@@ -5,7 +5,7 @@ categories: JavaScript
 tags:
    - JavaScript
    - TypeScript
-summary: reflect反射
+summary: reflect 反射
 ---
 
 ## Reflect
@@ -20,9 +20,9 @@ summary: reflect反射
 
 ### Reflect.apply()
 
-> 过指定的参数列表发起对<span style="color:red">目标(target)函数</span>的调用
+> 过指定的参数列表发起对目标(target)函数的调用
 
-- <span style="color:red">注意:如果 target 对象不可调用,抛出 TypeError</span>
+- 注意:如果 target 对象不可调用,抛出 TypeError
 - 调用完带着指定参数和 this 值的给定的函数后返回的结果
 
 1. `target`:目标函数
@@ -38,7 +38,7 @@ Reflect.apply(RegExp.prototype.test, /ab/, ["confabulation"]);
 
 > 类似于new操作符构造函数,相当于运行`new target(...args)`
 
-- <span style="color:red">如果target不是构造函数,抛出TypeError</span>
+- 如果target不是构造函数,抛出TypeError
 - 以target(如果newTarget存在,则为newTarget)函数为构造函数,argumentList为其初始化参数的对象实例
 
 1. `target`:被运行的目标**构造函数**
@@ -70,7 +70,7 @@ OneClass.apply(obj2, args);
 
 > 基本等同于`Object.defineProperty()`方法唯一不同是返回Boolean值
 
-- <span style="color:red">注意:如果target不是 Object,抛出一个 TypeError</span>
+- 注意:如果target不是 Object,抛出一个 TypeError
 - Boolean 值指示了属性是否被成功定义
 
 1. `target`:目标对象
@@ -87,7 +87,7 @@ console.log(obj); //{x: 2, y: 7}
 
 > 用于删除属性.类似`delete operator`但它是一个函数
 
-- <span style="color:red">如果target不是Object,抛出一个 TypeError</span>
+- 如果target不是Object,抛出一个 TypeError
 - 返回`Boolean`值表明该属性是否被成功删除
 
 1. `target`:删除属性的目标对象
@@ -107,7 +107,7 @@ obj; // { y: 2 }
 
 > `Reflect.has(target, propertyKey)`作用与in操作符相同
 
-- <span style="color:red">注意:如果目标对象不是Object类型,则抛出TypeError</span>
+- 注意:如果目标对象不是Object类型,则抛出TypeError
 - 返回一个boolean类型
 
 1. `target`:目标对象
@@ -130,7 +130,7 @@ Reflect.has(obj, "doorbell"); // true
 
 > 该方法与从对象`(target[propertyKey])`中读取属性类似,但它是通过一个函数执行来操作的
 
-- <span style="color:red">注意:如果目标对象不是Object类型,则抛出TypeError</span>
+- 注意:如果目标对象不是Object类型,则抛出TypeError
 - 返回属性的值
 
 1. `target`:需要取值的目标对象
@@ -151,7 +151,7 @@ Reflect.get(obj, "foo"); // "foobar"
 
 > 在一个对象上设置一个属性
 
-- <span style="color:red">注意:如果目标对象不是Object类型,则抛出TypeError</span>
+- 注意:如果目标对象不是Object类型,则抛出TypeError
 - 返回一个布尔值表示是否设置成功
 
 1. `target`:设置属性的目标对象
@@ -169,8 +169,8 @@ obj.prop; // "value"
 
 > 如果属性在对象中存在,则返回给定的属性的属性描述符.否则返回`undefined`
 
-- <span style="color:red">注意:如果目标不是`Object`,抛出一个
-  TypeError</span>而`Object.getOwnPropertyDescriptor`会将非对象强制转换成对象
+- 注意:如果目标不是`Object`,抛出一个
+  TypeError而`Object.getOwnPropertyDescriptor`会将非对象强制转换成对象
 - 如果在给定的目标对象中,则返回属性.如果存在,则返回 undefined
 
 1. target:需要寻找属性的目标对象
@@ -185,7 +185,7 @@ Reflect.getOwnPropertyDescriptor({ x: "hello" }, "x");
 
 > 返回指定对象的原型
 
-- <span style="color:red">注意:如果目标对象不是Object类型,则抛出TypeError</span>
+- 注意:如果目标对象不是Object类型,则抛出TypeError
 - 如果属性存在于给定的目标对象中，则返回属性描述符；否则，返回 undefined
 
 1. target:需要寻找属性的目标对象
@@ -200,7 +200,7 @@ Reflect.getPrototypeOf({});
 > 它可设置对象的原型(即内部的`[[Prototype]]`属性)为另一个对象或
 > null,如果操作成功返回true,否则返回 false
 
-- <span style="color:red">注意:如果目标对象不是Object类型,则抛出TypeError</span>
+- 注意:如果目标对象不是Object类型,则抛出TypeError
 - 返回一个Boolean值证明已经初步成功设置
 
 1. `target`:设置目的的目标对象。
@@ -215,7 +215,7 @@ Reflect.setPrototypeOf({}, Object.prototype);
 
 > 判断一个对象是否可扩展(即是否能够添加新的属性)
 
-- <span style="color:red">注意:如果目标对象不是Object类型,则抛出TypeError</span>
+- 注意:如果目标对象不是Object类型,则抛出TypeError
 - 返回一个 Boolean 值表明该对象是否可扩展
 
 1. `target`:检查是否可扩展的目标对象
@@ -229,7 +229,7 @@ Reflect.isExtensible(frozen); //false
 
 > 返回一个由目标对象自身的属性键组成的数组
 
-- <span style="color:red">注意:如果目标对象不是Object类型,则抛出TypeError</span>
+- 注意:如果目标对象不是Object类型,则抛出TypeError
 - 由目标对象的自身属性键组成的 Array
 
 1. `target`:检查是否可扩展的目标对象
@@ -243,7 +243,7 @@ Reflect.ownKeys({ z: 3, y: 2, x: 1 });
 
 > 阻止新属性添加到对象(例如:防止将来对对象的扩展被添加到对象中)
 
-- <span style="color:red">注意:如果目标对象不是Object类型,则抛出TypeError</span>
+- 注意:如果目标对象不是Object类型,则抛出TypeError
 - 返回一个价值保证Boolean目标对象是否成功被设置为不可扩展
 
 1. `target`:阻止扩展的目标对象

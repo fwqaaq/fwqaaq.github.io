@@ -68,23 +68,23 @@ summary: 浏览器控制台内置的语法
 11. `dir(object)`:列出指定元素的所有属性
 12. `monitor(function)`:监听函数调用,会返回这个函数调用的参数
 
-```js
-function sum(x, y) {
-  return x + y;
-}
-//undefined
-monitor(sum);
-//undefined
-sum(1, 2);
-//init.js:1 function sum called with arguments: 1, 2
-//3
-```
+    ```js
+    function sum(x, y) {
+      return x + y;
+    }
+    //undefined
+    monitor(sum);
+    //undefined
+    sum(1, 2);
+    //init.js:1 function sum called with arguments: 1, 2
+    //3
+    ```
 
 13. `monitorEvents(object[, events])`:监听一个或者一组事件
 
-```js
-monitorEvents(window, "resize");
-monitorEvents(window, ["resize", "scroll"]);
-```
+    ```js
+    monitorEvents(window, "resize");
+    monitorEvents(window, ["resize", "scroll"]);
+    ```
 
 14. `dirxml(object)`: dirxml返回指定对象的xml结构，相当于console.dirxml()

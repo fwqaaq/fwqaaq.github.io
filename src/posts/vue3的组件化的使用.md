@@ -1,5 +1,5 @@
 ---
-title: vue3的组件化的使用
+title: Vue3 的组件化
 date: 2021-09-25 10:54:51
 categories: Vue
 tags:
