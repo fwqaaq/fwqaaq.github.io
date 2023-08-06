@@ -6,7 +6,7 @@ tags:
    - ESlint
    - JavaScript
    - TypeScript
-summary: 使用ESlint规范项目
+summary: 使用 ESlint 规范项目
 ---
 
 > 以下以 `nuxt3` 集成 ESlint 举例

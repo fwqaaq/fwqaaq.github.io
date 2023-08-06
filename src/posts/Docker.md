@@ -242,8 +242,6 @@ docker rmi -f $(docker images -aq) # 删除全部的镜像
 
 ### 容器命令
 
-<hr></hr>
-
 > 下载centos镜像来测试`docker pull centos`
 
 #### 新建容器并启动
@@ -581,7 +579,7 @@ CMD ["/bin/bash"]
 ```shell
 # 1.编写DockerFile文件
 FROM centos
-LABEL name="fw" email="zyj17715640603@gmail.com"
+LABEL name="fw" email="fwqaaq@gmail.com"
 ENV MYPATH = /usr/local
 WORKDIR ${MYPATH} # 进入容器之后的工作目录
 RUN yum -y install vim # 添加工具
@@ -872,7 +870,7 @@ dad25aaf302a   none      null      local
 1. `bridge`:桥接模式(docker默认)
 2. `none`:不配置网络
 3. `host`:和主机共享网络
-4. ~~`container`:容器网络联通(现在几乎不用,局限很大)~~
+4. `container`:容器网络联通(现在几乎不用,局限很大)~~
 
 > 测试
 
@@ -928,7 +926,7 @@ docker run -it --name centos02 --net mynet centos
   1. 定义您的应用程序的环境，Dockerfile以便可以在任何地方复制它。
   2. 定义构成您的应用程序的服务，`docker-compose.yml`
      以便它们可以在隔离环境中一起运行。
-  3. 运行`docker compose up`，**Docker compose
+  3. 运行`docker compose up`，Docker compose
      命令**启动并运行您的整个应用程序。docker-compose
      up也可以使用二进制`docker-compose`文件运行。
 

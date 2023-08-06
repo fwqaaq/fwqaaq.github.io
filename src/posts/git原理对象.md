@@ -151,8 +151,8 @@ git cat-file -t a3d91d12
 git cat-file -p a3d91d12
 # tree a0197cf5327fec251ae14d063fb50d6d3e570674
 #                                                   时间戳      时区
-# author Jack-Zhang-1314 <zyj17715640603@gmail.com> 1656707371 +0800
-# committer Jack-Zhang-1314 <zyj17715640603@gmail.com> 1656707371 +0800
+# author Jack-Zhang-1314 <fwqaaq@gmail.com> 1656707371 +0800
+# committer Jack-Zhang-1314 <fwqaaq@gmail.com> 1656707371 +0800
 # 
 # 1st commit
 ```
@@ -220,8 +220,8 @@ commit(tree中的内容) ---> tree(包含blob对象文件)
 git cat-file -p b27787      
 # tree 654580c8026cf5b0ab07c5572f353409e3c83792
 # parent a3d91d125103f57b7b60d7ebd6502aa0987828ab  (上一次提交)
-# author Jack-Zhang-1314 <zyj17715640603@gmail.com> 1656708529 +0800
-# committer Jack-Zhang-1314 <zyj17715640603@gmail.com> 1656708529 +0800
+# author Jack-Zhang-1314 <fwqaaq@gmail.com> 1656708529 +0800
+# committer Jack-Zhang-1314 <fwqaaq@gmail.com> 1656708529 +0800
 # 
 # 2st commit
 

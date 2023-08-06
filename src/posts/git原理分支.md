@@ -59,7 +59,7 @@ cat .git/HEAD
 ```bash
 git log
 # commit 609f9e53903da9cc53127619044bb8a02f36519a (HEAD -> dev)
-# Author: Jack-Zhang-1314 <zyj17715640603@gmail.com>
+# Author: Jack-Zhang-1314 <fwqaaq@gmail.com>
 # Date:   Sat Jul 2 05:25:37 2022 +0800
 # 
 #     dev 1st
@@ -78,8 +78,8 @@ git branch -D dev
 git cat-file -p 609f9e5
 # tree fd59d47bd5ca961d23037b22377a89bc4debdce0
 # parent b27787b75a99a614f3b26fe482f0cd47bc3c186b
-# author Jack-Zhang-1314 <zyj17715640603@gmail.com> 1656710737 +0800
-# committer Jack-Zhang-1314 <zyj17715640603@gmail.com> 1656710737 +0800
+# author Jack-Zhang-1314 <fwqaaq@gmail.com> 1656710737 +0800
+# committer Jack-Zhang-1314 <fwqaaq@gmail.com> 1656710737 +0800
 # 
 # dev 1st
 ```
