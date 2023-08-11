@@ -46,5 +46,4 @@ export const giscus = `<script src="https://giscus.app/client.js"
         data-theme="preferred_color_scheme"
         data-lang="zh-CN"
         crossorigin="anonymous"
-        async
-</script>`
+        async></script>`
