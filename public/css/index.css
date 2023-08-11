@@ -55,6 +55,11 @@ body {
 
 a {
   text-decoration: none;
+
+  &[href^="http"] {
+    display: block;
+    word-wrap: break-word;
+  }
 }
 
 article a {
@@ -109,6 +114,7 @@ main {
 
   .box .tag,
   article .tag {
+    /* 标签换行 */
     display: inline-block;
     font-size: 14px;
     font-weight: 800;
@@ -164,5 +170,4 @@ main .pages {
     width: 90%;
     padding-inline: 1rem;
   }
-
 }

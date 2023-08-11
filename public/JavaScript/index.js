@@ -2,11 +2,6 @@
 const regex = /\<head\>[\s\S]*\<\/head\>[\s\S]*?\<main\>([\s\S]*)\<\/main\>/
 
 document.addEventListener('DOMContentLoaded', () => {
-
-  // if (location.pathname.includes('/home') || location.pathname === '/') {
-  //   return
-  // }
-
   const stylesheet = document.createElement('link')
   stylesheet.rel = 'stylesheet'
   stylesheet.href = '/public/css/markdown.css'
