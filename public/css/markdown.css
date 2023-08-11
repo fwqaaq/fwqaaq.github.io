@@ -32,17 +32,17 @@ blockquote {
 }
 
 pre {
-  & code {
-    background-color: inherit;
-  }
-
   overflow: auto;
   background-color: rgb(25, 24, 48);
   padding: 1.5rem 1.2rem;
   border-radius: 0.8rem;
   min-height: 2rem;
-  width: calc(0.8 * var(--page-width));
+  /* width: calc(0.8 * var(--page-width)); */
   margin: 0.4rem auto;
+
+  & code {
+    background-color: inherit;
+  }
 }
 
 ul li {

@@ -20,6 +20,11 @@ export const parseYaml = (file) => {
   return [parse(yamlRaw), contentMd]
 }
 
+/**
+ * @param {string} date
+ * @returns {string}
+  */
+
 export const handleUTC = (date) => {
   const utc = new Date(date)
   const year = utc.getUTCFullYear()
@@ -32,6 +37,10 @@ export const handleUTC = (date) => {
   return `${year}${month}${day}${hours}${minutes}${seconds}`
 }
 
+/**
+ * @param {string} date 
+ * @returns {string}
+ */
 export const convertToUSA = (date) => {
   // 转换为美国本地时间格式
   const utc = new Date(date)
@@ -41,6 +50,13 @@ export const convertToUSA = (date) => {
     month: "short",
   })
 }
+
+/**
+ * @param {string} keywords
+ * @param {string} description
+ * @param {string} title
+ * @returns {Promise<string>}
+ * */
 
 export const replaceHead = async (keywords, description, title) => {
   const res = new TextDecoder().decode(
@@ -52,6 +68,13 @@ export const replaceHead = async (keywords, description, title) => {
     .replace("<!-- description -->", description)
     .replace("<!-- title -->", title)
 }
+
+/**
+ * 
+ * @param {URL} url 
+ * @param {string} content 
+ * @param {boolean} append - default false
+ */
 
 export const generateSingleFile = (url, content, append = false) => {
   // if exists, remove it
