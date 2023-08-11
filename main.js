@@ -210,6 +210,7 @@ async function About() {
   const aboutDest = new URL("./about/index.html", dist)
   if (!await exists(aboutDest)) await ensureFile(aboutDest)
   const aboutSrc = new URL("./About/about.md", src)
+
   const about = decoder.decode(await Deno.readFile(aboutSrc))
   const head = decoder.decode(
     await Deno.readFile(new URL("./util/head.html", src)),
