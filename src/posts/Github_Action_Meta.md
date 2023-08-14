@@ -1,13 +1,14 @@
 ---
-title: githubAction元数据
+title: GitHub Action MetaData
 date: 2022-05-21 13:53:20
 categories: Git
 tags:
    - Git
-summary: 使用javascript来操作githubAction
+   - GitHub
+summary: 使用 Javascript 来操作 Github Action
 ---
 
-> 创建action和使用workflows是两个不同的操作
+> 创建 action 和使用 workflows 是两个不同的操作
 
 1. 使用 [workflows](https://docs.github.com/cn/actions/using-workflows/about-workflows) 是一个自动化的过程
    - 由 `.github/workflows` 下的 `yaml` 文件定义,可以是事件,事件或者手动触发
@@ -16,28 +17,29 @@ summary: 使用javascript来操作githubAction
 
 ## [JavaScript 操作](https://docs.github.com/cn/actions/creating-actions/creating-a-javascript-action)
 
-- 这里尝试演示一个使用 actions 元数据去编写一个issue自动提交
+- 这里尝试演示一个使用 actions 元数据去编写一个 Issue 自动提交
 
 > [GitHub Actions 的元数据语法](https://docs.github.com/cn/actions/creating-actions/metadata-syntax-for-github-actions)
 
 - 在根目录下创建一个 `action.yml` 文件，并且文件名称只能是这个
 
-```js
-name:
-"test one create issues";
-description:
-"test create issues";
+```yaml
+name: 'test one create issues'
+description: 'test create issues'
 inputs:
-token:
-description:
-"ACTION_ACCESS";
-required:
-true;
+  token:
+    description: 'ACTION_ACCESS'
+    required: true
+    default: ${{github.token}}
+  repoURL:
+    description: 'repo'
+    default: ${{github.repositoryUrl}}
+  path:
+    description: 'path'
+    default: ${{github.action_path}}
 runs:
-using:
-"node16";
-main:
-"index.mjs";
+  using: 'node16'
+  main: 'index.mjs'
 ```
 
 - `inputs` 是指定从工作流（workflows）中获取对应的输入字段，`token` 是工作流（workflows）中的名称
@@ -92,7 +94,7 @@ main:
     auth: token,
   });
   await octokit.rest.issues.create({
-    owner: "Jack-Zhang-1314",
+    owner: "fwqaaq",
     repo: "demo",
     title: getTitle(),
     body: getBody(),

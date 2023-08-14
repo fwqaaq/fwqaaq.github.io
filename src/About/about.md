@@ -3,7 +3,7 @@ name: about
 title: About
 ---
 
-<h2><img src="https://emojis.slackmojis.com/emojis/images/1588866973/8934/hellokittydance.gif?1588866973" alt="Hi" width="42" /> <p style="font-style:italic;font-size:2rem">I don't konw, I don't understand, I don't get it !!!</p></h2>
+<img src="https://emojis.slackmojis.com/emojis/images/1588866973/8934/hellokittydance.gif?1588866973" alt="Hi" width="42" /> <p style="font-style:italic;font-size:2rem">I don't konw, I don't understand, I don't get it !!!</p>
 
 ### Languages and Tools
 
@@ -31,7 +31,7 @@ title: About
 
 <details>
   <summary>This is my github show! You can take a look at it.</summary>
-  <img src="http://github-profile-summary-cards.vercel.app/api/cards/profile-details?username=fwqaaq&theme=tokyonight">
-  <img src="http://github-profile-summary-cards.vercel.app/api/cards/most-commit-language?username=fwqaaq&theme=tokyonight">
-  <img src="http://github-profile-summary-cards.vercel.app/api/cards/stats?username=fwqaaq&theme=tokyonight">
+  <img width="100%" src="http://github-profile-summary-cards.vercel.app/api/cards/profile-details?username=fwqaaq&theme=tokyonight">
+  <img  src="http://github-profile-summary-cards.vercel.app/api/cards/most-commit-language?username=fwqaaq&theme=tokyonight">
+  <img  src="http://github-profile-summary-cards.vercel.app/api/cards/stats?username=fwqaaq&theme=tokyonight">
 </details>
