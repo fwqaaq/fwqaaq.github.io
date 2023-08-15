@@ -7,6 +7,20 @@ document.addEventListener('DOMContentLoaded', () => {
   stylesheet.href = '/public/css/markdown.css'
   document.head.appendChild(stylesheet)
 
+
+  const header = document.querySelector('header')
+  const nav = header.querySelector('nav')
+
+  // nav toggle
+  document.addEventListener('click', (e) => {
+    if (window.matchMedia('(max-width: 30rem').matches && e.target === header) {
+      nav.classList.add('show')
+      return
+    }
+
+    nav.classList.remove('show')
+  })
+
   document.body.addEventListener('click', (e) => {
     if (e.target.matches('a') && e.target.getAttribute('href').startsWith('/./')) useRoute(e)
   })

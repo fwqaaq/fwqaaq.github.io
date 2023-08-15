@@ -25,7 +25,7 @@ code {
 blockquote {
   border-left: 0.3rem solid rgba(50, 48, 91, 0.759);
   padding-inline-start: 0.8rem;
-  margin-inline-start: 1rem;
+  margin-inline: 1rem;
   padding-block: 0.3rem;
   background-color: rgba(25, 24, 48, 0.1);
   line-height: 1.5;
@@ -37,8 +37,7 @@ pre {
   padding: 1.5rem 1.2rem;
   border-radius: 0.8rem;
   min-height: 2rem;
-  /* width: calc(0.8 * var(--page-width)); */
-  margin: 0.4rem auto;
+  margin: 0.2rem auto;
 
   & code {
     background-color: inherit;
