@@ -10,6 +10,7 @@ body {
   --header-height: 4rem;
   --theme-bg: rgb(220, 216, 208);
   --theme-color: rgb(25, 24, 48);
+  --transparent-theme-color: rgba(25, 24, 48, 0.4);
   --header-hover: rgba(72, 69, 138, 0.9);
   --header-color: rgb(240, 238, 233);
   --color-a-link: rgba(0, 93, 73, 0.7);
@@ -158,12 +159,32 @@ main .pages {
 }
 
 @media (max-width: 30rem) {
-  nav a {
-    display: none;
-  }
+  header {
+    display: flex;
+    position: relative;
+    justify-content: center;
 
-  header>a {
-    margin: 0 auto;
+    &>nav {
+      display: flex;
+      flex-direction: column;
+      position: absolute;
+      overflow: hidden;
+      inset-block-start: 100%;
+      width: 100%;
+      max-height: 0;
+      transition: max-height 0.5s ease-in-out;
+
+      &>a {
+        background-color: var(--transparent-theme-color);
+
+      }
+    }
+
+    .show {
+      max-height: fit-content;
+      /* 与正常情况下产生冲突，这里设置 auto */
+      height: auto;
+    }
   }
 
   .giscus {
