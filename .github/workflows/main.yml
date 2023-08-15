@@ -1,4 +1,4 @@
-name: Get-Cloud-IP
+name: Deploy to gh-pages
 
 on:
   push:
