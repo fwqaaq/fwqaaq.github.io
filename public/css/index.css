@@ -171,3 +171,7 @@ main .pages {
     padding-inline: 1rem;
   }
 }
+
+img {
+  max-width: 100%;
+}
