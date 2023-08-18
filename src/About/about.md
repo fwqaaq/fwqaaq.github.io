@@ -5,7 +5,11 @@ title: About
 
 <img src="https://emojis.slackmojis.com/emojis/images/1588866973/8934/hellokittydance.gif?1588866973" alt="Hi" width="42" /> <p style="font-style:italic;font-size:2rem">I don't konw, I don't understand, I don't get it !!!</p>
 
-### Languages and Tools
+## Who
+
+[<img src="https://telegram.org/favicon.ico" width="32px" alt="Telegram" />](https://t.me/fwqaaq) ··· [<img src="https://github.com/favicon.ico">](https://github.com/fwqaaq) ··· [<img src="https://mail.google.com/favicon.ico" width="32px" alt="Gmail">](mailto:fwqaaq@gmail) ··· [<img src="https://www.fwqaq.us/public/favicon.ico" width="32px" alt="Blog" />](https://www.fwqaq.us)
+
+## Languages and Tools
 
 ![HTML5](https://img.shields.io/badge/-HTML5-%23E34C26?style=flat&logo=html5&logoColor=ffffff)
 ![CSS3](https://img.shields.io/badge/-CSS3-%23197CBE?style=flat&logo=css3)
@@ -21,13 +25,13 @@ title: About
 ![Git](https://img.shields.io/badge/-Git-%23ED5A47?style=flat&logo=git&logoColor=%23ffffff)
 ![VS Code](https://img.shields.io/badge/-VSCode-%230066B8?style=flat&logo=visual-studio-code)
 
-### Study
+## Repo
 
 * [coding and nas](https://github.com/fwqaaq/coding_and_nas)
 * [Scripts](https://github.com/fwqaaq/scripts)
 * [Rust Atomics and Locks](https://github.com/rustcc/Rust_Atomics_and_Locks)
 
-### Show
+## Show
 
 <details>
   <summary>This is my github show! You can take a look at it.</summary>
