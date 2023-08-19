@@ -7,9 +7,9 @@ tags:
 summary: Git 对象原理剖析
 ---
 
-## 初始化git
+## 初始化 git
 
-- git init:初始化本地git仓库
+- git init:初始化本地 git 仓库
 
 ```bash
 #四个文件
@@ -30,14 +30,14 @@ hooks  info  objects  refs
 
 ## 工作区与暂存区
 
-1. 创建文件的时候,`.git`文件并不会发生任何变化,因为它是存储在工作区中的
+1. 创建文件的时候，`.git` 文件并不会发生任何变化，因为它是存储在工作区中的
 
    ```bash
    `echo "hello" > hello.txt`
    ```
 
-2. 使用`git add hello.txt`去将其提交到暂存区
-   - 这时候会多出一个文件`index`,和一个文件夹`2a`
+2. 使用 `git add hello.txt` 去将其提交到暂存区
+   - 这时候会多出一个文件 `index`，和一个文件夹 `2a`
 
    ```bash
    │  config
@@ -62,7 +62,7 @@ hooks  info  objects  refs
        └─tags
    ```
 
-   - 查看文件的类型:**文件的目录名称+SHA1前面的四位**
+   - 查看文件的类型：**文件的目录名称+SHA1 前面的四位**
      - `-t`:查看对象的类型
      - `-p`:查看对象的内容
      - `-s`:查看大小
@@ -75,13 +75,13 @@ hooks  info  objects  refs
    git cat-file -s 2a93d0
    ```
 
-   - `git add`存储文件:`文件类型(这里是blob) + 文件内容`,然后进行`SHA1`加密
-   - 在`objects`中文件的内容会被压缩后存储到加密之后的文件中
-3. 查看`index`文件,使用`git ls-files`可以查看暂存区(index)的文件情况
+   - `git add` 存储文件：文件类型（这里是 blob） + 文件内容，然后进行 `SHA1` 加密
+   - 在 `objects` 中文件的内容会被压缩后存储到加密之后的文件中
+3. 查看 `index` 文件，使用 `git ls-files` 可以查看暂存区（index）的文件情况
 
    ```bash
    git ls-files -s
-   # 权限      blob对象                                        文件名
+   # 权限      blob 对象                                        文件名
    # 100644 2a93d00994fbd8c484f38b0423b7c42e87a55d48 0       hello.txt
    # 100644 190b00d560cb8ac4e17678e8fccc7a2af8057bdd 0       temp.txt
    ```
@@ -143,7 +143,7 @@ hooks  info  objects  refs
     └─tags
 ```
 
-> 查看`commit`对象内容和类型
+> 查看 `commit` 对象内容和类型
 
 ```bash
 git cat-file -t a3d91d12
@@ -157,7 +157,7 @@ git cat-file -p a3d91d12
 # 1st commit
 ```
 
-> 查看`tree`对象的内容和类型
+> 查看 `tree` 对象的内容和类型
 
 ```bash
 git cat-file -t a0197c
@@ -167,7 +167,7 @@ git cat-file -p a0197c
 # 100644 blob 190b00d560cb8ac4e17678e8fccc7a2af8057bdd    temp.txt
 ```
 
-> 查看commit对象和指针`HEAD`
+> 查看 commit 对象和指针`HEAD`
 
 ```bash
 cat .\.git\refs\heads\master
@@ -184,7 +184,7 @@ commit(tree中的内容) ---> tree(包含blob对象文件)
                           ----------> temp.txt
 ```
 
-### 修改commit
+### 修改 commit
 
 ```bash
 │
@@ -214,7 +214,7 @@ commit(tree中的内容) ---> tree(包含blob对象文件)
 │  └─pack
 ```
 
-> 查看最新提交的commit
+> 查看最新提交的 commit
 
 ```bash
 git cat-file -p b27787      
@@ -240,9 +240,9 @@ git cat-file -t 8099378
 # blob
 ```
 
-## git的文件状态
+## git 的文件状态
 
-1. `Untrack`:工作区新创建的文件.使用`git add`将文件变为`Staged`
-2. `Modified`:文件已经在`index(Staged状态)`,然后在工作区修改,也可以使用`git add`变为`Staged`
-3. `Staged`:使用`git commit`将文件变为`Unmodified`
+1. `Untrack`:工作区新创建的文件。使用 `git add` 将文件变为 `Staged`
+2. `Modified`:文件已经在 index（Staged 状态），然后在工作区修改，也可以使用 `git add` 变为 `Staged`
+3. `Staged`:使用 `git commit` 将文件变为 `Unmodified`
 4. `Unmodified`

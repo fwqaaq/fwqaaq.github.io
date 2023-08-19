@@ -11,7 +11,7 @@ summary: 使用 ESlint 规范项目
 
 > 以下以 `nuxt3` 集成 ESlint 举例
 
-- `npx nuxi init nuxt-app`：首先得初始化一个nuxt3的项目
+- `npx nuxi init nuxt-app`：首先得初始化一个 nuxt3 的项目
 
 ## 初始化 ESlint
 
@@ -49,7 +49,7 @@ module.exports = {
 
 > extends 的模块名称以 `eslint-config-` 开头，例如 eslint-config-myconfig。同时支持
 > npm 作用域模块，例如
-> :@scope/eslint-config。使用的时候可以用全称，也可以用缩写(不使用`eslint-config-`)
+> :@scope/eslint-config。使用的时候可以用全称，也可以用缩写 (不使用`eslint-config-`)
 >
 > 例如上面配置文件，extends 中 `"plugin:@typescript-eslint/recommended"`，这个就是插件中的配置
 
@@ -58,7 +58,7 @@ module.exports = {
 
 1. extends 可以看做是集成一个个配置方案的最佳实践。它配置的内容实际就是一份份别人配置好的 `.eslintrc.js`
 2. 允许 extends 配置多个模块，如果规则冲突，位置靠后的包将覆盖前面的
-3. rules中的规则相同，并且优先级恒定高于 extends
+3. rules 中的规则相同，并且优先级恒定高于 extends
 
 ### plugin
 
@@ -66,7 +66,7 @@ module.exports = {
 > eslint-plugin-vue。你也可以用这样的格式 @\<scope>/eslint-plugin-\<plugin-name>
 > 限定在包作用域下，比如 @vue/eslint-plugin-vue。同样可以使用缩写
 >
-> 例如上面配置文件中，plugins中的`"vue"`，这个就是简写的插件
+> 例如上面配置文件中，plugins 中的`"vue"`，这个就是简写的插件
 
 1. 引入 `plugin` 可以理解为只是加载了（拥有额外的自定义的 rules）插件。但是只有在 **rules,extends** 中定义后才会生效，如果没有则不生效
 2. plugin 里除了自定义的 rules。还可以配置 `.eslintrc.js`（例如 `"plugin:vue/essential"`），并且这部分可以在 extends 里配置：`plugin:config` 名称
@@ -104,7 +104,7 @@ module.exports = {
 2. extends 一般会加载 plugin 中的配置集，形成一套核心规则
 3. plugin 不仅仅可以对 javascript 做扩展，又可以对除了 JavaScript 之外的做扩展
 
-> 在extends中使用[plugins插件](https://cn.eslint.org/docs/developer-guide/working-with-plugins#configs-in-plugins)
+> 在 extends 中使用[plugins 插件](https://cn.eslint.org/docs/developer-guide/working-with-plugins#configs-in-plugins)
 
 - extends 里的 config 和 plugin 里的 config 的区别
   1. `extends` 中的 config 是一种命名规范，扩展名称格式必须为 eslint-config-\<name>
@@ -128,7 +128,7 @@ module.exports = {
    ```
 
 2. 配置 nuxt3 中额外的规则
-   - 下载插件:`npm install -D eslint-plugin-nuxt`
+   - 下载插件：`npm install -D eslint-plugin-nuxt`
 
    ```js
    extends:[
@@ -143,7 +143,7 @@ module.exports = {
 
 ```json
 scripts:{
-  // npx会自动执行脚本,不需要加上 npx
+  // npx 会自动执行脚本，不需要加上 npx
   "lint": "eslint . --ext .ts,.vue"
 }
 ```
@@ -162,7 +162,7 @@ scripts:{
      ```shell
      # 当前目录下所有目录
      eslint --ext .ts,.vue .
-     # 忽略扩展名,匹配src下所有文件
+     # 忽略扩展名，匹配 src 下所有文件
      eslint --ext .vue ./src/**/*
      ```
 
@@ -188,7 +188,7 @@ scripts:{
   }
   ```
 
-> `.eslintignore` 文件：eslint会忽略当前目录下的这些文件。
+> `.eslintignore` 文件：eslint 会忽略当前目录下的这些文件。
 
 - `.eslintignore` 是 `--ignore-path` 的选项的一个扩展，更方便的去管理文件
 
@@ -202,12 +202,12 @@ scripts:{
 /public/*
 ```
 
-## prettier和husky
+## prettier 和 husky
 
-> - 使用prettier去规范代码风格
+> - 使用 prettier 去规范代码风格
 > - 参考:<https://prettier.io/>
 
-- 下载关于prettier的插件:`npm i -D prettier eslint-plugin-prettier eslint-config-prettier`
+- 下载关于 prettier 的插件：`npm i -D prettier eslint-plugin-prettier eslint-config-prettier`
 
 ```js
 module.exports={
@@ -220,26 +220,26 @@ module.exports={
 }
 ```
 
-> 配置 [`.prettierrc`](https://prettier.io/docs/en/options.html) 文件,同时也可以添加 `.prettierignore` 文件来忽略不想要检查的文件
+> 配置 [`.prettierrc`](https://prettier.io/docs/en/options.html) 文件，同时也可以添加 `.prettierignore` 文件来忽略不想要检查的文件
 
 ```js
 {
   printWidth: 80, //单行长度
-  tabWidth: 2, //缩进长度,不管是空格还是Tab
-  useTabs: false, //使用空格代替tab缩进
+  tabWidth: 2, //缩进长度，不管是空格还是 Tab
+  useTabs: false, //使用空格代替 tab 缩进
   semi: true, //句末使用分号
   singleQuote: true, //使用单引号
-  quoteProps: 'as-needed', //仅在必需时为对象的key添加引号
-  jsxSingleQuote: true, // jsx中使用单引号
+  quoteProps: 'as-needed', //仅在必需时为对象的 key 添加引号
+  jsxSingleQuote: true, // jsx 中使用单引号
   trailingComma: 'all', //多行时尽可能打印尾随逗号
   bracketSpacing: true, //在对象前后添加空格-eg: { foo: bar }
-  jsxBracketSameLine: true, //多属性html标签的‘>’折行放置
+  jsxBracketSameLine: true, //多属性 html 标签的‘>’折行放置
   arrowParens: 'always', //单参数箭头函数参数周围使用圆括号-eg: (x) => x
   requirePragma: false, //无需顶部注释即可格式化
-  insertPragma: false, //在已被preitter格式化的文件顶部加上标注
+  insertPragma: false, //在已被 preitter 格式化的文件顶部加上标注
   proseWrap: 'preserve', //不知道怎么翻译
-  htmlWhitespaceSensitivity: 'ignore', //对HTML全局空白不敏感
-  vueIndentScriptAndStyle: false, //不对vue中的script及style标签缩进
+  htmlWhitespaceSensitivity: 'ignore', //对 HTML 全局空白不敏感
+  vueIndentScriptAndStyle: false, //不对 vue 中的 script 及 style 标签缩进
   endOfLine: 'lf', //结束行形式
   embeddedLanguageFormatting: 'auto', //对引用代码进行格式化
 }

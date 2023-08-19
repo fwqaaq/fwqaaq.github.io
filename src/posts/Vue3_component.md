@@ -6,31 +6,31 @@ tags:
    - Vue
    - JavaScript
    - TypeScript
-summary: 关于vue3组件化的使用,兼容的vue2
+summary: 关于 vue3 组件化的使用，兼容的 vue2
 ---
 
 ## 理解插槽
 
-- 使组件具备更强的通用性,组件中的内容不再限制为固定的div、span等等这些元素
+- 使组件具备更强的通用性，组件中的内容不再限制为固定的 div、span 等等这些元素
 - 使用者可以决定某一块区域到底存放什么内容和元素
-- 定义插槽slot
+- 定义插槽 slot
   - 插槽的使用过程其实是抽取共性、预留不同
   - 我们会将共同的元素、内容依然在组件内进行封装
-  - 同时会将不同的元素使用slot作为占位,让外部决定到底显示什么样的元素
+  - 同时会将不同的元素使用 slot 作为占位，让外部决定到底显示什么样的元素
 - 使用插槽
-  - Vue中将 \<slot> 元素作为承载分发内容的出口
-  - 在封装组件中,使用特殊的元素\<slot>就可以为封装组件开启一个插槽
+  - Vue 中将 <slot> 元素作为承载分发内容的出口
+  - 在封装组件中，使用特殊的元素\<slot>就可以为封装组件开启一个插槽
   - 该插槽插入什么内容取决于父组件如何使用
 
 ### 默认插槽
 
-> 当插槽内部不具有name属性时,vue会自动给一个隐式名称`name:default`
-> >且子组件不管有多少个插槽,每个插槽都会显示一样的内容
+> 当插槽内部不具有 name 属性时，vue 会自动给一个隐式名称`name:default`
+> > 且子组件不管有多少个插槽，每个插槽都会显示一样的内容
 
 ```js
  父组件中:
 <Category>
-  <div>html结构</div>
+  <div>html 结构</div>
 </Category>
 子组件中:
 <template>
@@ -43,9 +43,9 @@ summary: 关于vue3组件化的使用,兼容的vue2
 
 ### 具名插槽
 
-- 具名插槽顾名思义就是给插槽起一个名字,\<slot> 元素有一个特殊的
+- 具名插槽顾名思义就是给插槽起一个名字，\<slot> 元素有一个特殊的
   `attribute：name`
-- 一个不带 name 的slot,会带有隐含的名字 default
+- 一个不带 name 的 slot，会带有隐含的名字 default
 
 ```js
 //父组件中
@@ -84,15 +84,15 @@ summary: 关于vue3组件化的使用,兼容的vue2
 
 ### 作用域插槽
 
-- vue渲染作用域:
+- vue 渲染作用域：
   - 父级模板里的所有内容都是在父级作用域中编译的
   - 子模板里的所有内容都是在子作用域中编译的
 
 - 希望插槽可以访问到子组件中的内容
-  - 当一个组件被用来渲染一个数组元素时,我们使用插槽,并且希望插槽中没有显示每项的内容
+  - 当一个组件被用来渲染一个数组元素时，我们使用插槽，并且希望插槽中没有显示每项的内容
 
 ```html
-<!-- 子组件中:有一个names的数组 -->
+<!-- 子组件中：有一个 names 的数组 -->
   <template v-for="(item,index) in names" :key="item">
      <slot name="footer" :item="item" :index="index"></slot>
   </template>
@@ -106,8 +106,8 @@ summary: 关于vue3组件化的使用,兼容的vue2
 ```
 
 - 独占默认插槽
-  - 当默认插槽和作用域插槽简写,如果还有其它具名插槽那么简写方式不可以
-  - 子组件中的\<slot>标签不能有name属性
+  - 当默认插槽和作用域插槽简写，如果还有其它具名插槽那么简写方式不可以
+  - 子组件中的<slot>标签不能有 name 属性
 
 ```js
 <Foot v-slot="slotProps">
@@ -117,8 +117,8 @@ summary: 关于vue3组件化的使用,兼容的vue2
 
 ## 动态组件
 
-> 动态组件是使用 `component` 组件,通过一个特殊的`attribute is`
-> 来实现,is属性是一个组件
+> 动态组件是使用 `component` 组件，通过一个特殊的`attribute is`
+来实现，is 属性是一个组件
 
 ```html
 <component 
@@ -129,15 +129,15 @@ summary: 关于vue3组件化的使用,兼容的vue2
 </component>
 ```
 
-- 注意点:
-  1. currentTab可以是通过component函数注册的组件
-  2. currentTab可以是在一个组件对象的components对象中注册的组件
+- 注意点：
+  1. currentTab 可以是通过 component 函数注册的组件
+  2. currentTab 可以是在一个组件对象的 components 对象中注册的组件
   3. 动态组件的传值和其它组件的传值 是一样的
 
-## 缓存组件keep-alive
+## 缓存组件 keep-alive
 
-> 默认情况下,我们在切换组件后,组件会被销毁掉,再次回来时会重新创建组件
-> >然而某些情况我们希望继续保持组件的状态,而不是销毁掉,这个时候我们就可以使用一个内置组件:`keep-alive`
+> 默认情况下，我们在切换组件后，组件会被销毁掉，再次回来时会重新创建组件
+> > 然而某些情况我们希望继续保持组件的状态，而不是销毁掉，这个时候我们就可以使用一个内置组件：`keep-alive`
 
 ```html
 <keep-alive include="home,about">
@@ -150,7 +150,7 @@ summary: 关于vue3组件化的使用,兼容的vue2
 </keep-alive>
 ```
 
-### keep-alive的一些属性
+### keep-alive 的一些属性
 
 - `include`:可以使用`string`|`RegExp`|`Array`.只有名称匹配的组件会被缓存
   - string:`include:"a,b"`
@@ -160,20 +160,20 @@ summary: 关于vue3组件化的使用,兼容的vue2
 - `exclude` : `string` | `RegExp` | `Array`.任何名称匹配的组件都不会被缓存
 
 - `max`(不常用) : `number` |
-  `string`.最多可以缓存多少组件实例,一旦达到这个数字,那么缓存组件中最近没有被访问的实例会被销毁
+  `string`.最多可以缓存多少组件实例，一旦达到这个数字，那么缓存组件中最近没有被访问的实例会被销毁
 
 ### 缓存组件的生命周期
 
-> <span style="color:red">对于缓存的组件来说,再次进入时,我们是不会执行created或者mounted等生命周期函数的</span>
+> <span style="color:red">对于缓存的组件来说，再次进入时，我们是不会执行 created 或者 mounted 等生命周期函数的</span>
 
-- **activated**:在vue对象存活的情况下,进入当前存在`activated()`函数的页面时,一切到改页面就触发.
-- **deactivated**:当离开组件A,切到组件B之前,需要对组件A做某些处理,比如清除定时器,这时就需要使用**deactivated**
+- **activated**:在 vue 对象存活的情况下，进入当前存在`activated()`函数的页面时，一切到改页面就触发。
+- **deactivated**:当离开组件 A，切到组件 B 之前，需要对组件 A 做某些处理，比如清除定时器，这时就需要使用**deactivated**
 
-## 异步组件的实现(多在路由中用到)
+## 异步组件的实现 (多在路由中用到)
 
-> 默认情况下,在构建整个组件树的过程中,因为组件和组件之间是通过模块化直接依赖的,那么webpack在打包时就会将组件模块打包到一起（比如一个app.js文件中）
+> 默认情况下，在构建整个组件树的过程中，因为组件和组件之间是通过模块化直接依赖的，那么 webpack 在打包时就会将组件模块打包到一起（比如一个 app.js 文件中）
 
-### webpack的代码分包
+### webpack 的代码分包
 
 ```js
 import("./utils/math").then(
@@ -183,10 +183,10 @@ import("./utils/math").then(
 );
 ```
 
-### vue中实现异步组件
+### vue 中实现异步组件
 
-- 如果我们的项目过大了,对于某些组件我们希望通过异步的方式来进行加载(即进行分包处理),利用vue中的`defineAsyncComponent`函数
-  - 写成工厂函数,该工厂函数需要返回一个Promise对象
+- 如果我们的项目过大了，对于某些组件我们希望通过异步的方式来进行加载 (即进行分包处理),利用 vue 中的`defineAsyncComponent`函数
+  - 写成工厂函数，该工厂函数需要返回一个 Promise 对象
 
   ```js
   import { defineAsyncComponent } from "vue";
@@ -199,7 +199,7 @@ import("./utils/math").then(
   });
   ```
 
-  - 接受一个对象类型,对异步函数进行配置
+  - 接受一个对象类型，对异步函数进行配置
 
   ```js
   const AsyncMain=defineAsyncComponent({
@@ -207,7 +207,7 @@ import("./utils/math").then(
   loadingComponent: Loading,
 
   errorComponent:Failing
-  //在显示loadingComponents组件之前,等待多长时间
+  //在显示 loadingComponents 组件之前，等待多长时间
   delay:2000,
 
   onError:function(err,retry,fail,attempts){}
@@ -216,22 +216,22 @@ import("./utils/math").then(
 
 | 属性               | 描述                                               |
 | ------------------ | -------------------------------------------------- |
-| `loadingComponent` | 传入一个组件,如果没有加载出异步组件,占位组件会占位 |
-| `errorComponent`   | 传入一个组件,组件加载失败时显示的组件              |
-| `delay`            | 在显示loadingComponents组件之前,等待多长时间       |
-| `onError`          | 传入一个带有四个参数的函数,                        |
+| `loadingComponent` | 传入一个组件，如果没有加载出异步组件，占位组件会占位 |
+| `errorComponent`   | 传入一个组件，组件加载失败时显示的组件              |
+| `delay`            | 在显示 loadingComponents 组件之前，等待多长时间       |
+| `onError`          | 传入一个带有四个参数的函数，                       |
 
 - `onError`参数
   - `err`:错误信息
-  - `retry`:函数,调用retry尝试重新加载
-  - `fail`:函数,指加载程序结束退出
+  - `retry`:函数，调用 retry 尝试重新加载
+  - `fail`:函数，指加载程序结束退出
   - `attempts`:记录尝试的次数
 
-### 异步组件与Suspense(<span style="color:red">还在实验中,API随时可能修改</span>)
+### 异步组件与 Suspense(<span style="color:red">还在实验中，API 随时可能修改</span>)
 
-- `Suspense`是一个内置的全局组件,该组件有两个插槽：
-  - `default`:如果default可以显示,那么显示default的内容
-  - `fallback`:如果default无法显示,那么会显示fallback插槽的内容
+- `Suspense`是一个内置的全局组件，该组件有两个插槽：
+  - `default`:如果 default 可以显示，那么显示 default 的内容
+  - `fallback`:如果 default 无法显示，那么会显示 fallback 插槽的内容
 
 ```html
 <template #default>
@@ -247,20 +247,20 @@ import("./utils/math").then(
 - `$refs`:持有注册过`ref attribute` 的所有 DOM 元素或者组件实例
 - `$parent` 和 `$root`,获取父元素实例和根元素实例
 
-## 组件的v-model
+## 组件的 v-model
 
-> 在input中可以使用v-model来完成双向绑定
+> 在 input 中可以使用 v-model 来完成双向绑定
 >
-> 在封装一个组件,其他地方在使用这个组件时,也可以使用v-model来同时完成这两个功能
+> 在封装一个组件，其他地方在使用这个组件时，也可以使用 v-model 来同时完成这两个功能
 
-- 在\<input>中绑定`v-model`默认帮我们完成的两件事:
-  - <span style="color:red">v-bind:value的数据绑定和@input的事件监听</span>
+- 在\<input>中绑定`v-model`默认帮我们完成的两件事：
+  - <span style="color:red">v-bind:value 的数据绑定和@input 的事件监听</span>
 
 ```html
 <!-- 父组件 -->
 <MainInput v-model="message"></MainInput>
 
-<!-- 组件直接绑定v-model,相当于写成以下模式 -->
+<!-- 组件直接绑定 v-model，相当于写成以下模式 -->
 <MainInput :modelValue="message" 
            @update:modelValue="message=$event">
 </MainInput>
@@ -271,7 +271,7 @@ import("./utils/math").then(
 <template>
   <div>
      <input v-model="value">
-     <h2>Main的message:{{modelValue}}</h2>
+     <h2>Main 的 message:{{modelValue}}</h2>
   </div>
 </template>
 <script>
@@ -294,12 +294,12 @@ export default {
 </script>
 ```
 
-- 注意:<span style="color:red">v-model不能直接绑定到props,props中的属性只读不要改</span>
+- 注意:<span style="color:red">v-model 不能直接绑定到 props,props 中的属性只读不要改</span>
 
-- 绑定多个参数,可以给`v-model`传参
-  1. 默认情况下:v-model其实是绑定了 `modelValue` 属性和
+- 绑定多个参数，可以给`v-model`传参
+  1. 默认情况下:v-model 其实是绑定了 `modelValue` 属性和
      `@update:modelValue`的事件
-  2. `v-model:tittle`绑定了`title`属性,监听了 `@update:title`的事件
+  2. `v-model:tittle`绑定了`title`属性，监听了 `@update:title`的事件
 
 ```html
 <!-- 父组件 -->
@@ -311,9 +311,9 @@ export default {
 <template>
   <div>
      <input v-model="tittleValue">
-     <h2>Main的message:{{tittleValue}}</h2>
+     <h2>Main 的 message:{{tittleValue}}</h2>
       <input v-model="demoValue">
-     <h2>Main的message:{{demoValue}}</h2>
+     <h2>Main 的 message:{{demoValue}}</h2>
   </div>
 </template>
 <script>

@@ -14,7 +14,7 @@ summary: 浏览器控制台内置的语法
    $_; //4
    ```
 
-2. `$0`:光标在 `Element` 中选中的元素,如果是上一个选中的可以使用`$1`
+2. `$0`:光标在 `Element` 中选中的元素，如果是上一个选中的可以使用`$1`
 3. `$()`:等价于`document.querySelector()`
 
    ```js
@@ -22,15 +22,15 @@ summary: 浏览器控制台内置的语法
    //<img>...</img>
    ```
 
-   - 当然,你也可以将`$0`和它组合:`$('img',$0)`,其中`$0`指的是上下文
-4. `$$()`:等价于`document.querySelectorAll()`,返回所有的元素,同样,它也可以指定上下文`$0`,或者`$(main)`
+   - 当然，你也可以将`$0`和它组合：`$('img',$0)`,其中`$0`指的是上下文
+4. `$$()`:等价于`document.querySelectorAll()`,返回所有的元素，同样，它也可以指定上下文`$0`,或者`$(main)`
 
    ```js
    $$("img");
    //[5]...
    ```
 
-5. `$x(path)` 能使用xpath选择器来返回符合选择器的所有元素
+5. `$x(path)` 能使用 xpath 选择器来返回符合选择器的所有元素
 
    ```js
    $x("/html/body/div[1]/header");
@@ -64,9 +64,9 @@ summary: 浏览器控制台内置的语法
    getEventListeners($0);
    ```
 
-10. `copy(object)`:可以直接复制字符串表达式,`copy($0)`
+10. `copy(object)`:可以直接复制字符串表达式，`copy($0)`
 11. `dir(object)`:列出指定元素的所有属性
-12. `monitor(function)`:监听函数调用,会返回这个函数调用的参数
+12. `monitor(function)`:监听函数调用，会返回这个函数调用的参数
 
     ```js
     function sum(x, y) {
@@ -87,4 +87,4 @@ summary: 浏览器控制台内置的语法
     monitorEvents(window, ["resize", "scroll"]);
     ```
 
-14. `dirxml(object)`: dirxml返回指定对象的xml结构，相当于console.dirxml()
+14. `dirxml(object)`: dirxml 返回指定对象的 xml 结构，相当于 console.dirxml()

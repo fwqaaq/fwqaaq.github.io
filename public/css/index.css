@@ -60,7 +60,7 @@ a {
 
 /* 除了锚点 a 都要换行 */
 main :not(:where(h2, h3, h4, h5, h6)) a[href^="http"] {
-  word-wrap: break-word;
+  overflow-wrap: break-word;
   width: 100%;
 }
 

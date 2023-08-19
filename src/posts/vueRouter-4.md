@@ -13,7 +13,7 @@ summary:  vueRouter 创建单页应用程序的方式
 
 - 将给定匹配模式的路由映射到同一个组件
 
-> 在Vue Router中，我们可以在路径中使用一个动态字段来实现，我们称之为 路径参数
+> 在 Vue Router 中，我们可以在路径中使用一个动态字段来实现，我们称之为 路径参数
 
 ```js
 {
@@ -25,14 +25,14 @@ summary:  vueRouter 创建单页应用程序的方式
 - 在`router-link`中进行跳转
 
 ```html
-<router-link to="/user/123">用户123</router-link>
+<router-link to="/user/123">用户 123</router-link>
 ```
 
 ### 动态路由取值
 
-#### 在template中
+#### 在 template 中
 
-- 通过$route.params获取值
+- 通过$route.params 获取值
 
 ```html
 <template>
@@ -42,9 +42,9 @@ summary:  vueRouter 创建单页应用程序的方式
 </template>
 ```
 
-#### 在setup中
+#### 在 setup 中
 
-- 使用用 `vue-router`库给我们提供的一个hook `useRoute`
+- 使用用 `vue-router`库给我们提供的一个 hook `useRoute`
 
 ```js
 import { useRoute } from "vue-router";
@@ -63,9 +63,9 @@ export default {
 | /users/:user        | /users/lisi         | `{ user: 'lisi' }`            |
 | /users/:user/id/:id | /users/:lisi/id/123 | `{ user: 'lisi', id: '123' }` |
 
-## NotFound页面
+## NotFound 页面
 
-> 对于哪些没有匹配到的路由,可以编写一个动态路由将他们匹配到固定的某个页面
+> 对于哪些没有匹配到的路由，可以编写一个动态路由将他们匹配到固定的某个页面
 
 ```js
 {
@@ -75,7 +75,7 @@ export default {
 ```
 
 - 可以在`template`中使用`$route.params.pathMatch`获取路径参数
-  - 例如:`user/hhh/111`
+  - 例如：`user/hhh/111`
 - 注意在`/:pathMatch(.*)`后面又加了一个 `*`,即`/:pathMatch(.*)*`时
   - `$route.params.pathMatch`获取路径参数是一个数组["user","hhh","111"]
 
@@ -102,7 +102,7 @@ const routes = [
 ]
 ```
 
-- 以`/`开头的嵌套路径将被视为根路径,这将更好的利用组件嵌套
+- 以`/`开头的嵌套路径将被视为根路径，这将更好的利用组件嵌套
 
 ## \<router-link>
 
@@ -112,11 +112,11 @@ const routes = [
 | ------------------------ | ------------------ |
 | \<router-link :to="..."> | `router.push(...)` |
 
-#### 使用router.push(...)
+#### 使用 router.push(...)
 
 - 使用字符串地址`router.push('/users/123')`
 - 使用对象地址`router.push({'/users/123'})`
-- 使用命名路由并携带params参数:
+- 使用命名路由并携带 params 参数：
 
 ```js
 import { useRouter } from "vue-router";
@@ -128,14 +128,14 @@ export default {
 };
 ```
 
-- 携带query参数:
+- 携带 query 参数：
   - `router.push({path:'/register',query:{plan:'private'})`
 
-- 使用可重复使用的params时,使用name属性,或者path这样编写`/user/${username}`
+- 使用可重复使用的 params 时，使用 name 属性，或者 path 这样编写`/user/${username}`
 
 ### 替换当前位置
 
-> 使用push的特点是压入一个新的页面，那么在用户点击返回时，上一个页面还可以回退，但是如果希望当前页面是一个替换操作，那么可以使用`replace`
+> 使用 push 的特点是压入一个新的页面，那么在用户点击返回时，上一个页面还可以回退，但是如果希望当前页面是一个替换操作，那么可以使用`replace`
 
 | 声明式                           | 程序化                |
 | -------------------------------- | --------------------- |
@@ -143,7 +143,7 @@ export default {
 
 ### custom
 
-> custom选项防止\<router-link>将其内容包装在\<a>元素内
+> custom 选项防止<router-link>将其内容包装在<a>元素内
 >
 > 默认情况下，\<router-link>将呈现其内容包裹在一个\<a>元素，即使使用`v-slot`.使用`custom`，删除该行为
 
@@ -153,14 +153,14 @@ export default {
 </router-link>
 ```
 
-### router-link中的v-slot
+### router-link 中的 v-slot
 
 ```html
 <router-link
   to="/about"
   custom
   v-slot="{href,route,navigate,isActive,isExactActive}">
-  <p @click="navigate">跳转about</p>
+  <p @click="navigate">跳转 about</p>
   <div>
     <p>href:{{href}}</p>
     <p>route:{{route}}</p>
@@ -170,13 +170,13 @@ export default {
 </router-link>
 ```
 
-- `href`解析后的url
-- `route`解析后的规范化的route对象
+- `href`解析后的 url
+- `route`解析后的规范化的 route 对象
 - `navigate`触发导航的函数
 - `isActive`是否匹配的状态
 - `isExactActive`是否是精准匹配的状态
 
-### 其它api
+### 其它 api
 
 > 参考<https://next.router.vuejs.org/api/#aria-current-value>
 
@@ -200,8 +200,8 @@ export default {
   - 如根据用户不同的权限，注册不同的路由
   - 可以使用一个方法 `addRoute`
 
-- 直接添加顶级路由,参数只要传一个动态路由的名称
-- 或者是为路由添加子路由,那么还应该传入对应的name属性
+- 直接添加顶级路由，参数只要传一个动态路由的名称
+- 或者是为路由添加子路由，那么还应该传入对应的 name 属性
 
 ```js
 const about = {
@@ -216,15 +216,15 @@ router.addRoute("home", about);
 
 ### 删除路由
 
-- 添加一个name相同的路由
+- 添加一个 name 相同的路由
 - 通过`removeRoute`方法，传入路由的名称
 - 通过`addRoute`方法的返回值回调
 
 ```js
-//添加一个name相同的路由
+//添加一个 name 相同的路由
 router.addRoute({ path: "/about", name: "about", component: About });
 router.addRoute({ path: "/home", name: "about", component: Home });
-//通过removeRoute方法，传入路由的名称
+//通过 removeRoute 方法，传入路由的名称
 router.addRoute({ path: "/about", name: "about", component: About });
 router.removeRoute("about");
 //通过`addRoute`方法的返回值回调
@@ -236,15 +236,15 @@ const removeRoute = router.addRoute({
 removeRoute();
 ```
 
-### 其他API
+### 其他 API
 
 - `router.hasRoute()`检查路由是否存在。
 - `router.getRoutes()`获取一个包含所有路由记录的数组
 
-## useLink和RouterLink
+## useLink 和 RouterLink
 
 > Vue Router 将 `RouterLink` 的内部行为公开为 Composition API
-> 函数。它提供访问与`v-slot`API相同的属性
+> 函数。它提供访问与`v-slot`API 相同的属性
 
 ```js
 import { RouterLink, useLink } from "vue-router";
@@ -279,24 +279,24 @@ export default {
   的回调函数，创建好的组件实例会作为回调函数的参数传入。
 
 > Vue router
-> 提供的路由守卫主要用于通过重定向或取消路由来保护路由.有多种方法可以连接到路由导航过程:全局,每个路由或组件内
+> 提供的路由守卫主要用于通过重定向或取消路由来保护路由。有多种方法可以连接到路由导航过程:全局，每个路由或组件内
 
 - 接收两个参数
-  - to即将进入的路由Route对象
-  - from即将离开的路由Route对象
+  - to 即将进入的路由 Route 对象
+  - from 即将离开的路由 Route 对象
 
 - return 返回值
-  - false取消当前导航
-  - 不返回或者undefined进行默认导航
+  - false 取消当前导航
+  - 不返回或者 undefined 进行默认导航
   - 返回一个路由地址
-    - 可以是一个string类型的路径
+    - 可以是一个 string 类型的路径
     - 可以是一个对象，对象中包含`path,query,params`等信息
 
-- 第三个参数`next`在vue3中已经不推荐使用
+- 第三个参数`next`在 vue3 中已经不推荐使用
 
-### 全局路由守卫(beforeEach)
+### 全局路由守卫 (beforeEach)
 
-> 用来做一些进入页面的限制.比如没有登录，就不能进入某些页面，只有登录了之后才有权限查看某些页面(初始化的时候被调用,每次路由切换之前被调用)
+> 用来做一些进入页面的限制。比如没有登录，就不能进入某些页面，只有登录了之后才有权限查看某些页面 (初始化的时候被调用，每次路由切换之前被调用)
 
 ```js
 const router = createRouter({ ... })
@@ -307,9 +307,9 @@ router.beforeEach((to, from) => {
 })
 ```
 
-### 路由独享守卫(beforeEnter)
+### 路由独享守卫 (beforeEnter)
 
-> beforeEnter守卫只在进入路由时触发不会在params,query或hash改变时触发
+> beforeEnter 守卫只在进入路由时触发不会在 params,query 或 hash 改变时触发
 
 ```js
 const routes = [
@@ -326,7 +326,7 @@ const routes = [
 ### 全局后置后卫
 
 > 不会接受返回值也不会改变导航本身
-> >用于分析、更改页面标题、声明页面等辅助功能
+> > 用于分析、更改页面标题、声明页面等辅助功能
 
 ```js
 router.afterEach((to, from) => {

@@ -9,7 +9,7 @@ summary: Git 分支原理
 
 ## 分支
 
-> 通过`HEAD`文件可以知道当前在哪个分支工作,并且**HEAD指向的分支**总是指向最新的`commit`
+> 通过 `HEAD` 文件可以知道当前在哪个分支工作，并且 **HEAD 指向的分支**总是指向最新的 `commit`
 
 ```bash
                             HEAD
@@ -23,7 +23,7 @@ summary: Git 分支原理
                              dev
 ```
 
-- 通过切换`HEAD`的指向可以切换分支
+- 通过切换 `HEAD` 的指向可以切换分支
 
 > 产看当前分支内容
 
@@ -38,7 +38,7 @@ git cat-file -t b27787b
 
 > 创建分支
 
-- `git branch dev`:创建一个`dev`的分支
+- `git branch dev`:创建一个 `dev` 的分支
 
 ```bash
 git log
@@ -46,7 +46,7 @@ git log
 # commit b27787b75a99a614f3b26fe482f0cd47bc3c186b (HEAD -> master, dev)
 ```
 
-- `git checkout dev`:切换到`dev`分支
+- `git checkout dev`:切换到 `dev` 分支
 
 ```bash
 git checkout dev
@@ -54,7 +54,7 @@ cat .git/HEAD
 # ref: refs/heads/dev
 ```
 
-- 如果在dev上做完一次`commit`之后,分支之间会分叉
+- 如果在 dev 上做完一次 `commit` 之后，分支之间会分叉
 
 ```bash
 git log
@@ -67,7 +67,7 @@ git log
 # commit b27787b75a99a614f3b26fe482f0cd47bc3c186b (master)
 ```
 
-- 删除分支,只是删除分支的指针,分支上的对象不会被删除
+- 删除分支，只是删除分支的指针，分支上的对象不会被删除
 
 ```bash
 # D-->强制删除
@@ -86,7 +86,7 @@ git cat-file -p 609f9e5
 
 ## git checkout
 
-> 使用`git checkout`叉出某一次`commit`
+> 使用 `git checkout` 叉出某一次 `commit`
 
 ```bash
 git checkout a3d91d1
@@ -147,7 +147,7 @@ git remote add origin ssh...
 │  └---  master
 ```
 
-- 当提交远程之后,本地分支和远程分支是同步的
+- 当提交远程之后，本地分支和远程分支是同步的
 
 ```bash
 # commit 4a71286c54dc6629322f13cfded0dfcdb417a1aa (HEAD -> master, origin/master, origin/HEAD)
@@ -155,7 +155,7 @@ git remote add origin ssh...
 
 ## 对象压缩
 
-1. 查看git对象文件的大小
+1. 查看 git 对象文件的大小
 
    ```bash
    du -h .git/objects
@@ -167,7 +167,7 @@ git remote add origin ssh...
    # 42M     .git/objects
    ```
 
-2. 使用`git gc`来压缩文件
+2. 使用 `git gc` 来压缩文件
 
    ```bash
    git gc
@@ -177,18 +177,18 @@ git remote add origin ssh...
    # 23M     .git/objects
    ```
 
-3. 查看`pack`文件下文件的大小.文件被压缩到`.pack`文件中
+3. 查看 `pack` 文件下文件的大小。文件被压缩到 `.pack` 文件中
 
    ```bash
    ls -l .git/objects/pack
    # total 23092
-   # -r--r--r-- 1 15531 197609   122816  7月  2 06:21 pack-04c2ed0bfb1961df8ecdaf3a6a602936173ffc88.idx
-   # -r--r--r-- 1 15531 197609 23521212  7月  2 06:21 pack-04c2ed0bfb1961df8ecdaf3a6a602936173ffc88.pack
+   # -r--r--r-- 1 15531 197609   122816  7 月  2 06:21 pack-04c2ed0bfb1961df8ecdaf3a6a602936173ffc88.idx
+   # -r--r--r-- 1 15531 197609 23521212  7 月  2 06:21 pack-04c2ed0bfb1961df8ecdaf3a6a602936173ffc88.pack
    ```
 
-> 解压缩`git unpack-objects`
+> 解压缩 `git unpack-objects`
 
-- 首先`.pack`文件不能再`objects`文件下,将它移到`.git`下后,使用解压缩的命令
+- 首先 `.pack` 文件不能再 `objects` 文件下，将它移到 `.git` 下后，使用解压缩的命令
 
 ```bash
 git unpack-objects < .git/pack-04c2ed0bfb1961df8ecdaf3a6a602936173ffc88.pack
@@ -196,9 +196,9 @@ git unpack-objects < .git/pack-04c2ed0bfb1961df8ecdaf3a6a602936173ffc88.pack
 
 ## 垃圾对象清理
 
-> 在大部分时候每次使用`git add`会产生不必要的垃圾对象,这时候就需要使用`git prune`去清理这些不必要的对象
+> 在大部分时候每次使用 `git add` 会产生不必要的垃圾对象，这时候就需要使用 `git prune` 去清理这些不必要的对象
 
-- 不过一般情况下在使用`git gc`完全足够,他会去调用`git prune`清理不必要的对象
+- 不过一般情况下在使用 `git gc` 完全足够，他会去调用 `git prune` 清理不必要的对象
 
 ```bash
 git prune -n

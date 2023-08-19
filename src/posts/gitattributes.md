@@ -50,7 +50,7 @@ LF（默认行为）。
    *.rs     diff=rust
    ```
 
-参考: <https://www.cnblogs.com/kidsitcn/p/4769344.html>
+参考：<https://www.cnblogs.com/kidsitcn/p/4769344.html>
 
 ### [linguist-language](https://github.com/github/linguist/blob/master/docs/overrides.md)
 
