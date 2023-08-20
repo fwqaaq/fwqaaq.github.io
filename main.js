@@ -12,13 +12,9 @@ import {
   templateBox,
   templateProcess,
 } from "./src/util/template.js"
-import {
-  copy,
-  ensureDir,
-  ensureFile,
-  exists,
-  existsSync,
-} from "https://deno.land/std@0.194.0/fs/mod.ts"
+import { handler } from "./src/util/utils.js"
+import { serve } from "http"
+import { copy, ensureDir, ensureFile, exists, existsSync } from "fs"
 
 const metaData = []
 const decoder = new TextDecoder("utf-8"), encoder = new TextEncoder()
@@ -226,3 +222,7 @@ async function About() {
 }
 
 Promise.all([Home(), Archive(), Tags(), Others(), About()])
+
+// Handle the http server
+const port = 3000
+if (Deno.env.get("DEV") === "true") await serve(handler, { port })

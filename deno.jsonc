@@ -1,15 +1,28 @@
 {
   "tasks": {
-    "dev": "deno run --watch --allow-net --allow-write --allow-read  main.js",
-    "build": "deno run --allow-net --allow-write --allow-read  main.js",
-    "preview": "deno run --allow-all src/util/http.js"
+    "dev": "DEV=true deno run -A --watch main.js",
+    "build": "DEV=false deno run -A main.js",
+    "preview": "deno run -A src/util/http.js"
   },
   "fmt": {
-    // "useTabs": true,
-    // "lineWidth": 80,
-    // "tabWidth": 2,
-    // "singleQuote": true,
     "semiColons": false,
-    "include": ["src/util/", "main.js"]
+    "include": [
+      "src/util/",
+      "main.js",
+      "public/JavaScript/*.js"
+    ]
+  },
+  "imports": {
+    "http": "https://deno.land/std@0.194.0/http/mod.ts",
+    "fs": "https://deno.land/std@0.194.0/fs/mod.ts",
+    "unified": "https://esm.sh/unified@10.1.2",
+    "remark-parse": "https://esm.sh/remark-parse@10.0.2",
+    "remark-rehype": "https://esm.sh/remark-rehype@10.1.0",
+    "rehype-raw": "https://esm.sh/rehype-raw@6.1.1",
+    "rehype-stringify": "https://esm.sh/rehype-stringify@9.0.3",
+    "rehype-highlight": "https://esm.sh/rehype-highlight@5.0.2",
+    "rehype-slug": "https://esm.sh/rehype-slug@5.1.0",
+    "rehype-autolink-headings": "https://esm.sh/rehype-autolink-headings@6.1.1",
+    "remark-gfm": "https://esm.sh/remark-gfm@3.0.1"
   }
 }

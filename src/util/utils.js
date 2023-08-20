@@ -23,7 +23,7 @@ export const parseYaml = (file) => {
 /**
  * @param {string} date
  * @returns {string}
-  */
+ */
 
 export const handleUTC = (date) => {
   const utc = new Date(date)
@@ -38,7 +38,7 @@ export const handleUTC = (date) => {
 }
 
 /**
- * @param {string} date 
+ * @param {string} date
  * @returns {string}
  */
 export const convertToUSA = (date) => {
@@ -56,8 +56,7 @@ export const convertToUSA = (date) => {
  * @param {string} description
  * @param {string} title
  * @returns {Promise<string>}
- * */
-
+ */
 export const replaceHead = async (keywords, description, title) => {
   const res = new TextDecoder().decode(
     await Deno.readFile(new URL("head.html", import.meta.url)),
@@ -70,12 +69,10 @@ export const replaceHead = async (keywords, description, title) => {
 }
 
 /**
- * 
- * @param {URL} url 
- * @param {string} content 
+ * @param {URL} url
+ * @param {string} content
  * @param {boolean} append - default false
  */
-
 export const generateSingleFile = (url, content, append = false) => {
   // if exists, remove it
   if (existsSync(url)) Deno.removeSync(url, { recursive: true })
@@ -87,4 +84,36 @@ export const generateSingleFile = (url, content, append = false) => {
     generateSingleFile,
     end: () => "end",
   }
+}
+
+/**
+ * @param {Request} request
+ * @returns {Response}
+ */
+export const handler = async (request) => {
+  let reqUrl = new URL(request.url).pathname
+  let ext = reqUrl.split(".").pop()
+  if (ext === "css") ext = "text/css"
+  else if (ext === "js") ext = "text/javascript"
+  else if (ext === "html" || ext === "/") ext = "text/html"
+  else ext = "*"
+  if (reqUrl.endsWith("/")) reqUrl += "index.html"
+
+  const headers = new Headers({ "Content-Type": ext })
+
+  const file = await Deno.open(`./dist${reqUrl}`)
+  const contentEncoding = request.headers.get("Accept-Encoding")
+
+  // browser doesn't support gzip
+  if (!contentEncoding || !contentEncoding.includes("gzip")) {
+    return new Response(file.readable, { headers })
+  }
+
+  headers.set("Content-Encoding", "gzip")
+
+  // encode with gzip
+  const compress = new CompressionStream("gzip")
+  file.readable.pipeThrough(compress)
+
+  return new Response(compress.readable, { headers })
 }

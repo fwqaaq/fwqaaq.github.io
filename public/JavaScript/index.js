@@ -1,31 +1,31 @@
-
 const regex = /\<head\>[\s\S]*\<\/head\>[\s\S]*?\<main\>([\s\S]*)\<\/main\>/
 
-document.addEventListener('DOMContentLoaded', () => {
-  const stylesheet = document.createElement('link')
-  stylesheet.rel = 'stylesheet'
-  stylesheet.href = '/public/css/markdown.css'
+document.addEventListener("DOMContentLoaded", () => {
+  const stylesheet = document.createElement("link")
+  stylesheet.rel = "stylesheet"
+  stylesheet.href = "/public/css/markdown.css"
   document.head.appendChild(stylesheet)
 
-
-  const header = document.querySelector('header')
-  const nav = header.querySelector('nav')
+  const header = document.querySelector("header")
+  const nav = header.querySelector("nav")
 
   // nav toggle
-  document.addEventListener('click', (e) => {
-    if (window.matchMedia('(max-width: 30rem').matches && e.target === header) {
-      nav.classList.add('show')
+  document.addEventListener("click", (e) => {
+    if (window.matchMedia("(max-width: 30rem").matches && e.target === header) {
+      nav.classList.add("show")
       return
     }
 
-    nav.classList.remove('show')
+    nav.classList.remove("show")
   })
 
-  document.body.addEventListener('click', (e) => {
-    if (e.target.matches('a') && e.target.getAttribute('href').startsWith('/./')) useRoute(e)
+  document.body.addEventListener("click", (e) => {
+    if (
+      e.target.matches("a") && e.target.getAttribute("href").startsWith("/./")
+    ) useRoute(e)
   })
 
-  self.addEventListener('popstate', renderPage)
+  self.addEventListener("popstate", renderPage)
 })
 
 const renderPage = async (e) => {
@@ -34,23 +34,23 @@ const renderPage = async (e) => {
 
   const path = location.pathname
   if (path.includes("posts")) {
-    const script = document.createElement('script')
+    const script = document.createElement("script")
     const { src, crossOrigin, async, dataset } = {
-      src: 'https://giscus.app/client.js',
+      src: "https://giscus.app/client.js",
       dataset: {
-        repo: 'fwqaaq/fwqaaq.github.io',
-        repoId: 'R_kgDOHCFK2A',
-        category: 'Show and tell',
-        categoryId: 'DIC_kwDOHCFK2M4CYOLh',
-        mapping: 'pathname',
-        strict: '0',
-        reactionsEnabled: '1',
-        emitMetadata: '1',
-        inputPosition: 'bottom',
-        theme: 'preferred_color_scheme',
-        lang: 'zh-CN',
+        repo: "fwqaaq/fwqaaq.github.io",
+        repoId: "R_kgDOHCFK2A",
+        category: "Show and tell",
+        categoryId: "DIC_kwDOHCFK2M4CYOLh",
+        mapping: "pathname",
+        strict: "0",
+        reactionsEnabled: "1",
+        emitMetadata: "1",
+        inputPosition: "bottom",
+        theme: "preferred_color_scheme",
+        lang: "zh-CN",
       },
-      crossOrigin: 'anonymous',
+      crossOrigin: "anonymous",
       async: true,
     }
     Object.assign(script, {
@@ -66,9 +66,9 @@ const renderPage = async (e) => {
     document.body.appendChild(script)
   }
 
-  if (!path.includes('posts')) {
+  if (!path.includes("posts")) {
     // document.querySelector('script[data-mapping]')?.remove()
-    document.querySelector('div.giscus')?.remove()
+    document.querySelector("div.giscus")?.remove()
   }
 
   const res = await fetch(path)
@@ -79,13 +79,12 @@ const renderPage = async (e) => {
 }
 
 /**
- * 
- * @param {MouseEvent} e 
-*/
+ * @param {MouseEvent} e
+ */
 const useRoute = (e) => {
   e.preventDefault()
-  history.pushState({}, '', e.target.href)
-  document.body.classList.add('loading')
+  history.pushState({}, "", e.target.href)
+  document.body.classList.add("loading")
   renderPage()
-  setTimeout(() => document.body.classList.remove('loading'), 200)
+  setTimeout(() => document.body.classList.remove("loading"), 200)
 }
