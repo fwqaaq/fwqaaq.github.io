@@ -1,5 +1,5 @@
-import { existsSync } from "https://deno.land/std@0.194.0/fs/exists.ts"
-import { parse } from "https://deno.land/std@0.194.0/yaml/mod.ts"
+import { existsSync } from "fs"
+import { parse } from "yaml"
 
 const regxYaml = /---(\n[\s\S]*?\n)---/
 

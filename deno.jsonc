@@ -23,6 +23,7 @@
     "rehype-highlight": "https://esm.sh/rehype-highlight@5.0.2",
     "rehype-slug": "https://esm.sh/rehype-slug@5.1.0",
     "rehype-autolink-headings": "https://esm.sh/rehype-autolink-headings@6.1.1",
-    "remark-gfm": "https://esm.sh/remark-gfm@3.0.1"
+    "remark-gfm": "https://esm.sh/remark-gfm@3.0.1",
+    "yaml": "https://deno.land/std@0.194.0/yaml/mod.ts"
   }
 }
