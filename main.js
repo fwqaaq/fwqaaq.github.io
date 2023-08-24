@@ -208,9 +208,12 @@ async function About() {
   const aboutSrc = new URL("./About/about.md", src)
 
   const about = decoder.decode(await Deno.readFile(aboutSrc))
-  const head = decoder.decode(
-    await Deno.readFile(new URL("./util/head.html", src)),
+  const head = await replaceHead(
+    "fwqaaq, GitHub fwqaaq, study, about",
+    "关于我",
+    "关于我",
   )
+
   const header = decoder.decode(
     await Deno.readFile(new URL("./util/header.html", src)),
   )
