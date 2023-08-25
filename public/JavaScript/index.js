@@ -11,11 +11,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // nav toggle
   document.addEventListener("click", (e) => {
-    if (window.matchMedia("(max-width: 30rem").matches && e.target === header) {
-      nav.classList.add("show")
+    if (!window.matchMedia("(max-width: 30rem").matches) return
+    if (e.target === header) {
+      nav.classList.toggle("show")
       return
     }
-
     nav.classList.remove("show")
   })
 

@@ -15,7 +15,7 @@ body {
   --header-color: rgb(240, 238, 233);
   --color-a-link: rgba(0, 93, 73, 0.7);
   --color-a-link-hover: #005845;
-  --page-width: 46rem;
+  --page-width: 48rem;
 }
 
 body {
@@ -152,7 +152,12 @@ main .pages {
   margin-block-end: 4rem;
 }
 
-@media (min-width: 46rem) {
+img {
+  max-width: 100%;
+}
+
+/* Match Google for about showing */
+@media (min-width: 48rem) {
   main {
     width: var(--page-width);
     margin: 0 auto;
@@ -162,15 +167,17 @@ main .pages {
 @media (max-width: 30rem) {
   header {
     display: flex;
-    position: relative;
+    position: fixed;
+    top: 0;
+    width: 100%;
     justify-content: center;
 
     &>nav {
       display: flex;
       flex-direction: column;
-      position: absolute;
+      position: fixed;
       overflow: hidden;
-      inset-block-start: 100%;
+      inset-block-start: var(--header-height);
       width: 100%;
       max-height: 0;
       transition: max-height 0.5s ease-in-out;
@@ -188,12 +195,12 @@ main .pages {
     }
   }
 
+  main {
+    margin-block-start: calc(var(--header-height) + 1rem);
+  }
+
   .giscus {
     width: 90%;
     padding-inline: 1rem;
   }
-}
-
-img {
-  max-width: 100%;
 }
