@@ -2,14 +2,16 @@
   "tasks": {
     "dev": "DEV=true deno run -A --watch main.js",
     "build": "DEV=false deno run -A main.js",
-    "preview": "deno run -A src/util/http.js"
+    "preview": "deno run -A src/util/http.js",
+    "new": "deno run -A scripts/new.ts new -c rust"
   },
   "fmt": {
     "semiColons": false,
     "include": [
       "src/util/",
       "main.js",
-      "public/JavaScript/*.js"
+      "public/JavaScript/*.js",
+      "srcripts/*.js"
     ]
   },
   "imports": {
@@ -24,6 +26,8 @@
     "rehype-slug": "https://esm.sh/rehype-slug@5.1.0",
     "rehype-autolink-headings": "https://esm.sh/rehype-autolink-headings@6.1.1",
     "remark-gfm": "https://esm.sh/remark-gfm@3.0.1",
-    "yaml": "https://deno.land/std@0.194.0/yaml/mod.ts"
+    "yaml": "https://deno.land/std@0.194.0/yaml/mod.ts",
+    "Command": "https://deno.land/x/cliffy@v1.0.0-rc.3/command/mod.ts",
+    "datetime": "https://deno.land/std@0.200.0/datetime/format.ts"
   }
 }

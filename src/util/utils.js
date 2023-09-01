@@ -1,5 +1,6 @@
 import { existsSync } from "fs"
 import { parse } from "yaml"
+import { format } from "datetime"
 
 const regxYaml = /---(\n[\s\S]*?\n)---/
 
@@ -25,17 +26,7 @@ export const parseYaml = (file) => {
  * @returns {string}
  */
 
-export const handleUTC = (date) => {
-  const utc = new Date(date)
-  const year = utc.getUTCFullYear()
-  const month = (utc.getUTCMonth() + 1).toString().padStart(2, "0")
-  const day = utc.getUTCDate().toString().padStart(2, "0")
-  const hours = utc.getUTCHours().toString().padStart(2, "0")
-  const minutes = utc.getUTCMinutes().toString().padStart(2, "0")
-  const seconds = utc.getUTCSeconds().toString().padStart(2, "0")
-
-  return `${year}${month}${day}${hours}${minutes}${seconds}`
-}
+export const handleUTC = (date) => format(new Date(date), "yyyyMMddHHmmss")
 
 /**
  * @param {string} date

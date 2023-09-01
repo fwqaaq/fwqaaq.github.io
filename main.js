@@ -18,9 +18,12 @@ import { copy, ensureDir, ensureFile, exists, existsSync } from "fs"
 
 const metaData = []
 const decoder = new TextDecoder("utf-8"), encoder = new TextEncoder()
-
 const dist = import.meta.resolve("./dist/"),
   src = import.meta.resolve("./src/")
+
+const header = decoder.decode(
+  await Deno.readFile(new URL("./util/header.html", src)),
+)
 
 if (existsSync(new URL(dist))) {
   Deno.removeSync(new URL(dist), { recursive: true })
@@ -74,10 +77,6 @@ async function generatePage(
 ) {
   if (!await exists(dist)) await ensureFile(dist)
   const head = await replaceHead(keywrods, description, title)
-
-  const header = decoder.decode(
-    await Deno.readFile(new URL("./util/header.html", src)),
-  )
 
   return async (fn, ...params) => {
     const content = fn(title, ...params)
@@ -134,9 +133,11 @@ async function Others() {
 // Home page
 async function Home() {
   const homeDest = new URL("./home/", dist)
-  const indexpage = decoder.decode(
-    await Deno.readFile(new URL("../index.html", src)),
-  ),
+  const indexpage = (await Deno.readTextFile(new URL("../index.html", src)))
+      .replace(
+        "<!-- Header -->",
+        header,
+      ),
     metasLength = metaData.length,
     lastPage = Math.ceil(metasLength / 8)
   let content = ""
@@ -214,13 +215,11 @@ async function About() {
     "关于我",
   )
 
-  const header = decoder.decode(
-    await Deno.readFile(new URL("./util/header.html", src)),
-  )
   const [, md] = parseYaml(about)
   const content = await markdown(md)
-  const generated = `${head}${header}<main>${templateArticle({ title: "关于我", content })
-    }</main>`
+  const generated = `${head}${header}<main>${
+    templateArticle({ title: "关于我", content })
+  }</main>`
   await Deno.writeFile(aboutDest, encoder.encode(generated))
 }
 
