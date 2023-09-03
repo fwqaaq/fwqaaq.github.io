@@ -7,7 +7,7 @@ title: About
 
 ## Who
 
-[<img src="https://telegram.org/favicon.ico" width="32px" alt="Telegram" />](https://t.me/fwqaaq) ··· [<img src="https://github.com/favicon.ico">](https://github.com/fwqaaq) ··· [<img src="https://mail.google.com/favicon.ico" width="32px" alt="Gmail">](mailto:fwqaaq@gmail) ··· [<img src="https://www.fwqaq.us/public/favicon.ico" width="32px" alt="Blog" />](https://www.fwqaq.us)
+[<img src="https://telegram.org/favicon.ico" width="32px" alt="Telegram" />](https://t.me/fwqaaq) ··· [<img src="https://github.com/favicon.ico">](https://github.com/fwqaaq) ··· [<img src="https://mail.google.com/favicon.ico" width="32px" alt="Gmail">](mailto:fwqaaq@gmail.com) ··· [<img src="https://www.fwqaq.us/public/favicon.ico" width="32px" alt="Blog" />](https://www.fwqaq.us)
 
 ## Languages and Tools
 

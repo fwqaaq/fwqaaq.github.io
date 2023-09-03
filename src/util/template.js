@@ -47,3 +47,21 @@ export const giscus = `<script src="https://giscus.app/client.js"
         data-lang="zh-CN"
         crossorigin="anonymous"
         async></script>`
+
+/**
+ * @param {string} author
+ * @param {string} website
+ * @param {string} items
+ * @returns
+ */
+export const getRss = (author, website, items) =>
+  `<?xml version="1.0" encoding="UTF-8" ?>
+<rss version="2.0">
+<channel>
+  <title>${author}'s blog</title>
+  <link>${website}</link>
+  <description>这真的是一个废物的博客啦</description>
+  ${items}
+</channel>
+</rss>
+`

@@ -7,6 +7,7 @@ import {
   replaceHead,
 } from "./src/util/utils.js"
 import {
+  getRss,
   giscus,
   templateArticle,
   templateBox,
@@ -15,55 +16,65 @@ import {
 import { handler } from "./src/util/utils.js"
 import { serve } from "http"
 import { copy, ensureDir, ensureFile, exists, existsSync } from "fs"
+import "https://deno.land/std@0.201.0/dotenv/load.ts"
 
+/**
+ * @typedef {Object} MetaData
+ * @property {string} MetaData.date
+ * @property {string} MetaData.title
+ * @property {string} MetaData.summary
+ * @property {string[]} MetaData.tags
+ */
+
+/**
+ * @type {MetaData[]}
+ */
 const metaData = []
-const decoder = new TextDecoder("utf-8"), encoder = new TextEncoder()
 const dist = import.meta.resolve("./dist/"),
   src = import.meta.resolve("./src/")
 
-const header = decoder.decode(
-  await Deno.readFile(new URL("./util/header.html", src)),
-)
+// global config
+/**
+ * @type {{website: string, author: string}}
+ */
+const website = Deno.env.get("WEBSITE"), author = Deno.env.get("AUTHOR")
+
+const header = await Deno.readTextFile(new URL("./util/header.html", src))
 
 if (existsSync(new URL(dist))) {
   Deno.removeSync(new URL(dist), { recursive: true })
 }
 
-function getPosts(title, content, isPosts = false) {
-  const article = templateArticle({ title, content })
-  return `<main>${article}</main>${isPosts ? giscus : ""}`
-}
+const getPosts = (title, content, isPosts = false) =>
+  `<main>${templateArticle({ title, content })}</main>${isPosts ? giscus : ""}`
 
-function getTags(title, tags) {
-  return tags.map((tag) =>
-    `<a class="router tag" href="/./${title}/${tag}/">${tag}</a>`
-  ).join("")
-}
+const getTags = (title, tags) =>
+  tags.reduce(
+    (acc, tag) =>
+      acc + `<a class="router tag" href="/./${title}/${tag}/">${tag}</a>`,
+    "",
+  )
 
 function getHomePage(_title, iters) {
-  const sections = iters.map(({ title, summary, date, tags }) =>
-    templateBox({
-      place: `/./posts/${handleUTC(date)}/`,
-      title,
-      summary,
-      time: convertToUSA(date),
-      tags: getTags("tags", tags),
-    })
-  ).join("")
+  const sections = iters.reduce((acc, { title, summary, date, tags }) => {
+    const place = `/./posts/${handleUTC(date)}/`, time = convertToUSA(date)
+    return acc +
+      templateBox({ place, title, summary, time, tags: getTags("tags", tags) })
+  }, "")
   return `<main>${sections}</main>`
 }
 
 async function completeTask(map, url, dest) {
   for (const k of map.keys()) {
     const tagsUrl = new URL(`./${k}/index.html`, url)
-    const task = await generatePage(tagsUrl, k, `fwqaaq ~ ${k}`, k)
+    const task = await generatePage(tagsUrl, k, `${author} ~ ${k}`, k)
     await task(getHomePage, map.get(k))
   }
 
   const task = await generatePage(
     new URL("./index.html", url),
     [...map.keys()].join(", "),
-    `fwqaaq ~${dest}`,
+    `${author} ~ ${dest}`,
     dest,
   )
   await task(getPosts, getTags(dest, [...map.keys()]))
@@ -82,10 +93,7 @@ async function generatePage(
     const content = fn(title, ...params)
     const index = `${head}${header}${content}`
 
-    await Deno.writeFile(
-      dist,
-      encoder.encode(index),
-    )
+    await Deno.writeTextFile(dist, index)
   }
 }
 
@@ -96,9 +104,7 @@ async function generatePage(
   while (true) {
     const { value, done } = await iter.next()
     if (done) break
-    const file = decoder.decode(
-      await Deno.readFile(new URL(value.name, posts)),
-    )
+    const file = await Deno.readTextFile(new URL(value.name, posts))
     const [{ date, title, summary, tags }, md] = parseYaml(file)
 
     // Handle the posts
@@ -127,7 +133,40 @@ async function Others() {
 
   // Handle the CNAME
   const cname = new URL("./CNAME", dist)
+
+  // Handle the RSS
+  const rss = new URL("./feed.xml", dist)
+  const itemsRss = metaData.reduce((acc, { date, title, summary }) => {
+    const url = `${website}posts/${handleUTC(date)}/`
+    return acc + `<item>
+    <title>${title}</title>
+    <link>${url}</link>
+    <description>${summary}</description>
+    <pubDate>${new Date(date).toUTCString()}</pubDate>
+    </item>`
+  }, "")
+
+  // sitemap
+  const sitemap = new URL("./sitemap.xml", dist)
+  const itemsSitemap = `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+${
+    metaData.reduce((acc, { date }) =>
+      `${acc}<url><loc>${website}posts/${handleUTC(date)}/</loc></url>`, "")
+  }
+</urlset>`
+
+  // robots
+  const robots = new URL("./robots.txt", dist)
+  const robotsContent = `User-agent: *
+Allow: /
+Sitemap: ${website}sitemap.xml`
+
   generateSingleFile(cname, "www.fwqaq.us")
+    .generateSingleFile(rss, getRss(author, website, itemsRss))
+    .generateSingleFile(sitemap, itemsSitemap)
+    .generateSingleFile(robots, robotsContent)
+    .end()
 }
 
 // Home page
@@ -175,7 +214,7 @@ async function Home() {
         ? new URL("./index.html", dist)
         : new URL(`${cur}/index.html`, homeDest)
 
-      await Deno.writeFile(url, encoder.encode(indexPage))
+      await Deno.writeTextFile(url, indexPage)
     }
   })
 }
@@ -208,7 +247,7 @@ async function About() {
   if (!await exists(aboutDest)) await ensureFile(aboutDest)
   const aboutSrc = new URL("./About/about.md", src)
 
-  const about = decoder.decode(await Deno.readFile(aboutSrc))
+  const about = await Deno.readTextFile(aboutSrc)
   const head = await replaceHead(
     "fwqaaq, GitHub fwqaaq, study, about",
     "关于我",
@@ -220,7 +259,7 @@ async function About() {
   const generated = `${head}${header}<main>${
     templateArticle({ title: "关于我", content })
   }</main>`
-  await Deno.writeFile(aboutDest, encoder.encode(generated))
+  await Deno.writeTextFile(aboutDest, generated)
 }
 
 Promise.all([Home(), Archive(), Tags(), Others(), About()])
