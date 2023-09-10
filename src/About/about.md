@@ -39,3 +39,7 @@ title: About
   <img  src="http://github-profile-summary-cards.vercel.app/api/cards/most-commit-language?username=fwqaaq&theme=tokyonight">
   <img  src="http://github-profile-summary-cards.vercel.app/api/cards/stats?username=fwqaaq&theme=tokyonight">
 </details>
+
+## Interesing
+
+* [CSS 实践](/public/write-css/index.html)

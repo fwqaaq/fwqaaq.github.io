@@ -150,10 +150,9 @@ async function Others() {
   const sitemap = new URL("./sitemap.xml", dist)
   const itemsSitemap = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-${
-    metaData.reduce((acc, { date }) =>
-      `${acc}<url><loc>${website}posts/${handleUTC(date)}/</loc></url>`, "")
-  }
+${metaData.reduce((acc, { date }) =>
+    `${acc}<url><loc>${website}posts/${handleUTC(date)}/</loc></url>`, "")
+    }
 </urlset>`
 
   // robots
@@ -173,15 +172,16 @@ Sitemap: ${website}sitemap.xml`
 async function Home() {
   const homeDest = new URL("./home/", dist)
   const indexpage = (await Deno.readTextFile(new URL("../index.html", src)))
-      .replace(
-        "<!-- Header -->",
-        header,
-      ),
+    .replace(
+      "<!-- Header -->",
+      header,
+    ),
     metasLength = metaData.length,
     lastPage = Math.ceil(metasLength / 8)
   let content = ""
 
-  metaData.forEach(async ({ date, title, summary, tags }, index) => {
+  for (let index = 0; index < metasLength; index++) {
+    const { date, title, summary, tags } = metaData[index]
     const aTags = getTags("tags", tags)
     content += templateBox({
       place: `/./posts/${handleUTC(date)}/`,
@@ -216,7 +216,7 @@ async function Home() {
 
       await Deno.writeTextFile(url, indexPage)
     }
-  })
+  }
 }
 
 // Archive page
@@ -256,9 +256,8 @@ async function About() {
 
   const [, md] = parseYaml(about)
   const content = await markdown(md)
-  const generated = `${head}${header}<main>${
-    templateArticle({ title: "关于我", content })
-  }</main>`
+  const generated = `${head}${header}<main>${templateArticle({ title: "关于我", content })
+    }</main>`
   await Deno.writeTextFile(aboutDest, generated)
 }
 

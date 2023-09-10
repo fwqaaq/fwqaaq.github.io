@@ -1,10 +1,4 @@
-html,
-body {
-  padding: 0%;
-  margin: 0%;
-  scroll-behavior: smooth;
-  background-color: var(--theme-bg);
-}
+@import url("./base.css");
 
 :root {
   --header-height: 4rem;
@@ -19,6 +13,7 @@ body {
 }
 
 body {
+  background-color: var(--theme-bg);
   padding-block-end: 0.5rem;
   position: relative;
 
@@ -52,10 +47,6 @@ body {
   100% {
     transform: rotate(360deg)
   }
-}
-
-a {
-  text-decoration: none;
 }
 
 /* 除了锚点 a 都要换行 */

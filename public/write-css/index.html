@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>学习 CSS</title>
+  <style>
+    * {
+      margin: 0%;
+      padding: 0%;
+      scroll-behavior: smooth;
+    }
+
+    html,
+    body {
+      font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+      height: 100vh;
+      width: 100%;
+      display: flex;
+      font-size: 18px;
+    }
+
+    a {
+      display: block;
+      text-decoration: none;
+      color: white;
+    }
+
+    .menu {
+      min-width: 15rem;
+      height: 100vh;
+      background-color: rgb(0, 0, 0);
+      text-align: center;
+    }
+
+    .menu>a {
+      font-size: 1.2rem;
+      color: rgb(181, 239, 220);
+      cursor: pointer;
+    }
+
+    .menu a:hover {
+      color: rgb(15, 135, 71);
+    }
+
+    a:not(a[target="_blank"]):hover {
+      color: rgb(0, 0, 0);
+      background-color: rgb(247, 247, 247);
+    }
+
+    a:not(a[target="_blankr"]):active {
+      color: rgb(0, 0, 0);
+      background-color: rgb(247, 247, 247);
+    }
+
+    a.active {
+      color: rgb(0, 0, 0);
+      background-color: rgb(247, 247, 247);
+    }
+
+    iframe {
+      flex-grow: 1;
+    }
+  </style>
+</head>
+
+<body>
+  <article class="menu">
+    <h2 style="color: white;"><a href="/">返回首页</a></h2>
+    <a target="_blank" href="https://github.com/fwqaaq/"> Github </a>
+    <hr>
+    <a target="animateMenu" class="example active">animate menu</a>
+    <a target="animateCarousel" class="example">animate carsouel</a>
+    <a target="cardForm" class="example">card form</a>
+    <a target="cardMimic" class="example">card mimic</a>
+    <a target="animatescroll" class="example">animate scroller</a>
+  </article>
+  <iframe src="./examples/animateMenu.html" sandbox="allow-scripts"></iframe>
+</body>
+
+<script>
+  const menus = document.getElementsByClassName("example")
+  const iframe = document.getElementsByTagName("iframe")[0]
+  for (let menu of menus) {
+    menu.addEventListener("click", function (e) {
+      location.hash = e.target.target
+      iframe.src = `./examples/${e.target.target}.html`
+      document.querySelector(".active").classList.remove("active")
+      e.target.classList.add("active")
+    })
+  }
+
+  if (!location.hash) location.hash = menus[0].target
+</script>
+
+</html>
