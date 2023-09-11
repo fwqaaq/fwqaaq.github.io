@@ -65,10 +65,13 @@ article a {
 
 header {
   display: flex;
+  position: fixed;
+  top: 0;
+  width: 100%;
   height: var(--header-height);
   justify-content: space-between;
   align-items: center;
-  background-color: var(--theme-color);
+  background-color: var(--transparent-theme-color);
 
   & a {
     padding-inline-start: 0.5rem;
@@ -90,10 +93,12 @@ header {
     height: 100%;
 
     & a {
+      flex: 1 1 auto;
       height: var(--header-height);
       line-height: var(--header-height);
       text-align: center;
       padding: 0 2rem;
+      overflow: hidden;
 
       &:hover {
         background-color: var(--header-hover);
@@ -102,11 +107,10 @@ header {
   }
 }
 
-
 main {
 
-  .box .tag,
-  article .tag {
+  & .box .tag,
+  & article .tag {
     /* 标签换行 */
     display: inline-block;
     font-size: 14px;
@@ -147,20 +151,30 @@ img {
   max-width: 100%;
 }
 
+main {
+  margin-block-start: calc(var(--header-height) + 1rem);
+}
+
+.home-img {
+  min-width: 100vw;
+  object-fit: cover;
+}
+
 /* Match Google for about showing */
 @media (min-width: 48rem) {
   main {
     width: var(--page-width);
-    margin: 0 auto;
+    margin-inline: auto;
+  }
+
+  .home-img {
+    height: 100vh;
   }
 }
 
+/* Match phone */
 @media (max-width: 30rem) {
   header {
-    display: flex;
-    position: fixed;
-    top: 0;
-    width: 100%;
     justify-content: center;
 
     &>nav {
@@ -175,7 +189,6 @@ img {
 
       &>a {
         background-color: var(--transparent-theme-color);
-
       }
     }
 
@@ -186,8 +199,8 @@ img {
     }
   }
 
-  main {
-    margin-block-start: calc(var(--header-height) + 1rem);
+  .home-img+main {
+    margin-block-start: 0;
   }
 
   .giscus {

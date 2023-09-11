@@ -265,4 +265,6 @@ Promise.all([Home(), Archive(), Tags(), Others(), About()])
 
 // Handle the http server
 const port = 3000
-if (Deno.env.get("DEV") === "true") await serve(handler, { port })
+if (Deno.env.get("DEV") === "true") {
+  await serve(handler, { port })
+}

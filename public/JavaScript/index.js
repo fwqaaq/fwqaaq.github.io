@@ -1,3 +1,4 @@
+///<reference lib="dom" />
 const regex = /\<head\>[\s\S]*\<\/head\>[\s\S]*?\<main\>([\s\S]*)\<\/main\>/
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -66,16 +67,16 @@ const renderPage = async (e) => {
     document.body.appendChild(script)
   }
 
-  if (!path.includes("posts")) {
-    // document.querySelector('script[data-mapping]')?.remove()
-    document.querySelector("div.giscus")?.remove()
-  }
+  if (!path.includes("posts")) document.querySelector("div.giscus")?.remove()
 
   const res = await fetch(path)
   const html = await res.text()
 
   const [, content] = html.match(regex)
-  document.body.children[1].innerHTML = content
+  document.body.querySelector("main").innerHTML = content
+  // remove home image if not in home page
+  if (!path.includes("/home"))
+    document.body.getElementsByClassName("home-img")[0]?.remove()
 }
 
 /**
