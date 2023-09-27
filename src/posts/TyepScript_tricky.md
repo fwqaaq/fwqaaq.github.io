@@ -104,9 +104,9 @@ declare function add(num1: number, num2: number): number
   {
      "compilerOptions":{
        "lib":["es2015","dom"],
-       ...
+       //...
      },
-     ...
+     //...
   }
   ```
 
@@ -119,9 +119,9 @@ declare function add(num1: number, num2: number): number
   {
      "compilerOptions":{
        "types":["node"],
-       ...
+       //...
      },
-     ...
+     //...
   }
   ```
 
@@ -163,7 +163,7 @@ declare function add(num1: number, num2: number): number
 
   ```ts
   /// <reference types="vite/client" />
-  ...
+  //...
   ```
 
 ## TS 模块化开发
@@ -271,4 +271,19 @@ declare module "*.json";
 //暴露两个全局属性
 declare const $store: any;
 declare const $filters: any;
+```
+
+## 设置别名
+
+使用 vite 开发的时候，经常会使用类似 `@` 的别名等情况，如果使用 TypeScript 来设置，需要在 `tsconfig.json` 来设置，再在 `vite.config.ts` 中设置 `alias`，这样才可以使用
+
+```json
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"]
+    }
+  }
+}
 ```
