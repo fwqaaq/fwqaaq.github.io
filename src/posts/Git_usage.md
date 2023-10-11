@@ -9,8 +9,8 @@ summary: 使用 Git 进行代码的版本控制
 
 ## 初始化
 
-- `git config --global user.name "jack"`
-- `git config --global user.email "1553198027@qq.com"`
+- `git config --global user.name "xxx"`
+- `git config --global user.email "xxx@gmail.com"`
 - 检查配置信息 `git config --list`
 - `git init` 生成仓库
 
@@ -328,3 +328,11 @@ git push -u origin dev
 > 删除本地标签`git tag -d v1.0.0`
 >
 > 删除远程仓库对应的标签`git push origin --delete v1.0.0`
+
+## 其它
+
+> 对于大型项目，我们只希望将项目的一部分拉取到本地，此时我们可以使用 sparse-checkout
+
+1. `git clone --filter=blob:none --sparse git@...` 初始化仓库
+2. `git sparse-checkout add seq` 添加需要拉取的文件夹
+3. `git sparse-checkout set sorted` 添加新的文件夹，取消使用 add 添加的文件夹
