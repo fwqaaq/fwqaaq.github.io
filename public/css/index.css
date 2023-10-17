@@ -2,20 +2,29 @@
 
 :root {
   --header-height: 4rem;
-  --theme-bg: rgb(220, 216, 208);
+  --page-width: 48rem;
+  --theme-bg: rgb(240, 238, 233);
   --theme-color: rgb(25, 24, 48);
-  --transparent-theme-color: rgba(25, 24, 48, 0.4);
-  --header-hover: rgba(72, 69, 138, 0.9);
-  --header-color: rgb(240, 238, 233);
+  --header-bg: rgba(217, 199, 199);
+  --header-hover: rgb(240, 238, 233);
   --color-a-link: rgba(0, 93, 73, 0.7);
   --color-a-link-hover: #005845;
-  --page-width: 48rem;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --theme-bg: rgb(25, 24, 48);
+    --theme-color: rgb(240, 238, 233);
+    --header-bg: rgb(46, 44, 79);
+    --header-hover: rgb(25, 24, 48);
+  }
 }
 
 body {
   background-color: var(--theme-bg);
   padding-block-end: 0.5rem;
   position: relative;
+  color: var(--theme-color);
 
   &.loading {
     visibility: visible;
@@ -71,11 +80,11 @@ header {
   height: var(--header-height);
   justify-content: space-between;
   align-items: center;
-  background-color: var(--transparent-theme-color);
+  background-color: var(--header-bg);
 
   & a {
     padding-inline-start: 0.5rem;
-    color: var(--header-color);
+    color: var(--theme-color);
 
     &>img {
       width: calc(var(--header-height) - 1rem);
@@ -91,6 +100,7 @@ header {
   &>nav {
     display: flex;
     height: 100%;
+    background-color: var(--header-bg);
 
     & a {
       flex: 1 1 auto;
@@ -127,6 +137,14 @@ main {
   }
 }
 
+section.box:has(h3) {
+  cursor: pointer;
+
+  &:hover {
+    transform: translateX(-1px) translateY(-2px);
+  }
+}
+
 main :where(article, .box) {
   padding: 0.8rem 1rem;
   margin-inline: 0.5rem;
@@ -151,13 +169,12 @@ img {
   max-width: 100%;
 }
 
-main {
-  margin-block-start: calc(var(--header-height) + 1rem);
+h3 a {
+  color: var(--theme-color);
 }
 
-.home-img {
-  min-width: 100vw;
-  object-fit: cover;
+main {
+  margin-block-start: calc(var(--header-height) + 1rem);
 }
 
 /* Match Google for about showing */
@@ -165,10 +182,6 @@ main {
   main {
     width: var(--page-width);
     margin-inline: auto;
-  }
-
-  .home-img {
-    height: 100vh;
   }
 }
 
@@ -197,10 +210,6 @@ main {
       /* 与正常情况下产生冲突，这里设置 auto */
       height: auto;
     }
-  }
-
-  .home-img+main {
-    margin-block-start: 0;
   }
 
   .giscus {

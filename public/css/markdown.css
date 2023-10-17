@@ -29,17 +29,18 @@ pre code {
 }
 
 blockquote {
-  border-left: 0.3rem solid rgba(50, 48, 91, 0.759);
-  padding-inline-start: 0.25rem;
-  margin-inline: 1rem;
-  padding-block: 0.3rem;
-  background-color: rgba(25, 24, 48, 0.1);
   line-height: 1.5;
+  border-inline-start: 0.3rem solid rgba(50, 48, 91, 0.759);
+  border-radius: 5px;
+  padding-inline-start: 0.25rem;
+  padding-block: 0.3rem;
+  margin-inline: 1rem;
+  background-color: rgba(0, 255, 174, 0.1);
 }
 
 pre {
   overflow: auto;
-  background-color: rgb(25, 24, 48);
+  background-color: rgba(72, 69, 138);
   padding: 1.5rem 1.2rem;
   border-radius: 0.25rem;
   min-height: 2rem;

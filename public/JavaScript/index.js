@@ -1,7 +1,53 @@
 ///<reference lib="dom" />
 const regex = /\<head\>[\s\S]*\<\/head\>[\s\S]*?\<main\>([\s\S]*)\<\/main\>/
 
+let isDark = window.matchMedia("(prefers-color-scheme: dark)").matches
+
+/**
+ * @param {Element} e 
+ */
+function toggleIcon(e) {
+  e.classList.toggle("fa-sun")
+  e.classList.toggle("fa-moon")
+}
+
 document.addEventListener("DOMContentLoaded", () => {
+  const localDarkMode = window.localStorage.getItem("darkMode")
+  isDark = localDarkMode === "undefined" ? isDark : localDarkMode === "dark"
+  console.log(isDark)
+
+  const model = document.querySelector("a.model")
+  const darkIcon = model.querySelector("i")
+
+  if (!isDark) {
+    window.localStorage.setItem("darkMode", "light")
+    document.documentElement.style.setProperty("--theme-bg", "rgb(240, 238, 233)")
+    document.documentElement.style.setProperty("--theme-color", "rgb(25, 24, 48)")
+    document.documentElement.style.setProperty("--header-bg", "rgba(217, 199, 199)")
+    document.documentElement.style.setProperty("--header-hover", "rgb(240, 238, 233)")
+    toggleIcon(darkIcon)
+  } else {
+    window.localStorage.setItem("darkMode", "dark")
+  }
+
+  model.addEventListener("click", (e) => {
+    e.preventDefault()
+    toggleIcon(darkIcon)
+    darkMode = window.localStorage.getItem("darkMode") === "dark" ? "light" : "dark"
+    window.localStorage.setItem("darkMode", darkMode)
+    if (darkMode === "dark") {
+      document.documentElement.style.setProperty("--theme-bg", "rgb(25, 24, 48)")
+      document.documentElement.style.setProperty("--theme-color", "rgb(240, 238, 233)")
+      document.documentElement.style.setProperty("--header-bg", "rgb(46, 44, 79)")
+      document.documentElement.style.setProperty("--header-hover", "rgb(25, 24, 48)")
+    } else {
+      document.documentElement.style.setProperty("--theme-bg", "rgb(240, 238, 233)")
+      document.documentElement.style.setProperty("--theme-color", "rgb(25, 24, 48)")
+      document.documentElement.style.setProperty("--header-bg", "rgba(217, 199, 199)")
+      document.documentElement.style.setProperty("--header-hover", "rgb(240, 238, 233)")
+    }
+  })
+
   const stylesheet = document.createElement("link")
   stylesheet.rel = "stylesheet"
   stylesheet.href = "/public/css/markdown.css"
