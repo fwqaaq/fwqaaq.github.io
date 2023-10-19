@@ -4,48 +4,48 @@ const regex = /\<head\>[\s\S]*\<\/head\>[\s\S]*?\<main\>([\s\S]*)\<\/main\>/
 let isDark = window.matchMedia("(prefers-color-scheme: dark)").matches
 
 /**
+ * @type {HTMLMetaElement}
+ */
+const metaTheme = document.head.querySelector("meta[name='theme-color']")
+
+/**
+ * @param {boolean} darkTheme 
  * @param {Element} e 
  */
-function toggleIcon(e) {
+function toggleColor(isDarkTheme, e) {
   e.classList.toggle("fa-sun")
   e.classList.toggle("fa-moon")
+  window.localStorage.setItem("darkMode", isDarkTheme ? "dark" : "light")
+  const headerBg = document.documentElement.style.getPropertyValue("--header-bg")
+  if (isDarkTheme) {
+    document.documentElement.style.setProperty("--theme-bg", "rgb(25, 24, 48)")
+    document.documentElement.style.setProperty("--theme-color", "rgb(240, 238, 233)")
+    document.documentElement.style.setProperty("--header-bg", "rgb(46, 44, 79)")
+    document.documentElement.style.setProperty("--header-hover", "rgb(25, 24, 48)")
+    metaTheme.content = "rgb(46, 44, 79)"
+    return
+  }
+  if (headerBg === "rgb(217, 199, 199)") return
+  document.documentElement.style.setProperty("--theme-bg", "rgb(240, 238, 233)")
+  document.documentElement.style.setProperty("--theme-color", "rgb(25, 24, 48)")
+  document.documentElement.style.setProperty("--header-bg", "rgb(217, 199, 199)")
+  document.documentElement.style.setProperty("--header-hover", "rgb(240, 238, 233)")
+  metaTheme.content = "rgb(217, 199, 199)"
 }
 
 document.addEventListener("DOMContentLoaded", () => {
   const localDarkMode = window.localStorage.getItem("darkMode")
   isDark = localDarkMode === "undefined" ? isDark : localDarkMode === "dark"
-  console.log(isDark)
 
   const model = document.querySelector("a.model")
   const darkIcon = model.querySelector("i")
 
-  if (!isDark) {
-    window.localStorage.setItem("darkMode", "light")
-    document.documentElement.style.setProperty("--theme-bg", "rgb(240, 238, 233)")
-    document.documentElement.style.setProperty("--theme-color", "rgb(25, 24, 48)")
-    document.documentElement.style.setProperty("--header-bg", "rgba(217, 199, 199)")
-    document.documentElement.style.setProperty("--header-hover", "rgb(240, 238, 233)")
-    toggleIcon(darkIcon)
-  } else {
-    window.localStorage.setItem("darkMode", "dark")
-  }
+  toggleColor(isDark, darkIcon)
 
   model.addEventListener("click", (e) => {
     e.preventDefault()
-    toggleIcon(darkIcon)
-    darkMode = window.localStorage.getItem("darkMode") === "dark" ? "light" : "dark"
-    window.localStorage.setItem("darkMode", darkMode)
-    if (darkMode === "dark") {
-      document.documentElement.style.setProperty("--theme-bg", "rgb(25, 24, 48)")
-      document.documentElement.style.setProperty("--theme-color", "rgb(240, 238, 233)")
-      document.documentElement.style.setProperty("--header-bg", "rgb(46, 44, 79)")
-      document.documentElement.style.setProperty("--header-hover", "rgb(25, 24, 48)")
-    } else {
-      document.documentElement.style.setProperty("--theme-bg", "rgb(240, 238, 233)")
-      document.documentElement.style.setProperty("--theme-color", "rgb(25, 24, 48)")
-      document.documentElement.style.setProperty("--header-bg", "rgba(217, 199, 199)")
-      document.documentElement.style.setProperty("--header-hover", "rgb(240, 238, 233)")
-    }
+    const darkMode = window.localStorage.getItem("darkMode") === "dark" ? "light" : "dark"
+    toggleColor(darkMode === "dark", darkIcon)
   })
 
   const stylesheet = document.createElement("link")
