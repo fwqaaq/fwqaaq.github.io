@@ -9,7 +9,7 @@ summary: Git 对象原理剖析
 
 ## 初始化 git
 
-- git init:初始化本地 git 仓库
+- git init：初始化本地 git 仓库
 
 ```bash
 #四个文件
