@@ -1,14 +1,17 @@
 @import url("./base.css");
 
 :root {
+  font-family: system-ui, —apple-system, Segoe UI, Rototo, Emoji, Helvetica, Arial, sans-serif;
   --header-height: 4rem;
   --page-width: 48rem;
   --theme-bg: rgb(240, 238, 233);
   --theme-color: rgb(25, 24, 48);
-  --header-bg: rgba(217, 199, 199);
+  --header-bg: rgb(200, 200, 200);
   --header-hover: rgb(240, 238, 233);
   --color-a-link: rgba(0, 93, 73, 0.7);
   --color-a-link-hover: #005845;
+  --h-color: var(--color-a-link);
+  --table-border-color: rgba(0, 0, 0);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -17,6 +20,9 @@
     --theme-color: rgb(240, 238, 233);
     --header-bg: rgb(46, 44, 79);
     --header-hover: rgb(25, 24, 48);
+    --color-a-link: rgba(1, 202, 159, 0.7);
+    --color-a-link-hover: #00d4a1;
+    --table-border-color: rgb(255, 255, 255);
   }
 }
 

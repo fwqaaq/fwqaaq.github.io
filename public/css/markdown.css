@@ -4,7 +4,7 @@ h4,
 h5,
 h6 {
   line-height: 1.2;
-  color: rgb(15, 71, 52);
+  color: var(--h-color);
 
   &:hover a[class="anchor"]::after {
     content: attr(data-anchorjs-icon);
@@ -62,7 +62,7 @@ table {
 
   & th,
   td {
-    border: 0.2rem solid black;
+    border: 0.2rem solid var(--table-border-color);
     padding-inline-start: 0.2rem;
   }
 }

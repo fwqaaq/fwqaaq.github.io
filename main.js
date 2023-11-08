@@ -51,7 +51,9 @@ const getPosts = (title, content, isPosts = false) =>
 const getTags = (title, tags) =>
   tags.reduce(
     (acc, tag) =>
-      acc + `<a class="router tag" href="/./${title}/${tag}/">${tag}</a>`,
+      acc + `<a class="tag" href="/./${title}/${tag}/">
+      <i class="fa-solid fa-tag"></i> ${tag}
+      </a>`,
     "",
   )
 
