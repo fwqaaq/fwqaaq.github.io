@@ -36,7 +36,7 @@ function toggleColor(isDarkTheme, e) {
   document.documentElement.style.setProperty("--color-a-link", " rgba(0, 93, 73, 0.7)")
   document.documentElement.style.setProperty("--color-a-link-hover", "#005845")
   document.documentElement.style.setProperty("--table-border-color", "rgb(0,0,0)")
-  metaTheme.content = "rgb(217, 199, 199)"
+  metaTheme.content = "rgb(200,200,200)"
 }
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -71,6 +71,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
     nav.classList.remove("show")
   })
+
 
   document.body.addEventListener("click", (e) => {
     if (

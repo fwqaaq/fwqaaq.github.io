@@ -268,5 +268,18 @@ Promise.all([Home(), Archive(), Tags(), Others(), About()])
 // Handle the http server
 const port = 3000
 if (Deno.env.get("DEV") === "true") {
-  await serve(handler, { port })
+  startServer()
+}
+
+async function startServer() {
+  try {
+    await serve(handler, { port })
+  } catch (e) {
+    if (e instanceof Deno.errors.AddrInUse) {
+      console.log(`Port ${port} in use, try another port`)
+      setTimeout(startServer, 1000)
+    } else {
+      throw e
+    }
+  }
 }

@@ -88,7 +88,12 @@ header {
   align-items: center;
   background-color: var(--header-bg);
 
-  & a {
+  /* 与文字底部对齐 */
+  & i {
+    vertical-align: baseline !important;
+  }
+
+  & :where(a, div.toy) {
     padding-inline-start: 0.5rem;
     color: var(--theme-color);
 
@@ -96,28 +101,33 @@ header {
       width: calc(var(--header-height) - 1rem);
       border-radius: 50%;
       cursor: pointer;
+      transition: transform 0.5s ease-in-out;
 
       &:hover {
-        transform: scale(1.2);
+        transform: rotate(360deg);
       }
     }
   }
 
-  &>nav {
+  &>.header-nav {
     display: flex;
     height: 100%;
     background-color: var(--header-bg);
 
-    & a {
+    & :where(a, .toy) {
       flex: 1 1 auto;
       height: var(--header-height);
       line-height: var(--header-height);
       text-align: center;
+      vertical-align: baseline;
       padding: 0 2rem;
-      overflow: hidden;
 
-      &:hover {
-        background-color: var(--header-hover);
+      &:hover,
+      &:hover i {
+        text-decoration: underline;
+        text-decoration-thickness: 0.2rem;
+        text-decoration-color: var(--table-border-color);
+        text-underline-offset: 0.5rem;
       }
     }
   }
@@ -189,32 +199,64 @@ main {
     width: var(--page-width);
     margin-inline: auto;
   }
+
+  nav.header-nav .toy {
+    position: relative;
+    display: block;
+    padding-block-end: 1rem;
+  }
+
+  nav.toy-nav {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    background-color: var(--header-bg);
+    width: 200%;
+    inset-inline-start: -50%;
+    max-height: 0;
+    overflow: hidden;
+    clip-path: polygon(0% 10%, 35% 10%, 50% 0%, 70% 10%, 100% 10%, 100% 100%, 0% 100%);
+    transition: max-height 0.5s ease-in-out;
+
+    & a:first-child {
+      padding-block-start: 1rem;
+    }
+  }
+
+  div.toy:hover nav.toy-nav {
+    max-height: fit-content;
+    height: auto;
+  }
 }
 
 /* Match phone */
-@media (max-width: 30rem) {
+@media (max-width: 480px) {
+  nav.toy-nav {
+    display: none !important;
+  }
+
   header {
     justify-content: center;
-
-    &>nav {
-      display: flex;
-      flex-direction: column;
-      position: fixed;
-      overflow: hidden;
-      inset-block-start: var(--header-height);
-      width: 100%;
-      max-height: 0;
-      transition: max-height 0.5s ease-in-out;
-
-      &>a {
-        background-color: var(--transparent-theme-color);
-      }
-    }
 
     .show {
       max-height: fit-content;
       /* 与正常情况下产生冲突，这里设置 auto */
       height: auto;
+    }
+
+    &>nav {
+      display: flex;
+      flex-direction: column;
+      position: fixed;
+      inset-block-start: var(--header-height);
+      width: 100%;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.5s ease-in-out;
+
+      &>:where(a, .toy) {
+        background-color: var(--transparent-theme-color);
+      }
     }
   }
 
