@@ -33,23 +33,6 @@ body {
   }
 }
 
-.loading::after {
-  content: "";
-  display: block;
-  position: absolute;
-  top: 50vh;
-  left: 50%;
-  width: 60px;
-  height: 60px;
-  margin: -30px 0 0 -30px;
-  border-radius: 50%;
-  border-width: 4px 4px 4px 0;
-  border-style: solid;
-  border-color: var(--theme-color);
-  animation: spin 1s ease-in-out infinite;
-  z-index: 1;
-}
-
 @keyframes spin {
   0% {
     transform: rotate(0deg);
@@ -60,13 +43,7 @@ body {
   }
 }
 
-/* 除了锚点 a 都要换行 */
-main :not(:where(h2, h3, h4, h5, h6)) a[href^="http"] {
-  overflow-wrap: break-word;
-  width: 100%;
-}
-
-article a {
+article.blog-article a {
   color: var(--color-a-link);
 
   &:hover {
@@ -74,7 +51,7 @@ article a {
   }
 }
 
-header {
+header.blog-header {
   display: flex;
   position: fixed;
   /* for backdrop-filter */
@@ -119,19 +96,12 @@ header {
       text-align: center;
       vertical-align: baseline;
       padding: 0 2rem;
-
-      &:hover,
-      &:hover i {
-        text-decoration: underline;
-        text-decoration-thickness: 0.2rem;
-        text-decoration-color: var(--table-border-color);
-        text-underline-offset: 0.5rem;
-      }
     }
   }
 }
 
-main {
+main.blog-main {
+  margin-block-start: calc(var(--header-height) + 1rem);
 
   & .box .tag,
   & article .tag {
@@ -159,9 +129,14 @@ section.box :has(h3) {
   }
 }
 
-main :where(article, .box) {
-  backdrop-filter: blur(10rem);
-  -webkit-backdrop-filter: blur(10rem);
+section.box a {
+  color: var(--theme-color);
+}
+
+main.blog-main :where(article, .box) {
+  /* backdrop-filter: blur(100rem);
+  -webkit-backdrop-filter: blur(100rem); */
+  background-color: var(--header-bg);
   padding: 0.8rem 1rem;
   margin-inline: 0.5rem;
   margin-block-start: 1rem;
@@ -169,7 +144,7 @@ main :where(article, .box) {
   box-shadow: 0rem 0rem 0.4rem rgb(55, 55, 55);
 }
 
-main .pages {
+main.blog-main .pages {
   display: flex;
   justify-content: space-between;
   margin-block-start: 4rem;
@@ -181,21 +156,9 @@ main .pages {
   margin-block-end: 4rem;
 }
 
-img {
-  max-width: 100%;
-}
-
-h3 a {
-  color: var(--theme-color);
-}
-
-main {
-  margin-block-start: calc(var(--header-height) + 1rem);
-}
-
 /* Match Google for about showing */
 @media (min-width: 48rem) {
-  main {
+  main.blog-main {
     width: var(--page-width);
     margin-inline: auto;
   }
@@ -235,7 +198,7 @@ main {
     display: none !important;
   }
 
-  header {
+  header.blog-header {
     justify-content: center;
 
     .show {

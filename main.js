@@ -46,7 +46,7 @@ if (existsSync(new URL(dist))) {
 }
 
 const getPosts = (title, content, isPosts = false) =>
-  `<main>${templateArticle({ title, content })}</main>${isPosts ? giscus : ""}`
+  `<main class="blog-main">${templateArticle({ title, content })}</main>${isPosts ? giscus : ""}`
 
 const getTags = (title, tags) =>
   tags.reduce(
@@ -63,7 +63,7 @@ function getHomePage(_title, iters) {
     return acc +
       templateBox({ place, title, summary, time, tags: getTags("tags", tags) })
   }, "")
-  return `<main>${sections}</main>`
+  return `<main class="blog-main">${sections}</main>`
 }
 
 async function completeTask(map, url, dest) {
@@ -258,7 +258,7 @@ async function About() {
 
   const [, md] = parseYaml(about)
   const content = await markdown(md)
-  const generated = `${head}${header}<main>${templateArticle({ title: "关于我", content })
+  const generated = `${head}${header}<main class="blog-main">${templateArticle({ title: "关于我", content })
     }</main>`
   await Deno.writeTextFile(aboutDest, generated)
 }

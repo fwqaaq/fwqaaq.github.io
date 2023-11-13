@@ -1,5 +1,5 @@
 ///<reference lib="dom" />
-const regex = /\<head\>[\s\S]*\<\/head\>[\s\S]*?\<main\>([\s\S]*)\<\/main\>/
+const regex = /\<head\>[\s\S]*\<\/head\>[\s\S]*?\<main[\s\S]*?\>([\s\S]*)\<\/main\>/
 
 let isDark = window.matchMedia("(prefers-color-scheme: dark)").matches
 
@@ -121,9 +121,6 @@ const renderPage = async (e) => {
 
   const [, content] = html.match(regex)
   document.body.querySelector("main").innerHTML = content
-  // remove home image if not in home page
-  if (!path.includes("/home"))
-    document.body.getElementsByClassName("home-img")[0]?.remove()
 }
 
 /**

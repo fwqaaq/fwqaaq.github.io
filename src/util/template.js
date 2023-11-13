@@ -27,7 +27,7 @@ export const templateProcess = handleTemplate`
         </section>`
 
 export const templateArticle = handleTemplate`
-          <article>
+          <article class="blog-article">
             <h1>${"title"}</h1>
             <hr>
             ${"content"}
