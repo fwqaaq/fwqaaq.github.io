@@ -12,7 +12,7 @@ const handleTemplate = (strings, ...keys) => {
 
 export const templateBox = handleTemplate`        
         <section class="box">
-            <h3><a class="router" href="${"place"}">${"title"}</a></h3>
+            <h3><a class="decoration-line" href="${"place"}">${"title"}</a></h3>
             <p>${"summary"}<span class="time">···········${"time"}</span></p>
             <div>
                 ${"tags"}

@@ -3,16 +3,12 @@ body {
   padding: 0%;
   margin: 0%;
   scroll-behavior: smooth;
+  font-family: system-ui, —apple-system, Segoe UI, Rototo, Emoji, Helvetica, Arial, sans-serif;
 }
 
 a {
   text-decoration: none;
-}
-
-/* 除了锚点 a 都要换行 */
-main.blog-main :not(:where(h2, h3, h4, h5, h6)) a[href^="http"] {
-  overflow-wrap: break-word;
-  width: 100%;
+  color: black;
 }
 
 img {

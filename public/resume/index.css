@@ -1,0 +1,74 @@
+@import url("../css/base.css");
+
+@page {
+  size: A4;
+  margin-block: -20mm;
+}
+
+html {
+  background-color: rgb(38, 177, 131);
+  color: black;
+  font-size: 14px;
+}
+
+h4.resume-h4 {
+  /* clear user agent for default */
+  margin-block-end: 0;
+}
+
+ul.resume-ul {
+  /* clear user agent for default */
+  padding-inline-start: 1.2rem;
+}
+
+.resume-between {
+  display: flex;
+  justify-content: space-between;
+}
+
+.font-weight-600 {
+  font-weight: 600;
+}
+
+div.resume-box {
+  background-color: white;
+  /* A4 宽度减去左右边距 */
+  width: 190mm;
+  /* A4 高度减去上下边距 */
+  max-height: 277mm;
+  /* 上下边距 20mm, 左右居中 */
+  margin: 20mm auto;
+  /* 内部边距 */
+  padding: 10mm;
+  box-shadow: 0 0 5mm rgba(0, 0, 0, 0.64);
+
+  & i {
+    color: rgb(0, 62, 116);
+  }
+}
+
+h2.resume-title {
+  text-align: center;
+}
+
+nav.resume-nav {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.resume-graduation {
+  & .resume-major {
+    padding-block-start: 0.3rem;
+
+    & span {
+      padding-inline-end: 1rem;
+    }
+  }
+}
+
+.resume-learning {
+  & .resume-learning-content {
+    padding-block: 1.2rem;
+    padding-inline-start: 2rem;
+  }
+}

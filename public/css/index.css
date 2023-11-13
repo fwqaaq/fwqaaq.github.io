@@ -1,7 +1,6 @@
 @import url("./base.css");
 
 :root {
-  font-family: system-ui, —apple-system, Segoe UI, Rototo, Emoji, Helvetica, Arial, sans-serif;
   --header-height: 4rem;
   --page-width: 48rem;
   --theme-color: rgb(0, 0, 0);
@@ -102,6 +101,12 @@ header.blog-header {
 
 main.blog-main {
   margin-block-start: calc(var(--header-height) + 1rem);
+
+  /* 除了锚点 a 都要换行 */
+  & :not(:where(h2, h3, h4, h5, h6)) a[href^="http"] {
+    overflow-wrap: break-word;
+    width: 100%;
+  }
 
   & .box .tag,
   & article .tag {
