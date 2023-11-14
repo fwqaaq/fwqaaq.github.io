@@ -43,3 +43,4 @@ title: About
 ## Interesing
 
 * [CSS 实践](/public/write-css/index.html)
+* [我的简历](/public/resume/index.html)

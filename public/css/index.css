@@ -4,7 +4,7 @@
   --header-height: 4rem;
   --page-width: 48rem;
   --theme-color: rgb(0, 0, 0);
-  --header-bg: rgb(200, 200, 200);
+  --header-bg: rgba(200, 200, 200, 0.5);
   --color-a-link: rgba(0, 93, 73, 0.7);
   --color-a-link-hover: #005845;
   --h-color: var(--color-a-link);
@@ -14,7 +14,7 @@
 @media (prefers-color-scheme: dark) {
   :root {
     --theme-color: rgb(240, 238, 233);
-    --header-bg: rgb(46, 44, 79);
+    --header-bg: rgba(46, 44, 79, 0.5);
     --color-a-link: rgba(1, 202, 159, 0.7);
     --color-a-link-hover: #00d4a1;
   }
@@ -61,6 +61,8 @@ header.blog-header {
   justify-content: space-between;
   align-items: center;
   background-color: var(--header-bg);
+  backdrop-filter: blur(1rem);
+  -webkit-backdrop-filter: blur(1rem);
 
   /* 与文字底部对齐 */
   & i {
@@ -86,7 +88,6 @@ header.blog-header {
   &>.header-nav {
     display: flex;
     height: 100%;
-    background-color: var(--header-bg);
 
     & :where(a, .toy) {
       flex: 1 1 auto;
@@ -139,8 +140,8 @@ section.box a {
 }
 
 main.blog-main :where(article, .box) {
-  /* backdrop-filter: blur(100rem);
-  -webkit-backdrop-filter: blur(100rem); */
+  backdrop-filter: blur(1rem);
+  -webkit-backdrop-filter: blur(1rem);
   background-color: var(--header-bg);
   padding: 0.8rem 1rem;
   margin-inline: 0.5rem;
@@ -194,6 +195,12 @@ main.blog-main .pages {
   div.toy:hover nav.toy-nav {
     max-height: fit-content;
     height: auto;
+  }
+}
+
+@media (max-width: 48rem) {
+  .disappear {
+    display: none;
   }
 }
 
