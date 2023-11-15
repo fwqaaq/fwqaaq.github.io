@@ -223,15 +223,14 @@ main.blog-main .pages {
       display: flex;
       flex-direction: column;
       position: fixed;
+      background-color: var(--header-bg);
+      backdrop-filter: blur(1rem);
+      -webkit-backdrop-filter: blur(1rem);
       inset-block-start: var(--header-height);
       width: 100%;
       max-height: 0;
       overflow: hidden;
       transition: max-height 0.5s ease-in-out;
-
-      &>:where(a, .toy) {
-        background-color: var(--transparent-theme-color);
-      }
     }
   }
 
