@@ -15,7 +15,6 @@
     ]
   },
   "imports": {
-    "http": "https://deno.land/std@0.194.0/http/mod.ts",
     "fs": "https://deno.land/std@0.194.0/fs/mod.ts",
     "unified": "https://esm.sh/unified@10.1.2",
     "remark-parse": "https://esm.sh/remark-parse@10.0.2",

@@ -16,16 +16,16 @@ summary: 浏览器自带的 bom 属性
 
 ### 浏览器窗口大小
 
-1. `innerWidth`、`innerHeight`：返回浏览器窗口中页面**可见视口**的大小 (不包含边框，工具栏)
+1. `innerWidth`、`innerHeight`：返回浏览器窗口中页面**可见视口**的大小（不包含边框，工具栏）
    - 使用：`window.innerWidth`
-2. `outerWidth`、`outerHeight`：返回浏览器窗口自身的大小 (整个浏览器，包含边框，工具栏)
+2. `outerWidth`、`outerHeight`：返回浏览器窗口自身的大小（整个浏览器，包含边框，工具栏）
    - 使用：`window.outerWidth`
 3. `scrollX`、`scrollY`：返回文档当前水平滚动和垂直滚动的像素数
    - 使用`window.scroll(0,0)`：这样会把文档重新滚动到左上角
-4. `clientWidth`、`clientHeight`： 返回**布局视口元素**的大小
+4. `clientWidth`、`clientHeight`：返回**布局视口元素**的大小
    - 使用：`document.documentElement.clientWidth`
 5. `screen.height`、`screen.width`：返回屏幕（整个显示器）的大小
-6. `screen.availHeight`、`screen.availWidth`:返回可使用的屏幕高度或者宽度（不会包括固定的任务栏等不可使用的区域）
+6. `screen.availHeight`、`screen.availWidth`：返回可使用的屏幕高度或者宽度（不会包括固定的任务栏等不可使用的区域）
 
 > 注意：布局视口相对于可见视口的概念.可见视口只能显示页面的一小部分。
 
@@ -39,7 +39,7 @@ summary: 浏览器自带的 bom 属性
    - 元素边框和滚动条不包括在内，也不包含任何可能的滚动区域
 2. `offsetWidth`、`offsetHeight`：元素在页面中占据的 width/height 总和，包括 width、padding、border 以及滚动条的宽度
 3. `offsetLeft`、`offsetTop`：只读。返回元素左上角相对于 `HTMLElement.offsetParent`（父元素不是 `display:none`）节点的左或者上边界的偏移量
-4. `scrollWidth`、`scrollHeight`当元素不是`overflow:hidden`样式属性时，元素的总宽度（滚动宽度）
+4. `scrollWidth`、`scrollHeight` 当元素不是 `overflow:hidden` 样式属性时，元素的总宽度（滚动宽度）
    - 在默认状态下，如果该属性值大于 clientWidth 属性值，则元素会显示滚动条，以便能够翻阅被隐藏的区域
 
 ### event 事件上的元素大小
@@ -51,11 +51,11 @@ summary: 浏览器自带的 bom 属性
 - `offsetX`、`offsetY`：鼠标相对于目标元素的距离。
   - 参照点是目标元素的左上角
 - `clientX`、`clientY`：鼠标相对于浏览器视口的距离。
-  - 参照点是目标元素的左上角，计算鼠标点距离浏览器内容区域的左上角的距离 (不包含任何可能的滚动区域)
+  - 参照点是目标元素的左上角，计算鼠标点距离浏览器内容区域的左上角的距离（不包含任何可能的滚动区域）
 - `layerX`、`layerY`：鼠标相对于定位属性的距离。
   - 参照点是父元素（如果自身有定位属性的话就是相对于自身）都没有的话：就是相对于 body 元素
 - `pageX`、`pageY`：鼠标相对与整个页面左上角的距离。
-  - 参照点是页面本身的 body 原点。会以 body 左上角计算值，并且把滚动条滚过的高或宽计算在内 (受滚动区域影响)
+  - 参照点是页面本身的 body 原点。会以 body 左上角计算值，并且把滚动条滚过的高或宽计算在内（受滚动区域影响）
 - `screenX`、`screenY`：鼠标相对于屏幕的距离。
   - 参照点是屏幕的左上角
 
@@ -103,7 +103,7 @@ searchParams.toString();
 
 > 操作地址
 
-- 例如：`location.assign("www.baidu.com")`,如果使用 `location.href` 设置一个 url，也会以同一个 url 值调用 assign() 方法
+- 例如：`location.assign("www.baidu.com")`，如果使用 `location.href` 设置一个 url，也会以同一个 url 值调用 assign() 方法
 - 除了 **hash** 之外，只要修改了 `location` 的一个属性，就会导致页面重新加载 url
 
 > 如果不希望浏览器的操作地址增加，可以使用 `location.replace()`，用户不能回到前一页
@@ -147,7 +147,7 @@ new URL("https://www.baidu.com"); //https://www.baidu.com
   - 如果是 ftp 协议，视浏览器而定
   - 如果是 `blob:` 协议，返回的是 `blob:` 紧跟的源地址
     - `"blob:https://mozilla.org"` 返回 `https://mozilla.org`
-- `pathname`：返回一个初始`/`和 URL 的路径 (如果没有路径，则为空字符串)
+- `pathname`：返回一个初始 `/` 和 URL 的路径（如果没有路径，则为空字符串）
 - `port`：如果 url 中包含明确的端口信息，则返回一个端口号。否则返回 `""`
 - `protocol`：返回一个 url 的协议值
 - `search`：返回一个查询字符串。`?` 紧跟的
@@ -168,8 +168,8 @@ const protocol = url.protocol; //https
 const search = url.search; //?q=123
 ```
 
-- `username`:包含域名前指定的 username
-- `password`:返回域名之前指定的密码
+- `username`：包含域名前指定的 username
+- `password`：返回域名之前指定的密码
 
 ```js
 const url = new URL(

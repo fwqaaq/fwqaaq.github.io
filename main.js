@@ -14,7 +14,6 @@ import {
   templateProcess,
 } from "./src/util/template.js"
 import { handler } from "./src/util/utils.js"
-import { serve } from "http"
 import { copy, ensureDir, ensureFile, exists, existsSync } from "fs"
 import "https://deno.land/std@0.201.0/dotenv/load.ts"
 
@@ -271,9 +270,14 @@ if (Deno.env.get("DEV") === "true") {
   startServer()
 }
 
-async function startServer() {
+function startServer() {
   try {
-    await serve(handler, { port })
+    Deno.serve({
+      port: 3000,
+      onListen({ hostname, port }) {
+        console.log(`Server started at http://${hostname}:${port}`)
+      }
+    }, handler)
   } catch (e) {
     if (e instanceof Deno.errors.AddrInUse) {
       console.log(`Port ${port} in use, try another port`)
