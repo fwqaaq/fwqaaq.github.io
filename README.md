@@ -1,10 +1,10 @@
-<div>
-  <h1 style="text-align:center"> Blog </h1>
+<div align="center">
+  <h1 style="text-align:center"> Blog 📖</h1>
 </div>
 
 * Giving up CommonJS API, instead using ESM API provided by Deno.
 * Completely compatible API provided by Browser.
-* Fast⚡️(Using CompressionStream API(gzip) in the dev), Safe🔐, Simple🆓(Only a JavaScript bundle).
+* Fast⚡️(Using CompressionStream API - gzip in the dev), Safe🔐, Simple🆓(Only a JavaScript bundle).
 
 ## Cross Platform
 
