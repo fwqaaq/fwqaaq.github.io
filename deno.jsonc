@@ -1,8 +1,7 @@
 {
   "tasks": {
-    "dev": "DEV=true deno run -A --watch main.js",
-    "build": "DEV=false deno run -A main.js",
-    "preview": "deno run -A src/util/http.js",
+    "dev": "DEV=true deno run -A src/util/resume/index.js && deno run -A --watch main.js",
+    "build": "DEV=false deno run -A src/util/resume/index.js && deno run -A main.js",
     "new": "deno run -A scripts/new.ts new -c rust"
   },
   "fmt": {

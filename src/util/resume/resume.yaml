@@ -1,0 +1,37 @@
+header:
+  title: '我的简历'
+  email: 'fwqaaq@gmail.com'
+  telephone: '186-xxxx-xxxx'
+  website: 'www.fwqaq.us'
+graduation:
+  school: '家里蹲大学分学'
+  time: '2020.9 - 2024.6'
+  major: '计算机科学与技术'
+  degree: '本科'
+  college: '计算机学院'
+  location: '江苏南通'
+  favourite:
+    - '强烈的 rust 爱好者，爱折腾，喜欢新奇的事物'
+    - '对新知识拥有强烈的热情，喜欢开源'
+    - '喜欢搞机，搭建小型服务器，编译 Openwrt...'
+experience:
+  - position: '花甲 - 前端工程师'
+    time: '大一 - 大二'
+    content:
+      - 开始阶段，和学长为花甲店老板做 B/S 架构的业务，开始学习前端(HTML、CSS、JS)，后来学习 Vue，对前端工程化有一定了解。虽然最终老板跑路了，但是依然在学习前端的内容。
+      - 不满足现有的知识，为 MDN 开始翻译，在巩固 JS 的同时学习了 TS，将 MDN 的 HTTP、stream 等内容重新润色，理解 HTTP 消息、浏览器为 JS 实现的流(即 Fetch 的底层实现)，同时也积累了 Git 的使用，对 Git 的版本控制也较为熟悉。
+      - 虽然理解 CSS 的基础规范，但是对于设计等这一类感性问题仍然是一头雾水，还是得不断练习、提 高审美。
+  - position: 'LearningOS - CI/CD'
+    time: '大三期间'
+    content:
+      - 大二下学期接触到 Rust，开始利用 Rust 学习 OS，同时为 LearningOS 做 CI/CD，对于 GitHub 的 workflow 较为熟悉，可以写简单的脚本。
+      - 对于 OS 以及 Rust 至今仍在学习，熟悉偏底层的内容，打牢基础才能走的更远，这一直是我的目标。同时也了解 Rust 交叉编译相关的东西，也熟悉 gdb/lldb 一些基础调试命令。
+skills:
+  - 编程语言：TypeScript(JavaScript) > Rust > Go > Clang > Shell
+  - 能做什么：可写前端（Vue、React 等）、数据库 Postgresql、了解网络编程...
+  - 可配置项：熟悉 Linux 操作、Docker 容器配置以及 Shell 脚本编写等
+others:
+  - GitHub：在这里，你可以找到我的一些开源项目 https://github.com/fwqaaq
+  - 我的技术博客：www.fwqaq.us
+  - 对开源富有热情、对学习不断激进、对技术一直追求
+  - 我在寻找一个稍微偏底层一些的实习，当然我也愿意接受其它的新鲜事物。

@@ -1,4 +1,6 @@
-<h1 style="text-align:center"> Blog </h1>
+<div>
+  <h1 style="text-align:center"> Blog </h1>
+</div>
 
 * Giving up CommonJS API, instead using ESM API provided by Deno.
 * Completely compatible API provided by Browser.
