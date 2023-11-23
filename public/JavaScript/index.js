@@ -126,10 +126,10 @@ const renderPage = async (e) => {
 /**
  * @param {MouseEvent} e
  */
-const useRoute = (e) => {
+const useRoute = async (e) => {
   e.preventDefault()
   history.pushState({}, "", e.target.href)
   document.body.classList.add("loading")
-  renderPage()
-  setTimeout(() => document.body.classList.remove("loading"), 200)
+  await renderPage()
+  document.body.classList.remove("loading")
 }
