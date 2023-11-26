@@ -21,6 +21,7 @@
 }
 
 body {
+  background-color: rgba(60, 118, 104, 0.7);
   background-image: url("https://img.fwqaq.us/10_Sunshine_8k.jpg");
   background-size: cover;
   padding-block-end: 0.5rem;
