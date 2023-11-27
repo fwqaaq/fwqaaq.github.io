@@ -58,6 +58,8 @@ ul li {
 
 table {
   margin: 0 auto;
+  /* prevent overflow */
+  word-break: break-all;
   border-collapse: collapse;
 
   & th,

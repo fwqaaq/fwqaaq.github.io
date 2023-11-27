@@ -3,9 +3,9 @@ title: Observer
 date: 2022-03-15 15:05:01
 categories: JavaScript
 tags:
-   - JavaScript
-   - TypeScript
-   - Browser
+  - JavaScript
+  - TypeScript
+  - Browser
 summary: 浏览器的监听事件
 ---
 
@@ -72,8 +72,8 @@ let observer = new IntersectionObserver(callback, options?);
 > 开启对目标对象的监听，如果没有
 
 ```javascript
-const target = document.querySelector(".target");
-observer.observe(target);
+const target = document.querySelector('.target')
+observer.observe(target)
 ```
 
 #### 回调函数
@@ -82,15 +82,15 @@ observer.observe(target);
 
 - 第一个参数 `entries`（数组），即 `IntersectionObserverEntry` 实例。描述了目标元素与 root 的交叉状态。
 
-| 属性                  |                                                       说明                                                        |
-| --------------------- | :---------------------------------------------------------------------------------------------------------------: |
-| boundingClientRect    |                     返回包含目标元素的边界信息，返回结果与 `getBoundingClientRect()` 相同                     |
-| **intersectionRatio** |                                          返回目标元素出现在可视区的比例                                           |
-| intersectionRect      |                                         用来描述 root 和目标元素的相交区域                                          |
+| 属性                  |                                                          说明                                                          |
+| --------------------- | :--------------------------------------------------------------------------------------------------------------------: |
+| boundingClientRect    |                         返回包含目标元素的边界信息，返回结果与 `getBoundingClientRect()` 相同                          |
+| **intersectionRatio** |                                             返回目标元素出现在可视区的比例                                             |
+| intersectionRect      |                                           用来描述 root 和目标元素的相交区域                                           |
 | **isIntersecting**    | 返回布尔值，下列两种操作均触发回调：1.如果目标元素出现在 root 可视区，返回 true。2. 如果从 root 可视区消失，返回 false |
-| rootBounds            |                               用来描述交叉区域观察者中的根。                               |
-| target                |                                   目标元素：与根出现相交区域改变的元素                                   |
-| time                  |                     返回一个记录从 IntersectionObserver 的时间原点到交叉被触发的时间的时间戳                      |
+| rootBounds            |                                             用来描述交叉区域观察者中的根。                                             |
+| target                |                                          目标元素：与根出现相交区域改变的元素                                          |
+| time                  |                        返回一个记录从 IntersectionObserver 的时间原点到交叉被触发的时间的时间戳                        |
 
 - 第二个参数就是 `IntersectionObserver` 这个实例对象本身。可以使用实例上的方法。
 
@@ -98,25 +98,25 @@ observer.observe(target);
 
 ```html
 <body>
-  <img width="200px" height="200px" src="logo.png"
-    data-src="0.jpg">
-  <img width="200px" height="200px" src="logo.png"
-    data-src="1.jpg">
-  <img width="200px" height="200px" src="logo.png"
-    data-src="2.jpg">
+  <img width="200px" height="200px" src="logo.png" data-src="0.jpg" />
+  <img width="200px" height="200px" src="logo.png" data-src="1.jpg" />
+  <img width="200px" height="200px" src="logo.png" data-src="2.jpg" />
 </body>
 <script>
-  const img = document.getElementsByTagName('img');
-  let observe = new IntersectionObserver((entries, observe) => {
-    entries.forEach(item => {
-      if (item.isIntersecting) {
-        item.target.src = item.target.dataset.src
-        observe.unobserve(item.target)
-      }
-    })
-  }, { rootMargin: "0px 600px 0px -600px" })
+  const img = document.getElementsByTagName('img')
+  let observe = new IntersectionObserver(
+    (entries, observe) => {
+      entries.forEach((item) => {
+        if (item.isIntersecting) {
+          item.target.src = item.target.dataset.src
+          observe.unobserve(item.target)
+        }
+      })
+    },
+    { rootMargin: '0px 600px 0px -600px' }
+  )
   // observe 遍历监听所有 img 节点
-  Array.from(img).forEach(img => observe.observe(img))
+  Array.from(img).forEach((img) => observe.observe(img))
 </script>
 ```
 
@@ -168,8 +168,8 @@ observer.observe(target);
 #### Mutation 创建观察者和监听目标对象
 
 ```js
-const MutationObserver = new MutationObserver(callback);
-MutationObserver.observe(dom, options);
+const MutationObserver = new MutationObserver(callback)
+MutationObserver.observe(dom, options)
 ```
 
 - 第一个参数是一个 dom 对象，被观察子节点 (目标元素) 的父节点
@@ -192,17 +192,17 @@ MutationObserver.observe(dom, options);
 
 - 第一个参数是 [`MutationRecords`](https://developer.mozilla.org/zh-CN/docs/Web/API/MutationRecord)，依然是一个数组。其中每个 `MutationRecord` 对象，记录着 `DOM` 每次发生变化的变动记录。`MutationRecord` 对象包含了 DOM 的相关信息
 
-| 属性                   | 描述                                                                                                                                                                                                   |
-| ---------------------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **target**             | 被修改影响的目标 dom 节点                                                                                                                                                                              |
-| **type**               | 变化的类型，也就是 MutationObserverInit 对象中的三种 `attributes`、`characterData` 或 `childList`，并且返回该类型                                                                                             |
-| **attributeName**      | 针对 `attributes` 类型的变化时，返回被修改属性的名字（或者 null）                                                                                                                                            |
-| **attributeNamespace** | 针对命名空间的`attributes`类型的变化。返回被修改属性的命名空间，或者 null                                                                                                                                 |
+| 属性                   | 描述                                                                                                                                                                                                                 |
+| ---------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **target**             | 被修改影响的目标 dom 节点                                                                                                                                                                                            |
+| **type**               | 变化的类型，也就是 MutationObserverInit 对象中的三种 `attributes`、`characterData` 或 `childList`，并且返回该类型                                                                                                    |
+| **attributeName**      | 针对 `attributes` 类型的变化时，返回被修改属性的名字（或者 null）                                                                                                                                                    |
+| **attributeNamespace** | 针对命名空间的`attributes`类型的变化。返回被修改属性的命名空间，或者 null                                                                                                                                            |
 | **oldValue**           | 如果在 `MutationObserverInit`对象中启用（`attributeOldValue` 或 `characterDataOldValue` 为 true）。则 `attributes` 或 `characterData` 的变化事件会返回变化之值或数据。`childList`类型的变化始终将这个属性设置为 null |
-| **addedNodes**         | 针对 `childList` 的变化，返回包含变化中添加节点的 `NodeList`，没有节点被添加，返回空 `NodeList` 数组                                                                                                           |
-| **previousSibling**    | 对于 `childList` 变化。返回被添加或移除的节点之前的兄弟节点，或者 null                                                                                                                                      |
-| **nextSibling**        | 对于 `childList` 变化，返回被添加或移除的节点之后的兄弟节点。或者 null                                                                                                                                      |
-| **removedNodes**       | 对于 `childList` 变化，返回被移除的节点 (没有则为 null)                                                                                                                                                     |
+| **addedNodes**         | 针对 `childList` 的变化，返回包含变化中添加节点的 `NodeList`，没有节点被添加，返回空 `NodeList` 数组                                                                                                                 |
+| **previousSibling**    | 对于 `childList` 变化。返回被添加或移除的节点之前的兄弟节点，或者 null                                                                                                                                               |
+| **nextSibling**        | 对于 `childList` 变化，返回被添加或移除的节点之后的兄弟节点。或者 null                                                                                                                                               |
+| **removedNodes**       | 对于 `childList` 变化，返回被移除的节点 (没有则为 null)                                                                                                                                                              |
 
 - 第二个参数就是 `MutationObserver` 这个实例对象本身。可以使用实例上的方法。
 
@@ -215,9 +215,10 @@ MutationObserver.observe(dom, options);
 
 - `MutationRecord` 实例至少包含对已有 DOM 节点的一个引用，即里面的 target 属性，如果变化是 `childList` 类型，则会包含多个节点的引用
 - 记录队列和回调处理的默认行为是耗尽这个队列，处理每个 `MutationRecord`，然后让它们超出作用域并被垃圾回收
+
   - `MutationObserver` 核心是异步回调与记录队列模型。为了在大量变化事件发生时不影响性能，每次变化的信息**由 oberver 实例决定**。保存在 **MutationRecord** 实例中，然后添加到记录队列
   - 记录队列对每个 **MutationObserver** 实例都是唯一的，是所有 **DOM**
-变化事件的有序列表（DOM 变化事件都会以数组的形式存在 MutationRecord 中），多次修改的信息会在一次回调中执行
+    变化事件的有序列表（DOM 变化事件都会以数组的形式存在 MutationRecord 中），多次修改的信息会在一次回调中执行
 
 - 有时候需要保存某个观察者的完整变化记录，那么就保存所有的 `MutationRecord` 实例，也就会保存它们引用的节点，而这会妨碍这些节点被回收
 - 如果需要尽快地释放内存，可以从每个 `MutationRecord` 中抽取出最有用的信息，保存到一个新对象，然后释放 `MutationRecord` 中的引用
@@ -249,7 +250,7 @@ resizeObserver.observe(target, options?);
   - `device-pixel-content-box`: 在对元素或其祖先应用任何 CSS 转换之前，CSS 中定义的内容区域的大小，以设备像素为单位
 
 ```js
-resizeObserver.observe(target, { box: "content-box" });
+resizeObserver.observe(target, { box: 'content-box' })
 ```
 
 #### Resize 回调函数
@@ -282,19 +283,19 @@ resizeObserver.observe(target, { box: "content-box" });
 #### 创建 Performance 实例
 
 ```js
-const PerformanceObserver = new PerformanceObserver(callback);
-PerformanceObserver.observe({ entryTypes: ["measure"] });
+const PerformanceObserver = new PerformanceObserver(callback)
+PerformanceObserver.observe({ entryTypes: ['measure'] })
 ```
 
 - `options`只接收一个 entryTypes 的键，值为一个性能检测数组
 
-| 属性                  | 别名                                                 | 类型      |                                      描述                                      |
-| :-------------------- | :--------------------------------------------------- | :-------- | :----------------------------------------------------------------------------: |
-| `frame`, `navigation` | `PerformanceFrameTiming, PerformanceNavigationTiming | URL       |                                   文件的地址                                   |
-| `resource`            | PerformanceResourceTiming                            | URL       |               文件请求资源解析的 URL.只有在资源加载完毕后才会创建               |
-| `mark`                | PerformanceMark                                      | DOMString |  通过调用创建标记使用的名称。会在资源获取开始时创建 (`performance.mark(name)`)   |
-| `measure`             | PerformanceMeasure                                   | DOMString | 通过调用创建度量时使用的名称。会在对资源操作时创建 (`performance.measure(name)`) |
-| `paint`               | PerformancePaintTiming                               | DOMString |             渲染时间点的信息接口。找出那些花费太多时间去绘制的区域              |
+| 属性                  | 别名                                                | 类型      |                                      描述                                      |
+| :-------------------- | :-------------------------------------------------- | :-------- | :----------------------------------------------------------------------------: |
+| `frame`, `navigation` | PerformanceFrameTiming, PerformanceNavigationTiming | URL       |                                   文件的地址                                   |
+| `resource`            | PerformanceResourceTiming                           | URL       |              文件请求资源解析的 URL。只有在资源加载完毕后才会创建               |
+| `mark`                | PerformanceMark                                     | DOMString |  通过调用创建标记使用的名称。会在资源获取开始时创建 `performance.mark(name)`   |
+| `measure`             | PerformanceMeasure                                  | DOMString | 通过调用创建度量时使用的名称。会在对资源操作时创建 `performance.measure(name)` |
+| `paint`               | PerformancePaintTiming                              | DOMString |             渲染时间点的信息接口。找出那些花费太多时间去绘制的区域             |
 
 #### Performance 回调函数
 
@@ -321,23 +322,25 @@ PerformanceObserver.observe({ entryTypes: ["measure"] });
 ```html
 <body>
   <button onclick="measureClick()">Measure</button>
-  <img src="http://zyjcould.ltd/blog/%E6%B5%8F%E8%A7%88%E5%99%A8%E8%A7%86%E5%8F%A3.png" />
+  <img
+    src="http://zyjcould.ltd/blog/%E6%B5%8F%E8%A7%88%E5%99%A8%E8%A7%86%E5%8F%A3.png"
+  />
   <script>
-    const performanceObserver = new PerformanceObserver(list => {
-      list.getEntries().forEach(entry => {
-        console.log(entry.entryType);
-        console.log(entry.startTime);
-        console.log(entry.name);
-        console.log(entry.duration);
-        console.log(entry.toJSON());
+    const performanceObserver = new PerformanceObserver((list) => {
+      list.getEntries().forEach((entry) => {
+        console.log(entry.entryType)
+        console.log(entry.startTime)
+        console.log(entry.name)
+        console.log(entry.duration)
+        console.log(entry.toJSON())
       })
-    });
-    performanceObserver.observe({ entryTypes: ['resource', 'mark', 'measure'] });
+    })
+    performanceObserver.observe({ entryTypes: ['resource', 'mark', 'measure'] })
 
-    performance.mark('registered-observer');
+    performance.mark('registered-observer')
 
     function measureClick() {
-      performance.measure('button clicked');
+      performance.measure('button clicked')
     }
   </script>
 </body>
@@ -368,6 +371,7 @@ const reportingObserver=new ReportingObserver(callback, options?)
 - options 提供两个属性，`types` 和 `buffered`
 
 1. `types`：提供三个属性值
+
    - `deprecation`：浏览器运行时遇到弃用的 API 会打印这个选项
    - `intervention`：浏览器自己的干预行为。可能遇到一些不安全的行为（如带有不安全的 iframe，过时的 API 等）
    - `crash`：浏览器崩溃时的行为
@@ -381,7 +385,7 @@ const reportingObserver=new ReportingObserver(callback, options?)
 - `report` 对象有三个属性：`body`、`type`、`url`
   - `type`：返回的是 report 类型，即 options 选项中的 types
   - `url`：返回的是生成 report 的文档
-  - `body`：返回 report 正文，包含详细的 report 对象，目前只有两种 **body 对象**（却决于 type 的返回值）
+  - `body`：返回 report 正文，包含详细的 report 对象，目前只有两种 **body 对象**（取决于 type 的返回值）
     1. [`DeprecationReportBody、InterventionReportBody`](https://developer.mozilla.org/en-US/docs/Web/API/DeprecationReportBody)
        - `id`：已弃用的功能或 API 的字符串
        - `anticipatedRemoval`：Data 对象，表示应从浏览器中要删除的日期。如果日期位置，返回 null
