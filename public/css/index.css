@@ -194,7 +194,8 @@ main.blog-main .pages {
   }
 
   div.toy:hover nav.toy-nav {
-    max-height: fit-content;
+    max-height: 150px;
+    /* 设置具体高度，而不是 fit-content/auto */
     height: auto;
   }
 }
@@ -215,7 +216,7 @@ main.blog-main .pages {
     justify-content: center;
 
     .show {
-      max-height: fit-content;
+      max-height: 450px;
       /* 与正常情况下产生冲突，这里设置 auto */
       height: auto;
     }
