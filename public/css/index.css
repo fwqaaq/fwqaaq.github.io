@@ -28,6 +28,9 @@ body {
   position: relative;
   color: var(--theme-color);
 
+  /* 防止溢出 */
+  word-break: break-all;
+
   &.loading {
     visibility: visible;
   }
