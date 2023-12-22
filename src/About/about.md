@@ -7,7 +7,7 @@ title: About
 
 ## Who
 
-[<img src="https://telegram.org/favicon.ico" width="32px" alt="Telegram" />](https://t.me/fwqaaq) ··· [<img src="https://github.com/favicon.ico">](https://github.com/fwqaaq) ··· [<img src="https://mail.google.com/favicon.ico" width="32px" alt="Gmail">](mailto:fwqaaq@gmail.com) ··· [<img src="https://www.fwqaq.us/public/favicon.ico" width="32px" alt="Blog" />](https://www.fwqaq.us)
+[<img src="https://telegram.org/favicon.ico" width="32px" alt="Telegram" />](https://t.me/fwqaaq) ··· [<img src="https://github.com/favicon.ico" width="32px" alt="GitHub">](https://github.com/fwqaaq) ··· [<img src="https://ssl.gstatic.com/ui/v1/icons/mail/rfr/gmail.ico" width="32px" alt="Gmail">](mailto:fwqaaq@gmail.com) ··· [<img src="https://www.fwqaq.us/public/favicon.ico" width="32px" alt="Blog" />](https://www.fwqaq.us)
 
 ## Languages and Tools
 
@@ -35,9 +35,9 @@ title: About
 
 <details>
   <summary>This is my github show! You can take a look at it.</summary>
-  <img width="100%" src="http://github-profile-summary-cards.vercel.app/api/cards/profile-details?username=fwqaaq&theme=tokyonight">
-  <img  src="http://github-profile-summary-cards.vercel.app/api/cards/most-commit-language?username=fwqaaq&theme=tokyonight">
-  <img  src="http://github-profile-summary-cards.vercel.app/api/cards/stats?username=fwqaaq&theme=tokyonight">
+  <img width="100%" src="http://github-profile-summary-cards.vercel.app/api/cards/profile-details?username=fwqaaq&theme=tokyonight" alt="">
+  <img src="http://github-profile-summary-cards.vercel.app/api/cards/most-commit-language?username=fwqaaq&theme=tokyonight" alt="">
+  <img src="http://github-profile-summary-cards.vercel.app/api/cards/stats?username=fwqaaq&theme=tokyonight" alt="">
 </details>
 
 ## Interesing
