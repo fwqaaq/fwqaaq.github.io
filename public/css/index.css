@@ -67,6 +67,7 @@ header.blog-header {
   background-color: var(--header-bg);
   backdrop-filter: blur(1rem);
   -webkit-backdrop-filter: blur(1rem);
+  transition: top 0.6s ease-in-out;
 
   /* 与文字底部对齐 */
   & i {

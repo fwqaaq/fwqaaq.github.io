@@ -73,6 +73,15 @@ document.addEventListener("DOMContentLoaded", () => {
     ) useRoute(e)
   })
 
+  let lastScrollTop = 0
+  document.addEventListener("scroll", (_) => {
+    const current = window.scrollX || document.documentElement.scrollTop
+    const headerHeight = '-' + getComputedStyle(document.documentElement).getPropertyValue("--header-height")
+    if (current <= lastScrollTop) header.style.top = "0"
+    else header.style.top = headerHeight
+    lastScrollTop = current <= 0 ? 0 : current
+  })
+
   self.addEventListener("popstate", renderPage)
 })
 
