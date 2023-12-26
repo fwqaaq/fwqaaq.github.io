@@ -52,6 +52,16 @@ echo "{environment_variable_name}={value}" >> "$GITHUB_ENV"
 
 之后我们指定该 job，然后使用 `${{ needs.create_release.outputs.changes }}` 方式来访问。
 
+## 指定仓库执行
+
+在其它成员 fork 仓库的时候，我们不希望其它成员也运行 GitHub workflow，可以使用 if 语句进行判别。像这样：
+
+```yaml
+if: github.repository == 'jaywcjlove/reference'
+```
+
+参考：<https://github.com/fwqaaq/translator/blob/23dcf1f6679531457df49d38d6b9e28dd8430d8d/.github/workflows/main.yaml#L12>
+
 ## [矩阵策略](https://docs.github.com/zh/actions/using-jobs/using-a-matrix-for-your-jobs#using-a-matrix-strategy)
 
 在 matrix 你可以指定不同平台，不同版本之间的组合，进行多个 job 的执行。
