@@ -3,7 +3,7 @@ import { stringify } from 'yaml'
 import { format } from 'datetime'
 
 interface Metadata {
-  date: string
+  date: Date
   title: string
   categories: string
   tags: string[]
@@ -11,7 +11,7 @@ interface Metadata {
 }
 
 const metadata = {
-  date: format(new Date(), 'yyyy-MM-dd HH:mm:ss'),
+  date: new Date(format(new Date(), 'yyyy-MM-dd HH:mm:ss')),
   title: '',
   categories: '',
   tags: [],
@@ -46,5 +46,7 @@ await new Command()
 Deno.writeTextFileSync(
   `./src/posts/${metadata.title}.md`,
   `---
-${stringify(metadata as unknown as Record<string, unknown>)}---`
+${stringify(
+  metadata as unknown as Record<string, Metadata[keyof Metadata]>
+)}---`
 )

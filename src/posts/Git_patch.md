@@ -1,6 +1,6 @@
 ---
 title: Git_Patch
-date: '2023-10-22 18:05:39'
+date: 2023-10-22 18:05:39
 categories: Git
 tags:
   - Git

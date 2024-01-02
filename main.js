@@ -246,7 +246,7 @@ async function Tags() {
 async function About() {
   const aboutDest = new URL("./about/index.html", dist)
   if (!await exists(aboutDest)) await ensureFile(aboutDest)
-  const aboutSrc = new URL("./About/about.md", src)
+  const aboutSrc = new URL("./about/about.md", src)
 
   const about = await Deno.readTextFile(aboutSrc)
   const head = await replaceHead(

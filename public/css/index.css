@@ -4,8 +4,8 @@
   --header-height: 4rem;
   --page-width: 48rem;
   --theme-color: rgb(0, 0, 0);
-  --header-bg: rgba(200, 200, 200, 0.5);
-  --color-a-link: rgba(0, 93, 73, 0.7);
+  --header-bg: rgba(200, 200, 200, 0.8);
+  --color-a-link: rgba(0, 93, 73, 0.8);
   --color-a-link-hover: #005845;
   --h-color: var(--color-a-link);
   --table-border-color: var(--theme-color);
@@ -14,8 +14,8 @@
 @media (prefers-color-scheme: dark) {
   :root {
     --theme-color: rgb(240, 238, 233);
-    --header-bg: rgba(46, 44, 79, 0.5);
-    --color-a-link: rgba(1, 202, 159, 0.7);
+    --header-bg: rgba(46, 44, 79, 0.8);
+    --color-a-link: rgba(1, 202, 159, 0.8);
     --color-a-link-hover: #00d4a1;
   }
 }
@@ -198,8 +198,9 @@ main.blog-main .pages {
   }
 
   div.toy:hover nav.toy-nav {
-    max-height: 150px;
+    /* 在 JavaScript 中设置*/
     /* 设置具体高度，而不是 fit-content/auto */
+    max-height: var(--toy-nav-height);
     height: auto;
   }
 }
