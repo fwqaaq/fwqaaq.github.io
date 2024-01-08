@@ -64,7 +64,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // nav toggle
   document.addEventListener("click", (e) => {
-    if (!window.matchMedia("(max-width: 30rem").matches) return
+    if (!window.matchMedia("(max-width: 480px").matches) return
     if (e.target === header) {
       nav.classList.toggle("show")
       return
@@ -76,15 +76,20 @@ document.addEventListener("DOMContentLoaded", () => {
   document.body.addEventListener("click", (e) => {
     if (
       e.target.matches("a") && e.target.getAttribute("href").startsWith("/./")
-    ) useRoute(e)
+    ) { useRoute(e) }
   })
 
   let lastScrollTop = 0
   document.addEventListener("scroll", (_) => {
     const current = window.scrollX || document.documentElement.scrollTop
     const headerHeight = '-' + getComputedStyle(document.documentElement).getPropertyValue("--header-height")
-    if (current <= lastScrollTop) header.style.top = "0"
-    else header.style.top = headerHeight
+    if (current <= lastScrollTop) {
+      header.style.top = "0"
+    } else {
+      header.style.top = headerHeight
+      if (!window.matchMedia("(max-width: 480px").matches) return
+      nav.classList.remove("show")
+    }
     lastScrollTop = current <= 0 ? 0 : current
   })
 
