@@ -182,7 +182,7 @@ export default {
 
 ## router-view
 
-- \<router-view>公开一个`v-slot`API，主要是用\<transition>和\<keep-alive>组件包装你的路由组件
+- \<router-view> 公开一个 `v-slot` API，主要是用 \<transition> 和 \<keep-alive> 组件包装你的路由组件
 
 ```html
 <router-view v-slot="{Component}">
@@ -325,12 +325,11 @@ const routes = [
 
 ### 全局后置后卫
 
-> 不会接受返回值也不会改变导航本身
-> > 用于分析、更改页面标题、声明页面等辅助功能
+> 不会接受返回值也不会改变导航本身。用于分析、更改页面标题、声明页面等辅助功能
 
 ```js
 router.afterEach((to, from) => {
-  ...
+  //...
 })
 ```
 

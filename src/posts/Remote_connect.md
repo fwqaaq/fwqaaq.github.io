@@ -107,7 +107,7 @@ screen -X -S 756326 quit
 
 - token:同服务端配置 token 保持一致
 
-```shell
+```ini
 [common]
 server_addr = xxx.xxx.xxx.xxx 
 server_port = 7000
@@ -145,7 +145,7 @@ cd 你的 frp 位置
 
 ## 安卓投屏到电脑
 
-> 需要下载两个软件[`scrcpy`](https://github.com/Genymobile/scrcpy/releases)和[`platform-tools`](https://developer.android.com/studio/releases/platform-tools)
+> 需要下载两个软件 [`scrcpy`](https://github.com/Genymobile/scrcpy/releases) 和 [`platform-tools`](https://developer.android.com/studio/releases/platform-tools)
 
 - 我使用的是可视化：[`scrcpy-gui`](https://github.com/Tomotoes/scrcpy-gui/releases)
   - 如果不使用可视化，可以看原作者地址，有很详细的教程<https://github.com/Genymobile/scrcpy/releases>

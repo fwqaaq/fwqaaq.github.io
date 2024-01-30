@@ -497,7 +497,7 @@ local     test
 
 > 使用`docker volume inspect test`可以查找挂载路径
 
-```shell
+```json
 [
  {
    "CreatedAt": "2022-01-22T10:27:43Z",
@@ -531,7 +531,7 @@ docker run -d -P --name nginx01 -v test:/etc/nginx:rw nginx
 > 很多官方的镜像都是基础包。利用 dockerfile 自己去搭建镜像
 
 - 构建的大概流程
-  1. 编写一个`dockerFile`文件
+  1. 编写一个 `dockerFile` 文件
   2. `docker build`构建成为一个镜像
   3. `docker run`运行镜像
   4. `docker push`发布镜像 (dockerhub 仓库)

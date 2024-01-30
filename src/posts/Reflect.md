@@ -55,10 +55,10 @@ function OtherClass() {
 }
 
 // 创建一个对象：
-var obj1 = Reflect.construct(OneClass, args, OtherClass);
+const obj1 = Reflect.construct(OneClass, args, OtherClass);
 
 // 与上述方法等效：
-var obj2 = Object.create(OtherClass.prototype);
+const obj2 = Object.create(OtherClass.prototype);
 OneClass.apply(obj2, args);
 ```
 
@@ -94,7 +94,7 @@ console.log(obj); //{x: 2, y: 7}
 2. `propertyKey`:需要删除的属性的名称
 
 ```js
-var obj = { x: 1, y: 2 };
+const obj = { x: 1, y: 2 };
 Reflect.deleteProperty(obj, "x"); // true
 obj; // { y: 2 }
 ```
@@ -160,7 +160,7 @@ Reflect.get(obj, "foo"); // "foobar"
 4. `receiver`:如果遇到 setter,receiver 则为 setter 调用时的 this 值
 
 ```js
-var obj = {};
+const obj = {};
 Reflect.set(obj, "prop", "value"); // true
 obj.prop; // "value"
 ```
@@ -249,7 +249,7 @@ Reflect.ownKeys({ z: 3, y: 2, x: 1 });
 1. `target`:阻止扩展的目标对象
 
 ```js
-var empty = {};
+const empty = {};
 Reflect.isExtensible(empty); //true
 Reflect.preventExtensions(empty);
 Reflect.isExtensible(empty); //false

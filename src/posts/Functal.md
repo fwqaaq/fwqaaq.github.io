@@ -129,7 +129,7 @@ function add(a, b) {
 add(1, 2); // 3
 
 // 假设有一个 partial 函数可以做到局部应用
-var addOne = partial(add, 1);
+const addOne = partial(add, 1);
 
 addOne(2); // 3
 ```

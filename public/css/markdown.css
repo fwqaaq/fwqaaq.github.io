@@ -73,3 +73,132 @@ p>img:only-child {
   display: block;
   margin: 0 auto;
 }
+
+code.hl {
+  span.hl-comment {
+    color: rgb(179, 98, 255);
+  }
+}
+
+code.language-json {
+  span.hl-punctuation {
+    color: rgb(255, 215, 2);
+  }
+
+  span.hl-attr {
+    color: rgb(255, 215, 2);
+  }
+
+  span.hl-string {
+    color: rgb(146, 252, 121);
+  }
+
+  span.hl-literal {
+    color: rgb(255, 97, 140);
+  }
+}
+
+code.language-ts,
+code.language-js,
+span.javascript {
+  span.hl-keyword {
+    color: rgb(255, 158, 0);
+  }
+
+  span.hl-attr,
+  span.hl-title,
+  span.hl-property {
+    color: rgb(254, 213, 5);
+  }
+
+  span.hl-params {
+    color: rgb(116, 180, 193);
+
+    span.hl-built_in {
+      color: rgb(128, 255, 187);
+    }
+  }
+
+  span.hl-string {
+    color: rgb(128, 255, 187);
+  }
+
+  span.hl-variable {
+    color: rgb(157, 255, 255);
+  }
+
+  span.hl-number,
+  span.hl-boolean {
+    color: rgb(255, 97, 140);
+  }
+}
+
+code.language-html {
+
+  span.hl-tag,
+  span.hl-name {
+    color: rgb(157, 255, 255);
+  }
+
+  span.hl-attr {
+    color: rgb(254, 213, 5);
+  }
+
+  span.hl-string {
+    color: rgb(164, 255, 144);
+  }
+}
+
+code.language-css {
+  span.hl-selector-pseudo {
+    color: rgb(254, 213, 5);
+  }
+
+  span.hl-attribute {
+    color: rgb(166, 255, 139);
+  }
+
+  span.hl-string {
+    color: rgb(249, 230, 123);
+  }
+}
+
+code.language-sql {
+
+  span.hl-keyword,
+  span.hl-type {
+    color: rgb(249, 230, 123);
+  }
+
+  span.hl-number {
+    color: rgb(255, 97, 140);
+  }
+}
+
+code.language-yaml {
+  span.hl-attr {
+    color: rgb(255, 215, 2);
+  }
+
+  span.hl-string {
+    color: rgb(164, 255, 144);
+  }
+}
+
+code.language-rust {
+  span.hl-keyword {
+    color: rgb(255, 158, 0);
+  }
+
+  span.hl-number {
+    color: rgb(255, 97, 140);
+  }
+
+  span.hl-built_in {
+    color: rgb(255, 215, 2);
+  }
+
+  span.hl-string {
+    color: rgb(164, 255, 144);
+  }
+}

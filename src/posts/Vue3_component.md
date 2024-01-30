@@ -18,8 +18,8 @@ summary: 关于 vue3 组件化的使用，兼容的 vue2
   - 我们会将共同的元素、内容依然在组件内进行封装
   - 同时会将不同的元素使用 slot 作为占位，让外部决定到底显示什么样的元素
 - 使用插槽
-  - Vue 中将 <slot> 元素作为承载分发内容的出口
-  - 在封装组件中，使用特殊的元素\<slot>就可以为封装组件开启一个插槽
+  - Vue 中将 \<slot> 元素作为承载分发内容的出口
+  - 在封装组件中，使用特殊的元素 \<slot> 就可以为封装组件开启一个插槽
   - 该插槽插入什么内容取决于父组件如何使用
 
 ### 默认插槽
@@ -27,7 +27,7 @@ summary: 关于 vue3 组件化的使用，兼容的 vue2
 > 当插槽内部不具有 name 属性时，vue 会自动给一个隐式名称`name:default`
 > > 且子组件不管有多少个插槽，每个插槽都会显示一样的内容
 
-```js
+```html
  父组件中:
 <Category>
   <div>html 结构</div>
@@ -47,7 +47,7 @@ summary: 关于 vue3 组件化的使用，兼容的 vue2
   `attribute：name`
 - 一个不带 name 的 slot，会带有隐含的名字 default
 
-```js
+```html
 //父组件中
 <Footer>
   <template v-slot:footer>
@@ -69,7 +69,7 @@ summary: 关于 vue3 组件化的使用，兼容的 vue2
   </div>
 </template>
 <script>
-  ...
+  //...
   data(){
     return {
       name:"footer"
@@ -107,9 +107,9 @@ summary: 关于 vue3 组件化的使用，兼容的 vue2
 
 - 独占默认插槽
   - 当默认插槽和作用域插槽简写，如果还有其它具名插槽那么简写方式不可以
-  - 子组件中的<slot>标签不能有 name 属性
+  - 子组件中的 \<slot> 标签不能有 name 属性
 
-```js
+```html
 <Foot v-slot="slotProps">
   <button>{{slotProps.item}}-{{slotProps.index}}</button>
 </Footer>
