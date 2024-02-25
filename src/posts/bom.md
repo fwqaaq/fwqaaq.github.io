@@ -9,6 +9,7 @@ summary: 浏览器自带的 bom 属性
 
 ## Viewport
 
+> [!TIP]
 > 视口代表一个可看见的多边形区域（通常是矩形）.在浏览器的范畴里，他代表的就是浏览器网站中可见内容的部分，视口外的内容在被滚动进来前都是不可见的
 
 - **可见视口**：视口当前可见的部分。可见视口可能回避布局视口更小，因为当用户缩小浏览器的比例，布局视口不变，而可见视口会变小
@@ -44,6 +45,7 @@ summary: 浏览器自带的 bom 属性
 
 ### event 事件上的元素大小
 
+> [!IMPORTANT]
 > 该元素只会在 event（如 click、mousemove 等）上才有的属性
 
 - 以下属性的方位都是相对于左上方为原点的坐标系，越往右/下，值越大
@@ -106,6 +108,7 @@ searchParams.toString();
 - 例如：`location.assign("www.baidu.com")`，如果使用 `location.href` 设置一个 url，也会以同一个 url 值调用 assign() 方法
 - 除了 **hash** 之外，只要修改了 `location` 的一个属性，就会导致页面重新加载 url
 
+> [!NOTE]
 > 如果不希望浏览器的操作地址增加，可以使用 `location.replace()`，用户不能回到前一页
 >
 > `location.reload()`：重新加载当前显示页面
@@ -135,8 +138,6 @@ new URL("www.baidu.com");
 
 new URL("https://www.baidu.com"); //https://www.baidu.com
 ```
-
-> 属性
 
 - `hash`：返回包含 URL 标识中的 '#' 和 fragment 标识符
 - `host`：返回一个主机信息。即 `hostname`,如果 URL 接口有端口号（如果是默认端口号，则不会包含），也会包含端口号
@@ -179,7 +180,7 @@ const password = url.password; //flabada
 const username = url.username; //anonymous
 ```
 
-> 静态方法
+静态方法
 
 1. `URL.createObjectURL(object)`:创建一个表示参数中给出的对象的 URL
    - 这个新的 URL 对象表示指定的`File`对象或`Blob`对象
@@ -191,11 +192,11 @@ const username = url.username; //anonymous
 
 ### [URLSearchParams](https://developer.mozilla.org/zh-CN/docs/Web/API/URLSearchParams/append)
 
-> 接口定义了一些实用的方法来处理 URL 的查询字符串
+该接口定义了一些实用的方法来处理 URL 的查询字符串
 
 #### new URLSearchParams()
 
-> `URLSearchParams()`构造器创建并返回一个新的`URLSearchParams`对象。并且会忽略`?`
+`URLSearchParams()` 构造器创建并返回一个新的 `URLSearchParams` 对象。并且会忽略 `?`
 
 - `const URLSearchParams = new URLSearchParams(init)`
 - `init`:需要 USVString(对应 unicode 标量值的所有可能序列的集合)
@@ -207,7 +208,7 @@ new URLSearchParams([["foo", 1], ["bar", 2]]);
 new URLSearchParams({ "foo": 1, "bar": 2 });
 ```
 
-> 方法
+方法
 
 - `append(name, value)`：可以插入一个新搜索参数
 - `getAll(name)`：以数组的形式返回与指定搜索参数对应的所有值
@@ -264,6 +265,7 @@ params.toString();
 3. 可以接受一个字符串：可能前进也可能后退
 4. `history.length`：返回具体的数目
 
+> [!NOTE]
 > 如果页面的 url 发生变化，则会在历史记录中生成一个新条目。这也包括 url 的散列值 (`location.hash`)
 
 ### 管理历史状态
@@ -292,6 +294,4 @@ history.go(2);
 // Logs "location: http://example.com/example.html?page=3, state: {"page":3}
 ```
 
-- 同时也可以使用 `history.state` 获取当前状态（`state对象`）
-
-> `history.replaceState()` 更新状态不会创建新历史记录，只会覆盖当前状态
+同时也可以使用 `history.state` 获取当前状态（`state对象`）。`history.replaceState()` 更新状态不会创建新历史记录，只会覆盖当前状态

@@ -15,7 +15,9 @@
   },
   "imports": {
     "fs": "https://deno.land/std@0.194.0/fs/mod.ts",
-    "unified": "https://esm.sh/unified@10.1.2",
+    "type-mdast": "https://cdn.jsdelivr.net/npm/@types/mdast@4.0.3/index.d.ts",
+    "unified": "https://esm.sh/unified@11",
+    "unist-util-visit": "https://esm.sh/unist-util-visit@5",
     "remark-parse": "https://esm.sh/remark-parse@10.0.2",
     "remark-rehype": "https://esm.sh/remark-rehype@10.1.0",
     "rehype-raw": "https://esm.sh/rehype-raw@6.1.1",

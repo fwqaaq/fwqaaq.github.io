@@ -9,6 +9,12 @@
   --color-a-link-hover: #005845;
   --h-color: var(--color-a-link);
   --table-border-color: var(--theme-color);
+  --color-note: #0969da;
+  --color-tip: #1a7f37;
+  --color-warning: #9a6700;
+  --color-severe: #bc4c00;
+  --color-caution: #d1242f;
+  --color-important: #8250df;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -17,6 +23,12 @@
     --header-bg: rgba(46, 44, 79, 0.8);
     --color-a-link: rgba(1, 202, 159, 0.8);
     --color-a-link-hover: #00d4a1;
+    --color-note: #2f81f7;
+    --color-tip: #3fb950;
+    --color-warning: #d29922;
+    --color-severe: #db6d28;
+    --color-caution: #f85149;
+    --color-important: #a371f7;
   }
 }
 

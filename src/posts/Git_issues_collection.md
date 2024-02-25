@@ -9,6 +9,9 @@ summary: 收集一些关于开发中遇到的 Git 问题
 
 ## Git 问题收集
 
+> [!NOTE]
+> 本文档收集一些关于开发中遇到的 Git 问题，以及解决方案。
+
 1. 在帮朋友下载 brew 的时候遇到一个 Git 的问题：RPC failed; curl 92 HTTP/2 stream 5 was not closed cleanly: CANCEL (err 8)
    * 原因可能是这样：I encountered this error when pushing GIT through an ADSL Broadband Wi-Fi network with low signal strength, low stability, and low speed.
    * 解决方式：Then, I was able to push it very successfully when I pushed it into the GIT through a Fibre Broadband Wi-Fi network with greater signal strength, greater stability, and higher speed.
