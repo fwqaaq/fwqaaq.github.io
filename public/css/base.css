@@ -1,0 +1,40 @@
+html,
+body {
+  padding: 0%;
+  margin: 0%;
+  scroll-behavior: smooth;
+  font-family: system-ui, —apple-system, Segoe UI, Rototo, Emoji, Helvetica, Arial, sans-serif;
+}
+
+a {
+  text-decoration: none;
+  color: black;
+}
+
+img {
+  max-width: 100%;
+}
+
+.decoration-line:hover,
+.decoration-line:hover i {
+  text-decoration: underline;
+  text-decoration-thickness: 0.2rem;
+  text-decoration-color: var(--table-border-color);
+  text-underline-offset: 0.5rem;
+}
+
+.loading::after {
+  content: "";
+  display: block;
+  position: absolute;
+  top: 50vh;
+  left: 50%;
+  width: 60px;
+  height: 60px;
+  margin: -30px 0 0 -30px;
+  border-radius: 50%;
+  border-style: solid;
+  border-color: var(--theme-color) var(--theme-color) var(--theme-color) transparent;
+  animation: spin 1s ease-in-out infinite;
+  z-index: 1;
+}

@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<rss version="2.0">
+<channel>
+  <title>fwqaaq's blog</title>
+  <link>https://www.fwqaq.us/</link>
+  <description>这真的是一个废物的博客啦</description>
+  <item>
+    <title>Git 问题收集</title>
+    <link>https://www.fwqaq.us/posts/20240220132514/</link>
+    <description>收集一些关于开发中遇到的 Git 问题</description>
+    <pubDate>Tue, 20 Feb 2024 13:25:14 GMT</pubDate>
+    </item><item>
+    <title>文本换行</title>
+    <link>https://www.fwqaq.us/posts/20231215205944/</link>
+    <description>文本换行</description>
+    <pubDate>Fri, 15 Dec 2023 20:59:44 GMT</pubDate>
+    </item><item>
+    <title>PGP</title>
+    <link>https://www.fwqaq.us/posts/20231130154305/</link>
+    <description>PGP 来加密邮件服务</description>
+    <pubDate>Thu, 30 Nov 2023 15:43:05 GMT</pubDate>
+    </item><item>
+    <title>Postgresql</title>
+    <link>https://www.fwqaq.us/posts/20231115171644/</link>
+    <description>Postgresql 基础知识</description>
+    <pubDate>Wed, 15 Nov 2023 17:16:44 GMT</pubDate>
+    </item><item>
+    <title>Git_Patch</title>
+    <link>https://www.fwqaq.us/posts/20231022180539/</link>
+    <description>使用 Git patch 对代码进行打补丁</description>
+    <pubDate>Sun, 22 Oct 2023 18:05:39 GMT</pubDate>
+    </item><item>
+    <title>iptables</title>
+    <link>https://www.fwqaq.us/posts/20230822235955/</link>
+    <description>iptables 的简单应用</description>
+    <pubDate>Tue, 22 Aug 2023 23:59:55 GMT</pubDate>
+    </item><item>
+    <title>Github Action 技巧查询</title>
+    <link>https://www.fwqaq.us/posts/20230814100500/</link>
+    <description>Github Action 一些重要内容的查询</description>
+    <pubDate>Mon, 14 Aug 2023 10:05:00 GMT</pubDate>
+    </item><item>
+    <title>位运算</title>
+    <link>https://www.fwqaq.us/posts/20230801040503/</link>
+    <description>位运算通用技巧</description>
+    <pubDate>Tue, 01 Aug 2023 04:05:03 GMT</pubDate>
+    </item><item>
+    <title>GitLFS</title>
+    <link>https://www.fwqaq.us/posts/20230630181319/</link>
+    <description>使用 GIT LFS 进行大文件的版本控制</description>
+    <pubDate>Fri, 30 Jun 2023 18:13:19 GMT</pubDate>
+    </item><item>
+    <title>Gitattributes</title>
+    <link>https://www.fwqaq.us/posts/20221114181319/</link>
+    <description>如何编写 .gitattributes 文件</description>
+    <pubDate>Mon, 14 Nov 2022 18:13:19 GMT</pubDate>
+    </item><item>
+    <title>ChromeDevtools</title>
+    <link>https://www.fwqaq.us/posts/20220906083757/</link>
+    <description>浏览器控制台内置的语法</description>
+    <pubDate>Tue, 06 Sep 2022 08:37:57 GMT</pubDate>
+    </item><item>
+    <title>TypeScript 技巧</title>
+    <link>https://www.fwqaq.us/posts/20220808051042/</link>
+    <description>tsconfig.json 配置技巧</description>
+    <pubDate>Mon, 08 Aug 2022 05:10:42 GMT</pubDate>
+    </item><item>
+    <title>Git 原理分支</title>
+    <link>https://www.fwqaq.us/posts/20220702050503/</link>
+    <description>Git 分支原理</description>
+    <pubDate>Sat, 02 Jul 2022 05:05:03 GMT</pubDate>
+    </item><item>
+    <title>Git 对象原理</title>
+    <link>https://www.fwqaq.us/posts/20220702033849/</link>
+    <description>Git 对象原理剖析</description>
+    <pubDate>Sat, 02 Jul 2022 03:38:49 GMT</pubDate>
+    </item><item>
+    <title>GitHub Action MetaData</title>
+    <link>https://www.fwqaq.us/posts/20220521135320/</link>
+    <description>使用 Javascript 来操作 Github Action</description>
+    <pubDate>Sat, 21 May 2022 13:53:20 GMT</pubDate>
+    </item><item>
+    <title>Git 回滚与撤销</title>
+    <link>https://www.fwqaq.us/posts/20220430201252/</link>
+    <description>使用 Git 进行代码的版本控制</description>
+    <pubDate>Sat, 30 Apr 2022 20:12:52 GMT</pubDate>
+    </item><item>
+    <title>发布 npm</title>
+    <link>https://www.fwqaq.us/posts/20220415223215/</link>
+    <description>发布一个属于自己的 npm</description>
+    <pubDate>Fri, 15 Apr 2022 22:32:15 GMT</pubDate>
+    </item><item>
+    <title>Observer</title>
+    <link>https://www.fwqaq.us/posts/20220315150501/</link>
+    <description>浏览器的监听事件</description>
+    <pubDate>Tue, 15 Mar 2022 15:05:01 GMT</pubDate>
+    </item><item>
+    <title>函数柯里化、偏函数以及惰性函数</title>
+    <link>https://www.fwqaq.us/posts/20220224223417/</link>
+    <description>JavaScript 中的函数柯里化、偏函数以及惰性函数</description>
+    <pubDate>Thu, 24 Feb 2022 22:34:17 GMT</pubDate>
+    </item><item>
+    <title>ESLint</title>
+    <link>https://www.fwqaq.us/posts/20220128222913/</link>
+    <description>使用 ESlint 规范项目</description>
+    <pubDate>Fri, 28 Jan 2022 22:29:13 GMT</pubDate>
+    </item><item>
+    <title>linux</title>
+    <link>https://www.fwqaq.us/posts/20220127155955/</link>
+    <description>linux 的简单应用</description>
+    <pubDate>Thu, 27 Jan 2022 15:59:55 GMT</pubDate>
+    </item><item>
+    <title>Docker</title>
+    <link>https://www.fwqaq.us/posts/20220121112030/</link>
+    <description>Docker 的简单应用</description>
+    <pubDate>Fri, 21 Jan 2022 11:20:30 GMT</pubDate>
+    </item><item>
+    <title>防抖节流</title>
+    <link>https://www.fwqaq.us/posts/20220118155558/</link>
+    <description>防抖和节流</description>
+    <pubDate>Tue, 18 Jan 2022 15:55:58 GMT</pubDate>
+    </item><item>
+    <title>bom</title>
+    <link>https://www.fwqaq.us/posts/20220103110053/</link>
+    <description>浏览器自带的 bom 属性</description>
+    <pubDate>Mon, 03 Jan 2022 11:00:53 GMT</pubDate>
+    </item><item>
+    <title>Reflect</title>
+    <link>https://www.fwqaq.us/posts/20211204114129/</link>
+    <description>reflect 反射</description>
+    <pubDate>Sat, 04 Dec 2021 11:41:29 GMT</pubDate>
+    </item><item>
+    <title>Proxy</title>
+    <link>https://www.fwqaq.us/posts/20211203224407/</link>
+    <description>Proxy 代理</description>
+    <pubDate>Fri, 03 Dec 2021 22:44:07 GMT</pubDate>
+    </item><item>
+    <title>puppeteer</title>
+    <link>https://www.fwqaq.us/posts/20211130181728/</link>
+    <description>使用 puppeteer 做一个爬虫</description>
+    <pubDate>Tue, 30 Nov 2021 18:17:28 GMT</pubDate>
+    </item><item>
+    <title>HTML5 标签</title>
+    <link>https://www.fwqaq.us/posts/20211031211540/</link>
+    <description>HTML5 的规范</description>
+    <pubDate>Sun, 31 Oct 2021 21:15:40 GMT</pubDate>
+    </item><item>
+    <title>远程连接</title>
+    <link>https://www.fwqaq.us/posts/20211021101233/</link>
+    <description>远程连接</description>
+    <pubDate>Thu, 21 Oct 2021 10:12:33 GMT</pubDate>
+    </item><item>
+    <title>Git 版本控制</title>
+    <link>https://www.fwqaq.us/posts/20211009001711/</link>
+    <description>使用 Git 进行代码的版本控制</description>
+    <pubDate>Sat, 09 Oct 2021 00:17:11 GMT</pubDate>
+    </item><item>
+    <title>VueRouter</title>
+    <link>https://www.fwqaq.us/posts/20210928190300/</link>
+    <description>vueRouter 创建单页应用程序的方式</description>
+    <pubDate>Tue, 28 Sep 2021 19:03:00 GMT</pubDate>
+    </item><item>
+    <title>Vue3 的组件化</title>
+    <link>https://www.fwqaq.us/posts/20210925105451/</link>
+    <description>关于 vue3 组件化的使用，兼容的 vue2</description>
+    <pubDate>Sat, 25 Sep 2021 10:54:51 GMT</pubDate>
+    </item>
+</channel>
+</rss>

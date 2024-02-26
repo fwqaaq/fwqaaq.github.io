@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="rgb(46, 44, 79)">
+  <meta name="description" content="浏览器的监听事件">
+  <meta name="keywords" content="JavaScript, TypeScript, Browser">
+  <title>
+    Observer
+  </title>
+  <link rel="stylesheet" href="/public/css/index.css">
+  <link rel="stylesheet" href="/public/css/markdown.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+  <script src="/public/JavaScript/index.js"></script>
+</head><header class="blog-header">
+  <a href="https://github.com/fwqaaq" target="_blank">
+    <img src="https://avatars.githubusercontent.com/u/82551626?v=4" loading="lazy" alt="me" srcset="">
+  </a>
+  <nav class="header-nav">
+    <a class="decoration-line" href="/"><i class="fa-solid fa-house-chimney fa-xs"></i>
+      <span class="disappear">Home</span>
+    </a>
+    <a class="decoration-line" href="/./about/index.html"><i class="fa-solid fa-address-card fa-xs"></i>
+      <span class="disappear">About</span></a>
+    <a class="decoration-line" href="/./archive/index.html"><i class="fa-solid fa-box-archive fa-xs"></i> <span
+        class="disappear">Archive</span></a>
+    <a class="decoration-line" href="/./tags/index.html"><i class="fa-solid fa-tag fa-xs"></i> <span
+        class="disappear">Tag</span></a>
+    <div class="toy"><i class="fa-solid fa-gamepad fa-xs"></i> <span class="disappear">Toy</span>
+      <nav class="toy-nav disappear">
+        <a class="decoration-line" href="/public/resume/">我的简历</a>
+        <a class="decoration-line" href="/public/write-css/index.html">学习 UI</a>
+      </nav>
+    </div>
+    <a class="decoration-line" href="/feed.xml"><i class="fa-solid fa-rss fa-xs"></i> <span
+        class="disappear">RSS</span></a>
+    <a class="decoration-line model" href="#" class="model"><i class="fa-solid fa-sun fa-xs"></i></a>
+  </nav>
+</header><main class="blog-main">
+          <article class="blog-article">
+            <h1>Observer</h1>
+            <hr>
+            <h2 id="observer">Observer<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#observer"></a></h2>
+<div class="markdown-alert markdown-alert-important">
+<p class="markdown-alert-title"><svg class="octicon octicon-report mr-2" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="M0 1.75C0 .784.784 0 1.75 0h12.5C15.216 0 16 .784 16 1.75v9.5A1.75 1.75 0 0 1 14.25 13H8.06l-2.573 2.573A1.458 1.458 0 0 1 3 14.543V13H1.75A1.75 1.75 0 0 1 0 11.25Zm1.75-.25a.25.25 0 0 0-.25.25v9.5c0 .138.112.25.25.25h2a.75.75 0 0 1 .75.75v2.19l2.72-2.72a.749.749 0 0 1 .53-.22h6.5a.25.25 0 0 0 .25-.25v-9.5a.25.25 0 0 0-.25-.25Zm7 2.25v2.5a.75.75 0 0 1-1.5 0v-2.5a.75.75 0 0 1 1.5 0ZM9 9a1 1 0 1 1-2 0 1 1 0 0 1 2 0Z"></path></svg>Important</p>
+<p>网页开发中经常会和用户交互而使用一些监听事件（例如 onclick、onchange 等）。如果对于一些用户不直接触发的元素（例如渐变等），那就需要使用 Observer 去监听</p>
+</div>
+<ul>
+<li>浏览器为我们提供了五种 <code>Observer</code>（观察者）来监听这些变动：<code>MutationObserver</code>、<code>IntersectionObserver</code>、<code>PerformanceObserver</code>、<code>ResizeObserver</code>、<code>ReportingObserver</code></li>
+<li>以下观察者 API 都是构造函数</li>
+<li>观察者属于微任务，并且优先级小于 Promise</li>
+</ul>
+<h3 id="intersectionobserver">IntersectionObserver<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#intersectionobserver"></a></h3>
+<blockquote>
+<p><code>IntersectionObserver</code>（交叉观察者）用于观察一个元素是否在视窗可见。构造函数创建并返回一个新的<code>IntersectionObserver</code>对象</p>
+<p>如果未指定或为空字符串，则缺省的值为属性的默认值</p>
+<p>一般用于<strong>无限滚动</strong>、<strong>图片懒加载</strong>、<strong>埋点</strong>、<strong>控制动画/视频执行</strong></p>
+</blockquote>
+<ul>
+<li>无论是使用视口（body）还是其他元素作为根，API
+的工作方式都相同，并且会<strong>异步</strong>查询观察目标元素的可见性发生变化，就会执行提供的回调函数</li>
+<li>通过提供一种新方法来<strong>异步</strong>查询元素相对于其他元素或全局视口的位置</li>
+<li><strong>异步处理</strong>消除了昂贵的<code>DOM</code>和样式查询，连续轮询以及使用自定义插件的需求</li>
+<li>Intersection Observer 的三个步骤
+<ol>
+<li>创建观察者</li>
+<li>定义回调事件</li>
+<li>定义要观察的目标对象</li>
+</ol>
+</li>
+</ul>
+<h4 id="实例方法">实例方法<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#实例方法"></a></h4>
+<ol>
+<li><code>IntersectionObserver.observe(target)</code>：告诉要观察的目标元素</li>
+<li><code>IntersectionObserver.takeRecords()</code>：从 IntersectionObserver 的通知队列中删除所有待处理的通知，并将它们返回到 IntersectionObserver 对象的新 Array 对象中</li>
+<li><code>IntersectionObserver.unobserve()</code>：指定停止观察特定目标元素</li>
+<li><code>IntersectionObserver.disconnect()</code>：停止 IntersectionObserver 对象观察任何目标</li>
+</ol>
+<h4 id="创建观察者">创建观察者<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#创建观察者"></a></h4>
+<ul>
+<li>接收一个回调函数。只要目标元素发生变化就会触发回调函数</li>
+<li>第二个参数是一个可选项</li>
+</ul>
+<pre><code class="hl language-js"><span class="hl-keyword">let</span> options = {
+  <span class="hl-attr">root</span>: <span class="hl-variable language_">document</span>.<span class="hl-title function_">querySelector</span>(<span class="hl-string">'#scrollArea'</span>),
+  <span class="hl-attr">rootMargin</span>: <span class="hl-string">'0px'</span>,
+  <span class="hl-comment">//阈值为 1.0 表示当 100% 的目标在选项指定的元素中可见时，将调用回调</span>
+  <span class="hl-comment">//每个阈值是观测目标的交集区域与边界框区域的比率</span>
+  <span class="hl-attr">threshold</span>: <span class="hl-number">1.0</span>
+}
+
+<span class="hl-keyword">let</span> observer = <span class="hl-keyword">new</span> <span class="hl-title class_">IntersectionObserver</span>(callback, options?);
+</code></pre>
+<blockquote>
+<p>option 字段</p>
+</blockquote>
+<ol>
+<li><code>root</code>：用作检查<strong>目标可见性的视口的元素</strong>，必须是目标的祖先。如果未指定或缺省为浏览器视口（html）</li>
+<li><code>rootMargin</code>：<strong>根周围的边距</strong>（默认全部为 0），语法类似于<code>margin</code>可以是百分比或者像素，用于在计算交集之前增大或缩小根元素边界框的矩形偏移量，有效的扩大或者缩小根的判定范围从而满足计算要求。（top、right、bottom、left）</li>
+<li><code>threshold</code>：阈值。<strong>单个数字或数字数组</strong>.默认值为 0（这意味着只要有一个像素可见，就会运行回调）阈值是监听对象的交叉区域和边界区域的比例，每当监听对象超过阈值就会触发回调
+<ul>
+<li>如果只想检测可见性何时超过 50% 标记，则可以使用值 0.5。</li>
+<li>如果希望每次可见性每次超过 25% 时都运行回调，则应指定数组 [0, 0.25, 0.5, 0.75, 1]</li>
+<li>如果值为 1.0 表示在每个像素可见之前，不会认为阈值已通过。</li>
+</ul>
+</li>
+</ol>
+<h4 id="监听观察的目标对象">监听观察的目标对象<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#监听观察的目标对象"></a></h4>
+<blockquote>
+<p>开启对目标对象的监听，如果没有</p>
+</blockquote>
+<pre><code class="hl language-javascript"><span class="hl-keyword">const</span> target = <span class="hl-variable language_">document</span>.<span class="hl-title function_">querySelector</span>(<span class="hl-string">'.target'</span>)
+observer.<span class="hl-title function_">observe</span>(target)
+</code></pre>
+<h4 id="回调函数">回调函数<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#回调函数"></a></h4>
+<blockquote>
+<p>callback 是添加监听后，当监听目标发生滚动变化时触发的回调函数。</p>
+</blockquote>
+<ul>
+<li>第一个参数 <code>entries</code>（数组），即 <code>IntersectionObserverEntry</code> 实例。描述了目标元素与 root 的交叉状态。</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>属性</th><th align="center">说明</th></tr></thead><tbody><tr><td>boundingClientRect</td><td align="center">返回包含目标元素的边界信息，返回结果与 <code>getBoundingClientRect()</code> 相同</td></tr><tr><td><strong>intersectionRatio</strong></td><td align="center">返回目标元素出现在可视区的比例</td></tr><tr><td>intersectionRect</td><td align="center">用来描述 root 和目标元素的相交区域</td></tr><tr><td><strong>isIntersecting</strong></td><td align="center">返回布尔值，下列两种操作均触发回调：1.如果目标元素出现在 root 可视区，返回 true。2. 如果从 root 可视区消失，返回 false</td></tr><tr><td>rootBounds</td><td align="center">用来描述交叉区域观察者中的根。</td></tr><tr><td>target</td><td align="center">目标元素：与根出现相交区域改变的元素</td></tr><tr><td>time</td><td align="center">返回一个记录从 IntersectionObserver 的时间原点到交叉被触发的时间的时间戳</td></tr></tbody></table>
+<ul>
+<li>第二个参数就是 <code>IntersectionObserver</code> 这个实例对象本身。可以使用实例上的方法。</li>
+</ul>
+<h4 id="图片懒加载">图片懒加载<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#图片懒加载"></a></h4>
+<pre><code class="hl language-html"><span class="hl-tag">&#x3C;<span class="hl-name">body</span>></span>
+  <span class="hl-tag">&#x3C;<span class="hl-name">img</span> <span class="hl-attr">width</span>=<span class="hl-string">"200px"</span> <span class="hl-attr">height</span>=<span class="hl-string">"200px"</span> <span class="hl-attr">src</span>=<span class="hl-string">"logo.png"</span> <span class="hl-attr">data-src</span>=<span class="hl-string">"0.jpg"</span> /></span>
+  <span class="hl-tag">&#x3C;<span class="hl-name">img</span> <span class="hl-attr">width</span>=<span class="hl-string">"200px"</span> <span class="hl-attr">height</span>=<span class="hl-string">"200px"</span> <span class="hl-attr">src</span>=<span class="hl-string">"logo.png"</span> <span class="hl-attr">data-src</span>=<span class="hl-string">"1.jpg"</span> /></span>
+  <span class="hl-tag">&#x3C;<span class="hl-name">img</span> <span class="hl-attr">width</span>=<span class="hl-string">"200px"</span> <span class="hl-attr">height</span>=<span class="hl-string">"200px"</span> <span class="hl-attr">src</span>=<span class="hl-string">"logo.png"</span> <span class="hl-attr">data-src</span>=<span class="hl-string">"2.jpg"</span> /></span>
+<span class="hl-tag">&#x3C;/<span class="hl-name">body</span>></span>
+<span class="hl-tag">&#x3C;<span class="hl-name">script</span>></span><span class="javascript">
+  <span class="hl-keyword">const</span> img = <span class="hl-variable language_">document</span>.<span class="hl-title function_">getElementsByTagName</span>(<span class="hl-string">'img'</span>)
+  <span class="hl-keyword">let</span> observe = <span class="hl-keyword">new</span> <span class="hl-title class_">IntersectionObserver</span>(
+    <span class="hl-function">(<span class="hl-params">entries, observe</span>) =></span> {
+      entries.<span class="hl-title function_">forEach</span>(<span class="hl-function">(<span class="hl-params">item</span>) =></span> {
+        <span class="hl-keyword">if</span> (item.<span class="hl-property">isIntersecting</span>) {
+          item.<span class="hl-property">target</span>.<span class="hl-property">src</span> = item.<span class="hl-property">target</span>.<span class="hl-property">dataset</span>.<span class="hl-property">src</span>
+          observe.<span class="hl-title function_">unobserve</span>(item.<span class="hl-property">target</span>)
+        }
+      })
+    },
+    { <span class="hl-attr">rootMargin</span>: <span class="hl-string">'0px 600px 0px -600px'</span> }
+  )
+  <span class="hl-comment">// observe 遍历监听所有 img 节点</span>
+  <span class="hl-title class_">Array</span>.<span class="hl-title function_">from</span>(img).<span class="hl-title function_">forEach</span>(<span class="hl-function">(<span class="hl-params">img</span>) =></span> observe.<span class="hl-title function_">observe</span>(img))
+</span><span class="hl-tag">&#x3C;/<span class="hl-name">script</span>></span>
+</code></pre>
+<blockquote>
+<p><code>HTMLCollectionOf</code> 和 <code>NodeListOf</code>的区别</p>
+</blockquote>
+<ul>
+<li>参考：<a href="https://dom.spec.whatwg.org/#interface-htmlcollection">DOM 标准 (whatwg.org)</a></li>
+<li>由于是历史遗留的产物，<code>HTMLCollectionOf</code> 他返回的是一个集合，并不支持任何数组的高级 api
+<ul>
+<li>并且一切由 <code>getElements...</code> 返回的节点都是动态的集合类型，没有实现 forEach 等方法</li>
+<li>动态的：如果基本的文档改变时。所有 <code>HTMLCollection</code> 对象会立即改变</li>
+</ul>
+</li>
+<li><code>NodeListOf</code>是静态的。实现了所有的高级数组都有的 API，<code>forEach</code>等
+<ul>
+<li>了解了这些，使用元素选择的时候也可以使用 <code>querySelectAll()</code> 来选择元素。他会返回一个 NodeListOf 的类型</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>理解可视区</p>
+</blockquote>
+<ul>
+<li>重要的一点就是可视区的理解
+<ul>
+<li><strong>intersectionRatio</strong> 对应的是 <code>threshold</code></li>
+<li><strong>isIntersecting</strong> 对应的是 <code>rootMargin</code></li>
+</ul>
+</li>
+<li>只要理解了 <code>rootMargin</code> 就很容易理解 threshold 的概念</li>
+<li>理解 margin，由于文档流的缘故，在设置 margin 的 <code>top</code> 或者 <code>bottom</code> 任意值的时候会移动盒子。如果设置 <code>left</code> 或者 <code>right</code> 必须同时设置才会改变盒子原来的位置，只设置一个值只会撑大盒子</li>
+<li>例如上面图中设置的整体元素会向左移动 600px.并且目标元素是相对于视口来说，但是理论上所有的图片都应该移动到视口之外的位置。并且不可以看到图片的懒加载。但是由于浏览器本身有一定的默认值，我们会得到最后一个图片是触发观察者实现懒加载的</li>
+<li>明白了这个，就可以明白<code>threshold</code>，只有目标元素的可见性达到视口的一定比例（threshold 的属性值）之后才可以触发观察者模式</li>
+</ul>
+<iframe height="300" style="width: 100%;" scrolling="no" title="IntersectionObserver" src="https://codepen.io/jack-zhang-1314/embed/YzYXYrV?default-tab=html%2Cresult" frameborder="no" loading="lazy" allowtransparency="true" allowfullscreen>
+  See the Pen &#x3C;a href="https://codepen.io/jack-zhang-1314/pen/YzYXYrV">
+  IntersectionObserver&#x3C;/a> by Jack-Zhang-1314 (&#x3C;a href="https://codepen.io/jack-zhang-1314">@jack-zhang-1314&#x3C;/a>)
+  on &#x3C;a href="https://codepen.io">CodePen&#x3C;/a>.
+</iframe>
+<h3 id="mutationobserver">MutationObserver<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#mutationobserver"></a></h3>
+<ul>
+<li><code>Mutation Observer</code> 是<strong>异步</strong>触发，DOM 的变动并不会马上触发，而是要等到当前所有 DOM 操作都结束才触发</li>
+<li>可以通过配置项，监听目标 DOM 下子元素的变更记录</li>
+<li>构造函数返回一个新的，包含监听 DOM 变化回调函数的
+<a href="https://developer.mozilla.org/zh-CN/docs/Web/API/MutationObserver"><code>MutationObserver</code></a>
+对象</li>
+<li>使用用途
+<ul>
+<li>一般用于更高性能的数据绑定及响应</li>
+<li>实现视觉差滚动</li>
+<li>图片预加载</li>
+<li>实现富文本编辑器</li>
+</ul>
+</li>
+</ul>
+<h4 id="mutation-实例方法">Mutation 实例方法<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#mutation-实例方法"></a></h4>
+<ol>
+<li><code>MutationObserver.observe(dom,options)</code>：阻止 <code>MutationObserver</code>
+实例继续接收的通知，直到再次调用其 <a href="https://developer.mozilla.org/zh-CN/docs/Web/API/MutationObserver/observe"><code>observe()</code></a> 方法，该观察者对象包含的回调函数都不会再被调用</li>
+<li><code>MutationObserver.takeRecords()</code>：从 MutationObserver 的通知队列中删除所有待处理的通知，并将它们返回到 <a href="https://developer.mozilla.org/zh-CN/docs/Web/API/MutationRecord"><code>MutationRecord</code></a>（保存每次的变化信息）对象的新 <a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array"><code>Array</code></a></li>
+<li><code>MutationObserver.disconnect()</code>：停止 MutationObserver 对象观察任何目标</li>
+</ol>
+<h4 id="mutation-创建观察者和监听目标对象">Mutation 创建观察者和监听目标对象<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#mutation-创建观察者和监听目标对象"></a></h4>
+<pre><code class="hl language-js"><span class="hl-keyword">const</span> <span class="hl-title class_">MutationObserver</span> = <span class="hl-keyword">new</span> <span class="hl-title class_">MutationObserver</span>(callback)
+<span class="hl-title class_">MutationObserver</span>.<span class="hl-title function_">observe</span>(dom, options)
+</code></pre>
+<ul>
+<li>第一个参数是一个 dom 对象，被观察子节点 (目标元素) 的父节点</li>
+<li>第二个参数 options 是一个 <a href="https://developer.mozilla.org/zh-CN/docs/conflicting/Web/API/MutationObserver/observe_2f2addbfa1019c23a6255648d6526387">MutationObserverInit</a> 对象
+<ul>
+<li><code>attributeFilter</code>：（无默认值）要监视的特定属性名称的<strong>数组</strong>（如 <code>['src','class']</code>）。如果未包含此属性，则对所有属性的更改都会触发变动通知</li>
+<li><code>attributes</code>：默认值 false。设置 true 观察受监视元素的属性值变更</li>
+<li><code>characterData</code>：无默认值。设为 true 监视指定目标节点或者子节点树中节点所包含的字符数据的变化</li>
+<li><code>characterDataOldValue</code>：无默认值。设为 true，是否观察文本的内容（文本节点）</li>
+<li><code>childList</code>：默认值为 false。设为 true，监视木匾检点添加或删除新的子节点（不包括修改子节点以及子节点后代的变化）。如果 <code>subtree</code> 为 true，则包含子节点</li>
+<li><code>subtree</code>：默认值为 false，设置 true，将监视范围扩展到目标节点以及子节点</li>
+</ul>
+</li>
+<li>属性特定项
+<ul>
+<li>其中调用 <code>observe()</code> 方法时 <code>childList</code>、<code>attributes</code>、<code>characterData</code> 或者<code>attributeOldValue</code>、<code>characterDataOldValue</code> 两组中，至少有一个必须为 <code>true</code>，否则会抛出异常</li>
+<li><code>attributeFilter</code>/<code>attributeOldValue</code> > <code>attributes</code></li>
+<li><code>characterDataOldValue</code> > <code>characterData</code></li>
+<li>避免重复的特定项，不需要同时设置同样的效果</li>
+</ul>
+</li>
+</ul>
+<h4 id="mutation-回调函数">mutation 回调函数<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#mutation-回调函数"></a></h4>
+<blockquote>
+<p>同样是接收两个参数</p>
+</blockquote>
+<ul>
+<li>第一个参数是 <a href="https://developer.mozilla.org/zh-CN/docs/Web/API/MutationRecord"><code>MutationRecords</code></a>，依然是一个数组。其中每个 <code>MutationRecord</code> 对象，记录着 <code>DOM</code> 每次发生变化的变动记录。<code>MutationRecord</code> 对象包含了 DOM 的相关信息</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>属性</th><th align="left">描述</th></tr></thead><tbody><tr><td><strong>target</strong></td><td align="left">被修改影响的目标 dom 节点</td></tr><tr><td><strong>type</strong></td><td align="left">变化的类型，也就是 MutationObserverInit 对象中的三种 <code>attributes</code>、<code>characterData</code> 或 <code>childList</code>，并且返回该类型</td></tr><tr><td><strong>attributeName</strong></td><td align="left">针对 <code>attributes</code> 类型的变化时，返回被修改属性的名字（或者 null）</td></tr><tr><td><strong>attributeNamespace</strong></td><td align="left">针对命名空间的<code>attributes</code>类型的变化。返回被修改属性的命名空间，或者 null</td></tr><tr><td><strong>oldValue</strong></td><td align="left">如果在 <code>MutationObserverInit</code>对象中启用（<code>attributeOldValue</code> 或 <code>characterDataOldValue</code> 为 true）。则 <code>attributes</code> 或 <code>characterData</code> 的变化事件会返回变化之值或数据。<code>childList</code>类型的变化始终将这个属性设置为 null</td></tr><tr><td><strong>addedNodes</strong></td><td align="left">针对 <code>childList</code> 的变化，返回包含变化中添加节点的 <code>NodeList</code>，没有节点被添加，返回空 <code>NodeList</code> 数组</td></tr><tr><td><strong>previousSibling</strong></td><td align="left">对于 <code>childList</code> 变化。返回被添加或移除的节点之前的兄弟节点，或者 null</td></tr><tr><td><strong>nextSibling</strong></td><td align="left">对于 <code>childList</code> 变化，返回被添加或移除的节点之后的兄弟节点。或者 null</td></tr><tr><td><strong>removedNodes</strong></td><td align="left">对于 <code>childList</code> 变化，返回被移除的节点 (没有则为 null)</td></tr></tbody></table>
+<ul>
+<li>第二个参数就是 <code>MutationObserver</code> 这个实例对象本身。可以使用实例上的方法。</li>
+</ul>
+<blockquote>
+<p><a href="https://juejin.cn/post/7036733000565915655"><code>MutationObserver</code> 的引用</a></p>
+</blockquote>
+<ul>
+<li><code>MutationObserver</code> 对要观察的目标节点的引用属于<strong>弱引用</strong>,所以不会妨碍垃圾回收程序回收目标节点</li>
+<li>目标节点对于 <code>MutationObserver</code> 是强引用。如果目标节点从 DOM 中被移除，随后被垃圾回收，则关联的 MutationObserver 也会被垃圾回收</li>
+</ul>
+<blockquote>
+<p><code>MutationRecord</code> 的引用</p>
+</blockquote>
+<ul>
+<li>
+<p><code>MutationRecord</code> 实例至少包含对已有 DOM 节点的一个引用，即里面的 target 属性，如果变化是 <code>childList</code> 类型，则会包含多个节点的引用</p>
+</li>
+<li>
+<p>记录队列和回调处理的默认行为是耗尽这个队列，处理每个 <code>MutationRecord</code>，然后让它们超出作用域并被垃圾回收</p>
+<ul>
+<li><code>MutationObserver</code> 核心是异步回调与记录队列模型。为了在大量变化事件发生时不影响性能，每次变化的信息<strong>由 oberver 实例决定</strong>。保存在 <strong>MutationRecord</strong> 实例中，然后添加到记录队列</li>
+<li>记录队列对每个 <strong>MutationObserver</strong> 实例都是唯一的，是所有 <strong>DOM</strong>
+变化事件的有序列表（DOM 变化事件都会以数组的形式存在 MutationRecord 中），多次修改的信息会在一次回调中执行</li>
+</ul>
+</li>
+<li>
+<p>有时候需要保存某个观察者的完整变化记录，那么就保存所有的 <code>MutationRecord</code> 实例，也就会保存它们引用的节点，而这会妨碍这些节点被回收</p>
+</li>
+<li>
+<p>如果需要尽快地释放内存，可以从每个 <code>MutationRecord</code> 中抽取出最有用的信息，保存到一个新对象，然后释放 <code>MutationRecord</code> 中的引用</p>
+</li>
+</ul>
+<h3 id="resizeobserver">ResizeObserver<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#resizeobserver"></a></h3>
+<ul>
+<li>
+<p><strong><code>ResizeObserver</code></strong>
+构造器创新一个新的 <code>ResizeObserver</code> 对象，用于接收 <code>Element</code> 内容区域的改变或 <code>SVGElement</code> 的边界框改变改变</p>
+</li>
+<li>
+<p>用途：更智能的响应式布局（取代 <code>@media</code>）以及响应式组件</p>
+</li>
+<li>
+<p>由于 resize 事件会监听视窗的变化而不是元素的大小发生变化。可能一秒内会触发几十次，导致性能问题</p>
+</li>
+</ul>
+<h4 id="resize-实例方法">Resize 实例方法<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#resize-实例方法"></a></h4>
+<ol>
+<li><code>observe(target,options?)</code>:用于指定观察一个指定的 <code>Element</code> 或者 <code>SVGElement</code></li>
+<li><code>disconnect()</code>:停止和取消目标对象上所有对 <code>Element</code> 或者 <code>SVGElement</code> 监视</li>
+<li><code>unobserve()</code>:用于结束一个指定的 <code>Element</code> 或者 <code>SVGElement</code> 监视</li>
+</ol>
+<h4 id="创建-resize-实例">创建 Resize 实例<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#创建-resize-实例"></a></h4>
+<pre><code class="hl language-js"><span class="hl-keyword">const</span> <span class="hl-title class_">ResizeObserver</span> = <span class="hl-keyword">new</span> <span class="hl-title class_">ResizeObserver</span>(callback)
+resizeObserver.<span class="hl-title function_">observe</span>(target, options?);
+</code></pre>
+<ul>
+<li><code>box</code>
+<ul>
+<li><code>content-box</code>: 默认值。CSS 中定义的内容区域的大小。</li>
+<li><code>border-box</code>: CSS 中定义的边框区域的大小。</li>
+<li><code>device-pixel-content-box</code>: 在对元素或其祖先应用任何 CSS 转换之前，CSS 中定义的内容区域的大小，以设备像素为单位</li>
+</ul>
+</li>
+</ul>
+<pre><code class="hl language-js">resizeObserver.<span class="hl-title function_">observe</span>(target, { <span class="hl-attr">box</span>: <span class="hl-string">'content-box'</span> })
+</code></pre>
+<h4 id="resize-回调函数">Resize 回调函数<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#resize-回调函数"></a></h4>
+<ul>
+<li>
+<p>只接收一个 <code>ResizeObserverEntry</code> 实例 <a href="https://developer.mozilla.org/zh-CN/docs/Web/API/ResizeObserverEntry">ResizeObserverEntry - Web API 接口参考 (mozilla.org)</a></p>
+</li>
+<li>
+<p>目前只接受五个属性</p>
+<ol>
+<li><code>target</code>：当前改变尺寸大小的元素的引用</li>
+<li><code>contentRect</code>：对改变尺寸大小的元素的 <a href="https://developer.mozilla.org/zh-CN/docs/Web/API/DOMRectReadOnly"><code>DOMRectReadOnly</code></a> 引用（包含 x、y、width、height、top、right、bottom、left）</li>
+<li><code>borderBoxSize</code>：一个对象，当运行回调时，该对象包含着正在观察元素的新边框盒的大小</li>
+<li><code>contentBoxSize</code>：一个对象，当运行回调时，该对象包含着正在观察元素的新内容盒的大小</li>
+<li><code>devicePixelContentBoxSize</code>：一个对象，当运行回调时，该对象包含着正在观察元素的新内容盒的大小（<strong>以设备像素为单位</strong>）</li>
+</ol>
+</li>
+</ul>
+<h3 id="performanceobserver">PerformanceObserver<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#performanceobserver"></a></h3>
+<blockquote>
+<p><strong><code>PerformanceObserver</code></strong>
+用于监测性能度量事件，在浏览器的性能时间轴记录下一个新的
+<a href="https://developer.mozilla.org/zh-CN/docs/Web/API/PerformanceEntry">performance entries</a>
+的时候将会被通知</p>
+</blockquote>
+<ul>
+<li>
+<p>用途：更细颗粒的性能监控。分析新跟那个对业务的影响（交互快/慢是否会影响销量）</p>
+</li>
+<li>
+<p>尽可能使用 <code>PerformanceObserver</code>，而不是通过 <code>Performance</code> 获取性能参数及指标</p>
+<ul>
+<li>避免不知道性能事件啥时候会发生，需要重复轮训 <code>timeline</code> 获取记录。</li>
+<li>避免产生重复的逻辑去获取不同的性能数据指标</li>
+<li>避免其他资源需要操作浏览器性能缓冲区时产生竞态关系</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>实例方法和 MutationsObserver 一样，但是 <code>observe()</code> 只接受 <code>options</code></p>
+</blockquote>
+<h4 id="创建-performance-实例">创建 Performance 实例<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#创建-performance-实例"></a></h4>
+<pre><code class="hl language-js"><span class="hl-keyword">const</span> <span class="hl-title class_">PerformanceObserver</span> = <span class="hl-keyword">new</span> <span class="hl-title class_">PerformanceObserver</span>(callback)
+<span class="hl-title class_">PerformanceObserver</span>.<span class="hl-title function_">observe</span>({ <span class="hl-attr">entryTypes</span>: [<span class="hl-string">'measure'</span>] })
+</code></pre>
+<ul>
+<li><code>options</code>只接收一个 entryTypes 的键，值为一个性能检测数组</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th align="left">属性</th><th align="left">别名</th><th align="left">类型</th><th align="center">描述</th></tr></thead><tbody><tr><td align="left"><code>frame</code>, <code>navigation</code></td><td align="left">PerformanceFrameTiming, PerformanceNavigationTiming</td><td align="left">URL</td><td align="center">文件的地址</td></tr><tr><td align="left"><code>resource</code></td><td align="left">PerformanceResourceTiming</td><td align="left">URL</td><td align="center">文件请求资源解析的 URL。只有在资源加载完毕后才会创建</td></tr><tr><td align="left"><code>mark</code></td><td align="left">PerformanceMark</td><td align="left">DOMString</td><td align="center">通过调用创建标记使用的名称。会在资源获取开始时创建 <code>performance.mark(name)</code></td></tr><tr><td align="left"><code>measure</code></td><td align="left">PerformanceMeasure</td><td align="left">DOMString</td><td align="center">通过调用创建度量时使用的名称。会在对资源操作时创建 <code>performance.measure(name)</code></td></tr><tr><td align="left"><code>paint</code></td><td align="left">PerformancePaintTiming</td><td align="left">DOMString</td><td align="center">渲染时间点的信息接口。找出那些花费太多时间去绘制的区域</td></tr></tbody></table>
+<h4 id="performance-回调函数">Performance 回调函数<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#performance-回调函数"></a></h4>
+<blockquote>
+<p>回调函数只接受一个参数，该参数 <code>PerformanceObserverEntryList</code> 对象。该对象有三个接口</p>
+</blockquote>
+<ol>
+<li><code>getEntries()</code>：返回所有的 <a href="https://developer.mozilla.org/zh-CN/docs/Web/API/PerformanceEntry"><code>PerformanceEntry</code></a> 对象组成的数组</li>
+<li><code>getEntriesByType(entryType)</code>：返回指定的 <code>entryType</code> 类型组合成的 <code>PerformanceEntry</code> 对象数组</li>
+<li><code>getEntriesByName(name)</code>：返回通过指定的属性名（例如 <code>performance.measure(name)</code> 的 name）组合成 <code>PerformanceEntry</code> 对象的数组</li>
+</ol>
+<blockquote>
+<p><code>PerformanceEntry</code> 对象</p>
+</blockquote>
+<ul>
+<li>属性值：
+<ul>
+<li><code>name</code>：该性能条目的名字。例如 mark、measure 通过指定名称 name</li>
+<li><code>entryType</code>：上述的 options 包含所有的 entryType 属性</li>
+<li><code>startTime</code>：返回 <code>PorformanceEntry</code> 的第一个时间戳
+<ol>
+<li><code>frame</code>：当页面开始加载时，返回的时间戳</li>
+<li><code>mark</code>：当使用 <code>performance.mark(name)</code> 创建 mark 标记之后返回的时间戳</li>
+<li><code>measure</code>：当使用 <code>performance.measure(name)</code> 创建 measure 标记之后返回的时间戳</li>
+<li><code>navigation</code>：返回值为 0 的时间戳</li>
+<li><code>resource</code>：返回浏览器开始获取资源的时间戳</li>
+</ol>
+</li>
+<li><code>duration</code>：该资源的耗时时间</li>
+</ul>
+</li>
+<li>方法：<code>toJSON()</code>：返回 JSON 格式数据的 PerformanceEntry 对象</li>
+</ul>
+<pre><code class="hl language-html"><span class="hl-tag">&#x3C;<span class="hl-name">body</span>></span>
+  <span class="hl-tag">&#x3C;<span class="hl-name">button</span> <span class="hl-attr">onclick</span>=<span class="hl-string">"measureClick()"</span>></span>Measure<span class="hl-tag">&#x3C;/<span class="hl-name">button</span>></span>
+  <span class="hl-tag">&#x3C;<span class="hl-name">img</span>
+    <span class="hl-attr">src</span>=<span class="hl-string">"http://zyjcould.ltd/blog/%E6%B5%8F%E8%A7%88%E5%99%A8%E8%A7%86%E5%8F%A3.png"</span>
+  /></span>
+  <span class="hl-tag">&#x3C;<span class="hl-name">script</span>></span><span class="javascript">
+    <span class="hl-keyword">const</span> performanceObserver = <span class="hl-keyword">new</span> <span class="hl-title class_">PerformanceObserver</span>(<span class="hl-function">(<span class="hl-params">list</span>) =></span> {
+      list.<span class="hl-title function_">getEntries</span>().<span class="hl-title function_">forEach</span>(<span class="hl-function">(<span class="hl-params">entry</span>) =></span> {
+        <span class="hl-variable language_">console</span>.<span class="hl-title function_">log</span>(entry.<span class="hl-property">entryType</span>)
+        <span class="hl-variable language_">console</span>.<span class="hl-title function_">log</span>(entry.<span class="hl-property">startTime</span>)
+        <span class="hl-variable language_">console</span>.<span class="hl-title function_">log</span>(entry.<span class="hl-property">name</span>)
+        <span class="hl-variable language_">console</span>.<span class="hl-title function_">log</span>(entry.<span class="hl-property">duration</span>)
+        <span class="hl-variable language_">console</span>.<span class="hl-title function_">log</span>(entry.<span class="hl-title function_">toJSON</span>())
+      })
+    })
+    performanceObserver.<span class="hl-title function_">observe</span>({ <span class="hl-attr">entryTypes</span>: [<span class="hl-string">'resource'</span>, <span class="hl-string">'mark'</span>, <span class="hl-string">'measure'</span>] })
+
+    performance.<span class="hl-title function_">mark</span>(<span class="hl-string">'registered-observer'</span>)
+
+    <span class="hl-keyword">function</span> <span class="hl-title function_">measureClick</span>(<span class="hl-params"></span>) {
+      performance.<span class="hl-title function_">measure</span>(<span class="hl-string">'button clicked'</span>)
+    }
+  </span><span class="hl-tag">&#x3C;/<span class="hl-name">script</span>></span>
+<span class="hl-tag">&#x3C;/<span class="hl-name">body</span>></span>
+</code></pre>
+<h3 id="reportingobserver实验">ReportingObserver(实验)<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#reportingobserver实验"></a></h3>
+<blockquote>
+<p><code>ReportingObserver()</code> 构造函数会创建一个新的
+<a href="https://developer.mozilla.org/en-US/docs/Web/API/ReportingObserver"><code>ReportingObserver</code></a> 对象实例，该实例可用于收集和获取 reports</p>
+</blockquote>
+<ul>
+<li>使用：将浏览器弃用的 <code>API</code> 或者运行时<strong>浏览器的干预行为</strong>由自己约束
+<ul>
+<li>违反浏览器的选项时</li>
+<li>JS 的异常和错误（替代 <code>window.onerror</code>）</li>
+<li>未处理的 promise 的 <code>reject</code>（替代 <code>window.onunhandledrejection</code>）</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>ReportingObserver 实例方法和 <code>MutationObserver</code> 的实例方法一样。但是 <code>observer()</code> 不需要任何参数</p>
+</blockquote>
+<h4 id="创建-reporting-实例">创建 Reporting 实例<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#创建-reporting-实例"></a></h4>
+<pre><code class="hl language-js"><span class="hl-keyword">let</span> options = {
+  <span class="hl-attr">types</span>: [<span class="hl-string">'deprecation'</span>],
+  <span class="hl-attr">buffered</span>: <span class="hl-literal">true</span>
+}
+<span class="hl-keyword">const</span> reportingObserver=<span class="hl-keyword">new</span> <span class="hl-title class_">ReportingObserver</span>(callback, options?)
+</code></pre>
+<ul>
+<li>options 提供两个属性，<code>types</code> 和 <code>buffered</code></li>
+</ul>
+<ol>
+<li>
+<p><code>types</code>：提供三个属性值</p>
+<ul>
+<li><code>deprecation</code>：浏览器运行时遇到弃用的 API 会打印这个选项</li>
+<li><code>intervention</code>：浏览器自己的干预行为。可能遇到一些不安全的行为（如带有不安全的 iframe，过时的 API 等）</li>
+<li><code>crash</code>：浏览器崩溃时的行为</li>
+</ul>
+</li>
+<li>
+<p><code>buffered</code>：布尔值，如果时 true，可以查看创建观察者之前生成的报告（使用于延迟加载的情况，不会错过页面加载之前发生的事情）</p>
+</li>
+</ol>
+<h4 id="reporting-回调函数">Reporting 回调函数<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#reporting-回调函数"></a></h4>
+<blockquote>
+<p>提供两个参数，第一个参数是一个 <code>reports</code> 数组对象。同样也可以通过 <code>takeRecords()</code> 实例方法获取这些数组</p>
+</blockquote>
+<ul>
+<li><code>report</code> 对象有三个属性：<code>body</code>、<code>type</code>、<code>url</code>
+<ul>
+<li><code>type</code>：返回的是 report 类型，即 options 选项中的 types</li>
+<li><code>url</code>：返回的是生成 report 的文档</li>
+<li><code>body</code>：返回 report 正文，包含详细的 report 对象，目前只有两种 <strong>body 对象</strong>（取决于 type 的返回值）
+<ol>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/API/DeprecationReportBody"><code>DeprecationReportBody、InterventionReportBody</code></a>
+<ul>
+<li><code>id</code>：已弃用的功能或 API 的字符串</li>
+<li><code>anticipatedRemoval</code>：Data 对象，表示应从浏览器中要删除的日期。如果日期位置，返回 null</li>
+<li><code>message</code>：字符串，api 的弃用说明。包括新功能的取代说明</li>
+<li><code>sourceFile</code>：string 类型，使用已弃用 API 的源文件路径。已知或其他返回 null</li>
+<li><code>lineNumber</code>：number 类型，表示源文件中使用已弃用的功能的行。已知或其他返回 null</li>
+<li><code>columnNumber</code>：number 类型，表示源文件中使用已弃用的功能的行=列。已知或其他返回 null</li>
+</ul>
+</li>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/API/CrashReportBody"><code>CrashReportBody</code></a>
+<ul>
+<li><code>reason</code>：表示崩溃原因的字符串。如果返回的是 <code>oom</code>：浏览器内存不足。如果返回的是 <code>unresponsive</code>：页面由于无响应而被终止</li>
+</ul>
+</li>
+</ol>
+</li>
+</ul>
+</li>
+</ul>
+        </article></main><script src="https://giscus.app/client.js"
+        data-repo="fwqaaq/fwqaaq.github.io"
+        data-repo-id="R_kgDOHCFK2A"
+        data-category="Show and tell"
+        data-category-id="DIC_kwDOHCFK2M4CYOLh"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="1"
+        data-input-position="bottom"
+        data-theme="preferred_color_scheme"
+        data-lang="zh-CN"
+        crossorigin="anonymous"
+        async></script>

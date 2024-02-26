@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="rgb(46, 44, 79)">
+  <meta name="description" content="vueRouter 创建单页应用程序的方式">
+  <meta name="keywords" content="Vue, JavaScript, TypeScript">
+  <title>
+    VueRouter
+  </title>
+  <link rel="stylesheet" href="/public/css/index.css">
+  <link rel="stylesheet" href="/public/css/markdown.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+  <script src="/public/JavaScript/index.js"></script>
+</head><header class="blog-header">
+  <a href="https://github.com/fwqaaq" target="_blank">
+    <img src="https://avatars.githubusercontent.com/u/82551626?v=4" loading="lazy" alt="me" srcset="">
+  </a>
+  <nav class="header-nav">
+    <a class="decoration-line" href="/"><i class="fa-solid fa-house-chimney fa-xs"></i>
+      <span class="disappear">Home</span>
+    </a>
+    <a class="decoration-line" href="/./about/index.html"><i class="fa-solid fa-address-card fa-xs"></i>
+      <span class="disappear">About</span></a>
+    <a class="decoration-line" href="/./archive/index.html"><i class="fa-solid fa-box-archive fa-xs"></i> <span
+        class="disappear">Archive</span></a>
+    <a class="decoration-line" href="/./tags/index.html"><i class="fa-solid fa-tag fa-xs"></i> <span
+        class="disappear">Tag</span></a>
+    <div class="toy"><i class="fa-solid fa-gamepad fa-xs"></i> <span class="disappear">Toy</span>
+      <nav class="toy-nav disappear">
+        <a class="decoration-line" href="/public/resume/">我的简历</a>
+        <a class="decoration-line" href="/public/write-css/index.html">学习 UI</a>
+      </nav>
+    </div>
+    <a class="decoration-line" href="/feed.xml"><i class="fa-solid fa-rss fa-xs"></i> <span
+        class="disappear">RSS</span></a>
+    <a class="decoration-line model" href="#" class="model"><i class="fa-solid fa-sun fa-xs"></i></a>
+  </nav>
+</header><main class="blog-main">
+          <article class="blog-article">
+            <h1>VueRouter</h1>
+            <hr>
+            <h2 id="动态路由">动态路由<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#动态路由"></a></h2>
+<ul>
+<li>将给定匹配模式的路由映射到同一个组件</li>
+</ul>
+<blockquote>
+<p>在 Vue Router 中，我们可以在路径中使用一个动态字段来实现，我们称之为 路径参数</p>
+</blockquote>
+<pre><code class="hl language-js">{
+  <span class="hl-attr">path</span>:<span class="hl-string">"/user/:id"</span>,
+  <span class="hl-attr">component</span>:<span class="hl-function">()=></span><span class="hl-keyword">import</span>(<span class="hl-string">"../pages/User.vue"</span>)
+}
+</code></pre>
+<ul>
+<li>在<code>router-link</code>中进行跳转</li>
+</ul>
+<pre><code class="hl language-html"><span class="hl-tag">&#x3C;<span class="hl-name">router-link</span> <span class="hl-attr">to</span>=<span class="hl-string">"/user/123"</span>></span>用户 123<span class="hl-tag">&#x3C;/<span class="hl-name">router-link</span>></span>
+</code></pre>
+<h3 id="动态路由取值">动态路由取值<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#动态路由取值"></a></h3>
+<h4 id="在-template-中">在 template 中<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#在-template-中"></a></h4>
+<ul>
+<li>通过 $route.params 获取值</li>
+</ul>
+<pre><code class="hl language-html"><span class="hl-tag">&#x3C;<span class="hl-name">template</span>></span>
+  <span class="hl-tag">&#x3C;<span class="hl-name">div</span>></span>
+    <span class="hl-tag">&#x3C;<span class="hl-name">h2</span>></span>用户界面:{{$route.params.id}}<span class="hl-tag">&#x3C;/<span class="hl-name">h2</span>></span>
+  <span class="hl-tag">&#x3C;/<span class="hl-name">div</span>></span>
+<span class="hl-tag">&#x3C;/<span class="hl-name">template</span>></span>
+</code></pre>
+<h4 id="在-setup-中">在 setup 中<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#在-setup-中"></a></h4>
+<ul>
+<li>使用用 <code>vue-router</code>库给我们提供的一个 hook <code>useRoute</code></li>
+</ul>
+<pre><code class="hl language-js"><span class="hl-keyword">import</span> { useRoute } <span class="hl-keyword">from</span> <span class="hl-string">"vue-router"</span>;
+<span class="hl-keyword">export</span> <span class="hl-keyword">default</span> {
+  <span class="hl-title function_">setup</span>(<span class="hl-params"></span>) {
+    <span class="hl-keyword">const</span> route = <span class="hl-title function_">useRoute</span>();
+    <span class="hl-variable language_">console</span>.<span class="hl-title function_">log</span>(route.<span class="hl-property">params</span>.<span class="hl-property">id</span>);
+  },
+};
+</code></pre>
+<h3 id="匹配多个值">匹配多个值<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#匹配多个值"></a></h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>匹配模式</th><th>匹配路径</th><th><code>$route.params</code></th></tr></thead><tbody><tr><td>/users/:user</td><td>/users/lisi</td><td><code>{ user: 'lisi' }</code></td></tr><tr><td>/users/:user/id/:id</td><td>/users/:lisi/id/123</td><td><code>{ user: 'lisi', id: '123' }</code></td></tr></tbody></table>
+<h2 id="notfound-页面">NotFound 页面<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#notfound-页面"></a></h2>
+<blockquote>
+<p>对于哪些没有匹配到的路由，可以编写一个动态路由将他们匹配到固定的某个页面</p>
+</blockquote>
+<pre><code class="hl language-js">{
+  <span class="hl-attr">path</span>:<span class="hl-string">"/:pathMatch(.*)"</span>,
+  <span class="hl-attr">component</span>:<span class="hl-function">()=></span><span class="hl-keyword">import</span>(<span class="hl-string">"../pages/NotFound.vue"</span>)
+}
+</code></pre>
+<ul>
+<li>可以在 <code>template</code> 中使用 <code>$route.params.pathMatch</code> 获取路径参数
+<ul>
+<li>例如：<code>user/hhh/111</code></li>
+</ul>
+</li>
+<li>注意在 <code>/:pathMatch(.*)</code> 后面又加了一个 <code>*</code>，即 <code>/:pathMatch(.*)*</code> 时
+<ul>
+<li><code>$route.params.pathMatch</code> 获取路径参数是一个数组 ["user","hhh","111"]</li>
+</ul>
+</li>
+</ul>
+<h2 id="嵌套路由">嵌套路由<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#嵌套路由"></a></h2>
+<blockquote>
+<p>使用嵌套路由配置来表达某些应用程序的 UI 由嵌套多级的组件组成</p>
+</blockquote>
+<pre><code class="hl language-js"><span class="hl-keyword">const</span> routes = [
+  {
+    <span class="hl-attr">path</span>: <span class="hl-string">'/home'</span>,
+    <span class="hl-attr">component</span>: <span class="hl-function">()=></span><span class="hl-keyword">import</span>(<span class="hl-string">"../pages/Home.vue"</span>),
+    <span class="hl-attr">children</span>: [
+      {
+        <span class="hl-attr">path</span>: <span class="hl-string">''</span>,
+        <span class="hl-attr">redirect</span>:<span class="hl-string">"/home/product"</span><span class="hl-comment">//重定向</span>
+      },
+      {
+        <span class="hl-attr">path</span>: <span class="hl-string">'product'</span>,
+        <span class="hl-attr">component</span>:<span class="hl-attr">component</span>:<span class="hl-function">()=></span><span class="hl-keyword">import</span>(<span class="hl-string">"../pages/HomeProduct.vue"</span>),
+      },
+    ],
+  },
+]
+</code></pre>
+<ul>
+<li>以<code>/</code>开头的嵌套路径将被视为根路径，这将更好的利用组件嵌套</li>
+</ul>
+<h2 id="router-link">&#x3C;router-link><a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#router-link"></a></h2>
+<h3 id="代码的页面跳转">代码的页面跳转<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#代码的页面跳转"></a></h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>声明式</th><th>程序化</th></tr></thead><tbody><tr><td>&#x3C;router-link :to="..."></td><td><code>router.push(...)</code></td></tr></tbody></table>
+<h4 id="使用-routerpush">使用 router.push(...)<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#使用-routerpush"></a></h4>
+<ul>
+<li>使用字符串地址<code>router.push('/users/123')</code></li>
+<li>使用对象地址<code>router.push({'/users/123'})</code></li>
+<li>使用命名路由并携带 params 参数：</li>
+</ul>
+<pre><code class="hl language-js"><span class="hl-keyword">import</span> { useRouter } <span class="hl-keyword">from</span> <span class="hl-string">"vue-router"</span>;
+<span class="hl-keyword">export</span> <span class="hl-keyword">default</span> {
+  <span class="hl-title function_">setup</span>(<span class="hl-params"></span>) {
+    <span class="hl-keyword">const</span> router = <span class="hl-title function_">useRouter</span>();
+    router.<span class="hl-title function_">push</span>({ <span class="hl-attr">name</span>: <span class="hl-string">"user"</span>, <span class="hl-attr">params</span>: { <span class="hl-attr">username</span>: <span class="hl-string">"eduardo"</span> } });
+  },
+};
+</code></pre>
+<ul>
+<li>
+<p>携带 query 参数：</p>
+<ul>
+<li><code>router.push({path:'/register',query:{plan:'private'})</code></li>
+</ul>
+</li>
+<li>
+<p>使用可重复使用的 params 时，使用 name 属性，或者 path 这样编写<code>/user/${username}</code></p>
+</li>
+</ul>
+<h3 id="替换当前位置">替换当前位置<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#替换当前位置"></a></h3>
+<blockquote>
+<p>使用 push 的特点是压入一个新的页面，那么在用户点击返回时，上一个页面还可以回退，但是如果希望当前页面是一个替换操作，那么可以使用<code>replace</code></p>
+</blockquote>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>声明式</th><th>程序化</th></tr></thead><tbody><tr><td>&#x3C;router-link :to="..." replace></td><td><code>router.replace(...)</code></td></tr></tbody></table>
+<h3 id="custom">custom<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#custom"></a></h3>
+<blockquote>
+<p>custom 选项防止 &#x3C;router-link> 将其内容包装在 &#x3C;a> 元素内</p>
+<p>默认情况下，&#x3C;router-link> 将呈现其内容包裹在一个 &#x3C;a> 元素，即使使用 <code>v-slot</code>。使用 <code>custom</code>，删除该行为</p>
+</blockquote>
+<pre><code class="hl language-html"><span class="hl-tag">&#x3C;<span class="hl-name">router-link</span> <span class="hl-attr">to</span>=<span class="hl-string">"/home"</span> <span class="hl-attr">custom</span> <span class="hl-attr">v-slot</span>=<span class="hl-string">"{navigate,href,route}"</span>></span>
+  <span class="hl-tag">&#x3C;<span class="hl-name">a</span> <span class="hl-attr">:href</span>=<span class="hl-string">"href"</span> @<span class="hl-attr">click</span>=<span class="hl-string">"navigate"</span>></span>{{ route.fullPath }}<span class="hl-tag">&#x3C;/<span class="hl-name">a</span>></span>
+<span class="hl-tag">&#x3C;/<span class="hl-name">router-link</span>></span>
+</code></pre>
+<h3 id="router-link-中的-v-slot">router-link 中的 v-slot<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#router-link-中的-v-slot"></a></h3>
+<pre><code class="hl language-html"><span class="hl-tag">&#x3C;<span class="hl-name">router-link</span>
+  <span class="hl-attr">to</span>=<span class="hl-string">"/about"</span>
+  <span class="hl-attr">custom</span>
+  <span class="hl-attr">v-slot</span>=<span class="hl-string">"{href,route,navigate,isActive,isExactActive}"</span>></span>
+  <span class="hl-tag">&#x3C;<span class="hl-name">p</span> @<span class="hl-attr">click</span>=<span class="hl-string">"navigate"</span>></span>跳转 about<span class="hl-tag">&#x3C;/<span class="hl-name">p</span>></span>
+  <span class="hl-tag">&#x3C;<span class="hl-name">div</span>></span>
+    <span class="hl-tag">&#x3C;<span class="hl-name">p</span>></span>href:{{href}}<span class="hl-tag">&#x3C;/<span class="hl-name">p</span>></span>
+    <span class="hl-tag">&#x3C;<span class="hl-name">p</span>></span>route:{{route}}<span class="hl-tag">&#x3C;/<span class="hl-name">p</span>></span>
+    <span class="hl-tag">&#x3C;<span class="hl-name">p</span>></span>isActive:{{isActive}}<span class="hl-tag">&#x3C;/<span class="hl-name">p</span>></span>
+    <span class="hl-tag">&#x3C;<span class="hl-name">p</span>></span>isExactActive:{{isExactActive}}<span class="hl-tag">&#x3C;/<span class="hl-name">p</span>></span>    
+  <span class="hl-tag">&#x3C;/<span class="hl-name">div</span>></span>
+<span class="hl-tag">&#x3C;/<span class="hl-name">router-link</span>></span>
+</code></pre>
+<ul>
+<li><code>href</code>解析后的 url</li>
+<li><code>route</code>解析后的规范化的 route 对象</li>
+<li><code>navigate</code>触发导航的函数</li>
+<li><code>isActive</code>是否匹配的状态</li>
+<li><code>isExactActive</code>是否是精准匹配的状态</li>
+</ul>
+<h3 id="其它-api">其它 api<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#其它-api"></a></h3>
+<blockquote>
+<p>参考<a href="https://next.router.vuejs.org/api/#aria-current-value">https://next.router.vuejs.org/api/#aria-current-value</a></p>
+</blockquote>
+<h2 id="router-view">router-view<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#router-view"></a></h2>
+<ul>
+<li>&#x3C;router-view> 公开一个 <code>v-slot</code> API，主要是用 &#x3C;transition> 和 &#x3C;keep-alive> 组件包装你的路由组件</li>
+</ul>
+<pre><code class="hl language-html"><span class="hl-tag">&#x3C;<span class="hl-name">router-view</span> <span class="hl-attr">v-slot</span>=<span class="hl-string">"{Component}"</span>></span>
+  <span class="hl-tag">&#x3C;<span class="hl-name">transition</span> <span class="hl-attr">name</span>=<span class="hl-string">"why"</span>></span>
+    <span class="hl-tag">&#x3C;<span class="hl-name">component</span> <span class="hl-attr">:is</span>=<span class="hl-string">"Component"</span>></span><span class="hl-tag">&#x3C;/<span class="hl-name">component</span>></span>
+  <span class="hl-tag">&#x3C;/<span class="hl-name">transition</span>></span>
+<span class="hl-tag">&#x3C;/<span class="hl-name">router-view</span>></span>
+</code></pre>
+<h2 id="动态的添加删除路由">动态的添加删除路由<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#动态的添加删除路由"></a></h2>
+<h3 id="添加路由">添加路由<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#添加路由"></a></h3>
+<ul>
+<li>
+<p>某些情况下我们可能需要动态的来添加路由</p>
+<ul>
+<li>如根据用户不同的权限，注册不同的路由</li>
+<li>可以使用一个方法 <code>addRoute</code></li>
+</ul>
+</li>
+<li>
+<p>直接添加顶级路由，参数只要传一个动态路由的名称</p>
+</li>
+<li>
+<p>或者是为路由添加子路由，那么还应该传入对应的 name 属性</p>
+</li>
+</ul>
+<pre><code class="hl language-js"><span class="hl-keyword">const</span> about = {
+  <span class="hl-attr">path</span>: <span class="hl-string">"id"</span>,
+  <span class="hl-attr">component</span>: <span class="hl-function">() =></span> <span class="hl-keyword">import</span>(<span class="hl-string">"../pages/About"</span>),
+};
+
+router.<span class="hl-title function_">addRoute</span>(<span class="hl-string">"home"</span>, about);
+</code></pre>
+<ul>
+<li>如果新增加的路由的位置与原有的路由相匹配，那就需要你手动导航与<code>router.push()</code>或<code>router.replace()</code>以显示新的路线</li>
+</ul>
+<h3 id="删除路由">删除路由<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#删除路由"></a></h3>
+<ul>
+<li>添加一个 name 相同的路由</li>
+<li>通过<code>removeRoute</code>方法，传入路由的名称</li>
+<li>通过<code>addRoute</code>方法的返回值回调</li>
+</ul>
+<pre><code class="hl language-js"><span class="hl-comment">//添加一个 name 相同的路由</span>
+router.<span class="hl-title function_">addRoute</span>({ <span class="hl-attr">path</span>: <span class="hl-string">"/about"</span>, <span class="hl-attr">name</span>: <span class="hl-string">"about"</span>, <span class="hl-attr">component</span>: <span class="hl-title class_">About</span> });
+router.<span class="hl-title function_">addRoute</span>({ <span class="hl-attr">path</span>: <span class="hl-string">"/home"</span>, <span class="hl-attr">name</span>: <span class="hl-string">"about"</span>, <span class="hl-attr">component</span>: <span class="hl-title class_">Home</span> });
+<span class="hl-comment">//通过 removeRoute 方法，传入路由的名称</span>
+router.<span class="hl-title function_">addRoute</span>({ <span class="hl-attr">path</span>: <span class="hl-string">"/about"</span>, <span class="hl-attr">name</span>: <span class="hl-string">"about"</span>, <span class="hl-attr">component</span>: <span class="hl-title class_">About</span> });
+router.<span class="hl-title function_">removeRoute</span>(<span class="hl-string">"about"</span>);
+<span class="hl-comment">//通过`addRoute`方法的返回值回调</span>
+<span class="hl-keyword">const</span> removeRoute = router.<span class="hl-title function_">addRoute</span>({
+  <span class="hl-attr">path</span>: <span class="hl-string">"/about"</span>,
+  <span class="hl-attr">name</span>: <span class="hl-string">"about"</span>,
+  <span class="hl-attr">component</span>: <span class="hl-title class_">About</span>,
+});
+<span class="hl-title function_">removeRoute</span>();
+</code></pre>
+<h3 id="其他-api">其他 API<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#其他-api"></a></h3>
+<ul>
+<li><code>router.hasRoute()</code>检查路由是否存在。</li>
+<li><code>router.getRoutes()</code>获取一个包含所有路由记录的数组</li>
+</ul>
+<h2 id="uselink-和-routerlink">useLink 和 RouterLink<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#uselink-和-routerlink"></a></h2>
+<blockquote>
+<p>Vue Router 将 <code>RouterLink</code> 的内部行为公开为 Composition API
+函数。它提供访问与<code>v-slot</code>API 相同的属性</p>
+</blockquote>
+<pre><code class="hl language-js"><span class="hl-keyword">import</span> { <span class="hl-title class_">RouterLink</span>, useLink } <span class="hl-keyword">from</span> <span class="hl-string">"vue-router"</span>;
+<span class="hl-keyword">export</span> <span class="hl-keyword">default</span> {
+  <span class="hl-attr">name</span>: <span class="hl-string">"App"</span>,
+  <span class="hl-attr">props</span>: {
+    ...<span class="hl-title class_">RouterLink</span>.<span class="hl-property">props</span>,
+  },
+  <span class="hl-title function_">setup</span>(<span class="hl-params">props</span>) {
+    <span class="hl-keyword">const</span> { route, href, isActive, isExactActive, navigate } = <span class="hl-title function_">useLink</span>(props);
+    <span class="hl-keyword">return</span> { href, navigate, isActive };
+  },
+};
+</code></pre>
+<h2 id="路由守卫">路由守卫<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#路由守卫"></a></h2>
+<blockquote>
+<p>路由守卫的触发时机</p>
+</blockquote>
+<ul>
+<li>导航被触发。</li>
+<li>在失活的组件里调用 beforeRouteLeave 守卫。</li>
+<li>调用全局的 beforeEach 守卫。</li>
+<li>在重用的组件里调用 beforeRouteUpdate 守卫 (2.2+)。</li>
+<li>在路由配置里调用 beforeEnter。</li>
+<li>解析异步路由组件。</li>
+<li>在被激活的组件里调用 beforeRouteEnter。</li>
+<li>调用全局的 beforeResolve 守卫 (2.5+)。</li>
+<li>导航被确认。</li>
+<li>调用全局的 afterEach 钩子。</li>
+<li>触发 DOM 更新。</li>
+<li>调用 beforeRouteEnter 守卫中传给 next
+的回调函数，创建好的组件实例会作为回调函数的参数传入。</li>
+</ul>
+<blockquote>
+<p>Vue router
+提供的路由守卫主要用于通过重定向或取消路由来保护路由。有多种方法可以连接到路由导航过程:全局，每个路由或组件内</p>
+</blockquote>
+<ul>
+<li>
+<p>接收两个参数</p>
+<ul>
+<li>to 即将进入的路由 Route 对象</li>
+<li>from 即将离开的路由 Route 对象</li>
+</ul>
+</li>
+<li>
+<p>return 返回值</p>
+<ul>
+<li>false 取消当前导航</li>
+<li>不返回或者 undefined 进行默认导航</li>
+<li>返回一个路由地址
+<ul>
+<li>可以是一个 string 类型的路径</li>
+<li>可以是一个对象，对象中包含<code>path,query,params</code>等信息</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>第三个参数<code>next</code>在 vue3 中已经不推荐使用</p>
+</li>
+</ul>
+<h3 id="全局路由守卫-beforeeach">全局路由守卫 (beforeEach)<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#全局路由守卫-beforeeach"></a></h3>
+<blockquote>
+<p>用来做一些进入页面的限制。比如没有登录，就不能进入某些页面，只有登录了之后才有权限查看某些页面 (初始化的时候被调用，每次路由切换之前被调用)</p>
+</blockquote>
+<pre><code class="hl language-js"><span class="hl-keyword">const</span> router = <span class="hl-title function_">createRouter</span>({ ... })
+
+router.<span class="hl-title function_">beforeEach</span>(<span class="hl-function">(<span class="hl-params">to, <span class="hl-keyword">from</span></span>) =></span> {
+  <span class="hl-comment">// ...</span>
+  <span class="hl-keyword">return</span> <span class="hl-literal">false</span>
+})
+</code></pre>
+<h3 id="路由独享守卫-beforeenter">路由独享守卫 (beforeEnter)<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#路由独享守卫-beforeenter"></a></h3>
+<blockquote>
+<p>beforeEnter 守卫只在进入路由时触发不会在 params,query 或 hash 改变时触发</p>
+</blockquote>
+<pre><code class="hl language-js"><span class="hl-keyword">const</span> routes = [
+  {
+    <span class="hl-attr">path</span>: <span class="hl-string">"/users/:id"</span>,
+    <span class="hl-attr">component</span>: <span class="hl-title class_">UserDetails</span>,
+    <span class="hl-attr">beforeEnter</span>: <span class="hl-function">(<span class="hl-params">to, <span class="hl-keyword">from</span></span>) =></span> {
+      <span class="hl-keyword">return</span> <span class="hl-literal">false</span>;
+    },
+  },
+];
+</code></pre>
+<h3 id="全局后置后卫">全局后置后卫<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#全局后置后卫"></a></h3>
+<blockquote>
+<p>不会接受返回值也不会改变导航本身。用于分析、更改页面标题、声明页面等辅助功能</p>
+</blockquote>
+<pre><code class="hl language-js">router.<span class="hl-title function_">afterEach</span>(<span class="hl-function">(<span class="hl-params">to, <span class="hl-keyword">from</span></span>) =></span> {
+  <span class="hl-comment">//...</span>
+})
+</code></pre>
+<h3 id="组件内守卫">组件内守卫<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#组件内守卫"></a></h3>
+<p>参考 <a href="https://next.router.vuejs.org/zh/guide/advanced/composition-api.html#%E5%AF%BC%E8%88%AA%E5%AE%88%E5%8D%AB">https://next.router.vuejs.org/zh/guide/advanced/composition-api.html#%E5%AF%BC%E8%88%AA%E5%AE%88%E5%8D%AB</a></p>
+        </article></main><script src="https://giscus.app/client.js"
+        data-repo="fwqaaq/fwqaaq.github.io"
+        data-repo-id="R_kgDOHCFK2A"
+        data-category="Show and tell"
+        data-category-id="DIC_kwDOHCFK2M4CYOLh"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="1"
+        data-input-position="bottom"
+        data-theme="preferred_color_scheme"
+        data-lang="zh-CN"
+        crossorigin="anonymous"
+        async></script>

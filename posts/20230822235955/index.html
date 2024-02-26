@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="rgb(46, 44, 79)">
+  <meta name="description" content="iptables 的简单应用">
+  <meta name="keywords" content="Linux, Config">
+  <title>
+    iptables
+  </title>
+  <link rel="stylesheet" href="/public/css/index.css">
+  <link rel="stylesheet" href="/public/css/markdown.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+  <script src="/public/JavaScript/index.js"></script>
+</head><header class="blog-header">
+  <a href="https://github.com/fwqaaq" target="_blank">
+    <img src="https://avatars.githubusercontent.com/u/82551626?v=4" loading="lazy" alt="me" srcset="">
+  </a>
+  <nav class="header-nav">
+    <a class="decoration-line" href="/"><i class="fa-solid fa-house-chimney fa-xs"></i>
+      <span class="disappear">Home</span>
+    </a>
+    <a class="decoration-line" href="/./about/index.html"><i class="fa-solid fa-address-card fa-xs"></i>
+      <span class="disappear">About</span></a>
+    <a class="decoration-line" href="/./archive/index.html"><i class="fa-solid fa-box-archive fa-xs"></i> <span
+        class="disappear">Archive</span></a>
+    <a class="decoration-line" href="/./tags/index.html"><i class="fa-solid fa-tag fa-xs"></i> <span
+        class="disappear">Tag</span></a>
+    <div class="toy"><i class="fa-solid fa-gamepad fa-xs"></i> <span class="disappear">Toy</span>
+      <nav class="toy-nav disappear">
+        <a class="decoration-line" href="/public/resume/">我的简历</a>
+        <a class="decoration-line" href="/public/write-css/index.html">学习 UI</a>
+      </nav>
+    </div>
+    <a class="decoration-line" href="/feed.xml"><i class="fa-solid fa-rss fa-xs"></i> <span
+        class="disappear">RSS</span></a>
+    <a class="decoration-line model" href="#" class="model"><i class="fa-solid fa-sun fa-xs"></i></a>
+  </nav>
+</header><main class="blog-main">
+          <article class="blog-article">
+            <h1>iptables</h1>
+            <hr>
+            <h2 id="表">表<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#表"></a></h2>
+<div class="markdown-alert markdown-alert-note">
+<p class="markdown-alert-title"><svg class="octicon octicon-info mr-2" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8Zm8-6.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13ZM6.5 7.75A.75.75 0 0 1 7.25 7h1a.75.75 0 0 1 .75.75v2.75h.25a.75.75 0 0 1 0 1.5h-2a.75.75 0 0 1 0-1.5h.25v-2h-.25a.75.75 0 0 1-.75-.75ZM8 6a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"></path></svg>Note</p>
+<p>iptables 是 Linux 下的防火墙，可以用来设置防火墙规则，限制网络访问。</p>
+<p>它由以下四个表组成：filter &#x3C; nat &#x3C; mangle &#x3C; raw，每个表中都含有不同的链</p>
+</div>
+<ul>
+<li>filter：用来对数据包进行过滤，具体的规则要求决定如何处理一个数据包（对应于 <code>INPUT</code>、<code>FORWARD</code>、<code>OUTPUT</code> 链</li>
+<li>nat：主要用来修改数据包的 IP 地址、端口号信息（对应于 <code>PREROUTING</code>、<code>OUTPUT</code>、<code>POSTROUTING</code> 链</li>
+<li>mangle：主要用来修改数据包的服务类型，生存周期，为数据包设置标记，实现流量整形、策略路由等（对应于 <code>PREROUTING</code>、<code>INPUT</code>、<code>FORWARD</code>、<code>OUTPUT</code>、<code>POSTROUTING</code> 链</li>
+<li>raw：主要用来决定是否对数据包进行状态跟踪（对应于 <code>PREROUTING</code>、<code>OUTPUT</code> 链</li>
+</ul>
+<h2 id="链">链<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#链"></a></h2>
+<p><img src="https://media.githubusercontent.com/media/fwqaaq/fwqaaq.github.io/dev/src/picture/iptables.png" alt=" "></p>
+<ul>
+<li>PREROUTING: 在数据包进行路由选择之前执行</li>
+<li>INPUT: 在数据包进入本地系统后执行（访问防火墙本机地址的数据包</li>
+<li>FORWARD: 通过防火墙转发给其他地址的数据包时执行</li>
+<li>OUTPUT: 在数据包从本地系统发出数据包时执行</li>
+<li>POSTROUTING: 在数据包进行路由选择之后执行</li>
+</ul>
+<h2 id="规则">规则<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#规则"></a></h2>
+<ul>
+<li>查看表中的链以及其中的各个规则</li>
+</ul>
+<pre><code class="hl language-bash">iptables --table filter --list --line-numbers
+</code></pre>
+<ul>
+<li>拒绝某个请求访问，默认是所有协议，<strong>所有规则都是从上往下进行执行</strong></li>
+</ul>
+<pre><code class="hl language-bash">sudo iptables --table filter --append INPUT --<span class="hl-built_in">source</span> 192.168.50.16 --jump REJECT
+</code></pre>
+<ul>
+<li>删除某个规则</li>
+</ul>
+<pre><code class="hl language-bash"><span class="hl-comment"># 删除 INPUT 链中的第一条规则</span>
+sudo iptables --table filter --delete INPUT 1
+</code></pre>
+<p><a href="https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/6/html/security_guide/sect-security_guide-command_options_for_iptables-iptables_parameter_options">jump 参数</a>，标准的目标是：<code>ACCEPT</code>、<code>DROP</code>、<code>QUEUE</code>、<code>RETURN</code>，当然你也可以指定其他例如 <a href="https://book.huihoo.com/iptables-tutorial/c8815.htm">SNAT、DNAT 等目标</a>。</p>
+<ul>
+<li>参考：<a href="https://tinychen.com/20200414-iptables-principle-introduction/">https://tinychen.com/20200414-iptables-principle-introduction/</a></li>
+<li>参考：<a href="https://wangchujiang.com/reference/docs/iptables.html">https://wangchujiang.com/reference/docs/iptables.html</a></li>
+</ul>
+        </article></main><script src="https://giscus.app/client.js"
+        data-repo="fwqaaq/fwqaaq.github.io"
+        data-repo-id="R_kgDOHCFK2A"
+        data-category="Show and tell"
+        data-category-id="DIC_kwDOHCFK2M4CYOLh"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="1"
+        data-input-position="bottom"
+        data-theme="preferred_color_scheme"
+        data-lang="zh-CN"
+        crossorigin="anonymous"
+        async></script>

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="rgb(46, 44, 79)">
+  <meta name="description" content="收集一些关于开发中遇到的 Git 问题">
+  <meta name="keywords" content="Git">
+  <title>
+    Git 问题收集
+  </title>
+  <link rel="stylesheet" href="/public/css/index.css">
+  <link rel="stylesheet" href="/public/css/markdown.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+  <script src="/public/JavaScript/index.js"></script>
+</head><header class="blog-header">
+  <a href="https://github.com/fwqaaq" target="_blank">
+    <img src="https://avatars.githubusercontent.com/u/82551626?v=4" loading="lazy" alt="me" srcset="">
+  </a>
+  <nav class="header-nav">
+    <a class="decoration-line" href="/"><i class="fa-solid fa-house-chimney fa-xs"></i>
+      <span class="disappear">Home</span>
+    </a>
+    <a class="decoration-line" href="/./about/index.html"><i class="fa-solid fa-address-card fa-xs"></i>
+      <span class="disappear">About</span></a>
+    <a class="decoration-line" href="/./archive/index.html"><i class="fa-solid fa-box-archive fa-xs"></i> <span
+        class="disappear">Archive</span></a>
+    <a class="decoration-line" href="/./tags/index.html"><i class="fa-solid fa-tag fa-xs"></i> <span
+        class="disappear">Tag</span></a>
+    <div class="toy"><i class="fa-solid fa-gamepad fa-xs"></i> <span class="disappear">Toy</span>
+      <nav class="toy-nav disappear">
+        <a class="decoration-line" href="/public/resume/">我的简历</a>
+        <a class="decoration-line" href="/public/write-css/index.html">学习 UI</a>
+      </nav>
+    </div>
+    <a class="decoration-line" href="/feed.xml"><i class="fa-solid fa-rss fa-xs"></i> <span
+        class="disappear">RSS</span></a>
+    <a class="decoration-line model" href="#" class="model"><i class="fa-solid fa-sun fa-xs"></i></a>
+  </nav>
+</header><main class="blog-main">
+          <article class="blog-article">
+            <h1>Git 问题收集</h1>
+            <hr>
+            <h2 id="git-问题收集">Git 问题收集<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#git-问题收集"></a></h2>
+<div class="markdown-alert markdown-alert-note">
+<p class="markdown-alert-title"><svg class="octicon octicon-info mr-2" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8Zm8-6.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13ZM6.5 7.75A.75.75 0 0 1 7.25 7h1a.75.75 0 0 1 .75.75v2.75h.25a.75.75 0 0 1 0 1.5h-2a.75.75 0 0 1 0-1.5h.25v-2h-.25a.75.75 0 0 1-.75-.75ZM8 6a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"></path></svg>Note</p>
+<p>本文档收集一些关于开发中遇到的 Git 问题，以及解决方案。</p>
+</div>
+<ol>
+<li>
+<p>在帮朋友下载 brew 的时候遇到一个 Git 的问题：RPC failed; curl 92 HTTP/2 stream 5 was not closed cleanly: CANCEL (err 8)</p>
+<ul>
+<li>原因可能是这样：I encountered this error when pushing GIT through an ADSL Broadband Wi-Fi network with low signal strength, low stability, and low speed.</li>
+<li>解决方式：Then, I was able to push it very successfully when I pushed it into the GIT through a Fibre Broadband Wi-Fi network with greater signal strength, greater stability, and higher speed.</li>
+<li>参考：<a href="https://stackoverflow.com/questions/59282476/error-rpc-failed-curl-92-http-2-stream-0-was-not-closed-cleanly-protocol-erro">https://stackoverflow.com/questions/59282476/error-rpc-failed-curl-92-http-2-stream-0-was-not-closed-cleanly-protocol-erro</a></li>
+</ul>
+</li>
+<li>
+<p>有多个 GitHub 账号，如何切换账号的问题：</p>
+<ul>
+<li>在原仓库中运行以下命令，一定要设置好 SSH key，不要覆盖原来的 SSH key。</li>
+</ul>
+<pre><code class="hl language-bash">git config user.name <span class="hl-string">"username"</span>
+git config user.email <span class="hl-string">"email"</span>
+git config core.sshCommand <span class="hl-string">"ssh -i ~/.ssh/id_rsa_xxx"</span>
+</code></pre>
+</li>
+</ol>
+        </article></main><script src="https://giscus.app/client.js"
+        data-repo="fwqaaq/fwqaaq.github.io"
+        data-repo-id="R_kgDOHCFK2A"
+        data-category="Show and tell"
+        data-category-id="DIC_kwDOHCFK2M4CYOLh"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="1"
+        data-input-position="bottom"
+        data-theme="preferred_color_scheme"
+        data-lang="zh-CN"
+        crossorigin="anonymous"
+        async></script>

@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="rgb(46, 44, 79)">
+  <meta name="description" content="浏览器控制台内置的语法">
+  <meta name="keywords" content="Config">
+  <title>
+    ChromeDevtools
+  </title>
+  <link rel="stylesheet" href="/public/css/index.css">
+  <link rel="stylesheet" href="/public/css/markdown.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+  <script src="/public/JavaScript/index.js"></script>
+</head><header class="blog-header">
+  <a href="https://github.com/fwqaaq" target="_blank">
+    <img src="https://avatars.githubusercontent.com/u/82551626?v=4" loading="lazy" alt="me" srcset="">
+  </a>
+  <nav class="header-nav">
+    <a class="decoration-line" href="/"><i class="fa-solid fa-house-chimney fa-xs"></i>
+      <span class="disappear">Home</span>
+    </a>
+    <a class="decoration-line" href="/./about/index.html"><i class="fa-solid fa-address-card fa-xs"></i>
+      <span class="disappear">About</span></a>
+    <a class="decoration-line" href="/./archive/index.html"><i class="fa-solid fa-box-archive fa-xs"></i> <span
+        class="disappear">Archive</span></a>
+    <a class="decoration-line" href="/./tags/index.html"><i class="fa-solid fa-tag fa-xs"></i> <span
+        class="disappear">Tag</span></a>
+    <div class="toy"><i class="fa-solid fa-gamepad fa-xs"></i> <span class="disappear">Toy</span>
+      <nav class="toy-nav disappear">
+        <a class="decoration-line" href="/public/resume/">我的简历</a>
+        <a class="decoration-line" href="/public/write-css/index.html">学习 UI</a>
+      </nav>
+    </div>
+    <a class="decoration-line" href="/feed.xml"><i class="fa-solid fa-rss fa-xs"></i> <span
+        class="disappear">RSS</span></a>
+    <a class="decoration-line model" href="#" class="model"><i class="fa-solid fa-sun fa-xs"></i></a>
+  </nav>
+</header><main class="blog-main">
+          <article class="blog-article">
+            <h1>ChromeDevtools</h1>
+            <hr>
+            <ol>
+<li>
+<p><code>$_</code>:使用上一次表达式的结果</p>
+<pre><code class="hl language-js"><span class="hl-number">2</span> + <span class="hl-number">2</span>;
+$_; <span class="hl-comment">//4</span>
+</code></pre>
+</li>
+<li>
+<p><code>$0</code>:光标在 <code>Element</code> 中选中的元素，如果是上一个选中的可以使用<code>$1</code></p>
+</li>
+<li>
+<p><code>$()</code>:等价于<code>document.querySelector()</code></p>
+<pre><code class="hl language-js">$(<span class="hl-string">"img"</span>);
+<span class="hl-comment">//&#x3C;img>...&#x3C;/img></span>
+</code></pre>
+<ul>
+<li>当然，你也可以将<code>$0</code>和它组合：<code>$('img',$0)</code>,其中<code>$0</code>指的是上下文</li>
+</ul>
+</li>
+<li>
+<p><code>$$()</code>:等价于<code>document.querySelectorAll()</code>,返回所有的元素，同样，它也可以指定上下文<code>$0</code>,或者<code>$(main)</code></p>
+<pre><code class="hl language-js">$$(<span class="hl-string">"img"</span>);
+<span class="hl-comment">//[5]...</span>
+</code></pre>
+</li>
+<li>
+<p><code>$x(path)</code> 能使用 xpath 选择器来返回符合选择器的所有元素</p>
+<pre><code class="hl language-js">$x(<span class="hl-string">"/html/body/div[1]/header"</span>);
+<span class="hl-comment">//&#x3C;header>..&#x3C;/header></span>
+</code></pre>
+</li>
+<li>
+<p><code>queryObjects(Promise)</code>:选中该网页所有的 Promise 对象</p>
+<pre><code class="hl language-js"><span class="hl-title function_">queryObjects</span>(<span class="hl-title class_">Promise</span>);
+<span class="hl-comment">//Promise{}...</span>
+<span class="hl-comment">//...</span>
+</code></pre>
+</li>
+<li>
+<p><code>player</code>:打印网页嵌入的浏览器标签</p>
+<ul>
+<li><code>table(player)</code>:以表格的形式打印出浏览器的 player 的状态</li>
+<li>也可以用于打印对象成为表格</li>
+</ul>
+<pre><code class="hl language-js"><span class="hl-keyword">const</span> names = {
+  <span class="hl-number">0</span>: { <span class="hl-attr">firstName</span>: <span class="hl-string">"John"</span>, <span class="hl-attr">lastName</span>: <span class="hl-string">"Smith"</span> },
+  <span class="hl-number">1</span>: { <span class="hl-attr">firstName</span>: <span class="hl-string">"Jane"</span>, <span class="hl-attr">lastName</span>: <span class="hl-string">"Doe"</span> },
+};
+<span class="hl-title function_">table</span>(names);
+</code></pre>
+</li>
+<li>
+<p><code>keys(object)/values(object)</code>:返回对象中所有键/值的集合</p>
+</li>
+<li>
+<p><code>getEventListeners(object)</code>:打印元素的所有事件的集合</p>
+<pre><code class="hl language-js"><span class="hl-title function_">getEventListeners</span>($0);
+</code></pre>
+</li>
+<li>
+<p><code>copy(object)</code>:可以直接复制字符串表达式，<code>copy($0)</code></p>
+</li>
+<li>
+<p><code>dir(object)</code>:列出指定元素的所有属性</p>
+</li>
+<li>
+<p><code>monitor(function)</code>:监听函数调用，会返回这个函数调用的参数</p>
+<pre><code class="hl language-js"><span class="hl-keyword">function</span> <span class="hl-title function_">sum</span>(<span class="hl-params">x, y</span>) {
+  <span class="hl-keyword">return</span> x + y;
+}
+<span class="hl-comment">//undefined</span>
+<span class="hl-title function_">monitor</span>(sum);
+<span class="hl-comment">//undefined</span>
+<span class="hl-title function_">sum</span>(<span class="hl-number">1</span>, <span class="hl-number">2</span>);
+<span class="hl-comment">//init.js:1 function sum called with arguments: 1, 2</span>
+<span class="hl-comment">//3</span>
+</code></pre>
+</li>
+<li>
+<p><code>monitorEvents(object[, events])</code>:监听一个或者一组事件</p>
+<pre><code class="hl language-js"><span class="hl-title function_">monitorEvents</span>(<span class="hl-variable language_">window</span>, <span class="hl-string">"resize"</span>);
+<span class="hl-title function_">monitorEvents</span>(<span class="hl-variable language_">window</span>, [<span class="hl-string">"resize"</span>, <span class="hl-string">"scroll"</span>]);
+</code></pre>
+</li>
+<li>
+<p><code>dirxml(object)</code>: dirxml 返回指定对象的 xml 结构，相当于 console.dirxml()</p>
+</li>
+</ol>
+        </article></main><script src="https://giscus.app/client.js"
+        data-repo="fwqaaq/fwqaaq.github.io"
+        data-repo-id="R_kgDOHCFK2A"
+        data-category="Show and tell"
+        data-category-id="DIC_kwDOHCFK2M4CYOLh"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="1"
+        data-input-position="bottom"
+        data-theme="preferred_color_scheme"
+        data-lang="zh-CN"
+        crossorigin="anonymous"
+        async></script>

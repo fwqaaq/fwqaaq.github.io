@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="rgb(46, 44, 79)">
+  <meta name="description" content="文本换行">
+  <meta name="keywords" content="CSS">
+  <title>
+    文本换行
+  </title>
+  <link rel="stylesheet" href="/public/css/index.css">
+  <link rel="stylesheet" href="/public/css/markdown.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+  <script src="/public/JavaScript/index.js"></script>
+</head><header class="blog-header">
+  <a href="https://github.com/fwqaaq" target="_blank">
+    <img src="https://avatars.githubusercontent.com/u/82551626?v=4" loading="lazy" alt="me" srcset="">
+  </a>
+  <nav class="header-nav">
+    <a class="decoration-line" href="/"><i class="fa-solid fa-house-chimney fa-xs"></i>
+      <span class="disappear">Home</span>
+    </a>
+    <a class="decoration-line" href="/./about/index.html"><i class="fa-solid fa-address-card fa-xs"></i>
+      <span class="disappear">About</span></a>
+    <a class="decoration-line" href="/./archive/index.html"><i class="fa-solid fa-box-archive fa-xs"></i> <span
+        class="disappear">Archive</span></a>
+    <a class="decoration-line" href="/./tags/index.html"><i class="fa-solid fa-tag fa-xs"></i> <span
+        class="disappear">Tag</span></a>
+    <div class="toy"><i class="fa-solid fa-gamepad fa-xs"></i> <span class="disappear">Toy</span>
+      <nav class="toy-nav disappear">
+        <a class="decoration-line" href="/public/resume/">我的简历</a>
+        <a class="decoration-line" href="/public/write-css/index.html">学习 UI</a>
+      </nav>
+    </div>
+    <a class="decoration-line" href="/feed.xml"><i class="fa-solid fa-rss fa-xs"></i> <span
+        class="disappear">RSS</span></a>
+    <a class="decoration-line model" href="#" class="model"><i class="fa-solid fa-sun fa-xs"></i></a>
+  </nav>
+</header><main class="blog-main">
+          <article class="blog-article">
+            <h1>文本换行</h1>
+            <hr>
+            <blockquote>
+<p>今天发现 blog 的文章文字溢出，其实这种情况也不是一次两次了，所以就准备总结一下文本的换行问题。</p>
+</blockquote>
+<h2 id="文字换行">文字换行<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#文字换行"></a></h2>
+<p>不同的文字换行是不同的</p>
+<div class="markdown-alert markdown-alert-tip">
+<p class="markdown-alert-title"><svg class="octicon octicon-light-bulb mr-2" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="M8 1.5c-2.363 0-4 1.69-4 3.75 0 .984.424 1.625.984 2.304l.214.253c.223.264.47.556.673.848.284.411.537.896.621 1.49a.75.75 0 0 1-1.484.211c-.04-.282-.163-.547-.37-.847a8.456 8.456 0 0 0-.542-.68c-.084-.1-.173-.205-.268-.32C3.201 7.75 2.5 6.766 2.5 5.25 2.5 2.31 4.863 0 8 0s5.5 2.31 5.5 5.25c0 1.516-.701 2.5-1.328 3.259-.095.115-.184.22-.268.319-.207.245-.383.453-.541.681-.208.3-.33.565-.37.847a.751.751 0 0 1-1.485-.212c.084-.593.337-1.078.621-1.489.203-.292.45-.584.673-.848.075-.088.147-.173.213-.253.561-.679.985-1.32.985-2.304 0-2.06-1.637-3.75-4-3.75ZM5.75 12h4.5a.75.75 0 0 1 0 1.5h-4.5a.75.75 0 0 1 0-1.5ZM6 15.25a.75.75 0 0 1 .75-.75h2.5a.75.75 0 0 1 0 1.5h-2.5a.75.75 0 0 1-.75-.75Z"></path></svg>Tip</p>
+<p>如果是汉字，在没有标点的情况下，<span style="color: red;">任意的文字都是换行点</span>；如果有标点，有些标点不能出现在开头，有些标点不能显示在结尾</p>
+</div>
+<ul>
+<li><strong>避头标点</strong>：不能出现在开头的标点。例如：逗号、句号、问号、顿号、感叹号等</li>
+<li><strong>闭尾标点</strong>：不能放在尾部的标点。例如：上引号、上括号等</li>
+</ul>
+<blockquote>
+<p>英文字符只能在某些特定的中断字符那里才会触发换行</p>
+</blockquote>
+<ul>
+<li><strong>Space</strong>（空格）：unicode 值为 <code>U+0020</code></li>
+<li><code>google</code>、<code>safria</code>、<code>webview</code>：短横线（U+002D）<span style="color: red;">后面是字母或者数字，不能是标点</span>，英文问号（U+003F），各种前括号 <code>(</code>、<code>[</code>、<code>{</code></li>
+<li><code>firfox</code>：短横线（U+002D），<span style="color: red;">后面是字母，不能是数字</span>，斜杠（U+002F）</li>
+<li><code>Edge</code>：短横线（U+002D）<span style="color: red;">前后是字符个数大于 1 的字符单元</span>，连续百分号 <code>%</code></li>
+</ul>
+<h2 id="overflow-wrap"><a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/overflow-wrap">overflow-wrap</a><a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#overflow-wrap"></a></h2>
+<pre><code class="hl language-css"><span class="hl-attribute">overflow-wrap</span>: normal | break-word | anywhere;
+</code></pre>
+<ul>
+<li><strong>normal</strong>：默认值，只在允许的默认点点换行（<code>word-break</code>）</li>
+<li><strong>break-word</strong>：如果行内没有多余的地方容纳该单词到结尾，则那些正常的不能被分割的单词会被强制分割换行。</li>
+<li><strong>anywhere</strong>：允许在单词内换行。</li>
+</ul>
+<p><code>break-word</code> 和 <code>anywhere</code> 区别：如果是自适应的宽度，那们 <code>width: min-content</code> 的大小第一个会是最长单词的宽度，而 <code>anywhere</code> 将每个字母都会换行，宽度就是字母宽度。</p>
+<h2 id="word-break"><a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/word-break">word-break</a><a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#word-break"></a></h2>
+<pre><code class="hl language-css"><span class="hl-attribute">word-break</span>: normal | break-all | keep-all;
+</code></pre>
+<ul>
+<li><strong>normal</strong>：默认值，只在允许的默认点点换行（<code>overflow-wrap</code>）</li>
+<li><strong>break-all</strong>：对于 non-CJK 文本允许在单词内换行。</li>
+<li><strong>keep-all</strong>：CJK 文本不断行。Non-CJK 文本表现同 normal。</li>
+</ul>
+<h2 id="white-space"><a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/white-space">white-space</a><a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#white-space"></a></h2>
+<blockquote>
+<p>white-space 属性用于设置如何处理元素内的空白字符，这里的空白指的是 HTML 文件中的留白。</p>
+</blockquote>
+<pre><code class="hl language-css"><span class="hl-attribute">white-space</span>: normal | nowrap | pre | pre-wrap | pre-line | break-spaces;
+</code></pre>
+<ul>
+<li><strong>normal</strong>：默认值，空白会被浏览器忽略。</li>
+<li><strong>nowrap</strong>：文本不会换行，文本会在在同一行上继续，直到遇到 <code>&#x3C;br></code> 标签为止。</li>
+<li><strong>pre</strong>：空白会被浏览器保留。其行为方式类似 HTML 中的 <code>&#x3C;pre></code> 标签。</li>
+<li><strong>pre-wrap</strong>：保留空白符序列，但是正常地进行换行。</li>
+<li><strong>pre-line</strong>：合并空白符序列，但是保留换行符。</li>
+<li><strong>break-spaces</strong>：与 <code>pre-wrap</code> 类似，但是在遇到换行符或者 <code>&#x3C;br></code> 标签时会进行换行。</li>
+</ul>
+<h2 id="line-break"><a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/line-break">line-break</a><a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#line-break"></a></h2>
+<blockquote>
+<p>用来处理如何断开（break lines）带有标点符号的中文、日文或韩文（CJK）文本的行。</p>
+</blockquote>
+<h2 id="文字溢出">文字溢出<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#文字溢出"></a></h2>
+<blockquote>
+<p>web 默认的换行特性带来的连续英文宽度溢出问题</p>
+</blockquote>
+<ul>
+<li>由于默认特性会在 <code>-</code> 字符换行，只需要加上 <code>word-break: break-all</code> 就可以使单词断行，而不是 <code>-</code></li>
+</ul>
+<blockquote>
+<p><code>break-all</code> 断开了单词或者固定词组，因为小部分的场景的排版问题，牺牲了大多数场景的阅读体验</p>
+</blockquote>
+<ul>
+<li><strong>注意</strong>：<code>word-break: break-all</code> 无法使破折号换行
+<ul>
+<li>使用 <code>word-break: break-word</code> 使中文破折号换行（已弃用）。现在已使用 <code>overflow-wrap</code> 代替，<code>word-wrap</code> 现在用作 <code>overflow-wrap</code></li>
+<li><code>overflow-wrap</code> 仅会在无法将整个单词放在自己的行而不会移除的情况下才会产生中断</li>
+</ul>
+</li>
+</ul>
+<pre><code class="hl language-css"><span class="hl-comment">/* 字符换行 */</span>
+<span class="hl-attribute">word-break</span>: break-all;
+<span class="hl-comment">/* 破折号换行 */</span>
+<span class="hl-attribute">overflow-wrap</span>: break-word;
+</code></pre>
+<h2 id="hyphens"><a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/hyphens">hyphens</a><a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#hyphens"></a></h2>
+<blockquote>
+<p>在英文文字换行的时候自动添加连接符（<code>-</code>）</p>
+</blockquote>
+<pre><code class="hl language-css"><span class="hl-attribute">hyphens</span>: none | manual | auto;
+</code></pre>
+<ul>
+<li>两种连字符
+<ul>
+<li><strong>硬连字符</strong>：（U+2010），可见换行机会</li>
+<li><strong>软连字符</strong>：（U+00AD），不可见换行机会。<span style="color: red;">需要换行时候连字符才出现，不需要换行的时候连字符隐藏</span>
+<ul>
+<li>在 HTML 中使用 <code>&#x26;shy;</code> 表示软连字符。只适用于英文字符换行，不适用于 url 换行</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>&#x3C;wbr>&#x3C;/wbr>：表示有机会才换行</p>
+</blockquote>
+<ul>
+<li>原理：创建了一个 Unicode 编码为 <code>U+200B</code> 的 0 宽换行空格</li>
+</ul>
+<pre><code class="hl language-css">wbr<span class="hl-selector-pseudo">:after</span>{
+  <span class="hl-attribute">content</span>:<span class="hl-string">"\00200B"</span>;
+}
+</code></pre>
+<h2 id="总结">总结<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#总结"></a></h2>
+<ul>
+<li>动态内容：使用 <code>word-break: break-all</code> 以及 <code>overflow-wrap:break-all</code> 来进行换行</li>
+<li>静态内容：排版英文单词使用 <code>&#x26;shy</code>；软连字符优化排版；如果使非英文单词，使用 &#x3C;wbr> 标签优化排版</li>
+</ul>
+<ol>
+<li>中文都是换行点的情况（中文默认都是换行点），<code>word-break: keep-all</code> 中文不再换行</li>
+<li>避首避尾标点不是换行点，<code>line-break:anywhere</code> 首尾标点是换行点</li>
+<li>连续破折号不是换行点，<code>overflow-wrap:break-word</code></li>
+<li>空格是换行点，<code>white-space:nowrap</code> 空格不再换行。由于中文之后的换行点也是插入 <code>\n</code>，所以也可以改变中文不再换行</li>
+<li>英文单词不是换行点 <code>word-break:break-all</code></li>
+<li>部分引文标点不是换行点，<code>overflow-wrap:anywhere</code>：使部分英文标点成为换行点（如 <code>'</code>）</li>
+</ol>
+<p>参考：<a href="https://juejin.cn/post/7111880813230161933">https://juejin.cn/post/7111880813230161933</a></p>
+        </article></main><script src="https://giscus.app/client.js"
+        data-repo="fwqaaq/fwqaaq.github.io"
+        data-repo-id="R_kgDOHCFK2A"
+        data-category="Show and tell"
+        data-category-id="DIC_kwDOHCFK2M4CYOLh"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="1"
+        data-input-position="bottom"
+        data-theme="preferred_color_scheme"
+        data-lang="zh-CN"
+        crossorigin="anonymous"
+        async></script>

@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="rgb(46, 44, 79)">
+  <meta name="description" content="使用 Git 进行代码的版本控制">
+  <meta name="keywords" content="Git">
+  <title>
+    Git 回滚与撤销
+  </title>
+  <link rel="stylesheet" href="/public/css/index.css">
+  <link rel="stylesheet" href="/public/css/markdown.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+  <script src="/public/JavaScript/index.js"></script>
+</head><header class="blog-header">
+  <a href="https://github.com/fwqaaq" target="_blank">
+    <img src="https://avatars.githubusercontent.com/u/82551626?v=4" loading="lazy" alt="me" srcset="">
+  </a>
+  <nav class="header-nav">
+    <a class="decoration-line" href="/"><i class="fa-solid fa-house-chimney fa-xs"></i>
+      <span class="disappear">Home</span>
+    </a>
+    <a class="decoration-line" href="/./about/index.html"><i class="fa-solid fa-address-card fa-xs"></i>
+      <span class="disappear">About</span></a>
+    <a class="decoration-line" href="/./archive/index.html"><i class="fa-solid fa-box-archive fa-xs"></i> <span
+        class="disappear">Archive</span></a>
+    <a class="decoration-line" href="/./tags/index.html"><i class="fa-solid fa-tag fa-xs"></i> <span
+        class="disappear">Tag</span></a>
+    <div class="toy"><i class="fa-solid fa-gamepad fa-xs"></i> <span class="disappear">Toy</span>
+      <nav class="toy-nav disappear">
+        <a class="decoration-line" href="/public/resume/">我的简历</a>
+        <a class="decoration-line" href="/public/write-css/index.html">学习 UI</a>
+      </nav>
+    </div>
+    <a class="decoration-line" href="/feed.xml"><i class="fa-solid fa-rss fa-xs"></i> <span
+        class="disappear">RSS</span></a>
+    <a class="decoration-line model" href="#" class="model"><i class="fa-solid fa-sun fa-xs"></i></a>
+  </nav>
+</header><main class="blog-main">
+          <article class="blog-article">
+            <h1>Git 回滚与撤销</h1>
+            <hr>
+            <h2 id="撤销">撤销<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#撤销"></a></h2>
+<ol>
+<li>
+<p>存在工作目录。代码并没有提交到暂存区（没有进行<code>git add</code>操作）。在工作树中修改</p>
+<pre><code class="hl language-bash"><span class="hl-comment"># 需要撤销的文件</span>
+git checkout &#x3C;filname>
+</code></pre>
+</li>
+<li>
+<p>代码提交到暂存区（进行了 <code>git add</code>），但是想要撤销提交</p>
+<pre><code class="hl language-bash"><span class="hl-comment"># 需要从暂存区撤销的提交</span>
+git reset HEAD &#x3C;filename>
+</code></pre>
+</li>
+<li>
+<p>代码已经提交（<code>git commit</code>）</p>
+<ul>
+<li>已经进行多次提交，但是在最后一次修改后，不再产生新的提交</li>
+</ul>
+<pre><code class="hl language-bash"><span class="hl-comment"># 注释名为最后一次的</span>
+git commit --amend -m <span class="hl-string">"最后一次的注释"</span>
+</code></pre>
+</li>
+</ol>
+<blockquote>
+<p>在 <code>git 2.3</code> 版本之后可以使用 restore 来执行 1，2 的操作</p>
+</blockquote>
+<pre><code class="hl language-bash"><span class="hl-comment"># 撤销工作区文件修改， 不包括新建文件</span>
+git restore README.md <span class="hl-comment"># 一个文件</span>
+git restore README.md README2.md <span class="hl-comment"># 多个文件</span>
+git restore . <span class="hl-comment"># 当前全部文件</span>
+
+<span class="hl-comment"># 从暂存区回到工作区</span>
+git restore --staged README.md
+</code></pre>
+<blockquote>
+<p>如果想撤销到其中某次 commit</p>
+</blockquote>
+<ul>
+<li>这些操作分别是对<strong>工作目录</strong>、<strong>暂存区</strong>、<strong>当前 HEAD</strong> 的位置的改变</li>
+<li><code>git reset [--hard|soft|mixed|merge|keep] [commit|HEAD]</code>
+<ol>
+<li><code>--hard</code>：重设当前 <code>HEAD</code> 位置。并将之前 commit 以来的<strong>工作区目录</strong>和<strong>暂存区</strong>的改变都丢弃
+<ul>
+<li>彻底回退到某一个版本。本地所欲的源码也会变为上一个版本的内容</li>
+<li>例如 <code>git reset --hard HEAD~1</code>：将代码回退到前一次提交，并且将之前的所有改变丢弃</li>
+</ul>
+</li>
+<li><code>--soft</code>：只重设当前 <code>HEAD</code> 位置。所有更改的文件会回到<strong>工作区目录</strong>和<strong>暂存区</strong>
+<ul>
+<li><code>git status</code>可以查看回退的状态。只是回退了提交的信息，不会回退提交的内容。</li>
+</ul>
+</li>
+<li><code>--mixed</code>：重设当前 <code>HEAD</code> 位置和<strong>暂存区</strong>位置。但是不会重设<strong>工作区</strong>的内容
+<ul>
+<li><code>git status</code>：查看回退的状态。已经回退到初始状态（没有使用 <code>git add</code> 之前）</li>
+<li>例如 <code>git reset --mixed HEAD~1</code>：将代码回退到上一次提交。提交内容保留在工作区</li>
+</ul>
+</li>
+</ol>
+</li>
+</ul>
+<h2 id="回滚">回滚<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#回滚"></a></h2>
+<blockquote>
+<p>如果已经使用 <code>git push</code>，推送到远程仓库中。对已经提交到远程仓库的还原操作叫回滚</p>
+</blockquote>
+<ol>
+<li>撤销本地仓库的提交
+<ul>
+<li><code>revert</code>：放弃指定提交的修改，会生成一次新的提交，并且以前的历史记录都在
+<ul>
+<li>例如：<code>git revert HEAD~1</code>.将代码回滚到上一次的提交，但是不会销毁之前提交，并且生成一个新的提交</li>
+</ul>
+</li>
+<li><code>reset</code>：是指将 HEAD 指针指到指定提交，历史记录中不会出现放弃的提交记录（会销毁之前的提交）</li>
+</ul>
+</li>
+<li>对远程仓库的提交进行回滚（撤销远程仓库的提交）
+<ul>
+<li>需要强制将本地回退的代码推到远程仓库，进行回滚操作</li>
+<li><code>git push origin branch --force-with-lease</code></li>
+<li><code>--force-with-lease</code> 并不会像 <code>--force</code> 强制将代码覆盖
+<ul>
+<li>如果远端有其他人推送了新的提交，那么推送将被拒绝，并且和 <code>--force</code> 参数时的拒绝是一样的</li>
+<li>如果远端没有其他人推送，会直接进行强制推送（<strong>回滚</strong>）</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<blockquote>
+<p>如果没有其他人推送提交时</p>
+</blockquote>
+<pre><code class="hl language-bash">git reset --hard HEAD~1
+git push origin 本地分支 --force-with-lease
+</code></pre>
+<blockquote>
+<p>当遇到其他人推送新的提交时（产生冲突），需要使用 <code>git fetch</code></p>
+</blockquote>
+<ul>
+<li>在 <code>git fetch</code> 之后需要合并 fetch 下的分支。需要考虑使用 <code>rebase</code> 和 <code>merge</code> 情况
+<ul>
+<li><code>rebase</code> 会将分支合并到一个分支，不会保留被合并分支的提交记录。保证主分支的纯粹
+<ul>
+<li><img src="https://media.githubusercontent.com/media/fwqaaq/fwqaaq.github.io/dev/src/picture/rebase.png" alt=" "></li>
+</ul>
+</li>
+<li><code>merge</code>会将分支合并到一个分支，会保留被合并分支的提交记录
+<ul>
+<li><img src="https://media.githubusercontent.com/media/fwqaaq/fwqaaq.github.io/dev/src/picture/merge.png" alt=" "></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>在开发中尽量选择 rebase 合并分支，来保证主分支的清晰</li>
+<li>继续推送以达到回滚的效果</li>
+</ul>
+<h3 id="merge-和-rebase">merge 和 rebase<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#merge-和-rebase"></a></h3>
+<ul>
+<li><code>rebase</code>：下游分支更新上游分支内容的时候使用</li>
+<li><code>merge</code>：上游分支合并下游分支内容的时候使用</li>
+<li><code>git pull origin dev --rebase</code> 更新当前分支的内容时一定要使用 <code>--rebase</code> 参数</li>
+</ul>
+<div class="markdown-alert markdown-alert-warning">
+<p class="markdown-alert-title"><svg class="octicon octicon-alert mr-2" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="M6.457 1.047c.659-1.234 2.427-1.234 3.086 0l6.082 11.378A1.75 1.75 0 0 1 14.082 15H1.918a1.75 1.75 0 0 1-1.543-2.575Zm1.763.707a.25.25 0 0 0-.44 0L1.698 13.132a.25.25 0 0 0 .22.368h12.164a.25.25 0 0 0 .22-.368Zm.53 3.996v2.5a.75.75 0 0 1-1.5 0v-2.5a.75.75 0 0 1 1.5 0ZM9 11a1 1 0 1 1-2 0 1 1 0 0 1 2 0Z"></path></svg>Warning</p>
+<p>例如现有上游分支 <code>master</code>，基于 <code>master</code> 分支拉出来一个开发分支 <code>dev</code>，在 <code>dev</code> 上开发了一段时间后要把 <code>master</code> 分支提交的新内容更新到 <code>dev</code> 分支</p>
+<p>此时切换到 <code>dev</code> 分支，使用 <code>git rebase master</code> 等 <code>dev</code> 分支开发完成了之后，要合并到上游分支 <code>master</code> 上的时候，切换到 <code>master</code> 分支，使用 <code>git merge dev</code></p>
+</div>
+<h3 id="撤销回退">撤销回退<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#撤销回退"></a></h3>
+<p><img src="https://media.githubusercontent.com/media/fwqaaq/fwqaaq.github.io/dev/src/picture/resetback.png" alt=" "></p>
+<blockquote>
+<p>如果在回退的时候回退过了怎么办</p>
+</blockquote>
+<ol>
+<li>
+<p>使用 <code>git reflog</code> 找到当前的提交记录的 <code>commit</code> 值（hash 值）</p>
+<pre><code class="hl language-bash">bf75e3e (HEAD -> dev, upstream/master, origin/test, origin/master, origin/dev, origin/HEAD) HEAD@{0}: reset: moving to HEAD~1
+e87c01a HEAD@{1}: reset: moving to HEAD~4
+</code></pre>
+</li>
+<li>
+<p><code>git checkout bf75e3e</code>。检出需要撤销到某一版本的提交</p>
+</li>
+<li>
+<p><code>git checkout -b mer</code> 为需要找回的版本创建新分支</p>
+</li>
+<li>
+<p><code>git branch dev</code> &#x26;&#x26; <code>git rebase mer</code> 切换分支并且合并分支</p>
+</li>
+<li>
+<p><code>git push origin dev --force-with-lease</code>：强制推送到远程仓库，完成撤销的回退</p>
+</li>
+</ol>
+<h2 id="修改提交的历史记录">修改提交的历史记录<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#修改提交的历史记录"></a></h2>
+<blockquote>
+<p>git 提供了针对一系列修改历史记录的操作</p>
+</blockquote>
+<pre><code class="hl language-bash"><span class="hl-comment"># Commands:</span>
+<span class="hl-comment">#  p, pick = use commit</span>
+<span class="hl-comment">#  r, reword = use commit, but edit the commit message</span>
+<span class="hl-comment">#  e, edit = use commit, but stop for amending</span>
+<span class="hl-comment">#  s, squash = use commit, but meld into previous commit</span>
+<span class="hl-comment">#  f, fixup = like "squash", but discard this commit's log message</span>
+<span class="hl-comment">#  x, exec = run command (the rest of the line) using shell</span>
+<span class="hl-comment">#  d, drop = remove commit</span>
+</code></pre>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>操作</th><th>信息</th></tr></thead><tbody><tr><td>pick</td><td>使用此提交，保持原样。</td></tr><tr><td>reword</td><td>使用此提交，但编辑提交消息。</td></tr><tr><td>edit</td><td>使用此提交，但停下来让你编辑文件或进行其他操作。</td></tr><tr><td>squash</td><td>将此提交合并到前一个提交中，并将提交消息合并为一条。</td></tr><tr><td>fixup</td><td>类似于 squash，但忽略此提交的提交消息。</td></tr><tr><td>exec</td><td>运行一个命令，将 rest of the line 作为命令参数。</td></tr><tr><td>drop</td><td>删除此提交，从历史记录中完全删除。</td></tr><tr><td>break</td><td>在这里停止（稍后使用 git rebase --continue 继续重新设置基准）</td></tr><tr><td>label &#x3C;label></td><td>为当前提交添加一个标签。</td></tr><tr><td>reset &#x3C;label></td><td>将 HEAD 重置为标签所指向的提交</td></tr></tbody></table>
+<h3 id="压缩提交squash-commits">压缩提交（squash commits）<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#压缩提交squash-commits"></a></h3>
+<blockquote>
+<p><code>squash commits</code> 指将多个提交合并成一个提交。<code>git rebase</code> 进入交互模式（<code>-i</code>），常用的命令</p>
+</blockquote>
+<pre><code class="hl language-bash">git rebase --interactive | -i HEAD~[N]
+<span class="hl-comment"># Or</span>
+git rebase --interactive | -i commit_hash_start commit_hash_end
+</code></pre>
+<blockquote>
+<p>使用 <code>commit_hash</code> 进行提交压缩</p>
+</blockquote>
+<ul>
+<li>注意：需要去取合并的提交记录的前一次，例如从 commit2，commit3，commit4，commit5，commit6 有五次提交记录，我们需要合并 commit3，commit4，commit5，commit6 那么开始的提交 id 应该是 commit2 的 hash</li>
+</ul>
+<ol>
+<li>
+<p>需要回退的范围</p>
+<pre><code class="hl language-bash">git rebase -i 
+<span class="hl-comment"># 将除了最新的提交的 pick 都改成 squash(s)</span>
+pick 4646e9c fw3
+pick a0868c5 fw4
+pick 911da7f fw5
+pick 5c2e562 fw6
+
+<span class="hl-comment"># Rebase 4073aa6..5c2e562 onto 4073aa6 (4 commands)</span>
+<span class="hl-comment">#</span>
+<span class="hl-comment"># Commands:</span>
+
+>>>>>>>>>>>>>>>>
+pick 4646e9c fw3
+s a0868c5 fw4
+s 911da7f fw5
+s 5c2e562 fw6
+</code></pre>
+</li>
+<li>
+<p>显示所有的提交信息，有需要的可以更改，如果是使用的 squash，这些信息会合并到上一个信息中</p>
+<pre><code class="hl language-bash"><span class="hl-comment"># This is the 1st commit message:</span>
+
+fw3
+
+<span class="hl-comment"># This is the commit message #2:</span>
+
+fw4
+
+<span class="hl-comment"># This is the commit message #3:</span>
+
+fw5
+
+<span class="hl-comment"># This is the commit message #4:</span>
+
+fw6
+</code></pre>
+</li>
+<li>
+<p>压缩这些提交信息</p>
+<ul>
+<li><code>((d466032...))</code>，这时候会进入到一个检出的提交中，这时候需要合并到主分支</li>
+</ul>
+<pre><code class="hl language-bash">git checkout -b dev
+git checkout main
+git rebase dev
+git branch -D dev
+</code></pre>
+</li>
+</ol>
+<p><img src="https://media.githubusercontent.com/media/fwqaaq/fwqaaq.github.io/dev/src/picture/squashcommit.png" alt=" "></p>
+<blockquote>
+<p>指定压缩的次数 如 <code>HEAD~3</code>(压缩前三次提交信息)</p>
+</blockquote>
+<pre><code class="hl language-bash">git rebase -i HEAD~3
+<span class="hl-comment"># 与压缩提交类似，这里需要改正 edit 或者 e</span>
+</code></pre>
+<ul>
+<li>注意：这时候 <code>HEAD指针</code> 并不会进入游离态</li>
+</ul>
+<h3 id="修改提交信息">修改提交信息<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#修改提交信息"></a></h3>
+<blockquote>
+<p>修改最后一次提交信息</p>
+</blockquote>
+<pre><code class="hl language-bash"><span class="hl-comment"># 仅修改提交信息</span>
+git commit --amend --message=<span class="hl-string">"modify message"</span>
+<span class="hl-comment"># 修改提交信息并提交</span>
+git commit -m --amend <span class="hl-string">"modify and commit"</span>
+</code></pre>
+<blockquote>
+<p>修改其中的某次提交信息</p>
+</blockquote>
+<h2 id="stash">stash<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#stash"></a></h2>
+<blockquote>
+<p><code>git stash</code> 将工作副本暂时搁置到到一个栈（提交越迟，越早弹出，即索引越小）中，以便切换分支处理其他内容</p>
+</blockquote>
+<ul>
+<li>
+<p><code>git stash</code>：如果当前分支中的内容处于已暂存的状态（<code>git add .</code>）</p>
+<ul>
+<li><code>git stash -u</code>：如果当前分支未暂存，则需要添加 <code>--include-untracked</code></li>
+<li>**注意：**一些基础配置文件不能暂存，需要立刻提交，如 <code>.gitignore</code> 等</li>
+</ul>
+<pre><code class="hl language-txt">*.js
+</code></pre>
+<ul>
+<li>如果此时 <code>.gitignore</code> 没有提交，这时候忽略 <code>.js</code> 结尾的文件并不会起作用，<code>.js</code> 结尾的文件会和 <code>.gitignore</code> 一起被搁置到<strong>栈</strong>中（但是此时切换分支忽略文件依然会被切换到另一个分支）</li>
+</ul>
+</li>
+<li>
+<p><code>git stash save "message"</code>:如果需要搁置多个内容到栈中，则可以使用 <code>message</code> 来命名</p>
+<ul>
+<li>同样，如果没有暂存则需要使用 <code>git stash save "message" -u</code></li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>重新应用搁置栈中的工作副本</p>
+</blockquote>
+<ol>
+<li>
+<p><code>git stash apply stash@{index}</code>:重新应用搁置栈中的工作副本，但是不会删除当前栈中暂存的状态</p>
+<ul>
+<li><code>git stash drop stash@{index}</code>:删除某个栈中的工工作副本，需要使用索引</li>
+</ul>
+<pre><code class="hl language-bash">git stash drop stash@{0}
+</code></pre>
+</li>
+<li>
+<p><code>git stash pop</code>:弹出最后一次提交到栈中的工作副本，并且同时删除栈中的工作副本</p>
+<ul>
+<li>或者直接指定需要应用的版本，与<code>apply</code>相同</li>
+</ul>
+<pre><code class="hl language-bash"><span class="hl-comment"># index 指索引号，索引越小，离栈顶越近</span>
+ git stash ( pop | apply ) --index index
+<span class="hl-comment"># 或者直接使用 stash@{index}</span>
+ git stash ( pop | apply ) stash@{index}
+</code></pre>
+</li>
+</ol>
+<blockquote>
+<p>清理栈中的内容</p>
+</blockquote>
+<ol>
+<li><code>git stash clear</code>:将栈中的所有内容清理</li>
+<li><code>git stash drop</code>:清理指定版本</li>
+</ol>
+<blockquote>
+<p>查看存储差异 (需要暂存之后才可以比较：<code>git add .</code>)</p>
+</blockquote>
+<ol>
+<li><code>git stash show</code>:查看存储的摘要</li>
+<li><code>git stash show -p</code>:查看存储的完整差异 (-p=--patch)</li>
+</ol>
+<blockquote>
+<p>从 stash 中创建分支</p>
+</blockquote>
+<pre><code class="hl language-bash">git stash branch &#x3C;name> stash@{1}
+</code></pre>
+<ul>
+<li>在此分支的基础上：创建一个叫做 &#x3C;name> 的分支，同时删除 <code>stash{1}</code> 的存储。此时指针不会指向原来分支，而是会指向 &#x3C;name> 分支</li>
+<li>如果在最新版本中遇到冲突时，这将会很有用
+<ul>
+<li>例如你搁置了该文件的更改到栈中，但是之后并没有理会，继续在该文件中做更改，这是就可以使用此方法</li>
+</ul>
+</li>
+</ul>
+        </article></main><script src="https://giscus.app/client.js"
+        data-repo="fwqaaq/fwqaaq.github.io"
+        data-repo-id="R_kgDOHCFK2A"
+        data-category="Show and tell"
+        data-category-id="DIC_kwDOHCFK2M4CYOLh"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="1"
+        data-input-position="bottom"
+        data-theme="preferred_color_scheme"
+        data-lang="zh-CN"
+        crossorigin="anonymous"
+        async></script>

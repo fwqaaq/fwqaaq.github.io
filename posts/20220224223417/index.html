@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="rgb(46, 44, 79)">
+  <meta name="description" content="JavaScript 中的函数柯里化、偏函数以及惰性函数">
+  <meta name="keywords" content="JavaScript, TypeScript">
+  <title>
+    函数柯里化、偏函数以及惰性函数
+  </title>
+  <link rel="stylesheet" href="/public/css/index.css">
+  <link rel="stylesheet" href="/public/css/markdown.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+  <script src="/public/JavaScript/index.js"></script>
+</head><header class="blog-header">
+  <a href="https://github.com/fwqaaq" target="_blank">
+    <img src="https://avatars.githubusercontent.com/u/82551626?v=4" loading="lazy" alt="me" srcset="">
+  </a>
+  <nav class="header-nav">
+    <a class="decoration-line" href="/"><i class="fa-solid fa-house-chimney fa-xs"></i>
+      <span class="disappear">Home</span>
+    </a>
+    <a class="decoration-line" href="/./about/index.html"><i class="fa-solid fa-address-card fa-xs"></i>
+      <span class="disappear">About</span></a>
+    <a class="decoration-line" href="/./archive/index.html"><i class="fa-solid fa-box-archive fa-xs"></i> <span
+        class="disappear">Archive</span></a>
+    <a class="decoration-line" href="/./tags/index.html"><i class="fa-solid fa-tag fa-xs"></i> <span
+        class="disappear">Tag</span></a>
+    <div class="toy"><i class="fa-solid fa-gamepad fa-xs"></i> <span class="disappear">Toy</span>
+      <nav class="toy-nav disappear">
+        <a class="decoration-line" href="/public/resume/">我的简历</a>
+        <a class="decoration-line" href="/public/write-css/index.html">学习 UI</a>
+      </nav>
+    </div>
+    <a class="decoration-line" href="/feed.xml"><i class="fa-solid fa-rss fa-xs"></i> <span
+        class="disappear">RSS</span></a>
+    <a class="decoration-line model" href="#" class="model"><i class="fa-solid fa-sun fa-xs"></i></a>
+  </nav>
+</header><main class="blog-main">
+          <article class="blog-article">
+            <h1>函数柯里化、偏函数以及惰性函数</h1>
+            <hr>
+            <h2 id="柯里化">柯里化<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#柯里化"></a></h2>
+<div class="markdown-alert markdown-alert-note">
+<p class="markdown-alert-title"><svg class="octicon octicon-info mr-2" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8Zm8-6.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13ZM6.5 7.75A.75.75 0 0 1 7.25 7h1a.75.75 0 0 1 .75.75v2.75h.25a.75.75 0 0 1 0 1.5h-2a.75.75 0 0 1 0-1.5h.25v-2h-.25a.75.75 0 0 1-.75-.75ZM8 6a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"></path></svg>Note</p>
+<p>什么是函数柯里化？</p>
+<p>在计算机中，柯里化是将使用多个参数的一个函数转换成一些列使用一个参数的函数</p>
+</div>
+<ul>
+<li>例如：</li>
+</ul>
+<pre><code class="hl language-ts"><span class="hl-keyword">function</span> <span class="hl-title function_">add</span>(<span class="hl-params">a: <span class="hl-built_in">number</span>, b: <span class="hl-built_in">number</span></span>) {
+  <span class="hl-keyword">return</span> a + b;
+}
+<span class="hl-comment">//执行 add 函数，依次传入两个参数</span>
+<span class="hl-title function_">add</span>(<span class="hl-number">1</span>, <span class="hl-number">2</span>);
+
+<span class="hl-comment">//如果有一个 carry 函数，可以做到柯里化</span>
+<span class="hl-keyword">let</span> addCurry = <span class="hl-title function_">curry</span>(add);
+<span class="hl-title function_">addCurry</span>(<span class="hl-number">1</span>)(<span class="hl-number">2</span>);
+</code></pre>
+<blockquote>
+<p>柯里化的用途可以理解为参数复用，本质上是降低通用性，提高适用性</p>
+</blockquote>
+<ul>
+<li>例如有一段这样的数据</li>
+</ul>
+<pre><code class="hl language-ts"><span class="hl-keyword">const</span> person = [{ <span class="hl-attr">name</span>: <span class="hl-string">"zhangsan"</span> }, { <span class="hl-attr">name</span>: <span class="hl-string">"lisi"</span> }];
+</code></pre>
+<ol>
+<li>
+<p>使用 map 函数</p>
+<pre><code class="hl language-ts"><span class="hl-keyword">let</span> names = person.<span class="hl-title function_">map</span>(<span class="hl-keyword">function</span> (<span class="hl-params">item</span>) {
+  <span class="hl-keyword">return</span> item.<span class="hl-property">name</span>;
+});
+</code></pre>
+</li>
+<li>
+<p>如果对象中有多个属性，那就要写多个 map 才行</p>
+<pre><code class="hl language-ts"><span class="hl-keyword">let</span> prop = <span class="hl-title function_">curry</span>(<span class="hl-function">(<span class="hl-params">key, obj</span>) =></span> {
+  obj[key];
+});
+<span class="hl-keyword">let</span> name = person.<span class="hl-title function_">map</span>(<span class="hl-title function_">prop</span>(<span class="hl-string">"name"</span>));
+</code></pre>
+</li>
+</ol>
+<ul>
+<li>这样就体现出柯里化的重要性</li>
+</ul>
+<pre><code class="hl language-ts"><span class="hl-keyword">function</span> curry&#x3C;T>(<span class="hl-attr">fn</span>: <span class="hl-title class_">Function</span>): <span class="hl-title class_">Function</span> {
+  <span class="hl-keyword">return</span> <span class="hl-keyword">function</span> (<span class="hl-params">...args: T[]</span>) {
+    <span class="hl-keyword">if</span> (args.<span class="hl-property">length</span> &#x3C; fn.<span class="hl-property">length</span>) {
+      <span class="hl-keyword">return</span> <span class="hl-title function_">curry</span>(fn.<span class="hl-title function_">bind</span>(<span class="hl-variable language_">this</span>, ...args));
+    } <span class="hl-keyword">else</span> {
+      <span class="hl-keyword">return</span> <span class="hl-title function_">fn</span>(...args);
+    }
+  };
+}
+
+<span class="hl-keyword">function</span> <span class="hl-title function_">add</span>(<span class="hl-params">a: <span class="hl-built_in">number</span>, b: <span class="hl-built_in">number</span>, c: <span class="hl-built_in">number</span></span>) {
+  <span class="hl-keyword">return</span> a + b + c;
+}
+
+<span class="hl-keyword">let</span> curryAdd = <span class="hl-title function_">curry</span>(add);
+<span class="hl-variable language_">console</span>.<span class="hl-title function_">log</span>(<span class="hl-title function_">curryAdd</span>(<span class="hl-number">1</span>, <span class="hl-number">3</span>)(<span class="hl-number">3</span>));
+</code></pre>
+<ul>
+<li><code>fn.length</code>就是被柯里化函数的</li>
+<li><code>...args</code>是被柯里化函数的返回值 (curryAdd) 传入的个数。理想状态是只传一个</li>
+<li><code>curryAdd</code>本质上来讲就是 curry 函数的返回值，只有 curryAdd 有实参，args 才会有值</li>
+</ul>
+<ol>
+<li>
+<p>执行<code>let curryAdd = curry(add)</code>,返回一个闭包</p>
+<pre><code class="hl language-ts"><span class="hl-keyword">function</span> (<span class="hl-params">...args: T[]</span>) {
+    <span class="hl-keyword">if</span> (args.<span class="hl-property">length</span> &#x3C; fn.<span class="hl-property">length</span>) {
+      <span class="hl-keyword">return</span> <span class="hl-title function_">curry</span>(fn.<span class="hl-title function_">bind</span>(<span class="hl-literal">null</span>, ...args))
+    } <span class="hl-keyword">else</span> {
+      <span class="hl-keyword">return</span> <span class="hl-title function_">fn</span>(...args)
+    }
+  }
+</code></pre>
+</li>
+<li>
+<p>执行<code>curryAdd(1,3)</code>当前的<code>fn.length</code>就是 add 形参的数量 3 大于实参的数量 2</p>
+<ul>
+<li>同样返回了和 1 一样的一个闭包，但是 fn 发生了改变，传入的是<code>fn.bind(null, ...args)</code></li>
+<li>执行一个递归，由于 bind 函数是柯里化的，这里的<code>fn.length</code>在结束的时候就变成了 1</li>
+</ul>
+</li>
+<li>
+<p>执行<code>[curryAdd(1,3)](3)</code>当前的<code>fn.length</code>由于是会执行 else 的内容</p>
+<ul>
+<li><code>add.bind(this, 1 , 3)(3)</code>:这样就利用 bind 完成了一个柯里化的过程</li>
+</ul>
+</li>
+</ol>
+<pre><code class="hl language-ts"><span class="hl-keyword">type</span> <span class="hl-title class_">IPerson</span> = {
+  <span class="hl-attr">name</span>: <span class="hl-built_in">string</span>;
+  <span class="hl-attr">age</span>: <span class="hl-built_in">number</span>;
+};
+
+<span class="hl-keyword">const</span> <span class="hl-attr">person</span>: <span class="hl-title class_">IPerson</span>[] = [
+  { <span class="hl-attr">name</span>: <span class="hl-string">"zhangsan"</span>, <span class="hl-attr">age</span>: <span class="hl-number">12</span> },
+  { <span class="hl-attr">name</span>: <span class="hl-string">"lisi"</span>, <span class="hl-attr">age</span>: <span class="hl-number">100</span> },
+];
+
+<span class="hl-keyword">let</span> prop = <span class="hl-title function_">curry</span>(<span class="hl-function">(<span class="hl-params">key: keyof IPerson, obj: IPerson</span>) =></span> {
+  <span class="hl-keyword">return</span> obj[key];
+});
+
+<span class="hl-variable language_">console</span>.<span class="hl-title function_">log</span>(person.<span class="hl-title function_">map</span>(<span class="hl-title function_">prop</span>(<span class="hl-string">"name"</span>)));
+</code></pre>
+<h2 id="偏函数-partial-function">偏函数 (Partial Function)<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#偏函数-partial-function"></a></h2>
+<blockquote>
+<p>在计算机科学中，偏函数是指固定一个函数的一些参数，然后产生另一个更小元的函数。</p>
+<p>什么是元？元是指函数参数的个数，比如一个带有两个参数的函数被称为二元函数。</p>
+</blockquote>
+<pre><code class="hl language-ts"><span class="hl-keyword">function</span> <span class="hl-title function_">add</span>(<span class="hl-params">a, b</span>) {
+  <span class="hl-keyword">return</span> a + b;
+}
+
+<span class="hl-comment">// 执行 add 函数，一次传入两个参数即可</span>
+<span class="hl-title function_">add</span>(<span class="hl-number">1</span>, <span class="hl-number">2</span>); <span class="hl-comment">// 3</span>
+
+<span class="hl-comment">// 假设有一个 partial 函数可以做到局部应用</span>
+<span class="hl-keyword">const</span> addOne = <span class="hl-title function_">partial</span>(add, <span class="hl-number">1</span>);
+
+<span class="hl-title function_">addOne</span>(<span class="hl-number">2</span>); <span class="hl-comment">// 3</span>
+</code></pre>
+<blockquote>
+<p>和函数柯里化的区别</p>
+</blockquote>
+<ol>
+<li>柯里化是将一个多参数函数转换成多个单参数函数，也就是将一个 n 元函数转换成 n 个一元函数</li>
+<li>偏函数则是固定一个函数的一个或者多个参数，也就是将一个 n 元函数转换成一个 n-x 元函数</li>
+</ol>
+<ul>
+<li>柯里化和偏函数的关系：<strong>柯里化通过偏函数来实现</strong></li>
+</ul>
+<blockquote>
+<p>当然也可以使用<code>bind</code>函数来实现偏函数</p>
+</blockquote>
+<pre><code class="hl language-ts"><span class="hl-keyword">function</span> <span class="hl-title function_">test</span>(<span class="hl-params">a: <span class="hl-built_in">number</span>, b: <span class="hl-built_in">number</span>, c: <span class="hl-built_in">number</span></span>) {
+  <span class="hl-keyword">return</span> a + b + c;
+}
+
+<span class="hl-keyword">let</span> bindOne = test.<span class="hl-title function_">bind</span>(<span class="hl-literal">null</span>, <span class="hl-number">1</span>);
+<span class="hl-variable language_">console</span>.<span class="hl-title function_">log</span>(<span class="hl-title function_">bindOne</span>(<span class="hl-number">2</span>, <span class="hl-number">3</span>));
+</code></pre>
+<ul>
+<li>但是这会直接改变 this 的指向</li>
+</ul>
+<blockquote>
+<p>手动实现</p>
+</blockquote>
+<pre><code class="hl language-ts"><span class="hl-keyword">function</span> <span class="hl-title function_">partical</span>(<span class="hl-params">fn: <span class="hl-built_in">Function</span>, ...args: <span class="hl-built_in">any</span>[]</span>): <span class="hl-title class_">Function</span> {
+  <span class="hl-keyword">return</span> <span class="hl-keyword">function</span> (<span class="hl-params">...moreArgs: <span class="hl-built_in">any</span>[]</span>) {
+    <span class="hl-keyword">return</span> <span class="hl-title function_">fn</span>(...args, ...moreArgs);
+  };
+}
+</code></pre>
+<h2 id="惰性函数">惰性函数<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#惰性函数"></a></h2>
+<blockquote>
+<p>惰性函数就是说函数执行一次后，之后调用函数都是相同的作用，直接返回第一次执行函数。很多时候只需要执行一次，因为之后每次调用函数执行的结果都一样。所以如果函数语句不必每次执行，我们可以使用称之为惰性函数的技巧来进行优化。</p>
+</blockquote>
+<ul>
+<li>如果我们现在需要写一个 foo 函数，这个函数返回首次调用时的 Date
+对象，注意是首次</li>
+</ul>
+<ol>
+<li>
+<p>闭包的写法</p>
+<pre><code class="hl language-ts"><span class="hl-keyword">let</span> <span class="hl-attr">foo</span>: <span class="hl-function">() =></span> <span class="hl-title class_">Function</span> = <span class="hl-keyword">function</span> (<span class="hl-params"></span>) {
+  <span class="hl-keyword">let</span> <span class="hl-attr">time</span>: <span class="hl-title class_">Date</span> = <span class="hl-keyword">new</span> <span class="hl-title class_">Date</span>();
+  <span class="hl-keyword">return</span> <span class="hl-keyword">function</span> (<span class="hl-params"></span>) {
+    <span class="hl-keyword">if</span> (time) time;
+    <span class="hl-keyword">return</span> time;
+  };
+};
+</code></pre>
+</li>
+<li>
+<p>惰性函数：惰性函数就是解决每次都要进行判断的这个问题，解决原理很简单，重写函数</p>
+<pre><code class="hl language-ts"><span class="hl-keyword">let</span> <span class="hl-attr">foo</span>: <span class="hl-function">() =></span> <span class="hl-title class_">Function</span> | <span class="hl-title class_">Date</span> = <span class="hl-keyword">function</span> (<span class="hl-params"></span>) {
+  <span class="hl-keyword">let</span> <span class="hl-attr">time</span>: <span class="hl-title class_">Date</span> = <span class="hl-keyword">new</span> <span class="hl-title class_">Date</span>();
+  foo = <span class="hl-keyword">function</span> (<span class="hl-params"></span>) {
+    <span class="hl-keyword">return</span> time;
+  };
+  <span class="hl-keyword">return</span> <span class="hl-title function_">foo</span>();
+};
+</code></pre>
+</li>
+</ol>
+<h3 id="惰性求值-lazy-evaluation">惰性求值 (Lazy evaluation)<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#惰性求值-lazy-evaluation"></a></h3>
+<blockquote>
+<p>按需求值机制，只有当需要计算所得值时才会计算</p>
+</blockquote>
+<ul>
+<li>利用生成器机制可以很容易写出</li>
+</ul>
+<pre><code class="hl language-ts"><span class="hl-keyword">const</span> rand = <span class="hl-keyword">function</span>* () {
+  <span class="hl-keyword">while</span> (<span class="hl-literal">true</span>) {
+    <span class="hl-keyword">yield</span> <span class="hl-title class_">Math</span>.<span class="hl-title function_">random</span>();
+  }
+};
+
+<span class="hl-keyword">const</span> randIter = <span class="hl-title function_">rand</span>();
+randIter.<span class="hl-title function_">next</span>();
+</code></pre>
+<h2 id="纯函数-purity">纯函数 (Purity)<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#纯函数-purity"></a></h2>
+<ol>
+<li>应始终返回相同的值。不管调用该函数多少次，或者什么时候调用都是一样的</li>
+<li>自包含 (不包含全局变量)</li>
+<li>不应修改程序的状态或引起副作用 (修改全局变量)</li>
+</ol>
+<pre><code class="hl language-ts"><span class="hl-comment">//纯函数</span>
+<span class="hl-keyword">const</span> <span class="hl-title function_">greet</span> = (<span class="hl-params">name: <span class="hl-built_in">string</span></span>) => <span class="hl-string">`hello, <span class="hl-subst">${name}</span>`</span>;
+<span class="hl-title function_">greet</span>(<span class="hl-string">"world"</span>);
+
+<span class="hl-comment">//不是纯函数，修改了外部的状态</span>
+<span class="hl-keyword">let</span> <span class="hl-attr">greeting</span>: <span class="hl-built_in">string</span>;
+<span class="hl-keyword">const</span> <span class="hl-title function_">greet</span> = (<span class="hl-params">name: <span class="hl-built_in">string</span></span>) => {
+  greeting = <span class="hl-string">`hello, <span class="hl-subst">${name}</span>`</span>;
+};
+<span class="hl-title function_">greet</span>(<span class="hl-string">"world"</span>);
+</code></pre>
+<blockquote>
+<p>副作用 (Side effects):如果函数与外部可变状态进行交互，则它就是具有副作用的</p>
+</blockquote>
+<pre><code class="hl language-ts"><span class="hl-comment">//Date 对象就是一个很常见的具有副作用的函数</span>
+<span class="hl-keyword">const</span> differentEveryTime = <span class="hl-keyword">new</span> <span class="hl-title class_">Date</span>();
+</code></pre>
+<h2 id="幂等性">幂等性<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#幂等性"></a></h2>
+<blockquote>
+<p>幂等性和纯函数还是有很大区别的，甚至说可以说是毫无无关系</p>
+</blockquote>
+<ol>
+<li>幂等性函数可以具有副作用</li>
+<li>函数执行多次返回相同的结果 (<code>f(f(x))=f(x)</code>),则此函数具有幂等性</li>
+</ol>
+<pre><code class="hl language-ts"><span class="hl-title class_">Math</span>.<span class="hl-title function_">abs</span>(<span class="hl-title class_">Math</span>.<span class="hl-title function_">abs</span>(-<span class="hl-number">10</span>));
+</code></pre>
+<h2 id="函数组合-function-composing">函数组合 (Function Composing)<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#函数组合-function-composing"></a></h2>
+<blockquote>
+<p>接收多个函数作为参数，从右到左，一个函数的输入为以一个函数的输出</p>
+</blockquote>
+<pre><code class="hl language-ts"><span class="hl-keyword">const</span> compose =
+  (<span class="hl-attr">f</span>: <span class="hl-title class_">Function</span>, <span class="hl-attr">g</span>: <span class="hl-title class_">Function</span>): <span class="hl-function"><span class="hl-params">Function</span> =></span> (<span class="hl-attr">a</span>: <span class="hl-title class_">Function</span>): <span class="hl-function"><span class="hl-params">Function</span> =></span> <span class="hl-title function_">f</span>(<span class="hl-title function_">g</span>(a));
+</code></pre>
+<ul>
+<li>做一个反转函数，并且获取第一个索引的例子</li>
+</ul>
+<pre><code class="hl language-ts"><span class="hl-comment">//不能确定返回索引的类型，可以使用泛型，这里就用 any 了</span>
+<span class="hl-keyword">function</span> first&#x3C;T>(<span class="hl-attr">arr</span>: T[]): <span class="hl-built_in">any</span> {
+  <span class="hl-keyword">return</span> arr[<span class="hl-number">0</span>];
+}
+<span class="hl-keyword">function</span> reverse&#x3C;T>(<span class="hl-attr">arr</span>: T[]): T[] {
+  <span class="hl-keyword">return</span> arr.<span class="hl-title function_">reverse</span>();
+}
+<span class="hl-keyword">let</span> last = <span class="hl-title function_">compose</span>(first, reverse);
+<span class="hl-variable language_">console</span>.<span class="hl-title function_">log</span>(<span class="hl-title function_">last</span>([<span class="hl-number">1</span>, <span class="hl-number">2</span>, <span class="hl-number">3</span>, <span class="hl-number">4</span>, <span class="hl-number">5</span>]));
+</code></pre>
+<blockquote>
+<p>当然 redux 给出了一个更好的实现 (将函数的个数情况也考虑周全了)</p>
+</blockquote>
+<ul>
+<li>其实还有一个问题就是在闭包中写泛型其实是没有检查的效果</li>
+</ul>
+<pre><code class="hl language-ts"><span class="hl-keyword">function</span> <span class="hl-title function_">compose</span>(<span class="hl-params">...fns: <span class="hl-built_in">Function</span>[]</span>) {
+  <span class="hl-keyword">if</span> (fns.<span class="hl-property">length</span> === <span class="hl-number">0</span>) {
+    <span class="hl-keyword">return</span> <span class="hl-function">(<span class="hl-params">arg: <span class="hl-built_in">Function</span></span>) =></span> arg;
+  }
+  <span class="hl-keyword">if</span> (fns.<span class="hl-property">length</span> === <span class="hl-number">1</span>) {
+    <span class="hl-keyword">return</span> fns[<span class="hl-number">0</span>];
+  }
+  <span class="hl-keyword">return</span> fns.<span class="hl-title function_">reduce</span>(
+    <span class="hl-function">(<span class="hl-params">a, b</span>) =></span>
+    <span class="hl-comment">//Writing a type here won't do any good</span>
+    &#x3C;T>(...<span class="hl-attr">args</span>: T[]): <span class="hl-function"><span class="hl-params">Function</span> =></span> <span class="hl-title function_">a</span>(<span class="hl-title function_">b</span>(...args)),
+  );
+}
+</code></pre>
+<h3 id="生成器的方式">生成器的方式<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#生成器的方式"></a></h3>
+<blockquote>
+<p>实现 <code>map</code>
+映射函数，由于生成器的<code>yield</code>接受的是上一次的结果，所以第一次的迭代效果是无效的</p>
+</blockquote>
+<pre><code class="hl language-ts"><span class="hl-keyword">function</span>* <span class="hl-title function_">genMap</span>(<span class="hl-attr">iteratee</span>: <span class="hl-title class_">Function</span>): <span class="hl-title class_">Generator</span>&#x3C;<span class="hl-built_in">string</span> | <span class="hl-literal">null</span>, <span class="hl-built_in">any</span>> {
+  <span class="hl-keyword">let</span> input = <span class="hl-keyword">yield</span> <span class="hl-literal">null</span>;
+  <span class="hl-keyword">while</span> (<span class="hl-literal">true</span>) {
+    input = <span class="hl-keyword">yield</span> <span class="hl-title function_">iteratee</span>(input);
+  }
+}
+
+<span class="hl-keyword">const</span> gen = <span class="hl-title function_">genMap</span>(<span class="hl-function">(<span class="hl-params">x: <span class="hl-built_in">string</span></span>) =></span> x.<span class="hl-title function_">toUpperCase</span>());
+<span class="hl-keyword">const</span> arr = [<span class="hl-string">"a"</span>, <span class="hl-string">"b"</span>, <span class="hl-string">"c"</span>];
+<span class="hl-variable language_">console</span>.<span class="hl-title function_">log</span>(gen.<span class="hl-title function_">next</span>());
+<span class="hl-keyword">for</span> (<span class="hl-keyword">let</span> i <span class="hl-keyword">of</span> arr) {
+  <span class="hl-variable language_">console</span>.<span class="hl-title function_">log</span>(gen.<span class="hl-title function_">next</span>(i));
+}
+</code></pre>
+<ul>
+<li>这种效率是比较低的，并且第一次是浪费的</li>
+</ul>
+<pre><code class="hl language-ts"><span class="hl-keyword">function</span>* <span class="hl-title function_">genMap</span>(
+  <span class="hl-attr">iterable</span>: <span class="hl-title class_">Iterable</span>&#x3C;<span class="hl-built_in">any</span>>,
+  <span class="hl-attr">iteratee</span>: <span class="hl-title class_">Function</span>,
+): <span class="hl-title class_">Generator</span>&#x3C;<span class="hl-built_in">string</span> | <span class="hl-literal">null</span>, <span class="hl-built_in">any</span>> {
+  <span class="hl-keyword">for</span> (<span class="hl-keyword">let</span> i <span class="hl-keyword">of</span> iterable) {
+    <span class="hl-keyword">yield</span> <span class="hl-title function_">iteratee</span>(i);
+  }
+}
+<span class="hl-keyword">const</span> gen = <span class="hl-title function_">genMap</span>([<span class="hl-string">"a"</span>, <span class="hl-string">"b"</span>, <span class="hl-string">"c"</span>], <span class="hl-function">(<span class="hl-params">x: <span class="hl-built_in">string</span></span>) =></span> x.<span class="hl-title function_">toUpperCase</span>());
+</code></pre>
+<blockquote>
+<p>使用 <code>yield*</code> 来调用另一个生成器的方式来进行函数组合，
+<code>iterable</code>会不停的叠加作用域</p>
+</blockquote>
+<pre><code class="hl language-ts"><span class="hl-keyword">function</span>* <span class="hl-title function_">genCompose</span>(
+  <span class="hl-attr">iterable</span>: <span class="hl-title class_">Iterable</span>&#x3C;<span class="hl-built_in">any</span>>,
+  ...<span class="hl-attr">fns</span>: <span class="hl-title class_">Function</span>[]
+): <span class="hl-title class_">Generator</span>&#x3C;<span class="hl-built_in">any</span>, <span class="hl-built_in">any</span>, <span class="hl-built_in">any</span>> {
+  <span class="hl-keyword">for</span> (<span class="hl-keyword">let</span> fn <span class="hl-keyword">of</span> fns) {
+    iterable = <span class="hl-title function_">genMap</span>(iterable, fn);
+  }
+  <span class="hl-keyword">yield</span>* iterable;
+}
+
+<span class="hl-keyword">const</span> composed = <span class="hl-title function_">genCompose</span>(
+  [<span class="hl-number">1</span>, <span class="hl-number">2</span>, <span class="hl-number">3</span>],
+  <span class="hl-function">(<span class="hl-params">x: <span class="hl-built_in">number</span></span>) =></span> x + <span class="hl-number">1</span>,
+  <span class="hl-function">(<span class="hl-params">x: <span class="hl-built_in">number</span></span>) =></span> x * x,
+  <span class="hl-function">(<span class="hl-params">x: <span class="hl-built_in">number</span></span>) =></span> x - <span class="hl-number">2</span>,
+);
+</code></pre>
+<h3 id="pointfree"><a href="https://www.ruanyifeng.com/blog/2017/03/pointfree.html">Pointfree</a><a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#pointfree"></a></h3>
+<blockquote>
+<p>这是函数式编程的答案，利用函数组合和柯里化可以达到一个很好的函数式效果</p>
+</blockquote>
+<ul>
+<li><a href="https://ramdajs.com/">ramda</a>中所有的函数都支持柯里化</li>
+<li>阮老师的教程:<a href="https://www.ruanyifeng.com/blog/2017/03/ramda.html">https://www.ruanyifeng.com/blog/2017/03/ramda.html</a></li>
+</ul>
+<pre><code class="hl language-js"><span class="hl-comment">//ramda</span>
+fn = R.<span class="hl-title function_">pipe</span>(f1, f2, f3);
+</code></pre>
+<ul>
+<li>定义<code>f1</code>,<code>f2</code>,<code>f3</code>可以推算出<code>fn</code>.整个过程中。根本不需要知到其中的参数变化</li>
+<li>换一种当时可以理解为，只需要将一些简单的步骤合成到一起，定义成一种参数无关的合成运算</li>
+<li>这种风格就是<code>Pointfree</code>.例如上面的例子就是一个<code>Pointfree</code></li>
+</ul>
+<blockquote>
+<p><code>Pointfree</code>的本质就是使用一些通用的函数，组合除各种复杂的运算.shang 层运算不直接操作数据</p>
+</blockquote>
+<pre><code class="hl language-ts"><span class="hl-keyword">interface</span> <span class="hl-title class_">Iperson</span> {
+  <span class="hl-attr">name</span>: <span class="hl-built_in">string</span>;
+  <span class="hl-attr">role</span>: <span class="hl-built_in">string</span>;
+}
+
+<span class="hl-keyword">const</span> <span class="hl-attr">data</span>: <span class="hl-title class_">Iperson</span>[] = [
+  { <span class="hl-attr">name</span>: <span class="hl-string">"张三"</span>, <span class="hl-attr">role</span>: <span class="hl-string">"worker"</span> },
+  { <span class="hl-attr">name</span>: <span class="hl-string">"李四"</span>, <span class="hl-attr">role</span>: <span class="hl-string">"worker"</span> },
+  { <span class="hl-attr">name</span>: <span class="hl-string">"王五"</span>, <span class="hl-attr">role</span>: <span class="hl-string">"manager"</span> },
+];
+
+<span class="hl-keyword">type</span> <span class="hl-title class_">Iper</span> = keyof <span class="hl-title class_">Iperson</span>;
+
+<span class="hl-keyword">const</span> <span class="hl-title function_">isWorker</span> = (<span class="hl-params">s: <span class="hl-built_in">string</span></span>) => s === <span class="hl-string">"worker"</span>;
+<span class="hl-comment">//定义查找角色的函数，在这里嵌套会增加耦合</span>
+<span class="hl-keyword">const</span> <span class="hl-title function_">prop</span> = (<span class="hl-params">p: Iper, obj: Iperson</span>) => <span class="hl-title function_">isWorker</span>(obj[p]);
+<span class="hl-comment">//指定读取 role 的值</span>
+<span class="hl-keyword">const</span> propRole = <span class="hl-title function_">curry</span>(prop)(<span class="hl-string">"role"</span>);
+
+data.<span class="hl-title function_">filter</span>(propRole);
+</code></pre>
+<ul>
+<li>如果不适用<code>compose Function</code>会大大增加函数的耦合度。这就可以使用函数组合的思想降低耦合，避免洋葱模型</li>
+</ul>
+<pre><code class="hl language-ts"><span class="hl-keyword">const</span> <span class="hl-title function_">prop</span> = (<span class="hl-params">p: Iper, obj: Iperson</span>) => obj[p];
+<span class="hl-variable language_">console</span>.<span class="hl-title function_">log</span>(
+  data.<span class="hl-title function_">filter</span>(<span class="hl-function">(<span class="hl-params">_, index</span>) =></span> <span class="hl-title function_">compose</span>(isWorker, propRole)(data[index])),
+);
+</code></pre>
+<h2 id="函数记忆">函数记忆<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#函数记忆"></a></h2>
+<blockquote>
+<p>只要把参数和对应的结果数据存到一个对象中，调用时，判断参数对应的数据是否存在，存在就返回对应的值</p>
+</blockquote>
+<ul>
+<li>如果需要大量重复的计算又依赖于之前的计算，可以考虑函数记忆</li>
+<li>利用 Map,Set 或者是数组做字典都是一种函数记忆</li>
+<li>谨慎使用，消耗性很大</li>
+</ul>
+<pre><code class="hl language-ts"><span class="hl-keyword">const</span> memoize = <span class="hl-keyword">function</span> (<span class="hl-params">fn: <span class="hl-built_in">Function</span>, hasher?: <span class="hl-built_in">Function</span></span>) {
+  <span class="hl-keyword">let</span> <span class="hl-attr">cache</span>: <span class="hl-built_in">any</span> = {};
+  <span class="hl-keyword">const</span> menoize = <span class="hl-keyword">function</span> (<span class="hl-params">...args: <span class="hl-built_in">any</span>[]</span>) {
+    <span class="hl-keyword">const</span> address = <span class="hl-string">""</span> + (hasher ? hasher.<span class="hl-title function_">apply</span>(<span class="hl-literal">null</span>, args) : args);
+    <span class="hl-keyword">if</span> (!cache[address]) {
+      cache[address] = fn.<span class="hl-title function_">apply</span>(<span class="hl-literal">null</span>, args);
+    }
+    <span class="hl-keyword">return</span> cache[address];
+  };
+  <span class="hl-keyword">return</span> menoize;
+};
+</code></pre>
+<blockquote>
+<p>当然，抄袭<code>underscore</code>的使用 ts 重够了一下很快</p>
+</blockquote>
+<ul>
+<li>当没有 hansher(作为键的函数时),会让 args 作为键</li>
+</ul>
+<pre><code class="hl language-ts"><span class="hl-keyword">let</span> add = <span class="hl-keyword">function</span> (<span class="hl-params">a: <span class="hl-built_in">number</span>, b: <span class="hl-built_in">number</span>, c: <span class="hl-built_in">number</span></span>) {
+  <span class="hl-keyword">return</span> a + b + c;
+};
+<span class="hl-keyword">let</span> memoizedAdd = <span class="hl-title function_">memoize</span>(add);
+<span class="hl-variable language_">console</span>.<span class="hl-title function_">log</span>(<span class="hl-title function_">memoizedAdd</span>(<span class="hl-number">1</span>, <span class="hl-number">2</span>, <span class="hl-number">3</span>));
+</code></pre>
+<blockquote>
+<p>测试一下是，没有问题的。但是我们如果想要使用一个生成键的函数<code>hasher</code></p>
+</blockquote>
+<ul>
+<li>如果并不想要数组的全部内容，可以使用 slice 截取数组中的第一个作为键</li>
+<li>当然也可以使用别的函数作为键</li>
+</ul>
+<pre><code class="hl language-ts"><span class="hl-keyword">const</span> memoizedAdd = <span class="hl-title function_">memoize</span>(add, <span class="hl-keyword">function</span> (<span class="hl-params"></span>) {
+  <span class="hl-keyword">const</span> args = <span class="hl-title class_">Array</span>.<span class="hl-property"><span class="hl-keyword">prototype</span></span>.<span class="hl-property">slice</span>.<span class="hl-title function_">call</span>(<span class="hl-variable language_">arguments</span>, <span class="hl-number">0</span>, <span class="hl-number">1</span>);
+  <span class="hl-keyword">return</span> <span class="hl-title class_">JSON</span>.<span class="hl-title function_">stringify</span>(args);
+});
+</code></pre>
+        </article></main><script src="https://giscus.app/client.js"
+        data-repo="fwqaaq/fwqaaq.github.io"
+        data-repo-id="R_kgDOHCFK2A"
+        data-category="Show and tell"
+        data-category-id="DIC_kwDOHCFK2M4CYOLh"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="1"
+        data-input-position="bottom"
+        data-theme="preferred_color_scheme"
+        data-lang="zh-CN"
+        crossorigin="anonymous"
+        async></script>

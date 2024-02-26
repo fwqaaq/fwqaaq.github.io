@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="rgb(46, 44, 79)">
+  <meta name="description" content="使用 puppeteer 做一个爬虫">
+  <meta name="keywords" content="JavaScript, Config">
+  <title>
+    puppeteer
+  </title>
+  <link rel="stylesheet" href="/public/css/index.css">
+  <link rel="stylesheet" href="/public/css/markdown.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+  <script src="/public/JavaScript/index.js"></script>
+</head><header class="blog-header">
+  <a href="https://github.com/fwqaaq" target="_blank">
+    <img src="https://avatars.githubusercontent.com/u/82551626?v=4" loading="lazy" alt="me" srcset="">
+  </a>
+  <nav class="header-nav">
+    <a class="decoration-line" href="/"><i class="fa-solid fa-house-chimney fa-xs"></i>
+      <span class="disappear">Home</span>
+    </a>
+    <a class="decoration-line" href="/./about/index.html"><i class="fa-solid fa-address-card fa-xs"></i>
+      <span class="disappear">About</span></a>
+    <a class="decoration-line" href="/./archive/index.html"><i class="fa-solid fa-box-archive fa-xs"></i> <span
+        class="disappear">Archive</span></a>
+    <a class="decoration-line" href="/./tags/index.html"><i class="fa-solid fa-tag fa-xs"></i> <span
+        class="disappear">Tag</span></a>
+    <div class="toy"><i class="fa-solid fa-gamepad fa-xs"></i> <span class="disappear">Toy</span>
+      <nav class="toy-nav disappear">
+        <a class="decoration-line" href="/public/resume/">我的简历</a>
+        <a class="decoration-line" href="/public/write-css/index.html">学习 UI</a>
+      </nav>
+    </div>
+    <a class="decoration-line" href="/feed.xml"><i class="fa-solid fa-rss fa-xs"></i> <span
+        class="disappear">RSS</span></a>
+    <a class="decoration-line model" href="#" class="model"><i class="fa-solid fa-sun fa-xs"></i></a>
+  </nav>
+</header><main class="blog-main">
+          <article class="blog-article">
+            <h1>puppeteer</h1>
+            <hr>
+            <h2 id="爬取页面或者接口数据">爬取页面或者接口数据<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#爬取页面或者接口数据"></a></h2>
+<blockquote>
+<p>页面得是 ssr（服务器渲染）<code>post</code>,<code>get</code> 等请求都可以</p>
+<p>使用 <code>axios</code> 库</p>
+</blockquote>
+<pre><code class="hl language-js"><span class="hl-keyword">const</span> axios = <span class="hl-built_in">require</span>(<span class="hl-string">"axios"</span>);
+<span class="hl-keyword">const</span> fs = <span class="hl-built_in">require</span>(<span class="hl-string">"fs/promises"</span>);
+<span class="hl-keyword">const</span> url = <span class="hl-string">"https://music.163.com/#/song?id=30431367"</span>;
+axios.<span class="hl-title function_">get</span>(url, <span class="hl-function">(<span class="hl-params">error, response, body</span>) =></span> {
+  fs.<span class="hl-title function_">writeFile</span>(<span class="hl-string">"./bilibili.html"</span>, body);
+});
+</code></pre>
+<h2 id="puppeteer-简介">Puppeteer 简介<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#puppeteer-简介"></a></h2>
+<blockquote>
+<p><code>Puppeteer</code> 是一个 <code>Node</code> 库，它提供了一个高级 API 来通过 DevTools 协议控制 <code>Chrome</code> 或 <code>Chromium</code>.<code>Puppeteer</code> 默认无头运行，但可以配置为运行完整 (非无头) <code>Chrome</code> 或 <code>Chromium</code>。</p>
+</blockquote>
+<h3 id="使用特点">使用特点<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#使用特点"></a></h3>
+<ol>
+<li>生成页面的屏幕截图和 PDF</li>
+<li>抓取 SPA(单页应用程序) 并生成预渲染内容 (即<code>SSR</code>(服务器端渲染))</li>
+<li>自动化表单提交，UI 测试，键盘输入等</li>
+<li>创建最新的自动化测试环境使用最新的 JavaScript 和浏览器功能，直接在最新版本的 Chrome 中运行您的测试</li>
+<li>捕获站点的时间线跟踪以帮助诊断性能问题</li>
+<li>测试 Chrome 扩展</li>
+</ol>
+<h3 id="puppeteer-core">puppeteer-core<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#puppeteer-core"></a></h3>
+<ul>
+<li>当您安装<code>Puppeteer</code>时，它会下载保证与 API 一起使用的最新版本的 <code>Chromium</code></li>
+<li><code>puppeteer-core</code>包，一个默认不下载任何浏览器的<code>Puppeteer</code>版本</li>
+</ul>
+<blockquote>
+<p>使用<code>puppeteer-core</code>需要传<code>google</code>所在的浏览器的绝对地址，属性<code>executablePath</code></p>
+</blockquote>
+<ul>
+<li>使用<strong>绝对地址</strong>或者使用插件库<code>carlo</code></li>
+</ul>
+<pre><code class="hl language-js"><span class="hl-keyword">const</span> puppeteer = <span class="hl-built_in">require</span>(<span class="hl-string">"puppeteer-core"</span>);
+<span class="hl-keyword">const</span> findChrome = <span class="hl-built_in">require</span>(<span class="hl-string">"./node_modules/carlo/lib/find_chrome"</span>);
+(<span class="hl-keyword">async</span> <span class="hl-keyword">function</span> (<span class="hl-params"></span>) {
+  <span class="hl-keyword">const</span> findChromePath = <span class="hl-keyword">await</span> <span class="hl-title function_">findChrome</span>({});
+  <span class="hl-keyword">const</span> executablePath = <span class="hl-keyword">await</span> findChromePath.<span class="hl-property">executablePath</span>;
+  <span class="hl-keyword">const</span> browser = <span class="hl-keyword">await</span> puppeteer.<span class="hl-title function_">launch</span>({
+    <span class="hl-comment">//executablePath: "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe",</span>
+    executablePath,
+    <span class="hl-attr">headless</span>: <span class="hl-literal">false</span>,
+    <span class="hl-attr">defaultViewport</span>: <span class="hl-literal">null</span>,
+    <span class="hl-attr">args</span>: [<span class="hl-string">"--start-fullscreen"</span>],
+    <span class="hl-attr">ignoreHTTPSErrors</span>: <span class="hl-literal">true</span>,
+  });
+  <span class="hl-keyword">const</span> page = <span class="hl-keyword">await</span> browser.<span class="hl-title function_">newPage</span>();
+  <span class="hl-keyword">await</span> page.<span class="hl-title function_">goto</span>(<span class="hl-string">"https://www.bilibili.com/"</span>);
+  <span class="hl-keyword">await</span> page.<span class="hl-title function_">screenshot</span>({
+    <span class="hl-attr">path</span>: <span class="hl-string">"./bilibili.png"</span>,
+    <span class="hl-attr">type</span>: <span class="hl-string">"png"</span>,
+  });
+  browser.<span class="hl-title function_">close</span>();
+})();
+</code></pre>
+<h3 id="puppeteer-概述">puppeteer 概述<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#puppeteer-概述"></a></h3>
+<blockquote>
+<p>Puppeteer API 是分层的，并反映了浏览器结构</p>
+</blockquote>
+<ol>
+<li><code>Puppeteer</code>：使用 DevTools 协议与浏览器通信。</li>
+<li><code>Browser</code> 实例可以拥有多个浏览器上下文。</li>
+<li><code>BrowserContext</code> 实例定义了一个浏览会话并且可以拥有多个页面。</li>
+<li><code>Page</code> 至少有一个框架主框架。可能还有其他框架由 iframe 或框架标签创建。</li>
+<li><code>Frame</code> 至少有一个执行上下文——默认执行上下文——框架的 JavaScript 在这里执行.Frame 可能具有与扩展相关联的附加执行上下文。</li>
+<li><code>Worker</code> 有一个单一的执行上下文并促进与 WebWorkers 的交互。</li>
+</ol>
+<blockquote>
+<p>参考:<a href="https://github.com/puppeteer/puppeteer/blob/main/docs/api.md#puppeteer-vs-puppeteer-core">https://github.com/puppeteer/puppeteer/blob/main/docs/api.md#puppeteer-vs-puppeteer-core</a></p>
+</blockquote>
+<h2 id="关于使用">关于使用<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#关于使用"></a></h2>
+<h3 id="使用-connect-连接">使用 connect 连接<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#使用-connect-连接"></a></h3>
+<blockquote>
+<p>启动带有所有插件和账号的 chrome</p>
+</blockquote>
+<p>查看 cdp 协议，在 settings > Experiments > Protocol Monitor 打开</p>
+<ol>
+<li>
+<p>首先打开 chrome 的快捷方式，在目标后输入<code>--remote-debugging-port=9222</code>.大概是下面这样</p>
+<blockquote>
+<p><code>"C:\Program Files\Google\Chrome\Application\chrome.exe" --remote-debugging-port=9222</code>
+切记 exe 后面一定要有空格，这种方式也有缺点，可能会有连接不上的时候
+他的 url 在：<code>http://localhost:9222/json/version</code>,可能打开浏览器两三次才会有连接</p>
+</blockquote>
+<pre><code class="hl language-js"><span class="hl-keyword">const</span> puppeteer = <span class="hl-built_in">require</span>(<span class="hl-string">'puppeteer-core'</span>);
+<span class="hl-keyword">const</span> axios = <span class="hl-built_in">require</span>(<span class="hl-string">"axios"</span>);
+(<span class="hl-keyword">async</span> () => {
+  <span class="hl-keyword">const</span> response = <span class="hl-keyword">await</span> axios.<span class="hl-title function_">get</span>(<span class="hl-string">"http://localhost:9222/json/version"</span>)
+  <span class="hl-keyword">const</span> { webSocketDebuggerUrl } = response.<span class="hl-property">data</span>
+  <span class="hl-keyword">const</span> browser = <span class="hl-keyword">await</span> puppeteer.<span class="hl-title function_">connect</span>({
+    <span class="hl-attr">browserWSEndpoint</span>: webSocketDebuggerUrl,
+    <span class="hl-attr">defaultViewport</span>: <span class="hl-literal">null</span>
+  });
+  <span class="hl-keyword">const</span> page = <span class="hl-keyword">await</span> browser.<span class="hl-title function_">newPage</span>()
+  ...
+  <span class="hl-keyword">await</span> browser.<span class="hl-title function_">disconnect</span>();
+})();
+</code></pre>
+</li>
+<li>
+<p>一般我们可以使用 cli 命令直接执行，例如在某 linux 发行版中</p>
+<pre><code class="hl language-bash"><span class="hl-comment"># --user-data-dir 你也可以指定它数据的目录</span>
+./chrome --remote-debugging-port=9929
+</code></pre>
+<ul>
+<li>我们可以自己写一个自动启动脚本</li>
+</ul>
+<pre><code class="hl language-bash"><span class="hl-meta">#!/usr/bin/env sh</span>
+<span class="hl-built_in">cd</span> /opt/google/chrome/ &#x26;&#x26; ./chrome --add-debugging-port=<span class="hl-variable">$1</span>
+</code></pre>
+<ul>
+<li>一些权限操作</li>
+</ul>
+<pre><code class="hl language-bash"><span class="hl-built_in">chmod</span> +x ./chrome.sh
+<span class="hl-built_in">ln</span> ./chrome.sh /bin/chrome
+</code></pre>
+<ul>
+<li>使用 <code>chrome 9929</code></li>
+</ul>
+</li>
+</ol>
+        </article></main><script src="https://giscus.app/client.js"
+        data-repo="fwqaaq/fwqaaq.github.io"
+        data-repo-id="R_kgDOHCFK2A"
+        data-category="Show and tell"
+        data-category-id="DIC_kwDOHCFK2M4CYOLh"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="1"
+        data-input-position="bottom"
+        data-theme="preferred_color_scheme"
+        data-lang="zh-CN"
+        crossorigin="anonymous"
+        async></script>

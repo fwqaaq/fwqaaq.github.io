@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="rgb(46, 44, 79)">
+  <meta name="description" content="Git 分支原理">
+  <meta name="keywords" content="Git">
+  <title>
+    Git 原理分支
+  </title>
+  <link rel="stylesheet" href="/public/css/index.css">
+  <link rel="stylesheet" href="/public/css/markdown.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+  <script src="/public/JavaScript/index.js"></script>
+</head><header class="blog-header">
+  <a href="https://github.com/fwqaaq" target="_blank">
+    <img src="https://avatars.githubusercontent.com/u/82551626?v=4" loading="lazy" alt="me" srcset="">
+  </a>
+  <nav class="header-nav">
+    <a class="decoration-line" href="/"><i class="fa-solid fa-house-chimney fa-xs"></i>
+      <span class="disappear">Home</span>
+    </a>
+    <a class="decoration-line" href="/./about/index.html"><i class="fa-solid fa-address-card fa-xs"></i>
+      <span class="disappear">About</span></a>
+    <a class="decoration-line" href="/./archive/index.html"><i class="fa-solid fa-box-archive fa-xs"></i> <span
+        class="disappear">Archive</span></a>
+    <a class="decoration-line" href="/./tags/index.html"><i class="fa-solid fa-tag fa-xs"></i> <span
+        class="disappear">Tag</span></a>
+    <div class="toy"><i class="fa-solid fa-gamepad fa-xs"></i> <span class="disappear">Toy</span>
+      <nav class="toy-nav disappear">
+        <a class="decoration-line" href="/public/resume/">我的简历</a>
+        <a class="decoration-line" href="/public/write-css/index.html">学习 UI</a>
+      </nav>
+    </div>
+    <a class="decoration-line" href="/feed.xml"><i class="fa-solid fa-rss fa-xs"></i> <span
+        class="disappear">RSS</span></a>
+    <a class="decoration-line model" href="#" class="model"><i class="fa-solid fa-sun fa-xs"></i></a>
+  </nav>
+</header><main class="blog-main">
+          <article class="blog-article">
+            <h1>Git 原理分支</h1>
+            <hr>
+            <h2 id="分支">分支<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#分支"></a></h2>
+<div class="markdown-alert markdown-alert-note">
+<p class="markdown-alert-title"><svg class="octicon octicon-info mr-2" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8Zm8-6.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13ZM6.5 7.75A.75.75 0 0 1 7.25 7h1a.75.75 0 0 1 .75.75v2.75h.25a.75.75 0 0 1 0 1.5h-2a.75.75 0 0 1 0-1.5h.25v-2h-.25a.75.75 0 0 1-.75-.75ZM8 6a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"></path></svg>Note</p>
+<p>通过 <code>HEAD</code> 文件可以知道当前在哪个分支工作，并且 <strong>HEAD 指向的分支</strong>总是指向最新的 <code>commit</code></p>
+</div>
+<pre><code class="hl language-bash">                            HEAD
+                              |
+                            master
+                              |
+                       ├─---a219fd
+1e735a  &#x3C;--- 8532d9 &#x3C;--|     
+                       ├─---e78125
+                              |
+                             dev
+</code></pre>
+<ul>
+<li>通过切换 <code>HEAD</code> 的指向可以切换分支</li>
+</ul>
+<blockquote>
+<p>产看当前分支内容</p>
+</blockquote>
+<pre><code class="hl language-bash"><span class="hl-built_in">cat</span> .git/HEAD
+<span class="hl-comment"># ref: refs/heads/master</span>
+<span class="hl-built_in">cat</span> .git/refs/heads/master
+<span class="hl-comment"># b27787b75a99a614f3b26fe482f0cd47bc3c186b (当前分支指向最新的 commit)</span>
+git cat-file -t b27787b
+<span class="hl-comment"># commit</span>
+</code></pre>
+<blockquote>
+<p>创建分支</p>
+</blockquote>
+<ul>
+<li><code>git branch dev</code>:创建一个 <code>dev</code> 的分支</li>
+</ul>
+<pre><code class="hl language-bash">git <span class="hl-built_in">log</span>
+<span class="hl-comment"># master dev分支刚好指向同一条线上   </span>
+<span class="hl-comment"># commit b27787b75a99a614f3b26fe482f0cd47bc3c186b (HEAD -> master, dev)</span>
+</code></pre>
+<ul>
+<li><code>git checkout dev</code>:切换到 <code>dev</code> 分支</li>
+</ul>
+<pre><code class="hl language-bash">git checkout dev
+<span class="hl-built_in">cat</span> .git/HEAD
+<span class="hl-comment"># ref: refs/heads/dev</span>
+</code></pre>
+<ul>
+<li>如果在 dev 上做完一次 <code>commit</code> 之后，分支之间会分叉</li>
+</ul>
+<pre><code class="hl language-bash">git <span class="hl-built_in">log</span>
+<span class="hl-comment"># commit 609f9e53903da9cc53127619044bb8a02f36519a (HEAD -> dev)</span>
+<span class="hl-comment"># Author: Jack-Zhang-1314 &#x3C;fwqaaq@gmail.com></span>
+<span class="hl-comment"># Date:   Sat Jul 2 05:25:37 2022 +0800</span>
+<span class="hl-comment"># </span>
+<span class="hl-comment">#     dev 1st</span>
+<span class="hl-comment"># </span>
+<span class="hl-comment"># commit b27787b75a99a614f3b26fe482f0cd47bc3c186b (master)</span>
+</code></pre>
+<ul>
+<li>删除分支，只是删除分支的指针，分支上的对象不会被删除</li>
+</ul>
+<pre><code class="hl language-bash"><span class="hl-comment"># D-->强制删除</span>
+git branch -d dev
+git branch -D dev
+
+<span class="hl-comment"># 查看dev删除后的commit内容</span>
+git cat-file -p 609f9e5
+<span class="hl-comment"># tree fd59d47bd5ca961d23037b22377a89bc4debdce0</span>
+<span class="hl-comment"># parent b27787b75a99a614f3b26fe482f0cd47bc3c186b</span>
+<span class="hl-comment"># author Jack-Zhang-1314 &#x3C;fwqaaq@gmail.com> 1656710737 +0800</span>
+<span class="hl-comment"># committer Jack-Zhang-1314 &#x3C;fwqaaq@gmail.com> 1656710737 +0800</span>
+<span class="hl-comment"># </span>
+<span class="hl-comment"># dev 1st</span>
+</code></pre>
+<h2 id="git-checkout">git checkout<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#git-checkout"></a></h2>
+<blockquote>
+<p>使用 <code>git checkout</code> 叉出某一次 <code>commit</code></p>
+</blockquote>
+<pre><code class="hl language-bash">git checkout a3d91d1
+git branch
+<span class="hl-comment"># 指向(HEAD detached at a3d91d1)</span>
+git checkout -b tem
+<span class="hl-comment">#将当前的提交叉到新的分支</span>
+git <span class="hl-built_in">log</span> 
+<span class="hl-comment"># commit a3d91d125103f57b7b60d7ebd6502aa0987828ab (HEAD -> tem)</span>
+</code></pre>
+<blockquote>
+<p>将删除的分支找回</p>
+</blockquote>
+<pre><code class="hl language-bash">git reflog
+<span class="hl-comment"># a3d91d1 (HEAD -> tem) HEAD@{0}: checkout: moving from a3d91d125103f57b7b60d7ebd6502aa0987828ab to tem</span>
+<span class="hl-comment"># a3d91d1 (HEAD -> tem) HEAD@{1}: checkout: moving from master to a3d91d12</span>
+<span class="hl-comment"># b27787b (master) HEAD@{2}: checkout: moving from dev to master</span>
+<span class="hl-comment"># 609f9e5 HEAD@{3}: commit: dev 1st</span>
+<span class="hl-comment"># b27787b (master) HEAD@{4}: checkout: moving from master to dev</span>
+<span class="hl-comment"># b27787b (master) HEAD@{5}: commit: 2st commit</span>
+<span class="hl-comment"># a3d91d1 (HEAD -> tem) HEAD@{6}: commit (initial): 1st commit</span>
+git checkout 609f9e5
+git switch -c dev
+</code></pre>
+<h2 id="远程分支">远程分支<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#远程分支"></a></h2>
+<blockquote>
+<p>添加远程分支</p>
+</blockquote>
+<pre><code class="hl language-bash">git remote add origin ssh...
+</code></pre>
+<blockquote>
+<p>查看添加的内容<code>cat .git/config</code></p>
+</blockquote>
+<pre><code class="hl language-bash">[remote <span class="hl-string">"origin"</span>]
+        url = https://github.com/Jack-Zhang-1314/hexoPage.git
+        fetch = +refs/heads/*:refs/remotes/origin/*
+</code></pre>
+<pre><code class="hl language-bash">├─logs
+│  │  HEAD
+│  │
+│  ├─refs
+│  │    ├─heads
+│  │    │      dev
+│  │    │      master
+│  │    │
+│  │    └─remotes
+│  │        └─origin
+│  │            │  HEAD
+│  │            └─ master
+├─origin
+│  │     HEAD
+│  └---  master
+</code></pre>
+<ul>
+<li>当提交远程之后，本地分支和远程分支是同步的</li>
+</ul>
+<pre><code class="hl language-bash"><span class="hl-comment"># commit 4a71286c54dc6629322f13cfded0dfcdb417a1aa (HEAD -> master, origin/master, origin/HEAD)</span>
+</code></pre>
+<h2 id="对象压缩">对象压缩<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#对象压缩"></a></h2>
+<ol>
+<li>
+<p>查看 git 对象文件的大小</p>
+<pre><code class="hl language-bash"><span class="hl-built_in">du</span> -h .git/objects
+<span class="hl-comment"># ...</span>
+<span class="hl-comment"># 1.1M    .git/objects/fa</span>
+<span class="hl-comment"># 944K    .git/objects/fd</span>
+<span class="hl-comment"># 0       .git/objects/info</span>
+<span class="hl-comment"># 22M     .git/objects/pack</span>
+<span class="hl-comment"># 42M     .git/objects</span>
+</code></pre>
+</li>
+<li>
+<p>使用 <code>git gc</code> 来压缩文件</p>
+<pre><code class="hl language-bash">git gc
+<span class="hl-built_in">du</span> -h .git/objects
+<span class="hl-comment"># 9.0K    .git/objects/info</span>
+<span class="hl-comment"># 23M     .git/objects/pack</span>
+<span class="hl-comment"># 23M     .git/objects</span>
+</code></pre>
+</li>
+<li>
+<p>查看 <code>pack</code> 文件下文件的大小。文件被压缩到 <code>.pack</code> 文件中</p>
+<pre><code class="hl language-bash"><span class="hl-built_in">ls</span> -l .git/objects/pack
+<span class="hl-comment"># total 23092</span>
+<span class="hl-comment"># -r--r--r-- 1 15531 197609   122816  7 月  2 06:21 pack-04c2ed0bfb1961df8ecdaf3a6a602936173ffc88.idx</span>
+<span class="hl-comment"># -r--r--r-- 1 15531 197609 23521212  7 月  2 06:21 pack-04c2ed0bfb1961df8ecdaf3a6a602936173ffc88.pack</span>
+</code></pre>
+</li>
+</ol>
+<blockquote>
+<p>解压缩 <code>git unpack-objects</code></p>
+</blockquote>
+<ul>
+<li>首先 <code>.pack</code> 文件不能再 <code>objects</code> 文件下，将它移到 <code>.git</code> 下后，使用解压缩的命令</li>
+</ul>
+<pre><code class="hl language-bash">git unpack-objects &#x3C; .git/pack-04c2ed0bfb1961df8ecdaf3a6a602936173ffc88.pack
+</code></pre>
+<h2 id="垃圾对象清理">垃圾对象清理<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#垃圾对象清理"></a></h2>
+<blockquote>
+<p>在大部分时候每次使用 <code>git add</code> 会产生不必要的垃圾对象，这时候就需要使用 <code>git prune</code> 去清理这些不必要的对象</p>
+</blockquote>
+<ul>
+<li>不过一般情况下在使用 <code>git gc</code> 完全足够，他会去调用 <code>git prune</code> 清理不必要的对象</li>
+</ul>
+<pre><code class="hl language-bash">git prune -n
+<span class="hl-comment"># 查看将会删除的不必要的垃圾对象</span>
+git fsck
+<span class="hl-comment">#查看仓库的垃圾对象</span>
+</code></pre>
+        </article></main><script src="https://giscus.app/client.js"
+        data-repo="fwqaaq/fwqaaq.github.io"
+        data-repo-id="R_kgDOHCFK2A"
+        data-category="Show and tell"
+        data-category-id="DIC_kwDOHCFK2M4CYOLh"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="1"
+        data-input-position="bottom"
+        data-theme="preferred_color_scheme"
+        data-lang="zh-CN"
+        crossorigin="anonymous"
+        async></script>

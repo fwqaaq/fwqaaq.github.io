@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="rgb(46, 44, 79)">
+  <meta name="description" content="Proxy 代理">
+  <meta name="keywords" content="JavaScript">
+  <title>
+    Proxy
+  </title>
+  <link rel="stylesheet" href="/public/css/index.css">
+  <link rel="stylesheet" href="/public/css/markdown.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+  <script src="/public/JavaScript/index.js"></script>
+</head><header class="blog-header">
+  <a href="https://github.com/fwqaaq" target="_blank">
+    <img src="https://avatars.githubusercontent.com/u/82551626?v=4" loading="lazy" alt="me" srcset="">
+  </a>
+  <nav class="header-nav">
+    <a class="decoration-line" href="/"><i class="fa-solid fa-house-chimney fa-xs"></i>
+      <span class="disappear">Home</span>
+    </a>
+    <a class="decoration-line" href="/./about/index.html"><i class="fa-solid fa-address-card fa-xs"></i>
+      <span class="disappear">About</span></a>
+    <a class="decoration-line" href="/./archive/index.html"><i class="fa-solid fa-box-archive fa-xs"></i> <span
+        class="disappear">Archive</span></a>
+    <a class="decoration-line" href="/./tags/index.html"><i class="fa-solid fa-tag fa-xs"></i> <span
+        class="disappear">Tag</span></a>
+    <div class="toy"><i class="fa-solid fa-gamepad fa-xs"></i> <span class="disappear">Toy</span>
+      <nav class="toy-nav disappear">
+        <a class="decoration-line" href="/public/resume/">我的简历</a>
+        <a class="decoration-line" href="/public/write-css/index.html">学习 UI</a>
+      </nav>
+    </div>
+    <a class="decoration-line" href="/feed.xml"><i class="fa-solid fa-rss fa-xs"></i> <span
+        class="disappear">RSS</span></a>
+    <a class="decoration-line model" href="#" class="model"><i class="fa-solid fa-sun fa-xs"></i></a>
+  </nav>
+</header><main class="blog-main">
+          <article class="blog-article">
+            <h1>Proxy</h1>
+            <hr>
+            <h2 id="proxy">Proxy<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#proxy"></a></h2>
+<blockquote>
+<ul>
+<li>Proxy 对象用于创建一个对象的代理，从而实现基本操作的拦截和自定义 (如属性查找，赋值，枚举，函数调用等)</li>
+<li>目标对象既可以直接被操作，也可以通过代理来操作，但直接操作会绕过代理实施的行为</li>
+<li>proxy 在目标对象的外层搭建了一层拦截，<strong>外界对目标对象的某些操作，必须通过这层拦截</strong></li>
+</ul>
+</blockquote>
+<pre><code class="hl language-js"><span class="hl-keyword">const</span> p = <span class="hl-keyword">new</span> <span class="hl-title class_">Proxy</span>(target, handler);
+</code></pre>
+<ul>
+<li>参数：
+<ol>
+<li><code>target</code>:要使用 Proxy 包装的目标对象 (可以是任何类型的对象，包括原生数组，函数，甚至另一个代理)</li>
+<li><code>handler</code>:一个通常以函数作为属性的对象，各属性中的函数分别定义了在执行各种操作时代理 p 的行为</li>
+</ol>
+</li>
+</ul>
+<h3 id="traps捕获器">traps(捕获器)<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#traps捕获器"></a></h3>
+<blockquote>
+<p>提供属性访问的方法：每个捕获器都对应一种基本操作，可以直接或者间接在代理对象上使用</p>
+<p>每次代理对象上调用这些基本操作是，代理可以在这些操作传播到目标对象之前<strong>先调用捕获器函数，从而拦截并修改相应的行为</strong></p>
+</blockquote>
+<pre><code class="hl language-js"><span class="hl-keyword">const</span> target = {
+  <span class="hl-attr">name</span>: <span class="hl-string">"zhangsan"</span>,
+};
+<span class="hl-keyword">const</span> handler = {
+  <span class="hl-title function_">get</span>(<span class="hl-params">target, key</span>) {
+    <span class="hl-variable language_">console</span>.<span class="hl-title function_">log</span>(<span class="hl-string">`<span class="hl-subst">${key}</span> 被读取`</span>);
+    <span class="hl-keyword">return</span> target[key];
+  },
+  <span class="hl-title function_">set</span>(<span class="hl-params">target, key, value</span>) {
+    <span class="hl-variable language_">console</span>.<span class="hl-title function_">log</span>(<span class="hl-string">`<span class="hl-subst">${key}</span> 被设置为 <span class="hl-subst">${value}</span>`</span>);
+    target[key] = value;
+  },
+};
+<span class="hl-keyword">const</span> proxy = <span class="hl-keyword">new</span> <span class="hl-title class_">Proxy</span>(target, handler);
+proxy.<span class="hl-property">name</span>;
+<span class="hl-comment">//name 被读取</span>
+proxy.<span class="hl-property">name</span> = <span class="hl-string">"lisi"</span>;
+<span class="hl-comment">//name 被设置为 lisi</span>
+<span class="hl-variable language_">console</span>.<span class="hl-title function_">log</span>(target.<span class="hl-property">name</span>);
+<span class="hl-comment">//lisi</span>
+</code></pre>
+<ol>
+<li><code>proxy</code>读取属性的值时，实际执行的是<code>handler.get</code>:读取被代理对象的<code>target</code>属性</li>
+<li><code>proxy</code>设置属性值时，实际上执行的是<code>handler.set</code>:读取被代理对象<code>target</code>属性</li>
+<li>目标对象也会改变</li>
+</ol>
+<h3 id="proxyrevocable">Proxy.revocable()<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#proxyrevocable"></a></h3>
+<blockquote>
+<p><code>Proxy.revocable()</code>方法可以用来创建一个可撤销的代理对象</p>
+</blockquote>
+<ul>
+<li>返回值：
+<ol>
+<li>返回一个包含了代理对象本身和它的撤销方法的可撤销<code>Proxy</code>对象</li>
+<li>返回值是一个对象，其结构为<code>{"proxy":proxy, "revoke":revoke}</code>
+<ol>
+<li><code>proxy</code>:表示新生成的代理对象本身</li>
+<li><code>revole</code>:撤销方法，调用的时候不需要加任何参数</li>
+</ol>
+</li>
+</ol>
+</li>
+</ul>
+<pre><code class="hl language-js"><span class="hl-keyword">const</span> revocable = <span class="hl-title class_">Proxy</span>.<span class="hl-title function_">revocable</span>({}, {
+  <span class="hl-title function_">get</span>(<span class="hl-params">target, name</span>) {
+    <span class="hl-keyword">return</span> <span class="hl-string">"[["</span> + name + <span class="hl-string">"]]"</span>;
+  },
+});
+<span class="hl-keyword">const</span> proxy = revocable.<span class="hl-property">proxy</span>;
+proxy.<span class="hl-property">foo</span>; <span class="hl-comment">// "[[foo]]"</span>
+revocable.<span class="hl-title function_">revoke</span>();
+<span class="hl-variable language_">console</span>.<span class="hl-title function_">log</span>(proxy.<span class="hl-property">foo</span>); <span class="hl-comment">// 抛出 TypeError</span>
+</code></pre>
+<h3 id="handler-的代理范围">handler 的代理范围<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#handler-的代理范围"></a></h3>
+<h4 id="handlerhas"><strong>handler.has()</strong><a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#handlerhas"></a></h4>
+<ul>
+<li>在判断代理对象是否拥有某个属性时触发该操作</li>
+</ul>
+<blockquote>
+<p>返回一个布尔值</p>
+</blockquote>
+<ul>
+<li>
+<p>拦截：</p>
+<ol>
+<li>属性查询：<code>"foo" in proxy</code></li>
+<li>继承属性查询：<code>foo in Object.create(proxy)</code></li>
+<li><code>Reflect.has()</code></li>
+</ol>
+</li>
+<li>
+<p>TypeError</p>
+<ol>
+<li>如果目标对象的<strong>某一属性本身不可被配置</strong></li>
+<li>如果目标对象为<strong>不可扩展对象</strong></li>
+</ol>
+</li>
+</ul>
+<pre><code class="hl language-js"><span class="hl-keyword">const</span> handler1 = {
+  <span class="hl-title function_">has</span>(<span class="hl-params">target, key</span>) {
+    <span class="hl-keyword">if</span> (key[<span class="hl-number">0</span>] === <span class="hl-string">"_"</span>) {
+      <span class="hl-keyword">return</span> <span class="hl-literal">false</span>;
+    }
+    <span class="hl-keyword">return</span> key <span class="hl-keyword">in</span> target;
+  },
+};
+<span class="hl-keyword">const</span> monster1 = {
+  <span class="hl-attr">_secret</span>: <span class="hl-string">"easily scared"</span>,
+  <span class="hl-attr">eyeCount</span>: <span class="hl-number">4</span>,
+};
+<span class="hl-keyword">const</span> proxy1 = <span class="hl-keyword">new</span> <span class="hl-title class_">Proxy</span>(monster1, handler1);
+<span class="hl-variable language_">console</span>.<span class="hl-title function_">log</span>(<span class="hl-string">"eyeCount"</span> <span class="hl-keyword">in</span> proxy1); <span class="hl-comment">// true</span>
+<span class="hl-variable language_">console</span>.<span class="hl-title function_">log</span>(<span class="hl-string">"_secret"</span> <span class="hl-keyword">in</span> proxy1); <span class="hl-comment">// false</span>
+<span class="hl-variable language_">console</span>.<span class="hl-title function_">log</span>(<span class="hl-string">"_secret"</span> <span class="hl-keyword">in</span> monster1); <span class="hl-comment">//true</span>
+</code></pre>
+<ol>
+<li><code>target</code>:目标对象</li>
+<li><code>prop</code>:需要检查是否存在的属性</li>
+</ol>
+<h4 id="handlerget"><strong>handler.get()</strong><a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#handlerget"></a></h4>
+<ul>
+<li>在读取代理对象的某个属性时触发该操作</li>
+</ul>
+<blockquote>
+<p>可以返回任意值</p>
+</blockquote>
+<ul>
+<li>
+<p>拦截：</p>
+<ol>
+<li>访问属性：<code>proxy.bar</code></li>
+<li>访问原型链上的属性：<code>Object.create(proxy)[foo]</code></li>
+<li><code>Reflect.get()</code></li>
+</ol>
+</li>
+<li>
+<p>TypeError</p>
+<ol>
+<li>如果目标对象的<strong>某一属性本身不可被配置</strong></li>
+<li>如果要访问的目标属性没有配置访问方法，即 get 方法是 undefined 的，则返回值必须为 undefined</li>
+</ol>
+</li>
+</ul>
+<pre><code class="hl language-js"><span class="hl-keyword">const</span> p = <span class="hl-keyword">new</span> <span class="hl-title class_">Proxy</span>(target, {
+  <span class="hl-title function_">get</span>(<span class="hl-params">target, property, receiver</span>) {
+    <span class="hl-keyword">return</span> ...
+  }
+})
+</code></pre>
+<ol>
+<li><code>target</code>:目标对象</li>
+<li><code>property</code>:被获取的属性名</li>
+<li><code>receiver</code>:Proxy 或者继承 Proxy 的对象</li>
+</ol>
+<h4 id="handlerset"><strong>handler.set()</strong><a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#handlerset"></a></h4>
+<ul>
+<li>在给代理对象的某个属性赋值时触发该操作</li>
+</ul>
+<blockquote>
+<p>默认返回 true</p>
+</blockquote>
+<ul>
+<li>
+<p>拦截</p>
+<ul>
+<li>指定属性值：<code>proxy.foo = bar</code></li>
+<li>指定继承者的属性值：<code>Object.create(proxy)[foo] = bar</code></li>
+<li><code>Reflect.set()</code></li>
+</ul>
+</li>
+<li>
+<p>TypeError</p>
+<ol>
+<li>如果目标对象的<strong>某一属性本身不可被配置</strong></li>
+<li>如果目标属性没有配置存储方法，即 set 方法是 undefined 的，则不能设置他的值</li>
+<li>严格模式下，如果 set() 方法返回 false，那么也会抛出一个 TypeError 异常</li>
+</ol>
+</li>
+</ul>
+<ol>
+<li><code>target</code>目标对象</li>
+<li><code>property</code>将被设置的属性名或 Symbol</li>
+<li><code>value</code>新属性值</li>
+<li><code>receiver</code>最初被调用的对象。通常是 proxy 本身，但 handler 的 set 方法也有可能在原型链上，或以其他方式被间接地调用 (因此不一定是 proxy 本身)</li>
+</ol>
+<h4 id="handlergetprototypeof"><strong>handler.getPrototypeOf()</strong><a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#handlergetprototypeof"></a></h4>
+<ul>
+<li>在读取代理对象的原型时触发该操作</li>
+</ul>
+<blockquote>
+<p>返回值必须是一个对象或者 null</p>
+</blockquote>
+<ul>
+<li>
+<p>拦截</p>
+<ul>
+<li><code>Object.getPrototypeOf()</code></li>
+<li><code>Reflect.getPrototypeOf()</code></li>
+<li><code>\_\_proto\_\_</code></li>
+<li><code>Object.prototype.isPrototypeOf()</code></li>
+<li><code>instanceof</code></li>
+</ul>
+</li>
+<li>
+<p>TypeError:</p>
+<ul>
+<li><code>getPrototypeOf()</code>方法返回的不是对象也不是 null</li>
+<li>目标对象是不可扩展的，且<code>getPrototypeOf()</code>方法返回的原型不是目标对象的原型</li>
+</ul>
+</li>
+</ul>
+<pre><code class="hl language-js"><span class="hl-keyword">const</span> obj = {};
+<span class="hl-keyword">const</span> proto = {};
+<span class="hl-keyword">const</span> handler = {
+  <span class="hl-title function_">getPrototypeOf</span>(<span class="hl-params">target</span>) {
+    <span class="hl-variable language_">console</span>.<span class="hl-title function_">log</span>(target === obj); <span class="hl-comment">// true</span>
+    <span class="hl-variable language_">console</span>.<span class="hl-title function_">log</span>(<span class="hl-variable language_">this</span> === handler); <span class="hl-comment">// true</span>
+    <span class="hl-keyword">return</span> proto;
+  },
+};
+
+<span class="hl-keyword">const</span> p = <span class="hl-keyword">new</span> <span class="hl-title class_">Proxy</span>(obj, handler);
+<span class="hl-variable language_">console</span>.<span class="hl-title function_">log</span>(<span class="hl-title class_">Object</span>.<span class="hl-title function_">getPrototypeOf</span>(p) === proto);
+</code></pre>
+<ol>
+<li><code>target</code>:被代理的目标对象</li>
+</ol>
+<h4 id="handlersetprototypeof"><strong>handler.setPrototypeOf()</strong><a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#handlersetprototypeof"></a></h4>
+<ul>
+<li>在设置代理对象的原型时触发该操作</li>
+</ul>
+<blockquote>
+<p>成功修改了<code>[[Prototype]]</code>,<code>setPrototypeOf</code>方法返回 true，否则返回
+false 或者抛出异常</p>
+</blockquote>
+<ul>
+<li>
+<p>拦截</p>
+<ul>
+<li><code>Object.setPrototypeOf()</code></li>
+<li><code>Reflect.setPrototypeOf()</code></li>
+</ul>
+</li>
+<li>
+<p>TypeError</p>
+<ul>
+<li>如果 target 不可扩展，原型参数必须与<code>Object.getPrototypeOf(target)</code>的值相同</li>
+</ul>
+</li>
+</ul>
+<ol>
+<li><code>target</code>目标对象</li>
+<li><code>prototype</code>对象新原型或为 null</li>
+</ol>
+<h4 id="handlerisextensible"><strong>handler.isExtensible()</strong><a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#handlerisextensible"></a></h4>
+<ul>
+<li>在判断一个代理对象是否是可扩展时触发该操作</li>
+</ul>
+<blockquote>
+<p>必须返回一个 Boolean 值或可转换成 Boolean 的值</p>
+</blockquote>
+<ul>
+<li>
+<p>拦截</p>
+<ul>
+<li><code>Object.isExtensible()</code></li>
+<li><code>Reflect.isExtensible()</code></li>
+</ul>
+</li>
+<li>
+<p>TypeError:</p>
+<ul>
+<li>必须返回 true 或者为 true 的值，返回 false 和为 false 的值都会报错</li>
+</ul>
+</li>
+</ul>
+<pre><code class="hl language-js"><span class="hl-keyword">const</span> p = <span class="hl-keyword">new</span> <span class="hl-title class_">Proxy</span>({}, {
+  <span class="hl-title function_">isExtensible</span>(<span class="hl-params">target</span>) {
+    <span class="hl-variable language_">console</span>.<span class="hl-title function_">log</span>(<span class="hl-string">"called"</span>);
+    <span class="hl-keyword">return</span> <span class="hl-literal">true</span>; <span class="hl-comment">//也可以 return 1;等表示为 true 的值</span>
+  },
+});
+
+<span class="hl-variable language_">console</span>.<span class="hl-title function_">log</span>(<span class="hl-title class_">Object</span>.<span class="hl-title function_">isExtensible</span>(p));
+</code></pre>
+<h4 id="handlerpreventextensions"><strong>handler.preventExtensions()</strong><a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#handlerpreventextensions"></a></h4>
+<ul>
+<li>在让一个代理对象不可扩展时触发该操作</li>
+</ul>
+<blockquote>
+<p>返回一个布尔值</p>
+</blockquote>
+<ul>
+<li>
+<p>拦截</p>
+<ul>
+<li><code>Object.preventExtensions()</code>:将一个对象变为不可扩展，返回一个不可扩展的对象</li>
+<li><code>Reflect.preventExtensions()</code></li>
+</ul>
+</li>
+<li>
+<p>TypeError</p>
+<ul>
+<li>如果目标对象是可扩展的，那么只能返回 false</li>
+</ul>
+</li>
+</ul>
+<pre><code class="hl language-js"><span class="hl-keyword">const</span> p = <span class="hl-keyword">new</span> <span class="hl-title class_">Proxy</span>({}, {
+  <span class="hl-title function_">preventExtensions</span>(<span class="hl-params">target</span>) {
+    <span class="hl-variable language_">console</span>.<span class="hl-title function_">log</span>(<span class="hl-string">"called"</span>);
+    <span class="hl-title class_">Object</span>.<span class="hl-title function_">preventExtensions</span>(target);
+    <span class="hl-keyword">return</span> <span class="hl-literal">true</span>;
+  },
+});
+
+<span class="hl-variable language_">console</span>.<span class="hl-title function_">log</span>(<span class="hl-title class_">Object</span>.<span class="hl-title function_">preventExtensions</span>(p));
+</code></pre>
+<ol>
+<li><code>target</code>:所要拦截的目标对象</li>
+</ol>
+<h4 id="handlergetownpropertydescriptor"><strong>handler.getOwnPropertyDescriptor()</strong><a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#handlergetownpropertydescriptor"></a></h4>
+<ul>
+<li>在获取代理对象某个属性的属性描述时触发该操作</li>
+</ul>
+<blockquote>
+<p>必须返回一个对象或 undefined</p>
+</blockquote>
+<ul>
+<li>
+<p>拦截</p>
+<ul>
+<li><code>Object.getOwnPropertyDescriptor()</code></li>
+<li><code>Reflect.getOwnPropertyDescriptor()</code></li>
+</ul>
+</li>
+<li>
+<p>TypeError</p>
+<ol>
+<li>必须返回一个 object 或 undefined，否则 TypeError</li>
+<li>如果属性作为目标对象的不可配置的属性存在</li>
+<li>如果<strong>属性不存在</strong>或者<strong>作为目标对象的属性存在</strong>,并且目标对象不可扩展</li>
+</ol>
+</li>
+</ul>
+<pre><code class="hl language-js"><span class="hl-keyword">const</span> p = <span class="hl-keyword">new</span> <span class="hl-title class_">Proxy</span>({ <span class="hl-attr">a</span>: <span class="hl-number">20</span> }, {
+  <span class="hl-title function_">getOwnPropertyDescriptor</span>(<span class="hl-params">target, prop</span>) {
+    <span class="hl-variable language_">console</span>.<span class="hl-title function_">log</span>(<span class="hl-string">"called: "</span> + prop);
+    <span class="hl-keyword">return</span> { <span class="hl-attr">configurable</span>: <span class="hl-literal">true</span>, <span class="hl-attr">enumerable</span>: <span class="hl-literal">true</span>, <span class="hl-attr">value</span>: <span class="hl-number">10</span> };
+  },
+});
+
+<span class="hl-variable language_">console</span>.<span class="hl-title function_">log</span>(<span class="hl-title class_">Object</span>.<span class="hl-title function_">getOwnPropertyDescriptor</span>(p, <span class="hl-string">"a"</span>).<span class="hl-property">value</span>);
+<span class="hl-comment">// "called: a"</span>
+<span class="hl-comment">//10</span>
+</code></pre>
+<ol>
+<li><code>target</code>目标对象</li>
+<li><code>prop</code>返回属性名称的描述</li>
+</ol>
+<h4 id="handlerdefineproperty"><strong>handler.defineProperty()</strong><a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#handlerdefineproperty"></a></h4>
+<ul>
+<li>在定义代理对象某个属性时的属性描述时触发该操作</li>
+</ul>
+<blockquote>
+<p>必须以一个 Boolean 返回，表示定义该属性的操作成功与否</p>
+</blockquote>
+<ul>
+<li>
+<p>拦截</p>
+<ul>
+<li><code>Object.defineProperty()</code></li>
+<li><code>Reflect.defineProperty()</code></li>
+<li><code>proxy.property='value'</code></li>
+</ul>
+</li>
+<li>
+<p>TypeError</p>
+<ol>
+<li>目标对象不可扩展</li>
+<li>不能添加或者修改一个属性为不可配置的</li>
+<li>严格模式下，false 作为 handler.defineProperty 方法的返回值的话将会抛出
+TypeError 异常</li>
+</ol>
+</li>
+</ul>
+<pre><code class="hl language-js"><span class="hl-keyword">const</span> p = <span class="hl-keyword">new</span> <span class="hl-title class_">Proxy</span>({}, {
+  <span class="hl-attr">defineProperty</span>: <span class="hl-keyword">function</span> (<span class="hl-params">target, prop, descriptor</span>) {
+    <span class="hl-variable language_">console</span>.<span class="hl-title function_">log</span>(<span class="hl-string">"called: "</span> + prop);
+    <span class="hl-keyword">return</span> <span class="hl-literal">true</span>;
+  },
+});
+
+<span class="hl-keyword">const</span> desc = { <span class="hl-attr">configurable</span>: <span class="hl-literal">true</span>, <span class="hl-attr">enumerable</span>: <span class="hl-literal">true</span>, <span class="hl-attr">value</span>: <span class="hl-number">10</span> };
+<span class="hl-title class_">Object</span>.<span class="hl-title function_">defineProperty</span>(p, <span class="hl-string">"a"</span>, desc); <span class="hl-comment">// "called: a"</span>
+</code></pre>
+<ol>
+<li><code>target</code>:目标对象</li>
+<li><code>property</code>待检索其描述的属性名。</li>
+<li><code>descriptor</code>定义或修改的属性的可能性</li>
+</ol>
+<h4 id="handlerdeleteproperty"><strong>handler.deleteProperty()</strong><a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#handlerdeleteproperty"></a></h4>
+<ul>
+<li>在删除代理对象的某个属性时触发该操作</li>
+</ul>
+<blockquote>
+<p>必须返回一个 Boolean 类型的值，表示该属性是否被成功删除</p>
+</blockquote>
+<ul>
+<li>
+<p>拦截：</p>
+<ul>
+<li>删除属性：<code>delete proxy.foo</code></li>
+<li><code>Reflect.deleteProperty()</code></li>
+</ul>
+</li>
+<li>
+<p>TypeError</p>
+<ul>
+<li>如果目标对象的属性是不可配置的，那么该属性不能被删除</li>
+</ul>
+</li>
+</ul>
+<pre><code class="hl language-js"><span class="hl-keyword">const</span> p = <span class="hl-keyword">new</span> <span class="hl-title class_">Proxy</span>({}, {
+  <span class="hl-attr">deleteProperty</span>: <span class="hl-keyword">function</span> (<span class="hl-params">target, prop</span>) {
+    <span class="hl-variable language_">console</span>.<span class="hl-title function_">log</span>(<span class="hl-string">"called: "</span> + prop);
+    <span class="hl-keyword">return</span> <span class="hl-literal">true</span>;
+  },
+});
+<span class="hl-keyword">delete</span> p.<span class="hl-property">a</span>;
+</code></pre>
+<ol>
+<li><code>target</code>目标对象</li>
+<li><code>property</code>待删除的属性名</li>
+</ol>
+<h4 id="handlerownkeys"><strong>handler.ownKeys()</strong><a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#handlerownkeys"></a></h4>
+<ul>
+<li>在获取代理对象的所有属性键时触发该操作</li>
+</ul>
+<blockquote>
+<p>ownKeys 方法必须返回一个可枚举对象</p>
+</blockquote>
+<ul>
+<li>
+<p>拦截</p>
+<ul>
+<li><code>Object.getOwnPropertyNames()</code></li>
+<li><code>Object.getOwnPropertySymbols()</code></li>
+<li><code>Object.keys()</code></li>
+<li><code>Reflect.ownKeys()</code></li>
+</ul>
+</li>
+<li>
+<p>TypeError</p>
+<ol>
+<li>ownKeys 的结果必须是一个数组</li>
+<li>数组的元素类型要么是一个 String，要么是一个 Symbol</li>
+<li>结果列表必须包含目标对象的所有不可配置 (non-configurable),自有 (own) 属性的 key</li>
+<li>如果目标对象不可扩展，那么结果列表必须包含目标对象的所有自有 (own) 属性的 key，不能有其它值</li>
+</ol>
+</li>
+</ul>
+<pre><code class="hl language-js"><span class="hl-keyword">const</span> p = <span class="hl-keyword">new</span> <span class="hl-title class_">Proxy</span>({}, {
+  <span class="hl-attr">ownKeys</span>: <span class="hl-keyword">function</span> (<span class="hl-params">target</span>) {
+    <span class="hl-keyword">return</span> [<span class="hl-string">"a"</span>, <span class="hl-string">"b"</span>, <span class="hl-string">"c"</span>];
+  },
+});
+<span class="hl-variable language_">console</span>.<span class="hl-title function_">log</span>(<span class="hl-title class_">Object</span>.<span class="hl-title function_">getOwnPropertyNames</span>(p));
+<span class="hl-comment">// [ 'a', 'b', 'c' ]</span>
+</code></pre>
+<ol>
+<li><code>target</code>:目标对象</li>
+</ol>
+<h4 id="handlerapply"><strong>handler.apply()</strong><a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#handlerapply"></a></h4>
+<ul>
+<li>在调用一个目标对象为函数的代理对象时触发该操作</li>
+</ul>
+<blockquote>
+<p>可以返回任何值</p>
+</blockquote>
+<ul>
+<li>
+<p>拦截</p>
+<ul>
+<li><code>proxy(...args)</code></li>
+<li><code>Function.prototype.apply()</code> 和 <code>Function.prototype.call()</code></li>
+<li><code>Reflect.apply()</code></li>
+</ul>
+</li>
+<li>
+<p>TypeError</p>
+<ul>
+<li>必须是一个函数</li>
+</ul>
+</li>
+</ul>
+<pre><code class="hl language-js"><span class="hl-keyword">const</span> p = <span class="hl-keyword">new</span> <span class="hl-title class_">Proxy</span>(target, {
+  <span class="hl-title function_">apply</span>(<span class="hl-params">target, thisArg, argumentsList</span>) {
+  },
+});
+</code></pre>
+<ol>
+<li><code>thisArg</code>被调用时的上下文对象</li>
+<li><code>argumentsList</code>被调用时的参数数组</li>
+</ol>
+<h4 id="handlerconstruct"><strong>handler.construct()</strong><a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#handlerconstruct"></a></h4>
+<ul>
+<li>在给一个目标对象为构造函数的代理对象构造实例时触发该操作，用于初始化代理的目标对象自身必须具有[[构造]]内部方法</li>
+</ul>
+<blockquote>
+<p>construct 方法必须返回一个对象</p>
+</blockquote>
+<ul>
+<li>拦截以下操作
+<ul>
+<li><strong>new proxy(...args)</strong></li>
+<li><strong>Reflect.construct()</strong></li>
+</ul>
+</li>
+</ul>
+<pre><code class="hl language-js"><span class="hl-keyword">const</span> p = <span class="hl-keyword">new</span> <span class="hl-title class_">Proxy</span>(target, {
+  <span class="hl-title function_">construct</span>(<span class="hl-params">target, argumentsList, newTarget</span>) {
+    <span class="hl-keyword">return</span> {};
+  },
+});
+</code></pre>
+<ol>
+<li><code>target</code>:目标对象</li>
+<li><code>argumentsList</code>:constructor 的参数列表</li>
+<li><code>newTarget</code>:最初被调用的构造函数，就上面的例子而言是 p</li>
+</ol>
+        </article></main><script src="https://giscus.app/client.js"
+        data-repo="fwqaaq/fwqaaq.github.io"
+        data-repo-id="R_kgDOHCFK2A"
+        data-category="Show and tell"
+        data-category-id="DIC_kwDOHCFK2M4CYOLh"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="1"
+        data-input-position="bottom"
+        data-theme="preferred_color_scheme"
+        data-lang="zh-CN"
+        crossorigin="anonymous"
+        async></script>

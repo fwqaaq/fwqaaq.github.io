@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="rgb(46, 44, 79)">
+  <meta name="description" content="防抖和节流">
+  <meta name="keywords" content="JavaScript">
+  <title>
+    防抖节流
+  </title>
+  <link rel="stylesheet" href="/public/css/index.css">
+  <link rel="stylesheet" href="/public/css/markdown.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+  <script src="/public/JavaScript/index.js"></script>
+</head><header class="blog-header">
+  <a href="https://github.com/fwqaaq" target="_blank">
+    <img src="https://avatars.githubusercontent.com/u/82551626?v=4" loading="lazy" alt="me" srcset="">
+  </a>
+  <nav class="header-nav">
+    <a class="decoration-line" href="/"><i class="fa-solid fa-house-chimney fa-xs"></i>
+      <span class="disappear">Home</span>
+    </a>
+    <a class="decoration-line" href="/./about/index.html"><i class="fa-solid fa-address-card fa-xs"></i>
+      <span class="disappear">About</span></a>
+    <a class="decoration-line" href="/./archive/index.html"><i class="fa-solid fa-box-archive fa-xs"></i> <span
+        class="disappear">Archive</span></a>
+    <a class="decoration-line" href="/./tags/index.html"><i class="fa-solid fa-tag fa-xs"></i> <span
+        class="disappear">Tag</span></a>
+    <div class="toy"><i class="fa-solid fa-gamepad fa-xs"></i> <span class="disappear">Toy</span>
+      <nav class="toy-nav disappear">
+        <a class="decoration-line" href="/public/resume/">我的简历</a>
+        <a class="decoration-line" href="/public/write-css/index.html">学习 UI</a>
+      </nav>
+    </div>
+    <a class="decoration-line" href="/feed.xml"><i class="fa-solid fa-rss fa-xs"></i> <span
+        class="disappear">RSS</span></a>
+    <a class="decoration-line model" href="#" class="model"><i class="fa-solid fa-sun fa-xs"></i></a>
+  </nav>
+</header><main class="blog-main">
+          <article class="blog-article">
+            <h1>防抖节流</h1>
+            <hr>
+            <h2 id="场景">场景<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#场景"></a></h2>
+<pre><code class="hl language-html"><span class="hl-meta">&#x3C;!DOCTYPE <span class="hl-keyword">html</span>></span>
+<span class="hl-tag">&#x3C;<span class="hl-name">html</span> <span class="hl-attr">lang</span>=<span class="hl-string">"en"</span>></span>
+
+<span class="hl-tag">&#x3C;<span class="hl-name">head</span>></span>
+  <span class="hl-tag">&#x3C;<span class="hl-name">title</span>></span>Document<span class="hl-tag">&#x3C;/<span class="hl-name">title</span>></span>
+  <span class="hl-tag">&#x3C;<span class="hl-name">style</span>></span><span class="css">
+    <span class="hl-selector-id">#container</span> {
+      <span class="hl-attribute">width</span>: <span class="hl-number">100%</span>;
+      <span class="hl-attribute">height</span>: <span class="hl-number">200px</span>;
+      <span class="hl-attribute">line-height</span>: <span class="hl-number">200px</span>;
+      <span class="hl-attribute">text-align</span>: center;
+      <span class="hl-attribute">color</span>: <span class="hl-number">#fff</span>;
+      <span class="hl-attribute">background-color</span>: <span class="hl-number">#444</span>;
+    }
+  </span><span class="hl-tag">&#x3C;/<span class="hl-name">style</span>></span>
+<span class="hl-tag">&#x3C;/<span class="hl-name">head</span>></span>
+
+<span class="hl-tag">&#x3C;<span class="hl-name">body</span>></span>
+  <span class="hl-tag">&#x3C;<span class="hl-name">div</span> <span class="hl-attr">id</span>=<span class="hl-string">"container"</span>></span><span class="hl-tag">&#x3C;/<span class="hl-name">div</span>></span>
+  <span class="hl-tag">&#x3C;<span class="hl-name">script</span>></span><span class="javascript">
+    <span class="hl-keyword">let</span> count = <span class="hl-number">0</span>
+    <span class="hl-keyword">let</span> divContainer = <span class="hl-variable language_">document</span>.<span class="hl-title function_">getElementById</span>(<span class="hl-string">"container"</span>)
+    <span class="hl-keyword">function</span> <span class="hl-title function_">getUserAction</span>(<span class="hl-params"></span>) {
+      divContainer.<span class="hl-property">innerHTML</span> = count++
+    }
+    divContainer.<span class="hl-property">onmousemove</span> = getUserAction
+  </span><span class="hl-tag">&#x3C;/<span class="hl-name">script</span>></span>
+<span class="hl-tag">&#x3C;/<span class="hl-name">body</span>></span>
+
+<span class="hl-tag">&#x3C;/<span class="hl-name">html</span>></span>
+</code></pre>
+<div class="markdown-alert markdown-alert-tip">
+<p class="markdown-alert-title"><svg class="octicon octicon-light-bulb mr-2" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="M8 1.5c-2.363 0-4 1.69-4 3.75 0 .984.424 1.625.984 2.304l.214.253c.223.264.47.556.673.848.284.411.537.896.621 1.49a.75.75 0 0 1-1.484.211c-.04-.282-.163-.547-.37-.847a8.456 8.456 0 0 0-.542-.68c-.084-.1-.173-.205-.268-.32C3.201 7.75 2.5 6.766 2.5 5.25 2.5 2.31 4.863 0 8 0s5.5 2.31 5.5 5.25c0 1.516-.701 2.5-1.328 3.259-.095.115-.184.22-.268.319-.207.245-.383.453-.541.681-.208.3-.33.565-.37.847a.751.751 0 0 1-1.485-.212c.084-.593.337-1.078.621-1.489.203-.292.45-.584.673-.848.075-.088.147-.173.213-.253.561-.679.985-1.32.985-2.304 0-2.06-1.637-3.75-4-3.75ZM5.75 12h4.5a.75.75 0 0 1 0 1.5h-4.5a.75.75 0 0 1 0-1.5ZM6 15.25a.75.75 0 0 1 .75-.75h2.5a.75.75 0 0 1 0 1.5h-2.5a.75.75 0 0 1-.75-.75Z"></path></svg>Tip</p>
+<p>当鼠标一放到矩形框中，就会不停的触发事件 (如果是复杂的回调或者 ajax 的请求就会很频繁的触发事件)</p>
+<p>有两种解决方案：防抖和节流</p>
+</div>
+<h2 id="防抖">防抖<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#防抖"></a></h2>
+<blockquote>
+<p>防抖的原理就是：尽管触发事件，但是我只触发最后一次事件，且 n 秒内不再触发。总之，就是要等你触发完事件 n 秒内不再触发事件</p>
+</blockquote>
+<pre><code class="hl language-js"><span class="hl-keyword">function</span> <span class="hl-title function_">debounce</span>(<span class="hl-params">func, wait</span>) {
+  <span class="hl-keyword">let</span> timeout;
+  <span class="hl-keyword">return</span> <span class="hl-keyword">function</span> (<span class="hl-params"></span>) {
+    <span class="hl-built_in">clearTimeout</span>(timeout);
+    timeout = <span class="hl-built_in">setTimeout</span>(<span class="hl-function">() =></span> {
+      <span class="hl-title function_">func</span>();
+    }, wait);
+  };
+}
+divContainer.<span class="hl-property">onmousemove</span> = <span class="hl-title function_">debounce</span>(getUserAction, <span class="hl-number">1000</span>);
+</code></pre>
+<ul>
+<li>注意：
+<ol>
+<li>setTimeout 中建议使用箭头函数，会指向函数外的 this(这个 this 就是调用这个事件的 id 为 container 的 div)</li>
+<li>如果使用普通的函数，会指向 setTimeout 内部设定好的 this，即 window</li>
+<li>timeout 在外部初始化，<code>clearTimeout</code>会清理上一次的定时器</li>
+</ol>
+</li>
+</ul>
+<blockquote>
+<p>如果不使用箭头函数，就得考虑 this 绑定问题，还有事件对象<code>event</code></p>
+</blockquote>
+<pre><code class="hl language-js"><span class="hl-keyword">function</span> <span class="hl-title function_">debounce</span>(<span class="hl-params">func, wait</span>) {
+  <span class="hl-keyword">let</span> timeout;
+  <span class="hl-keyword">let</span> _self = <span class="hl-variable language_">this</span>;
+  <span class="hl-keyword">return</span> <span class="hl-keyword">function</span> (<span class="hl-params">e</span>) {
+    <span class="hl-built_in">clearTimeout</span>(timeout);
+    timeout = <span class="hl-built_in">setTimeout</span>(<span class="hl-keyword">function</span> (<span class="hl-params"></span>) {
+      <span class="hl-title class_">Reflect</span>.<span class="hl-title function_">apply</span>(func, _self, e);
+    }, wait);
+  };
+}
+</code></pre>
+<h3 id="立即执行">立即执行<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#立即执行"></a></h3>
+<blockquote>
+<p>如果希望事件每次重新点击都会立刻执行，然后等到停止触发 n 秒后，才可以重新触发。而不是非要等到事件停止触发后才执行</p>
+</blockquote>
+<pre><code class="hl language-js"><span class="hl-keyword">function</span> <span class="hl-title function_">debounce</span>(<span class="hl-params">func, wait, immediate</span>) {
+  <span class="hl-keyword">let</span> timeout;
+  <span class="hl-keyword">return</span> <span class="hl-keyword">function</span> (<span class="hl-params">e</span>) {
+    <span class="hl-comment">//timeout 为 false 才会立即执行</span>
+    <span class="hl-keyword">let</span> hasImmediate = !timeout &#x26;&#x26; immediate;
+    <span class="hl-keyword">if</span> (timeout) <span class="hl-built_in">clearTimeout</span>(timeout);
+    timeout = <span class="hl-built_in">setTimeout</span>(<span class="hl-function">() =></span> {
+      <span class="hl-comment">//执行完定时器之后也会立即执行</span>
+      timeout = <span class="hl-literal">null</span>;
+    }, wait);
+    <span class="hl-keyword">if</span> (hasImmediate) {
+      <span class="hl-title function_">func</span>(e);
+    }
+  };
+}
+</code></pre>
+<ul>
+<li>两种立即执行的情况
+<ol>
+<li>当开始滑动时，再次触发事件，事件会立即执行</li>
+<li>setTimeout 是宏任务，初始化之后会放到队列中。</li>
+<li>当定时器执行完毕时，再次触发事件，事件会立即执行</li>
+<li>除了定时器之外的依然会按照事件的频率触发</li>
+</ol>
+</li>
+</ul>
+<h3 id="取消">取消<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#取消"></a></h3>
+<pre><code class="hl language-js"><span class="hl-keyword">function</span> <span class="hl-title function_">debounce</span>(<span class="hl-params">func, wait, immediate</span>) {
+  <span class="hl-keyword">let</span> timeout;
+  <span class="hl-keyword">function</span> <span class="hl-title function_">debounced</span>(<span class="hl-params">e</span>) {
+    <span class="hl-keyword">let</span> hasImmediate = !timeout &#x26;&#x26; immediate;
+    <span class="hl-keyword">if</span> (timeout) <span class="hl-built_in">clearTimeout</span>(timeout);
+    timeout = <span class="hl-built_in">setTimeout</span>(<span class="hl-function">() =></span> {
+      <span class="hl-keyword">if</span> (timeout) {
+        <span class="hl-title function_">func</span>(e);
+      }
+      timeout = <span class="hl-literal">null</span>;
+    }, wait);
+    <span class="hl-keyword">if</span> (hasImmediate) {
+      <span class="hl-title function_">func</span>(e);
+    }
+  }
+  debounced.<span class="hl-property">cancel</span> = <span class="hl-function">() =></span> {
+    <span class="hl-built_in">clearTimeout</span>(timeout);
+    timeout = <span class="hl-literal">null</span>;
+  };
+  <span class="hl-keyword">return</span> debounced;
+}
+</code></pre>
+<blockquote>
+<p>使用：<code>click</code>事件绑定一个监听器</p>
+</blockquote>
+<pre><code class="hl language-js"><span class="hl-keyword">let</span> setUserAction = <span class="hl-title function_">debounce</span>(getUserAction, <span class="hl-number">10000</span>, <span class="hl-literal">true</span>);
+divContainer.<span class="hl-property">onmousemove</span> = setUserAction;
+<span class="hl-variable language_">document</span>.<span class="hl-title function_">getElementById</span>(<span class="hl-string">"btn"</span>).<span class="hl-title function_">addEventListener</span>(<span class="hl-string">"click"</span>, <span class="hl-keyword">function</span> (<span class="hl-params"></span>) {
+  setUserAction.<span class="hl-title function_">cancel</span>();
+});
+</code></pre>
+<ul>
+<li>不要绑定<code>click</code>事件，这是浏览器开放的一个鼠标点击自定义接口</li>
+<li>不要与<code>onclick</code>事件搞混</li>
+</ul>
+<pre><code class="hl language-js"><span class="hl-variable language_">document</span>.<span class="hl-title function_">getElement</span>(<span class="hl-string">"btn"</span>).<span class="hl-property">onclick</span> = <span class="hl-keyword">function</span> (<span class="hl-params"></span>) {
+  setUserAction.<span class="hl-title function_">cancel</span>();
+};
+</code></pre>
+<h2 id="节流">节流<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#节流"></a></h2>
+<div class="markdown-alert markdown-alert-tip">
+<p class="markdown-alert-title"><svg class="octicon octicon-light-bulb mr-2" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="M8 1.5c-2.363 0-4 1.69-4 3.75 0 .984.424 1.625.984 2.304l.214.253c.223.264.47.556.673.848.284.411.537.896.621 1.49a.75.75 0 0 1-1.484.211c-.04-.282-.163-.547-.37-.847a8.456 8.456 0 0 0-.542-.68c-.084-.1-.173-.205-.268-.32C3.201 7.75 2.5 6.766 2.5 5.25 2.5 2.31 4.863 0 8 0s5.5 2.31 5.5 5.25c0 1.516-.701 2.5-1.328 3.259-.095.115-.184.22-.268.319-.207.245-.383.453-.541.681-.208.3-.33.565-.37.847a.751.751 0 0 1-1.485-.212c.084-.593.337-1.078.621-1.489.203-.292.45-.584.673-.848.075-.088.147-.173.213-.253.561-.679.985-1.32.985-2.304 0-2.06-1.637-3.75-4-3.75ZM5.75 12h4.5a.75.75 0 0 1 0 1.5h-4.5a.75.75 0 0 1 0-1.5ZM6 15.25a.75.75 0 0 1 .75-.75h2.5a.75.75 0 0 1 0 1.5h-2.5a.75.75 0 0 1-.75-.75Z"></path></svg>Tip</p>
+<p>持续触发事件，每隔一段时间，只执行一次事件</p>
+</div>
+<h3 id="使用时间戳">使用时间戳<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#使用时间戳"></a></h3>
+<blockquote>
+<p>当触发事件的时候，取出当前的时间戳，然后减去之前的时间戳 (一开始值为 0),如果大于设置的时间周期，然后更新时间戳为当前的时间戳。反之不执行</p>
+</blockquote>
+<pre><code class="hl language-js"><span class="hl-keyword">function</span> <span class="hl-title function_">throttle</span>(<span class="hl-params">func, wait</span>) {
+  <span class="hl-keyword">let</span> previous = <span class="hl-number">0</span>;
+  <span class="hl-keyword">return</span> <span class="hl-keyword">function</span> (<span class="hl-params">e</span>) {
+    <span class="hl-keyword">let</span> now = <span class="hl-keyword">new</span> <span class="hl-title class_">Date</span>().<span class="hl-title function_">getTime</span>();
+    <span class="hl-keyword">if</span> (now - previous > wait) {
+      <span class="hl-title function_">func</span>(e);
+      previous = now;
+    }
+  };
+}
+
+container.<span class="hl-property">onmousemove</span> = <span class="hl-title function_">throttle</span>(getuserAction, <span class="hl-number">1000</span>);
+</code></pre>
+<h3 id="使用定时器">使用定时器<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#使用定时器"></a></h3>
+<blockquote>
+<p>当触发事件的时候，设置一个定时器，再触发事件的时候，如果定时器存在，就不执行，直到定时器执行完，执行函数，清空定时器</p>
+</blockquote>
+<pre><code class="hl language-js"><span class="hl-keyword">function</span> <span class="hl-title function_">throttle</span>(<span class="hl-params">func, wait</span>) {
+  <span class="hl-keyword">let</span> timeout;
+  <span class="hl-keyword">return</span> <span class="hl-keyword">function</span> (<span class="hl-params">e</span>) {
+    timeout = <span class="hl-built_in">setTimeout</span>(<span class="hl-function">() =></span> {
+      <span class="hl-title function_">func</span>(e);
+      timeout = <span class="hl-literal">null</span>;
+    }, wait);
+  };
+}
+container.<span class="hl-property">onmousemove</span> = <span class="hl-title function_">throttle</span>(getUserAction, <span class="hl-number">1000</span>);
+</code></pre>
+<ol>
+<li>使用时间戳事件会立刻执行，并且停止触发后不会再执行</li>
+<li>使用定时器事件会在 n 秒后执行，并且停止触发后依然会在执行一次</li>
+</ol>
+<h3 id="优化">优化<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#优化"></a></h3>
+<blockquote>
+<p>如果鼠标移入能立刻执行，且停止触发的时候还能在执行一次</p>
+</blockquote>
+<ol>
+<li>leading:false 表示禁用第一次</li>
+<li>trailing:false 表示警用停止触发</li>
+<li>不能同时设置为 false，同时为 false 的时候。鼠标移出过了设置的时间，在移入就会立即执行</li>
+</ol>
+<pre><code class="hl language-js"><span class="hl-keyword">function</span> <span class="hl-title function_">throttle</span>(<span class="hl-params">func, wait, options</span>) {
+  <span class="hl-keyword">let</span> timeout, previous = <span class="hl-number">0</span>;
+  <span class="hl-keyword">if</span> (!options) options = {};
+  <span class="hl-keyword">let</span> later = <span class="hl-keyword">function</span> (<span class="hl-params"></span>) {
+    privous = options.<span class="hl-property">leading</span> === fasle ? <span class="hl-number">0</span> : <span class="hl-keyword">new</span> <span class="hl-title class_">Date</span>().<span class="hl-title function_">getTime</span>();
+    <span class="hl-keyword">let</span> previous = <span class="hl-keyword">new</span> <span class="hl-title class_">Date</span>().<span class="hl-title function_">getTime</span>();
+    <span class="hl-title function_">func</span>();
+    timeout = <span class="hl-literal">null</span>;
+  };
+  <span class="hl-keyword">function</span> <span class="hl-title function_">throttled</span>(<span class="hl-params"></span>) {
+    <span class="hl-keyword">let</span> now = <span class="hl-keyword">new</span> <span class="hl-title class_">Date</span>().<span class="hl-title function_">getTime</span>();
+    <span class="hl-keyword">if</span> (options.<span class="hl-property">leading</span> === <span class="hl-literal">false</span> &#x26;&#x26; !privous) privous = now;
+    <span class="hl-keyword">let</span> remaining = wait - (now - previous);
+    <span class="hl-keyword">if</span> (remaining &#x3C; <span class="hl-number">0</span> || remaining > wait) {
+      <span class="hl-keyword">if</span> (timeout) {
+        <span class="hl-built_in">clearTimeout</span>(timeout);
+        timeout = <span class="hl-literal">null</span>;
+      }
+      previous = now;
+      <span class="hl-title function_">func</span>();
+    } <span class="hl-keyword">else</span> <span class="hl-keyword">if</span> (!timeout &#x26;&#x26; options.<span class="hl-property">trailing</span> === <span class="hl-literal">true</span>) {
+      timeout = <span class="hl-built_in">setTimeout</span>(later, remaining);
+    }
+  }
+  <span class="hl-keyword">return</span> throttled;
+}
+</code></pre>
+<ol>
+<li>为什么会有 <code>!timeout</code>,当触发的时间小于等待的时间的时候会执行，并且因为是定时器会在一段时间后再执行（并且不断的触发定时器都会重新执行，直到 <code>remaining&#x3C;=0</code>）</li>
+<li><code>remaining &#x3C;= 0 || remaining > wait</code>：小于等待时间，或者时间超过了等待时间（previous 只有在 if...内部会更新。第一次触发后只有 now 会不停更新）</li>
+</ol>
+<h3 id="throttled-取消">throttled 取消<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#throttled-取消"></a></h3>
+<pre><code class="hl language-js">throttled.<span class="hl-property">cancel</span> = <span class="hl-keyword">function</span> (<span class="hl-params"></span>) {
+  <span class="hl-built_in">clearTimeout</span>(timeout);
+  timeout = <span class="hl-literal">null</span>;
+  previous = <span class="hl-number">0</span>;
+};
+</code></pre>
+        </article></main><script src="https://giscus.app/client.js"
+        data-repo="fwqaaq/fwqaaq.github.io"
+        data-repo-id="R_kgDOHCFK2A"
+        data-category="Show and tell"
+        data-category-id="DIC_kwDOHCFK2M4CYOLh"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="1"
+        data-input-position="bottom"
+        data-theme="preferred_color_scheme"
+        data-lang="zh-CN"
+        crossorigin="anonymous"
+        async></script>

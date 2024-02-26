@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="rgb(46, 44, 79)">
+  <meta name="description" content="发布一个属于自己的 npm">
+  <meta name="keywords" content="JavaScript, Config">
+  <title>
+    发布 npm
+  </title>
+  <link rel="stylesheet" href="/public/css/index.css">
+  <link rel="stylesheet" href="/public/css/markdown.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+  <script src="/public/JavaScript/index.js"></script>
+</head><header class="blog-header">
+  <a href="https://github.com/fwqaaq" target="_blank">
+    <img src="https://avatars.githubusercontent.com/u/82551626?v=4" loading="lazy" alt="me" srcset="">
+  </a>
+  <nav class="header-nav">
+    <a class="decoration-line" href="/"><i class="fa-solid fa-house-chimney fa-xs"></i>
+      <span class="disappear">Home</span>
+    </a>
+    <a class="decoration-line" href="/./about/index.html"><i class="fa-solid fa-address-card fa-xs"></i>
+      <span class="disappear">About</span></a>
+    <a class="decoration-line" href="/./archive/index.html"><i class="fa-solid fa-box-archive fa-xs"></i> <span
+        class="disappear">Archive</span></a>
+    <a class="decoration-line" href="/./tags/index.html"><i class="fa-solid fa-tag fa-xs"></i> <span
+        class="disappear">Tag</span></a>
+    <div class="toy"><i class="fa-solid fa-gamepad fa-xs"></i> <span class="disappear">Toy</span>
+      <nav class="toy-nav disappear">
+        <a class="decoration-line" href="/public/resume/">我的简历</a>
+        <a class="decoration-line" href="/public/write-css/index.html">学习 UI</a>
+      </nav>
+    </div>
+    <a class="decoration-line" href="/feed.xml"><i class="fa-solid fa-rss fa-xs"></i> <span
+        class="disappear">RSS</span></a>
+    <a class="decoration-line model" href="#" class="model"><i class="fa-solid fa-sun fa-xs"></i></a>
+  </nav>
+</header><main class="blog-main">
+          <article class="blog-article">
+            <h1>发布 npm</h1>
+            <hr>
+            <h2 id="字段">字段<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#字段"></a></h2>
+<ol>
+<li>
+<p>首先需要登录自己的 npm 账号 <code>npm login</code></p>
+</li>
+<li>
+<p>初始化一个项目 <code>npm init</code></p>
+<ul>
+<li>
+<p>最重要的两个字段 <code>name</code> 和 <code>version</code></p>
+</li>
+</ul>
+<blockquote>
+<p><code>name</code></p>
+</blockquote>
+<ul>
+<li>
+<p>不要在 name 中包含 js、node 字样</p>
+</li>
+<li>
+<p>这个名字最终会是 URL 的一部分，命令行的参数，目录名，所以不能以点号或下划线开头</p>
+</li>
+<li>
+<p>这个名字可能在 require() 方法中被调用，所以应该尽可能短</p>
+</li>
+<li>
+<p>并且包的名字不能与 npm 中的其他包的名字一致</p>
+</li>
+</ul>
+<blockquote>
+<p><code>version</code>：版本号。版本号基本是由三位数字组成</p>
+</blockquote>
+<ul>
+<li><code>MAJOR</code>：进行不兼容的 API 更改时的版本</li>
+<li><code>MINOR</code>：以向后兼容的方式添加功能时的版本</li>
+<li><code>PATCH</code>：向后兼容的错误修复程序的版本</li>
+</ul>
+<pre><code class="hl language-json"><span class="hl-number">1</span>   .   <span class="hl-number">0</span>   .   <span class="hl-number">0</span>
+<span class="hl-punctuation">[</span>MAJOR<span class="hl-punctuation">]</span>.<span class="hl-punctuation">[</span>MINOR<span class="hl-punctuation">]</span>.<span class="hl-punctuation">[</span>PATCH<span class="hl-punctuation">]</span>
+</code></pre>
+<pre><code class="hl language-bash">npm version [&#x3C;newversion> | major | minor | patch | premajor | preminor | prepatch | prerelease [--preid-&#x3C;prerelease-id>] | from-git]
+
+<span class="hl-string">'npm [-v | --version]'</span> to <span class="hl-built_in">print</span> npm version
+<span class="hl-string">'npm view &#x3C;pkg> version'</span> to view a package<span class="hl-string">'s published version
+'</span>npm <span class="hl-built_in">ls</span><span class="hl-string">' to inspect current package/dependency versions
+</span></code></pre>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>选项</th><th>描述</th><th>例子</th><th>说明</th></tr></thead><tbody><tr><td>major</td><td>重大更新版本</td><td>npm version major</td><td>0.2.0 ->1.0.0</td></tr><tr><td>minor</td><td>主要更新版本</td><td>npm version minor</td><td>0.2.0 ->0.3.0</td></tr><tr><td>patch</td><td>补丁更新版本</td><td>npm version patch</td><td>0.2.0 ->0.2.1</td></tr><tr><td>premajor</td><td>重大更新预发布版本</td><td>npm version premajor</td><td>0.2.0 ->1.0.0-0</td></tr><tr><td>preminor</td><td>主要更新预发布版本</td><td>npm version preminor</td><td>0.2.0 ->0.3.0-0</td></tr><tr><td>prepatch</td><td>补丁更新预发布版本</td><td>npm version prepatch</td><td>0.2.0 ->0.2.1-0</td></tr><tr><td>prerelease</td><td>预发布版本</td><td>npm version prerelease</td><td>当前版本不是预发布版本的会出错</td></tr><tr><td>from-git</td><td>取 git 的 tag 作为版本号设置至<code>package.json</code></td><td>npm version from-git</td><td>git 的 tag 标签没有设置的情况下，会抛出错误</td></tr></tbody></table>
+<ul>
+<li>限定符
+<ul>
+<li>
+<p><code>^</code>:从左侧的第一个非<code>0</code>位置开始限定，例如<code>1.2.3&#x3C;=^1.2.3&#x3C;2.0.0</code>,<code>0.2.3&#x3C;=^0.2.3&#x3C;0.3.0</code></p>
+</li>
+<li>
+<p><code>~</code>:从次版本号开始限定，例如<code>1.2.3&#x3C;=~1.2.3&#x3C;1.3.0</code>,但是如<code>~1.0.0</code>就没有此版本号</p>
+</li>
+<li>
+<p><code>*</code>:不限定任何版本</p>
+</li>
+<li>
+<p><code>-</code>:<code>1.2.3-1.2.6</code>,限定区间</p>
+</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p><code>description</code>:对包进行描述，便于<code>npm search</code>
+<code>repository</code>:本项目中代码的源地址位置</p>
+</blockquote>
+<ol>
+<li>
+<p>可以分层写出项目地址</p>
+<pre><code class="hl language-json"><span class="hl-punctuation">{</span>
+  <span class="hl-attr">"repository"</span><span class="hl-punctuation">:</span> <span class="hl-punctuation">{</span>
+    <span class="hl-attr">"type"</span><span class="hl-punctuation">:</span> <span class="hl-string">"git"</span><span class="hl-punctuation">,</span>
+    <span class="hl-attr">"url"</span><span class="hl-punctuation">:</span> <span class="hl-string">"https://github.com/npm/cli.git"</span>
+  <span class="hl-punctuation">}</span>
+<span class="hl-punctuation">}</span>
+</code></pre>
+</li>
+<li>
+<p>同时可以指定仓库名的形式</p>
+<pre><code class="hl language-json"><span class="hl-punctuation">{</span>
+  <span class="hl-attr">"repository"</span><span class="hl-punctuation">:</span> <span class="hl-string">"npm/npm"</span><span class="hl-punctuation">,</span>
+  <span class="hl-attr">"repository"</span><span class="hl-punctuation">:</span> <span class="hl-string">"github:user/repo"</span>
+<span class="hl-punctuation">}</span>
+</code></pre>
+</li>
+</ol>
+<blockquote>
+<p><code>keywords</code>:将关键字放入其中。它是一个字符串数组.便于使用<code>npm search</code></p>
+</blockquote>
+<pre><code class="hl language-json"><span class="hl-punctuation">{</span>
+  <span class="hl-attr">"keywords"</span><span class="hl-punctuation">:</span> <span class="hl-punctuation">[</span>
+    <span class="hl-string">"test"</span><span class="hl-punctuation">,</span>
+    <span class="hl-string">"npm"</span><span class="hl-punctuation">,</span>
+    <span class="hl-string">"app"</span>
+  <span class="hl-punctuation">]</span>
+<span class="hl-punctuation">}</span>
+</code></pre>
+<blockquote>
+<p><code>homepage</code>:项目的主页。用于展示项目</p>
+</blockquote>
+<pre><code class="hl language-json"><span class="hl-attr">"homepage"</span><span class="hl-punctuation">:</span> <span class="hl-string">"https://github.com/owner/project#readme"</span>
+</code></pre>
+<blockquote>
+<p><code>main</code>:程序的主要入口点。一般用于 require 的引入</p>
+</blockquote>
+<ul>
+<li>
+<p>也就是说，如果您的包被命名为 foo，并且用户安装了它，然后会执行 <code>require("foo")</code>，则将返回主模块的 exports
+对象</p>
+</li>
+</ul>
+<blockquote>
+<p><code>module</code>:一般是 esm 模块的入口点，用于 import 的引入</p>
+</blockquote>
+<ul>
+<li>
+<p>如果包 module 被命名为 foo，用户安装之后，然后执行 <code>import...from "foo"</code>,会返回主模块</p>
+</li>
+</ul>
+<blockquote>
+<p><code>author</code>:作者信息</p>
+</blockquote>
+<ol>
+<li>
+<p>每个字段的形式分开展现</p>
+<pre><code class="hl language-json"><span class="hl-punctuation">{</span>
+  <span class="hl-attr">"name"</span><span class="hl-punctuation">:</span> <span class="hl-string">"Barney Rubble"</span><span class="hl-punctuation">,</span>
+  <span class="hl-attr">"email"</span><span class="hl-punctuation">:</span> <span class="hl-string">"b@rubble.com"</span><span class="hl-punctuation">,</span>
+  <span class="hl-attr">"url"</span><span class="hl-punctuation">:</span> <span class="hl-string">"http://barnyrubble.tumblr.com/"</span>
+<span class="hl-punctuation">}</span>
+</code></pre>
+</li>
+<li>
+<p>以 <code>author</code> 合并展示</p>
+<pre><code class="hl language-json"><span class="hl-punctuation">{</span>
+  <span class="hl-attr">"author"</span><span class="hl-punctuation">:</span> <span class="hl-string">"Barney Rubble &#x3C;b@rubble.com> (http://barnyrubble.tumblr.com/)"</span>
+<span class="hl-punctuation">}</span>
+</code></pre>
+</li>
+</ol>
+<blockquote>
+<p><code>license</code>:许可证。让人知道使用的权利和限制的</p>
+</blockquote>
+<ul>
+<li>
+<p><a href="https://docs.github.com/en/communities/setting-up-your-project-for-healthy-contributions/adding-a-license-to-a-repository">参考 github</a></p>
+</li>
+</ul>
+<blockquote>
+<p><code>file</code>:发布时需要包含的文件</p>
+</blockquote>
+<ul>
+<li>一定包含以下文件：<code>package.json</code>,<code>README</code>,<code>LICENSE / LICENCE</code>,<code>The file in the "main" field</code></li>
+<li>同时可以指定需要包含的文件夹</li>
+</ul>
+<pre><code class="hl language-json"><span class="hl-punctuation">{</span>
+  <span class="hl-attr">"files"</span><span class="hl-punctuation">:</span> <span class="hl-punctuation">[</span>
+    <span class="hl-string">"dist"</span>
+  <span class="hl-punctuation">]</span>
+<span class="hl-punctuation">}</span>
+</code></pre>
+<blockquote>
+<p><code>engines</code>: 用于规范 node 的版本</p>
+</blockquote>
+<pre><code class="hl language-json"><span class="hl-punctuation">{</span>
+  <span class="hl-attr">"engines"</span><span class="hl-punctuation">:</span> <span class="hl-punctuation">{</span>
+    <span class="hl-attr">"node"</span><span class="hl-punctuation">:</span> <span class="hl-string">">=18"</span>
+  <span class="hl-punctuation">}</span>
+<span class="hl-punctuation">}</span>
+</code></pre>
+</li>
+</ol>
+<h3 id="发布-javascript-版本的包">发布 javascript 版本的包<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#发布-javascript-版本的包"></a></h3>
+<ol>
+<li>
+<p><code>name</code>:字段必须是仓库拥有者的名称，即<code>npm login</code>的名称</p>
+<ul>
+<li>由于作用域内包安装到作用域文件夹中，因此在代码中需要作用域时，必须包含作用域的名称</li>
+<li>每个 npm 用户/组织都有自己的作用域,只有你可以在作用域中添加包</li>
+</ul>
+<pre><code class="hl language-js"><span class="hl-built_in">require</span>(<span class="hl-string">"@myorg/mypackage"</span>);
+</code></pre>
+</li>
+<li>
+<p><code>npm publish</code>:npm 中发布<strong>公共的作用域包</strong>需要使用<code>npm publish --access=public</code>(私有是收费的)</p>
+</li>
+<li>
+<p><code>npm unpublish 包名</code>:即可将 npm 上的包删除</p>
+</li>
+</ol>
+<pre><code class="hl language-bash">npm publish [&#x3C;tarball>|&#x3C;folder>] [--tag &#x3C;tag>] [--access &#x3C;public|restricted>] [--otp otpcode] [--dry-run]
+
+Publishes <span class="hl-string">'.'</span> <span class="hl-keyword">if</span> no argument supplied
+Sets tag <span class="hl-string">'latest'</span> <span class="hl-keyword">if</span> no --tag specified
+</code></pre>
+<ul>
+<li><code>&#x3C;folder></code>：包含 <code>package.json</code> 文件的文件夹</li>
+<li><code>&#x3C;tarball></code>：指向 gzip 压缩 tar 存档的 url 或文件路径，其中包含一个包含 package.json 文件的文件夹。</li>
+<li><code>[--tag &#x3C;tag>]</code>：使用给定标记注册已发布的包，以便安装此版本。默认情况下，更新并安装标记 (参考 <code>npm-dist-tag</code>)</li>
+<li><code>[--access &#x3C;public|restricted>]</code>：告知注册表此包是应发布为公共包还是受限制程序包。仅适用于作用域内包，缺省为 <code>restricted --access</code>。如果没有付费帐户，则必须发布<code>public</code>方式才能发布作用域内的程序包。</li>
+<li><code>[--otp &#x3C;otpcode>]</code>：启用了双因素身份验证，则可以使用此代码提供来自身份验证器的代码。否则系统将提示 <code>auth-and-writes</code></li>
+<li><code>[--dry-run]</code>：截至 npm@6，除了实际发布到注册表之外，是否所有发布都会执行。报告将要发布的内容的详细信息。</li>
+<li><code>[--workspaces]</code>：在发布时启用工作区上下文。将发布所有工作区包。</li>
+<li><code>[--workspace]</code>：启用工作区上下文，并将结果限制为此配置项指定的结果。将仅发布给定工作区中的包。</li>
+</ul>
+<blockquote>
+<p>发布一个公共的包，不包含私有作用域</p>
+</blockquote>
+<ol>
+<li>设置 npm 的 proxy 代理<code>npm config set proxy="代理地址(如127.0.0.1:7890)"</code></li>
+<li>检查自己的包名，不能与其他人的包名一样</li>
+<li>使用<code>npm publish</code>发布自己的包</li>
+</ol>
+<h3 id="打包-typescript-版本的包">打包 typescript 版本的包<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#打包-typescript-版本的包"></a></h3>
+<ol>
+<li>下载 <code>npm install typescript -D</code></li>
+<li>初始化一个 <code>tsconfig.json</code> 文件 <code>tsc --init</code></li>
+<li>在 scripts 中添加脚本：<code>npx tsc -p .</code>。打包当前目录下的所有文件</li>
+</ol>
+<blockquote>
+<p>一些 typescript 中特有的配置</p>
+</blockquote>
+<ol>
+<li>
+<p><code>package.json</code> 中的 <code>types</code> 字段</p>
+<ul>
+<li>这是一个只在 TypeScript 中生效的字段，如果您的包有一个 main.js 文件，您还需要在 <code>package.json</code> 文件中指明主声明文件。将 types 属性设置为指向捆绑（bundled 指 main.js）的声明文件</li>
+</ul>
+<pre><code class="hl language-json"><span class="hl-punctuation">{</span>
+  <span class="hl-attr">"types"</span><span class="hl-punctuation">:</span> <span class="hl-string">"./lib/main.d.ts"</span>
+<span class="hl-punctuation">}</span>
+</code></pre>
+</li>
+<li>
+<p><code>package.json</code>中的<code>typesVersions</code>字段</p>
+<ul>
+<li>控制 typescript 的版本号</li>
+</ul>
+<pre><code class="hl language-json"><span class="hl-attr">"typesVersions"</span><span class="hl-punctuation">:</span> <span class="hl-punctuation">{</span>
+    <span class="hl-attr">">=3.1"</span><span class="hl-punctuation">:</span> <span class="hl-punctuation">{</span> <span class="hl-attr">"*"</span><span class="hl-punctuation">:</span> <span class="hl-punctuation">[</span><span class="hl-string">"ts3.1/*"</span><span class="hl-punctuation">]</span> <span class="hl-punctuation">}</span>
+<span class="hl-punctuation">}</span>
+</code></pre>
+</li>
+<li>
+<p>在 <code>.d.ts</code> 文件中的 <code>/// &#x3C;reference types="..." /></code></p>
+<ul>
+<li>当前库依赖于全局库，会导入全局库的 <code>.d.ts</code> 的名称</li>
+<li>在声明文件里包含 <code>/// &#x3C;reference types="node" /></code>，表明这个文件使用了 <code>@types/node/index.d.ts</code> 里面声明的名字。并且，这个包要在编译阶段与声明文件一起被包含进来</li>
+<li>解析@types 包的名字的过程与解析 import 语句里模块名的过程类似。所以可以简单的把三斜线类型引用指令想像成针对包的 import 声明</li>
+<li>对于那些<strong>在编译阶段生成的声明文件</strong>,编译器会自动地添加 <code>/// &#x3C;reference types="..." /></code>；当且仅当结果文件中使用了引用的 <code>@types</code> 包里的声明时才会在生成的声明文件里添加 <code>/// &#x3C;reference types="..." /></code> 语句</li>
+</ul>
+</li>
+</ol>
+<blockquote>
+<p>配置 <code>tsconfig.json</code></p>
+</blockquote>
+<ol>
+<li>初始化一个 tsconfig.json 文件：<code>npx tsc --init</code></li>
+<li>介绍几个重要的配置项
+<ul>
+<li><code>target</code>: 将项目打包成目标兼容的版本</li>
+<li><code>module</code>: 指定要用的模块化标准</li>
+<li><code>lib</code>: lib 用于指定要包含在编译中的库文件
+<ul>
+<li>例如 dom 中的一些类型所需要的声明文件。或者使用 <code>Array&#x3C;T></code> 指定数组类型</li>
+<li><a href="https://stackoverflow.com/questions/43874096/difference-in-the-lib-property-in-tsconfig-json-between-es6-and-es2017">可以看下这篇文章</a></li>
+</ul>
+</li>
+<li><code>declaration</code>: 为 ts 或者 js 项目生成定义文件 (<code>.d.ts</code>)</li>
+<li><code>sourceMap</code>: 为源码生成映射文件，方便调试</li>
+<li><code>rootDir</code>: 指定根目录的源文件位置</li>
+<li><code>outDir</code>: 指定根目录的打包位置</li>
+<li><code>esModuleInterop</code>: 是 commonjs 模块兼容 esm 模块 (意味着两者的方式都可以导出)
+<ul>
+<li>参考:<a href="https://zhuanlan.zhihu.com/p/148081795">https://zhuanlan.zhihu.com/p/148081795</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<ul>
+<li>最终形成的 tsconfig.json 文件</li>
+</ul>
+<pre><code class="hl language-json"><span class="hl-punctuation">{</span>
+  <span class="hl-attr">"compilerOptions"</span><span class="hl-punctuation">:</span> <span class="hl-punctuation">{</span>
+    <span class="hl-attr">"target"</span><span class="hl-punctuation">:</span> <span class="hl-string">"es2016"</span><span class="hl-punctuation">,</span>
+    <span class="hl-attr">"module"</span><span class="hl-punctuation">:</span> <span class="hl-string">"CommonJS"</span><span class="hl-punctuation">,</span>
+    <span class="hl-attr">"rootDir"</span><span class="hl-punctuation">:</span> <span class="hl-string">"./src"</span><span class="hl-punctuation">,</span>
+    <span class="hl-attr">"declaration"</span><span class="hl-punctuation">:</span> <span class="hl-literal"><span class="hl-keyword">true</span></span><span class="hl-punctuation">,</span>
+    <span class="hl-attr">"sourceMap"</span><span class="hl-punctuation">:</span> <span class="hl-literal"><span class="hl-keyword">true</span></span><span class="hl-punctuation">,</span>
+    <span class="hl-attr">"outDir"</span><span class="hl-punctuation">:</span> <span class="hl-string">"./dist"</span><span class="hl-punctuation">,</span>
+    <span class="hl-attr">"esModuleInterop"</span><span class="hl-punctuation">:</span> <span class="hl-literal"><span class="hl-keyword">true</span></span><span class="hl-punctuation">,</span>
+    <span class="hl-attr">"forceConsistentCasingInFileNames"</span><span class="hl-punctuation">:</span> <span class="hl-literal"><span class="hl-keyword">true</span></span><span class="hl-punctuation">,</span>
+    <span class="hl-attr">"strict"</span><span class="hl-punctuation">:</span> <span class="hl-literal"><span class="hl-keyword">true</span></span><span class="hl-punctuation">,</span>
+    <span class="hl-attr">"skipLibCheck"</span><span class="hl-punctuation">:</span> <span class="hl-literal"><span class="hl-keyword">true</span></span>
+  <span class="hl-punctuation">}</span>
+<span class="hl-punctuation">}</span>
+</code></pre>
+<ul>
+<li>对于 <code>package.json</code> 文件最好把项目放置在源文件 <code>src</code> 中，此时只需要配置打包生成的目录上传包就可以了</li>
+</ul>
+<pre><code class="hl language-json"><span class="hl-attr">"main"</span><span class="hl-punctuation">:</span> <span class="hl-string">"dist/index.js"</span><span class="hl-punctuation">,</span>
+<span class="hl-attr">"types"</span><span class="hl-punctuation">:</span> <span class="hl-string">"dist/index.d.ts"</span>
+</code></pre>
+        </article></main><script src="https://giscus.app/client.js"
+        data-repo="fwqaaq/fwqaaq.github.io"
+        data-repo-id="R_kgDOHCFK2A"
+        data-category="Show and tell"
+        data-category-id="DIC_kwDOHCFK2M4CYOLh"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="1"
+        data-input-position="bottom"
+        data-theme="preferred_color_scheme"
+        data-lang="zh-CN"
+        crossorigin="anonymous"
+        async></script>

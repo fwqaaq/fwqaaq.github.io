@@ -1,0 +1,122 @@
+* {
+  padding: 0;
+  margin: 0;
+}
+
+html,
+body {
+  height: 100vh;
+}
+
+body {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(rgba(49, 179, 199, 0.822) 0%, rgba(167, 62, 115, 0.822) 100%);
+}
+
+.outer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@keyframes animate {
+  0% {
+    opacity: 0;
+    transform: translateY(100%) scale(0.5);
+  }
+
+  5%,
+  20% {
+    opacity: 0.4;
+    transform: translateY(100%) scale(0.7);
+  }
+
+  25%,
+  40% {
+    opacity: 1;
+    transform: translateY(0%) scale(1);
+  }
+
+  45%,
+  60% {
+    opacity: 0.4;
+    transform: translateY(-100%) scale(0.7);
+  }
+
+  65%,
+  100% {
+    opacity: 0;
+    transform: translateY(-100%) scale(0.5);
+  }
+}
+
+.outer .card {
+  display: flex;
+  position: absolute;
+  /* width: 30vw; */
+  padding: 20px;
+  background-color: white;
+  align-items: center;
+  opacity: 0;
+  /* pointer-events: none; */
+  justify-content: space-between;
+  border-radius: 6rem 1.25rem 1.25rem 6rem;
+  box-shadow: 0px 0.6rem 1rem rgba(0, 0, 0, 0.1);
+  animation: animate 15s linear infinite;
+  animation-delay: calc(3s*var(--delay));
+}
+
+.outer:hover .card {
+  animation-play-state: paused;
+  cursor: pointer;
+}
+
+.outer .card:last-child {
+  animation-delay: calc(-3s*var(--delay));
+}
+
+.card .content {
+  display: flex;
+  align-items: center;
+}
+
+.card .img {
+  position: absolute;
+  height: 6rem;
+  width: 6rem;
+  left: -0.3rem;
+  background-color: white;
+  border-radius: 50%;
+  padding: 0.3rem;
+  box-shadow: 0rem 0rem 0.3rem rgba(0, 0, 0, 0.2);
+}
+
+.img img {
+  height: 100%;
+  width: 100%;
+  border-radius: 50%;
+}
+
+.card hgroup {
+  margin-left: 6rem;
+}
+
+.details span {
+  font-weight: 600;
+  font-size: 1.2rem;
+}
+
+.card a {
+  text-decoration: none;
+  padding: 0.4rem 1rem;
+  border-radius: 1.8rem;
+  color: white;
+  background: linear-gradient(rgba(49, 179, 199, 0.822) 0%, rgba(167, 62, 115, 0.822) 100%);
+}
+
+.card a:hover {
+  transform: scale(1.1);
+}

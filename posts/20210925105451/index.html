@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="rgb(46, 44, 79)">
+  <meta name="description" content="关于 vue3 组件化的使用，兼容的 vue2">
+  <meta name="keywords" content="Vue, JavaScript, TypeScript">
+  <title>
+    Vue3 的组件化
+  </title>
+  <link rel="stylesheet" href="/public/css/index.css">
+  <link rel="stylesheet" href="/public/css/markdown.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+  <script src="/public/JavaScript/index.js"></script>
+</head><header class="blog-header">
+  <a href="https://github.com/fwqaaq" target="_blank">
+    <img src="https://avatars.githubusercontent.com/u/82551626?v=4" loading="lazy" alt="me" srcset="">
+  </a>
+  <nav class="header-nav">
+    <a class="decoration-line" href="/"><i class="fa-solid fa-house-chimney fa-xs"></i>
+      <span class="disappear">Home</span>
+    </a>
+    <a class="decoration-line" href="/./about/index.html"><i class="fa-solid fa-address-card fa-xs"></i>
+      <span class="disappear">About</span></a>
+    <a class="decoration-line" href="/./archive/index.html"><i class="fa-solid fa-box-archive fa-xs"></i> <span
+        class="disappear">Archive</span></a>
+    <a class="decoration-line" href="/./tags/index.html"><i class="fa-solid fa-tag fa-xs"></i> <span
+        class="disappear">Tag</span></a>
+    <div class="toy"><i class="fa-solid fa-gamepad fa-xs"></i> <span class="disappear">Toy</span>
+      <nav class="toy-nav disappear">
+        <a class="decoration-line" href="/public/resume/">我的简历</a>
+        <a class="decoration-line" href="/public/write-css/index.html">学习 UI</a>
+      </nav>
+    </div>
+    <a class="decoration-line" href="/feed.xml"><i class="fa-solid fa-rss fa-xs"></i> <span
+        class="disappear">RSS</span></a>
+    <a class="decoration-line model" href="#" class="model"><i class="fa-solid fa-sun fa-xs"></i></a>
+  </nav>
+</header><main class="blog-main">
+          <article class="blog-article">
+            <h1>Vue3 的组件化</h1>
+            <hr>
+            <h2 id="理解插槽">理解插槽<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#理解插槽"></a></h2>
+<ul>
+<li>使组件具备更强的通用性，组件中的内容不再限制为固定的 div、span 等等这些元素</li>
+<li>使用者可以决定某一块区域到底存放什么内容和元素</li>
+<li>定义插槽 slot
+<ul>
+<li>插槽的使用过程其实是抽取共性、预留不同</li>
+<li>我们会将共同的元素、内容依然在组件内进行封装</li>
+<li>同时会将不同的元素使用 slot 作为占位，让外部决定到底显示什么样的元素</li>
+</ul>
+</li>
+<li>使用插槽
+<ul>
+<li>Vue 中将 &#x3C;slot> 元素作为承载分发内容的出口</li>
+<li>在封装组件中，使用特殊的元素 &#x3C;slot> 就可以为封装组件开启一个插槽</li>
+<li>该插槽插入什么内容取决于父组件如何使用</li>
+</ul>
+</li>
+</ul>
+<h3 id="默认插槽">默认插槽<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#默认插槽"></a></h3>
+<blockquote>
+<p>当插槽内部不具有 name 属性时，vue 会自动给一个隐式名称<code>name:default</code></p>
+<blockquote>
+<p>且子组件不管有多少个插槽，每个插槽都会显示一样的内容</p>
+</blockquote>
+</blockquote>
+<pre><code class="hl language-html"> 父组件中:
+<span class="hl-tag">&#x3C;<span class="hl-name">Category</span>></span>
+  <span class="hl-tag">&#x3C;<span class="hl-name">div</span>></span>html 结构<span class="hl-tag">&#x3C;/<span class="hl-name">div</span>></span>
+<span class="hl-tag">&#x3C;/<span class="hl-name">Category</span>></span>
+子组件中:
+<span class="hl-tag">&#x3C;<span class="hl-name">template</span>></span>
+   <span class="hl-tag">&#x3C;<span class="hl-name">div</span>></span>
+    <span class="hl-comment">&#x3C;!--定义插槽--></span>
+      <span class="hl-tag">&#x3C;<span class="hl-name">slot</span>></span>插槽默认值<span class="hl-tag">&#x3C;/<span class="hl-name">slot</span>></span>
+   <span class="hl-tag">&#x3C;/<span class="hl-name">div</span>></span>
+<span class="hl-tag">&#x3C;/<span class="hl-name">template</span>></span>
+</code></pre>
+<h3 id="具名插槽">具名插槽<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#具名插槽"></a></h3>
+<ul>
+<li>具名插槽顾名思义就是给插槽起一个名字，&#x3C;slot> 元素有一个特殊的
+<code>attribute：name</code></li>
+<li>一个不带 name 的 slot，会带有隐含的名字 default</li>
+</ul>
+<pre><code class="hl language-html">//父组件中
+<span class="hl-tag">&#x3C;<span class="hl-name">Footer</span>></span>
+  <span class="hl-tag">&#x3C;<span class="hl-name">template</span> <span class="hl-attr">v-slot:footer</span>></span>
+    <span class="hl-tag">&#x3C;<span class="hl-name">div</span>></span>
+      你好
+    <span class="hl-tag">&#x3C;/<span class="hl-name">div</span>></span>
+  <span class="hl-tag">&#x3C;/<span class="hl-name">template</span>></span>
+<span class="hl-tag">&#x3C;/<span class="hl-name">Footer</span>></span>
+//子组件中
+<span class="hl-tag">&#x3C;<span class="hl-name">slot</span> <span class="hl-attr">name</span>=<span class="hl-string">"footer"</span>></span>插槽默认值<span class="hl-tag">&#x3C;/<span class="hl-name">slot</span>></span>
+</code></pre>
+<ul>
+<li>动态插槽名</li>
+</ul>
+<pre><code class="hl language-html"><span class="hl-tag">&#x3C;<span class="hl-name">template</span> <span class="hl-attr">v-slot:</span>[<span class="hl-attr">name</span>]></span>
+  <span class="hl-tag">&#x3C;<span class="hl-name">div</span>></span>
+    你好
+  <span class="hl-tag">&#x3C;/<span class="hl-name">div</span>></span>
+<span class="hl-tag">&#x3C;/<span class="hl-name">template</span>></span>
+<span class="hl-tag">&#x3C;<span class="hl-name">script</span>></span><span class="javascript">
+  <span class="hl-comment">//...</span>
+  <span class="hl-title function_">data</span>(<span class="hl-params"></span>){
+    <span class="hl-keyword">return</span> {
+      <span class="hl-attr">name</span>:<span class="hl-string">"footer"</span>
+    }
+  }
+</span><span class="hl-tag">&#x3C;/<span class="hl-name">script</span>></span>
+</code></pre>
+<ul>
+<li>具名插槽的缩写
+<ul>
+<li>把参数之前的所有内容<code>(v-slot:)</code>替换为字符 <code>#</code>
+<ul>
+<li>例如 <code>#footer</code>或者<code>#[name]</code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="作用域插槽">作用域插槽<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#作用域插槽"></a></h3>
+<ul>
+<li>
+<p>vue 渲染作用域：</p>
+<ul>
+<li>父级模板里的所有内容都是在父级作用域中编译的</li>
+<li>子模板里的所有内容都是在子作用域中编译的</li>
+</ul>
+</li>
+<li>
+<p>希望插槽可以访问到子组件中的内容</p>
+<ul>
+<li>当一个组件被用来渲染一个数组元素时，我们使用插槽，并且希望插槽中没有显示每项的内容</li>
+</ul>
+</li>
+</ul>
+<pre><code class="hl language-html"><span class="hl-comment">&#x3C;!-- 子组件中：有一个 names 的数组 --></span>
+  <span class="hl-tag">&#x3C;<span class="hl-name">template</span> <span class="hl-attr">v-for</span>=<span class="hl-string">"(item,index) in names"</span> <span class="hl-attr">:key</span>=<span class="hl-string">"item"</span>></span>
+     <span class="hl-tag">&#x3C;<span class="hl-name">slot</span> <span class="hl-attr">name</span>=<span class="hl-string">"footer"</span> <span class="hl-attr">:item</span>=<span class="hl-string">"item"</span> <span class="hl-attr">:index</span>=<span class="hl-string">"index"</span>></span><span class="hl-tag">&#x3C;/<span class="hl-name">slot</span>></span>
+  <span class="hl-tag">&#x3C;/<span class="hl-name">template</span>></span>
+
+<span class="hl-comment">&#x3C;!-- 具名插槽与作用域插槽 --></span>
+<span class="hl-tag">&#x3C;<span class="hl-name">Footer</span>></span>
+  <span class="hl-tag">&#x3C;<span class="hl-name">template</span> #<span class="hl-attr">footer</span>=<span class="hl-string">"slotProps"</span>></span>
+    <span class="hl-tag">&#x3C;<span class="hl-name">button</span>></span>{{slotProps.item}}-{{slotProps.index}}<span class="hl-tag">&#x3C;/<span class="hl-name">button</span>></span>
+  <span class="hl-tag">&#x3C;/<span class="hl-name">template</span>></span>
+<span class="hl-tag">&#x3C;/<span class="hl-name">Footer</span>></span>
+</code></pre>
+<ul>
+<li>独占默认插槽
+<ul>
+<li>当默认插槽和作用域插槽简写，如果还有其它具名插槽那么简写方式不可以</li>
+<li>子组件中的 &#x3C;slot> 标签不能有 name 属性</li>
+</ul>
+</li>
+</ul>
+<pre><code class="hl language-html"><span class="hl-tag">&#x3C;<span class="hl-name">Foot</span> <span class="hl-attr">v-slot</span>=<span class="hl-string">"slotProps"</span>></span>
+  <span class="hl-tag">&#x3C;<span class="hl-name">button</span>></span>{{slotProps.item}}-{{slotProps.index}}<span class="hl-tag">&#x3C;/<span class="hl-name">button</span>></span>
+<span class="hl-tag">&#x3C;/<span class="hl-name">Footer</span>></span>
+</code></pre>
+<h2 id="动态组件">动态组件<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#动态组件"></a></h2>
+<blockquote>
+<p>动态组件是使用 <code>component</code> 组件，通过一个特殊的<code>attribute is</code>
+来实现，is 属性是一个组件</p>
+</blockquote>
+<pre><code class="hl language-html"><span class="hl-tag">&#x3C;<span class="hl-name">component</span> 
+  <span class="hl-attr">:is</span>=<span class="hl-string">"currentTab"</span> 
+  <span class="hl-attr">:age</span>=<span class="hl-string">"18"</span> 
+  <span class="hl-attr">name</span>=<span class="hl-string">"张三"</span> 
+  @<span class="hl-attr">pageClick</span>=<span class="hl-string">"pageClick"</span>></span>
+<span class="hl-tag">&#x3C;/<span class="hl-name">component</span>></span>
+</code></pre>
+<ul>
+<li>注意点：
+<ol>
+<li>currentTab 可以是通过 component 函数注册的组件</li>
+<li>currentTab 可以是在一个组件对象的 components 对象中注册的组件</li>
+<li>动态组件的传值和其它组件的传值 是一样的</li>
+</ol>
+</li>
+</ul>
+<h2 id="缓存组件-keep-alive">缓存组件 keep-alive<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#缓存组件-keep-alive"></a></h2>
+<blockquote>
+<p>默认情况下，我们在切换组件后，组件会被销毁掉，再次回来时会重新创建组件</p>
+<blockquote>
+<p>然而某些情况我们希望继续保持组件的状态，而不是销毁掉，这个时候我们就可以使用一个内置组件：<code>keep-alive</code></p>
+</blockquote>
+</blockquote>
+<pre><code class="hl language-html"><span class="hl-tag">&#x3C;<span class="hl-name">keep-alive</span> <span class="hl-attr">include</span>=<span class="hl-string">"home,about"</span>></span>
+  <span class="hl-tag">&#x3C;<span class="hl-name">component</span> 
+    <span class="hl-attr">:is</span>=<span class="hl-string">"currentTab"</span> 
+    <span class="hl-attr">:age</span>=<span class="hl-string">"18"</span> 
+    <span class="hl-attr">name</span>=<span class="hl-string">"张三"</span> 
+    @<span class="hl-attr">pageClick</span>=<span class="hl-string">"pageClick"</span>></span>
+  <span class="hl-tag">&#x3C;/<span class="hl-name">component</span>></span>
+<span class="hl-tag">&#x3C;/<span class="hl-name">keep-alive</span>></span>
+</code></pre>
+<h3 id="keep-alive-的一些属性">keep-alive 的一些属性<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#keep-alive-的一些属性"></a></h3>
+<ul>
+<li>
+<p><code>include</code>:可以使用<code>string</code>|<code>RegExp</code>|<code>Array</code>.只有名称匹配的组件会被缓存</p>
+<ul>
+<li>string:<code>include:"a,b"</code></li>
+<li>RegExp:<code>:include:"/a|b/"</code></li>
+<li>Array:<code>:include:"['a','b']"</code></li>
+</ul>
+</li>
+<li>
+<p><code>exclude</code> : <code>string</code> | <code>RegExp</code> | <code>Array</code>.任何名称匹配的组件都不会被缓存</p>
+</li>
+<li>
+<p><code>max</code>(不常用) : <code>number</code> |
+<code>string</code>.最多可以缓存多少组件实例，一旦达到这个数字，那么缓存组件中最近没有被访问的实例会被销毁</p>
+</li>
+</ul>
+<h3 id="缓存组件的生命周期">缓存组件的生命周期<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#缓存组件的生命周期"></a></h3>
+<blockquote>
+<p><span style="color:red">对于缓存的组件来说，再次进入时，我们是不会执行 created 或者 mounted 等生命周期函数的</span></p>
+</blockquote>
+<ul>
+<li><strong>activated</strong>:在 vue 对象存活的情况下，进入当前存在<code>activated()</code>函数的页面时，一切到改页面就触发。</li>
+<li><strong>deactivated</strong>:当离开组件 A，切到组件 B 之前，需要对组件 A 做某些处理，比如清除定时器，这时就需要使用<strong>deactivated</strong></li>
+</ul>
+<h2 id="异步组件的实现-多在路由中用到">异步组件的实现 (多在路由中用到)<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#异步组件的实现-多在路由中用到"></a></h2>
+<blockquote>
+<p>默认情况下，在构建整个组件树的过程中，因为组件和组件之间是通过模块化直接依赖的，那么 webpack 在打包时就会将组件模块打包到一起（比如一个 app.js 文件中）</p>
+</blockquote>
+<h3 id="webpack-的代码分包">webpack 的代码分包<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#webpack-的代码分包"></a></h3>
+<pre><code class="hl language-js"><span class="hl-keyword">import</span>(<span class="hl-string">"./utils/math"</span>).<span class="hl-title function_">then</span>(
+  <span class="hl-function">(<span class="hl-params">res</span>) =></span> {
+    <span class="hl-variable language_">console</span>.<span class="hl-title function_">log</span>(res.<span class="hl-title function_">sum</span>(<span class="hl-number">20</span>, <span class="hl-number">30</span>));
+  },
+);
+</code></pre>
+<h3 id="vue-中实现异步组件">vue 中实现异步组件<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#vue-中实现异步组件"></a></h3>
+<ul>
+<li>
+<p>如果我们的项目过大了，对于某些组件我们希望通过异步的方式来进行加载 (即进行分包处理),利用 vue 中的<code>defineAsyncComponent</code>函数</p>
+<ul>
+<li>写成工厂函数，该工厂函数需要返回一个 Promise 对象</li>
+</ul>
+<pre><code class="hl language-js"><span class="hl-keyword">import</span> { defineAsyncComponent } <span class="hl-keyword">from</span> <span class="hl-string">"vue"</span>;
+<span class="hl-keyword">const</span> <span class="hl-title class_">AsyncMain</span> = <span class="hl-title function_">defineAsyncComponent</span>(<span class="hl-function">() =></span> <span class="hl-keyword">import</span>(<span class="hl-string">"./components/Main.vue"</span>));
+
+<span class="hl-keyword">export</span> <span class="hl-keyword">default</span> ({
+  <span class="hl-attr">components</span>: {
+    <span class="hl-title class_">AsyncMain</span>,
+  },
+});
+</code></pre>
+<ul>
+<li>接受一个对象类型，对异步函数进行配置</li>
+</ul>
+<pre><code class="hl language-js"><span class="hl-keyword">const</span> <span class="hl-title class_">AsyncMain</span>=<span class="hl-title function_">defineAsyncComponent</span>({
+<span class="hl-attr">loader</span>:<span class="hl-function">()=></span><span class="hl-keyword">import</span>(<span class="hl-string">"./components/Main.vue"</span>),
+<span class="hl-attr">loadingComponent</span>: <span class="hl-title class_">Loading</span>,
+
+<span class="hl-attr">errorComponent</span>:<span class="hl-title class_">Failing</span>
+<span class="hl-comment">//在显示 loadingComponents 组件之前，等待多长时间</span>
+<span class="hl-attr">delay</span>:<span class="hl-number">2000</span>,
+
+<span class="hl-attr">onError</span>:<span class="hl-keyword">function</span>(<span class="hl-params">err,retry,fail,attempts</span>){}
+})
+</code></pre>
+</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>属性</th><th>描述</th></tr></thead><tbody><tr><td><code>loadingComponent</code></td><td>传入一个组件，如果没有加载出异步组件，占位组件会占位</td></tr><tr><td><code>errorComponent</code></td><td>传入一个组件，组件加载失败时显示的组件</td></tr><tr><td><code>delay</code></td><td>在显示 loadingComponents 组件之前，等待多长时间</td></tr><tr><td><code>onError</code></td><td>传入一个带有四个参数的函数，</td></tr></tbody></table>
+<ul>
+<li><code>onError</code>参数
+<ul>
+<li><code>err</code>:错误信息</li>
+<li><code>retry</code>:函数，调用 retry 尝试重新加载</li>
+<li><code>fail</code>:函数，指加载程序结束退出</li>
+<li><code>attempts</code>:记录尝试的次数</li>
+</ul>
+</li>
+</ul>
+<h3 id="异步组件与-suspense还在实验中api-随时可能修改">异步组件与 Suspense(<span style="color:red">还在实验中，API 随时可能修改</span>)<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#异步组件与-suspense还在实验中api-随时可能修改"></a></h3>
+<ul>
+<li><code>Suspense</code>是一个内置的全局组件，该组件有两个插槽：
+<ul>
+<li><code>default</code>：如果 default 可以显示，那么显示 default 的内容</li>
+<li><code>fallback</code>：如果 default 无法显示，那么会显示 fallback 插槽的内容</li>
+</ul>
+</li>
+</ul>
+<pre><code class="hl language-html"><span class="hl-tag">&#x3C;<span class="hl-name">template</span> #<span class="hl-attr">default</span>></span>
+  <span class="hl-tag">&#x3C;<span class="hl-name">AsyncHeader</span>></span><span class="hl-tag">&#x3C;/<span class="hl-name">AsyncHeader</span>></span>
+<span class="hl-tag">&#x3C;/<span class="hl-name">template</span>></span>
+<span class="hl-tag">&#x3C;<span class="hl-name">template</span> #<span class="hl-attr">fallback</span>></span>
+  <span class="hl-tag">&#x3C;<span class="hl-name">Loading</span>></span><span class="hl-tag">&#x3C;/<span class="hl-name">Loading</span>></span>
+<span class="hl-tag">&#x3C;/<span class="hl-name">template</span>></span>
+</code></pre>
+<h2 id="引用元素和组件">引用元素和组件<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#引用元素和组件"></a></h2>
+<ul>
+<li><code>$refs</code>:持有注册过<code>ref attribute</code> 的所有 DOM 元素或者组件实例</li>
+<li><code>$parent</code> 和 <code>$root</code>,获取父元素实例和根元素实例</li>
+</ul>
+<h2 id="组件的-v-model">组件的 v-model<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#组件的-v-model"></a></h2>
+<blockquote>
+<p>在 input 中可以使用 v-model 来完成双向绑定</p>
+<p>在封装一个组件，其他地方在使用这个组件时，也可以使用 v-model 来同时完成这两个功能</p>
+</blockquote>
+<ul>
+<li>在&#x3C;input>中绑定<code>v-model</code>默认帮我们完成的两件事：
+<ul>
+<li><span style="color:red">v-bind:value 的数据绑定和@input 的事件监听</span></li>
+</ul>
+</li>
+</ul>
+<pre><code class="hl language-html"><span class="hl-comment">&#x3C;!-- 父组件 --></span>
+<span class="hl-tag">&#x3C;<span class="hl-name">MainInput</span> <span class="hl-attr">v-model</span>=<span class="hl-string">"message"</span>></span><span class="hl-tag">&#x3C;/<span class="hl-name">MainInput</span>></span>
+
+<span class="hl-comment">&#x3C;!-- 组件直接绑定 v-model，相当于写成以下模式 --></span>
+<span class="hl-tag">&#x3C;<span class="hl-name">MainInput</span> <span class="hl-attr">:modelValue</span>=<span class="hl-string">"message"</span> 
+           @<span class="hl-attr">update:modelValue</span>=<span class="hl-string">"message=$event"</span>></span>
+<span class="hl-tag">&#x3C;/<span class="hl-name">MainInput</span>></span>
+</code></pre>
+<pre><code class="hl language-html"><span class="hl-comment">&#x3C;!-- 子组件 --></span>
+<span class="hl-tag">&#x3C;<span class="hl-name">template</span>></span>
+  <span class="hl-tag">&#x3C;<span class="hl-name">div</span>></span>
+     <span class="hl-tag">&#x3C;<span class="hl-name">input</span> <span class="hl-attr">v-model</span>=<span class="hl-string">"value"</span>></span>
+     <span class="hl-tag">&#x3C;<span class="hl-name">h2</span>></span>Main 的 message:{{modelValue}}<span class="hl-tag">&#x3C;/<span class="hl-name">h2</span>></span>
+  <span class="hl-tag">&#x3C;/<span class="hl-name">div</span>></span>
+<span class="hl-tag">&#x3C;/<span class="hl-name">template</span>></span>
+<span class="hl-tag">&#x3C;<span class="hl-name">script</span>></span><span class="javascript">
+<span class="hl-keyword">export</span> <span class="hl-keyword">default</span> {
+  <span class="hl-attr">props</span>:{
+    <span class="hl-attr">modelValue</span>:<span class="hl-title class_">String</span>,
+  },
+  <span class="hl-attr">emits</span>:[<span class="hl-string">"update:modelValue"</span>],
+  <span class="hl-attr">computed</span>:{
+    <span class="hl-attr">value</span>:{
+      <span class="hl-title function_">get</span>(<span class="hl-params"></span>){
+        <span class="hl-keyword">return</span> <span class="hl-variable language_">this</span>.<span class="hl-property">modelValue</span>
+      },
+      <span class="hl-title function_">set</span>(<span class="hl-params">value</span>){
+        <span class="hl-variable language_">this</span>.$emit(<span class="hl-string">"update:modelValue"</span>,value)
+      }
+    }
+  },
+}
+</span><span class="hl-tag">&#x3C;/<span class="hl-name">script</span>></span>
+</code></pre>
+<ul>
+<li>
+<p>注意:<span style="color:red">v-model 不能直接绑定到 props,props 中的属性只读不要改</span></p>
+</li>
+<li>
+<p>绑定多个参数，可以给<code>v-model</code>传参</p>
+<ol>
+<li>默认情况下:v-model 其实是绑定了 <code>modelValue</code> 属性和
+<code>@update:modelValue</code>的事件</li>
+<li><code>v-model:tittle</code>绑定了<code>title</code>属性，监听了 <code>@update:title</code>的事件</li>
+</ol>
+</li>
+</ul>
+<pre><code class="hl language-html"><span class="hl-comment">&#x3C;!-- 父组件 --></span>
+<span class="hl-tag">&#x3C;<span class="hl-name">MainInput</span> <span class="hl-attr">v-model:demo</span>=<span class="hl-string">"message"</span> <span class="hl-attr">v-model:tittle</span>=<span class="hl-string">"tittle"</span>></span><span class="hl-tag">&#x3C;/<span class="hl-name">MainInput</span>></span>
+</code></pre>
+<pre><code class="hl language-html"><span class="hl-comment">&#x3C;!-- 子组件 --></span>
+<span class="hl-tag">&#x3C;<span class="hl-name">template</span>></span>
+  <span class="hl-tag">&#x3C;<span class="hl-name">div</span>></span>
+     <span class="hl-tag">&#x3C;<span class="hl-name">input</span> <span class="hl-attr">v-model</span>=<span class="hl-string">"tittleValue"</span>></span>
+     <span class="hl-tag">&#x3C;<span class="hl-name">h2</span>></span>Main 的 message:{{tittleValue}}<span class="hl-tag">&#x3C;/<span class="hl-name">h2</span>></span>
+      <span class="hl-tag">&#x3C;<span class="hl-name">input</span> <span class="hl-attr">v-model</span>=<span class="hl-string">"demoValue"</span>></span>
+     <span class="hl-tag">&#x3C;<span class="hl-name">h2</span>></span>Main 的 message:{{demoValue}}<span class="hl-tag">&#x3C;/<span class="hl-name">h2</span>></span>
+  <span class="hl-tag">&#x3C;/<span class="hl-name">div</span>></span>
+<span class="hl-tag">&#x3C;/<span class="hl-name">template</span>></span>
+<span class="hl-tag">&#x3C;<span class="hl-name">script</span>></span><span class="javascript">
+<span class="hl-keyword">export</span> <span class="hl-keyword">default</span> {
+  <span class="hl-attr">props</span>:{
+    <span class="hl-attr">demo</span>:<span class="hl-title class_">String</span>,
+    <span class="hl-attr">tittle</span>:<span class="hl-title class_">String</span>
+  },
+  <span class="hl-attr">emits</span>:[<span class="hl-string">"update:tittle"</span>,<span class="hl-string">"update:demo"</span>],
+  <span class="hl-attr">computed</span>:{
+    <span class="hl-attr">tittleValue</span>:{
+      <span class="hl-title function_">get</span>(<span class="hl-params"></span>){
+        <span class="hl-keyword">return</span> <span class="hl-variable language_">this</span>.<span class="hl-property">tittle</span>
+      },
+      <span class="hl-title function_">set</span>(<span class="hl-params">value</span>){
+        <span class="hl-variable language_">this</span>.$emit(<span class="hl-string">"update:tittle"</span>,value)
+      }
+    },
+    <span class="hl-attr">demoValue</span>:{
+      <span class="hl-title function_">get</span>(<span class="hl-params"></span>){
+        <span class="hl-keyword">return</span> <span class="hl-variable language_">this</span>.<span class="hl-property">demo</span>
+      },
+      <span class="hl-title function_">set</span>(<span class="hl-params">value</span>){
+        <span class="hl-variable language_">this</span>.$emit(<span class="hl-string">"update:demo"</span>,value)
+      }
+    }
+  },
+}
+</span><span class="hl-tag">&#x3C;/<span class="hl-name">script</span>></span>
+</code></pre>
+        </article></main><script src="https://giscus.app/client.js"
+        data-repo="fwqaaq/fwqaaq.github.io"
+        data-repo-id="R_kgDOHCFK2A"
+        data-category="Show and tell"
+        data-category-id="DIC_kwDOHCFK2M4CYOLh"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="1"
+        data-input-position="bottom"
+        data-theme="preferred_color_scheme"
+        data-lang="zh-CN"
+        crossorigin="anonymous"
+        async></script>

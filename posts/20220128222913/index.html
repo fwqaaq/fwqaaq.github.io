@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="rgb(46, 44, 79)">
+  <meta name="description" content="使用 ESlint 规范项目">
+  <meta name="keywords" content="ESlint, JavaScript, TypeScript">
+  <title>
+    ESLint
+  </title>
+  <link rel="stylesheet" href="/public/css/index.css">
+  <link rel="stylesheet" href="/public/css/markdown.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+  <script src="/public/JavaScript/index.js"></script>
+</head><header class="blog-header">
+  <a href="https://github.com/fwqaaq" target="_blank">
+    <img src="https://avatars.githubusercontent.com/u/82551626?v=4" loading="lazy" alt="me" srcset="">
+  </a>
+  <nav class="header-nav">
+    <a class="decoration-line" href="/"><i class="fa-solid fa-house-chimney fa-xs"></i>
+      <span class="disappear">Home</span>
+    </a>
+    <a class="decoration-line" href="/./about/index.html"><i class="fa-solid fa-address-card fa-xs"></i>
+      <span class="disappear">About</span></a>
+    <a class="decoration-line" href="/./archive/index.html"><i class="fa-solid fa-box-archive fa-xs"></i> <span
+        class="disappear">Archive</span></a>
+    <a class="decoration-line" href="/./tags/index.html"><i class="fa-solid fa-tag fa-xs"></i> <span
+        class="disappear">Tag</span></a>
+    <div class="toy"><i class="fa-solid fa-gamepad fa-xs"></i> <span class="disappear">Toy</span>
+      <nav class="toy-nav disappear">
+        <a class="decoration-line" href="/public/resume/">我的简历</a>
+        <a class="decoration-line" href="/public/write-css/index.html">学习 UI</a>
+      </nav>
+    </div>
+    <a class="decoration-line" href="/feed.xml"><i class="fa-solid fa-rss fa-xs"></i> <span
+        class="disappear">RSS</span></a>
+    <a class="decoration-line model" href="#" class="model"><i class="fa-solid fa-sun fa-xs"></i></a>
+  </nav>
+</header><main class="blog-main">
+          <article class="blog-article">
+            <h1>ESLint</h1>
+            <hr>
+            <blockquote>
+<p>以下以 <code>nuxt3</code> 集成 ESlint 举例</p>
+</blockquote>
+<ul>
+<li><code>npx nuxi init nuxt-app</code>：首先得初始化一个 nuxt3 的项目</li>
+</ul>
+<h2 id="初始化-eslint">初始化 ESlint<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#初始化-eslint"></a></h2>
+<ul>
+<li>
+<p><code>eslint</code> 可以全局安装，也可以局部安装，在这里我就使用 <code>pnpm add eslint -D</code></p>
+</li>
+<li>
+<p><code>npx eslint --init</code>：此命令可以创建一个配置，并且你就可以继承推荐的规则</p>
+</li>
+</ul>
+<pre><code class="hl language-js"><span class="hl-variable language_">module</span>.<span class="hl-property">exports</span> = {
+  <span class="hl-string">"env"</span>: {
+    <span class="hl-string">"browser"</span>: <span class="hl-literal">true</span>,
+    <span class="hl-string">"es2021"</span>: <span class="hl-literal">true</span>,
+  },
+  <span class="hl-string">"extends"</span>: [
+    <span class="hl-string">"eslint:recommended"</span>,
+    <span class="hl-string">"plugin:vue/essential"</span>,
+    <span class="hl-string">"plugin:@typescript-eslint/recommended"</span>,
+  ],
+  <span class="hl-string">"parserOptions"</span>: {
+    <span class="hl-string">"ecmaVersion"</span>: <span class="hl-string">"latest"</span>,
+    <span class="hl-string">"parser"</span>: <span class="hl-string">"@typescript-eslint/parser"</span>,
+    <span class="hl-string">"sourceType"</span>: <span class="hl-string">"module"</span>,
+  },
+  <span class="hl-string">"plugins"</span>: [
+    <span class="hl-string">"vue"</span>,
+    <span class="hl-string">"@typescript-eslint"</span>,
+  ],
+  <span class="hl-string">"rules"</span>: {},
+};
+</code></pre>
+<ul>
+<li><strong>env</strong>:项目环境</li>
+</ul>
+<h3 id="extends"><strong>extends</strong><a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#extends"></a></h3>
+<blockquote>
+<p>extends 的模块名称以 <code>eslint-config-</code> 开头，例如 eslint-config-myconfig。同时支持
+npm 作用域模块，例如
+:@scope/eslint-config。使用的时候可以用全称，也可以用缩写 (不使用<code>eslint-config-</code>)</p>
+<p>例如上面配置文件，extends 中 <code>"plugin:@typescript-eslint/recommended"</code>，这个就是插件中的配置</p>
+</blockquote>
+<ul>
+<li><strong>指定配置的字符串</strong>（配置文件的路径，可共享配置的名称，<code>eslint:recommended</code> 或 <code>eslint:all</code>）</li>
+<li><strong>字符串数组</strong>：每个配置继承它前面的配置</li>
+</ul>
+<ol>
+<li>extends 可以看做是集成一个个配置方案的最佳实践。它配置的内容实际就是一份份别人配置好的 <code>.eslintrc.js</code></li>
+<li>允许 extends 配置多个模块，如果规则冲突，位置靠后的包将覆盖前面的</li>
+<li>rules 中的规则相同，并且优先级恒定高于 extends</li>
+</ol>
+<h3 id="plugin">plugin<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#plugin"></a></h3>
+<blockquote>
+<p>每个插件是一个命名格式为 eslint-plugin-&#x3C;plugin-name> ，比如
+eslint-plugin-vue。你也可以用这样的格式 @&#x3C;scope>/eslint-plugin-&#x3C;plugin-name>
+限定在包作用域下，比如 @vue/eslint-plugin-vue。同样可以使用缩写</p>
+<p>例如上面配置文件中，plugins 中的<code>"vue"</code>，这个就是简写的插件</p>
+</blockquote>
+<ol>
+<li>引入 <code>plugin</code> 可以理解为只是加载了（拥有额外的自定义的 rules）插件。但是只有在 <strong>rules,extends</strong> 中定义后才会生效，如果没有则不生效</li>
+<li>plugin 里除了自定义的 rules。还可以配置 <code>.eslintrc.js</code>（例如 <code>"plugin:vue/essential"</code>），并且这部分可以在 extends 里配置：<code>plugin:config</code> 名称
+<ul>
+<li>参考：<a href="https://cn.eslint.org/docs/developer-guide/working-with-plugins#configs-in-plugins">https://cn.eslint.org/docs/developer-guide/working-with-plugins#configs-in-plugins</a></li>
+</ul>
+</li>
+</ol>
+<h3 id="rules"><strong>rules</strong><a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#rules"></a></h3>
+<blockquote>
+<p><a href="https://eslint.org/docs/user-guide/configuring/rules">可以做下面的任何事情以扩展（或覆盖）规则</a></p>
+</blockquote>
+<ul>
+<li><code>"off"</code> 或 <code>0</code>——关闭规则</li>
+<li><code>"warn"</code> 或 <code>1</code>——打开规则作为警告（不影响退出代码）</li>
+<li><code>"error"</code> 或 <code>2</code>——将规则作为错误打开（触发时退出代码为 1）</li>
+</ul>
+<ol>
+<li>启用额外的规则</li>
+<li>改变继承的规则级别而不改变它的选项
+<ul>
+<li>基础配置：<code>"eqeqeq": ["error", "allow-null"]</code></li>
+<li>派生的配置：<code>"eqeqeq": "warn"</code></li>
+<li>最后生成的配置：<code>"eqeqeq": ["warn", "allow-null"]</code></li>
+<li><code>eqeqeq</code> 是需要 <code>===</code> 和 <code>!==</code></li>
+</ul>
+</li>
+<li>覆盖基础配置中的规则的选项
+<ul>
+<li>基础配置：<code>"quotes": ["error", "single", "avoid-escape"]</code></li>
+<li>派生的配置：<code>"quotes": ["error", "single"]</code></li>
+<li>最后生成的配置：<code>"quotes": ["error", "single"]</code></li>
+<li><code>quotes</code> 强制一致使用反引号、双引号或单引号</li>
+</ul>
+</li>
+</ol>
+<blockquote>
+<p>开启 "eslint:recommended"</p>
+<p>值为 <code>eslint:recommended</code> 的 extends 属性启用一系列核心规则，这些规则报告一些常见问题</p>
+<p>如果配置集成了推荐的规则：在使用命令行的 <code>--fix</code> 选项之前，检查一下报告的问题，这样就可以知道一个新的可修复的推荐的规则将更改代码</p>
+</blockquote>
+<h3 id="extends-和-plugins-的区别">extends 和 plugins 的区别<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#extends-和-plugins-的区别"></a></h3>
+<ol>
+<li>一般对 JavaScript 来说，extends 是针对 rules 做的规则说明，类似于别人配置好的 <code>.eslintrc.js</code>。而 plugins 是一堆规则集合</li>
+<li>extends 一般会加载 plugin 中的配置集，形成一套核心规则</li>
+<li>plugin 不仅仅可以对 javascript 做扩展，又可以对除了 JavaScript 之外的做扩展</li>
+</ol>
+<blockquote>
+<p>在 extends 中使用<a href="https://cn.eslint.org/docs/developer-guide/working-with-plugins#configs-in-plugins">plugins 插件</a></p>
+</blockquote>
+<ul>
+<li>extends 里的 config 和 plugin 里的 config 的区别
+<ol>
+<li><code>extends</code> 中的 config 是一种命名规范，扩展名称格式必须为 eslint-config-&#x3C;name></li>
+<li>plugin 中的 config 是一个属性，用于配置一堆自定义的规则的集合</li>
+</ol>
+</li>
+</ul>
+<h3 id="parseroptions">parserOptions<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#parseroptions"></a></h3>
+<blockquote>
+<p>参考<a href="https://eslint.bootcss.com/docs/user-guide/configuring">https://eslint.bootcss.com/docs/user-guide/configuring</a></p>
+</blockquote>
+<h3 id="修改支持-vue3">修改支持 vue3<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#修改支持-vue3"></a></h3>
+<blockquote>
+<p>参考<a href="https://eslint.vuejs.org/user-guide/#usage">https://eslint.vuejs.org/user-guide/#usage</a></p>
+</blockquote>
+<ol>
+<li>
+<p>将 extends 里的 <code>"plugin:vue/essential"</code> 换成 vue3</p>
+<pre><code class="hl language-js"><span class="hl-attr">extends</span>: [
+  ...,
+  <span class="hl-string">'plugin:vue/vue3-recommended'</span>,
+],
+</code></pre>
+</li>
+<li>
+<p>配置 nuxt3 中额外的规则</p>
+<ul>
+<li>下载插件：<code>npm install -D eslint-plugin-nuxt</code></li>
+</ul>
+<pre><code class="hl language-js"><span class="hl-attr">extends</span>:[
+  ...,
+  <span class="hl-string">"plugin:nuxt/recommended"</span>
+]
+</code></pre>
+</li>
+</ol>
+<h3 id="eslint-命令行参数">ESlint 命令行参数<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#eslint-命令行参数"></a></h3>
+<blockquote>
+<p>首先在脚本中配置 eslint 检查</p>
+</blockquote>
+<pre><code class="hl language-json">scripts<span class="hl-punctuation">:</span><span class="hl-punctuation">{</span>
+  <span class="hl-comment">// npx 会自动执行脚本，不需要加上 npx</span>
+  <span class="hl-attr">"lint"</span><span class="hl-punctuation">:</span> <span class="hl-string">"eslint . --ext .ts,.vue"</span>
+<span class="hl-punctuation">}</span>
+</code></pre>
+<blockquote>
+<ul>
+<li>语法：<code>eslint [options] [file|dir|glob]*</code></li>
+<li>常用命令行参数，通过 <code>npx eslint --help</code> 来输出所有选项参数</li>
+</ul>
+</blockquote>
+<ul>
+<li>
+<p>正常的使用</p>
+<ol>
+<li><code>eslint app.js main.js</code>：检查<code>app.js</code>、<code>main.js</code>文件</li>
+<li><code>eslint lib/**</code>：检查 lib 下面的所有文件</li>
+</ol>
+</li>
+<li>
+<p>一些常用选项</p>
+<ol>
+<li>
+<p><code>--ext</code>：允许你指定 ESLint 在指定的目录下查找 JavaScript 文件时要使用的文件扩展名。默认情况下 <code>.js</code> 作为唯一性文件扩展名</p>
+<ul>
+<li><code>--ext</code> 只用当参数为目录时才会生效</li>
+</ul>
+<pre><code class="hl language-shell"><span class="hl-meta prompt_"># </span><span class="bash">当前目录下所有目录</span>
+eslint --ext .ts,.vue .
+<span class="hl-meta prompt_"># </span><span class="bash">忽略扩展名，匹配 src 下所有文件</span>
+eslint --ext .vue ./src/**/*
+</code></pre>
+</li>
+<li>
+<p><code>--rulesdir</code>：允许你指定另一个加载规则文件的目录。允许你在运行时动态加载新规则。当你有自定义规则绑定到 eslint 会很有用。</p>
+<ul>
+<li><code>eslint --rulesdir my-rules/file.js</code>：只绑定一个规则文件</li>
+<li><code>eslint --rulesdir my-rules/ --rulesdir my-other-rules/file.js</code>：绑定多个规则文件</li>
+<li>注意，与核心规则和插件规则一样，你仍需要在配置文件或通过 <code>--rule</code>
+命令行选项启用这些规则，以便在检测过程中实际运行这些规则。使用 <code>--rulesdir</code>
+指定一个规则目录不会自动启用那些目录下的规则</li>
+</ul>
+</li>
+<li>
+<p><code>-o, --output-file</code>：将报告写到一个文件</p>
+<ul>
+<li><code>eslint -o ./test.txt</code>：将报告写到 <code>test.txt</code></li>
+</ul>
+</li>
+<li>
+<p><code>--fix</code>：该选项指示 ESLint
+试图修复尽可能多的问题。修复只针对实际文件本身，而且剩下的未修复的问题才会输出。不是所有的问题都能使用这个选项进行修复，该选项在以下情形中不起作用：</p>
+<ul>
+<li>当代码传递给 ESLint 时，这个选项抛出一个错误。</li>
+<li>这个选项对使用处理器的代码不起作用。</li>
+<li>该选项对使用处理器的代码没有影响，除非处理器选择允许自动修复</li>
+</ul>
+</li>
+</ol>
+<pre><code class="hl language-json"><span class="hl-punctuation">{</span>
+  <span class="hl-attr">"script"</span><span class="hl-punctuation">:</span> <span class="hl-punctuation">{</span>
+    <span class="hl-attr">"lint"</span><span class="hl-punctuation">:</span> <span class="hl-string">"eslint --fix --ext .tsx,.ts ."</span>
+  <span class="hl-punctuation">}</span>
+<span class="hl-punctuation">}</span>
+</code></pre>
+</li>
+</ul>
+<blockquote>
+<p><code>.eslintignore</code> 文件：eslint 会忽略当前目录下的这些文件。</p>
+</blockquote>
+<ul>
+<li><code>.eslintignore</code> 是 <code>--ignore-path</code> 的选项的一个扩展，更方便的去管理文件</li>
+</ul>
+<pre><code class="hl language-shell">/dist/*
+.local
+.output.js
+/node_modules/**
+**/*.svg
+**/*.sh
+/public/*
+</code></pre>
+<h2 id="prettier-和-husky">prettier 和 husky<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#prettier-和-husky"></a></h2>
+<blockquote>
+<ul>
+<li>使用 prettier 去规范代码风格</li>
+<li>参考:<a href="https://prettier.io/">https://prettier.io/</a></li>
+</ul>
+</blockquote>
+<ul>
+<li>下载关于 prettier 的插件：<code>npm i -D prettier eslint-plugin-prettier eslint-config-prettier</code></li>
+</ul>
+<pre><code class="hl language-js"><span class="hl-variable language_">module</span>.<span class="hl-property">exports</span>={
+  <span class="hl-string">"extends"</span>:[
+  ...,
+  <span class="hl-comment">// 用 eslint-config-prettier</span>
+  <span class="hl-string">'plugin:prettier/recommended'</span>
+  ],
+  <span class="hl-attr">plugin</span>:[<span class="hl-string">"prettier"</span>]<span class="hl-comment">// 避免与 prettier 冲突</span>
+}
+</code></pre>
+<blockquote>
+<p>配置 <a href="https://prettier.io/docs/en/options.html"><code>.prettierrc</code></a> 文件，同时也可以添加 <code>.prettierignore</code> 文件来忽略不想要检查的文件</p>
+</blockquote>
+<pre><code class="hl language-js">{
+  <span class="hl-attr">printWidth</span>: <span class="hl-number">80</span>, <span class="hl-comment">//单行长度</span>
+  <span class="hl-attr">tabWidth</span>: <span class="hl-number">2</span>, <span class="hl-comment">//缩进长度，不管是空格还是 Tab</span>
+  <span class="hl-attr">useTabs</span>: <span class="hl-literal">false</span>, <span class="hl-comment">//使用空格代替 tab 缩进</span>
+  <span class="hl-attr">semi</span>: <span class="hl-literal">true</span>, <span class="hl-comment">//句末使用分号</span>
+  <span class="hl-attr">singleQuote</span>: <span class="hl-literal">true</span>, <span class="hl-comment">//使用单引号</span>
+  <span class="hl-attr">quoteProps</span>: <span class="hl-string">'as-needed'</span>, <span class="hl-comment">//仅在必需时为对象的 key 添加引号</span>
+  <span class="hl-attr">jsxSingleQuote</span>: <span class="hl-literal">true</span>, <span class="hl-comment">// jsx 中使用单引号</span>
+  <span class="hl-attr">trailingComma</span>: <span class="hl-string">'all'</span>, <span class="hl-comment">//多行时尽可能打印尾随逗号</span>
+  <span class="hl-attr">bracketSpacing</span>: <span class="hl-literal">true</span>, <span class="hl-comment">//在对象前后添加空格-eg: { foo: bar }</span>
+  <span class="hl-attr">jsxBracketSameLine</span>: <span class="hl-literal">true</span>, <span class="hl-comment">//多属性 html 标签的‘>’折行放置</span>
+  <span class="hl-attr">arrowParens</span>: <span class="hl-string">'always'</span>, <span class="hl-comment">//单参数箭头函数参数周围使用圆括号-eg: (x) => x</span>
+  <span class="hl-attr">requirePragma</span>: <span class="hl-literal">false</span>, <span class="hl-comment">//无需顶部注释即可格式化</span>
+  <span class="hl-attr">insertPragma</span>: <span class="hl-literal">false</span>, <span class="hl-comment">//在已被 preitter 格式化的文件顶部加上标注</span>
+  <span class="hl-attr">proseWrap</span>: <span class="hl-string">'preserve'</span>, <span class="hl-comment">//不知道怎么翻译</span>
+  <span class="hl-attr">htmlWhitespaceSensitivity</span>: <span class="hl-string">'ignore'</span>, <span class="hl-comment">//对 HTML 全局空白不敏感</span>
+  <span class="hl-attr">vueIndentScriptAndStyle</span>: <span class="hl-literal">false</span>, <span class="hl-comment">//不对 vue 中的 script 及 style 标签缩进</span>
+  <span class="hl-attr">endOfLine</span>: <span class="hl-string">'lf'</span>, <span class="hl-comment">//结束行形式</span>
+  <span class="hl-attr">embeddedLanguageFormatting</span>: <span class="hl-string">'auto'</span>, <span class="hl-comment">//对引用代码进行格式化</span>
+}
+</code></pre>
+<ul>
+<li>增加脚本配置 <code>prettier --write .</code></li>
+</ul>
+<h3 id="husky">husky<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#husky"></a></h3>
+<blockquote>
+<p>线初始化 husky：<code>git husky install</code></p>
+</blockquote>
+<ul>
+<li><code>npx husky add .husky/pre-commit "npx lint-staged"</code> 将代码检查添加到预提交</li>
+</ul>
+<h3 id="lint-staged">Lint-staged<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#lint-staged"></a></h3>
+<ul>
+<li>直接使用命令：<code>npx mrm@2 lint-staged</code></li>
+</ul>
+<blockquote>
+<p>此命令将根据项目依赖项中的代码质量工具安装和配置 husky 和 `lint-staged
+package.json，因此请确保在此之前安装 npm install
+--save-dev 并配置所有代码质量工具，如 Prettier 和 ESLint</p>
+</blockquote>
+<ul>
+<li><code>Lint-staged</code> 参考：<a href="https://github.com/okonet/lint-staged">https://github.com/okonet/lint-staged</a></li>
+</ul>
+        </article></main><script src="https://giscus.app/client.js"
+        data-repo="fwqaaq/fwqaaq.github.io"
+        data-repo-id="R_kgDOHCFK2A"
+        data-category="Show and tell"
+        data-category-id="DIC_kwDOHCFK2M4CYOLh"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="1"
+        data-input-position="bottom"
+        data-theme="preferred_color_scheme"
+        data-lang="zh-CN"
+        crossorigin="anonymous"
+        async></script>

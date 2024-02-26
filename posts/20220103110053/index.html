@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="rgb(46, 44, 79)">
+  <meta name="description" content="浏览器自带的 bom 属性">
+  <meta name="keywords" content="JavaScript">
+  <title>
+    bom
+  </title>
+  <link rel="stylesheet" href="/public/css/index.css">
+  <link rel="stylesheet" href="/public/css/markdown.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+  <script src="/public/JavaScript/index.js"></script>
+</head><header class="blog-header">
+  <a href="https://github.com/fwqaaq" target="_blank">
+    <img src="https://avatars.githubusercontent.com/u/82551626?v=4" loading="lazy" alt="me" srcset="">
+  </a>
+  <nav class="header-nav">
+    <a class="decoration-line" href="/"><i class="fa-solid fa-house-chimney fa-xs"></i>
+      <span class="disappear">Home</span>
+    </a>
+    <a class="decoration-line" href="/./about/index.html"><i class="fa-solid fa-address-card fa-xs"></i>
+      <span class="disappear">About</span></a>
+    <a class="decoration-line" href="/./archive/index.html"><i class="fa-solid fa-box-archive fa-xs"></i> <span
+        class="disappear">Archive</span></a>
+    <a class="decoration-line" href="/./tags/index.html"><i class="fa-solid fa-tag fa-xs"></i> <span
+        class="disappear">Tag</span></a>
+    <div class="toy"><i class="fa-solid fa-gamepad fa-xs"></i> <span class="disappear">Toy</span>
+      <nav class="toy-nav disappear">
+        <a class="decoration-line" href="/public/resume/">我的简历</a>
+        <a class="decoration-line" href="/public/write-css/index.html">学习 UI</a>
+      </nav>
+    </div>
+    <a class="decoration-line" href="/feed.xml"><i class="fa-solid fa-rss fa-xs"></i> <span
+        class="disappear">RSS</span></a>
+    <a class="decoration-line model" href="#" class="model"><i class="fa-solid fa-sun fa-xs"></i></a>
+  </nav>
+</header><main class="blog-main">
+          <article class="blog-article">
+            <h1>bom</h1>
+            <hr>
+            <h2 id="viewport">Viewport<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#viewport"></a></h2>
+<div class="markdown-alert markdown-alert-tip">
+<p class="markdown-alert-title"><svg class="octicon octicon-light-bulb mr-2" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="M8 1.5c-2.363 0-4 1.69-4 3.75 0 .984.424 1.625.984 2.304l.214.253c.223.264.47.556.673.848.284.411.537.896.621 1.49a.75.75 0 0 1-1.484.211c-.04-.282-.163-.547-.37-.847a8.456 8.456 0 0 0-.542-.68c-.084-.1-.173-.205-.268-.32C3.201 7.75 2.5 6.766 2.5 5.25 2.5 2.31 4.863 0 8 0s5.5 2.31 5.5 5.25c0 1.516-.701 2.5-1.328 3.259-.095.115-.184.22-.268.319-.207.245-.383.453-.541.681-.208.3-.33.565-.37.847a.751.751 0 0 1-1.485-.212c.084-.593.337-1.078.621-1.489.203-.292.45-.584.673-.848.075-.088.147-.173.213-.253.561-.679.985-1.32.985-2.304 0-2.06-1.637-3.75-4-3.75ZM5.75 12h4.5a.75.75 0 0 1 0 1.5h-4.5a.75.75 0 0 1 0-1.5ZM6 15.25a.75.75 0 0 1 .75-.75h2.5a.75.75 0 0 1 0 1.5h-2.5a.75.75 0 0 1-.75-.75Z"></path></svg>Tip</p>
+<p>视口代表一个可看见的多边形区域（通常是矩形）.在浏览器的范畴里，他代表的就是浏览器网站中可见内容的部分，视口外的内容在被滚动进来前都是不可见的</p>
+</div>
+<ul>
+<li><strong>可见视口</strong>：视口当前可见的部分。可见视口可能回避布局视口更小，因为当用户缩小浏览器的比例，布局视口不变，而可见视口会变小</li>
+<li><strong>布局视口</strong>：是浏览器在其中绘制网页的视口。从本质上讲，它表示可查看的内容，而可视视口表示用户显示设备上当前可见的内容</li>
+</ul>
+<h3 id="浏览器窗口大小">浏览器窗口大小<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#浏览器窗口大小"></a></h3>
+<ol>
+<li><code>innerWidth</code>、<code>innerHeight</code>：返回浏览器窗口中页面<strong>可见视口</strong>的大小（不包含边框，工具栏）
+<ul>
+<li>使用：<code>window.innerWidth</code></li>
+</ul>
+</li>
+<li><code>outerWidth</code>、<code>outerHeight</code>：返回浏览器窗口自身的大小（整个浏览器，包含边框，工具栏）
+<ul>
+<li>使用：<code>window.outerWidth</code></li>
+</ul>
+</li>
+<li><code>scrollX</code>、<code>scrollY</code>：返回文档当前水平滚动和垂直滚动的像素数
+<ul>
+<li>使用<code>window.scroll(0,0)</code>：这样会把文档重新滚动到左上角</li>
+</ul>
+</li>
+<li><code>clientWidth</code>、<code>clientHeight</code>：返回<strong>布局视口元素</strong>的大小
+<ul>
+<li>使用：<code>document.documentElement.clientWidth</code></li>
+</ul>
+</li>
+<li><code>screen.height</code>、<code>screen.width</code>：返回屏幕（整个显示器）的大小</li>
+<li><code>screen.availHeight</code>、<code>screen.availWidth</code>：返回可使用的屏幕高度或者宽度（不会包括固定的任务栏等不可使用的区域）</li>
+</ol>
+<blockquote>
+<p>注意：布局视口相对于可见视口的概念.可见视口只能显示页面的一小部分。</p>
+</blockquote>
+<p><img src="https://media.githubusercontent.com/media/fwqaaq/fwqaaq.github.io/dev/src/picture/%E6%B5%8F%E8%A7%88%E5%99%A8%E8%A7%86%E5%8F%A3.png" alt="浏览器视口"></p>
+<ul>
+<li><strong>移动窗口</strong>（moveTo、moveBy）和<strong>缩放窗口</strong>（resizeTo、resizeBy）方法一般浏览器会禁用</li>
+</ul>
+<h3 id="dom-元素大小">DOM 元素大小<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#dom-元素大小"></a></h3>
+<ol>
+<li><code>clientWidth</code>、<code>clientHeight</code>：CSS 的 width/height 和 padding 属性值之和
+<ul>
+<li>元素边框和滚动条不包括在内，也不包含任何可能的滚动区域</li>
+</ul>
+</li>
+<li><code>offsetWidth</code>、<code>offsetHeight</code>：元素在页面中占据的 width/height 总和，包括 width、padding、border 以及滚动条的宽度</li>
+<li><code>offsetLeft</code>、<code>offsetTop</code>：只读。返回元素左上角相对于 <code>HTMLElement.offsetParent</code>（父元素不是 <code>display:none</code>）节点的左或者上边界的偏移量</li>
+<li><code>scrollWidth</code>、<code>scrollHeight</code> 当元素不是 <code>overflow:hidden</code> 样式属性时，元素的总宽度（滚动宽度）
+<ul>
+<li>在默认状态下，如果该属性值大于 clientWidth 属性值，则元素会显示滚动条，以便能够翻阅被隐藏的区域</li>
+</ul>
+</li>
+</ol>
+<h3 id="event-事件上的元素大小">event 事件上的元素大小<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#event-事件上的元素大小"></a></h3>
+<div class="markdown-alert markdown-alert-important">
+<p class="markdown-alert-title"><svg class="octicon octicon-report mr-2" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="M0 1.75C0 .784.784 0 1.75 0h12.5C15.216 0 16 .784 16 1.75v9.5A1.75 1.75 0 0 1 14.25 13H8.06l-2.573 2.573A1.458 1.458 0 0 1 3 14.543V13H1.75A1.75 1.75 0 0 1 0 11.25Zm1.75-.25a.25.25 0 0 0-.25.25v9.5c0 .138.112.25.25.25h2a.75.75 0 0 1 .75.75v2.19l2.72-2.72a.749.749 0 0 1 .53-.22h6.5a.25.25 0 0 0 .25-.25v-9.5a.25.25 0 0 0-.25-.25Zm7 2.25v2.5a.75.75 0 0 1-1.5 0v-2.5a.75.75 0 0 1 1.5 0ZM9 9a1 1 0 1 1-2 0 1 1 0 0 1 2 0Z"></path></svg>Important</p>
+<p>该元素只会在 event（如 click、mousemove 等）上才有的属性</p>
+</div>
+<ul>
+<li>
+<p>以下属性的方位都是相对于左上方为原点的坐标系，越往右/下，值越大</p>
+</li>
+<li>
+<p><code>offsetX</code>、<code>offsetY</code>：鼠标相对于目标元素的距离。</p>
+<ul>
+<li>参照点是目标元素的左上角</li>
+</ul>
+</li>
+<li>
+<p><code>clientX</code>、<code>clientY</code>：鼠标相对于浏览器视口的距离。</p>
+<ul>
+<li>参照点是目标元素的左上角，计算鼠标点距离浏览器内容区域的左上角的距离（不包含任何可能的滚动区域）</li>
+</ul>
+</li>
+<li>
+<p><code>layerX</code>、<code>layerY</code>：鼠标相对于定位属性的距离。</p>
+<ul>
+<li>参照点是父元素（如果自身有定位属性的话就是相对于自身）都没有的话：就是相对于 body 元素</li>
+</ul>
+</li>
+<li>
+<p><code>pageX</code>、<code>pageY</code>：鼠标相对与整个页面左上角的距离。</p>
+<ul>
+<li>参照点是页面本身的 body 原点。会以 body 左上角计算值，并且把滚动条滚过的高或宽计算在内（受滚动区域影响）</li>
+</ul>
+</li>
+<li>
+<p><code>screenX</code>、<code>screenY</code>：鼠标相对于屏幕的距离。</p>
+<ul>
+<li>参照点是屏幕的左上角</li>
+</ul>
+</li>
+</ul>
+<h2 id="location">location<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#location"></a></h2>
+<blockquote>
+<p><code>window.location</code> 和 <code>document.location</code>指向同一个对象</p>
+</blockquote>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>属性</th><th>描述</th></tr></thead><tbody><tr><td>Location.href</td><td>包含整个 URL,location 的 toString() 方法返回</td></tr><tr><td>Location.protocol</td><td>页面使用的协议。通常包括<code>http</code>或<code>https:</code></td></tr><tr><td>Location.host</td><td>服务器名和端口号</td></tr><tr><td>Location.hostname</td><td>服务器名</td></tr><tr><td>Location.port</td><td>端口号</td></tr><tr><td>Location.pathname</td><td>url 的路径</td></tr><tr><td>Location.search</td><td>查询字符串。以 <code>?</code> 开头</td></tr><tr><td>Location.hash</td><td>哈希散列值，开头有一个“#”</td></tr><tr><td>Location.username</td><td>域名前指定的用户名</td></tr><tr><td>Location.password</td><td>域名前指定的密码</td></tr><tr><td>Location.origin</td><td>url 的源地址</td></tr></tbody></table>
+<blockquote>
+<p>查询字符串的解码 <code>decodeURIComponent</code> 和编码 <code>encodeURIComponent</code></p>
+</blockquote>
+<ol>
+<li><code>encodeURIComponent()</code>：原字串作为 URI 组成部分被编码后组成的新字符串</li>
+<li>转义除了如下所示的所有文字 <code>A-Z a-z 0-9 - _ . ! ~ * ' ( )</code></li>
+<li>反之，<code>decodeURIComponent()</code> 就是将编码之后的字符串解码</li>
+</ol>
+<pre><code class="hl language-js"><span class="hl-built_in">encodeURIComponent</span>(<span class="hl-string">"#"</span>);
+<span class="hl-comment">//'%23'</span>
+<span class="hl-built_in">decodeURIComponent</span>(<span class="hl-string">"%23"</span>);
+<span class="hl-comment">//'#'</span>
+</code></pre>
+<ul>
+<li><code>URLSearchParams</code>：给构造函数传入一个查询字符串即可创造一个实例。并且暴露了 <code>get()</code>、<code>has()</code>、<code>delete()</code> 等等，同时可以作为可迭代对象</li>
+</ul>
+<pre><code class="hl language-js"><span class="hl-keyword">let</span> searchParams = <span class="hl-keyword">new</span> <span class="hl-title class_">URLSearchParams</span>(<span class="hl-string">"?name=zhangsan&#x26;sex=gender"</span>);
+searchParams.<span class="hl-title function_">has</span>(<span class="hl-string">"name"</span>); <span class="hl-comment">//true</span>
+searchParams.<span class="hl-title function_">get</span>(<span class="hl-string">"name"</span>); <span class="hl-comment">//zhangsan</span>
+searchParams.<span class="hl-title function_">set</span>(<span class="hl-string">"age"</span>, <span class="hl-string">"15"</span>);
+searchParams.<span class="hl-title function_">toString</span>();
+<span class="hl-comment">//'name=zhangsan&#x26;sex=gender&#x26;age=15'</span>
+</code></pre>
+<blockquote>
+<p>操作地址</p>
+</blockquote>
+<ul>
+<li>例如：<code>location.assign("www.baidu.com")</code>，如果使用 <code>location.href</code> 设置一个 url，也会以同一个 url 值调用 assign() 方法</li>
+<li>除了 <strong>hash</strong> 之外，只要修改了 <code>location</code> 的一个属性，就会导致页面重新加载 url</li>
+</ul>
+<div class="markdown-alert markdown-alert-note">
+<p class="markdown-alert-title"><svg class="octicon octicon-info mr-2" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8Zm8-6.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13ZM6.5 7.75A.75.75 0 0 1 7.25 7h1a.75.75 0 0 1 .75.75v2.75h.25a.75.75 0 0 1 0 1.5h-2a.75.75 0 0 1 0-1.5h.25v-2h-.25a.75.75 0 0 1-.75-.75ZM8 6a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"></path></svg>Note</p>
+<p>如果不希望浏览器的操作地址增加，可以使用 <code>location.replace()</code>，用户不能回到前一页</p>
+<p><code>location.reload()</code>：重新加载当前显示页面</p>
+<ul>
+<li>如果不传参数，会以最有效的方式加载 (可能是缓存)</li>
+<li>如果传 <code>true</code>，会从服务器加载</li>
+</ul>
+</div>
+<h2 id="url">URL<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#url"></a></h2>
+<blockquote>
+<p>URL 用于解析，构造，规范化和编码 url。如果浏览器不支持 <code>new URL()</code> 构造函数。可以使用 <code>new window.URL()</code></p>
+</blockquote>
+<h3 id="new-url">new URL()<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#new-url"></a></h3>
+<blockquote>
+<p>构造函数：new URL(url[,base])</p>
+</blockquote>
+<ul>
+<li><code>url</code>：表示绝对或者相对的 url.如果是绝对的 url，无论 baseurl 有没有参数都会被忽略。如果是相对的 url，则参数会添加到 baseurl 后</li>
+<li><code>base</code>：可选的，表示基准的 url。只有 url 是带协议才可以生效。否则报一个 TypeError</li>
+</ul>
+<pre><code class="hl language-js"><span class="hl-keyword">let</span> baseurl = <span class="hl-string">"https://www.baidu.com/laji"</span>;
+
+<span class="hl-comment">//忽略参数</span>
+<span class="hl-keyword">new</span> <span class="hl-title function_">URL</span>(<span class="hl-string">"/zhenlan"</span>, baseurl); <span class="hl-comment">//https://www.baidu.com/zhenlan</span>
+
+<span class="hl-comment">//TypeError</span>
+<span class="hl-keyword">new</span> <span class="hl-title function_">URL</span>(<span class="hl-string">"www.baidu.com"</span>);
+
+<span class="hl-keyword">new</span> <span class="hl-title function_">URL</span>(<span class="hl-string">"https://www.baidu.com"</span>); <span class="hl-comment">//https://www.baidu.com</span>
+</code></pre>
+<ul>
+<li><code>hash</code>：返回包含 URL 标识中的 '#' 和 fragment 标识符</li>
+<li><code>host</code>：返回一个主机信息。即 <code>hostname</code>,如果 URL 接口有端口号（如果是默认端口号，则不会包含），也会包含端口号</li>
+<li><code>hostname</code>：不包含端口号的主机信息</li>
+<li><code>href</code>：返回一个完整的 url</li>
+<li><code>origin</code>：只读属性。
+<ul>
+<li>如果是 <code>http</code> 或者是 <code>https</code>，返回源地址</li>
+<li>如果是 ftp 协议，视浏览器而定</li>
+<li>如果是 <code>blob:</code> 协议，返回的是 <code>blob:</code> 紧跟的源地址
+<ul>
+<li><code>"blob:https://mozilla.org"</code> 返回 <code>https://mozilla.org</code></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><code>pathname</code>：返回一个初始 <code>/</code> 和 URL 的路径（如果没有路径，则为空字符串）</li>
+<li><code>port</code>：如果 url 中包含明确的端口信息，则返回一个端口号。否则返回 <code>""</code></li>
+<li><code>protocol</code>：返回一个 url 的协议值</li>
+<li><code>search</code>：返回一个查询字符串。<code>?</code> 紧跟的</li>
+<li><code>searchParams</code>：返回一个 <a href="https://developer.mozilla.org/zh-CN/docs/Web/API/URLSearchParams">URLSearchParams</a>。这个对象包含当前 URL 中解码后的 GET 查询参数</li>
+</ul>
+<pre><code class="hl language-js"><span class="hl-keyword">const</span> url = <span class="hl-keyword">new</span> <span class="hl-title function_">URL</span>(
+  <span class="hl-string">"https://developer.mozilla.org:3300/en-US/docs/Web/API/URL/href?q=123#Examples"</span>,
+);
+<span class="hl-keyword">const</span> hash = url.<span class="hl-property">hash</span>; <span class="hl-comment">//#Examples</span>
+<span class="hl-keyword">const</span> host = url.<span class="hl-property">host</span>; <span class="hl-comment">//developer.mozilla.org:3300</span>
+<span class="hl-keyword">const</span> host = url.<span class="hl-property">hostname</span>; <span class="hl-comment">//developer.mozilla.org</span>
+<span class="hl-keyword">const</span> host = url.<span class="hl-property">href</span>; <span class="hl-comment">//https://developer.mozilla.org:3300/en-US/docs/Web/API/URL/href#Examples</span>
+<span class="hl-keyword">const</span> origin = url.<span class="hl-property">origin</span>; <span class="hl-comment">//https://developer.mozilla.org</span>
+<span class="hl-keyword">const</span> pathname = url.<span class="hl-property">pathname</span>; <span class="hl-comment">///en-US/docs/Web/API/URL/href</span>
+<span class="hl-keyword">const</span> port = url.<span class="hl-property">port</span>; <span class="hl-comment">//3300</span>
+<span class="hl-keyword">const</span> protocol = url.<span class="hl-property">protocol</span>; <span class="hl-comment">//https</span>
+<span class="hl-keyword">const</span> search = url.<span class="hl-property">search</span>; <span class="hl-comment">//?q=123</span>
+</code></pre>
+<ul>
+<li><code>username</code>：包含域名前指定的 username</li>
+<li><code>password</code>：返回域名之前指定的密码</li>
+</ul>
+<pre><code class="hl language-js"><span class="hl-keyword">const</span> url = <span class="hl-keyword">new</span> <span class="hl-title function_">URL</span>(
+  <span class="hl-string">"https://anonymous:flabada@developer.mozilla.org/en-US/docs/Web/API/URL/password"</span>,
+);
+<span class="hl-keyword">const</span> password = url.<span class="hl-property">password</span>; <span class="hl-comment">//flabada</span>
+<span class="hl-keyword">const</span> username = url.<span class="hl-property">username</span>; <span class="hl-comment">//anonymous</span>
+</code></pre>
+<p>静态方法</p>
+<ol>
+<li><code>URL.createObjectURL(object)</code>:创建一个表示参数中给出的对象的 URL
+<ul>
+<li>这个新的 URL 对象表示指定的<code>File</code>对象或<code>Blob</code>对象</li>
+<li><code>object</code>:用于创建 URL 的<code>File</code>对象，<code>Blob</code>对象或者<code>MediaSource</code>对象</li>
+<li>返回一个用于指定源的 URL</li>
+</ul>
+</li>
+<li><code>URL.revokeObjectURL(objectURL)</code>:释放一个之前已经存在的，通过调用<code>URL.createObjectURL()</code>创建的 URL 对象
+<ul>
+<li><code>objectURL</code>:通过调用<code>URL.createObjectURL()</code>方法产生的 URL 对象</li>
+</ul>
+</li>
+<li><code>URL.toString()</code>与<code>URL.toJSON()</code>与<code>url.href</code>一样，返回序列化的 url</li>
+</ol>
+<h3 id="urlsearchparams"><a href="https://developer.mozilla.org/zh-CN/docs/Web/API/URLSearchParams/append">URLSearchParams</a><a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#urlsearchparams"></a></h3>
+<p>该接口定义了一些实用的方法来处理 URL 的查询字符串</p>
+<h4 id="new-urlsearchparams">new URLSearchParams()<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#new-urlsearchparams"></a></h4>
+<p><code>URLSearchParams()</code> 构造器创建并返回一个新的 <code>URLSearchParams</code> 对象。并且会忽略 <code>?</code></p>
+<ul>
+<li><code>const URLSearchParams = new URLSearchParams(init)</code></li>
+<li><code>init</code>:需要 USVString(对应 unicode 标量值的所有可能序列的集合)</li>
+</ul>
+<pre><code class="hl language-js"><span class="hl-keyword">new</span> <span class="hl-title class_">URLSearchParams</span>(<span class="hl-string">"?foo=1&#x26;bar=2"</span>);
+<span class="hl-keyword">new</span> <span class="hl-title class_">URLSearchParams</span>(url.<span class="hl-property">search</span>);
+<span class="hl-keyword">new</span> <span class="hl-title class_">URLSearchParams</span>([[<span class="hl-string">"foo"</span>, <span class="hl-number">1</span>], [<span class="hl-string">"bar"</span>, <span class="hl-number">2</span>]]);
+<span class="hl-keyword">new</span> <span class="hl-title class_">URLSearchParams</span>({ <span class="hl-string">"foo"</span>: <span class="hl-number">1</span>, <span class="hl-string">"bar"</span>: <span class="hl-number">2</span> });
+</code></pre>
+<p>方法</p>
+<ul>
+<li><code>append(name, value)</code>：可以插入一个新搜索参数</li>
+<li><code>getAll(name)</code>：以数组的形式返回与指定搜索参数对应的所有值</li>
+<li><code>get(name)</code>：返回第一个与搜索参数对应的值</li>
+<li><code>has(name)</code>：返回一个布尔值，表示查找的键名是否存在</li>
+<li><code>set()</code>：设置和搜索参数相关联的值。如果设置前已经存在匹配的值，该方法会删除多余的，如果将要设置的值不存在，则创建它</li>
+<li><code>delete(name)</code>：可以删除指定名称的所有搜索参数</li>
+<li><code>sort()</code>：对对象中的所有键/值对进行排序。按 unicode 编码</li>
+<li><code>entries()</code>：返回一个 <code>iterator</code>，允许遍历该对象中包含的所有键/值对</li>
+<li><code>forEach(callback)</code>：该回调函数可以接收到 3 个参数 value、key、searchParams</li>
+<li><code>keys()</code>：返回一个 iterator，遍历器允许遍历对象中包含的所有键</li>
+<li><code>values()</code>：返回一个 iterator，遍历器允许遍历对象中包含的所有值</li>
+<li><code>toString()</code>：返回适用在 URL 中的查询字符串</li>
+</ul>
+<pre><code class="hl language-js"><span class="hl-keyword">let</span> url = <span class="hl-keyword">new</span> <span class="hl-title function_">URL</span>(<span class="hl-string">"https://example.com?foo=1&#x26;bar=2"</span>);
+<span class="hl-keyword">let</span> params = <span class="hl-keyword">new</span> <span class="hl-title class_">URLSearchParams</span>(url.<span class="hl-property">search</span>);
+params.<span class="hl-title function_">getAll</span>(<span class="hl-string">"foo"</span>); <span class="hl-comment">//['1', '4']</span>
+params.<span class="hl-title function_">get</span>(<span class="hl-string">"foo"</span>); <span class="hl-comment">//'1'</span>
+params.<span class="hl-title function_">append</span>(<span class="hl-string">"foo"</span>, <span class="hl-number">4</span>); <span class="hl-comment">//foo=1&#x26;bar=2&#x26;foo=4</span>
+params.<span class="hl-title function_">has</span>(<span class="hl-string">"bar"</span>); <span class="hl-comment">// true</span>
+params.<span class="hl-title function_">set</span>(<span class="hl-string">"foo"</span>, <span class="hl-number">2</span>); <span class="hl-comment">//foo=2&#x26;bar=2</span>
+params.<span class="hl-title function_">delete</span>(<span class="hl-string">"foo"</span>); <span class="hl-comment">//bar=2</span>
+params.<span class="hl-title function_">set</span>(<span class="hl-string">"foo"</span>, <span class="hl-number">4</span>);
+
+<span class="hl-comment">//entries</span>
+<span class="hl-keyword">for</span> (<span class="hl-keyword">let</span> [key, value] <span class="hl-keyword">of</span> params.<span class="hl-title function_">entries</span>()) {
+  <span class="hl-variable language_">console</span>.<span class="hl-title function_">log</span>(key, value);
+  <span class="hl-comment">//bar 2</span>
+  <span class="hl-comment">//foo 4</span>
+}
+
+<span class="hl-comment">//forEach</span>
+params.<span class="hl-title function_">forEach</span>(<span class="hl-function">(<span class="hl-params">item, key</span>) =></span> <span class="hl-variable language_">console</span>.<span class="hl-title function_">log</span>(item, key));
+<span class="hl-comment">//bar 2</span>
+<span class="hl-comment">//foo 4</span>
+
+<span class="hl-comment">//keys()</span>
+<span class="hl-variable language_">console</span>.<span class="hl-title function_">log</span>(...params.<span class="hl-title function_">keys</span>());
+<span class="hl-comment">//bar foo</span>
+
+<span class="hl-comment">//values()</span>
+<span class="hl-variable language_">console</span>.<span class="hl-title function_">log</span>(...params.<span class="hl-title function_">values</span>());
+<span class="hl-comment">//2 4</span>
+
+params.<span class="hl-title function_">toString</span>();
+<span class="hl-comment">//'bar=2&#x26;foo=4'</span>
+</code></pre>
+<h2 id="history">History<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#history"></a></h2>
+<ol>
+<li><code>history.go(-1)</code> 相当于 <code>history.back()</code>：后退一页</li>
+<li><code>history.go(1)</code> 相当于 <code>history.forward()</code>：前进一页</li>
+<li>可以接受一个字符串：可能前进也可能后退</li>
+<li><code>history.length</code>：返回具体的数目</li>
+</ol>
+<div class="markdown-alert markdown-alert-note">
+<p class="markdown-alert-title"><svg class="octicon octicon-info mr-2" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8Zm8-6.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13ZM6.5 7.75A.75.75 0 0 1 7.25 7h1a.75.75 0 0 1 .75.75v2.75h.25a.75.75 0 0 1 0 1.5h-2a.75.75 0 0 1 0-1.5h.25v-2h-.25a.75.75 0 0 1-.75-.75ZM8 6a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"></path></svg>Note</p>
+<p>如果页面的 url 发生变化，则会在历史记录中生成一个新条目。这也包括 url 的散列值 (<code>location.hash</code>)</p>
+</div>
+<h3 id="管理历史状态">管理历史状态<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#管理历史状态"></a></h3>
+<ol>
+<li><code>history.pushState()</code>：接收三个参数，<code>state</code> 对象、一个新状态的标题、相对的 url（可选）</li>
+<li>一旦 <code>pushState()</code> 方法执行后，状态信息就会被推到历史记录中，浏览器地址栏也会相应变化新的 url。也就会相应的启用后退按钮</li>
+<li>当活动历史记录条目更改时，将触发 <code>popstate</code> 事件如果被激活的历史记录条目是通过对 <code>history.pushState()</code> 的调用创建，或者受到对 <code>history.replaceState()</code> 的调用的影响，popstate 事件的 state 属性包含历史条目的状态对象的副本</li>
+<li>注意用 <code>history.pushState()</code> 或 <code>history.replaceState()</code> 不会触发 popstate 事件只有在做出浏览器动作时，才会触发该事件</li>
+<li>测试：<a href="http://example.com/example.html">http://example.com/example.html</a></li>
+</ol>
+<pre><code class="hl language-js"><span class="hl-variable language_">window</span>.<span class="hl-title function_">addEventListener</span>(<span class="hl-string">"popstate"</span>, <span class="hl-function">(<span class="hl-params">event</span>) =></span> {
+  <span class="hl-variable language_">console</span>.<span class="hl-title function_">log</span>(
+    <span class="hl-string">"location: "</span> + <span class="hl-variable language_">document</span>.<span class="hl-property">location</span> + <span class="hl-string">", state: "</span> +
+      <span class="hl-title class_">JSON</span>.<span class="hl-title function_">stringify</span>(event.<span class="hl-property">state</span>),
+  );
+});
+history.<span class="hl-title function_">pushState</span>({ <span class="hl-attr">page</span>: <span class="hl-number">1</span> }, <span class="hl-string">"title 1"</span>, <span class="hl-string">"?page=1"</span>);
+history.<span class="hl-title function_">pushState</span>({ <span class="hl-attr">page</span>: <span class="hl-number">2</span> }, <span class="hl-string">"title 2"</span>, <span class="hl-string">"?page=2"</span>);
+history.<span class="hl-title function_">replaceState</span>({ <span class="hl-attr">page</span>: <span class="hl-number">3</span> }, <span class="hl-string">"title 3"</span>, <span class="hl-string">"?page=3"</span>);
+history.<span class="hl-title function_">back</span>();
+<span class="hl-comment">// Logs "location: http://example.com/example.html?page=1, state: {"page":1}"</span>
+history.<span class="hl-title function_">back</span>();
+<span class="hl-comment">// Logs "location: http://example.com/example.html, state: null</span>
+history.<span class="hl-title function_">go</span>(<span class="hl-number">2</span>);
+<span class="hl-comment">// Logs "location: http://example.com/example.html?page=3, state: {"page":3}</span>
+</code></pre>
+<p>同时也可以使用 <code>history.state</code> 获取当前状态（<code>state对象</code>）。<code>history.replaceState()</code> 更新状态不会创建新历史记录，只会覆盖当前状态</p>
+        </article></main><script src="https://giscus.app/client.js"
+        data-repo="fwqaaq/fwqaaq.github.io"
+        data-repo-id="R_kgDOHCFK2A"
+        data-category="Show and tell"
+        data-category-id="DIC_kwDOHCFK2M4CYOLh"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="1"
+        data-input-position="bottom"
+        data-theme="preferred_color_scheme"
+        data-lang="zh-CN"
+        crossorigin="anonymous"
+        async></script>

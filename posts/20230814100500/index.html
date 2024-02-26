@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="rgb(46, 44, 79)">
+  <meta name="description" content="Github Action 一些重要内容的查询">
+  <meta name="keywords" content="Git, Github">
+  <title>
+    Github Action 技巧查询
+  </title>
+  <link rel="stylesheet" href="/public/css/index.css">
+  <link rel="stylesheet" href="/public/css/markdown.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+  <script src="/public/JavaScript/index.js"></script>
+</head><header class="blog-header">
+  <a href="https://github.com/fwqaaq" target="_blank">
+    <img src="https://avatars.githubusercontent.com/u/82551626?v=4" loading="lazy" alt="me" srcset="">
+  </a>
+  <nav class="header-nav">
+    <a class="decoration-line" href="/"><i class="fa-solid fa-house-chimney fa-xs"></i>
+      <span class="disappear">Home</span>
+    </a>
+    <a class="decoration-line" href="/./about/index.html"><i class="fa-solid fa-address-card fa-xs"></i>
+      <span class="disappear">About</span></a>
+    <a class="decoration-line" href="/./archive/index.html"><i class="fa-solid fa-box-archive fa-xs"></i> <span
+        class="disappear">Archive</span></a>
+    <a class="decoration-line" href="/./tags/index.html"><i class="fa-solid fa-tag fa-xs"></i> <span
+        class="disappear">Tag</span></a>
+    <div class="toy"><i class="fa-solid fa-gamepad fa-xs"></i> <span class="disappear">Toy</span>
+      <nav class="toy-nav disappear">
+        <a class="decoration-line" href="/public/resume/">我的简历</a>
+        <a class="decoration-line" href="/public/write-css/index.html">学习 UI</a>
+      </nav>
+    </div>
+    <a class="decoration-line" href="/feed.xml"><i class="fa-solid fa-rss fa-xs"></i> <span
+        class="disappear">RSS</span></a>
+    <a class="decoration-line model" href="#" class="model"><i class="fa-solid fa-sun fa-xs"></i></a>
+  </nav>
+</header><main class="blog-main">
+          <article class="blog-article">
+            <h1>Github Action 技巧查询</h1>
+            <hr>
+            <h2 id="github-action-上下文"><a href="https://docs.github.com/zh/actions/learn-github-actions/contexts#about-contexts">Github Action 上下文</a><a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#github-action-上下文"></a></h2>
+<ul>
+<li><a href="https://docs.github.com/zh/actions/learn-github-actions/contexts#secrets-context">secrets</a> 上下文中的 <code>secrets.GITHUB_TOKEN</code> 用于身份验证</li>
+</ul>
+<h3 id="设置环境变量"><a href="https://docs.github.com/zh/actions/learn-github-actions/contexts#secrets-context">设置环境变量</a><a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#设置环境变量"></a></h3>
+<p>除了通过 <a href="https://docs.github.com/zh/actions/learn-github-actions/variables#%E4%B8%BA%E5%8D%95%E4%B8%AA%E5%B7%A5%E4%BD%9C%E6%B5%81%E5%AE%9A%E4%B9%89%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F"><code>env:</code> 字段</a>来直接指定环境变量，还可以在工作流运行期间使用 <a href="https://docs.github.com/zh/actions/using-workflows/workflow-commands-for-github-actions#setting-an-environment-variable"><code>set-env</code></a> 命令来设置环境变量。</p>
+<pre><code class="hl language-bash"><span class="hl-built_in">echo</span> <span class="hl-string">"{environment_variable_name}={value}"</span> >> <span class="hl-string">"<span class="hl-variable">$GITHUB_ENV</span>"</span>
+</code></pre>
+<h3 id="保留-job-的输出"><a href="https://docs.github.com/zh/actions/using-workflows/workflow-commands-for-github-actions#setting-an-output-parameter">保留 job 的输出</a><a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#保留-job-的输出"></a></h3>
+<p>输出也是有两种方式（但是这两种方式都是要 job/step 的 <code>id</code>）：</p>
+<ol>
+<li>直接使用 <a href="https://docs.github.com/zh/actions/using-workflows/workflow-commands-for-github-actions#setting-an-output-parameter"><code>GITHUB_OUTPUT</code></a> 来获取，但是这种方式只能在终端中使用</li>
+<li>使用 <a href="https://docs.github.com/zh/actions/using-workflows/workflow-syntax-for-github-actions#jobsjob_idoutputs"><code>output:</code> 字段</a>，这种方式可以用于任何类型的输出，该字段在不同的 job 之间可以共享输出，但是需要 <code>needs</code> 指定顺序。</li>
+</ol>
+<p>可以查询这个比较简单的<a href="https://github.com/Borber/seam/blob/defa7bf79dc97fefa0521655828e98a5bd2d2a38/.github/workflows/release_gui.yml#L12-L30">示例</a>，以下仅展示一部分：</p>
+<pre><code class="hl language-yaml">  <span class="hl-attr">create_release:</span>
+    <span class="hl-attr">runs-on:</span> <span class="hl-string">ubuntu-latest</span>
+    <span class="hl-attr">outputs:</span>
+      <span class="hl-attr">changes:</span> <span class="hl-string">${{</span> <span class="hl-string">steps.changelog_reader.outputs.changes</span> <span class="hl-string">}}</span>
+      <span class="hl-attr">version:</span> <span class="hl-string">${{</span> <span class="hl-string">steps.changelog_reader.outputs.VERSION</span> <span class="hl-string">}}</span>
+    <span class="hl-attr">steps:</span>
+      <span class="hl-bullet">-</span> <span class="hl-attr">uses:</span> <span class="hl-string">actions/checkout@v3</span>
+      <span class="hl-bullet">-</span> <span class="hl-attr">name:</span> <span class="hl-string">Get</span> <span class="hl-string">version</span> <span class="hl-string">number</span>
+        <span class="hl-attr">id:</span> <span class="hl-string">get_version</span>
+        <span class="hl-attr">run:</span> <span class="hl-string">|
+          VERSION=${GITHUB_REF#refs/tags/}
+          echo "VERSION=${VERSION/v_gui\./}" >> $GITHUB_ENV
+</span>      <span class="hl-bullet">-</span> <span class="hl-attr">name:</span> <span class="hl-string">Changelog</span> <span class="hl-string">Reader</span>
+        <span class="hl-attr">id:</span> <span class="hl-string">changelog_reader</span>
+        <span class="hl-attr">uses:</span> <span class="hl-string">mindsers/changelog-reader-action@v2.2.2</span>
+        <span class="hl-attr">with:</span>
+          <span class="hl-attr">path:</span> <span class="hl-string">'./crates/cli/CHANGELOG.md'</span>
+          <span class="hl-attr">version:</span> <span class="hl-string">${{</span> <span class="hl-string">steps.get_version.outputs.version</span> <span class="hl-string">}}</span>
+</code></pre>
+<p>之后我们指定该 job，然后使用 <code>${{ needs.create_release.outputs.changes }}</code> 方式来访问。</p>
+<h2 id="指定仓库执行">指定仓库执行<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#指定仓库执行"></a></h2>
+<p>在其它成员 fork 仓库的时候，我们不希望其它成员也运行 GitHub workflow，可以使用 if 语句进行判别。像这样：</p>
+<pre><code class="hl language-yaml"><span class="hl-attr">if:</span> <span class="hl-string">github.repository</span> <span class="hl-string">==</span> <span class="hl-string">'jaywcjlove/reference'</span>
+</code></pre>
+<p>参考：<a href="https://github.com/fwqaaq/translator/blob/23dcf1f6679531457df49d38d6b9e28dd8430d8d/.github/workflows/main.yaml#L12">https://github.com/fwqaaq/translator/blob/23dcf1f6679531457df49d38d6b9e28dd8430d8d/.github/workflows/main.yaml#L12</a></p>
+<h2 id="矩阵策略"><a href="https://docs.github.com/zh/actions/using-jobs/using-a-matrix-for-your-jobs#using-a-matrix-strategy">矩阵策略</a><a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#矩阵策略"></a></h2>
+<p>在 matrix 你可以指定不同平台，不同版本之间的组合，进行多个 job 的执行。</p>
+        </article></main><script src="https://giscus.app/client.js"
+        data-repo="fwqaaq/fwqaaq.github.io"
+        data-repo-id="R_kgDOHCFK2A"
+        data-category="Show and tell"
+        data-category-id="DIC_kwDOHCFK2M4CYOLh"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="1"
+        data-input-position="bottom"
+        data-theme="preferred_color_scheme"
+        data-lang="zh-CN"
+        crossorigin="anonymous"
+        async></script>

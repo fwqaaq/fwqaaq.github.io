@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="rgb(46, 44, 79)">
+  <meta name="description" content="使用 Git patch 对代码进行打补丁">
+  <meta name="keywords" content="Git">
+  <title>
+    Git_Patch
+  </title>
+  <link rel="stylesheet" href="/public/css/index.css">
+  <link rel="stylesheet" href="/public/css/markdown.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+  <script src="/public/JavaScript/index.js"></script>
+</head><header class="blog-header">
+  <a href="https://github.com/fwqaaq" target="_blank">
+    <img src="https://avatars.githubusercontent.com/u/82551626?v=4" loading="lazy" alt="me" srcset="">
+  </a>
+  <nav class="header-nav">
+    <a class="decoration-line" href="/"><i class="fa-solid fa-house-chimney fa-xs"></i>
+      <span class="disappear">Home</span>
+    </a>
+    <a class="decoration-line" href="/./about/index.html"><i class="fa-solid fa-address-card fa-xs"></i>
+      <span class="disappear">About</span></a>
+    <a class="decoration-line" href="/./archive/index.html"><i class="fa-solid fa-box-archive fa-xs"></i> <span
+        class="disappear">Archive</span></a>
+    <a class="decoration-line" href="/./tags/index.html"><i class="fa-solid fa-tag fa-xs"></i> <span
+        class="disappear">Tag</span></a>
+    <div class="toy"><i class="fa-solid fa-gamepad fa-xs"></i> <span class="disappear">Toy</span>
+      <nav class="toy-nav disappear">
+        <a class="decoration-line" href="/public/resume/">我的简历</a>
+        <a class="decoration-line" href="/public/write-css/index.html">学习 UI</a>
+      </nav>
+    </div>
+    <a class="decoration-line" href="/feed.xml"><i class="fa-solid fa-rss fa-xs"></i> <span
+        class="disappear">RSS</span></a>
+    <a class="decoration-line model" href="#" class="model"><i class="fa-solid fa-sun fa-xs"></i></a>
+  </nav>
+</header><main class="blog-main">
+          <article class="blog-article">
+            <h1>Git_Patch</h1>
+            <hr>
+            <h2 id="生成补丁">生成补丁<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#生成补丁"></a></h2>
+<blockquote>
+<p>在 Git 中，补丁是一种特殊的文件，它包含了两个提交之间的差异。补丁文件可以用来在两个不同的代码库之间传递更改，或者用来在两个不同的分支之间传递更改。</p>
+</blockquote>
+<p>使用 <code>git diff</code> 生成补丁文件，此补丁文件没有详细的提交信息，只有内容更改</p>
+<pre><code class="hl language-bash">git diff > patch.diff
+</code></pre>
+<p>使用 <code>git format-patch</code> 生成补丁文件，此补丁文件包含详细的提交信息</p>
+<pre><code class="hl language-bash"><span class="hl-comment"># 生成最后一次提交的补丁</span>
+git format-patch HEAD^
+
+<span class="hl-comment"># 生成最后两次提交的补丁（以此类推）</span>
+git format-patch HEAD^^
+<span class="hl-comment"># or</span>
+git format-patch -2
+
+<span class="hl-comment"># 生成两个提交之间的补丁 -> (]</span>
+git format-patch da71ea0..02c520e
+</code></pre>
+<h2 id="应用补丁">应用补丁<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#应用补丁"></a></h2>
+<blockquote>
+<p>在打入补丁前，确保你的工作区是干净的，没有任何未提交的更改。</p>
+</blockquote>
+<p>检查是否可以打入补丁</p>
+<pre><code class="hl language-bash">git apply --check patch.diff
+</code></pre>
+<p>打入补丁</p>
+<pre><code class="hl language-bash">git apply patch.diff
+</code></pre>
+<p>如果打入 patch 有冲突，可以使用 <code>git apply --reject</code> 命令，它会将冲突的文件保存为 <code>.rej</code> 文件</p>
+<p>参考：<a href="https://git-scm.com/docs/git-apply#Documentation/git-apply.txt---reject">https://git-scm.com/docs/git-apply#Documentation/git-apply.txt---reject</a></p>
+        </article></main><script src="https://giscus.app/client.js"
+        data-repo="fwqaaq/fwqaaq.github.io"
+        data-repo-id="R_kgDOHCFK2A"
+        data-category="Show and tell"
+        data-category-id="DIC_kwDOHCFK2M4CYOLh"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="1"
+        data-input-position="bottom"
+        data-theme="preferred_color_scheme"
+        data-lang="zh-CN"
+        crossorigin="anonymous"
+        async></script>

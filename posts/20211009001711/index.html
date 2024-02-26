@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="rgb(46, 44, 79)">
+  <meta name="description" content="使用 Git 进行代码的版本控制">
+  <meta name="keywords" content="Git">
+  <title>
+    Git 版本控制
+  </title>
+  <link rel="stylesheet" href="/public/css/index.css">
+  <link rel="stylesheet" href="/public/css/markdown.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+  <script src="/public/JavaScript/index.js"></script>
+</head><header class="blog-header">
+  <a href="https://github.com/fwqaaq" target="_blank">
+    <img src="https://avatars.githubusercontent.com/u/82551626?v=4" loading="lazy" alt="me" srcset="">
+  </a>
+  <nav class="header-nav">
+    <a class="decoration-line" href="/"><i class="fa-solid fa-house-chimney fa-xs"></i>
+      <span class="disappear">Home</span>
+    </a>
+    <a class="decoration-line" href="/./about/index.html"><i class="fa-solid fa-address-card fa-xs"></i>
+      <span class="disappear">About</span></a>
+    <a class="decoration-line" href="/./archive/index.html"><i class="fa-solid fa-box-archive fa-xs"></i> <span
+        class="disappear">Archive</span></a>
+    <a class="decoration-line" href="/./tags/index.html"><i class="fa-solid fa-tag fa-xs"></i> <span
+        class="disappear">Tag</span></a>
+    <div class="toy"><i class="fa-solid fa-gamepad fa-xs"></i> <span class="disappear">Toy</span>
+      <nav class="toy-nav disappear">
+        <a class="decoration-line" href="/public/resume/">我的简历</a>
+        <a class="decoration-line" href="/public/write-css/index.html">学习 UI</a>
+      </nav>
+    </div>
+    <a class="decoration-line" href="/feed.xml"><i class="fa-solid fa-rss fa-xs"></i> <span
+        class="disappear">RSS</span></a>
+    <a class="decoration-line model" href="#" class="model"><i class="fa-solid fa-sun fa-xs"></i></a>
+  </nav>
+</header><main class="blog-main">
+          <article class="blog-article">
+            <h1>Git 版本控制</h1>
+            <hr>
+            <h2 id="初始化">初始化<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#初始化"></a></h2>
+<ul>
+<li><code>git config --global user.name "xxx"</code></li>
+<li><code>git config --global user.email "xxx@gmail.com"</code></li>
+<li>检查配置信息 <code>git config --list</code></li>
+<li><code>git init</code> 生成仓库</li>
+</ul>
+<blockquote>
+<p>生成 ssh 密钥</p>
+</blockquote>
+<pre><code class="hl language-bash"><span class="hl-comment"># 使用的是 rsa 密钥</span>
+ssh-keygen -t rsa
+</code></pre>
+<h3 id="区域">区域<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#区域"></a></h3>
+<blockquote>
+<p>工作区，暂存区，版本库</p>
+</blockquote>
+<h3 id="git-基本命令">git 基本命令<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#git-基本命令"></a></h3>
+<h4 id="创建工作目录-对工作目录进行修改">创建工作目录 对工作目录进行修改<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#创建工作目录-对工作目录进行修改"></a></h4>
+<ul>
+<li><code>git add ./</code>(下面的属于解释)
+<ol>
+<li>git hash-object -w 文件名 (修改了多少个工作目录中的文件
+此命令就要被执行多少次)</li>
+<li>git update-index...</li>
+</ol>
+</li>
+<li><code>git commit -m "注释内容"</code>(下面的属于解释)
+<ol>
+<li>git write-tree</li>
+<li>git commit-tree</li>
+</ol>
+</li>
+</ul>
+<h4 id="git-暂存区命令">git 暂存区命令<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#git-暂存区命令"></a></h4>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th><code>git init</code></th><th>初始化仓库</th></tr></thead><tbody><tr><td><code>git status</code></td><td>查看本地工作区信息</td></tr><tr><td><code>git diff</code></td><td>查看还有哪些文件没有暂存</td></tr><tr><td><code>git diff --staged</code></td><td>查看哪些修改已经被暂存，还没有提交</td></tr><tr><td><code>git add ./</code></td><td>提交所有变化</td></tr><tr><td><code>git add –u</code></td><td>提交被修改和被删除文件 (不包括新文件)</td></tr><tr><td><code>git add –A</code></td><td>提交所有变化</td></tr><tr><td><code>git ls-files -s</code></td><td>查看暂存区存储状况</td></tr></tbody></table>
+<h4 id="更改文件与提交">更改文件与提交<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#更改文件与提交"></a></h4>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th><code>git rm 文件名</code></th><th>删除工作目录中的对应文件 再将修改添加到暂存区</th></tr></thead><tbody><tr><td><code>git mv 原文件名 新文件名</code></td><td>将工作目录中的文件进行重命名 再将修改添加到暂存区</td></tr><tr><td><code>git commit</code></td><td>在文本中编辑注释</td></tr><tr><td><code>git commit -a</code></td><td>跳过暂存区提交</td></tr><tr><td><code>git commit -m 注释</code></td><td>将暂存区提交到版本库</td></tr><tr><td><code>git commit -a -m 注释</code></td><td>跳过暂存区提交编辑注释</td></tr><tr><td><code>git commit –amend 注释</code></td><td>(原来提交基础上提交，不是新的提交)</td></tr></tbody></table>
+<h4 id="git-版本查看">git 版本查看<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#git-版本查看"></a></h4>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th><code>git log</code></th><th>带有完全键很多信息的版本查看，如作者</th></tr></thead><tbody><tr><td><code>git log --oneline</code></td><td>只有部分键，部分信息的版本查看</td></tr><tr><td><code>git log --prety=oneline</code></td><td>查看提交的历史记录</td></tr><tr><td><code>git log --oneline --decorate --graph --all</code></td><td>查看项目分叉历史</td></tr><tr><td><code>git config --global alias.别名</code></td><td>"git 后的命令"配置别名</td></tr><tr><td><code>git log -1</code></td><td>后面加数字，显示最近的几次提交</td></tr></tbody></table>
+<h3 id="git-分支">git 分支<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#git-分支"></a></h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th><code>git branch</code></th><th>显示分支列表</th></tr></thead><tbody><tr><td><code>git branch 分支名</code></td><td>创建分支</td></tr><tr><td><code>git checkout 分支名</code></td><td>切换分支</td></tr><tr><td><code>git branch -D 分支名</code></td><td>强制删除分支</td></tr><tr><td><code>git branch -d branchname</code></td><td>普通删除分支</td></tr><tr><td><code>git merge branchname</code></td><td>合并分支</td></tr><tr><td><code>git reflog –-date=local</code></td><td>查看当前分支是基于哪个分支建立的</td></tr></tbody></table>
+<ul>
+<li>快进合并：分支在一条线上，不会产生冲突</li>
+<li>典型合并：分支不在同一条线上，有机会产生冲突</li>
+<li>解决冲突：打开冲突的文件 进行修改 add commit</li>
+</ul>
+<h4 id="切换分支">切换分支<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#切换分支"></a></h4>
+<blockquote>
+<p>在切换分支时，如果当前分支上有未暂存的修改 (第一次) 或者有未提交的的暂存 (第一次) 分支可以切换成功，但这种操作可能污染其它分支</p>
+</blockquote>
+<h4 id="区域的的更改">区域的的更改<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#区域的的更改"></a></h4>
+<ul>
+<li>工作区
+<ul>
+<li>如何撤回自己在工作目录中的修改 (git checkout --filename)</li>
+<li>git restore 文件名</li>
+</ul>
+</li>
+<li>暂存区
+<ul>
+<li>如何撤回自己的暂存:(git reset HEAD fileman)</li>
+<li>git restore --staged 文件名</li>
+</ul>
+</li>
+<li>版本库
+<ul>
+<li>如何撤回自己的提交</li>
+<li>1.注释写错了重新给用户一次机会该注释<code>git commit --amend</code></li>
+</ul>
+</li>
+</ul>
+<h4 id="版本回退-revert-和-resert">版本回退 (revert 和 resert)<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#版本回退-revert-和-resert"></a></h4>
+<blockquote>
+<p><code>git log</code> ><code>git reflog</code>只要是 HEAD 有变化，那么<code>git reflog</code>就会记录下来</p>
+</blockquote>
+<ol>
+<li><code>git revert</code>是用一次新的 commit 来回滚之前的 commit,<code>git reset</code>是直接删除指定的 commit.</li>
+<li><code>git reset</code> 是把 HEAD<strong>向后移动</strong>了一下，而<code>git revert</code>是 HEAD<strong>继续前进</strong></li>
+<li>新的 commit 的内容和要 revert 的内容正好相反，能够抵消要被 revert 的内容</li>
+</ol>
+<blockquote>
+<p>参数：</p>
+</blockquote>
+<ol>
+<li><strong>--soft</strong>:重置 HEAD 到另外一个 commit，但也到此为止 ,
+所有变更都集中到暂存区，工作区</li>
+<li><strong>--hard</strong>:危险操作，所有变更全部丢失，不管本地仓，暂存区，工作区</li>
+<li><strong>--mixed</strong>:所有变更保存到工作区，本地仓，暂存区都丢失 (默认参数)</li>
+</ol>
+<h5 id="resert">resert<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#resert"></a></h5>
+<ul>
+<li><code>HEAD~</code>指针跟一个整数，指的是你要回退几次提交
+<ol>
+<li><code>git reset --soft HEAD~  (--amend)</code>:只动 HEAD(带着分支一起移动)</li>
+<li><code>git reset [--mixed] HEAD~</code>动 HEAD(带着分支一起移动),动了暂存区</li>
+<li><code>git reset --hard HEAD~</code>动 HEAD(带着分支一起移动),动了暂存区、动了工作目录 (需要谨慎)</li>
+</ol>
+</li>
+</ul>
+<h5 id="revert">revert<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#revert"></a></h5>
+<ol>
+<li><code>git revert HEAD</code>:撤销前一次的 commit</li>
+<li><code>git revert HEAD^</code>:撤销前前一次的 commit</li>
+<li><code>git revert commit-id</code>:撤销指定版本的提交</li>
+</ol>
+<blockquote>
+<p><code>-n</code>或者<code>–no-commit</code>,应用这个参数会让 revert 改动只限于本地仓库，而不自动进行 commit</p>
+</blockquote>
+<h4 id="远程分支">远程分支<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#远程分支"></a></h4>
+<ol>
+<li><code>git remote –v</code>:查看远程版本库信息</li>
+<li><code>git remote show origin</code>:查看远程仓库的信息</li>
+<li><code>git remote set-url origin git@...</code>:更改远程仓库地址 (ssh)</li>
+<li><code>git remote add origin git@...</code>:增加远程仓库地址 (ssh)</li>
+</ol>
+<blockquote>
+<p><code>git branch -r</code>:查看远程分支</p>
+</blockquote>
+<ul>
+<li><code>git branch -a</code>:查看所有分支</li>
+<li><code>git branch -vv</code>:查看本地的分支对应远程的分支</li>
+</ul>
+<blockquote>
+<p><code>git fetch &#x3C;远程主机> &#x3C;分支名></code>:取回远程主机的分支</p>
+</blockquote>
+<ul>
+<li>
+<p>例如<code>git fetch origin master</code>:取回 origin 的 master 分支</p>
+</li>
+<li>
+<p><code>git fetch --prune</code>:删除本地有而远程没有的分支或者一些多余的<code>commit</code></p>
+<ul>
+<li><code>git remote prune</code>:也可以使用这个</li>
+</ul>
+</li>
+<li>
+<p><code>git fetch -v</code>:查看远程分支的信息</p>
+</li>
+</ul>
+<blockquote>
+<p>合并远程分支</p>
+</blockquote>
+<ul>
+<li>
+<p><code>git rebase</code> 和 <code>git merge</code> 的区别是 <code>git rebase</code> 形成的是一条线，会把你当前的几个 commit，放到最新 commit 的后面 (所以 rebase 并没有执行合并操作).<code>git merge</code>
+会把公共分支和你当前的 commit 按照提交时间合并在一起，形成一个新的 commit，注意不要在公共分支使用 rebase</p>
+</li>
+<li>
+<p><code>git merge origin/master</code>:合并某个分支到当前分支</p>
+<ul>
+<li><strong>merge</strong>:遇见冲突后会直接停止，等待手动解决冲突并重新提交 commit 后，才能再次
+merge</li>
+</ul>
+</li>
+<li>
+<p><code>git rebase origin/master</code>:将一个分支的修改合并到当前分支</p>
+<ul>
+<li><strong>rebase</strong>:遇见冲突后会暂停当前操作，开发者可以选择手动解决冲突，然后
+<code>git rebase --continue</code>
+继续，或者<code>--skip</code>跳过 (当前分支的修改会直接覆盖目标分支的冲突部分)</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p><code>git pull</code>:用于从远程获取代码并合并到本地分支</p>
+</blockquote>
+<ul>
+<li>可以看作这两个的简写：<code>git fetch</code>和 <code>git merge FETCH_HEAD</code></li>
+<li><code>git pull -v</code>:同时显示拉取信息</li>
+</ul>
+<ol>
+<li>更新操作：
+<ul>
+<li><code>git pull</code></li>
+<li><code>git pull origin</code></li>
+</ul>
+</li>
+<li><code>git pull origin master:bro</code>:将远程仓库 origin 的 master 分支拉取与本地的 bro 分支合并</li>
+</ol>
+<blockquote>
+<p>同步远程分支</p>
+</blockquote>
+<ul>
+<li>假设我们现在在 main 分支（主分支上）</li>
+</ul>
+<pre><code class="hl language-shell"><span class="hl-meta prompt_"># </span><span class="bash">首先取回远程分支 dev，并跟踪</span>
+git fetch origin dev
+</code></pre>
+<ul>
+<li>然后我们创建新的本地分支，并同步</li>
+</ul>
+<pre><code class="hl language-shell"><span class="hl-meta prompt_"># </span><span class="bash">创建本地分支</span> 
+git checkout -b dev
+<span class="hl-meta prompt_"># </span><span class="bash">同步（合并）远程分支</span>
+git rebase origin/dev
+</code></pre>
+<blockquote>
+<p>同步上游分支，fork 仓库有多个分支的情况</p>
+</blockquote>
+<pre><code class="hl language-rust">git fetch upstream
+git checkout -b dev upstream/dev
+git push -u origin dev
+</code></pre>
+<h4 id="分支注意">分支注意<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#分支注意"></a></h4>
+<ul>
+<li>
+<p>在切换的时候一定要保证当前分支是干净的！！！</p>
+<ul>
+<li>允许切换分支：
+<ol>
+<li>分支上所有的内容处于已提交的状态</li>
+<li>(避免) 分支上所有的内容是处于初始化创建 处于未跟踪状态</li>
+<li>(避免) 分支上的内容是初始化创建 第一次处于已暂存状态</li>
+</ol>
+</li>
+<li>不允许切分支：
+<ul>
+<li>分支上所有的内容处于已修改的状态 或 第二次以后的已暂存状态</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>在分支上的工作做到一半时 如果有切换分支的需求，我们应该将先有的工作存储起来</p>
+<ul>
+<li><code>git stash</code>:会将当前分支上的工作推到一个栈中</li>
+</ul>
+</li>
+<li>
+<p>分支切换：进行其它工作 完成其它工作 切回原分支</p>
+<ul>
+<li><code>git stash apply</code>:将栈顶的工作内容还原 但不让任何内容出栈</li>
+<li><code>git stash drop</code>:取出栈顶的工作内容后 就应该将其删除 (出栈)</li>
+<li><code>git stash pop</code>=<code>git stash apply+git stash drop</code></li>
+<li><code>git stash list</code>:查看存储</li>
+</ul>
+</li>
+</ul>
+<h2 id="cherry-pick">Cherry-pick<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#cherry-pick"></a></h2>
+<blockquote>
+<p>此命令用于多分支的代码仓库，可以将代码从一个分支转移到另一个分支。如果，你需要另一个分支的所有代码改动，那么就需要使用
+<code>merge</code> 或者 <code>rebase</code>。如果你只需要部分变动（某几个提交），那么就需要使用
+cherry-pick</p>
+</blockquote>
+<ul>
+<li>
+<p>如果你使用的命令指定的是 commit 的 hash，那么就会将指定的 commit hash 应用于当前分支。当前分支会产生一个新的 commit，它们的 hash 值会不一样</p>
+<pre><code class="hl language-shell"><span class="hl-meta prompt_"># </span><span class="bash">以下示例，在真正写的时候都不需要带 &#x3C;></span>
+git cherry-pick &#x3C;commit-hash>
+</code></pre>
+</li>
+<li>
+<p>如果你使用的命令参数是<strong>分支名</strong>，那么将表示转移该分支的最新提交</p>
+<pre><code class="hl language-shell"><span class="hl-meta prompt_"># </span><span class="bash">例：main 分支将增加 dev 分支的最新提交</span>
+git cherry-pick dev
+</code></pre>
+</li>
+<li>
+<p>一次也可以应用多个提交到此分支</p>
+<pre><code class="hl language-shell">git cherry-pick &#x3C;commit-hashA> &#x3C;commit-hashB> #...
+<span class="hl-meta prompt_"># </span><span class="bash">你也可以转移一系列提交，hashA 必须早于 hashB，否则会失败</span>
+git cherry-pick &#x3C;hashA>..&#x3C;hashB>
+<span class="hl-meta prompt_"># </span><span class="bash">上面的写法不会包含 hashA，如果你想包含 hashA，使用 ^</span>
+git cherry-pick ^&#x3C;hashA>..&#x3C;hashB>
+</code></pre>
+</li>
+</ul>
+<blockquote>
+<p>常见的提交参数</p>
+</blockquote>
+<ol>
+<li>
+<p><code>-e</code>：打开外部编辑器，编辑提交信息</p>
+</li>
+<li>
+<p><code>-n</code>: 只更新工作区和暂存去，不产生新提交</p>
+</li>
+<li>
+<p><code>-x</code>: 在提交信息的末尾追加 cherry picked from commit
+...。方便日后信息查找</p>
+</li>
+<li>
+<p><code>-s</code>: 在提交信息的末尾追加操作者的签名</p>
+</li>
+<li>
+<p><code>-m parent-number</code>: 如果原始提交是一个合并节点，来自于两个分支的合并，那么
+cherry-pick 默认将失败。<code>-m</code> 告诉 git 将采用哪一个分支。它的参数
+parent-number 是从 1 开始的参数，表示原始提交的父分支的参数</p>
+<ul>
+<li>1 号分支是<strong>接受变动</strong>的分支，2 号分支是作为<strong>变动来源</strong>的分支</li>
+</ul>
+<pre><code class="hl language-shell">git cherry-pick -m 1 &#x3C;commit-hash>
+</code></pre>
+</li>
+</ol>
+<blockquote>
+<p>解决冲突</p>
+</blockquote>
+<ul>
+<li>用户解决冲突之后，首先使用 <code>git add .</code> 将修改保存到暂存区，然后使用
+<code>git cherry-pick --continue</code> 继续执行</li>
+<li>如果使用 <code>--abort</code>，那么就会放弃合并，回到操作之前到样子</li>
+<li>如果使用 <code>--quit</code>，表示发生代码冲突，退出 cherry-pick，但是回不到操作前到样子</li>
+</ul>
+<blockquote>
+<p>也可以获取其它仓库的提交</p>
+</blockquote>
+<ol>
+<li>
+<p>设置其它仓库为远程仓库</p>
+<pre><code class="hl language-shell">git remote add upstaream git://gitUrl
+</code></pre>
+</li>
+<li>
+<p>同步远程仓库的远程分支</p>
+<pre><code class="hl language-shell">git fetch upstream main
+</code></pre>
+</li>
+<li>
+<p>查看取回的 hash 值</p>
+<pre><code class="hl language-shell">git log upstream/main
+</code></pre>
+</li>
+<li>
+<p>使用 cherry-pick 转移提交</p>
+<pre><code class="hl language-shell">git cherry-pick &#x3C;commit-hash>
+</code></pre>
+</li>
+</ol>
+<h2 id="tag">tag<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#tag"></a></h2>
+<blockquote>
+<p>git 可以对某个版本打上标签 (tag),表示本版本为发行版</p>
+</blockquote>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>命令</th><th>解释</th></tr></thead><tbody><tr><td>git tag</td><td>查看所有标签</td></tr><tr><td>git tag -l 1.<em>.</em></td><td>打印符合检索的标签</td></tr><tr><td>git checkout 1.0.0</td><td>查看对应标签的状态</td></tr><tr><td>git show v1.4</td><td>完整标签的信息</td></tr></tbody></table>
+<blockquote>
+<p>创建本地标签</p>
+</blockquote>
+<ol>
+<li>针对特定 commit 版本 SHA 创建标签
+<ul>
+<li><code>git tag -a v1.0.0 (0c3b62d) -m "message"</code></li>
+<li><code>-a</code>:创建附注标签</li>
+<li>&#x3C;哈希值>:特定 commit 版本 SHA</li>
+<li><code>-m</code>:附注</li>
+<li>都是可选的</li>
+</ul>
+</li>
+<li>创建轻量标签
+<ul>
+<li><code>git tag v1.0.0</code></li>
+</ul>
+</li>
+</ol>
+<blockquote>
+<p>推送标签到远程仓库</p>
+</blockquote>
+<ol>
+<li>发送所有<code>git push origin --tags</code></li>
+<li>指定版本发送<code>git push origin 1.0.0</code></li>
+</ol>
+<blockquote>
+<p>删除本地标签<code>git tag -d v1.0.0</code></p>
+<p>删除远程仓库对应的标签<code>git push origin --delete v1.0.0</code></p>
+</blockquote>
+<h2 id="其它">其它<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#其它"></a></h2>
+<blockquote>
+<p>对于大型项目，我们只希望将项目的一部分拉取到本地，此时我们可以使用 sparse-checkout</p>
+</blockquote>
+<ol>
+<li><code>git clone --filter=blob:none --sparse git@...</code> 初始化仓库</li>
+<li><code>git sparse-checkout add seq</code> 添加需要拉取的文件夹</li>
+<li><code>git sparse-checkout set sorted</code> 添加新的文件夹，取消使用 add 添加的文件夹</li>
+</ol>
+        </article></main><script src="https://giscus.app/client.js"
+        data-repo="fwqaaq/fwqaaq.github.io"
+        data-repo-id="R_kgDOHCFK2A"
+        data-category="Show and tell"
+        data-category-id="DIC_kwDOHCFK2M4CYOLh"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="1"
+        data-input-position="bottom"
+        data-theme="preferred_color_scheme"
+        data-lang="zh-CN"
+        crossorigin="anonymous"
+        async></script>

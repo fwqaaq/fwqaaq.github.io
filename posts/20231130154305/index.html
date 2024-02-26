@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="rgb(46, 44, 79)">
+  <meta name="description" content="PGP 来加密邮件服务">
+  <meta name="keywords" content="Config">
+  <title>
+    PGP
+  </title>
+  <link rel="stylesheet" href="/public/css/index.css">
+  <link rel="stylesheet" href="/public/css/markdown.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+  <script src="/public/JavaScript/index.js"></script>
+</head><header class="blog-header">
+  <a href="https://github.com/fwqaaq" target="_blank">
+    <img src="https://avatars.githubusercontent.com/u/82551626?v=4" loading="lazy" alt="me" srcset="">
+  </a>
+  <nav class="header-nav">
+    <a class="decoration-line" href="/"><i class="fa-solid fa-house-chimney fa-xs"></i>
+      <span class="disappear">Home</span>
+    </a>
+    <a class="decoration-line" href="/./about/index.html"><i class="fa-solid fa-address-card fa-xs"></i>
+      <span class="disappear">About</span></a>
+    <a class="decoration-line" href="/./archive/index.html"><i class="fa-solid fa-box-archive fa-xs"></i> <span
+        class="disappear">Archive</span></a>
+    <a class="decoration-line" href="/./tags/index.html"><i class="fa-solid fa-tag fa-xs"></i> <span
+        class="disappear">Tag</span></a>
+    <div class="toy"><i class="fa-solid fa-gamepad fa-xs"></i> <span class="disappear">Toy</span>
+      <nav class="toy-nav disappear">
+        <a class="decoration-line" href="/public/resume/">我的简历</a>
+        <a class="decoration-line" href="/public/write-css/index.html">学习 UI</a>
+      </nav>
+    </div>
+    <a class="decoration-line" href="/feed.xml"><i class="fa-solid fa-rss fa-xs"></i> <span
+        class="disappear">RSS</span></a>
+    <a class="decoration-line model" href="#" class="model"><i class="fa-solid fa-sun fa-xs"></i></a>
+  </nav>
+</header><main class="blog-main">
+          <article class="blog-article">
+            <h1>PGP</h1>
+            <hr>
+            <h2 id="mac-上配置-pgp-密钥">MAC 上配置 PGP 密钥<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#mac-上配置-pgp-密钥"></a></h2>
+<p>请参考：<a href="https://gist.github.com/Peredery/38d0538dd34381bbd9d13414269a1f27">https://gist.github.com/Peredery/38d0538dd34381bbd9d13414269a1f27</a></p>
+<h2 id="pgp">PGP<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#pgp"></a></h2>
+<blockquote>
+<p>一个 GPG（GNU Privacy Guard）密钥实际上是一对密钥，它们由以下几部分组成：</p>
+</blockquote>
+<ol>
+<li>私钥（Private Key）：私钥是您保密的密钥部分，用于解密收到的信息和对您的信息进行数字签名。只有密钥的拥有者应该访问私钥。</li>
+<li>公钥（Public Key）：公钥是可以公开分享的密钥部分，用于加密发送给私钥拥有者的信息和验证其签名。任何人都可以使用公钥来加密信息，但只有对应的私钥可以解密这些信息。</li>
+<li>用户 ID（User ID）：每个 GPG 密钥都与至少一个用户 ID 关联。用户 ID 通常包含名字和电子邮件地址，用于识别密钥的拥有者。</li>
+<li>数字签名（Digital Signatures）：密钥可以被其他密钥的拥有者用其私钥签名。这些签名用于建立信任网络，表明签名者信任密钥的合法性。</li>
+<li>信任度（Trust Level）：信任度表明了密钥拥有者对密钥的信任程度。它是一个用于评估密钥可靠性的机制。</li>
+<li>到期日期（Expiration Date）（可选）：密钥可以设置一个到期日期，超过这个日期密钥将不再有效。这是一个安全特性，用于防止丢失或被遗忘的密钥无限期地存在。</li>
+<li>其他元数据：如创建日期、密钥算法（如 RSA、ElGamal）、密钥长度（如 2048 位）、指纹（一种用于唯一识别公钥的较长的哈希值）等。</li>
+</ol>
+<h3 id="生成密钥"><strong>生成密钥</strong><a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#生成密钥"></a></h3>
+<pre><code class="hl language-bash">gpg --full-generate-key
+</code></pre>
+<h3 id="查看信息"><strong>查看信息</strong><a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#查看信息"></a></h3>
+<blockquote>
+<p>查看公钥信息</p>
+</blockquote>
+<pre><code class="hl language-bash">gpg --list-keys
+gpg --list-keys --keyid-format LONG
+</code></pre>
+<p>公钥的完整格式如下：</p>
+<pre><code class="hl language-txt">pub   rsa3072/1E4C46XX01BEA325 2023-05-10 [SC]
+      5F0E8C2DC8305C37DDBB83C51E4C46DD01BEA325
+uid                 [ultimate] XCF (XY) &#x3C;xxxx@gmail.com>
+sub   rsa3072/E626729XHJC37E8C 2023-05-10 [E]
+</code></pre>
+<ol>
+<li><code>pub</code>：这表示一个“公钥”（public key）的记录。
+<ul>
+<li><code>rsa3072</code> 表明密钥使用的是 RSA 加密算法，且密钥长度为 3072 位。</li>
+<li>1E4C46XX01BEA325：这是公钥的短格式 ID。这是一个识别公钥的独特序列。</li>
+<li>2023-05-10 [SC]：这个日期是密钥创建的日期。[SC] 表示这个密钥有<strong>签名</strong>（Sign）和<strong>证书</strong>（Certificate）功能。它可以用于签名其他数据和密钥。</li>
+<li>5F0E8C2DC8305C37DDBB83C51E4C46DD01BEA325：这是公钥的指纹，是公钥的一个更长、更具体的识别符。指纹是通过对密钥的某些部分应用哈希算法生成的。</li>
+</ul>
+</li>
+<li><code>uid</code>：uid 代表“用户标识符”（User ID）。这通常包含用户的名字和电子邮件地址，用于标识公钥的拥有者。
+<ul>
+<li>[ultimate] 表示这个密钥的信任等级是最高的，意味着您对这个密钥的控制是完全的。</li>
+<li>fwqaaq (FW) <a href="mailto:fwqaaq@gmail.com">fwqaaq@gmail.com</a> 是与这个密钥关联的具体用户信息，包括姓名、昵称和电子邮件地址。</li>
+</ul>
+</li>
+<li><code>sub</code>：这表示一个“子密钥”（subkey）的记录。子密钥通常用于加密数据，而主密钥（pub）用于签名和验证。</li>
+</ol>
+<blockquote>
+<p>查看私钥信息</p>
+</blockquote>
+<pre><code class="hl language-bash">gpg --list-secret-keys
+gpg --list-secret-keys --keyid-format LONG
+</code></pre>
+<blockquote>
+<p>查看特定密钥的信息</p>
+</blockquote>
+<pre><code class="hl language-bash">gpg --list-sigs [key-id]
+gpg --list-secret-sigs [key-id]
+</code></pre>
+<blockquote>
+<p>查看指纹</p>
+</blockquote>
+<pre><code class="hl language-bash">gpg --fingerprint [key-id]
+</code></pre>
+<h3 id="gpg-密钥服务器">GPG 密钥服务器<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#gpg-密钥服务器"></a></h3>
+<blockquote>
+<p>设置 keyserver：在 <code>~/.gnupg/gpg.conf</code> 中添加：</p>
+</blockquote>
+<pre><code class="hl language-txt">keyserver hkp://keys.openpgp.org
+keyserver hkp://keyserver.ubuntu.com
+</code></pre>
+<blockquote>
+<p>上传公钥</p>
+</blockquote>
+<pre><code class="hl language-bash"><span class="hl-comment"># 使用默认的 keyserver</span>
+gpg --keyserver --send-keys [key-id]
+<span class="hl-comment"># 使用指定的 keyserver</span>
+gpg --keyserver hkp://keys.openpgp.org --send-keys [key-id]
+</code></pre>
+<h3 id="导入导出">导入/导出<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#导入导出"></a></h3>
+<blockquote>
+<p>导出公钥/私钥</p>
+</blockquote>
+<pre><code class="hl language-bash"><span class="hl-comment"># 导出公钥</span>
+gpg --<span class="hl-built_in">export</span> -a [email/ID] > mypublickey.asc
+<span class="hl-comment"># 导出私钥</span>
+gpg --export-secret-keys -a [email/ID] > myprivatekey.asc
+</code></pre>
+<blockquote>
+<p>导入公钥/私钥</p>
+</blockquote>
+<pre><code class="hl language-bash"><span class="hl-comment"># 导入公钥</span>
+gpg --import mypublickey.asc
+<span class="hl-comment"># 导入私钥</span>
+gpg --allow-secret-key-import --import myprivatekey.asc
+</code></pre>
+<h3 id="签名和加密">签名和加密<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#签名和加密"></a></h3>
+<blockquote>
+<p>签名/验证文件</p>
+</blockquote>
+<ul>
+<li>签名文件：将内容和签名一起保存到新创建的文件中</li>
+</ul>
+<pre><code class="hl language-bash">gpg [-u email/ID] --sign [file]
+</code></pre>
+<ul>
+<li>创建单独的签名文件：单独保存签名，而不是将签名和内容保存到同一个文件中</li>
+</ul>
+<pre><code class="hl language-bash">gpg [-u email/ID] --detach-sign [file]
+</code></pre>
+<ul>
+<li>验证签名：验证文件的签名是否有效，只有当签名是分离的时候，才需要源文件</li>
+</ul>
+<pre><code class="hl language-bash">gpg --verify [sign_file] [file]
+</code></pre>
+<blockquote>
+<p>加密/解密文件</p>
+</blockquote>
+<p>使用接收者的公钥加密文件，email/ID 是接收者的邮箱或 ID，需要接收者的私钥才能解密。</p>
+<pre><code class="hl language-bash">gpg --encrypt --recipient [email/ID] [file]
+</code></pre>
+<p>解密文件：</p>
+<pre><code class="hl language-bash">gpg --decrypt [file]
+</code></pre>
+<h4 id="签名对方的公钥">签名对方的公钥<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#签名对方的公钥"></a></h4>
+<ol>
+<li>
+<p>导入对方的公钥：在签名之前，您需要有对方的公钥在您的密钥环中。如果还没有，需要先导入他们的公钥。</p>
+<pre><code class="hl language-bash"><span class="hl-comment"># 导入公钥</span>
+gpg [--keyserver] --recv-keys [email/ID]
+</code></pre>
+</li>
+<li>
+<p>确认密钥：在签名之前，您应当验证这把公钥确实属于您想签名的个人。这通常涉及到通过某种方式（例如面对面会议、视频通话或其他可靠通道）核对公钥的指纹。</p>
+</li>
+<li>
+<p>签名密钥：使用 <code>gpg [-u email/ID] --sign-key [email/ID]</code> 来签名公钥，<code>-u</code> 用于指定使用哪个密钥签名。</p>
+</li>
+<li>
+<p>上传签名后的密钥：签名后，可以选择将更新后的公钥上传到密钥服务器，以便他人也可以看到对该密钥的信任。（<strong>将对方的公钥上传</strong>）</p>
+<pre><code class="hl language-bash">gpg [--keyserver url] --send-keys [email/ID]
+</code></pre>
+</li>
+</ol>
+<blockquote>
+<p>查看签名</p>
+</blockquote>
+<ul>
+<li>从密钥服务器获取公钥签名</li>
+</ul>
+<pre><code class="hl language-bash">gpg --recv-keys [email/ID]
+</code></pre>
+<ul>
+<li>查看公钥签名</li>
+</ul>
+<pre><code class="hl language-bash">gpg --list-sigs [ID]
+gpg --check-sigs [ID]
+</code></pre>
+        </article></main><script src="https://giscus.app/client.js"
+        data-repo="fwqaaq/fwqaaq.github.io"
+        data-repo-id="R_kgDOHCFK2A"
+        data-category="Show and tell"
+        data-category-id="DIC_kwDOHCFK2M4CYOLh"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="1"
+        data-input-position="bottom"
+        data-theme="preferred_color_scheme"
+        data-lang="zh-CN"
+        crossorigin="anonymous"
+        async></script>

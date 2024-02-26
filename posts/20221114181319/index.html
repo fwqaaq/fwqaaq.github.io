@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="rgb(46, 44, 79)">
+  <meta name="description" content="如何编写 .gitattributes 文件">
+  <meta name="keywords" content="Git">
+  <title>
+    Gitattributes
+  </title>
+  <link rel="stylesheet" href="/public/css/index.css">
+  <link rel="stylesheet" href="/public/css/markdown.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+  <script src="/public/JavaScript/index.js"></script>
+</head><header class="blog-header">
+  <a href="https://github.com/fwqaaq" target="_blank">
+    <img src="https://avatars.githubusercontent.com/u/82551626?v=4" loading="lazy" alt="me" srcset="">
+  </a>
+  <nav class="header-nav">
+    <a class="decoration-line" href="/"><i class="fa-solid fa-house-chimney fa-xs"></i>
+      <span class="disappear">Home</span>
+    </a>
+    <a class="decoration-line" href="/./about/index.html"><i class="fa-solid fa-address-card fa-xs"></i>
+      <span class="disappear">About</span></a>
+    <a class="decoration-line" href="/./archive/index.html"><i class="fa-solid fa-box-archive fa-xs"></i> <span
+        class="disappear">Archive</span></a>
+    <a class="decoration-line" href="/./tags/index.html"><i class="fa-solid fa-tag fa-xs"></i> <span
+        class="disappear">Tag</span></a>
+    <div class="toy"><i class="fa-solid fa-gamepad fa-xs"></i> <span class="disappear">Toy</span>
+      <nav class="toy-nav disappear">
+        <a class="decoration-line" href="/public/resume/">我的简历</a>
+        <a class="decoration-line" href="/public/write-css/index.html">学习 UI</a>
+      </nav>
+    </div>
+    <a class="decoration-line" href="/feed.xml"><i class="fa-solid fa-rss fa-xs"></i> <span
+        class="disappear">RSS</span></a>
+    <a class="decoration-line model" href="#" class="model"><i class="fa-solid fa-sun fa-xs"></i></a>
+  </nav>
+</header><main class="blog-main">
+          <article class="blog-article">
+            <h1>Gitattributes</h1>
+            <hr>
+            <h2 id="gitattributes"><a href="https://git-scm.com/docs/gitattributes">.gitattributes</a><a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#gitattributes"></a></h2>
+<blockquote>
+<p><code>.gitattributes</code> 用于你指定 <code>git commit</code> 等时，需要执行的 git 属性</p>
+</blockquote>
+<ul>
+<li><code>text</code>: 此属性启用并控制行末规范化。当文本文件正常化时，其行尾在存储库中转换为
+LF（默认行为）。</li>
+</ul>
+<h3 id="eol">eol<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#eol"></a></h3>
+<blockquote>
+<p>使用 eol 属性可以控制行结尾的转换方式。一般在 linux 或者 mac 系统中使用 LF
+格式进行换行，在 win 中使用 CRLF 来换行</p>
+</blockquote>
+<ul>
+<li>
+<p>一般我们会根据各自系统的情况来控制结尾换行，跨平台的时候，在需要的情况下会转换
+crlf</p>
+<pre><code class="hl language-txt">*              text=auto
+</code></pre>
+</li>
+<li>
+<p>我们也可以控制文件的细粒度，但是这一般是没有必要的</p>
+<ul>
+<li><code>*.txt text</code> 指示如果未检测到 txt 文本，这将手动开启检测</li>
+<li><code>-text</code> 指示不需要检测，保持原样。</li>
+<li><code>binary</code> 把文件当作二进制文件对待</li>
+</ul>
+<pre><code class="hl language-txt">*               text=auto
+*.txt           text
+*.vcproj        text eol=crlf
+*.sh            text eol=lf
+*.jpg           -text
+*.pbxproj       binary
+</code></pre>
+</li>
+</ul>
+<h3 id="diff">diff<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#diff"></a></h3>
+<blockquote>
+<p>将特定的文件不当做文本比较，而是使用该规范化的语言形式</p>
+</blockquote>
+<ul>
+<li>
+<p>不同的语言格式可以在它的官网找到</p>
+<pre><code class="hl language-rust">*.rs     diff=rust
+</code></pre>
+</li>
+</ul>
+<p>参考：<a href="https://www.cnblogs.com/kidsitcn/p/4769344.html">https://www.cnblogs.com/kidsitcn/p/4769344.html</a></p>
+<h3 id="linguist-language"><a href="https://github.com/github/linguist/blob/master/docs/overrides.md">linguist-language</a><a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#linguist-language"></a></h3>
+<blockquote>
+<p>github 仓库中一般会对项目使用的语言进行自动统计</p>
+</blockquote>
+<ul>
+<li>
+<p>例如，我们想将 ts 计入 js 中一起进行统计</p>
+<pre><code class="hl language-bash">*.ts linguist-language=js
+</code></pre>
+</li>
+<li>
+<p>或者我们想检测某种语言（例如，markdown），默认是可检测的（<code>true</code>）</p>
+<pre><code class="hl language-bash">*.md linguist-detectable=<span class="hl-literal">false</span>
+</code></pre>
+</li>
+<li>
+<p>如果不想统计某个文件夹（或者文件），如果是文件夹，强制尾随 <code>*</code></p>
+<pre><code class="hl language-bash"><span class="hl-built_in">test</span>/* linguist-vendored
+<span class="hl-comment"># 将覆盖引用于指定文件</span>
+a.md -linguist-vendored
+<span class="hl-comment"># 将覆盖引用于指定文件和文件夹</span>
+src/** linguist-vendored
+</code></pre>
+</li>
+<li>
+<p><code>linguist-documentation</code> 忽略某个文件，与👆用法一致</p>
+</li>
+</ul>
+        </article></main><script src="https://giscus.app/client.js"
+        data-repo="fwqaaq/fwqaaq.github.io"
+        data-repo-id="R_kgDOHCFK2A"
+        data-category="Show and tell"
+        data-category-id="DIC_kwDOHCFK2M4CYOLh"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="1"
+        data-input-position="bottom"
+        data-theme="preferred_color_scheme"
+        data-lang="zh-CN"
+        crossorigin="anonymous"
+        async></script>

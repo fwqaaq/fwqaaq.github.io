@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="rgb(46, 44, 79)">
+  <meta name="description" content="Git 对象原理剖析">
+  <meta name="keywords" content="Git">
+  <title>
+    Git 对象原理
+  </title>
+  <link rel="stylesheet" href="/public/css/index.css">
+  <link rel="stylesheet" href="/public/css/markdown.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+  <script src="/public/JavaScript/index.js"></script>
+</head><header class="blog-header">
+  <a href="https://github.com/fwqaaq" target="_blank">
+    <img src="https://avatars.githubusercontent.com/u/82551626?v=4" loading="lazy" alt="me" srcset="">
+  </a>
+  <nav class="header-nav">
+    <a class="decoration-line" href="/"><i class="fa-solid fa-house-chimney fa-xs"></i>
+      <span class="disappear">Home</span>
+    </a>
+    <a class="decoration-line" href="/./about/index.html"><i class="fa-solid fa-address-card fa-xs"></i>
+      <span class="disappear">About</span></a>
+    <a class="decoration-line" href="/./archive/index.html"><i class="fa-solid fa-box-archive fa-xs"></i> <span
+        class="disappear">Archive</span></a>
+    <a class="decoration-line" href="/./tags/index.html"><i class="fa-solid fa-tag fa-xs"></i> <span
+        class="disappear">Tag</span></a>
+    <div class="toy"><i class="fa-solid fa-gamepad fa-xs"></i> <span class="disappear">Toy</span>
+      <nav class="toy-nav disappear">
+        <a class="decoration-line" href="/public/resume/">我的简历</a>
+        <a class="decoration-line" href="/public/write-css/index.html">学习 UI</a>
+      </nav>
+    </div>
+    <a class="decoration-line" href="/feed.xml"><i class="fa-solid fa-rss fa-xs"></i> <span
+        class="disappear">RSS</span></a>
+    <a class="decoration-line model" href="#" class="model"><i class="fa-solid fa-sun fa-xs"></i></a>
+  </nav>
+</header><main class="blog-main">
+          <article class="blog-article">
+            <h1>Git 对象原理</h1>
+            <hr>
+            <h2 id="初始化-git">初始化 git<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#初始化-git"></a></h2>
+<ul>
+<li>git init：初始化本地 git 仓库</li>
+</ul>
+<pre><code class="hl language-bash"><span class="hl-comment">#四个文件</span>
+config  description  FETCH_HEAD  HEAD  
+<span class="hl-comment">#四个文件夹</span>
+hooks  info  objects  refs
+<span class="hl-comment">#展开的文件</span>
+├─hooks
+├─info
+│     exclude
+├─objects
+│  ├─info
+│  └─pack
+└─refs
+    ├─heads
+    └─tags
+</code></pre>
+<h2 id="工作区与暂存区">工作区与暂存区<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#工作区与暂存区"></a></h2>
+<ol>
+<li>
+<p>创建文件的时候，<code>.git</code> 文件并不会发生任何变化，因为它是存储在工作区中的</p>
+<pre><code class="hl language-bash">`<span class="hl-built_in">echo</span> <span class="hl-string">"hello"</span> > hello.txt`
+</code></pre>
+</li>
+<li>
+<p>使用 <code>git add hello.txt</code> 去将其提交到暂存区</p>
+<ul>
+<li>这时候会多出一个文件 <code>index</code>，和一个文件夹 <code>2a</code></li>
+</ul>
+<pre><code class="hl language-bash">│  config
+│  description
+│  FETCH_HEAD
+│  HEAD
+│  index
+│
+├─hooks
+│
+├─info
+│      exclude
+│
+├─objects
+│  ├─2a
+│  │      93d00994fbd8c484f38b0423b7c42e87a55d48
+│  │
+│  ├─info
+│  └─pack
+└─refs
+    ├─heads
+    └─tags
+</code></pre>
+<ul>
+<li>查看文件的类型：<strong>文件的目录名称+SHA1 前面的四位</strong>
+<ul>
+<li><code>-t</code>:查看对象的类型</li>
+<li><code>-p</code>:查看对象的内容</li>
+<li><code>-s</code>:查看大小</li>
+</ul>
+</li>
+</ul>
+<pre><code class="hl language-bash">git cat-file -t 2a93d0
+<span class="hl-comment"># blob</span>
+git cat-file -p 2a93d0
+<span class="hl-comment"># ÿþhello</span>
+git cat-file -s 2a93d0
+</code></pre>
+<ul>
+<li><code>git add</code> 存储文件：文件类型（这里是 blob） + 文件内容，然后进行 <code>SHA1</code> 加密</li>
+<li>在 <code>objects</code> 中文件的内容会被压缩后存储到加密之后的文件中</li>
+</ul>
+</li>
+<li>
+<p>查看 <code>index</code> 文件，使用 <code>git ls-files</code> 可以查看暂存区（index）的文件情况</p>
+<pre><code class="hl language-bash">git ls-files -s
+<span class="hl-comment"># 权限      blob 对象                                        文件名</span>
+<span class="hl-comment"># 100644 2a93d00994fbd8c484f38b0423b7c42e87a55d48 0       hello.txt</span>
+<span class="hl-comment"># 100644 190b00d560cb8ac4e17678e8fccc7a2af8057bdd 0       temp.txt</span>
+</code></pre>
+</li>
+</ol>
+<h2 id="git-commit">git commit<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#git-commit"></a></h2>
+<ul>
+<li>没有提交前暂存的情况</li>
+</ul>
+<pre><code class="hl language-bash">├─info
+│      exclude
+│
+├─objects
+│  ├─19
+│  │      0b00d560cb8ac4e17678e8fccc7a2af8057bdd
+│  │
+│  ├─2a
+│  │      93d00994fbd8c484f38b0423b7c42e87a55d48
+│  │
+│  ├─info
+│  └─pack
+└─refs
+    ├─heads
+    └─tags
+</code></pre>
+<ul>
+<li>提交之后</li>
+</ul>
+<pre><code class="hl language-bash">├─info
+│      exclude
+│
+├─logs
+│  │  HEAD
+│  │
+│  └─refs
+│      └─heads
+│              master
+│
+├─objects
+│  ├─19
+│  │      0b00d560cb8ac4e17678e8fccc7a2af8057bdd
+│  │
+│  ├─2a
+│  │      93d00994fbd8c484f38b0423b7c42e87a55d48
+│  │
+│  ├─a0
+│  │      197cf5327fec251ae14d063fb50d6d3e570674
+│  │
+│  ├─a3
+│  │      d91d125103f57b7b60d7ebd6502aa0987828ab
+│  │
+│  ├─info
+│  └─pack
+└─refs
+    ├─heads
+    │      master
+    │
+    └─tags
+</code></pre>
+<blockquote>
+<p>查看 <code>commit</code> 对象内容和类型</p>
+</blockquote>
+<pre><code class="hl language-bash">git cat-file -t a3d91d12
+<span class="hl-comment"># commit</span>
+git cat-file -p a3d91d12
+<span class="hl-comment"># tree a0197cf5327fec251ae14d063fb50d6d3e570674</span>
+<span class="hl-comment">#                                                   时间戳      时区</span>
+<span class="hl-comment"># author Jack-Zhang-1314 &#x3C;fwqaaq@gmail.com> 1656707371 +0800</span>
+<span class="hl-comment"># committer Jack-Zhang-1314 &#x3C;fwqaaq@gmail.com> 1656707371 +0800</span>
+<span class="hl-comment"># </span>
+<span class="hl-comment"># 1st commit</span>
+</code></pre>
+<blockquote>
+<p>查看 <code>tree</code> 对象的内容和类型</p>
+</blockquote>
+<pre><code class="hl language-bash">git cat-file -t a0197c
+<span class="hl-comment">#tree</span>
+git cat-file -p a0197c
+<span class="hl-comment"># 100644 blob 2a93d00994fbd8c484f38b0423b7c42e87a55d48    hello.txt</span>
+<span class="hl-comment"># 100644 blob 190b00d560cb8ac4e17678e8fccc7a2af8057bdd    temp.txt</span>
+</code></pre>
+<blockquote>
+<p>查看 commit 对象和指针<code>HEAD</code></p>
+</blockquote>
+<pre><code class="hl language-bash"><span class="hl-built_in">cat</span> .\.git\refs\heads\master
+<span class="hl-comment"># a3d91d125103f57b7b60d7ebd6502aa0987828ab</span>
+<span class="hl-built_in">cat</span> .git/HEAD
+<span class="hl-comment"># ref: refs/heads/master</span>
+</code></pre>
+<pre><code class="hl language-bash">                          ----------> hello.txt
+                          |
+commit(tree中的内容) ---> tree(包含blob对象文件)
+                          |
+                          ----------> temp.txt
+</code></pre>
+<h3 id="修改-commit">修改 commit<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#修改-commit"></a></h3>
+<pre><code class="hl language-bash">│
+├─objects
+│  ├─19
+│  │      0b00d560cb8ac4e17678e8fccc7a2af8057bdd
+│  │
+│  ├─2a
+│  │      93d00994fbd8c484f38b0423b7c42e87a55d48
+│  │
+│  ├─65
+│  │      4580c8026cf5b0ab07c5572f353409e3c83792
+│  │
+│  ├─80
+│  │      993781b54ed1b81e47a31e6427940c1a9deafb
+│  │
+│  ├─a0
+│  │      197cf5327fec251ae14d063fb50d6d3e570674
+│  │
+│  ├─a3
+│  │      d91d125103f57b7b60d7ebd6502aa0987828ab
+│  │
+│  ├─b2
+│  │      7787b75a99a614f3b26fe482f0cd47bc3c186b
+│  │
+│  ├─info
+│  └─pack
+</code></pre>
+<blockquote>
+<p>查看最新提交的 commit</p>
+</blockquote>
+<pre><code class="hl language-bash">git cat-file -p b27787      
+<span class="hl-comment"># tree 654580c8026cf5b0ab07c5572f353409e3c83792</span>
+<span class="hl-comment"># parent a3d91d125103f57b7b60d7ebd6502aa0987828ab  (上一次提交)</span>
+<span class="hl-comment"># author Jack-Zhang-1314 &#x3C;fwqaaq@gmail.com> 1656708529 +0800</span>
+<span class="hl-comment"># committer Jack-Zhang-1314 &#x3C;fwqaaq@gmail.com> 1656708529 +0800</span>
+<span class="hl-comment"># </span>
+<span class="hl-comment"># 2st commit</span>
+
+<span class="hl-comment"># tree中的内容依然会指向这两个文件</span>
+git cat-file -p 654580
+<span class="hl-comment"># 100644 blob 80993781b54ed1b81e47a31e6427940c1a9deafb    hello.txt</span>
+<span class="hl-comment"># 100644 blob 190b00d560cb8ac4e17678e8fccc7a2af8057bdd    temp.txt</span>
+</code></pre>
+<blockquote>
+<p>修改暂存区的文件</p>
+</blockquote>
+<pre><code class="hl language-bash">git cat-file -p 8099378
+<span class="hl-comment"># hello world </span>
+git cat-file -t 8099378
+<span class="hl-comment"># blob</span>
+</code></pre>
+<h2 id="git-的文件状态">git 的文件状态<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#git-的文件状态"></a></h2>
+<ol>
+<li><code>Untrack</code>:工作区新创建的文件。使用 <code>git add</code> 将文件变为 <code>Staged</code></li>
+<li><code>Modified</code>:文件已经在 index（Staged 状态），然后在工作区修改，也可以使用 <code>git add</code> 变为 <code>Staged</code></li>
+<li><code>Staged</code>:使用 <code>git commit</code> 将文件变为 <code>Unmodified</code></li>
+<li><code>Unmodified</code></li>
+</ol>
+        </article></main><script src="https://giscus.app/client.js"
+        data-repo="fwqaaq/fwqaaq.github.io"
+        data-repo-id="R_kgDOHCFK2A"
+        data-category="Show and tell"
+        data-category-id="DIC_kwDOHCFK2M4CYOLh"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="1"
+        data-input-position="bottom"
+        data-theme="preferred_color_scheme"
+        data-lang="zh-CN"
+        crossorigin="anonymous"
+        async></script>
