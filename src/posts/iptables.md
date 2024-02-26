@@ -10,6 +10,7 @@ summary: iptables 的简单应用
 
 ## 表
 
+> [!NOTE]
 > iptables 是 Linux 下的防火墙，可以用来设置防火墙规则，限制网络访问。
 >
 > 它由以下四个表组成：filter \< nat \< mangle \< raw，每个表中都含有不同的链

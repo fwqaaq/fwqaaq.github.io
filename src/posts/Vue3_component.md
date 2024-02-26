@@ -230,8 +230,8 @@ import("./utils/math").then(
 ### 异步组件与 Suspense(<span style="color:red">还在实验中，API 随时可能修改</span>)
 
 - `Suspense`是一个内置的全局组件，该组件有两个插槽：
-  - `default`:如果 default 可以显示，那么显示 default 的内容
-  - `fallback`:如果 default 无法显示，那么会显示 fallback 插槽的内容
+  - `default`：如果 default 可以显示，那么显示 default 的内容
+  - `fallback`：如果 default 无法显示，那么会显示 fallback 插槽的内容
 
 ```html
 <template #default>

@@ -8,7 +8,7 @@ tags:
 summary: tsconfig.json 配置技巧
 ---
 
-## [Project Refrence](https://zhuanlan.zhihu.com/p/550953856)
+## [Project Reference](https://zhuanlan.zhihu.com/p/550953856)
 
 > 在一个项目 `src` 目录下有两个相对独立的模块，分别是 `src1` 和
 > `src2`,其中他们都包含一系列的 `.ts` 文件

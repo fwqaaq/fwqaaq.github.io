@@ -4,7 +4,7 @@ date: 2023-08-01 04:05:03
 categories: Algorithm
 tags:
    - Rust
-   - Alogrithm
+   - Algorithm
 summary: 位运算通用技巧
 ---
 

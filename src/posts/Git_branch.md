@@ -9,6 +9,7 @@ summary: Git 分支原理
 
 ## 分支
 
+> [!NOTE]
 > 通过 `HEAD` 文件可以知道当前在哪个分支工作，并且 **HEAD 指向的分支**总是指向最新的 `commit`
 
 ```bash

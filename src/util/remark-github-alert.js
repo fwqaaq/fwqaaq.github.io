@@ -61,7 +61,7 @@ const remarkGithubAlerts = (options = {}) => {
        * @type {keyof typeof icons}
        */
       const type = match[1].toLowerCase()
-      const title = match[2]?.toLowerCase() || (titles[type] || type.charAt(0).toUpperCase() + type.slice(1))
+      const title = titles[type] || type.charAt(0).toUpperCase() + type.slice(1)
       const icon = icons[type]
 
       firstContent.value = firstContent.value.slice(match[0].length).trimStart()

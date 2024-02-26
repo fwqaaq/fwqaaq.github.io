@@ -30,12 +30,16 @@ pre code {
 
 blockquote {
   line-height: 1.5;
-  border-inline-start: 0.3rem solid rgba(50, 48, 91, 0.75);
-  border-radius: 5px;
+  border-inline-start: 0.25rem solid rgba(41, 223, 202);
+  border-radius: 0 5px 5px 0;
   padding-inline-start: 0.25rem;
   padding-block: 0.3rem;
   margin-inline: 1rem;
   background-color: rgba(0, 255, 174, 0.1);
+
+  p {
+    padding-inline-start: 1rem;
+  }
 }
 
 pre {

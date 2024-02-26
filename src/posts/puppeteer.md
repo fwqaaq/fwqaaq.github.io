@@ -10,9 +10,9 @@ summary: 使用 puppeteer 做一个爬虫
 
 ## 爬取页面或者接口数据
 
-> 页面得是 ssr(服务器渲染)`post`,`get`等请求都可以
+> 页面得是 ssr（服务器渲染）`post`,`get` 等请求都可以
 >
-> 使用`axios`库
+> 使用 `axios` 库
 
 ```js
 const axios = require("axios");
@@ -25,7 +25,7 @@ axios.get(url, (error, response, body) => {
 
 ## Puppeteer 简介
 
-> `Puppeteer`是一个`Node`库，它提供了一个高级 API 来通过 DevTools 协议控制`Chrome`或`Chromium`.`Puppeteer`默认无头运行，但可以配置为运行完整 (非无头)`Chrome`或`Chromium`.
+> `Puppeteer` 是一个 `Node` 库，它提供了一个高级 API 来通过 DevTools 协议控制 `Chrome` 或 `Chromium`.`Puppeteer` 默认无头运行，但可以配置为运行完整 (非无头) `Chrome` 或 `Chromium`。
 
 ### 使用特点
 
@@ -71,14 +71,14 @@ const findChrome = require("./node_modules/carlo/lib/find_chrome");
 
 ### puppeteer 概述
 
-> `Puppeteer`API 是分层的，并反映了浏览器结构
+> Puppeteer API 是分层的，并反映了浏览器结构
 
-1. `Puppeteer`:使用 DevTools 协议与浏览器通信。
-2. `Browser`实例可以拥有多个浏览器上下文。
-3. `BrowserContext`实例定义了一个浏览会话并且可以拥有多个页面。
-4. `Page`至少有一个框架主框架。可能还有其他框架由 iframe 或框架标签创建。
-5. `Frame`至少有一个执行上下文——默认执行上下文——框架的 JavaScript 在这里执行.Frame 可能具有与扩展相关联的附加执行上下文。
-6. `Worker`有一个单一的执行上下文并促进与 WebWorkers 的交互。
+1. `Puppeteer`：使用 DevTools 协议与浏览器通信。
+2. `Browser` 实例可以拥有多个浏览器上下文。
+3. `BrowserContext` 实例定义了一个浏览会话并且可以拥有多个页面。
+4. `Page` 至少有一个框架主框架。可能还有其他框架由 iframe 或框架标签创建。
+5. `Frame` 至少有一个执行上下文——默认执行上下文——框架的 JavaScript 在这里执行.Frame 可能具有与扩展相关联的附加执行上下文。
+6. `Worker` 有一个单一的执行上下文并促进与 WebWorkers 的交互。
 
 > 参考:<https://github.com/puppeteer/puppeteer/blob/main/docs/api.md#puppeteer-vs-puppeteer-core>
 

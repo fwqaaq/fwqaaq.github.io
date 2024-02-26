@@ -32,7 +32,7 @@ summary:  vueRouter 创建单页应用程序的方式
 
 #### 在 template 中
 
-- 通过$route.params 获取值
+- 通过 $route.params 获取值
 
 ```html
 <template>
@@ -74,10 +74,10 @@ export default {
 }
 ```
 
-- 可以在`template`中使用`$route.params.pathMatch`获取路径参数
+- 可以在 `template` 中使用 `$route.params.pathMatch` 获取路径参数
   - 例如：`user/hhh/111`
-- 注意在`/:pathMatch(.*)`后面又加了一个 `*`,即`/:pathMatch(.*)*`时
-  - `$route.params.pathMatch`获取路径参数是一个数组["user","hhh","111"]
+- 注意在 `/:pathMatch(.*)` 后面又加了一个 `*`，即 `/:pathMatch(.*)*` 时
+  - `$route.params.pathMatch` 获取路径参数是一个数组 ["user","hhh","111"]
 
 ## 嵌套路由
 
@@ -143,9 +143,9 @@ export default {
 
 ### custom
 
-> custom 选项防止<router-link>将其内容包装在<a>元素内
+> custom 选项防止 \<router-link> 将其内容包装在 \<a> 元素内
 >
-> 默认情况下，\<router-link>将呈现其内容包裹在一个\<a>元素，即使使用`v-slot`.使用`custom`，删除该行为
+> 默认情况下，\<router-link> 将呈现其内容包裹在一个 \<a> 元素，即使使用 `v-slot`。使用 `custom`，删除该行为
 
 ```html
 <router-link to="/home" custom v-slot="{navigate,href,route}">
@@ -335,4 +335,4 @@ router.afterEach((to, from) => {
 
 ### 组件内守卫
 
-> 参考<https://next.router.vuejs.org/zh/guide/advanced/composition-api.html#%E5%AF%BC%E8%88%AA%E5%AE%88%E5%8D%AB>
+参考 <https://next.router.vuejs.org/zh/guide/advanced/composition-api.html#%E5%AF%BC%E8%88%AA%E5%AE%88%E5%8D%AB>
