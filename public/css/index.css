@@ -4,6 +4,7 @@
   --header-height: 4rem;
   --page-width: 48rem;
   --theme-color: rgb(0, 0, 0);
+  --bg-color: #e2e2e2;
   --header-bg: rgba(200, 200, 200, 0.8);
   --color-a-link: rgba(0, 93, 73, 0.8);
   --color-a-link-hover: #005845;
@@ -19,6 +20,7 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
+    --bg-color: rgb(20, 20, 44);
     --theme-color: rgb(240, 238, 233);
     --header-bg: rgba(46, 44, 79, 0.8);
     --color-a-link: rgba(1, 202, 159, 0.8);
@@ -33,8 +35,7 @@
 }
 
 body {
-  background-color: rgba(60, 118, 104, 0.7);
-  background-image: url("https://img.fwqaq.us/10_Sunshine_8k.jpg");
+  background-color: var(--bg-color);
   background-size: cover;
   padding-block-end: 0.5rem;
   position: relative;

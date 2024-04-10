@@ -16,6 +16,7 @@ import {
 import { handler } from "./src/util/utils.js"
 import { copy, ensureDir, ensureFile, exists, existsSync } from "fs"
 import "https://deno.land/std@0.201.0/dotenv/load.ts"
+import init, { transform, Features } from 'https://esm.run/lightningcss-wasm'
 
 /**
  * @typedef {Object} MetaData
@@ -127,10 +128,22 @@ async function generatePage(
 
 // Handle the others source
 async function Others() {
-  // Copy the public dir
-  await copy(new URL("../public/", src), new URL("./public/", dist), {
-    overwrite: true,
-  })
+  await ensureDir(new URL("./public/", dist))
+  for await (const entry of Deno.readDir(new URL("../public/", src))) {
+    if (entry.name === "css") continue
+    await copy(new URL(`../public/${entry.name}`, src), new URL(`./public/${entry.name}`, dist), 
+    {
+      overwrite: true,
+    })
+  }
+
+  // compile the css
+  await ensureDir(new URL("./public/css/", dist))
+  for await (const entry of Deno.readDir(new URL("../public/css/", src))) {
+    const path = new URL(`../public/css/${entry.name}`, src)
+    const code = await compileCss(path)
+    await Deno.writeFile(new URL(entry.name, new URL("./public/css/", dist)), code)
+  }
 
   // Handle the CNAME
   const cname = new URL("./CNAME", dist)
@@ -286,4 +299,19 @@ function startServer() {
       throw e
     }
   }
+}
+
+/**
+ * @param {URL} path
+ * @returns {Promise<Uint8Array>} 
+ */
+async function compileCss(path) {
+  await init()
+  const text = await Deno.readFile(path)
+  const {code} = transform({
+    code: text,
+    include: Features.Colors | Features.Nesting,
+    minify: true,
+  })
+  return code
 }
