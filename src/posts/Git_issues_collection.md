@@ -25,3 +25,9 @@ summary: 收集一些关于开发中遇到的 Git 问题
    git config user.email "email"
    git config core.sshCommand "ssh -i ~/.ssh/id_rsa_xxx"
    ```
+
+3. 提交一个空提交
+
+   ```bash
+   git commit --allow-empty -m "empty commit"
+   ```

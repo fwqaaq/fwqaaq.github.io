@@ -2,7 +2,7 @@
 
 const regex = /\<head\>[\s\S]*\<\/head\>[\s\S]*?\<main[\s\S]*?\>([\s\S]*)\<\/main\>/
 
-let isDark = window.matchMedia("(prefers-color-scheme: dark)").matches
+let isDark = globalThis.matchMedia("(prefers-color-scheme: dark)").matches
 
 /**
  * @type {HTMLMetaElement}
@@ -10,7 +10,7 @@ let isDark = window.matchMedia("(prefers-color-scheme: dark)").matches
 const metaTheme = document.head.querySelector("meta[name='theme-color']")
 
 /**
- * @param {boolean} darkTheme 
+ * @param {boolean} isDarkTheme 
  * @param {Element} e 
  */
 function toggleColor(isDarkTheme, e) {
@@ -67,7 +67,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // nav toggle
   document.addEventListener("click", (e) => {
-    if (!window.matchMedia("(max-width: 480px").matches) return
+    if (!globalThis.matchMedia("(max-width: 480px").matches) return
     if (e.target === header) {
       nav.classList.toggle("show")
       return
@@ -84,13 +84,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
   let lastScrollTop = 0
   document.addEventListener("scroll", (_) => {
-    const current = window.scrollX || document.documentElement.scrollTop
+    const current = globalThis.scrollX || document.documentElement.scrollTop
     const headerHeight = '-' + getComputedStyle(document.documentElement).getPropertyValue("--header-height")
     if (current <= lastScrollTop) {
       header.style.top = "0"
     } else {
       header.style.top = headerHeight
-      if (!window.matchMedia("(max-width: 480px").matches) return
+      if (!globalThis.matchMedia("(max-width: 480px").matches) return
       nav.classList.remove("show")
     }
     lastScrollTop = current <= 0 ? 0 : current
