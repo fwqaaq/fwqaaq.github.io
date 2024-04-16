@@ -12,23 +12,23 @@ import remarkGfm from 'remark-gfm'
 import remarkGithubAlerts from './remark-github-alert.js'
 
 export const markdown = async (file) =>
-	await unified()
-		.use(remarkParse, { commonmark: true })
-		.use(remarkGfm)
-		.use(remarkGithubAlerts)
-		.use(remarkRehype, { allowDangerousHtml: true })
-		.use(rehypeRaw)
-		.use(rehypeHighlight, { prefix: 'hl-', detect: true })
-		.use(rehypeSlug, { prefix: '' })
-		.use(rehypeAutolinkHeadings, {
-			behavior: 'append',
-			properties: {
-				className: ['anchor'],
-				'aria-label': 'Anchor',
-				'aria-hidden': 'true',
-				'data-anchorjs-icon': '🔗',
-			},
-			content: { type: 'text', value: '' },
-		})
-		.use(rehypeStringify)
-		.process(file)
+  await unified()
+    .use(remarkParse, { commonmark: true })
+    .use(remarkGfm)
+    .use(remarkGithubAlerts)
+    .use(remarkRehype, { allowDangerousHtml: true })
+    .use(rehypeRaw)
+    .use(rehypeHighlight, { prefix: 'hl-', detect: true })
+    .use(rehypeSlug, { prefix: '' })
+    .use(rehypeAutolinkHeadings, {
+      behavior: 'append',
+      properties: {
+        className: ['anchor'],
+        'aria-label': 'Anchor',
+        'aria-hidden': 'true',
+        'data-anchorjs-icon': '🔗',
+      },
+      content: { type: 'text', value: '' },
+    })
+    .use(rehypeStringify)
+    .process(file)

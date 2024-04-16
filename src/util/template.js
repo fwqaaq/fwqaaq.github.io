@@ -1,13 +1,13 @@
 const handleTemplate = (strings, ...keys) => {
-	return (...values) => {
-		const dict = values[values.length - 1] || {}
-		const res = [strings[0]]
-		keys.forEach((k, i) => {
-			const v = Number.isInteger(k) ? values[k] : dict[k]
-			res.push(v, strings[i + 1])
-		})
-		return res.join('')
-	}
+  return (...values) => {
+    const dict = values[values.length - 1] || {}
+    const res = [strings[0]]
+    keys.forEach((k, i) => {
+      const v = Number.isInteger(k) ? values[k] : dict[k]
+      res.push(v, strings[i + 1])
+    })
+    return res.join('')
+  }
 }
 
 export const templateBox = handleTemplate`        
@@ -55,7 +55,7 @@ export const giscus = `<script src="https://giscus.app/client.js"
  * @returns
  */
 export const getRss = (author, website, items) =>
-	`<?xml version="1.0" encoding="UTF-8" ?>
+  `<?xml version="1.0" encoding="UTF-8" ?>
 <rss version="2.0">
 <channel>
   <title>${author}'s blog</title>

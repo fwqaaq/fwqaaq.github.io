@@ -180,7 +180,7 @@ main.blog-main .pages {
   margin-block-end: 4rem;
 }
 
-/* Match Google for about showing */
+/* Match Chrome for about showing */
 @media (min-width: 48rem) {
   main.blog-main {
     width: var(--page-width);
@@ -233,13 +233,18 @@ main.blog-main .pages {
   header.blog-header {
     justify-content: center;
 
-    .show {
+    &:hover {
+      cursor: pointer;
+    }
+
+    /*权重需要比 .header-nav 大*/
+    nav.show {
       max-height: 450px;
       /* 与正常情况下产生冲突，这里设置 auto */
       height: auto;
     }
 
-    &>nav {
+    .header-nav {
       display: flex;
       flex-direction: column;
       position: fixed;
