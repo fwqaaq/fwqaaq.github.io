@@ -89,15 +89,22 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const header = document.querySelector('header')
   const nav = header.querySelector('nav')
+  const switchIcon = document.getElementById('switch-icon')
+  const isWidthMatchMedia = !globalThis.matchMedia('(max-width: 480px').matches
+  if (!isWidthMatchMedia) switchIcon.hidden = true
 
   // nav toggle
   document.addEventListener('click', (e) => {
-    if (!globalThis.matchMedia('(max-width: 480px').matches) return
-    if (e.target === header) {
+    if (isWidthMatchMedia) return
+    if (e.target === switchIcon) {
+      switchIcon.classList.toggle('fa-bars')
+      switchIcon.classList.toggle('fa-xmark')
       nav.classList.toggle('show')
       return
     }
     nav.classList.remove('show')
+    switchIcon.classList.remove('fa-xmark')
+    switchIcon.classList.add('fa-bars')
   })
 
   document.body.addEventListener('click', (e) => {
@@ -119,6 +126,8 @@ document.addEventListener('DOMContentLoaded', () => {
       header.style.top = headerHeight
       if (!globalThis.matchMedia('(max-width: 480px').matches) return
       nav.classList.remove('show')
+      switchIcon.classList.remove('fa-xmark')
+      switchIcon.classList.add('fa-bars')
     }
     lastScrollTop = current <= 0 ? 0 : current
   })
