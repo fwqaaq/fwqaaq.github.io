@@ -1,36 +1,36 @@
 const handleTemplate = (strings, ...keys) => {
-  return (...values) => {
-    const dict = values[values.length - 1] || {}
-    const res = [strings[0]]
-    keys.forEach((k, i) => {
-      const v = Number.isInteger(k) ? values[k] : dict[k]
-      res.push(v, strings[i + 1])
-    })
-    return res.join("")
-  }
+	return (...values) => {
+		const dict = values[values.length - 1] || {}
+		const res = [strings[0]]
+		keys.forEach((k, i) => {
+			const v = Number.isInteger(k) ? values[k] : dict[k]
+			res.push(v, strings[i + 1])
+		})
+		return res.join('')
+	}
 }
 
 export const templateBox = handleTemplate`        
         <section class="box">
-            <h3><a class="decoration-line" href="${"place"}">${"title"}</a></h3>
-            <p>${"summary"}<span class="time">···········${"time"}</span></p>
+            <h3><a class="decoration-line" href="${'place'}">${'title'}</a></h3>
+            <p>${'summary'}<span class="time">···········${'time'}</span></p>
             <div>
-                ${"tags"}
+                ${'tags'}
             </div>
         </section>`
 
 export const templateProcess = handleTemplate`
         <section class="pages box">
-            <a class="router" href="${"before"}">ᐊ</a>
-            <span>${"page"}</span>
-            <a class="router" href='${"after"}'>ᐅ</a>
+            <a class="router" href="${'before'}">ᐊ</a>
+            <span>${'page'}</span>
+            <a class="router" href='${'after'}'>ᐅ</a>
         </section>`
 
 export const templateArticle = handleTemplate`
           <article class="blog-article">
-            <h1>${"title"}</h1>
+            <h1>${'title'}</h1>
             <hr>
-            ${"content"}
+            ${'content'}
         </article>`
 
 export const giscus = `<script src="https://giscus.app/client.js"
@@ -55,7 +55,7 @@ export const giscus = `<script src="https://giscus.app/client.js"
  * @returns
  */
 export const getRss = (author, website, items) =>
-  `<?xml version="1.0" encoding="UTF-8" ?>
+	`<?xml version="1.0" encoding="UTF-8" ?>
 <rss version="2.0">
 <channel>
   <title>${author}'s blog</title>
