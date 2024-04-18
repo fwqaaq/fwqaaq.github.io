@@ -222,6 +222,10 @@ main.blog-main .pages {
   .disappear {
     display: none;
   }
+
+  div.toy {
+    display: none;
+  }
 }
 
 @media (min-width: 480px) {
@@ -271,7 +275,7 @@ main.blog-main .pages {
       width: 100%;
       max-height: 0;
       overflow: hidden;
-      transition: max-height 0.5s ease-in-out;
+      transition: max-height 0.5s ease;
     }
   }
 
