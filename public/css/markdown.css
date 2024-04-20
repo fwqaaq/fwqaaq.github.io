@@ -34,7 +34,7 @@ blockquote {
   border-radius: 0 5px 5px 0;
   padding-inline-start: 0.25rem;
   padding-block: 0.3rem;
-  margin-inline: 1rem;
+  margin-inline: 0;
   background-color: rgba(0, 255, 174, 0.1);
 
   p {
