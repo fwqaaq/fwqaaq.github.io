@@ -93,11 +93,16 @@ document.addEventListener('DOMContentLoaded', () => {
   const isWidthMatchMedia = !globalThis.matchMedia('(max-width: 480px').matches
   if (!isWidthMatchMedia) switchIcon.hidden = true
 
+  /**
+   * @param {HTMLElement | null} target
+   */
+  const isRouterTag = (target) => {
+    if (!target) return false
+    return target.matches('a') && target.getAttribute('href').startsWith("/./")
+  }
+  
   document.body.addEventListener('click', (e) => {
-    if (e.target.matches('a') && e.target.getAttribute('href').startsWith("/./")) {
-      e.preventDefault()
-      useRoute(e)
-    }
+    if (isRouterTag(e.target) || isRouterTag(e.target.parentElement)) useRoute(e)
 
     // Not matched, return
     if (isWidthMatchMedia) return
@@ -187,7 +192,10 @@ const renderPage = async (e) => {
  * @param {MouseEvent} e
  */
 const useRoute = async (e) => {
-  history.pushState({}, '', e.target.href)
+  e.preventDefault()
+  /**@type {HTMLAnchorElement} */
+  const target = e.target.closest('a')
+  history.pushState({}, '', target.href)
   document.body.classList.add('loading')
   await renderPage()
   document.body.classList.remove('loading')
