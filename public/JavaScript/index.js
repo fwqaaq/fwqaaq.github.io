@@ -93,9 +93,15 @@ document.addEventListener('DOMContentLoaded', () => {
   const isWidthMatchMedia = !globalThis.matchMedia('(max-width: 480px').matches
   if (!isWidthMatchMedia) switchIcon.hidden = true
 
-  // nav toggle
-  document.addEventListener('click', (e) => {
+  document.body.addEventListener('click', (e) => {
+    if (e.target.matches('a') && e.target.getAttribute('href').startsWith("/./")) {
+      e.preventDefault()
+      useRoute(e)
+    }
+
+    // Not matched, return
     if (isWidthMatchMedia) return
+    console.log("e.target", e.target)
     if (e.target === switchIcon) {
       switchIcon.classList.toggle('fa-bars')
       switchIcon.classList.toggle('fa-xmark')
@@ -107,11 +113,6 @@ document.addEventListener('DOMContentLoaded', () => {
     switchIcon.classList.add('fa-bars')
   })
 
-  document.body.addEventListener('click', (e) => {
-    if (
-      e.target.matches('a') && e.target.getAttribute('href').startsWith('/./')
-    ) useRoute(e)
-  })
 
   let lastScrollTop = 0
   document.addEventListener('scroll', (_) => {
@@ -186,7 +187,6 @@ const renderPage = async (e) => {
  * @param {MouseEvent} e
  */
 const useRoute = async (e) => {
-  e.preventDefault()
   history.pushState({}, '', e.target.href)
   document.body.classList.add('loading')
   await renderPage()

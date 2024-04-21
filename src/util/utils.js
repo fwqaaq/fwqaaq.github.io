@@ -64,16 +64,18 @@ export const replaceHead = async (keywords, description, title) => {
  * @param {string} content
  * @param {boolean} append - default false
  */
-export const generateSingleFile = (url, content, append = false) => {
-  // if exists, remove it
-  if (existsSync(url)) Deno.removeSync(url, { recursive: true })
-  Deno.writeFileSync(url, new TextEncoder().encode(content), {
-    createNew: true,
-    append,
-  })
-  return {
-    generateSingleFile,
-    end: () => 'end',
+export function* generateSingleFile(url, content, append = false) {
+  //if exists, remove it
+  while (true) {
+    if (existsSync(url)) Deno.removeSync(url, { recursive: true })
+    Deno.writeFileSync(url, new TextEncoder().encode(content), {
+      createNew: true,
+      append,
+    })
+    const result = yield;
+    if (result) {
+      [url, content] = result; // 解构赋值
+    }
   }
 }
 

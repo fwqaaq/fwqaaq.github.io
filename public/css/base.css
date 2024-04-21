@@ -2,6 +2,7 @@ html,
 body {
   padding: 0%;
   margin: 0%;
+  height: 100%;
   scroll-behavior: smooth;
   font-family: system-ui, —apple-system, Segoe UI, Rototo, Emoji, Helvetica, Arial, sans-serif;
 }
