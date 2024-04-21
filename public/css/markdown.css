@@ -118,13 +118,10 @@ span.javascript {
 
   span.hl-params {
     color: rgb(116, 180, 193);
-
-    span.hl-built_in {
-      color: rgb(128, 255, 187);
-    }
   }
 
-  span.hl-string {
+  span.hl-string,
+  span.hl-params span.hl-built_in {
     color: rgb(128, 255, 187);
   }
 
@@ -208,8 +205,54 @@ code.language-rust {
   }
 }
 
-/* GitHub Alert */
+code.language-go {
 
+  span.hl-function span.hl-keyword,
+  span.hl-literal,
+  span.hl-number {
+    color: rgb(255, 97, 140);
+  }
+
+  span.hl-function span.hl-title,
+  span.hl-function span.hl-params,
+  span.hl-built_in {
+    color: rgb(255, 215, 2);
+  }
+
+  span.hl-string {
+    color: rgb(164, 255, 144);
+  }
+
+  span.hl-keyword,
+  span.hl-type {
+    color: rgb(255, 158, 0);
+  }
+}
+
+code.language-c {
+
+  span.hl-meta span.hl-keyword,
+  span.hl-type {
+    color: rgb(255, 158, 0);
+  }
+
+  span.hl-string {
+    color: rgb(164, 255, 144);
+  }
+
+  span.hl-title,
+  span.hl-params,
+  span.hl-built_in {
+    color: rgb(255, 215, 2);
+  }
+
+  span.hl-literal,
+  span.hl-number {
+    color: rgb(255, 97, 140);
+  }
+}
+
+/* GitHub Alert */
 .markdown-alert {
   padding: 0.5rem 1rem;
   margin-bottom: 16px;
