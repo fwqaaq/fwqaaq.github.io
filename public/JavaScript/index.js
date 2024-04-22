@@ -22,13 +22,10 @@ function toggleColor(isDarkTheme, e) {
     '--header-bg',
   )
   if (isDarkTheme) {
-    document.documentElement.style.setProperty(
-      '--theme-color',
-      'rgb(240, 238, 233)',
-    )
+    document.documentElement.style.setProperty('--theme-color','#ffffff')
     document.documentElement.style.setProperty(
       '--header-bg',
-      'rgba(46, 44, 79, 0.8)',
+      'rgba(26, 26, 26, 0.8)',
     )
     document.documentElement.style.setProperty(
       '--color-a-link',
@@ -38,23 +35,23 @@ function toggleColor(isDarkTheme, e) {
       '--color-a-link-hover',
       '#00d4a1',
     )
-    document.documentElement.style.setProperty('--bg-color', 'rgb(20, 20, 44)')
-    metaTheme.content = 'rgb(46, 44, 79)'
+    document.documentElement.style.setProperty('--bg-color', 'rgb(26, 26, 26)')
+    metaTheme.content = 'rgb(26, 26, 26)'
     return
   }
-  if (headerBg === 'rgb(200, 200, 200)') return
+  if (headerBg === 'rgba(255, 255, 255, 0.8)') return
   document.documentElement.style.setProperty('--theme-color', 'rgb(0, 0, 0)')
-  document.documentElement.style.setProperty('--bg-color', ' #e2e2e2')
+  document.documentElement.style.setProperty('--bg-color', ' #ffffff')
   document.documentElement.style.setProperty(
     '--header-bg',
-    'rgba(200,200,200, 0.8)',
+    'rgba(255, 255, 255, 0.8)',
   )
   document.documentElement.style.setProperty(
     '--color-a-link',
     ' rgba(0, 93, 73, 0.8)',
   )
   document.documentElement.style.setProperty('--color-a-link-hover', '#005845')
-  metaTheme.content = 'rgb(200,200,200)'
+  metaTheme.content = 'rgba(255, 255, 255, 0.8)'
 }
 
 document.addEventListener('DOMContentLoaded', () => {

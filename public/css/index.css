@@ -4,8 +4,8 @@
   --header-height: 4rem;
   --page-width: 48rem;
   --theme-color: rgb(0, 0, 0);
-  --bg-color: #e2e2e2;
-  --header-bg: rgba(200, 200, 200, 0.8);
+  --bg-color: #ffffff;
+  --header-bg: rgba(255, 255, 255, 0.8);
   --color-a-link: rgba(0, 93, 73, 0.8);
   --color-a-link-hover: #005845;
   --h-color: var(--color-a-link);
@@ -20,9 +20,9 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --bg-color: rgb(20, 20, 44);
-    --theme-color: rgb(240, 238, 233);
-    --header-bg: rgba(46, 44, 79, 0.8);
+    --bg-color: rgb(26, 26, 26);
+    --theme-color: #ffffff;
+    --header-bg: rgba(26, 26, 26, 0.8);
     --color-a-link: rgba(1, 202, 159, 0.8);
     --color-a-link-hover: #00d4a1;
     --color-note: #2f81f7;
@@ -81,6 +81,7 @@ header.blog-header {
   backdrop-filter: blur(1rem);
   -webkit-backdrop-filter: blur(1rem);
   transition: top 0.6s ease-in-out;
+  border-block-end: var(--theme-color) 0.1rem solid;
 
   /* 与文字底部对齐 */
   & i {
@@ -133,7 +134,7 @@ main.blog-main {
     display: inline-block;
     font-size: 14px;
     font-weight: 800;
-    border: 0.1rem solid rgb(255, 255, 255);
+    border: 0.1rem solid var(--theme-color);
     padding: 0.1rem 0.6rem;
     margin-block: 0.1rem;
     border-radius: 0.3rem;
@@ -161,11 +162,12 @@ main.blog-main :where(article, .box) {
   backdrop-filter: blur(1rem);
   -webkit-backdrop-filter: blur(1rem);
   background-color: var(--header-bg);
+  border: 0.1rem solid var(--theme-color);
   padding: 0.8rem 1rem;
   margin-inline: 0.5rem;
   margin-block-start: 1rem;
   border-radius: 0.5rem;
-  box-shadow: 0rem 0rem 0.4rem rgb(55, 55, 55);
+  box-shadow: 0rem 0rem 0.4rem var(--theme-color);
 }
 
 main.blog-main .pages {
@@ -194,19 +196,29 @@ main.blog-main .pages {
   }
 
   nav.toy-nav {
+    width: 200%;
+    max-height: 0;
     display: flex;
     flex-direction: column;
     position: absolute;
+    /* border: 0.1rem solid var(--theme-color); */
     background-color: var(--header-bg);
-    width: 200%;
     inset-inline-start: -50%;
-    max-height: 0;
     overflow: hidden;
     clip-path: polygon(0% 10%, 35% 10%, 50% 0%, 70% 10%, 100% 10%, 100% 100%, 0% 100%);
+    box-shadow: 0.1rem 0.1rem 0.4rem var(--theme-color) inset;
     transition: max-height 0.5s ease-in-out;
 
     & a:first-child {
       padding-block-start: 1rem;
+    }
+
+    & a:hover {
+      cursor: pointer;
+      text-decoration-line: underline;
+      text-decoration-thickness: 0.2rem;
+      text-decoration-color: var(--theme-color);
+      text-underline-offset: 0.5rem;
     }
   }
 
