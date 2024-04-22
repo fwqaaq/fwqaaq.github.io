@@ -31,3 +31,7 @@ summary: 收集一些关于开发中遇到的 Git 问题
    ```bash
    git commit --allow-empty -m "empty commit"
    ```
+
+4. Git 提交验证，由于 Git 服务器对提交的作者一般都不会进行身份验证，所以如果使用了别人的身份信息提交代码进行“投毒”是很容易的，所以多数仓库会进行 `ssh` 和 `GPG` 的验证：
+   * [`ssh` 签名验证](https://docs.github.com/zh/authentication/managing-commit-signature-verification/telling-git-about-your-signing-key#telling-git-about-your-ssh-key)
+   * [`GPG` 签名验证](https://docs.github.com/zh/authentication/managing-commit-signature-verification/generating-a-new-gpg-key)，在 Mac 上使用 PGP 签名可能有问题，具体参考：<https://gist.github.com/Peredery/38d0538dd34381bbd9d13414269a1f27>

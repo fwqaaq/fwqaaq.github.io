@@ -25,6 +25,8 @@ async function getStream() {
 
 文件描述符被释放了，这时候返回是不可能有资源的，返回的 stream 也是没有写到缓冲区的，所以这段代码本身就是有问题的，然而直接返回 stream，并没有关闭文件描述符会造成资源泄漏（🤡）。
 
+当然在 Deno 中完全可以使用 `const` 然后返回一个异步迭代器的方式，异步迭代器在 `done: true` 的时候会主动释放文件描述符，具体参考：<https://github.com/denoland/deno/issues/23481>。
+
 ## I/O 流的分类
 
 1. 按照类型分：分为**文件 I/O**和**网络 I/O**
