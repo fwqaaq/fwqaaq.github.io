@@ -27,11 +27,13 @@ export const templateProcess = handleTemplate`
         </section>`
 
 export const templateArticle = handleTemplate`
+        <main class="blog-main">
           <article class="blog-article">
             <h1>${'title'}</h1>
             <hr>
             ${'content'}
-        </article>`
+          </article>
+        </main>${'giscus'}`
 
 export const giscus = `<script src="https://giscus.app/client.js"
         data-repo="fwqaaq/fwqaaq.github.io"

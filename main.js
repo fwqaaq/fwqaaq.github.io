@@ -46,8 +46,7 @@ if (existsSync(new URL(dist))) {
 }
 
 const getPosts = (title, content, isPosts = false) =>
-  `<main class="blog-main">${templateArticle({ title, content })}</main>${isPosts ? giscus : ''
-  }`
+  `${templateArticle({ title, content, giscus: isPosts ? giscus : '' })}`
 
 const getTags = (title, tags) =>
   tags.reduce(
@@ -58,20 +57,26 @@ const getTags = (title, tags) =>
     '',
   )
 
-function getHomePage(_title, iters) {
-  const sections = iters.reduce((acc, { title, summary, date, tags }) => {
-    const place = `/./posts/${handleUTC(date)}/`, time = convertToUSA(date)
-    return acc +
-      templateBox({ place, title, summary, time, tags: getTags('tags', tags) })
-  }, '')
-  return `<main class="blog-main">${sections}</main>`
+/**
+ * @param {string} title
+ * @param {MetaData[]} iters 
+ */
+function getArchive(title, iters) {
+  const content = iters.reduce(
+    (acc, { date, summary }) => {
+      const place = `/./posts/${handleUTC(date)}/`
+      return acc + `<p><a class="decoration-line" href=${place} target="_blank"> ${summary} ··· ${convertToUSA(date)}</a></p>`
+    }, ''
+  )
+
+  return templateArticle({ title, content })
 }
 
 async function completeTask(map, url, dest) {
   for (const k of map.keys()) {
     const tagsUrl = new URL(`./${k}/index.html`, url)
     const task = await generatePage(tagsUrl, k, `${author} ~ ${k}`, k)
-    await task(getHomePage, map.get(k))
+    await task(getArchive, map.get(k))
   }
 
   const task = await generatePage(
@@ -277,8 +282,7 @@ async function About() {
 
   const [, md] = parseYaml(about)
   const content = await markdown(md)
-  const generated = `${head}${header}<main class="blog-main">${templateArticle({ title: '关于我', content })
-    }</main>`
+  const generated = `${head}${header}${templateArticle({ title: '关于我', content })}`
   await Deno.writeTextFile(aboutDest, generated)
 }
 
