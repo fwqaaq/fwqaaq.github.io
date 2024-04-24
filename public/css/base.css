@@ -7,9 +7,18 @@ body {
   font-family: system-ui, —apple-system, Segoe UI, Rototo, Emoji, Helvetica, Arial, sans-serif;
 }
 
+main.blog-main {
+  min-height: 100vh;
+}
+
+ul,
+li,
+ol {
+  list-style: none;
+}
+
 a {
   text-decoration: none;
-  color: black;
 }
 
 img {
@@ -38,4 +47,8 @@ img {
   border-color: var(--theme-color) var(--theme-color) var(--theme-color) transparent;
   animation: spin 1s ease-in-out infinite;
   z-index: 1;
+}
+
+.text-center {
+  text-align: center;
 }

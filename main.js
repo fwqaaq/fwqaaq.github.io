@@ -15,8 +15,8 @@ import {
 } from './src/util/template.js'
 import { handler } from './src/util/utils.js'
 import { copy, ensureDir, ensureFile, exists, existsSync } from 'fs'
+import init, { Features, transform } from 'lightningcss'
 import 'https://deno.land/std@0.201.0/dotenv/load.ts'
-import init, { Features, transform } from 'https://esm.run/lightningcss-wasm'
 
 /**
  * @typedef {Object} MetaData
@@ -40,6 +40,7 @@ const dist = import.meta.resolve('./dist/'),
 const website = Deno.env.get('WEBSITE'), author = Deno.env.get('AUTHOR')
 
 const header = await Deno.readTextFile(new URL('./util/header.html', src))
+const footer = await Deno.readTextFile(new URL('./util/footer.html', src))
 
 if (existsSync(new URL(dist))) {
   Deno.removeSync(new URL(dist), { recursive: true })
@@ -59,14 +60,18 @@ const getTags = (title, tags) =>
 
 /**
  * @param {string} title
- * @param {MetaData[]} iters 
+ * @param {MetaData[]} iters
  */
 function getArchive(title, iters) {
   const content = iters.reduce(
     (acc, { date, summary }) => {
       const place = `/./posts/${handleUTC(date)}/`
-      return acc + `<p><a class="decoration-line" href=${place} target="_blank"> ${summary} ··· ${convertToUSA(date)}</a></p>`
-    }, ''
+      return acc +
+        `<p><a class="decoration-line" href=${place} target="_blank"> ${summary} ··· ${
+          convertToUSA(date)
+        }</a></p>`
+    },
+    '',
   )
 
   return templateArticle({ title, content })
@@ -99,7 +104,7 @@ async function generatePage(
 
   return async (fn, ...params) => {
     const content = fn(title, ...params)
-    const index = `${head}${header}${content}`
+    const index = `${head}${header}${content}${footer}`
 
     await Deno.writeTextFile(dist, index)
   }
@@ -176,9 +181,10 @@ async function Others() {
   const sitemap = new URL('./sitemap.xml', dist)
   const itemsSitemap = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-${metaData.reduce((acc, { date }) =>
-    `${acc}<url><loc>${website}posts/${handleUTC(date)}/</loc></url>`, '')
-    }
+${
+    metaData.reduce((acc, { date }) =>
+      `${acc}<url><loc>${website}posts/${handleUTC(date)}/</loc></url>`, '')
+  }
 </urlset>`
 
   // robots
@@ -187,21 +193,21 @@ ${metaData.reduce((acc, { date }) =>
 Allow: /
 Sitemap: ${website}sitemap.xml`
 
-  const files = [[rss, getRss(author, website, itemsRss)], [sitemap, itemsSitemap], [robots, robotsContent]]
+  const files = [[rss, getRss(author, website, itemsRss)], [
+    sitemap,
+    itemsSitemap,
+  ], [robots, robotsContent]]
   const g = generateSingleFile(cname, 'www.fwqaq.us')
   g.next()
-  files.forEach(file => g.next(file))
-
+  files.forEach((file) => g.next(file))
 }
 
 // Home page
 async function Home() {
   const homeDest = new URL('./home/', dist)
   const indexpage = (await Deno.readTextFile(new URL('../index.html', src)))
-    .replace(
-      '<!-- Header -->',
-      header,
-    ),
+      .replace('<!-- Header -->', header)
+      .replace('<!-- Footer -->', footer),
     metasLength = metaData.length,
     lastPage = Math.ceil(metasLength / 8)
   let content = ''
@@ -282,7 +288,9 @@ async function About() {
 
   const [, md] = parseYaml(about)
   const content = await markdown(md)
-  const generated = `${head}${header}${templateArticle({ title: '关于我', content })}`
+  const generated = `${head}${header}${
+    templateArticle({ title: '关于我', content })
+  }${footer}`
   await Deno.writeTextFile(aboutDest, generated)
 }
 

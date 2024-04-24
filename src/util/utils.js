@@ -72,9 +72,9 @@ export function* generateSingleFile(url, content, append = false) {
       createNew: true,
       append,
     })
-    const result = yield;
+    const result = yield
     if (result) {
-      [url, content] = result; // 解构赋值
+      ;[url, content] = result // 解构赋值
     }
   }
 }

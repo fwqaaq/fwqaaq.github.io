@@ -6,8 +6,8 @@
   --theme-color: rgb(0, 0, 0);
   --bg-color: #ffffff;
   --header-bg: rgba(255, 255, 255, 0.8);
-  --color-a-link: rgba(0, 93, 73, 0.8);
-  --color-a-link-hover: #005845;
+  --color-a-link: rgba(0, 90, 71, 0.8);
+  --color-a-link-hover: #014637;
   --h-color: var(--color-a-link);
   --table-border-color: var(--theme-color);
   --color-note: #0969da;
@@ -121,6 +121,7 @@ header.blog-header {
 
 main.blog-main {
   margin-block-start: calc(var(--header-height) + 1rem);
+  margin-block-end: 1.2rem;
 
   /* 除了锚点 a 都要换行 */
   & :not(:where(h2, h3, h4, h5, h6)) a[href^="http"] {
@@ -138,10 +139,14 @@ main.blog-main {
     padding: 0.1rem 0.6rem;
     margin-block: 0.1rem;
     border-radius: 0.3rem;
-    color: var(--theme-color);
+    color: var(--color-a-link);
 
     &:nth-child(n+2) {
       margin-inline-start: 0.5rem;
+    }
+
+    &:hover {
+      box-shadow: 0.1rem 0.1rem 0.5rem var(--theme-color);
     }
   }
 }
@@ -175,6 +180,20 @@ main.blog-main .pages {
   justify-content: space-between;
   margin-block-start: 4rem;
 }
+
+footer.blog-footer {
+  border-block-start: var(--theme-color) 0.1rem solid;
+
+  .footer-container {
+    margin: 0 auto;
+    padding: 1rem 1.5rem;
+  }
+
+  .footer-container a {
+    color: var(--color-a-link);
+  }
+}
+
 
 .giscus {
   width: var(--page-width);

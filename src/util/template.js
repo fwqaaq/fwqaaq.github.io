@@ -33,7 +33,7 @@ export const templateArticle = handleTemplate`
             <hr>
             ${'content'}
           </article>
-        </main>${'giscus'}`
+        </main>`
 
 export const giscus = `<script src="https://giscus.app/client.js"
         data-repo="fwqaaq/fwqaaq.github.io"

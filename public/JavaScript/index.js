@@ -18,40 +18,23 @@ function toggleColor(isDarkTheme, e) {
   e.classList.toggle('fa-sun')
   e.classList.toggle('fa-moon')
   window.localStorage.setItem('darkMode', isDarkTheme ? 'dark' : 'light')
-  const headerBg = document.documentElement.style.getPropertyValue(
-    '--header-bg',
-  )
-  if (isDarkTheme) {
-    document.documentElement.style.setProperty('--theme-color','#ffffff')
-    document.documentElement.style.setProperty(
+  const colors = [
+    ['--theme-color', isDarkTheme ? '#ffffff' : 'rgb(0, 0, 0)'],
+    [
       '--header-bg',
-      'rgba(26, 26, 26, 0.8)',
-    )
-    document.documentElement.style.setProperty(
+      isDarkTheme ? 'rgba(26, 26, 26, 0.8)' : 'rgba(255, 255, 255, 0.8)',
+    ],
+    [
       '--color-a-link',
-      'rgba(1, 202, 159, 0.8)',
-    )
-    document.documentElement.style.setProperty(
-      '--color-a-link-hover',
-      '#00d4a1',
-    )
-    document.documentElement.style.setProperty('--bg-color', 'rgb(26, 26, 26)')
-    metaTheme.content = 'rgb(26, 26, 26)'
-    return
-  }
-  if (headerBg === 'rgba(255, 255, 255, 0.8)') return
-  document.documentElement.style.setProperty('--theme-color', 'rgb(0, 0, 0)')
-  document.documentElement.style.setProperty('--bg-color', ' #ffffff')
-  document.documentElement.style.setProperty(
-    '--header-bg',
-    'rgba(255, 255, 255, 0.8)',
-  )
-  document.documentElement.style.setProperty(
-    '--color-a-link',
-    ' rgba(0, 93, 73, 0.8)',
-  )
-  document.documentElement.style.setProperty('--color-a-link-hover', '#005845')
-  metaTheme.content = 'rgba(255, 255, 255, 0.8)'
+      isDarkTheme ? 'rgba(1, 202, 159, 0.8)' : 'rgba(0, 93, 73, 0.8)',
+    ],
+    ['--color-a-link-hover', isDarkTheme ? '#00d4a1' : '#014637'],
+    ['--bg-color', isDarkTheme ? 'rgb(26, 26, 26)' : '#ffffff'],
+  ]
+  colors.forEach(([v, c]) => document.documentElement.style.setProperty(v, c))
+  metaTheme.content = isDarkTheme
+    ? 'rgb(26, 26, 26)'
+    : 'rgba(255, 255, 255, 0.8)'
 }
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -95,15 +78,17 @@ document.addEventListener('DOMContentLoaded', () => {
    */
   const isRouterTag = (target) => {
     if (!target) return false
-    return target.matches('a') && target.getAttribute('href').startsWith("/./")
+    return target.matches('a') && target.getAttribute('href').startsWith('/./')
   }
-  
+
   document.body.addEventListener('click', (e) => {
-    if (isRouterTag(e.target) || isRouterTag(e.target.parentElement)) useRoute(e)
+    if (isRouterTag(e.target) || isRouterTag(e.target.parentElement)) {
+      useRoute(e)
+    }
 
     // Not matched, return
     if (isWidthMatchMedia) return
-    console.log("e.target", e.target)
+    console.log('e.target', e.target)
     if (e.target === switchIcon) {
       switchIcon.classList.toggle('fa-bars')
       switchIcon.classList.toggle('fa-xmark')
@@ -114,7 +99,6 @@ document.addEventListener('DOMContentLoaded', () => {
     switchIcon.classList.remove('fa-xmark')
     switchIcon.classList.add('fa-bars')
   })
-
 
   let lastScrollTop = 0
   document.addEventListener('scroll', (_) => {
@@ -173,6 +157,11 @@ const renderPage = async (e) => {
       script.dataset[key] = value
     }
 
+    const giscus = document.createElement('div')
+    giscus.className = 'giscus'
+    const main = document.body.querySelector('main.blog-main')
+    main.insertAdjacentElement('afterend', giscus)
+
     document.body.appendChild(script)
   }
 
@@ -185,9 +174,7 @@ const renderPage = async (e) => {
   document.body.querySelector('main').innerHTML = content
 }
 
-/**
- * @param {MouseEvent} e
- */
+/**@param {MouseEvent} e*/
 const useRoute = async (e) => {
   e.preventDefault()
   /**@type {HTMLAnchorElement} */
