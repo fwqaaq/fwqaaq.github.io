@@ -11,12 +11,6 @@ main.blog-main {
   min-height: 100vh;
 }
 
-ul,
-li,
-ol {
-  list-style: none;
-}
-
 a {
   text-decoration: none;
 }

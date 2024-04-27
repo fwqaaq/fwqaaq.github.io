@@ -45,8 +45,8 @@ ssh-keygen -t rsa
 | `git diff`          | 查看还有哪些文件没有暂存             |
 | `git diff --staged` | 查看哪些修改已经被暂存，还没有提交    |
 | `git add ./`        | 提交所有变化                         |
-| `git add –u`        | 提交被修改和被删除文件 (不包括新文件) |
-| `git add –A`        | 提交所有变化                         |
+| `git add -u`        | 提交被修改和被删除文件（不包括新文件） |
+| `git add -A`        | 提交所有变化                         |
 | `git ls-files -s`   | 查看暂存区存储状况                   |
 
 #### 更改文件与提交
@@ -253,8 +253,7 @@ git push -u origin dev
 
 1. `-e`：打开外部编辑器，编辑提交信息
 2. `-n`: 只更新工作区和暂存去，不产生新提交
-3. `-x`: 在提交信息的末尾追加 cherry picked from commit
-   ...。方便日后信息查找
+3. `-x`: 在提交信息的末尾追加 cherry picked from commit...。方便日后信息查找
 4. `-s`: 在提交信息的末尾追加操作者的签名
 5. `-m parent-number`: 如果原始提交是一个合并节点，来自于两个分支的合并，那么
    cherry-pick 默认将失败。`-m` 告诉 git 将采用哪一个分支。它的参数

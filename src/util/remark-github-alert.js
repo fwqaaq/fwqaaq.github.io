@@ -50,52 +50,58 @@ const remarkGithubAlerts = (options = {}) => {
     matchCaseSensitive ? '' : 'i',
   )
   return (tree) => {
-    visit(tree, 'blockquote', (node, index, parent) => {
-      if (!index || !parent) return
-      /**
-       * @type {PhrasingContent}
-       */
-      const firstContent = node.children?.[0].children?.[0]
-      if (!firstContent || firstContent.type !== 'text') return
-      const match = firstContent.value.match(RE)
-      if (!match) return
-      /**
-       * @type {keyof typeof icons}
-       */
-      const type = match[1].toLowerCase()
-      const title = titles[type] || type.charAt(0).toUpperCase() + type.slice(1)
-      const icon = icons[type]
+    visit(
+      tree,
+      'blockquote',
+      (
+        /**@type {import("type-mdast").Node}*/ node,
+        /**@type {Number}*/ index,
+        /**@type {import('type-mdast').Parent} */ parent,
+      ) => {
+        if (!index || !parent) return
+        /**@type {PhrasingContent}*/
+        const firstContent = node.children?.[0].children?.[0]
+        if (!firstContent || firstContent.type !== 'text') return
+        const match = firstContent.value.match(RE)
+        if (!match) return
+        /**@type {keyof typeof icons}*/
+        const type = match[1].toLowerCase()
+        const title = titles[type] ||
+          type.charAt(0).toUpperCase() + type.slice(1)
+        const icon = icons[type]
 
-      firstContent.value = firstContent.value.slice(match[0].length).trimStart()
-      node.data = {
-        hName: 'div',
-        hProperties: {
-          class: `${classPrefix} ${classPrefix}-${type}`,
-        },
-      }
-      node.children = [
-        {
-          type: 'paragraph',
-          data: {
-            hName: 'p',
-            hProperties: {
-              class: `${classPrefix}-title`,
-            },
+        firstContent.value = firstContent.value.slice(match[0].length)
+          .trimStart()
+        node.data = {
+          hName: 'div',
+          hProperties: {
+            class: `${classPrefix} ${classPrefix}-${type}`,
           },
-          children: [
-            {
-              type: 'html',
-              value: icon,
+        }
+        node.children = [
+          {
+            type: 'paragraph',
+            data: {
+              hName: 'p',
+              hProperties: {
+                class: `${classPrefix}-title`,
+              },
             },
-            {
-              type: 'text',
-              value: title,
-            },
-          ],
-        },
-        ...node.children,
-      ]
-    })
+            children: [
+              {
+                type: 'html',
+                value: icon,
+              },
+              {
+                type: 'text',
+                value: title,
+              },
+            ],
+          },
+          ...node.children,
+        ]
+      },
+    )
     return tree
   }
 }

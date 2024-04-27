@@ -10,12 +10,14 @@ import rehypeSlug from 'rehype-slug'
 import rehypeAutolinkHeadings from 'rehype-autolink-headings'
 import remarkGfm from 'remark-gfm'
 import remarkGithubAlerts from './remark-github-alert.js'
+import remarkList from './remark-list.js'
 
 export const markdown = async (file) =>
   await unified()
     .use(remarkParse, { commonmark: true })
     .use(remarkGfm)
     .use(remarkGithubAlerts)
+    .use(remarkList)
     .use(remarkRehype, { allowDangerousHtml: true })
     .use(rehypeRaw)
     .use(rehypeHighlight, { prefix: 'hl-', detect: true })
@@ -32,3 +34,4 @@ export const markdown = async (file) =>
     })
     .use(rehypeStringify)
     .process(file)
+

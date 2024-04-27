@@ -10,7 +10,7 @@ graduation:
   degree: '本科'
   college: '计算机学院'
   location: '江苏南通'
-  favourite:
+  favorite:
     - '强烈的 rust 爱好者，爱折腾，喜欢新奇的事物'
     - '对新知识拥有强烈的热情，喜欢开源'
     - '喜欢搞机，搭建小型服务器，编译 Openwrt...'

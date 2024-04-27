@@ -322,3 +322,25 @@ code.language-c {
 .markdown-alert.markdown-alert-caution .markdown-alert-title {
   color: var(--color-caution);
 }
+
+/* Remark List*/
+.remark-ordered-list {
+  list-style: decimal;
+  font-weight: 800;
+  color: var(--theme-color);
+
+  & li::marker {
+    color: var(--list-color);
+  }
+}
+
+.remark-unordered-list {
+  list-style: disc;
+  font-weight: 400;
+  color: var(--theme-color);
+
+  & li::marker {
+    color: var(--list-color);
+    font-size: 1.2rem;
+  }
+}

@@ -8,14 +8,15 @@
   --header-bg: rgba(255, 255, 255, 0.8);
   --color-a-link: rgba(0, 90, 71, 0.8);
   --color-a-link-hover: #014637;
-  --h-color: var(--color-a-link);
-  --table-border-color: var(--theme-color);
   --color-note: #0969da;
   --color-tip: #1a7f37;
   --color-warning: #9a6700;
   --color-severe: #bc4c00;
   --color-caution: #d1242f;
   --color-important: #8250df;
+  --table-border-color: var(--theme-color);
+  --h-color: var(--color-a-link);
+  --list-color: var(--color-a-link);
 }
 
 @media (prefers-color-scheme: dark) {
