@@ -47,15 +47,20 @@ export const convertToUSA = (date) => {
  * @param {string} keywords
  * @param {string} description
  * @param {string} title
+ * @param {string} version
  * @returns {Promise<string>}
  */
-export const replaceHead = async (keywords, description, title) => {
+export const replaceHead = async (keywords, description, title, version) => {
   const res = await Deno.readTextFile(new URL('head.html', import.meta.url))
 
   return res
     .replace('<!-- keywords -->', keywords)
     .replace('<!-- description -->', description)
     .replace('<!-- title -->', title)
+    .replace('<!-- base.css -->', `/public/css/base.${version}.css`)
+    .replace('<!-- index.css -->', `/public/css/index.${version}.css`)
+    .replace('<!-- markdown.css -->', `/public/css/markdown.${version}.css`)
+    .replace('<!-- index.js -->', `/public/JavaScript/index.${version}.js`)
 }
 
 /**
@@ -93,14 +98,14 @@ export async function compileCss(path) {
   return code
 }
 
-export function startServer(/**@type number */port) {
+export function startServer(/**@type {number} */port, /**@type {number}*/version) {
   try {
     Deno.serve({
       port,
       onListen({ hostname, port }) {
         console.log(`Server started at http://${hostname}:${port}`)
       },
-    }, handler)
+    }, (request) => handler(request, version))
   } catch (e) {
     if (e instanceof Deno.errors.AddrInUse) {
       console.log(`Port ${port} in use, try another port`)
@@ -113,9 +118,10 @@ export function startServer(/**@type number */port) {
 
 /**
  * @param {Request} request
+ * @param {string} version
  * @returns {Response}
  */
-const handler = async (request) => {
+const handler = async (request, version) => {
   let reqUrl = new URL(request.url).pathname
   let ext = reqUrl.split('.').pop()
   if (ext === 'css') ext = 'text/css'
@@ -126,6 +132,10 @@ const handler = async (request) => {
 
   const headers = new Headers({ 'Content-Type': ext })
 
+  if (reqUrl.includes(version)){
+    reqUrl = reqUrl.replace(`.${version}`, '')
+  }
+  
   const file = await Deno.open(`./dist${reqUrl}`)
   const contentEncoding = request.headers.get('Accept-Encoding')
 

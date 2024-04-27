@@ -1,5 +1,3 @@
-@import url("./base.css");
-
 :root {
   --header-height: 4rem;
   --footer-height: 4rem;
@@ -125,6 +123,10 @@ main.blog-main {
   min-height: calc(100vh - var(--header-height) - var(--footer-height));
   display: flex;
   justify-content: center;
+
+  &:has(article.blog-article) {
+    align-items: flex-start;
+  }
 
   margin-block-start: calc(var(--header-height) + 1rem);
   margin-block-end: 1.2rem;
@@ -272,6 +274,11 @@ footer.blog-footer {
 
 /* Match phone */
 @media (max-width: 480px) {
+
+  main.blog-main article.blog-article {
+    width: 90%;
+  }
+
   nav.toy-nav {
     display: none !important;
   }

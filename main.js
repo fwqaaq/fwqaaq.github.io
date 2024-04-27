@@ -32,13 +32,13 @@ import 'https://deno.land/std@0.201.0/dotenv/load.ts'
 const metaData = []
 const dist = import.meta.resolve('./dist/'),
   src = import.meta.resolve('./src/')
+const randomNumber = Math.floor(Math.random() * 1000000)
 
 // global config
 /**
  * @type {{website: string, author: string}}
  */
 const website = Deno.env.get('WEBSITE'), author = Deno.env.get('AUTHOR')
-
 const header = await Deno.readTextFile(new URL('./util/header.html', src))
 const footer = await Deno.readTextFile(new URL('./util/footer.html', src))
 
@@ -96,7 +96,7 @@ async function generatePage(
   title,
 ) {
   if (!await exists(dist)) await ensureFile(dist)
-  const head = await replaceHead(keywrods, description, title)
+  const head = await replaceHead(keywrods, description, title, randomNumber)
 
   return async (fn, ...params) => {
     const content = fn(title, ...params)
@@ -138,24 +138,24 @@ async function Others() {
   await ensureDir(new URL('./public/', dist))
   for await (const entry of Deno.readDir(new URL('../public/', src))) {
     if (entry.name === 'css') continue
-    await copy(
-      new URL(`../public/${entry.name}`, src),
-      new URL(`./public/${entry.name}`, dist),
-      {
-        overwrite: true,
-      },
-    )
+    const __src_p = new URL(`../public/${entry.name}`, src)
+    const __dist_p = new URL(`./public/${entry.name}`, dist)
+    if (entry.name === 'JavaScript') {
+      await ensureFile(new URL(`./${entry.name}/index.${randomNumber}.js`,__dist_p))
+      await copy(new URL(`./${entry.name}/index.js`, __src_p), new URL(`./${entry.name}/index.${randomNumber}.js`,__dist_p),{ overwrite: true,})
+      continue
+    }
+    await copy(__src_p, __dist_p,{ overwrite: true})
   }
 
   // compile the css
-  await ensureDir(new URL('./public/css/', dist))
+  const __css_d = new URL('./public/css/', dist)
+  await ensureDir(__css_d)
   for await (const entry of Deno.readDir(new URL('../public/css/', src))) {
     const path = new URL(`../public/css/${entry.name}`, src)
     const code = await compileCss(path)
-    await Deno.writeFile(
-      new URL(entry.name, new URL('./public/css/', dist)),
-      code,
-    )
+    const fileName = entry.name.split('.').join(`.${randomNumber}.`)
+    await Deno.writeFile(new URL(fileName, __css_d),code)
   }
 
   // Handle the CNAME
@@ -203,9 +203,13 @@ async function Home() {
   const homeDest = new URL('./home/', dist)
   const indexpage = (await Deno.readTextFile(new URL('../index.html', src)))
       .replace('<!-- Header -->', header)
-      .replace('<!-- Footer -->', footer),
-    metasLength = metaData.length,
-    lastPage = Math.ceil(metasLength / 8)
+      .replace('<!-- Footer -->', footer)
+      .replace('<!-- base.css -->', `/public/css/base.${randomNumber}.css`)
+      .replace('<!-- index.css -->', `/public/css/index.${randomNumber}.css`)
+      .replace('<!-- markdown.css -->', `/public/css/markdown.${randomNumber}.css`)
+      .replace('<!-- index.js -->', `/public/JavaScript/index.${randomNumber}.js`)
+  const metasLength = metaData.length
+  const lastPage = Math.ceil(metasLength / 8)
   let content = ''
 
   for (let index = 0; index < metasLength; index++) {
@@ -280,6 +284,7 @@ async function About() {
     'fwqaaq, GitHub fwqaaq, study, about',
     '关于我',
     '关于我',
+    randomNumber,
   )
 
   const [, md] = parseYaml(about)

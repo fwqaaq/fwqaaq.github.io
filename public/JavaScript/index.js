@@ -62,11 +62,6 @@ document.addEventListener('DOMContentLoaded', () => {
     toggleColor(darkMode === 'dark', darkIcon)
   })
 
-  const stylesheet = document.createElement('link')
-  stylesheet.rel = 'stylesheet'
-  stylesheet.href = '/public/css/markdown.css'
-  document.head.appendChild(stylesheet)
-
   const header = document.querySelector('header')
   const nav = header.querySelector('nav')
   const switchIcon = document.getElementById('switch-icon')
@@ -88,7 +83,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Not matched, return
     if (isWidthMatchMedia) return
-    console.log('e.target', e.target)
     if (e.target === switchIcon) {
       switchIcon.classList.toggle('fa-bars')
       switchIcon.classList.toggle('fa-xmark')
@@ -141,7 +135,7 @@ const renderPage = async (e) => {
         reactionsEnabled: '1',
         emitMetadata: '1',
         inputPosition: 'bottom',
-        theme: 'preferred_color_scheme',
+        theme: window.localStorage.getItem('darkMode') ?? 'preferred_color_scheme',
         lang: 'zh-CN',
       },
       crossOrigin: 'anonymous',
