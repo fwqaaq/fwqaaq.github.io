@@ -1,10 +1,12 @@
-import { markdown } from './src/util/markdown.js'
+import { markdown } from './src/util/remark/markdown.js'
 import {
   convertToUSA,
   generateSingleFile,
   handleUTC,
   parseYaml,
   replaceHead,
+  compileCss,
+   startServer
 } from './src/util/utils.js'
 import {
   getRss,
@@ -13,9 +15,7 @@ import {
   templateBox,
   templateProcess,
 } from './src/util/template.js'
-import { handler } from './src/util/utils.js'
 import { copy, ensureDir, ensureFile, exists, existsSync } from 'fs'
-import init, { Features, transform } from 'lightningcss'
 import 'https://deno.land/std@0.201.0/dotenv/load.ts'
 
 /**
@@ -41,10 +41,6 @@ const website = Deno.env.get('WEBSITE'), author = Deno.env.get('AUTHOR')
 
 const header = await Deno.readTextFile(new URL('./util/header.html', src))
 const footer = await Deno.readTextFile(new URL('./util/footer.html', src))
-
-if (existsSync(new URL(dist))) {
-  Deno.removeSync(new URL(dist), { recursive: true })
-}
 
 const getPosts = (title, content, isPosts = false) =>
   `${templateArticle({ title, content, giscus: isPosts ? giscus : '' })}`
@@ -111,7 +107,7 @@ async function generatePage(
 }
 
 // Handle the meta data
-{
+async function handlePosts() {
   const posts = import.meta.resolve('./src/posts/')
   const iter = Deno.readDir(new URL(posts))[Symbol.asyncIterator]()
   while (true) {
@@ -294,43 +290,21 @@ async function About() {
   await Deno.writeTextFile(aboutDest, generated)
 }
 
-Promise.all([Home(), Archive(), Tags(), Others(), About()])
+async function main() {
+  if (existsSync(new URL(dist))) {
+    Deno.removeSync(new URL(dist), { recursive: true })
+  }
+  await handlePosts()
+  Promise.all([Home(), Archive(), Tags(), Others(), About()])
+}
 
 // Handle the http server
-const port = 3000
-if (Deno.env.get('DEV') === 'true') {
-  startServer()
+const mode = Deno.env.get('MODE')
+if (mode === 'DEV' || mode === "PRO") {
+  main()
 }
 
-function startServer() {
-  try {
-    Deno.serve({
-      port: 3000,
-      onListen({ hostname, port }) {
-        console.log(`Server started at http://${hostname}:${port}`)
-      },
-    }, handler)
-  } catch (e) {
-    if (e instanceof Deno.errors.AddrInUse) {
-      console.log(`Port ${port} in use, try another port`)
-      setTimeout(startServer, 1000)
-    } else {
-      throw e
-    }
-  }
+if (mode === 'DEV' || mode === 'PRE') {
+  startServer(3000)
 }
 
-/**
- * @param {URL} path
- * @returns {Promise<Uint8Array>}
- */
-async function compileCss(path) {
-  await init()
-  const text = await Deno.readFile(path)
-  const { code } = transform({
-    code: text,
-    include: Features.Colors | Features.Nesting,
-    minify: true,
-  })
-  return code
-}

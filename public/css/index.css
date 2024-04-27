@@ -2,6 +2,7 @@
 
 :root {
   --header-height: 4rem;
+  --footer-height: 4rem;
   --page-width: 48rem;
   --theme-color: rgb(0, 0, 0);
   --bg-color: #ffffff;
@@ -121,6 +122,10 @@ header.blog-header {
 }
 
 main.blog-main {
+  min-height: calc(100vh - var(--header-height) - var(--footer-height));
+  display: flex;
+  justify-content: center;
+
   margin-block-start: calc(var(--header-height) + 1rem);
   margin-block-end: 1.2rem;
 
@@ -164,7 +169,7 @@ section.box a {
   color: var(--theme-color);
 }
 
-main.blog-main :where(article, .box) {
+main.blog-main :where(article.blog-article, .box) {
   backdrop-filter: blur(1rem);
   -webkit-backdrop-filter: blur(1rem);
   background-color: var(--header-bg);
@@ -204,9 +209,8 @@ footer.blog-footer {
 
 /* Match Chrome for about showing */
 @media (min-width: 48rem) {
-  main.blog-main {
+  main.blog-main :where(.box, article.blog-article) {
     width: var(--page-width);
-    margin-inline: auto;
   }
 
   nav.header-nav .toy {

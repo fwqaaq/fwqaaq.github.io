@@ -1,6 +1,7 @@
 import { existsSync } from 'fs'
 import { parse } from 'yaml'
 import { format } from 'datetime'
+import init, { Features, transform } from 'lightningcss'
 
 const regxYaml = /---(\n[\s\S]*?\n)---/
 
@@ -49,9 +50,7 @@ export const convertToUSA = (date) => {
  * @returns {Promise<string>}
  */
 export const replaceHead = async (keywords, description, title) => {
-  const res = new TextDecoder().decode(
-    await Deno.readFile(new URL('head.html', import.meta.url)),
-  )
+  const res = await Deno.readTextFile(new URL('head.html', import.meta.url))
 
   return res
     .replace('<!-- keywords -->', keywords)
@@ -65,7 +64,7 @@ export const replaceHead = async (keywords, description, title) => {
  * @param {boolean} append - default false
  */
 export function* generateSingleFile(url, content, append = false) {
-  //if exists, remove it
+  // if exists, remove it
   while (true) {
     if (existsSync(url)) Deno.removeSync(url, { recursive: true })
     Deno.writeFileSync(url, new TextEncoder().encode(content), {
@@ -80,10 +79,43 @@ export function* generateSingleFile(url, content, append = false) {
 }
 
 /**
+ * @param {URL} path
+ * @returns {Promise<Uint8Array>}
+ */
+export async function compileCss(path) {
+  await init()
+  const text = await Deno.readFile(path)
+  const { code } = transform({
+    code: text,
+    include: Features.Colors | Features.Nesting,
+    minify: true,
+  })
+  return code
+}
+
+export function startServer(/**@type number */port) {
+  try {
+    Deno.serve({
+      port,
+      onListen({ hostname, port }) {
+        console.log(`Server started at http://${hostname}:${port}`)
+      },
+    }, handler)
+  } catch (e) {
+    if (e instanceof Deno.errors.AddrInUse) {
+      console.log(`Port ${port} in use, try another port`)
+      setTimeout(startServer, 1000)
+    } else {
+      throw e
+    }
+  }
+}
+
+/**
  * @param {Request} request
  * @returns {Response}
  */
-export const handler = async (request) => {
+const handler = async (request) => {
   let reqUrl = new URL(request.url).pathname
   let ext = reqUrl.split('.').pop()
   if (ext === 'css') ext = 'text/css'

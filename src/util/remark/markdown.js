@@ -34,4 +34,3 @@ export const markdown = async (file) =>
     })
     .use(rehypeStringify)
     .process(file)
-
