@@ -326,21 +326,21 @@ code.language-c {
 /* Remark List*/
 .remark-ordered-list {
   list-style: decimal;
-  font-weight: 800;
   color: var(--theme-color);
 
   & li::marker {
     color: var(--list-color);
+    font-weight: 800;
   }
 }
 
 .remark-unordered-list {
   list-style: disc;
-  font-weight: 400;
   color: var(--theme-color);
 
   & li::marker {
     color: var(--list-color);
+    font-weight: 800;
     font-size: 1.2rem;
   }
 }

@@ -227,7 +227,6 @@ footer.blog-footer {
     display: flex;
     flex-direction: column;
     position: absolute;
-    /* border: 0.1rem solid var(--theme-color); */
     background-color: var(--header-bg);
     inset-inline-start: -50%;
     overflow: hidden;
@@ -249,8 +248,6 @@ footer.blog-footer {
   }
 
   div.toy:hover nav.toy-nav {
-    /* 在 JavaScript 中设置*/
-    /* 设置具体高度，而不是 fit-content/auto */
     max-height: var(--toy-nav-height);
     height: auto;
   }
