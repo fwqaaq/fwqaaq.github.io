@@ -25,3 +25,15 @@ See: <https://www.fwqaq.us>
    ```bash
    deno task dev
    ```
+
+* Build the project:
+
+   ```bash
+   deno task build
+   ```
+
+* Preview the project:
+
+   ```bash
+   deno task preview
+   ```
