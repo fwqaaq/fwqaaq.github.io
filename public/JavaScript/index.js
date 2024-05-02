@@ -135,7 +135,8 @@ const renderPage = async (e) => {
         reactionsEnabled: '1',
         emitMetadata: '1',
         inputPosition: 'bottom',
-        theme: window.localStorage.getItem('darkMode') ?? 'preferred_color_scheme',
+        theme: window.localStorage.getItem('darkMode') ??
+          'preferred_color_scheme',
         lang: 'zh-CN',
       },
       crossOrigin: 'anonymous',

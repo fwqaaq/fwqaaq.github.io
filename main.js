@@ -1,12 +1,12 @@
 import { markdown } from './src/util/remark/markdown.js'
 import {
+  compileCss,
   convertToUSA,
   generateSingleFile,
   handleUTC,
   parseYaml,
   replaceHead,
-  compileCss,
-   startServer
+  startServer,
 } from './src/util/utils.js'
 import {
   getRss,
@@ -26,19 +26,16 @@ import 'https://deno.land/std@0.201.0/dotenv/load.ts'
  * @property {string[]} MetaData.tags
  */
 
-/**
- * @type {MetaData[]}
- */
+/**@type {MetaData[]}*/
 const metaData = []
-const dist = import.meta.resolve('./dist/'),
-  src = import.meta.resolve('./src/')
+const dist = import.meta.resolve('./dist/')
+const src = import.meta.resolve('./src/')
 const randomNumber = Math.floor(Math.random() * 1000000)
 
 // global config
-/**
- * @type {{website: string, author: string}}
- */
-const website = Deno.env.get('WEBSITE'), author = Deno.env.get('AUTHOR')
+const website = Deno.env.get('WEBSITE')
+const author = Deno.env.get('AUTHOR')
+const port = Deno.env.get('PORT')
 const header = await Deno.readTextFile(new URL('./util/header.html', src))
 const footer = await Deno.readTextFile(new URL('./util/footer.html', src))
 
@@ -72,7 +69,11 @@ function getArchive(title, iters) {
 
   return templateArticle({ title, content })
 }
-
+/**
+ * @param {Map<string,MetaData[]>} map
+ * @param {string} url
+ * @param {string} dest
+ */
 async function completeTask(map, url, dest) {
   for (const k of map.keys()) {
     const tagsUrl = new URL(`./${k}/index.html`, url)
@@ -90,10 +91,10 @@ async function completeTask(map, url, dest) {
 }
 
 async function generatePage(
-  dist,
-  keywrods,
-  description,
-  title,
+  /**@type {string}*/ dist,
+  /**@type {string}*/ keywrods,
+  /**@type {string}*/ description,
+  /**@type {string}*/ title,
 ) {
   if (!await exists(dist)) await ensureFile(dist)
   const head = await replaceHead(keywrods, description, title, randomNumber)
@@ -123,14 +124,9 @@ async function handlePosts() {
       await task(getPosts, await markdown(md), true)
     }
 
-    metaData.push({
-      date,
-      title,
-      summary,
-      tags,
-    })
+    metaData.push({ date, title, summary, tags })
   }
-  metaData.sort((a, b) => b.date - a.date)
+  metaData.sort((a, b) => new Date(b.date) - new Date(a.date))
 }
 
 // Handle the others source
@@ -141,11 +137,17 @@ async function Others() {
     const __src_p = new URL(`../public/${entry.name}`, src)
     const __dist_p = new URL(`./public/${entry.name}`, dist)
     if (entry.name === 'JavaScript') {
-      await ensureFile(new URL(`./${entry.name}/index.${randomNumber}.js`,__dist_p))
-      await copy(new URL(`./${entry.name}/index.js`, __src_p), new URL(`./${entry.name}/index.${randomNumber}.js`,__dist_p),{ overwrite: true,})
+      await ensureFile(
+        new URL(`./${entry.name}/index.${randomNumber}.js`, __dist_p),
+      )
+      await copy(
+        new URL(`./${entry.name}/index.js`, __src_p),
+        new URL(`./${entry.name}/index.${randomNumber}.js`, __dist_p),
+        { overwrite: true },
+      )
       continue
     }
-    await copy(__src_p, __dist_p,{ overwrite: true})
+    await copy(__src_p, __dist_p, { overwrite: true })
   }
 
   // compile the css
@@ -155,7 +157,7 @@ async function Others() {
     const path = new URL(`../public/css/${entry.name}`, src)
     const code = await compileCss(path)
     const fileName = entry.name.split('.').join(`.${randomNumber}.`)
-    await Deno.writeFile(new URL(fileName, __css_d),code)
+    await Deno.writeFile(new URL(fileName, __css_d), code)
   }
 
   // Handle the CNAME
@@ -189,10 +191,11 @@ ${
 Allow: /
 Sitemap: ${website}sitemap.xml`
 
-  const files = [[rss, getRss(author, website, itemsRss)], [
-    sitemap,
-    itemsSitemap,
-  ], [robots, robotsContent]]
+  const files = [
+    [rss, getRss(author, website, itemsRss)],
+    [sitemap, itemsSitemap],
+    [robots, robotsContent],
+  ]
   const g = generateSingleFile(cname, 'www.fwqaq.us')
   g.next()
   files.forEach((file) => g.next(file))
@@ -202,12 +205,15 @@ Sitemap: ${website}sitemap.xml`
 async function Home() {
   const homeDest = new URL('./home/', dist)
   const indexpage = (await Deno.readTextFile(new URL('../index.html', src)))
-      .replace('<!-- Header -->', header)
-      .replace('<!-- Footer -->', footer)
-      .replace('<!-- base.css -->', `/public/css/base.${randomNumber}.css`)
-      .replace('<!-- index.css -->', `/public/css/index.${randomNumber}.css`)
-      .replace('<!-- markdown.css -->', `/public/css/markdown.${randomNumber}.css`)
-      .replace('<!-- index.js -->', `/public/JavaScript/index.${randomNumber}.js`)
+    .replace('<!-- Header -->', header)
+    .replace('<!-- Footer -->', footer)
+    .replace('<!-- base.css -->', `/public/css/base.${randomNumber}.css`)
+    .replace('<!-- index.css -->', `/public/css/index.${randomNumber}.css`)
+    .replace(
+      '<!-- markdown.css -->',
+      `/public/css/markdown.${randomNumber}.css`,
+    )
+    .replace('<!-- index.js -->', `/public/JavaScript/index.${randomNumber}.js`)
   const metasLength = metaData.length
   const lastPage = Math.ceil(metasLength / 8)
   let content = ''
@@ -305,11 +311,10 @@ async function main() {
 
 // Handle the http server
 const mode = Deno.env.get('MODE')
-if (mode === 'DEV' || mode === "PRO") {
+if (mode === 'DEV' || mode === 'PRO') {
   main()
 }
 
 if (mode === 'DEV' || mode === 'PRE') {
-  startServer(3000)
+  startServer(port)
 }
-

@@ -11,10 +11,9 @@ const remarkList = () => {
       'list',
       (
         /**@type  {import('type-mdast').Node}  */ node,
-        /**@type  {Number}*/ index,
+        /**@type  {Number}*/ _index,
         /**@type  {import('type-mdast').Parent}  */ parent,
       ) => {
-        if (!index || !parent) return
         if (node.ordered) {
           node.data = {
             hName: 'ul',

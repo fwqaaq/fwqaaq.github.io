@@ -40,7 +40,7 @@ title: About
   <img src="http://github-profile-summary-cards.vercel.app/api/cards/stats?username=fwqaaq&theme=tokyonight" alt="">
 </details>
 
-## Interesing
+## Interesting
 
 * [CSS 实践](/public/write-css/index.html)
 * [我的简历](/public/resume/index.html)

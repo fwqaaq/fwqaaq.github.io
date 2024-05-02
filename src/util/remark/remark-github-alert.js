@@ -46,7 +46,7 @@ const remarkGithubAlerts = (options = {}) => {
   const RE = new RegExp(
     ignoreSquareBracket
       ? `^!(${markerNameRE})\\s?`
-      : `^\\[\\!(${markerNameRE})\\]\\s`,
+      : `^\\[\\!(${markerNameRE})\\]`,
     matchCaseSensitive ? '' : 'i',
   )
   return (tree) => {
@@ -55,10 +55,9 @@ const remarkGithubAlerts = (options = {}) => {
       'blockquote',
       (
         /**@type {import("type-mdast").Node}*/ node,
-        /**@type {Number}*/ index,
-        /**@type {import('type-mdast').Parent} */ parent,
+        /**@type {Number}*/ _index,
+        /**@type {import('type-mdast').Parent} */ _parent,
       ) => {
-        if (!index || !parent) return
         /**@type {PhrasingContent}*/
         const firstContent = node.children?.[0].children?.[0]
         if (!firstContent || firstContent.type !== 'text') return

@@ -3,7 +3,7 @@ import { stringify } from 'yaml'
 import { format } from 'datetime'
 
 interface Metadata {
-  date: Date
+  date: string
   title: string
   categories: string
   tags: string[]
@@ -11,7 +11,7 @@ interface Metadata {
 }
 
 const metadata = {
-  date: new Date(format(new Date(), 'yyyy-MM-dd HH:mm:ss')),
+  date: format(new Date(), 'yyyy-MM-dd HH:mm:ss'),
   title: '',
   categories: '',
   tags: [],
@@ -49,7 +49,7 @@ async function main() {
     `---
 ${
       stringify(
-        metadata as unknown as Record<string, Metadata[keyof Metadata]>,
+        metadata as unknown as Record<string, string>,
       )
     }---`,
   )

@@ -98,7 +98,10 @@ export async function compileCss(path) {
   return code
 }
 
-export function startServer(/**@type {number} */port, /**@type {number}*/version) {
+export function startServer(
+  /**@type {number} */ port,
+  /**@type {number}*/ version,
+) {
   try {
     Deno.serve({
       port,
@@ -132,10 +135,10 @@ const handler = async (request, version) => {
 
   const headers = new Headers({ 'Content-Type': ext })
 
-  if (reqUrl.includes(version)){
+  if (reqUrl.includes(version)) {
     reqUrl = reqUrl.replace(`.${version}`, '')
   }
-  
+
   const file = await Deno.open(`./dist${reqUrl}`)
   const contentEncoding = request.headers.get('Accept-Encoding')
 
