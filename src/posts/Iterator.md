@@ -116,3 +116,182 @@ for (let i = 0; i < 100; i++) { console.log(i) }
 在这篇[文章](https://blog.rust-lang.org/inside-rust/2023/10/23/coroutines.html)中，Rust 将 `Generator` trait 全部改为 `Coroutine`。Rust 中在该 [PR](https://github.com/rust-lang/compiler-team/issues/682) 阐述了为什么要将 `Generator` 改为 `Coroutine`，由于 Generator 本身就是一种特殊类型的迭代器，被用于产生迭代器，而 Rust 的实现已经是一种协程了，类似于 JavaScript，将其改为 `Coroutine` 更加合适。
 
 现在采用了更简单的（类似于异步/等待的）语法来创建迭代器：<https://github.com/rust-lang/rfcs/pull/3513>
+
+### Rust 中的迭代器
+
+在 Rust 中，由于 Rust 的所有权概念以及借用检查，迭代器的设计更加负载。Rust 中的迭代器是一个**迭代器适配器**，它可以对迭代器进行转换、过滤、映射等操作。Rust 中的迭代器是**惰性**的，只有在需要的时候才会执行，这样可以减少内存的使用。
+
+为 Vec 实现的迭代器，实现了 IntoIterator trait（类似于可迭代的类型）会自动实现 `into_iter` 等一系列方法：
+
+```rust
+impl<T, A: Allocator> IntoIterator for Vec<T, A> {};
+impl<'a, T, A: Allocator> IntoIterator for &'a Vec<T, A>{};
+impl<'a, T, A: Allocator> IntoIterator for &'a mut Vec<T, A>{};
+```
+
+实现了 `Iterator` trait 的对象，也会自动实现 `IntoIterator` trait：
+
+```rust
+impl<I: Iterator> IntoIterator for I {
+    type Item = I::Item;
+    type IntoIter = I;
+
+    fn into_iter(self) -> I {
+        self
+    }
+}
+```
+
+总的来说，如果作为参数，使用 `IntoIterator`，它会接受所有迭代器类型。如果是返回值，使用 `Iterator`，调用者不用立即调用 `into_iter`。
+
+## Go
+
+Go 语言中的 channel 就是迭代器（暴论），事实是 Go 中并没有提供迭代器的概念，但是 channel 何尝不是一种迭代器。
+
+### Go Channel
+
+> 在 Go 语言中，Channel 也分为带缓冲区和不带缓冲区的。
+
+创建一个不带缓冲区的 Channel。同样，通过 channel 发送一个数据给接收者，如果接收者没有接受到这个数据，那么发送端则会阻塞。有两种方式创建该缓冲区：
+
+```go
+var c chan interface{}
+c = make(chan interface{})
+```
+
+或者
+
+```go
+c := make(chan interface{})
+```
+
+带有缓冲区的 Channel。当 Channel 的缓冲区满了或者空的时候，channel 的发送和接收会被阻塞。
+
+```go
+var c chan interface{}
+c = make(chan interface{}, 1)
+```
+
+或者
+
+```go
+c := make(chan interface{}, 1)
+```
+
+#### Goroutine
+
+> goroutine 是 Go 语言实现的一个有栈协程，它是基于多对多模型实现的。
+
+Go 语言中 channel 和 `goroutine` 一般是成对出现的。在接收 channel 值的时候，ok 有两种值，如果 channel 关闭，则是 false；反之则为 true。而接收值的时候，如果 channel 关闭，那么会根据类型给出 v 的值，例如 int 是 0，string 是 `''` 等等，而不是 `nil`。
+
+```go
+func main() {
+        c := make(chan int)
+        go func() {
+                c <- 1
+        }()
+        v, ok := <-c
+        println(v)
+}
+```
+
+带有缓冲区的 Channel，在这里一定要及时使用 `close` 关闭 channel，避免造成死锁。
+
+```go
+func main() {
+      c := make(chan string, 3)
+      s := []string{"a", "b", "c", "d"}
+      go func() {
+              defer close(c)
+              for _, v := range s {
+                      c <- v
+                      time.Sleep(1 * time.Second)
+              }
+      }()
+
+      time.Sleep(5 * time.Second)
+      for v := range c {
+              println(v)
+      }
+}
+```
+
+#### 单向 Channel
+
+> 单向发送
+
+```go
+var c chan <- interface{}
+c = make(chan <- interface{})
+// 另一种方式
+c := make(chan <- interface{})
+```
+
+> 单向接收
+
+```go
+var c <- chan interface{}
+c = make(<- chan interface{})
+// 另一种方式
+c := make(<- chan interface{})
+```
+
+但是一般会将双向的 channel 将其隐式的转换为单向的
+
+```go
+func main() {
+        c := make(chan string)
+        go func(c chan<- string) {
+                // 这里仅能发送，而不可以接收，下面是错误示例
+                <-c
+        }(c)
+}
+```
+
+> [!WARNING]
+> 对于一个已经阻塞的 channel 来说，如果继续发送，或接收会出现死锁的运行时错误。
+
+例如，一个无缓冲区 channel，在没有发送方的情况下，就开始接收；后者只有发送方或者没有接收方。
+
+```go
+func main(){
+        c := make(chan int)
+        <- c
+        // 或者
+        // c <- 1
+}
+```
+
+同理，对于带有缓冲区的 channel，在没有发送发的情况下，就开始接收也会出现死锁；在缓冲区满了之后，只有发送没有接收也会出现死锁。
+
+对于 channel，我们除了可以循环 channel 来获取发送的值，也可以通过如下方式：
+
+```go
+package main
+
+func main() {
+        c := make(chan string)
+        s := []string{"a", "b", "c"}
+        go func() {
+                defer close(c)
+                for _, v := range s {
+                        c <- v
+                }
+        }()
+
+           // 对于不知道的情况，可以根据 ok 来判断
+        for {
+                v, ok := <-c
+                if !ok {
+                        break
+                }
+                println(v)
+        }
+
+        // 如果知道已知的 channel 发送的值，直接循环
+        // for i := 0; i < len(s); i++ {
+        //  v := <-c
+        //  println(v)
+        // }
+}
+```
