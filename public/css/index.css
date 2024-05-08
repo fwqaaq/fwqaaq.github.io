@@ -212,11 +212,71 @@ footer div.footer-icons-container {
   }
 }
 
-
 .giscus {
   width: var(--page-width);
   margin: 0 auto;
   margin-block-end: 4rem;
+}
+
+.friend-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+  padding-block-end: 4rem;
+  gap: 1.6rem;
+}
+
+.friend-card {
+  display: flex;
+  padding: 0.4rem 0.8rem;
+  gap: 1rem;
+
+  &:hover {
+    box-shadow: 0.1rem 0.1rem 0.5rem var(--theme-color);
+  }
+
+  & img {
+    height: 100px;
+  }
+
+  & h3,
+  & p {
+    color: var(--theme-color);
+  }
+}
+
+.friend-article {
+  width: 100%;
+}
+
+.friend-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.friend-field {
+  text-align: center;
+  padding-block: 0.2rem;
+
+  & label {
+    line-height: 3rem;
+  }
+}
+
+.friend-button {
+  width: 12rem;
+  padding: 0.4rem 0.8rem;
+  margin: 0 auto;
+  cursor: pointer;
+}
+
+input {
+  outline-style: none;
+  border: 0.2rem solid #ccc;
+  border-radius: 0.2rem;
+  padding: 0.6rem 0.8rem;
+  font-size: 1rem;
+  font-weight: 700;
 }
 
 /* Match Chrome for about showing */
@@ -281,7 +341,6 @@ footer div.footer-icons-container {
 
 /* Match phone */
 @media (max-width: 480px) {
-
   main.blog-main article.blog-article {
     width: 90%;
   }

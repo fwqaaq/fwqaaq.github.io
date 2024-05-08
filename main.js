@@ -281,11 +281,11 @@ async function Tags() {
 }
 
 async function About() {
-  const aboutDest = new URL('./about/index.html', dist)
-  if (!await exists(aboutDest)) await ensureFile(aboutDest)
-  const aboutSrc = new URL('./about/about.md', src)
+  const __dist_about = new URL('./about/index.html', dist)
+  if (!await exists(__dist_about)) await ensureFile(__dist_about)
+  const __src_about = new URL('./about/about.md', src)
 
-  const about = await Deno.readTextFile(aboutSrc)
+  const about = await Deno.readTextFile(__src_about)
   const head = await replaceHead(
     'fwqaaq, GitHub fwqaaq, study, about',
     '关于我',
@@ -298,7 +298,21 @@ async function About() {
   const generated = `${head}${header}${
     templateArticle({ title: '关于我', content })
   }${footer}`
-  await Deno.writeTextFile(aboutDest, generated)
+  await Deno.writeTextFile(__dist_about, generated)
+}
+
+async function Friends() {
+  const __dist_friends = new URL('./friends/index.html', dist)
+  if (!await exists(__dist_friends)) await ensureFile(__dist_friends)
+  const __src_friends = new URL('./friends/index.html', src)
+  let friends = await Deno.readTextFile(__src_friends)
+  friends = friends.replace('<!-- Header -->', header)
+  .replace('<!-- Footer -->', footer)
+  .replace('<!-- base.css -->', `/public/css/base.${randomNumber}.css`)
+  .replace('<!-- index.css -->', `/public/css/index.${randomNumber}.css`)
+  .replace('<!-- index.js -->', `/public/JavaScript/index.${randomNumber}.js`)
+
+  await Deno.writeTextFile(__dist_friends, friends)
 }
 
 async function main() {
@@ -306,7 +320,7 @@ async function main() {
     Deno.removeSync(new URL(dist), { recursive: true })
   }
   await handlePosts()
-  Promise.all([Home(), Archive(), Tags(), Others(), About()])
+  Promise.all([Home(), Archive(), Tags(), Others(), About(), Friends()])
 }
 
 // Handle the http server
