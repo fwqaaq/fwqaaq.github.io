@@ -64,6 +64,21 @@ export const replaceHead = async (keywords, description, title, version) => {
 }
 
 /**
+ * @param {string} body
+ * @param {string} header
+ * @param {string} footer
+ * @param {string} version
+ */
+export const replaceBody = (body, header, footer, version) => {
+  return body.replace('<!-- Header -->', header)
+    .replace('<!-- Footer -->', footer)
+    .replace('<!-- base.css -->', `/public/css/base.${version}.css`)
+    .replace('<!-- index.css -->', `/public/css/index.${version}.css`)
+    .replace('<!-- markdown.css -->', `/public/css/markdown.${version}.css`)
+    .replace('<!-- index.js -->', `/public/JavaScript/index.${version}.js`)
+}
+
+/**
  * @param {URL} url
  * @param {string} content
  * @param {boolean} append - default false

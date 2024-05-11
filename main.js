@@ -5,6 +5,7 @@ import {
   generateSingleFile,
   handleUTC,
   parseYaml,
+  replaceBody,
   replaceHead,
   startServer,
 } from './src/util/utils.js'
@@ -204,16 +205,9 @@ Sitemap: ${website}sitemap.xml`
 // Home page
 async function Home() {
   const homeDest = new URL('./home/', dist)
-  const indexpage = (await Deno.readTextFile(new URL('../index.html', src)))
-    .replace('<!-- Header -->', header)
-    .replace('<!-- Footer -->', footer)
-    .replace('<!-- base.css -->', `/public/css/base.${randomNumber}.css`)
-    .replace('<!-- index.css -->', `/public/css/index.${randomNumber}.css`)
-    .replace(
-      '<!-- markdown.css -->',
-      `/public/css/markdown.${randomNumber}.css`,
-    )
-    .replace('<!-- index.js -->', `/public/JavaScript/index.${randomNumber}.js`)
+  let indexPage = await Deno.readTextFile(new URL('../index.html', src))
+  indexPage = replaceBody(indexPage, header, footer, randomNumber)
+
   const metasLength = metaData.length
   const lastPage = Math.ceil(metasLength / 8)
   let content = ''
@@ -238,10 +232,7 @@ async function Home() {
         page: `${cur} / ${lastPage}`,
         after: index === metasLength ? '#' : `/./home/${cur + 1}/`,
       })
-      const indexPage = indexpage.replace(
-        '<!-- Template -->',
-        content + process,
-      )
+      const home = indexPage.replace('<!-- Template -->', content + process)
 
       // Reset the content
       content = ''
@@ -252,7 +243,10 @@ async function Home() {
         ? new URL('./index.html', dist)
         : new URL(`${cur}/index.html`, homeDest)
 
-      await Deno.writeTextFile(url, indexPage)
+      await Deno.writeTextFile(
+        url,
+        home,
+      )
     }
   }
 }
@@ -306,11 +300,7 @@ async function Friends() {
   if (!await exists(__dist_friends)) await ensureFile(__dist_friends)
   const __src_friends = new URL('./friends/index.html', src)
   let friends = await Deno.readTextFile(__src_friends)
-  friends = friends.replace('<!-- Header -->', header)
-  .replace('<!-- Footer -->', footer)
-  .replace('<!-- base.css -->', `/public/css/base.${randomNumber}.css`)
-  .replace('<!-- index.css -->', `/public/css/index.${randomNumber}.css`)
-  .replace('<!-- index.js -->', `/public/JavaScript/index.${randomNumber}.js`)
+  friends = replaceBody(friends, header, footer, randomNumber)
 
   await Deno.writeTextFile(__dist_friends, friends)
 }
