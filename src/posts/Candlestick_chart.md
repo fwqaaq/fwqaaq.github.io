@@ -5,7 +5,7 @@ categories: Economics
 tags:
   - Economics
   - Others
-summary: 蜡烛图走势的情况分析
+summary: 蜡烛图中反转形态的分析
 ---
 
 ## 为什么要写这篇文章？

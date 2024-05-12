@@ -93,12 +93,12 @@ async function completeTask(map, url, dest) {
 
 async function generatePage(
   /**@type {string}*/ dist,
-  /**@type {string}*/ keywrods,
+  /**@type {string}*/ keywords,
   /**@type {string}*/ description,
   /**@type {string}*/ title,
 ) {
   if (!await exists(dist)) await ensureFile(dist)
-  const head = await replaceHead(keywrods, description, title, randomNumber)
+  const head = await replaceHead(keywords, description, title, randomNumber)
 
   return async (fn, ...params) => {
     const content = fn(title, ...params)
@@ -208,11 +208,11 @@ async function Home() {
   let indexPage = await Deno.readTextFile(new URL('../index.html', src))
   indexPage = replaceBody(indexPage, header, footer, randomNumber)
 
-  const metasLength = metaData.length
-  const lastPage = Math.ceil(metasLength / 8)
+  const mLength = metaData.length
+  const lastPage = Math.ceil(mLength / 8)
   let content = ''
 
-  for (let index = 0; index < metasLength; index++) {
+  for (let index = 0; index < mLength; index++) {
     const { date, title, summary, tags } = metaData[index]
     const aTags = getTags('tags', tags)
     content += templateBox({
@@ -223,14 +223,14 @@ async function Home() {
       tags: aTags,
     })
 
-    if ((index + 1) % 8 === 0 || index + 1 === metasLength) {
-      const cur = index + 1 === metasLength
+    if ((index + 1) % 8 === 0 || index + 1 === mLength) {
+      const cur = index + 1 === mLength
         ? lastPage
         : Math.floor((index + 1) / 8)
       const process = templateProcess({
         before: cur > 2 ? `/./home/${cur - 1}/` : '/',
         page: `${cur} / ${lastPage}`,
-        after: index === metasLength ? '#' : `/./home/${cur + 1}/`,
+        after: index === mLength ? '#' : `/./home/${cur + 1}/`,
       })
       const home = indexPage.replace('<!-- Template -->', content + process)
 
@@ -243,10 +243,7 @@ async function Home() {
         ? new URL('./index.html', dist)
         : new URL(`${cur}/index.html`, homeDest)
 
-      await Deno.writeTextFile(
-        url,
-        home,
-      )
+      await Deno.writeTextFile(url,home)
     }
   }
 }
