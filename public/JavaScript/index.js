@@ -68,9 +68,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const isWidthMatchMedia = !globalThis.matchMedia('(max-width: 480px').matches
   if (!isWidthMatchMedia) switchIcon.hidden = true
 
-  /**
-   * @param {HTMLElement | null} target
-   */
+  /**@param {HTMLElement | null} target*/
   const isRouterTag = (target) => {
     if (!target) return false
     return target.matches('a') && target.getAttribute('href').startsWith('/./')

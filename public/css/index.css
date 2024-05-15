@@ -137,6 +137,11 @@ main.blog-main {
     width: 100%;
   }
 
+  /* .friend-grid*/
+  & .friend-grid a {
+    width: auto;
+  }
+
   & .box .tag,
   & article .tag {
     /* 标签换行 */
@@ -222,17 +227,15 @@ footer div.footer-icons-container {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
   padding-block-end: 4rem;
-  gap: 1.6rem;
+  padding-inline: 1rem;
+  gap: 2.4rem;
 }
 
 .friend-card {
   display: flex;
   padding: 0.4rem 0.8rem;
+  border: 0.1rem solid var(--theme-color);
   gap: 1rem;
-
-  &:hover {
-    box-shadow: 0.1rem 0.1rem 0.5rem var(--theme-color);
-  }
 
   & img {
     height: 100px;
