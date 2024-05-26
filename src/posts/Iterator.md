@@ -144,6 +144,56 @@ impl<I: Iterator> IntoIterator for I {
 
 总的来说，如果作为参数，使用 `IntoIterator`，它会接受所有迭代器类型。如果是返回值，使用 `Iterator`，调用者不用立即调用 `into_iter`。
 
+```rust
+use rand::Rng;
+
+struct Passwords {
+    length: usize,
+}
+
+impl Passwords {
+    fn new() -> Self {
+        Self::with_length(10)
+    }
+
+    fn with_length(length: usize) -> Self {
+        Self { length }
+    }
+}
+
+impl IntoIterator for Passwords {
+    type Item = String;
+    type IntoIter = PasswordsIterator;
+
+    fn into_iter(self) -> Self::IntoIter {
+        PasswordsIterator {
+            length: self.length,
+        }
+    }
+}
+
+struct PasswordsIterator {
+    length: usize,
+}
+
+impl Iterator for PasswordsIterator {
+    type Item = String;
+    fn next(&mut self) -> Option<Self::Item> {
+        let mut result = String::with_capacity(self.length);
+        for _ in 0..self.length {
+            result.push((b'a' + (rand::thread_rng().gen_range(0..=(b'z' - b'a')))) as char);
+        }
+        Some(result)
+    }
+}
+
+fn main() {
+    for password in Passwords::new().into_iter().take(3) {
+        println!("The next password is {}", password);
+    }
+}
+```
+
 ## Go
 
 Go 语言中的 channel 就是迭代器（暴论），事实是 Go 中并没有提供迭代器的概念，但是 channel 何尝不是一种迭代器。

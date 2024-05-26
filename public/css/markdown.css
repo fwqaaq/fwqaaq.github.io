@@ -188,7 +188,9 @@ code.language-yaml {
 }
 
 code.language-rust {
-  span.hl-keyword {
+
+  span.hl-keyword,
+  span.hl-punctuation {
     color: rgb(255, 158, 0);
   }
 
@@ -196,7 +198,12 @@ code.language-rust {
     color: rgb(255, 97, 140);
   }
 
-  span.hl-built_in {
+  span.hl-built_in,
+  span.hl-title,
+  span.hl-type,
+  span.class_,
+  span.function_,
+  span.invoke__ {
     color: rgb(255, 215, 2);
   }
 
@@ -207,14 +214,14 @@ code.language-rust {
 
 code.language-go {
 
-  span.hl-function span.hl-keyword,
+  span.hl-keyword,
   span.hl-literal,
   span.hl-number {
     color: rgb(255, 97, 140);
   }
 
-  span.hl-function span.hl-title,
-  span.hl-function span.hl-params,
+  span.hl-title,
+  span.hl-params,
   span.hl-built_in {
     color: rgb(255, 215, 2);
   }
