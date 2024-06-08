@@ -23,7 +23,6 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
-*.sql
 
 src/util/resume/index.html
 public/resume
