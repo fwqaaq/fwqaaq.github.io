@@ -33,9 +33,9 @@ ul.resume-ul {
 div.resume-box {
   background-color: white;
   /* A4 宽度减去左右边距 */
-  width: 190mm;
+  max-width: 190mm;
   /* A4 高度减去上下边距 */
-  max-height: 277mm;
+  /* max-height: 277mm; */
   /* 上下边距 20mm, 左右居中 */
   margin: 20mm auto;
   /* 内部边距 */
@@ -70,5 +70,12 @@ nav.resume-nav {
   & .resume-learning-content {
     padding-block: 1.2rem;
     padding-inline-start: 2rem;
+  }
+}
+
+/* Match phone */
+@media (max-width: 480px) {
+  span.header-icon-content {
+    display: none;
   }
 }

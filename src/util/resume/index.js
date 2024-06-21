@@ -52,6 +52,8 @@ async function generateResume() {
         return data[p1].map((item) => `<li>${item}</li>`).join('')
       case 'others':
         return data[p1].map((item) => `<li>${item}</li>`).join('')
+      case 'projects':
+        return data[p1].map((item) => `<li>${item}</li>`).join('')
     }
 
     const [prefix, postfix] = p1.split('-')

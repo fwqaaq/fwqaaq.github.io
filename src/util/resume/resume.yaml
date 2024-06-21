@@ -11,21 +11,28 @@ graduation:
   college: '计算机学院'
   location: '江苏南通'
   favorite:
-    - '强烈的 rust 爱好者，爱折腾，喜欢新奇的事物'
-    - '对新知识拥有强烈的热情，喜欢开源'
-    - '喜欢搞机，搭建小型服务器，编译 Openwrt...'
+    - '乐于探索新鲜的事物，最喜欢的语言是 Rust'
+    - '对新知识拥有强烈的热情，喜欢开源，乐于学习'
+    - '对搞机情有独钟，爱折腾新鲜事物'
 experience:
   - position: '花甲 - 前端工程师'
     time: '大一 - 大二'
     content:
       - 开始阶段，和学长为花甲店老板做 B/S 架构的业务，开始学习前端(HTML、CSS、JS)，后来学习 Vue，对前端工程化有一定了解。虽然最终老板跑路了，但是依然在学习前端的内容。
       - 不满足现有的知识，为 MDN 开始翻译，在巩固 JS 的同时学习了 TS，将 MDN 的 HTTP、stream 等内容重新润色，理解 HTTP 消息、浏览器为 JS 实现的流(即 Fetch 的底层实现)，同时也积累了 Git 的使用，对 Git 的版本控制也较为熟悉。
-      - 虽然理解 CSS 的基础规范，但是对于设计等这一类感性问题仍然是一头雾水，还是得不断练习、提 高审美。
   - position: 'LearningOS - CI/CD'
     time: '大三期间'
     content:
       - 大二下学期接触到 Rust，开始利用 Rust 学习 OS，同时为 LearningOS 做 CI/CD，对于 GitHub 的 workflow 较为熟悉，可以写简单的脚本。
       - 对于 OS 以及 Rust 至今仍在学习，熟悉偏底层的内容，打牢基础才能走的更远，这一直是我的目标。同时也了解 Rust 交叉编译相关的东西，也熟悉 gdb/lldb 一些基础调试命令。
+projects:
+  - 管理系统：https://github.com/fwqaaq/ts-cms（完全使用 Vue3 构建的后台管理系统，鉴权以及动态路由）
+  - 网络博客：https://github.com/fwqaaq/fwqaaq.github.io，使用原生 JavaScript + Deno 构建的 SPA + SSR 渲染
+  - Rust 网络编程学习：https://github.com/fwqaaq/network 使用 Hyper 构建 HTTP 代理、实现 ARP 协议以及使用 TCP 实现聊天室功能等
+  - cloudflare-webdav-rs：https://github.com/fwqaaq/cloudflare-webdav-rs 使用 rust + wasm 利用 worker 构建的 webdav，可以挂载在 mac、win 等支持的 OS
+  - Shell、JavaScript 脚本：https://github.com/fwqaaq/scripts，可以美化 GitHub 或者一些部署项目使用
+  - Nvim 工具链配置：https://github.com/fwqaaq/dot，不仅仅是 Nvim，以及 tmux、node、rust 等环境等生成
+  - 学习历程：https://github.com/fwqaaq/coding_and_nas
 skills:
   - 编程语言：TypeScript(JavaScript) > Rust > Go > Clang > Shell
   - 能做什么：可写前端（Vue、React 等）、数据库 Postgresql、了解网络编程...
