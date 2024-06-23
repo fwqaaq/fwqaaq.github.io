@@ -154,3 +154,52 @@ int main() {
 ```
 
 关于 JavaScript 中的 `ReadableStream` 和 `WriteableStream` 也是同样的，它们本身就是可缓冲的。
+
+## I/O 库的设计
+
+Deno 2.0 中将 1.0 命名空间中 `Reader`、`Writer` 等接口迁移到了标准库中，但是诸如 `Seeker` 等接口还是保留在了命名空间中，但是实际上 `FsFile` 这类方法已经确实实现了 `Reader`、`Writer` 等接口，这种迁移之后有巨大的割裂感，参考：<https://github.com/denoland/deno/blob/5683ca40707ae98bba6b58c710b9ff31e9f41944/cli/tsc/dts/lib.deno.ns.d.ts#L2312-L2321>。
+
+但是 Deno 中设计 I/O 接口的整体思路和 Golang 十分相似，或者就是直接照搬过来，下面来学习一下：
+
+```ts
+// Reader
+export interface Reader {
+  read(p: Uint8Array): Promise<number | null>;
+}
+// Writer
+export interface Writer {
+  write(p: Uint8Array): Promise<number>;
+}
+// Seeker
+export interface Seeker {
+  seek(offset: number | bigint, whence: SeekMode): Promise<number>;
+}
+// Closer
+export interface Closer {
+  close(): void;
+}
+```
+
+然后看一下 Go 中接口的定义：
+
+```go
+type Reader interface {
+        Read(p []byte) (n int, err error)
+}
+
+type Writer interface {
+        Write(p []byte) (n int, err error)
+}
+
+type Closer interface {
+        Close() error
+}
+
+type Seeker interface {
+        Seek(offset int64, whence int) (int64, error)
+}
+```
+
+Rust 中的 trait 相比较于 Go 和 Deno 更加复杂一点，虽然在实现 `Reader` 等 trait 的时候只要实现其中的 `read` 方法，但是 trait 中有一系列相关的方法都以提前实现好，只要实现了该 trait 之后，就可以实现这类方法。而 Deno 中更简洁，类似于 Go，这一系列方法都要自己实现：<https://github.com/denoland/deno/blob/5683ca40707ae98bba6b58c710b9ff31e9f41944/ext/fs/30_fs.js#L659-L804>。
+
+相较于 Go 和 Rust，它们的文件句柄都稍微复杂，由于多线程可能产生数据竞争，它们往往都需要加锁，而 Deno 更加简单一点。
