@@ -5,7 +5,7 @@ import remarkRehype from 'remark-rehype'
 // 将 remarkRehype 解析的 html 重新解析（可能内嵌的 html 因 xss 攻击未完全解析）
 import rehypeRaw from 'rehype-raw'
 import rehypeStringify from 'rehype-stringify'
-import rehypeHighlight from 'rehype-highlight'
+import rehypeShiki from '@shikijs/rehype'
 import rehypeSlug from 'rehype-slug'
 import rehypeAutolinkHeadings from 'rehype-autolink-headings'
 import remarkGfm from 'remark-gfm'
@@ -19,8 +19,13 @@ export const markdown = async (file) =>
     .use(remarkGithubAlerts)
     .use(remarkList)
     .use(remarkRehype, { allowDangerousHtml: true })
+    .use(rehypeShiki, {
+      theme: "andromeeda",
+      defaultColor: false,
+      addLanguageClass: true,
+
+    })
     .use(rehypeRaw)
-    .use(rehypeHighlight, { prefix: 'hl-', detect: true })
     .use(rehypeSlug, { prefix: '' })
     .use(rehypeAutolinkHeadings, {
       behavior: 'append',

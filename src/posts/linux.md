@@ -298,7 +298,7 @@ kill -9 873518
 
 > 由于你开了防火墙的同时，可能还有 docker 服务，会遇到如下错误
 
-```Shell
+```shell
 Error response from daemon: driver failed programming external connectivity on endpoint quirky_allen (4127da7466709fd45695a1fbe98e13c2ac30c2a554e18fb902ef5a03ba308438): (iptables failed: iptables --wait -t nat -A DOCKER -p tcp -d 0/0 --dport 9000 -j DNAT --to-destination 172.17.0.2:80 ! -i docker0: iptables: No chain/target/match by that name.
 (exit status 1))
 ```
@@ -318,7 +318,7 @@ systemctl restart docker
 
 1. `env`:查看所有环境变量
 
-   ```Shell
+   ```shell
    env
    ```
 

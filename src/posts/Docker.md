@@ -832,7 +832,7 @@ CMD ["nginx", "-g", "daemon off;"]
 
 - 使用`docker inspect centos02`查看 host 配置
 
-```JSON
+```json
 "HostConfig":{
    "Links": [
      "/centos01:/centos02/centos01"

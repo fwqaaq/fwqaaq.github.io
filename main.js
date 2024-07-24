@@ -61,8 +61,7 @@ function getArchive(title, iters) {
     (acc, { date, summary }) => {
       const place = `/./posts/${handleUTC(date)}/`
       return acc +
-        `<p><a class="decoration-line" href=${place} target="_blank"> ${summary} ··· ${
-          convertToUSA(date)
+        `<p><a class="decoration-line" href=${place} target="_blank"> ${summary} ··· ${convertToUSA(date)
         }</a></p>`
     },
     '',
@@ -180,10 +179,9 @@ async function Others() {
   const sitemap = new URL('./sitemap.xml', dist)
   const itemsSitemap = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-${
-    metaData.reduce((acc, { date }) =>
-      `${acc}<url><loc>${website}posts/${handleUTC(date)}/</loc></url>`, '')
-  }
+${metaData.reduce((acc, { date }) =>
+    `${acc}<url><loc>${website}posts/${handleUTC(date)}/</loc></url>`, '')
+    }
 </urlset>`
 
   // robots
@@ -243,7 +241,7 @@ async function Home() {
         ? new URL('./index.html', dist)
         : new URL(`${cur}/index.html`, homeDest)
 
-      await Deno.writeTextFile(url,home)
+      await Deno.writeTextFile(url, home)
     }
   }
 }
@@ -286,20 +284,9 @@ async function About() {
 
   const [, md] = parseYaml(about)
   const content = await markdown(md)
-  const generated = `${head}${header}${
-    templateArticle({ title: '关于我', content })
-  }${footer}`
+  const generated = `${head}${header}${templateArticle({ title: '关于我', content })
+    }${footer}`
   await Deno.writeTextFile(__dist_about, generated)
-}
-
-async function Friends() {
-  const __dist_friends = new URL('./friends/index.html', dist)
-  if (!await exists(__dist_friends)) await ensureFile(__dist_friends)
-  const __src_friends = new URL('./friends/index.html', src)
-  let friends = await Deno.readTextFile(__src_friends)
-  friends = replaceBody(friends, header, footer, randomNumber)
-
-  await Deno.writeTextFile(__dist_friends, friends)
 }
 
 async function main() {
@@ -307,7 +294,7 @@ async function main() {
     Deno.removeSync(new URL(dist), { recursive: true })
   }
   await handlePosts()
-  Promise.all([Home(), Archive(), Tags(), Others(), About(), Friends()])
+  Promise.all([Home(), Archive(), Tags(), Others(), About()])
 }
 
 // Handle the http server
