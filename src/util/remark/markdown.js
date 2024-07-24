@@ -23,7 +23,6 @@ export const markdown = async (file) =>
       theme: "andromeeda",
       defaultColor: false,
       addLanguageClass: true,
-
     })
     .use(rehypeRaw)
     .use(rehypeSlug, { prefix: '' })
@@ -39,3 +38,4 @@ export const markdown = async (file) =>
     })
     .use(rehypeStringify)
     .process(file)
+

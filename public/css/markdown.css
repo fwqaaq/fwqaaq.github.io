@@ -44,11 +44,12 @@ blockquote {
 
 pre {
   overflow: auto;
-  /* background-color: rgba(72, 69, 138); */
   padding: 1.5rem 1.2rem;
   border-radius: 0.25rem;
   min-height: 2rem;
   margin: 0.2rem auto;
+  /* shiki doesn't config colorReplacements */
+  background-color: rgba(72, 69, 138) !important;
 
   & code {
     background-color: inherit;
