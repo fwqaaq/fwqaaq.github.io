@@ -1,0 +1,131 @@
+html,
+body {
+  padding: 0%;
+  margin: 0%;
+  scroll-behavior: smooth;
+  font-family: system-ui, —apple-system, Segoe UI, Rototo, Emoji, Helvetica, Arial, sans-serif;
+}
+
+:root {
+  --bg-color: #111111;
+  --global-color: #ffffff;
+  --year-color: #1abc9c;
+  --day-color: #2ecc71;
+  --hour-color: #3498db;
+  --minute-color: #9b59b6;
+  --second-color: #34495e;
+  --title-color: #e67e22;
+  --box-size: 3.6rem;
+}
+
+.h2-title,
+.text {
+  background: linear-gradient(45deg, #ff6b6b, #feca57, #ff9ff3);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+a {
+  text-decoration: none;
+}
+
+body {
+  background-color: var(--bg-color);
+}
+
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  padding-block-start: 4rem;
+  color: var(--global-color);
+
+  & .text {
+    text-align: center;
+  }
+}
+
+.container:not(:last-child) {
+  padding-block-end: 2.4rem;
+}
+
+.box {
+  display: flex;
+
+  & .item {
+    height: var(--box-size);
+    width: var(--box-size);
+    padding: 0.2rem;
+    border-radius: 0.2rem;
+    background-color: red;
+  }
+
+  & .item:not(:last-child) {
+    margin-inline-end: 1rem;
+  }
+
+  & #year {
+    background-color: var(--year-color);
+  }
+
+  & #day {
+    background-color: var(--day-color);
+  }
+
+  & #hour {
+    background-color: var(--hour-color);
+  }
+
+  & #minute {
+    background-color: var(--minute-color);
+  }
+
+  & #second {
+    background-color: var(--second-color);
+  }
+}
+
+.item {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  cursor: pointer;
+  transform: scale(1);
+  transition: transform 0.8s, box-shadow 0.8s;
+
+  &:hover {
+    box-shadow: 0 0 0.5rem 0.1rem var(--global-color);
+    transform: scale(1.2);
+  }
+
+  & .item-number {
+    font-size: 1.2rem;
+    font-weight: 700;
+    text-align: center;
+  }
+
+  & .item-chinese {
+    font-size: 1.2rem;
+    font-weight: 700;
+    text-align: center;
+  }
+}
+
+dialog {
+  border: none;
+  border-radius: 0.2rem;
+
+  & form.dialog-form {
+    display: flex;
+    justify-content: space-around;
+  }
+}
+
+dialog::backdrop {
+  -webkit-backdrop-filter: blur(5px);
+  backdrop-filter: blur(5px);
+}

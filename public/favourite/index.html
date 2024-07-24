@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="你知道等待之后的味道是什么嘛？我可以一直一直的等你">
+  <meta name="keywords" content="爱情, 等待, 离别, 温暖">
+  <title>想给陈老师一个 🏠</title>
+  <link rel="stylesheet" href="./index.css">
+  <link rel="shortcut icon" href="/public/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+  <script src="./index.js"></script>
+</head>
+
+<body>
+  <div class="wrapper">
+    <h2 class="h2-title animate__animated animate__backInDown">❤️记录我和小陈的点点滴滴❤️</h2>
+    <div class="container" id="meetting">
+      <p class="text animate__animated animate__swing animate__infinite">距和陈老师相遇已经过去</p>
+      <div class="box">
+        <div class="item" id="year">
+          <span class="item-number">0</span>
+          <span class="item-chinese">年</span>
+        </div>
+        <div class="item" id="day">
+          <span class="item-number">0</span>
+          <span class="item-chinese">天</span>
+        </div>
+        <div class="item" id="hour">
+          <span class="item-number">0</span>
+          <span class="item-chinese">时</span>
+        </div>
+        <div class="item" id="minute">
+          <span class="item-number">0</span>
+          <span class="item-chinese">分</span>
+        </div>
+        <div class="item" id="second">
+          <span class="item-number">0</span>
+          <span class="item-chinese">秒</span>
+        </div>
+      </div>
+    </div>
+    <div class="container" id="birthday">
+      <p class="text animate__animated animate__swing animate__infinite">距陈老师的下一个生日还有</p>
+      <div class="box">
+        <div class="item" id="year">
+          <span class="item-number">0</span>
+          <span class="item-chinese">年</span>
+        </div>
+        <div class="item" id="day">
+          <span class="item-number">0</span>
+          <span class="item-chinese">天</span>
+        </div>
+        <div class="item" id="hour">
+          <span class="item-number">0</span>
+          <span class="item-chinese">时</span>
+        </div>
+        <div class="item" id="minute">
+          <span class="item-number">0</span>
+          <span class="item-chinese">分</span>
+        </div>
+        <div class="item" id="second">
+          <span class="item-number">0</span>
+          <span class="item-chinese">秒</span>
+        </div>
+      </div>
+    </div>
+    <div class="container" id="photos-wall">
+      <p class="text animate__animated animate__swing animate__infinite" id="hidden-button">我有好多话想对你说，你愿意听吗</p>
+
+      <dialog close id="x-dialog">
+        <p class="text">我有好多话想对你说，你愿意听吗</p>
+        <form method="dialog" class="dialog-form">
+          <button id="dialog-Ok">OK</button>
+          <button id="dialog-No">NO</button>
+        </form>
+      </dialog>
+    </div>
+  </div>
+</body>
+
+</html>

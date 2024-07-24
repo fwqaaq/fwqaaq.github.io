@@ -1,4 +1,14 @@
-@import url("../css/base.css");
+html,
+body {
+  padding: 0%;
+  margin: 0%;
+  scroll-behavior: smooth;
+  font-family: system-ui, —apple-system, Segoe UI, Rototo, Emoji, Helvetica, Arial, sans-serif;
+}
+
+a {
+  text-decoration: none;
+}
 
 @page {
   size: A4;
