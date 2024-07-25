@@ -6,6 +6,7 @@ const MS_IN_A_YEAR = MS_IN_A_DAY * 365
 
 const meettingTime = Date.parse("2024-06-22T23:39:00.000Z")
 const birthdayTime = +new Date("2024-11-20")
+const userAgent = navigator.userAgent.toLowerCase()
 
 function getDiffTime({ start, end }) {
   const diff = end - start
@@ -55,7 +56,18 @@ function handleTimeElement(element) {
   }
 }
 
+
 document.addEventListener('DOMContentLoaded', () => {
+
+  if (userAgent.includes('micromessenger')) {
+    document.body.innerHTML = `
+    <div class="wechat text">
+      <span>请使用浏览器打开该网页</span>
+      <span class="decoration-line">https://www.fwqaq.us/public/favourite/index.html</span>
+    </div>
+    `
+  }
+
   const meettingFunction = handleTimeElement(document.getElementById('meetting'))
   const birthdayFunction = handleTimeElement(document.getElementById('birthday'))
 
