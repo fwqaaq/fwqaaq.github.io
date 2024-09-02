@@ -16,10 +16,12 @@ body {
   --second-color: #34495e;
   --title-color: #e67e22;
   --box-size: 3.6rem;
+  --carousel-width: min(80vw, 32rem);
 }
 
 body {
   color: var(--global-color);
+  background-color: var(--bg-color);
 }
 
 .h2-title,
@@ -34,18 +36,13 @@ a {
   text-decoration: none;
 }
 
-body {
-  background-color: var(--bg-color);
-}
-
-
 .wrapper {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   height: 100%;
-  padding-block-start: 4rem;
+  padding-block: 4rem;
   color: var(--global-color);
 
   & .text {
@@ -148,4 +145,48 @@ dialog::backdrop {
   text-decoration-thickness: 0.2rem;
   text-decoration-color: var(--global-color);
   text-underline-offset: 0.5rem;
+}
+
+.photos-container {
+  display: flex;
+  justify-content: center;
+  width: var(--carousel-width);
+  overflow: hidden;
+  position: relative;
+}
+
+.photos-box {
+  display: flex;
+}
+
+.photos-box img {
+  width: 100%;
+  height: 100%;
+  background-color: white;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+@keyframes carousel {
+
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+
+  25% {
+    transform: translateX(calc(var(--carousel-width) * -1));
+  }
+
+  50% {
+    transform: translateX(calc(var(--carousel-width) * -2));
+  }
+
+  75% {
+    transform: translateX(calc(var(--carousel-width) * -3));
+  }
+}
+
+.photos-box {
+  animation: carousel 15s infinite;
 }
