@@ -7,7 +7,7 @@ title: About
 
 ## Who
 
-[<img src="https://github.githubassets.com/assets/GitHub-Mark-ea2971cee799.png" width="32px" alt="GitHub">](https://github.com/fwqaaq) ··· [<img src="https://ssl.gstatic.com/ui/v1/icons/mail/rfr/gmail.ico" width="32px" alt="Gmail">](mailto:fwqaaq@gmail) ··· [<img src="https://www.fwqaq.us/public/favicon.ico" width="32px" alt="Blog" />](https://www.fwqaq.us) ... [<img src="https://telegram.org/img/website_icon.svg?4" width="32px" alt="Telegram">](https://t.me/fwqaaq)
+[<img src="https://github.githubassets.com/assets/GitHub-Mark-ea2971cee799.png" width="32px" alt="GitHub">](https://github.com/fwqaaq) ··· [<img src="https://ssl.gstatic.com/ui/v1/icons/mail/rfr/gmail.ico" width="32px" alt="Gmail">](mailto:fwqaaq@gmail) ··· [<img src="https://www.fwqaaq.com/public/favicon.ico" width="32px" alt="Blog" />](https://www.fwqaaq.com) ... [<img src="https://telegram.org/img/website_icon.svg?4" width="32px" alt="Telegram">](https://t.me/fwqaaq)
 
 ## Languages and Tools
 

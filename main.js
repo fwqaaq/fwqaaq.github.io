@@ -34,7 +34,7 @@ const src = import.meta.resolve('./src/')
 const randomNumber = Math.floor(Math.random() * 1000000)
 
 // global config
-const website = Deno.env.get('WEBSITE')
+const WEBSITE = Deno.env.get('WEBSITE')
 const author = Deno.env.get('AUTHOR')
 const port = Deno.env.get('PORT')
 const header = await Deno.readTextFile(new URL('./util/header.html', src))
@@ -166,7 +166,7 @@ async function Others() {
   // Handle the RSS
   const rss = new URL('./feed.xml', dist)
   const itemsRss = metaData.reduce((acc, { date, title, summary }) => {
-    const url = `${website}posts/${handleUTC(date)}/`
+    const url = `${WEBSITE}posts/${handleUTC(date)}/`
     return acc + `<item>
     <title>${title}</title>
     <link>${url}</link>
@@ -180,7 +180,7 @@ async function Others() {
   const itemsSitemap = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 ${metaData.reduce((acc, { date }) =>
-    `${acc}<url><loc>${website}posts/${handleUTC(date)}/</loc></url>`, '')
+    `${acc}<url><loc>${WEBSITE}posts/${handleUTC(date)}/</loc></url>`, '')
     }
 </urlset>`
 
@@ -188,14 +188,14 @@ ${metaData.reduce((acc, { date }) =>
   const robots = new URL('./robots.txt', dist)
   const robotsContent = `User-agent: *
 Allow: /
-Sitemap: ${website}sitemap.xml`
+Sitemap: ${WEBSITE}sitemap.xml`
 
   const files = [
-    [rss, getRss(author, website, itemsRss)],
+    [rss, getRss(author, WEBSITE, itemsRss)],
     [sitemap, itemsSitemap],
     [robots, robotsContent],
   ]
-  const g = generateSingleFile(cname, 'www.fwqaq.us')
+  const g = generateSingleFile(cname, WEBSITE.slice(8, -1))
   g.next()
   files.forEach((file) => g.next(file))
 }

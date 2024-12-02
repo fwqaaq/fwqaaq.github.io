@@ -2,7 +2,7 @@ header:
   title: '我的简历'
   email: 'fwqaaq@gmail.com'
   telephone: '186-xxxx-xxxx'
-  website: 'https://www.fwqaq.us'
+  website: 'https://www.fwqaaq.com'
 graduation:
   school: '家里蹲大学分学'
   time: '2020.9 - 2024.6'
@@ -39,6 +39,6 @@ skills:
   - 可配置项：熟悉 Linux 操作、Docker 容器配置以及 Shell 脚本编写等
 others:
   - GitHub：在这里，你可以找到我的一些开源项目 https://github.com/fwqaaq
-  - 我的技术博客：www.fwqaq.us
+  - 我的技术博客：www.fwqaaq.com
   - 对开源富有热情、对学习不断激进、对技术一直追求
   - 我在寻找一个稍微偏底层一些的实习，当然我也愿意接受其它的新鲜事物。

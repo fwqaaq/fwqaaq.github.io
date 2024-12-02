@@ -10,7 +10,7 @@
 
 It's fully responsive on the mobile, tablet and laptop.
 
-See: <https://www.fwqaq.us>
+See: <https://www.fwqaaq.com>
 
 ## Create a new post
 
