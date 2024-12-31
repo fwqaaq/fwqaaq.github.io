@@ -16,4 +16,6 @@ summary: 用于收集一些常见的 CSS 动画效果
 1. `calc-size(<calc-size-basis>, <calc-sum>)`: <https://developer.mozilla.org/en-US/docs/Web/CSS/calc-size>，该函数可以接受两个属性，其中第一个属性是初始值，第二个属性是 CSS 数学函数中可计算的值，例如 `height: calc-size(auto, size + 100px);`。（该属性仅针对尺寸属性有效果）
 2. `interpolate-size`: <https://developer.mozilla.org/en-US/docs/Web/CSS/interpolate-size>，该属性用于在 [`<length-percentage>`](https://developer.mozilla.org/en-US/docs/Web/CSS/length-percentage) 和[固有尺寸](https://developer.mozilla.org/en-US/docs/Glossary/Intrinsic_Size)之间使用 animation 和 transition 效果。接受两个关键字，一个是 `allow-keywords` 该属性接受某个[插值](https://developer.mozilla.org/zh-CN/docs/Glossary/Interpolation)，另一个是 `numeric-only`，该属性为**默认值**不接受插值。
 
-参见：<https://developer.chrome.com/docs/css-ui/animate-to-height-auto>、[`<calc-sum>`]((https://developer.mozilla.org/en-US/docs/Web/CSS/calc-sum))
+示例：可以看该提交是如何修改 height 动画 <https://github.com/fwqaaq/fwqaaq.github.io/commit/068be22f827e8b75070f78a8ab5c05875842ce80>
+
+参见：<https://developer.chrome.com/docs/css-ui/animate-to-height-auto>、[`<calc-sum>`](https://developer.mozilla.org/en-US/docs/Web/CSS/calc-sum)
