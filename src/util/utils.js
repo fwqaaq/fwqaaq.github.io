@@ -120,6 +120,7 @@ export function startServer(
   try {
     Deno.serve({
       port,
+      hostname: 'localhost',
       onListen({ hostname, port }) {
         console.log(`Server started at http://${hostname}:${port}`)
       },

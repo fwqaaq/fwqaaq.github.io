@@ -26,8 +26,7 @@ summary: tsconfig.json 配置技巧
   }
   ```
 
-  - 此时编译后的文件会分别到 `dist/src1` 和 `dist/src2` 目录下。但是如果 `src1`
-    变化了，`src2` 同时也会再次被编译，这时候我们需要做一些缓存设置
+- 此时编译后的文件会分别到 `dist/src1` 和 `dist/src2` 目录下。但是如果 `src1` 变化了，`src2` 同时也会再次被编译，这时候我们需要做一些缓存设置
 
 1. 在 `src1` 和 `src2` 目录下分别创建 `tsconfig.json` 文件，其中需要添加
    `composite:true` 这样的配置
