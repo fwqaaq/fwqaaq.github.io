@@ -16,6 +16,8 @@
   --table-border-color: var(--theme-color);
   --h-color: var(--color-a-link);
   --list-color: var(--color-a-link);
+
+  line-height: 1.2rem;
 }
 
 @media (prefers-color-scheme: dark) {
