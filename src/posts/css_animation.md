@@ -19,3 +19,80 @@ summary: 用于收集一些常见的 CSS 动画效果
 示例：可以看该提交是如何修改 height 动画 <https://github.com/fwqaaq/fwqaaq.github.io/commit/068be22f827e8b75070f78a8ab5c05875842ce80>
 
 参见：<https://developer.chrome.com/docs/css-ui/animate-to-height-auto>、[`<calc-sum>`](https://developer.mozilla.org/en-US/docs/Web/CSS/calc-sum)
+
+## [View Transitions API](https://developer.mozilla.org/en-US/docs/Web/API/View_Transition_API)
+
+这是一个用于实现在不同 DOM 之间转换的动画效果的 API，并且可以实现非常平滑的过渡效果，它主要是对于 Transition API 的扩展，并且可以实现更加复杂的过渡效果。
+
+```txt
+::view-transition
+└─ ::view-transition-group(root)
+   └─ ::view-transition-image-pair(root)
+      ├─ ::view-transition-old(root)
+      └─ ::view-transition-new(root)
+```
+
+对于该 API 的使用，主要的参数分类分别是：`*`（匹配所有过渡的元素）、`root`（匹配过渡的根元素）以及 [`<custom-ident>`](https://developer.mozilla.org/zh-CN/docs/Web/CSS/custom-ident)（通过 [view-transition-name](https://developer.mozilla.org/zh-CN/docs/Web/CSS/view-transition-name) 属性分配给某个元素从而达到过渡效果）。
+
+示例：
+
+```css
+header {
+  view-transition-name: header-card;
+}
+/**带有 header-card 的都会实现以下基础的过渡效果*/
+::view-transition-group(header-card) {
+  animation-duration: 0.5s;
+}
+```
+
+这里需要注意的是，主要用的是 `::view-transition-old` 和 `::view-transition-new` 这两个伪元素，浏览器会在后台为这两个元素创建快照，old 表示过渡之前的快照，new 表示过渡之后的快照。
+
+在过渡过程中，浏览器会同时显示旧页面和新页面的元素，并根据计算好的动画路径对元素进行平滑的变换。例如，如果一个元素的位置、大小或颜色发生了变化，浏览器会以流畅的动画方式来展示这种变化，而不是突然的切换。
+
+```css
+::view-transition-new(root) {
+  animation: turnOn 800ms ease-in-out;
+  mix-blend-mode: normal;
+}
+
+::view-transition-old(root) {
+  animation: none;
+}
+
+/* 新视图过渡 */
+@keyframes turnOn {
+  0% {
+    clip-path: circle(0% at var(--click-x) var(--click-y));
+  }
+
+  100% {
+    clip-path: circle(var(--end-radius) at var(--click-x) var(--click-y));
+  }
+}
+```
+
+可以完全使用 CSS 的伪元素配合增加或者移除**类**来实现过渡效果，但是使用 JavaScript 控制会更加灵活。
+
+特性 | 自动触发 `startViewTransition` | 手动触发
+---|----------------------------|-----
+适用场景 | 简单的状态类切换 | 复杂的 DOM 变更或跨页面动画
+动画控制 | 受限于 CSS 动画定义 | 完全可控，可插入任意逻辑
+实现复杂性 | 更简单 | 需要额外的 JS 代码
+
+### [JavaScript 相关的 API](https://developer.mozilla.org/zh-CN/docs/Web/API/Document/startViewTransition)
+
+`document.startViewTransition` 会接受一个改变当前 DOM 的回调函数，该回调函数完成兑现时，会返回一个 `ViewTransition` 对象。该对象可以的 `ready` 方法会在伪元素树被创建且过渡动画即将开始时兑现，如果过渡已经完成，则 `finished` 方法会返回一个已兑现的 `Promise`。
+
+配合以上的 CSS 代码，就可以实现一个非常流畅的黑暗模式切换效果。
+
+```js
+document.startViewTransition(
+  () => toggleColor(darkMode === 'dark', darkIcon),
+)
+;[
+  ['--click-x', `${x}px`],
+  ['--click-y', `${y}px`],
+  ['--end-radius', `${endRadius}px`]
+].forEach(([v, c]) => document.documentElement.style.setProperty(v, c))
+```

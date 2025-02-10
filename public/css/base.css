@@ -41,3 +41,23 @@ img {
 .text-center {
   text-align: center;
 }
+
+::view-transition-new(root) {
+  animation: turnOn 800ms ease-in-out;
+  mix-blend-mode: normal;
+}
+
+::view-transition-old(root) {
+  animation: none;
+}
+
+/* 新视图过渡 */
+@keyframes turnOn {
+  0% {
+    clip-path: circle(0% at var(--click-x) var(--click-y));
+  }
+
+  100% {
+    clip-path: circle(var(--end-radius) at var(--click-x) var(--click-y));
+  }
+}

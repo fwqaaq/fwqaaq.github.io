@@ -1,23 +1,28 @@
 ///<reference lib="dom" />
 
+// Regex to match the content of the main tag
 const regex =
   /\<head\>[\s\S]*\<\/head\>[\s\S]*?\<main[\s\S]*?\>([\s\S]*)\<\/main\>/
 
 let isDark = globalThis.matchMedia('(prefers-color-scheme: dark)').matches
 
-/**
- * @type {HTMLMetaElement}
- */
+// check if the browser supports view transition
+const isViewTransition = document.startViewTransition &&
+  !globalThis.matchMedia('(prefers-reduced-motion: reduce)').matches
+
+/** @type {HTMLMetaElement}*/
 const metaTheme = document.head.querySelector("meta[name='theme-color']")
 
 /**
  * @param {boolean} isDarkTheme
  * @param {Element} e
+ * @param {Array<[string, string]>} colors
  */
 function toggleColor(isDarkTheme, e) {
   e.classList.toggle('fa-sun')
   e.classList.toggle('fa-moon')
-  window.localStorage.setItem('darkMode', isDarkTheme ? 'dark' : 'light')
+  globalThis.localStorage.setItem('darkMode', isDarkTheme ? 'dark' : 'light')
+
   const colors = [
     ['--theme-color', isDarkTheme ? '#ffffff' : 'rgb(0, 0, 0)'],
     [
@@ -46,7 +51,7 @@ document.addEventListener('DOMContentLoaded', () => {
     toyNavHeight + 'px',
   )
 
-  const localDarkMode = window.localStorage.getItem('darkMode')
+  const localDarkMode = globalThis.localStorage.getItem('darkMode')
   isDark = localDarkMode === 'undefined' ? isDark : localDarkMode === 'dark'
 
   const model = document.querySelector('a.model')
@@ -56,10 +61,30 @@ document.addEventListener('DOMContentLoaded', () => {
 
   model.addEventListener('click', (e) => {
     e.preventDefault()
-    const darkMode = window.localStorage.getItem('darkMode') === 'dark'
+    const darkMode = globalThis.localStorage.getItem('darkMode') === 'dark'
       ? 'light'
       : 'dark'
-    toggleColor(darkMode === 'dark', darkIcon)
+
+    if (!isViewTransition) {
+      return toggleColor(darkMode === 'dark', darkIcon)
+    }
+
+    // 存储点击坐标
+    const x = e.clientX
+    const y = e.clientY
+    const endRadius = Math.hypot(
+      Math.max(x, innerWidth - x),
+      Math.max(y, innerHeight - y),
+    )
+
+    document.startViewTransition(
+      () => toggleColor(darkMode === 'dark', darkIcon),
+    )
+      ;[
+        ['--click-x', `${x}px`],
+        ['--click-y', `${y}px`],
+        ['--end-radius', `${endRadius}px`]
+      ].forEach(([v, c]) => document.documentElement.style.setProperty(v, c))
   })
 
   const header = document.querySelector('header')
@@ -133,7 +158,7 @@ const renderPage = async (e) => {
         reactionsEnabled: '1',
         emitMetadata: '1',
         inputPosition: 'bottom',
-        theme: window.localStorage.getItem('darkMode') ??
+        theme: globalThis.localStorage.getItem('darkMode') ??
           'preferred_color_scheme',
         lang: 'zh-CN',
       },

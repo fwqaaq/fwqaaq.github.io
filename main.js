@@ -61,7 +61,8 @@ function getArchive(title, iters) {
     (acc, { date, summary }) => {
       const place = `/./posts/${handleUTC(date)}/`
       return acc +
-        `<p><a class="decoration-line" href=${place} target="_blank"> ${summary} ··· ${convertToUSA(date)
+        `<p><a class="decoration-line" href=${place} target="_blank"> ${summary} ··· ${
+          convertToUSA(date)
         }</a></p>`
     },
     '',
@@ -179,9 +180,10 @@ async function Others() {
   const sitemap = new URL('./sitemap.xml', dist)
   const itemsSitemap = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-${metaData.reduce((acc, { date }) =>
-    `${acc}<url><loc>${WEBSITE}posts/${handleUTC(date)}/</loc></url>`, '')
-    }
+${
+    metaData.reduce((acc, { date }) =>
+      `${acc}<url><loc>${WEBSITE}posts/${handleUTC(date)}/</loc></url>`, '')
+  }
 </urlset>`
 
   // robots
@@ -222,9 +224,7 @@ async function Home() {
     })
 
     if ((index + 1) % 8 === 0 || index + 1 === mLength) {
-      const cur = index + 1 === mLength
-        ? lastPage
-        : Math.floor((index + 1) / 8)
+      const cur = index + 1 === mLength ? lastPage : Math.floor((index + 1) / 8)
       const process = templateProcess({
         before: cur > 2 ? `/./home/${cur - 1}/` : '/',
         page: `${cur} / ${lastPage}`,
@@ -284,8 +284,9 @@ async function About() {
 
   const [, md] = parseYaml(about)
   const content = await markdown(md)
-  const generated = `${head}${header}${templateArticle({ title: '关于我', content })
-    }${footer}`
+  const generated = `${head}${header}${
+    templateArticle({ title: '关于我', content })
+  }${footer}`
   await Deno.writeTextFile(__dist_about, generated)
 }
 

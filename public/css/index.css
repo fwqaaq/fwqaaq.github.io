@@ -39,11 +39,11 @@
 body {
   background-color: var(--bg-color);
   background-size: cover;
-  padding-block-end: 0.5rem;
   position: relative;
   color: var(--theme-color);
+  padding-block-start: calc(var(--header-height) + 1rem);
 
-  /* 防止溢出 */
+  /* prevent overflow */
   word-break: break-all;
 
   &.loading {
@@ -125,13 +125,12 @@ main.blog-main {
   min-height: calc(100vh - var(--header-height) - var(--footer-height));
   display: flex;
   justify-content: center;
+  margin-block-end: 1.2rem;
 
   &:has(article.blog-article) {
     align-items: flex-start;
   }
 
-  margin-block-start: calc(var(--header-height) + 1rem);
-  margin-block-end: 1.2rem;
 
   /* 除了锚点 a 都要换行 */
   & :not(:where(h2, h3, h4, h5, h6)) a[href^="http"] {

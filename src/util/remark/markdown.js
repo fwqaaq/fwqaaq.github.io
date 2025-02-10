@@ -20,7 +20,7 @@ export const markdown = async (file) =>
     .use(remarkList)
     .use(remarkRehype, { allowDangerousHtml: true })
     .use(rehypeShiki, {
-      theme: "andromeeda",
+      theme: 'andromeeda',
       defaultColor: false,
       addLanguageClass: true,
     })
@@ -38,4 +38,3 @@ export const markdown = async (file) =>
     })
     .use(rehypeStringify)
     .process(file)
-
