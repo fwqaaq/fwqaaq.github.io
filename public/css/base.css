@@ -6,12 +6,80 @@ body {
   font-family: system-ui, —apple-system, Segoe UI, Rototo, Emoji, Helvetica, Arial, sans-serif;
 }
 
+:root {
+  --header-height: 4rem;
+  --footer-height: 4rem;
+  --page-width: 48rem;
+  --max-about-width: 80rem;
+  --theme-color: rgb(0, 0, 0);
+  --bg-color: #ffffff;
+  --header-bg: rgba(255, 255, 255, 0.8);
+  --color-a-link: rgba(0, 90, 71, 0.8);
+  --color-a-link-hover: #014637;
+  --color-note: #0969da;
+  --color-tip: #1a7f37;
+  --color-warning: #9a6700;
+  --color-severe: #bc4c00;
+  --color-caution: #d1242f;
+  --color-important: #8250df;
+  --table-border-color: var(--theme-color);
+  --h-color: var(--color-a-link);
+  --list-color: var(--color-a-link);
+
+  line-height: 1.2rem;
+}
+
+body {
+  background-color: var(--bg-color);
+  background-size: cover;
+  position: relative;
+  color: var(--theme-color);
+  padding-block-start: calc(var(--header-height) + 1rem);
+
+  /* prevent overflow */
+  word-break: break-all;
+
+  &.loading {
+    visibility: visible;
+  }
+}
+
+main {
+  min-height: calc(100vh - var(--header-height) - var(--footer-height));
+}
+
+h2,
+h3,
+h4,
+h5,
+h6 {
+  line-height: 1.2;
+  color: var(--h-color);
+
+  &:hover a[class="anchor"]::after {
+    content: attr(data-anchorjs-icon);
+  }
+}
+
+h1 {
+  text-align: center;
+}
+
 a {
   text-decoration: none;
 }
 
 img {
   max-width: 100%;
+}
+
+input {
+  outline-style: none;
+  border: 0.2rem solid #ccc;
+  border-radius: 0.2rem;
+  padding: 0.6rem 0.8rem;
+  font-size: 1rem;
+  font-weight: 700;
 }
 
 .decoration-line:hover,
@@ -36,6 +104,16 @@ img {
   border-color: var(--theme-color) var(--theme-color) var(--theme-color) transparent;
   animation: spin 1s ease-in-out infinite;
   z-index: 1;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg)
+  }
 }
 
 .text-center {

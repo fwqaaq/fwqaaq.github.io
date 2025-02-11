@@ -61,8 +61,7 @@ function getArchive(title, iters) {
     (acc, { date, summary }) => {
       const place = `/./posts/${handleUTC(date)}/`
       return acc +
-        `<p><a class="decoration-line" href=${place} target="_blank"> ${summary} ··· ${
-          convertToUSA(date)
+        `<p><a class="decoration-line" href=${place} target="_blank"> ${summary} ··· ${convertToUSA(date)
         }</a></p>`
     },
     '',
@@ -180,10 +179,9 @@ async function Others() {
   const sitemap = new URL('./sitemap.xml', dist)
   const itemsSitemap = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-${
-    metaData.reduce((acc, { date }) =>
-      `${acc}<url><loc>${WEBSITE}posts/${handleUTC(date)}/</loc></url>`, '')
-  }
+${metaData.reduce((acc, { date }) =>
+    `${acc}<url><loc>${WEBSITE}posts/${handleUTC(date)}/</loc></url>`, '')
+    }
 </urlset>`
 
   // robots
@@ -272,22 +270,14 @@ async function Tags() {
 async function About() {
   const __dist_about = new URL('./about/index.html', dist)
   if (!await exists(__dist_about)) await ensureFile(__dist_about)
-  const __src_about = new URL('./about/about.md', src)
+  const __src_about = new URL('./about/about.html', src)
 
-  const about = await Deno.readTextFile(__src_about)
-  const head = await replaceHead(
-    'fwqaaq, GitHub fwqaaq, study, about',
-    '关于我',
-    '关于我',
-    randomNumber,
-  )
+  const about = (await Deno.readTextFile(__src_about))
+    .replace('<!-- base.css -->', `/public/css/base.${randomNumber}.css`)
+    .replace('<!-- index.css -->', `/public/css/index.${randomNumber}.css`)
+    .replace('<!-- index.js -->', `/public/JavaScript/index.${randomNumber}.js`)
 
-  const [, md] = parseYaml(about)
-  const content = await markdown(md)
-  const generated = `${head}${header}${
-    templateArticle({ title: '关于我', content })
-  }${footer}`
-  await Deno.writeTextFile(__dist_about, generated)
+  await Deno.writeTextFile(__dist_about, about)
 }
 
 async function main() {

@@ -1,20 +1,3 @@
-h2,
-h3,
-h4,
-h5,
-h6 {
-  line-height: 1.2;
-  color: var(--h-color);
-
-  &:hover a[class="anchor"]::after {
-    content: attr(data-anchorjs-icon);
-  }
-}
-
-h1 {
-  text-align: center;
-}
-
 code {
   background-color: rgba(24, 159, 114, 0.8);
   padding: 0.1rem 0.3rem;
