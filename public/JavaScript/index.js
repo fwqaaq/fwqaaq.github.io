@@ -80,11 +80,11 @@ document.addEventListener('DOMContentLoaded', () => {
     document.startViewTransition(
       () => toggleColor(darkMode === 'dark', darkIcon),
     )
-      ;[
-        ['--click-x', `${x}px`],
-        ['--click-y', `${y}px`],
-        ['--end-radius', `${endRadius}px`]
-      ].forEach(([v, c]) => document.documentElement.style.setProperty(v, c))
+    ;[
+      ['--click-x', `${x}px`],
+      ['--click-y', `${y}px`],
+      ['--end-radius', `${endRadius}px`],
+    ].forEach(([v, c]) => document.documentElement.style.setProperty(v, c))
   })
 
   const header = document.querySelector('header')

@@ -12,7 +12,7 @@ const remarkList = () => {
       (
         /**@type  {import('type-mdast').Node}  */ node,
         /**@type  {Number}*/ _index,
-        /**@type  {import('type-mdast').Parent}  */ parent,
+        /**@type  {import('type-mdast').Parent}  */ _parent,
       ) => {
         if (node.ordered) {
           node.data = {

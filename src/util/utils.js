@@ -1,12 +1,13 @@
-import { existsSync } from 'fs'
+import { ensureFile, exists } from 'fs'
 import { parse } from 'yaml'
 import { format } from 'datetime'
+import { templateArticle } from './template.js'
 import init, { Features, transform } from 'lightningcss'
 
 const regxYaml = /---(\n[\s\S]*?\n)---/
 
 /**
- * @typedef {Object} yaml
+ * @typedef {Object} Yaml
  * @property {string} [Yaml.name]
  * @property {string} Yaml.title
  * @property {string} [Yaml.summary]
@@ -14,7 +15,7 @@ const regxYaml = /---(\n[\s\S]*?\n)---/
  * @property {string} [Yaml.date]
  *
  * @param {string} file
- * @returns {[yaml, string]}
+ * @returns {[Yaml, string]}
  */
 export const parseYaml = (file) => {
   const [yamlRaw, contentMd] = file.split(regxYaml).slice(1)
@@ -26,7 +27,6 @@ export const parseYaml = (file) => {
  * @param {string} date
  * @returns {string}
  */
-
 export const handleUTC = (date) => format(new Date(date), 'yyyyMMddHHmmss')
 
 /**
@@ -44,14 +44,20 @@ export const convertToUSA = (date) => {
 }
 
 /**
- * @param {string} keywords
- * @param {string} description
- * @param {string} title
- * @param {string} version
+ * @typedef {Object} HeadMetaData
+ * @property {string} [keywords]
+ * @property {string} [description]
+ * @property {string} [title]
+ * @property {string} [version]
+ *
+ * @param {HeadMetaData} metaData
+ * @param {string} [content]
  * @returns {Promise<string>}
  */
-export const replaceHead = async (keywords, description, title, version) => {
-  const res = await Deno.readTextFile(new URL('head.html', import.meta.url))
+export const replaceHead = async (metaData, content) => {
+  const res = content ??
+    await Deno.readTextFile(new URL('head.html', import.meta.url))
+  const { keywords, description, title, version } = metaData
 
   return res
     .replace('<!-- keywords -->', keywords)
@@ -79,22 +85,53 @@ export const replaceBody = (body, header, footer, version) => {
 }
 
 /**
- * @param {URL} url
- * @param {string} content
- * @param {boolean} append - default false
+ * @typedef {Object} GeneratePageOptions
+ * @property {Record<string, import("../plugins/core.js").MetaData>} group
+ * @property {"archive" | "tags"} basePath
+ * @property {string} dist
+ * @property {string} header
+ * @property {string} footer
+ * @property {string} version
+ * @property {string} author
+ * 
+ * @param {GeneratePageOptions}
  */
-export function* generateSingleFile(url, content, append = false) {
-  // if exists, remove it
-  while (true) {
-    if (existsSync(url)) Deno.removeSync(url, { recursive: true })
-    Deno.writeFileSync(url, new TextEncoder().encode(content), {
-      createNew: true,
-      append,
-    })
-    const result = yield
-    if (result) {
-      ;[url, content] = result // 解构赋值
-    }
+export async function generatePage({ group, basePath, dist, header, footer, version, author }) {
+  const url = new URL(`./${basePath}/index.html`, dist)
+  const keys = Object.keys(group)
+  const head = await replaceHead({ keywords: keys.join(', '), description: `${author} ~ ${basePath}`, title: `${author} ~ ${basePath}`, version })
+
+  // a tags
+  const body = templateArticle({
+    title: basePath,
+    content: keys.reduce(
+      (acc, tag) =>
+        acc +
+        `<a class="tag" href="/./${basePath}/${tag}/"><i class="fa-solid fa-tag"></i> ${tag}</a>`,
+      '',
+    ),
+  })
+  const article = `${head}${header}${body}${footer}`
+  if (!await exists(url)) await ensureFile(url)
+  await Deno.writeTextFile(url, article)
+
+  for (const [key, items] of Object.entries(group)) {
+    const itemUrl = new URL(`./${basePath}/${key}/index.html`, dist)
+    const itemHead = await replaceHead({ keywords: [...new Set(items.flatMap((item) => item.tags))], description: `${author} ~ ${key}`, title: `${author} ~ ${key}`, version })
+    if (!await exists(itemUrl)) await ensureFile(itemUrl)
+
+    // p tags
+    const p = items.reduce(
+      (acc, { date, summary }) => {
+        const place = `/./posts/${handleUTC(date)}/index.html`
+        return acc +
+          `<p><a class="decoration-line" href=${place} target="_blank"> ${summary} ··· ${convertToUSA(date)
+          }</a></p>`
+      },
+      '',
+    )
+    const itemBody = `${itemHead}${header}${templateArticle({ title: key, content: p })}${footer}`
+    await Deno.writeTextFile(itemUrl, itemBody)
   }
 }
 
@@ -171,3 +208,5 @@ const handler = async (request, version) => {
 
   return new Response(compress.readable, { headers })
 }
+
+

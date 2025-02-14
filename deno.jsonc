@@ -12,7 +12,7 @@
     "useTabs": false,
     "lineWidth": 80,
     "include": [
-      "src/util/**/*.js",
+      "src/**/*.js",
       "main.js",
       "public/JavaScript/*.js",
       "scripts/*.ts",
