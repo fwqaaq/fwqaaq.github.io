@@ -50,12 +50,13 @@ export const replaceHead = async (metaData, content) => {
 }
 
 /**
- * @param {string} body
  * @param {string} header
  * @param {string} footer
  * @param {string} version
+ * @param {string} src
  */
-export const replaceBody = (body, header, footer, version) => {
+export const replaceBody = (header, footer, version, src) => {
+  const body = Deno.readTextFileSync(new URL('../index.html', src))
   return body.replace('<!-- Header -->', header)
     .replace('<!-- Footer -->', footer)
     .replace('<!-- base.css -->', `/public/css/base.${version}.css`)
@@ -67,10 +68,17 @@ export const replaceBody = (body, header, footer, version) => {
 /**
  * @param {import("./type.js").GeneratePageOptions}
  */
-export async function generatePage({ group, basePath, dist, header, footer, version, author }) {
+export async function generatePage(
+  { group, basePath, dist, header, footer, version, author },
+) {
   const url = new URL(`./${basePath}/index.html`, dist)
   const keys = Object.keys(group)
-  const head = await replaceHead({ keywords: keys.join(', '), description: `${author} ~ ${basePath}`, title: `${author} ~ ${basePath}`, version })
+  const head = await replaceHead({
+    keywords: keys.join(', '),
+    description: `${author} ~ ${basePath}`,
+    title: `${author} ~ ${basePath}`,
+    version,
+  })
 
   // a tags
   const body = templateArticle({
@@ -88,7 +96,12 @@ export async function generatePage({ group, basePath, dist, header, footer, vers
 
   for (const [key, items] of Object.entries(group)) {
     const itemUrl = new URL(`./${basePath}/${key}/index.html`, dist)
-    const itemHead = await replaceHead({ keywords: [...new Set(items.flatMap((item) => item.tags))], description: `${author} ~ ${key}`, title: `${author} ~ ${key}`, version })
+    const itemHead = await replaceHead({
+      keywords: [...new Set(items.flatMap((item) => item.tags))],
+      description: `${author} ~ ${key}`,
+      title: `${author} ~ ${key}`,
+      version,
+    })
     if (!await exists(itemUrl)) await ensureFile(itemUrl)
 
     // p tags
@@ -96,12 +109,15 @@ export async function generatePage({ group, basePath, dist, header, footer, vers
       (acc, { date, summary }) => {
         const place = `/./posts/${handleUTC(date)}/index.html`
         return acc +
-          `<p><a class="decoration-line" href=${place} target="_blank"> ${summary} ··· ${convertToUSA(date)
+          `<p><a class="decoration-line" href=${place} target="_blank"> ${summary} ··· ${
+            convertToUSA(date)
           }</a></p>`
       },
       '',
     )
-    const itemBody = `${itemHead}${header}${templateArticle({ title: key, content: p })}${footer}`
+    const itemBody = `${itemHead}${header}${
+      templateArticle({ title: key, content: p })
+    }${footer}`
     await Deno.writeTextFile(itemUrl, itemBody)
   }
 }
@@ -179,5 +195,3 @@ const handler = async (request, version) => {
 
   return new Response(compress.readable, { headers })
 }
-
-

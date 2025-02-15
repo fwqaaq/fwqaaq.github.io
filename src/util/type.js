@@ -31,12 +31,12 @@
  */
 
 /**
-  * @typedef {Object} Yaml
-  * @property {string} [Yaml.name]
-  * @property {string} Yaml.title
-  * @property {string} [Yaml.summary]
-  * @property {string[]} [Yaml.tags]
-  * @property {string} [Yaml.date]
+ * @typedef {Object} Yaml
+ * @property {string} [Yaml.name]
+ * @property {string} Yaml.title
+ * @property {string} [Yaml.summary]
+ * @property {string[]} [Yaml.tags]
+ * @property {string} [Yaml.date]
  */
 
 /**
@@ -48,12 +48,12 @@
  */
 
 /**
-  * @typedef {Object} GeneratePageOptions
-  * @property {Record<string, import("../plugins/core.js").MetaData>} group
-  * @property {"archive" | "tags"} basePath
-  * @property {string} dist
-  * @property {string} header
-  * @property {string} footer
-  * @property {string} version
-  * @property {string} author
+ * @typedef {Object} GeneratePageOptions
+ * @property {Record<string, import("../plugins/core.js").MetaData>} group
+ * @property {"archive" | "tags"} basePath
+ * @property {string} dist
+ * @property {string} header
+ * @property {string} footer
+ * @property {string} version
+ * @property {string} author
  */
