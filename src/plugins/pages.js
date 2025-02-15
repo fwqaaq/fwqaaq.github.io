@@ -1,7 +1,12 @@
 import { ensureDir } from 'fs'
-import { generatePage, replaceBody } from '../util/utils.js'
+import {
+  convertToUSA,
+  generatePage,
+  generateTags,
+  handleUTC,
+  replaceBody,
+} from '../util/utils.js'
 import { templateBox, templateProcess } from '../util/template.js'
-import { convertToUSA, handleUTC } from '../util/utils.js'
 
 export const pagesPlugin = {
   name: 'pages',
@@ -12,37 +17,24 @@ export const pagesPlugin = {
     core.addhook(
       'afterBuild',
       async (/**@type {import("../util/type.js").Config} */ config) => {
-        const { dist, version, author, header, footer, src } = config
+        const { dist, version, header, footer, src } = config
 
         // Handle the archive
         const groupArchive = Object.groupBy(
           meta,
           (item) => new Date(item.date).getFullYear(),
         )
-        await generatePage({
-          group: groupArchive,
-          basePath: 'archive',
-          dist,
-          header,
-          footer,
-          version,
-          author,
-        })
 
         // Handle the tags
         const groupTags = Object.groupBy(
           meta.flatMap((item) => item.tags.map((tag) => ({ tag, ...item }))),
           (item) => item.tag,
         )
-        await generatePage({
-          group: groupTags,
-          basePath: 'tags',
-          dist,
-          header,
-          footer,
-          version,
-          author,
-        })
+
+        Promise.all([
+          generatePage({ group: groupArchive, basePath: 'archive', ...config }),
+          generatePage({ group: groupTags, basePath: 'tags', ...config }),
+        ])
 
         // Handle the home
         const POST_PER_PAGE = 8
@@ -53,27 +45,17 @@ export const pagesPlugin = {
         )
         const totalPage = groupMetaData.length
 
-        /**@param {string[]} */
-        const generateTags = (/**@type {string[]} */ tags) =>
-          tags.reduce(
-            (acc, tag) =>
-              acc +
-              `<a class="tag" href="/./tags/${tag}/"><i class="fa-solid fa-tag"></i> ${tag}</a>`,
-            '',
-          )
         const generateBox = (
           /**@type {import("../util/type.js").MetaData[]} */ meta,
-        ) => {
-          return meta.map(({ date, title, summary, tags }) => {
-            return templateBox({
+        ) =>
+          meta.map(({ date, tags, ...args }) =>
+            templateBox({
               place: `/./posts/${handleUTC(date)}/`,
-              title,
-              summary,
               time: convertToUSA(date),
               tags: generateTags(tags),
+              ...args,
             })
-          })
-        }
+          )
 
         const indexPage = replaceBody(header, footer, version, src)
         for (const [index, metaData] of groupMetaData.entries()) {
@@ -91,7 +73,7 @@ export const pagesPlugin = {
           if (index !== 0) {
             await ensureDir(new URL(`./home/${index + 1}/`, dist))
           }
-          await Deno.writeTextFile(url, home)
+          Deno.writeTextFile(url, home)
         }
       },
     )

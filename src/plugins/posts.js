@@ -6,6 +6,7 @@ import { ensureFile, exists } from 'fs'
 
 export const postPlugin = {
   name: 'post',
+  /**@type {import("../util/type.js").MetaData[]} */
   metaData: [],
   /**@param {import("./core.js").Core} core  */
   apply(core) {
@@ -34,15 +35,11 @@ export const postPlugin = {
           )
           if (!await exists(postDist)) await ensureFile(postDist)
 
-          const head = await replaceHead({
-            keywords: tags.join(', '),
-            description: summary,
-            title,
-            version,
-          })
+          const keywords = tags.join(', ')
+          const head = await replaceHead({ keywords, summary, title, version })
           const content = templateArticle({
-            title,
             content: await markdown(md),
+            title,
             giscus,
           })
           const post = `${head}${header}${content}${footer}`

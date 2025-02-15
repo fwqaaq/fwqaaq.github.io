@@ -18,16 +18,16 @@ export const assertPlugin = {
           const __dist_p = new URL(`./public/${entry.name}`, dist)
           if (entry.name === 'JavaScript') {
             await ensureFile(
-              new URL(`./${entry.name}/index.${config.version}.js`, __dist_p),
+              new URL(`./${entry.name}/index.${version}.js`, __dist_p),
             )
-            await copy(
+            copy(
               new URL(`./${entry.name}/index.js`, __src_p),
               new URL(`./${entry.name}/index.${version}.js`, __dist_p),
               { overwrite: true },
             )
             continue
           }
-          await copy(__src_p, __dist_p, { overwrite: true })
+          copy(__src_p, __dist_p, { overwrite: true })
         }
 
         // compile the css
@@ -39,7 +39,7 @@ export const assertPlugin = {
           const path = new URL(`../public/css/${entry.name}`, src)
           const code = await compileCss(path)
           const fileName = entry.name.split('.').join(`.${config.version}.`)
-          await Deno.writeFile(new URL(fileName, __css_d), code)
+          Deno.writeFile(new URL(fileName, __css_d), code)
         }
 
         // about me
@@ -51,7 +51,7 @@ export const assertPlugin = {
           { version },
           await Deno.readTextFile(__src_about),
         )
-        await Deno.writeTextFile(__dist_about, about)
+        Deno.writeTextFile(__dist_about, about)
       },
     )
   },

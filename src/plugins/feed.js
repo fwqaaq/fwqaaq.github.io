@@ -53,7 +53,7 @@ export const feedPlugin = {
           [__robots_dist, robotsContent],
         ].forEach(async ([path, content]) => {
           if (!await exists(path)) await ensureFile(path)
-          await Deno.writeTextFile(path, content)
+          Deno.writeTextFile(path, content)
         })
       },
     )

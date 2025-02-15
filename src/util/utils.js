@@ -31,17 +31,17 @@ export const convertToUSA = (date) => {
 }
 
 /**
- * @param {HeadMetaData} metaData
+ * @param {import("../util/type.js").MetaData} metaData
  * @param {string} [content]
  */
 export const replaceHead = async (metaData, content) => {
   const res = content ??
     await Deno.readTextFile(new URL('head.html', import.meta.url))
-  const { keywords, description, title, version } = metaData
+  const { keywords, summary, title, version } = metaData
 
   return res
     .replace('<!-- keywords -->', keywords)
-    .replace('<!-- description -->', description)
+    .replace('<!-- description -->', summary)
     .replace('<!-- title -->', title)
     .replace('<!-- base.css -->', `/public/css/base.${version}.css`)
     .replace('<!-- index.css -->', `/public/css/index.${version}.css`)
@@ -66,8 +66,18 @@ export const replaceBody = (header, footer, version, src) => {
 }
 
 /**
- * @param {import("./type.js").GeneratePageOptions}
+ * @param {string[]} tags
+ * @param {string} basePath
  */
+export const generateTags = (/**@type {string[]} */ tags, basePath = 'tags') =>
+  tags.reduce(
+    (acc, tag) =>
+      acc +
+      `<a class="tag" href="/./${basePath}/${tag}/"><i class="fa-solid fa-tag"></i> ${tag}</a>`,
+    '',
+  )
+
+/**@param {import("./type.js").GeneratePageOptions}*/
 export async function generatePage(
   { group, basePath, dist, header, footer, version, author },
 ) {
@@ -75,7 +85,7 @@ export async function generatePage(
   const keys = Object.keys(group)
   const head = await replaceHead({
     keywords: keys.join(', '),
-    description: `${author} ~ ${basePath}`,
+    summary: `${author} ~ ${basePath}`,
     title: `${author} ~ ${basePath}`,
     version,
   })
@@ -83,12 +93,7 @@ export async function generatePage(
   // a tags
   const body = templateArticle({
     title: basePath,
-    content: keys.reduce(
-      (acc, tag) =>
-        acc +
-        `<a class="tag" href="/./${basePath}/${tag}/"><i class="fa-solid fa-tag"></i> ${tag}</a>`,
-      '',
-    ),
+    content: generateTags(keys, basePath),
   })
   const article = `${head}${header}${body}${footer}`
   if (!await exists(url)) await ensureFile(url)
@@ -98,7 +103,7 @@ export async function generatePage(
     const itemUrl = new URL(`./${basePath}/${key}/index.html`, dist)
     const itemHead = await replaceHead({
       keywords: [...new Set(items.flatMap((item) => item.tags))],
-      description: `${author} ~ ${key}`,
+      summary: `${author} ~ ${key}`,
       title: `${author} ~ ${key}`,
       version,
     })

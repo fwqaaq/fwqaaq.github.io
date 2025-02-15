@@ -24,11 +24,7 @@ async function createConfig() {
     new URL('./util/footer.html', baseConfig.src),
   )
 
-  return {
-    ...baseConfig,
-    header,
-    footer,
-  }
+  return { ...baseConfig, header, footer }
 }
 
 const config = await createConfig()

@@ -40,14 +40,6 @@
  */
 
 /**
- * @typedef {Object} HeadMetaData
- * @property {string} [keywords]
- * @property {string} [description]
- * @property {string} [title]
- * @property {string} [version]
- */
-
-/**
  * @typedef {Object} GeneratePageOptions
  * @property {Record<string, import("../plugins/core.js").MetaData>} group
  * @property {"archive" | "tags"} basePath
