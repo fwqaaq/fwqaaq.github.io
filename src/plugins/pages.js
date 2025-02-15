@@ -8,11 +8,11 @@ export const pagesPlugin = {
   name: 'pages',
   /**@param {import("./core.js").Core} core  */
   apply(core) {
-    /** @type {import("./core.js").MetaData[]}*/
+    /**@type {import("../util/type.js").MetaData[]} */
     const meta = core.plugins.get('post').metaData
     core.addhook(
       'afterBuild',
-      async (/**@type {import("./core.js").Config} */ config) => {
+      async (/**@type {import("../util/type.js").Config} */ config) => {
         const { dist, version, author, header, footer, src } = config
 
         // Handle the archive
@@ -32,7 +32,7 @@ export const pagesPlugin = {
         // Handle the home
         const homeDest = new URL('./home/', dist)
         let indexPage = await Deno.readTextFile(new URL('../index.html', src))
-        indexPage = replaceBody(indexPage, header, footer, config.version)
+        indexPage = replaceBody(indexPage, header, footer, version)
 
         const mLength = meta.length
         const lastPage = Math.ceil(mLength / 8)

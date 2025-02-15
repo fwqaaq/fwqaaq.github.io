@@ -6,12 +6,12 @@ export const feedPlugin = {
   name: 'feed',
   /**@param {import("./core.js").Core} core  */
   apply(core) {
-    /** @type {import("./core.js").MetaData[]}*/
+    /**@type {import("../util/type.js").MetaData[]} */
     const meta = core.plugins.get('post').metaData
 
     core.addhook(
       'afterBuild',
-      (/**@type {import("./core.js").Config} */ config) => {
+      (/**@type {import("../util/type.js").Config} */ config) => {
         const { dist, author, website } = config
 
         // CNAME

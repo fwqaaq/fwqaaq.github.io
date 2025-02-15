@@ -8,7 +8,7 @@ export const assertPlugin = {
   apply(core) {
     core.addhook(
       'beforeBuild',
-      async (/**@type {import("./core.js").Config} */ config) => {
+      async (/**@type {import("../util/type.js").Config} */ config) => {
         const { dist, src, version } = config
 
         await ensureDir(new URL('./public/', dist))

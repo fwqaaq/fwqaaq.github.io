@@ -7,15 +7,8 @@ import init, { Features, transform } from 'lightningcss'
 const regxYaml = /---(\n[\s\S]*?\n)---/
 
 /**
- * @typedef {Object} Yaml
- * @property {string} [Yaml.name]
- * @property {string} Yaml.title
- * @property {string} [Yaml.summary]
- * @property {string[]} [Yaml.tags]
- * @property {string} [Yaml.date]
- *
  * @param {string} file
- * @returns {[Yaml, string]}
+ * @returns {[import("./type.js").Yaml, string]}
  */
 export const parseYaml = (file) => {
   const [yamlRaw, contentMd] = file.split(regxYaml).slice(1)
@@ -23,16 +16,10 @@ export const parseYaml = (file) => {
   return [parse(yamlRaw), contentMd]
 }
 
-/**
- * @param {string} date
- * @returns {string}
- */
+/** @param {string} date*/
 export const handleUTC = (date) => format(new Date(date), 'yyyyMMddHHmmss')
 
-/**
- * @param {string} date
- * @returns {string}
- */
+/**@param {string} date*/
 export const convertToUSA = (date) => {
   // 转换为美国本地时间格式
   const utc = new Date(date)
@@ -44,15 +31,8 @@ export const convertToUSA = (date) => {
 }
 
 /**
- * @typedef {Object} HeadMetaData
- * @property {string} [keywords]
- * @property {string} [description]
- * @property {string} [title]
- * @property {string} [version]
- *
  * @param {HeadMetaData} metaData
  * @param {string} [content]
- * @returns {Promise<string>}
  */
 export const replaceHead = async (metaData, content) => {
   const res = content ??
@@ -85,16 +65,7 @@ export const replaceBody = (body, header, footer, version) => {
 }
 
 /**
- * @typedef {Object} GeneratePageOptions
- * @property {Record<string, import("../plugins/core.js").MetaData>} group
- * @property {"archive" | "tags"} basePath
- * @property {string} dist
- * @property {string} header
- * @property {string} footer
- * @property {string} version
- * @property {string} author
- * 
- * @param {GeneratePageOptions}
+ * @param {import("./type.js").GeneratePageOptions}
  */
 export async function generatePage({ group, basePath, dist, header, footer, version, author }) {
   const url = new URL(`./${basePath}/index.html`, dist)

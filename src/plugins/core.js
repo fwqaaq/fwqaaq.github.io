@@ -1,41 +1,7 @@
-/**
- * @typedef {Object} Plugin
- * @property {string} name - Plugin name
- * @property {Function} apply - Plugin main function
- */
-
-/**
- * @typedef {Object} MetaData
- * @property {string} date
- * @property {string} title
- * @property {string} summary
- * @property {string[]} tags
- */
-
-/**
- * @typedef {Object} Hook
- * @property {Array<Function>} beforeBuild
- * @property {Array<Function>} afterBuild
- * @property {Array<Function>} onGeneratePage
- * @property {Array<Function>} onProcessMetaData
- */
-
-/**
- * @typedef {Object} Config
- * @property {string} src
- * @property {string} dist
- * @property {string} author
- * @property {string} website
- * @property {number} port
- * @property {number} version
- * @property {string} header
- * @property {string} footer
- */
-
 export class Core {
-  /**@type {Map<string, Plugin>} */
+  /**@type {Map<string, import("../util/type.js").Plugin>} */
   plugins
-  /**@type {Hook} */
+  /**@type {import("../util/type.js").Hook} */
   hooks
 
   constructor() {

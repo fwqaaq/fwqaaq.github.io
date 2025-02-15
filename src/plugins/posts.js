@@ -11,7 +11,7 @@ export const postPlugin = {
   apply(core) {
     core.addhook(
       'beforeBuild',
-      async (/**@type {import("./core.js").Config} */ config) => {
+      async (/**@type {import("../util/type.js").Config} */ config) => {
         const { dist, src, version, header, footer } = config
 
         const posts = new URL('./posts/', src)
