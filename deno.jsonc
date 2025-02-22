@@ -23,6 +23,7 @@
     "fs": "https://deno.land/std@0.194.0/fs/mod.ts",
     "type-mdast": "https://cdn.jsdelivr.net/npm/@types/mdast@4.0.3/index.d.ts",
     "unified": "https://esm.sh/unified@11.0.5",
+    "mdast-util-toc": "https://esm.sh/mdast-util-toc@7.1.0",
     "unified/index.d.ts": "https://esm.sh/unified@11.0.5/index.d.ts",
     "unist-util-visit": "https://esm.sh/unist-util-visit@5.0.0",
     "remark-parse": "https://esm.sh/remark-parse@10.0.2",

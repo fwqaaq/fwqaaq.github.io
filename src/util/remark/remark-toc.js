@@ -1,16 +1,21 @@
 import { visit } from 'unist-util-visit'
-import { toc } from 'https://esm.sh/mdast-util-toc@7'
+import { toc } from 'mdast-util-toc'
 
-/** @returns {import('unified/index.d.ts').Plugin<[], import('type-mdast').Root>}*/
-const remarkToc = () => {
+/**
+ * @typedef {Object} RemarkTocOptions
+ * @property {string} [flag='[TOC]'] - The flag to replace with the table of contents.
+ */
+
+/** @type {import('unified/index.d.ts').Plugin<[RemarkTocOptions], import('type-mdast').Root>}*/
+const remarkToc = (options = {}) => {
+  const { flag = '[TOC]' } = options
   return (tree) => {
-
     /** @type {{type: string, depth: number, children: []}[]}*/
     const headings = []
     visit(tree, "heading", (/**@type {import("type-mdast").Node} */ node, _index) => {
-      // Using `type: "link"` when heading is not a text node
       /**@type {string} */
       let title = node.children[0].value
+      // Using others type when heading is not a text node
       if (node.children[0].type !== "text" && node.children[0].children[0]) {
         title = node.children[0].children[0].value
       }
@@ -21,7 +26,7 @@ const remarkToc = () => {
     })
 
     visit(tree, "paragraph", (/**@type {import("type-mdast").Node} */ node, _index) => {
-      if (node.children?.[0]?.value !== "[TOC]") return
+      if (node.children?.[0]?.value !== flag) return
       const table = toc({ type: "root", children: headings })
       // update toc node
       table.map.data = {

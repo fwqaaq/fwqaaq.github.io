@@ -114,8 +114,8 @@ export async function generatePage(
       (acc, { date, summary }) => {
         const place = `/./posts/${handleUTC(date)}/index.html`
         return acc +
-          `<p><a class="decoration-line" href=${place} target="_blank"> ${summary} ··· ${convertToUSA(date)
-          }</a></p>`
+          `<p class="archive-p-line"><a class="archive-time-line" href=${place} target="_blank"> <span>${summary}</span> <span>${convertToUSA(date)
+          }</span></a></p>`
       },
       '',
     )
