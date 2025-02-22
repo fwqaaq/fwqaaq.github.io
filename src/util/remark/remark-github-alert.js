@@ -26,11 +26,10 @@ const DEFAULT_GITHUB_ICONS = {
 /**
  * @typedef {import("type-mdast").Root} Root
  * @typedef {import("type-mdast").PhrasingContent} PhrasingContent
- * @typedef {import("unified").Plugin<[RemarkGitHubAlertsOptions], Root>} Plugin
  * @typedef {import("unified").Transformer<Root, Root>} Transformer
  */
 
-/** @type {Plugin}*/
+/** @type {import("unified/index.d.ts").Plugin<[RemarkGitHubAlertsOptions] | [], Root>}*/
 const remarkGithubAlerts = (options = {}) => {
   const {
     markers = ['TIP', 'NOTE', 'IMPORTANT', 'WARNING', 'CAUTION'],

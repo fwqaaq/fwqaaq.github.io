@@ -8,6 +8,8 @@ tags:
 summary: linux 的简单应用
 ---
 
+[TOC]
+
 ## linux 目录
 
 | 目录            | 解释                                                                                                         |

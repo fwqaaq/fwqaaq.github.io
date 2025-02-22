@@ -7,6 +7,8 @@ tags:
 summary: 浏览器自带的 bom 属性
 ---
 
+[TOC]
+
 ## Viewport
 
 > [!TIP]

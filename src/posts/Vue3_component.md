@@ -9,6 +9,8 @@ tags:
 summary: 关于 vue3 组件化的使用，兼容的 vue2
 ---
 
+[TOC]
+
 ## 理解插槽
 
 - 使组件具备更强的通用性，组件中的内容不再限制为固定的 div、span 等等这些元素
@@ -227,7 +229,7 @@ import("./utils/math").then(
   - `fail`:函数，指加载程序结束退出
   - `attempts`:记录尝试的次数
 
-### 异步组件与 Suspense(<span style="color:red">还在实验中，API 随时可能修改</span>)
+### 异步组件与 Suspense
 
 - `Suspense`是一个内置的全局组件，该组件有两个插槽：
   - `default`：如果 default 可以显示，那么显示 default 的内容

@@ -8,6 +8,8 @@ tags:
 summary: 使用 puppeteer 做一个爬虫
 ---
 
+[TOC]
+
 ## 爬取页面或者接口数据
 
 > 页面得是 ssr（服务器渲染）`post`,`get` 等请求都可以

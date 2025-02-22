@@ -7,6 +7,8 @@ tags:
 summary: 使用 Git 进行代码的版本控制
 ---
 
+[TOC]
+
 ## 初始化
 
 - `git config --global user.name "xxx"`

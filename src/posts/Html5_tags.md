@@ -8,6 +8,8 @@ tags:
 summary: HTML5 的规范
 ---
 
+[TOC]
+
 ## 获取标签属性
 
 - `console.dir`:打印标签的属性

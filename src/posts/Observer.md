@@ -9,6 +9,8 @@ tags:
 summary: 浏览器的监听事件
 ---
 
+[TOC]
+
 ## Observer
 
 > [!IMPORTANT]

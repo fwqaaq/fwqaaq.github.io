@@ -7,6 +7,8 @@ tags:
 summary: Git 分支原理
 ---
 
+[TOC]
+
 ## 分支
 
 > [!NOTE]

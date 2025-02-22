@@ -8,6 +8,8 @@ tags:
 summary: Postgresql 基础知识
 ---
 
+[TOC]
+
 ## Postgres
 
 > 安装请参见：<https://gist.github.com/fwqaaq/d2a4b7c63a062cdc739c592921867625>

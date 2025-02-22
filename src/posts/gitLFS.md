@@ -7,6 +7,8 @@ tags:
 summary: 使用 GIT LFS 进行大文件的版本控制
 ---
 
+[TOC]
+
 ## [GIT LEF](https://git-lfs.com)
 
 > Git LFS 是对例如音频、视频、图形等大文件的一种扩展，它可以将大文件存储在 Git 仓库之外，从而加快 Git 的速度，同时也可以避免 Git 仓库过大。

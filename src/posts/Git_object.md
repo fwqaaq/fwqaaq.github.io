@@ -7,6 +7,8 @@ tags:
 summary: Git 对象原理剖析
 ---
 
+[TOC]
+
 ## 初始化 git
 
 - git init：初始化本地 git 仓库

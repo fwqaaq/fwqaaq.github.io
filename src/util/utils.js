@@ -114,15 +114,13 @@ export async function generatePage(
       (acc, { date, summary }) => {
         const place = `/./posts/${handleUTC(date)}/index.html`
         return acc +
-          `<p><a class="decoration-line" href=${place} target="_blank"> ${summary} ··· ${
-            convertToUSA(date)
+          `<p><a class="decoration-line" href=${place} target="_blank"> ${summary} ··· ${convertToUSA(date)
           }</a></p>`
       },
       '',
     )
-    const itemBody = `${itemHead}${header}${
-      templateArticle({ title: key, content: p })
-    }${footer}`
+    const itemBody = `${itemHead}${header}${templateArticle({ title: key, content: p })
+      }${footer}`
     await Deno.writeTextFile(itemUrl, itemBody)
   }
 }
@@ -149,7 +147,7 @@ export function startServer(
   try {
     Deno.serve({
       port,
-      hostname: 'localhost',
+      hostname: '127.0.0.1',
       onListen({ hostname, port }) {
         console.log(`Server started at http://${hostname}:${port}`)
       },

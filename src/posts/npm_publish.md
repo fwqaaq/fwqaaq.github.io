@@ -8,6 +8,8 @@ tags:
 summary: 发布一个属于自己的 npm
 ---
 
+[TOC]
+
 ## 字段
 
 1. 首先需要登录自己的 npm 账号 `npm login`

@@ -8,6 +8,8 @@ tags:
 summary: JavaScript 中的函数柯里化、偏函数以及惰性函数
 ---
 
+[TOC]
+
 ## 柯里化
 
 > [!NOTE]

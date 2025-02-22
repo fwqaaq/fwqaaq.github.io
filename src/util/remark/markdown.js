@@ -11,6 +11,7 @@ import rehypeAutolinkHeadings from 'rehype-autolink-headings'
 import remarkGfm from 'remark-gfm'
 import remarkGithubAlerts from './remark-github-alert.js'
 import remarkList from './remark-list.js'
+import remarkToc from './remark-toc.js'
 
 export const markdown = async (file) =>
   await unified()
@@ -18,6 +19,7 @@ export const markdown = async (file) =>
     .use(remarkGfm)
     .use(remarkGithubAlerts)
     .use(remarkList)
+    .use(remarkToc)
     .use(remarkRehype, { allowDangerousHtml: true })
     .use(rehypeShiki, {
       theme: 'andromeeda',

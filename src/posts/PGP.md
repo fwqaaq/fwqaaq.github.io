@@ -7,6 +7,8 @@ tags:
 summary: PGP 来加密邮件服务
 ---
 
+[TOC]
+
 ## MAC 上配置 PGP 密钥
 
 请参考：<https://gist.github.com/Peredery/38d0538dd34381bbd9d13414269a1f27>

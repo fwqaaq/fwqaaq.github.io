@@ -8,6 +8,8 @@ tags:
 summary: Github Action 一些重要内容的查询
 ---
 
+[TOC]
+
 ## [Github Action 上下文](https://docs.github.com/zh/actions/learn-github-actions/contexts#about-contexts)
 
 * [secrets](https://docs.github.com/zh/actions/learn-github-actions/contexts#secrets-context) 上下文中的 `secrets.GITHUB_TOKEN` 用于身份验证

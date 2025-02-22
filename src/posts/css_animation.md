@@ -7,6 +7,8 @@ tags:
 summary: 用于收集一些常见的 CSS 动画效果
 ---
 
+[TOC]
+
 ## height 动画效果
 
 众所周知，在之前的 CSS 中，例如 height 属性是不能直接进行动画效果的，需要使用 max-height 配合 transition 或者 animation 来实现该效果。

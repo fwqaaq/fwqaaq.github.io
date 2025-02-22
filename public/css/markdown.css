@@ -154,3 +154,20 @@ p>img:only-child {
     font-size: 1.2rem;
   }
 }
+
+.remark-toc-details {
+  padding-block: 1rem;
+}
+
+.remark-toc-name {
+  font-weight: 800;
+  font-size: 1.2rem;
+}
+
+.remark-toc :where(ul, li) {
+  list-style: inside;
+}
+
+.remark-toc p {
+  margin-block: 0.4rem;
+}

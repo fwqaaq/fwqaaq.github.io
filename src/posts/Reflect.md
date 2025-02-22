@@ -8,6 +8,8 @@ tags:
 summary: reflect 反射
 ---
 
+[TOC]
+
 ## Reflect
 
 1. Reflect 并非一个构造函数，不能通过 new 运算符对其进行调用，或者将 Reflect 对象作为一个函数来调用 (将原本 Object 命令式改为函数行为)

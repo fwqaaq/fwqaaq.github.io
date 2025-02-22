@@ -9,6 +9,8 @@ tags:
 summary: 迭代器、生成器以及协程之间的关系
 ---
 
+[TOC]
+
 ## JavaScript
 
 关于 JavaScript 中的[**可迭代协议**（Iterable protocol）](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Iteration_protocols#the_iterable_protocol)，在 MDN 文档中是说明实现了 `[Symbol.iterator]` 的对象，其可以被 `for...of` 循环遍历。

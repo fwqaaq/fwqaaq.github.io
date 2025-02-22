@@ -9,6 +9,8 @@ tags:
 summary: 使用 ESlint 规范项目
 ---
 
+[TOC]
+
 > 以下以 `nuxt3` 集成 ESlint 举例
 
 - `npx nuxi init nuxt-app`：首先得初始化一个 nuxt3 的项目

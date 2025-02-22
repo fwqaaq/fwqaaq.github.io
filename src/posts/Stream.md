@@ -12,6 +12,8 @@ tags:
 summary: 理解 I/O 流以及缓冲区
 ---
 
+[TOC]
+
 ## 为什么要写这篇文章？
 
 原因是在为 grammy 提 [PR](https://github.com/grammyjs/grammY/pull/560#discussion_r1571818711) 的时候，Deno 1.42.0 在使用 `using` 去释放文件描述符时有 bug（1.42.4 修复了）：

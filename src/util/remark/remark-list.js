@@ -1,11 +1,8 @@
 import { visit } from 'unist-util-visit'
 
-/**
- *  @returns  {import("unified").Plugin<[],import("type-mdast").Root>}
- */
+/** @return {import('unified/index.d.ts').Plugin<[], import('type-mdast').Root>}*/
 const remarkList = () => {
-  /**@param  {import('type-mdast').Root}  */
-  return (tree) => {
+  return (/**@type {import('type-mdast').Root}*/tree) => {
     visit(
       tree,
       'list',

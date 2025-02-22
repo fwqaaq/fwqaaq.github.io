@@ -7,6 +7,8 @@ tags:
 summary: 防抖和节流
 ---
 
+[TOC]
+
 ## 场景
 
 ```html
