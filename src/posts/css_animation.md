@@ -98,3 +98,39 @@ document.startViewTransition(
   ['--end-radius', `${endRadius}px`]
 ].forEach(([v, c]) => document.documentElement.style.setProperty(v, c))
 ```
+
+### 过渡动画
+
+在过渡动画中，经常可以看到在 AJAX 请求中，有一个圆圈过渡的动画，这个实现也是非常简单。
+
+1. 圆圈动画的实现，实际上就是少了一个 border 的圆圈在不停的旋转：
+
+    ```css
+    .loading::after {
+      content: "";
+      display: block;
+      position: absolute;
+      top: 50vh;
+      left: 50%;
+      width: 60px;
+      height: 60px;
+      margin: -30px 0 0 -30px;
+      border-radius: 50%;
+      border-style: solid;
+      border-color: var(--theme-color) var(--theme-color) var(--theme-color) transparent;
+      animation: spin 1s ease-in-out infinite;
+      z-index: 1;
+    }
+    
+    @keyframes spin {
+      0% {
+        transform: rotate(0deg);
+      }
+    
+      100% {
+        transform: rotate(360deg)
+      }
+    }
+    ```
+
+2. 在 AJAX 请求中，要选择对时机，在请求开始的时候添加 `.loading` 类，请求结束的时候移除 `.loading` 类。参见：<https://github.com/fwqaaq/fwqaaq.github.io/blob/13aab4ed811fa89898321e470382479ab053e5d8/public/JavaScript/index.js#L196-L204>

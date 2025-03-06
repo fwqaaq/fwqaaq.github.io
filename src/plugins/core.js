@@ -12,7 +12,7 @@ export class Core {
     }
   }
 
-  use(/**@type {Plugin}*/ plugin) {
+  use(/**@type {import("../util/type.js").Plugin}*/ plugin) {
     if (this.plugins.has(plugin.name)) {
       throw new Error(`Plugin ${plugin.name} already exists`)
     }

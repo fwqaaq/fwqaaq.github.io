@@ -114,13 +114,15 @@ export async function generatePage(
       (acc, { date, summary }) => {
         const place = `/./posts/${handleUTC(date)}/index.html`
         return acc +
-          `<p class="archive-p-line"><a class="archive-time-line" href=${place} target="_blank"> <span>${summary}</span> <span>${convertToUSA(date)
+          `<p class="archive-p-line"><a class="archive-time-line" href=${place} target="_blank"> <span>${summary}</span> <span>${
+            convertToUSA(date)
           }</span></a></p>`
       },
       '',
     )
-    const itemBody = `${itemHead}${header}${templateArticle({ title: key, content: p })
-      }${footer}`
+    const itemBody = `${itemHead}${header}${
+      templateArticle({ title: key, content: p })
+    }${footer}`
     await Deno.writeTextFile(itemUrl, itemBody)
   }
 }
