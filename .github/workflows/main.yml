@@ -24,7 +24,7 @@ jobs:
         run: |
           echo "DENO_DIR=$(deno info | grep DENO_DIR | awk '{print $3}')" >> $GITHUB_ENV
       - name: Set cache
-        uses: actions/cache@v2
+        uses: actions/cache@v4
         with:
           path: ${{ env.DENO_DIR }}
           key: ${{ hashFiles('deno.lock') }}
