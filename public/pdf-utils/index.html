@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PDF 水印添加工具</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-SgOJa3DmI69IUzQ2PVdRZhwQ+dy64/BUtbMJw1MZ8t5HZApcHrRKUc4W0kG879m7" crossorigin="anonymous">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
+      margin: 0;
+      padding: 20px;
+      background-color: #f5f5f5;
+      color: #333;
+    }
+
+    label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+
+    input[type="text"],
+    input[type="file"] {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      box-sizing: border-box;
+    }
+
+    input[type="color"] {
+      height: 40px;
+      width: 100%;
+    }
+
+    input[type="range"] {
+      width: 100%;
+    }
+
+    .btn {
+      background-color: #3498db;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      cursor: pointer;
+      font-size: 16px;
+      border-radius: 4px;
+      display: block;
+      margin: 20px auto;
+      transition: background-color 0.3s;
+    }
+
+    .btn:hover {
+      background-color: #2980b9;
+    }
+
+    .btn:disabled {
+      background-color: #bdc3c7;
+      cursor: not-allowed;
+    }
+
+    .preview {
+      margin-top: 30px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      padding: 10px;
+      background-color: #f9f9f9;
+    }
+
+    .preview iframe {
+      width: 100%;
+      height: 400px;
+      border: none;
+    }
+
+    .value-display {
+      display: inline-block;
+      min-width: 30px;
+      text-align: right;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container-sm mx-auto p-4 bg-white rounded shadow-sm" style="max-width: 800px;">
+    <h1 class="text-center mb-4" style="color: #2c3e50">PDF 水印添加工具</h1>
+
+    <div class="m-4">
+      <label for="pdfFile">上传PDF文件:</label>
+      <input type="file" id="pdfFile" accept="application/pdf">
+    </div>
+
+
+    <div class="d-flex gap-4 mb-4">
+      <div class="flex-grow-1">
+        <label for="watermarkText">水印文本:</label>
+        <input type="text" id="watermarkText" value="CONFIDENTIAL" placeholder="输入水印文本">
+      </div>
+      <div class="flex-grow-1">
+        <label for="watermarkColor">水印颜色:</label>
+        <input type="color" id="watermarkColor" value="#FF0000">
+      </div>
+    </div>
+
+    <div class="d-flex gap-4 mb-4">
+      <div class="flex-grow-1">
+        <label for="opacity">不透明度: <span id="opacityValue" class="value-display">0.6</span></label>
+        <input type="range" id="opacity" min="0.1" max="1" step="0.1" value="0.6">
+      </div>
+      <div class="flex-grow-1">
+        <label for="fontSize">字体大小: <span id="fontSizeValue" class="value-display">60</span>px</label>
+        <input type="range" id="fontSize" min="20" max="100" step="1" value="60">
+      </div>
+      <div class="flex-grow-1">
+        <label for="rotation">旋转角度: <span id="rotationValue" class="value-display">45</span>°</label>
+        <input type="range" id="rotation" min="0" max="360" step="5" value="45">
+      </div>
+    </div>
+
+    <button id="addWatermarkBtn" class="btn" disabled>添加水印</button>
+
+    <div id="progressContainer" class="w-100 rounded-1 my-2" style="display: none;">
+      <div class="progress" style="height: 20px;">
+        <div id="progressBar" class="progress-bar"></div>
+      </div>
+      <p id="progressText" style="text-align: center;">处理中: 0%</p>
+    </div>
+
+    <div id="previewContainer" class="preview" style="display: none;">
+      <h2>PDF 预览:</h2>
+      <iframe id="pdfPreview" title="PDF Preview"></iframe>
+      <p class="fs-6 mt-1" style="color: #7f8c8d;">注意: 预览显示的是原始PDF。添加水印后，将自动下载处理后的文件。</p>
+    </div>
+
+    <button id="downloadBtn" class="btn" style="display: none;">下载 PDF</button>
+    <div class="mt-4 p-4 rounded-1 fs-6" style="background-color: #f8f9fa;">
+      <h3 class="mt-0">使用说明:</h3>
+      <ol class="ps-xl-0">
+        <li>上传PDF文件</li>
+        <li>设置水印文本、颜色、不透明度、大小和角度</li>
+        <li>点击"添加水印"按钮</li>
+        <li>处理完成后，点击"下载 PDF"按钮下载带水印的文件</li>
+      </ol>
+    </div>
+  </div>
+
+  <script type="module">
+    // 获取DOM元素
+    const pdfFileInput = document.getElementById('pdfFile');
+    const watermarkTextInput = document.getElementById('watermarkText');
+    const watermarkColorInput = document.getElementById('watermarkColor');
+    const opacityInput = document.getElementById('opacity');
+    const fontSizeInput = document.getElementById('fontSize');
+    const rotationInput = document.getElementById('rotation');
+    const addWatermarkBtn = document.getElementById('addWatermarkBtn');
+    const previewContainer = document.getElementById('previewContainer');
+    const pdfPreview = document.getElementById('pdfPreview');
+    const progressContainer = document.getElementById('progressContainer');
+    const progressBar = document.getElementById('progressBar');
+    const progressText = document.getElementById('progressText');
+    const downloadBtn = document.getElementById('downloadBtn')
+
+    // 显示当前值
+    const opacityValue = document.getElementById('opacityValue');
+    const fontSizeValue = document.getElementById('fontSizeValue');
+    const rotationValue = document.getElementById('rotationValue');
+
+    // 更新显示值
+    opacityInput.addEventListener('input', () => {
+      opacityValue.textContent = opacityInput.value;
+    });
+
+    fontSizeInput.addEventListener('input', () => {
+      fontSizeValue.textContent = fontSizeInput.value;
+    });
+
+    rotationInput.addEventListener('input', () => {
+      rotationValue.textContent = rotationInput.value;
+    });
+
+    // 文件选择处理
+    pdfFileInput.addEventListener('change', (event) => {
+      const file = event.target.files[0];
+      if (file && file.type === 'application/pdf') {
+        // 启用添加水印按钮
+        addWatermarkBtn.disabled = false;
+
+        // 创建预览
+        const fileURL = URL.createObjectURL(file);
+        pdfPreview.src = fileURL;
+        previewContainer.style.display = 'block';
+        return;
+      }
+
+      if (file && file.type !== 'application/pdf') {
+        alert('请选择有效的PDF文件');
+        pdfFileInput.value = '';
+        addWatermarkBtn.disabled = true;
+        previewContainer.style.display = 'none';
+      }
+    });
+
+    // 将十六进制颜色转换为RGB
+    function hexToRgb(hex) {
+      const r = parseInt(hex.slice(1, 3), 16) / 255;
+      const g = parseInt(hex.slice(3, 5), 16) / 255;
+      const b = parseInt(hex.slice(5, 7), 16) / 255;
+      return { r, g, b };
+    }
+
+    // 添加水印处理
+    addWatermarkBtn.addEventListener('click', async () => {
+      const file = pdfFileInput.files[0];
+      if (!file) {
+        alert('请先选择PDF文件');
+        return;
+      }
+
+      const watermarkText = watermarkTextInput.value || 'CONFIDENTIAL';
+      const watermarkColor = watermarkColorInput.value;
+      const opacity = parseFloat(opacityInput.value);
+      const fontSize = parseInt(fontSizeInput.value);
+      const rotation = parseInt(rotationInput.value);
+
+      // 显示进度条
+      progressContainer.style.display = 'block';
+      progressBar.style.width = '0%';
+      progressText.textContent = '处理中: 0%';
+      addWatermarkBtn.disabled = true;
+
+      try {
+        // 加载PDF文档
+        const arrayBuffer = await file.arrayBuffer();
+        const pdfDoc = await PDFLib.PDFDocument.load(arrayBuffer);
+
+        // 获取所有页面
+        const pages = pdfDoc.getPages();
+        const { r, g, b } = hexToRgb(watermarkColor);
+        const font = await pdfDoc.embedFont(PDFLib.StandardFonts.HelveticaBold);
+
+        // 处理每个页面
+        for (let i = 0; i < pages.length; i++) {
+          const page = pages[i];
+          const { width, height } = page.getSize();
+
+          // 计算水印位置
+          const textWidth = font.widthOfTextAtSize(watermarkText, fontSize);
+          const textHeight = font.heightAtSize(fontSize);
+
+          // 绘制水印
+          page.drawText(watermarkText, {
+            x: width / 2 - textWidth / 2,
+            y: height / 2 - textHeight / 2,
+            size: fontSize,
+            font: font,
+            color: PDFLib.rgb(r, g, b),
+            opacity: opacity,
+            rotate: PDFLib.degrees(rotation),
+          });
+
+          // 更新进度
+          const progress = Math.round(((i + 1) / pages.length) * 100);
+          progressBar.style.width = `${progress}%`;
+          progressText.textContent = `处理中: ${progress}%`;
+
+          // 允许UI更新
+          await new Promise(resolve => setTimeout(resolve, 0));
+        }
+
+        // 保存带水印的PDF
+        const watermarkedPdfBytes = await pdfDoc.save();
+
+        // 创建Blob并下载
+        const blob = new Blob([watermarkedPdfBytes], { type: 'application/pdf' });
+
+        // 预览水印文件
+        const fileURL = URL.createObjectURL(blob);
+        pdfPreview.src = fileURL;
+        previewContainer.style.display = 'block';
+
+        // 下载水印文件
+        downloadBtn.style.display = 'block';
+        downloadBtn.addEventListener('click', () => {
+          saveAs(blob, `watermarked_${file.name}`);
+        });
+      } catch (error) {
+        console.error('PDF处理错误:', error);
+        alert('添加水印时出错: ' + error.message);
+      } finally {
+        progressContainer.style.display = 'none';
+        addWatermarkBtn.disabled = false;
+      }
+    });
+  </script>
+</body>
+
+</html>
