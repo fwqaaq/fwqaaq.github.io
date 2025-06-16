@@ -34,9 +34,9 @@ async function main() {
   }
   const core = new Core()
   core.use(postPlugin)
-  core.use(assertPlugin)
-  core.use(feedPlugin)
-  core.use(pagesPlugin)
+    .use(assertPlugin)
+    .use(feedPlugin)
+    .use(pagesPlugin)
   await core.runHook('beforeBuild', config)
   await core.runHook('afterBuild', config)
 }

@@ -32,6 +32,7 @@ projects:
   - cloudflare-webdav-rs：https://github.com/fwqaaq/cloudflare-webdav-rs 使用 rust + wasm 利用 worker 构建的 webdav，可以挂载在 mac、win 等支持的 OS
   - Shell、JavaScript 脚本：https://github.com/fwqaaq/scripts，可以美化 GitHub 或者一些部署项目使用
   - Nvim 工具链配置：https://github.com/fwqaaq/dot，不仅仅是 Nvim，以及 tmux、node、rust 等环境等生成
+  - Cloudflare R2 管理：https://github.com/fwqaaq/website-r2 以及 https://github.com/fwqaaq/telegram-to-r2
   - 学习历程：https://github.com/fwqaaq/coding_and_nas
 skills:
   - 编程语言：TypeScript(JavaScript) > Rust > Go > Clang > Shell
