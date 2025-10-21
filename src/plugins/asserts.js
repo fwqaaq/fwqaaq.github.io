@@ -1,4 +1,4 @@
-import { compileCss } from '../util/utils.js'
+// import { compileCss } from '../util/utils.js'
 import { copy, ensureDir, ensureFile, exists } from 'fs'
 import { replaceHead } from '../util/utils.js'
 
@@ -37,9 +37,11 @@ export const assertPlugin = {
           const entry of Deno.readDir(new URL('../public/css/', src))
         ) {
           const path = new URL(`../public/css/${entry.name}`, src)
-          const code = await compileCss(path)
+          // const code = await compileCss(path)
           const fileName = entry.name.split('.').join(`.${config.version}.`)
-          Deno.writeFile(new URL(fileName, __css_d), code)
+          const newPath = new URL(fileName, __css_d)
+          await copy(path, newPath, { overwrite: true })
+          // Deno.writeFile(new URL(fileName, __css_d), code)
         }
 
         // about me

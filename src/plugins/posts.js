@@ -26,7 +26,8 @@ export const postPlugin = {
           )
 
           const [meta, md] = parseYaml(postContent)
-          const { title, summary, date, tags } = meta
+          const description = md.trim().slice(10, 100).replace(/\n/g, ' ') + '...'
+          const { title, date, tags } = meta
 
           // Handle the posts
           const postDist = new URL(
@@ -36,7 +37,7 @@ export const postPlugin = {
           if (!await exists(postDist)) await ensureFile(postDist)
 
           const keywords = tags.join(', ')
-          const head = await replaceHead({ keywords, summary, title, version })
+          const head = await replaceHead({ keywords, description, title, version, url: `${config.website}/posts/${handleUTC(date)}/` })
           const content = templateArticle({
             content: await markdown(md),
             title,

@@ -172,16 +172,14 @@
     const rotationValue = document.getElementById('rotationValue');
 
     // 更新显示值
-    opacityInput.addEventListener('input', () => {
-      opacityValue.textContent = opacityInput.value;
-    });
-
-    fontSizeInput.addEventListener('input', () => {
-      fontSizeValue.textContent = fontSizeInput.value;
-    });
-
-    rotationInput.addEventListener('input', () => {
-      rotationValue.textContent = rotationInput.value;
+    [
+      { input: opacityInput, display: opacityValue },
+      { input: fontSizeInput, display: fontSizeValue },
+      { input: rotationInput, display: rotationValue }
+    ].forEach(i => {
+      i.input.addEventListener('input', () => {
+        i.display.textContent = i.input.value;
+      });
     });
 
     // 文件选择处理
@@ -262,6 +260,7 @@
             color: PDFLib.rgb(r, g, b),
             opacity: opacity,
             rotate: PDFLib.degrees(rotation),
+            rotationOrigin: { x: width / 2 - textWidth / 2, y: height / 2 - textHeight / 2 },
           });
 
           // 更新进度

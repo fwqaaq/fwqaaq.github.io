@@ -2,13 +2,13 @@ import { ensureFile, exists } from 'fs'
 import { parse } from 'yaml'
 import { format } from 'datetime'
 import { templateArticle } from './template.js'
-import init, { Features, transform } from 'lightningcss'
+// import init, { Features, transform } from 'lightningcss'
 
 const regxYaml = /---(\n[\s\S]*?\n)---/
 
 /**
  * @param {string} file
- * @returns {[import("./type.js").Yaml, string]}
+ * @returns {[import("./type.js").MetaData, string]}
  */
 export const parseYaml = (file) => {
   const [yamlRaw, contentMd] = file.split(regxYaml).slice(1)
@@ -31,22 +31,23 @@ export const convertToUSA = (date) => {
 }
 
 /**
- * @param {import("../util/type.js").MetaData} metaData
+ * @param {{keywords: string, description: string, title: string, version: string, url: string}}
  * @param {string} [content]
  */
-export const replaceHead = async (metaData, content) => {
+export const replaceHead = async ({keywords, description, title, version, url}, content) => {
   const res = content ??
     await Deno.readTextFile(new URL('head.html', import.meta.url))
-  const { keywords, summary, title, version } = metaData
 
   return res
     .replace('<!-- keywords -->', keywords)
-    .replace('<!-- description -->', summary)
+    .replace('<!-- author -->', 'fwqaaq') // replace with your name
+    .replace('<!-- description -->', description)
     .replace('<!-- title -->', title)
     .replace('<!-- base.css -->', `/public/css/base.${version}.css`)
     .replace('<!-- index.css -->', `/public/css/index.${version}.css`)
     .replace('<!-- markdown.css -->', `/public/css/markdown.${version}.css`)
     .replace('<!-- index.js -->', `/public/JavaScript/index.${version}.js`)
+    .replace('<!-- url -->', url)
 }
 
 /**
@@ -127,20 +128,22 @@ export async function generatePage(
   }
 }
 
-/**
- * @param {URL} path
- * @returns {Promise<Uint8Array>}
- */
-export async function compileCss(path) {
-  await init()
-  const text = await Deno.readFile(path)
-  const { code } = transform({
-    code: text,
-    include: Features.Colors | Features.Nesting,
-    minify: true,
-  })
-  return code
-}
+// /**
+//  * @param {URL} path
+//  * @returns {Promise<Uint8Array>}
+//  */
+// export async function compileCss(path) {
+//   console.log("init before")
+//   await init()
+//   console.log("init after")
+//   const text = await Deno.readFile(path)
+//   const { code } = transform({
+//     code: text,
+//     include: Features.Colors | Features.Nesting,
+//     minify: true,
+//   })
+//   return code
+// }
 
 export function startServer(
   /**@type {number} */ port,

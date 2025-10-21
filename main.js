@@ -5,9 +5,11 @@ import { pagesPlugin } from './src/plugins/pages.js'
 import { postPlugin } from './src/plugins/posts.js'
 import { existsSync } from 'fs'
 import { startServer } from './src/util/utils.js'
-import 'https://deno.land/std@0.201.0/dotenv/load.ts'
+import { load } from 'dotenv'
 
 async function createConfig() {
+  await load({ export: true, defaults: true })
+
   const baseConfig = {
     dist: import.meta.resolve('./dist/'),
     src: import.meta.resolve('./src/'),

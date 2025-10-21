@@ -37,8 +37,9 @@
     "yaml": "https://deno.land/std@0.194.0/yaml/mod.ts",
     "Command": "https://deno.land/x/cliffy@v1.0.0-rc.3/command/mod.ts",
     "datetime": "https://deno.land/std@0.200.0/datetime/format.ts",
-    "lightningcss": "https://cdn.jsdelivr.net/npm/lightningcss-wasm/+esm",
+    // "lightningcss": "https://esm.run/lightningcss-wasm",
     "@cloudflare/workers-types": "https://cdn.jsdelivr.net/npm/@cloudflare/workers-types@latest/index.ts",
-    "pdf-lib": "https://unpkg.com/pdf-lib@1.17.1/es/index.d.ts"
+    "pdf-lib": "https://unpkg.com/pdf-lib@1.17.1/es/index.d.ts",
+    "dotenv": "jsr:@std/dotenv"
   }
 }
