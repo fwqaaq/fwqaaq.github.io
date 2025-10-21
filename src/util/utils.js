@@ -41,8 +41,8 @@ export const replaceHead = async ({keywords, description, title, version, url}, 
   return res
     .replace('<!-- keywords -->', keywords)
     .replace('<!-- author -->', 'fwqaaq') // replace with your name
-    .replace('<!-- description -->', description)
-    .replace('<!-- title -->', title)
+    .replaceAll('<!-- description -->', description)
+    .replaceAll('<!-- title -->', title)
     .replace('<!-- base.css -->', `/public/css/base.${version}.css`)
     .replace('<!-- index.css -->', `/public/css/index.${version}.css`)
     .replace('<!-- markdown.css -->', `/public/css/markdown.${version}.css`)
