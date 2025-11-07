@@ -2,7 +2,9 @@ import { ensureFile, exists } from 'fs'
 import { parse } from 'yaml'
 import { format } from 'datetime'
 import { templateArticle } from './template.js'
-// import init, { Features, transform } from 'lightningcss'
+import postcss from 'postcss'
+import postcssPresetEnv from 'postcss-preset-env'
+import postcssMinify from '@csstools/postcss-minify'
 
 const regxYaml = /---(\n[\s\S]*?\n)---/
 
@@ -34,7 +36,10 @@ export const convertToUSA = (date) => {
  * @param {{keywords: string, description: string, title: string, version: string, url: string}}
  * @param {string} [content]
  */
-export const replaceHead = async ({keywords, description, title, version, url}, content) => {
+export const replaceHead = async (
+  { keywords, description, title, version, url },
+  content,
+) => {
   const res = content ??
     await Deno.readTextFile(new URL('head.html', import.meta.url))
 
@@ -115,7 +120,7 @@ export async function generatePage(
       (acc, { date, summary }) => {
         const place = `/./posts/${handleUTC(date)}/index.html`
         return acc +
-          `<p class="archive-p-line"><a class="archive-time-line" href=${place} target="_blank"> <span>${summary}</span> <span>${
+          `<p class="archive-p-line"><a class="archive-time-line" href=${place} target="_blank"> <span class="text">${summary}</span> <span class="date">${
             convertToUSA(date)
           }</span></a></p>`
       },
@@ -128,22 +133,22 @@ export async function generatePage(
   }
 }
 
-// /**
-//  * @param {URL} path
-//  * @returns {Promise<Uint8Array>}
-//  */
-// export async function compileCss(path) {
-//   console.log("init before")
-//   await init()
-//   console.log("init after")
-//   const text = await Deno.readFile(path)
-//   const { code } = transform({
-//     code: text,
-//     include: Features.Colors | Features.Nesting,
-//     minify: true,
-//   })
-//   return code
-// }
+export function createProcessor() {
+  const postcssor = postcss([
+    postcssMinify(),
+    postcssPresetEnv({
+      stage: 3,
+      browsers: 'last 2 versions, > 1%, not dead',
+      features: {
+        'nesting-rules': true,
+        'has-pseudo-class': true,
+        'nested-calc': true,
+      },
+    }),
+  ])
+
+  return postcssor
+}
 
 export function startServer(
   /**@type {number} */ port,
@@ -187,7 +192,15 @@ const handler = async (request, version) => {
     reqUrl = reqUrl.replace(`.${version}`, '')
   }
 
-  const file = await Deno.open(`./dist${reqUrl}`)
+  let file, status = 200
+
+  try {
+    file = await Deno.open(`./dist${reqUrl}`)
+  } catch {
+    status = 404
+    file = await Deno.open(`./dist/404.html`)
+  }
+
   const contentEncoding = request.headers.get('Accept-Encoding')
 
   // browser doesn't support gzip
@@ -201,5 +214,5 @@ const handler = async (request, version) => {
   const compress = new CompressionStream('gzip')
   file.readable.pipeThrough(compress)
 
-  return new Response(compress.readable, { headers })
+  return new Response(compress.readable, { headers, status })
 }

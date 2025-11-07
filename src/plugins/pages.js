@@ -38,13 +38,15 @@ export const pagesPlugin = {
 
         // handle the 404
         const indexPage = replaceBody(header, footer, version, src)
-        const notFound = indexPage.replace('<!-- Template -->',`<section style="display: flex; align-items: center; justify-content: center;">
+        const notFound = indexPage.replace(
+          '<!-- Template -->',
+          `<section class="not-found">
         <h1>404 - 页面未找到</h1>
         <p>抱歉，您请求的页面不存在或已被移除。</p>
-        <p><a href="/">返回首页</a></p>
-      </section>`)
-        await Deno.writeTextFile(new URL("./404.html", dist), notFound)
-        
+        </section>`,
+        )
+        await Deno.writeTextFile(new URL('./404.html', dist), notFound)
+
         // Handle the home
         const POST_PER_PAGE = 8
         const groupMetaData = Array.from(

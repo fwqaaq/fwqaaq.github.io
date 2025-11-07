@@ -238,17 +238,36 @@ main.about-main {
   background: linear-gradient(120deg, rgba(0, 117, 195, 0.15) 0%, rgba(0, 202, 165, 0.239) 100%);
 }
 
+
 .archive-time-line {
   display: flex;
   justify-content: space-between;
-}
-
-.archive-time-line {
   padding-block: 0.16rem;
+  gap: 1.2rem;
 
   &:hover {
     box-shadow: 0 0.2rem 0 var(--table-border-color);
   }
+}
+
+.archive-time-line .text {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  /** 防止换行 */
+}
+
+.archive-time-line .date {
+  flex-shrink: 0;
+  /** 防止日期被压缩 */
+}
+
+/* not found page */
+article:has(.not-found) {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 /* Match Chrome for about showing */
@@ -342,12 +361,6 @@ main.about-main {
       padding-inline-end: 1rem;
     }
 
-    /*权重需要比 .header-nav 大*/
-    nav.header-nav.show {
-      height: auto;
-      height: calc-size(auto, size);
-    }
-
     .header-nav {
       width: 100%;
       height: 0;
@@ -360,6 +373,12 @@ main.about-main {
       inset-block-start: var(--header-height);
       overflow: hidden;
       transition: height 0.5s ease;
+    }
+
+    /*权重需要比 .header-nav 大*/
+    nav.header-nav.show {
+      height: auto;
+      height: calc-size(auto, size);
     }
   }
 

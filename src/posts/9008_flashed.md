@@ -5,7 +5,7 @@ categories: chore
 tags:
    - Chore
    - Android
-summary: 一加 OxygenOS 16 刷机，完全封锁 bootloader 变砖记录
+summary: 一加 OxygenOS 16 刷机，完全封锁 fastboot 变砖记录
 ---
 
 [TOC]

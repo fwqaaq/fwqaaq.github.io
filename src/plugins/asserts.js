@@ -1,6 +1,6 @@
-// import { compileCss } from '../util/utils.js'
-import { copy, ensureDir, ensureFile, exists } from 'fs'
+import { copy, ensureDir, ensureFile, exists, walk } from 'fs'
 import { replaceHead } from '../util/utils.js'
+import { createProcessor } from '../util/utils.js'
 
 export const assertPlugin = {
   name: 'assert',
@@ -11,37 +11,48 @@ export const assertPlugin = {
       async (/**@type {import("../util/type.js").Config} */ config) => {
         const { dist, src, version } = config
 
+        const __css_d = new URL('./public/css/', dist)
         await ensureDir(new URL('./public/', dist))
-        for await (const entry of Deno.readDir(new URL('../public/', src))) {
-          if (entry.name === 'css') continue
-          const __src_p = new URL(`../public/${entry.name}`, src)
-          const __dist_p = new URL(`./public/${entry.name}`, dist)
-          if (entry.name === 'JavaScript') {
-            await ensureFile(
-              new URL(`./${entry.name}/index.${version}.js`, __dist_p),
-            )
-            copy(
-              new URL(`./${entry.name}/index.js`, __src_p),
-              new URL(`./${entry.name}/index.${version}.js`, __dist_p),
-              { overwrite: true },
+        const postcssor = createProcessor()
+        for await (const entry of walk(new URL('../public/', src))) {
+          const __dist_p = entry.path.replace('public', 'dist/public')
+
+          if (entry.name.includes('css') && entry.isFile) {
+            const css = await Deno.readTextFile(entry.path)
+            const result = await postcssor.process(css, { from: entry.path })
+
+            await Deno.writeTextFile(
+              __dist_p.replace('.css', `.${version}.css`),
+              result.css,
             )
             continue
           }
-          copy(__src_p, __dist_p, { overwrite: true })
-        }
 
-        // compile the css
-        const __css_d = new URL('./public/css/', dist)
-        await ensureDir(__css_d)
-        for await (
-          const entry of Deno.readDir(new URL('../public/css/', src))
-        ) {
-          const path = new URL(`../public/css/${entry.name}`, src)
-          // const code = await compileCss(path)
-          const fileName = entry.name.split('.').join(`.${config.version}.`)
-          const newPath = new URL(fileName, __css_d)
-          await copy(path, newPath, { overwrite: true })
-          // Deno.writeFile(new URL(fileName, __css_d), code)
+          if (entry.name.includes('js') && entry.isFile) {
+            await copy(
+              entry.path,
+              __dist_p.replace('.js', `.${version}.js`),
+            )
+            continue
+          }
+
+          if (entry.name.includes('html') && entry.isFile) {
+            const html = await Deno.readTextFile(entry.path)
+            html.replace(
+              '<?-- index.css -->',
+              `/public/resume/index.${version}.css`,
+            )
+            await Deno.writeTextFile(__dist_p, html)
+            continue
+          }
+
+          // only copy the directory
+          if (entry.isDirectory) {
+            await ensureDir(__dist_p)
+            continue
+          }
+
+          await copy(entry.path, __dist_p, {})
         }
 
         // about me
