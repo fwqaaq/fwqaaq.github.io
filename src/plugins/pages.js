@@ -17,7 +17,7 @@ export const pagesPlugin = {
     core.addhook(
       'afterBuild',
       async (/**@type {import("../util/type.js").Config} */ config) => {
-        const { dist, version, header, footer, src } = config
+        const { dist, version, header, footer, src, author, website } = config
 
         // Handle the archive
         const groupArchive = Object.groupBy(
@@ -37,7 +37,14 @@ export const pagesPlugin = {
         ])
 
         // handle the 404
-        const indexPage = replaceBody(header, footer, version, src)
+        const indexPage = replaceBody(
+          header,
+          footer,
+          version,
+          src,
+          author,
+          website,
+        )
         const notFound = indexPage.replace(
           '<!-- Template -->',
           `<section class="not-found">
@@ -61,6 +68,7 @@ export const pagesPlugin = {
         ) =>
           meta.map(({ date, tags, ...args }) =>
             templateBox({
+              author,
               place: `/./posts/${handleUTC(date)}/`,
               time: convertToUSA(date),
               tags: generateTags(tags),

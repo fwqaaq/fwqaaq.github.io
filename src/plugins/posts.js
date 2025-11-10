@@ -6,8 +6,8 @@ import { ensureFile, exists } from 'fs'
 import { readAll } from '@std/io'
 import { format } from 'datetime'
 
-const postsDate = (date) => format(new Date(date), 'yyyy-MM-dd HH:mm:ss')
-const dateRegex = /^(date:\s*)(.+)$/m
+const formatDate = (date) => format(new Date(date), 'yyyy-MM-dd HH:mm:ss')
+const updateRegex = /^(updateAt:\s*)(.+)$/m
 const decoder = new TextDecoder()
 const encoder = new TextEncoder()
 
@@ -20,7 +20,7 @@ export const postPlugin = {
     core.addhook(
       'beforeBuild',
       async (/**@type {import("../util/type.js").Config} */ config) => {
-        const { dist, src, version, header, footer } = config
+        const { dist, src, version, header, footer, website, author } = config
 
         const posts = new URL('./posts/', src)
         const iter = Deno.readDir(posts)[Symbol.asyncIterator]()
@@ -49,7 +49,7 @@ export const postPlugin = {
           if (code !== 0) {
             throw new Error(`Git command failed: ${decoder.decode(stderr)}`)
           }
-          const updated = postsDate(decoder.decode(stdout).trim())
+          const updated = formatDate(decoder.decode(stdout).trim())
 
           using file = await Deno.open(filePath, {
             read: true,
@@ -60,16 +60,14 @@ export const postPlugin = {
           const fileBytes = await readAll(file)
           let postContent = decoder.decode(fileBytes)
 
-          const dates = postContent.match(dateRegex)
+          const matches = postContent.match(updateRegex)
+          const updateAt = matches ? matches[2].trim() : null
 
-          const needswrite = !!dates[2] &&
-            (dates[2].slice(0, 10) !== updated.slice(0, 10)) &&
-            (new Date(dates[2]) > new Date('2025-11-09'))
-
-          if (needswrite) {
-            // Write updated date back to file
-            postContent = postContent.replace(dateRegex, `$1${updated}`)
-
+          if (!updateAt || new Date(updateAt) < new Date(updated)) {
+            postContent = postContent.replace(
+              updateRegex,
+              `updateAt: ${updated}`,
+            )
             await file.seek(0, Deno.SeekMode.Start)
 
             await file.truncate(0)
@@ -89,17 +87,29 @@ export const postPlugin = {
           if (!await exists(postDist)) await ensureFile(postDist)
 
           const keywords = tags.join(', ')
+          const url = `${website}/posts/${handleUTC(date)}/`
           const head = await replaceHead({
             keywords,
             description,
             title,
             version,
-            url: `${config.website}/posts/${handleUTC(date)}/`,
+            url,
+            author,
           })
+          const postMeta = `<div class="post-meta post-meta-flex-around">
+              <div class="post-author" href="/./about/"><i class="fa-solid fa-user"></i> ${author}</div> 
+              <div class="post-time"><i class="fa-solid fa-clock"></i> ${
+            formatDate(date).slice(0, 10)
+          }</div> 
+              <div class="post-update-time"><i class="fa-solid fa-clock-rotate-left"></i> ${
+            updateAt.slice(0, 10)
+          }</div>
+            </div>`
           const content = templateArticle({
             content: await markdown(md),
             title,
             giscus,
+            postMeta,
           })
           const post = `${head}${header}${content}${footer}`
 

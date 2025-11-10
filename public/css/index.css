@@ -74,6 +74,32 @@ header.blog-header {
   }
 }
 
+.post-meta {
+  display: flex;
+  font-size: 14px;
+  color: var(--theme-color);
+}
+
+.post-meta-flex-around {
+  justify-content: space-around;
+}
+
+.post-author {
+  font-weight: 600;
+  margin-inline-end: 0.4rem;
+  cursor: pointer;
+}
+
+.post-time {
+  margin-inline: .4rem;
+  font-style: italic;
+}
+
+.post-update-time {
+  margin-inline-start: 0.4rem;
+  font-style: italic;
+}
+
 main.blog-main {
   display: flex;
   justify-content: center;
@@ -90,8 +116,7 @@ main.blog-main {
     width: 100%;
   }
 
-  & .box .tag,
-  & article .tag {
+  .tag {
     /* 标签换行 */
     display: inline-block;
     font-size: 14px;

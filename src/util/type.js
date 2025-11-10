@@ -10,6 +10,7 @@
  * @property {string} title
  * @property {string} summary
  * @property {string[]} tags
+ * @property {string} updateAt
  */
 
 /**

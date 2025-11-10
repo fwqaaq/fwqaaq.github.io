@@ -6,6 +6,7 @@ tags:
    - JavaScript
    - TypeScript
 summary: tsconfig.json 配置技巧
+updateAt: 2025-02-23 15:12:58
 ---
 
 [TOC]

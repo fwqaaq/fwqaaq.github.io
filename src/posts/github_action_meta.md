@@ -6,6 +6,7 @@ tags:
    - Git
    - GitHub
 summary: 使用 Javascript 来操作 Github Action
+updateAt: 2025-02-23 15:12:58
 ---
 
 > 创建 action 和使用 workflows 是两个不同的操作

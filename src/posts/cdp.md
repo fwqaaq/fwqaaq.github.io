@@ -5,6 +5,7 @@ categories: Config
 tags:
    - Config
 summary: 浏览器控制台内置的语法
+updateAt: 2025-02-23 15:12:58
 ---
 
 1. `$_`:使用上一次表达式的结果

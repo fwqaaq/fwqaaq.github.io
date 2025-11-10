@@ -33,26 +33,26 @@ export const convertToUSA = (date) => {
 }
 
 /**
- * @param {{keywords: string, description: string, title: string, version: string, url: string}}
+ * @param {{keywords: string, description: string, title: string, version: string, url: string, author: string}}
  * @param {string} [content]
  */
 export const replaceHead = async (
-  { keywords, description, title, version, url },
+  { keywords, description, title, version, url, author },
   content,
 ) => {
   const res = content ??
     await Deno.readTextFile(new URL('head.html', import.meta.url))
 
   return res
-    .replace('<!-- keywords -->', keywords)
-    .replace('<!-- author -->', 'fwqaaq') // replace with your name
+    .replaceAll('<!-- keywords -->', keywords)
+    .replaceAll('<!-- author -->', author)
     .replaceAll('<!-- description -->', description)
     .replaceAll('<!-- title -->', title)
+    .replace('<!-- url -->', url)
     .replace('<!-- base.css -->', `/public/css/base.${version}.css`)
     .replace('<!-- index.css -->', `/public/css/index.${version}.css`)
     .replace('<!-- markdown.css -->', `/public/css/markdown.${version}.css`)
     .replace('<!-- index.js -->', `/public/JavaScript/index.${version}.js`)
-    .replace('<!-- url -->', url)
 }
 
 /**
@@ -60,8 +60,10 @@ export const replaceHead = async (
  * @param {string} footer
  * @param {string} version
  * @param {string} src
+ * @param {string} author
+ * @param {string} website
  */
-export const replaceBody = (header, footer, version, src) => {
+export const replaceBody = (header, footer, version, src, author, website) => {
   const body = Deno.readTextFileSync(new URL('../index.html', src))
   return body.replace('<!-- Header -->', header)
     .replace('<!-- Footer -->', footer)
@@ -69,6 +71,8 @@ export const replaceBody = (header, footer, version, src) => {
     .replace('<!-- index.css -->', `/public/css/index.${version}.css`)
     .replace('<!-- markdown.css -->', `/public/css/markdown.${version}.css`)
     .replace('<!-- index.js -->', `/public/JavaScript/index.${version}.js`)
+    .replaceAll('<!-- author -->', author)
+    .replaceAll('<!-- website -->', website)
 }
 
 /**

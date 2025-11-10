@@ -7,6 +7,7 @@ tags:
    - JavaScript
    - TypeScript
 summary: 关于 vue3 组件化的使用，兼容的 vue2
+updateAt: 2025-02-23 15:12:58
 ---
 
 [TOC]
