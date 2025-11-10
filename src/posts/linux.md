@@ -6,7 +6,7 @@ tags:
    - Linux
    - Config
 summary: linux 的简单应用
-updateAt: 2025-02-21 16:45:49
+updateAt: 2025-11-09 23:00:55
 ---
 
 [TOC]

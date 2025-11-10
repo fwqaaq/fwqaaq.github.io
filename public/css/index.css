@@ -1,3 +1,6 @@
+/* ========================================
+   1. ROOT VARIABLES (主题变量)
+   ======================================== */
 @media (prefers-color-scheme: dark) {
   :root {
     --bg-color: rgb(26, 26, 26);
@@ -14,34 +17,41 @@
   }
 }
 
-article.blog-article a {
-  color: var(--color-a-link);
+/* ========================================
+   2. SHARED & UTILITY STYLES (通用样式/工具类)
+   ======================================== */
 
-  &:hover {
-    color: var(--color-a-link-hover);
+/* 通用的毛玻璃/背景效果 */
+main :where(article.blog-article, .box),
+header.blog-header {
+  backdrop-filter: blur(1rem);
+  -webkit-backdrop-filter: blur(1rem);
+  background-color: var(--header-bg);
+}
+
+/* 在中等屏幕上隐藏的元素 */
+@media (max-width: 48rem) {
+  .disappear {
+    display: none;
   }
 }
 
+/* ========================================
+   3. HEADER (博客头部)
+   ======================================== */
 header.blog-header {
   display: flex;
   position: fixed;
-  /* for backdrop-filter */
   z-index: 1;
   top: 0;
   width: 100%;
   height: var(--header-height);
   justify-content: space-between;
   align-items: center;
-  background-color: var(--header-bg);
   backdrop-filter: blur(1rem);
   -webkit-backdrop-filter: blur(1rem);
   transition: top 0.6s ease-in-out;
   border-block-end: var(--theme-color) 0.1rem solid;
-
-  /* 与文字底部对齐 */
-  & i {
-    vertical-align: baseline !important;
-  }
 
   & :where(a, div.toy) {
     padding-inline-start: 0.5rem;
@@ -72,43 +82,112 @@ header.blog-header {
       padding: 0 2rem;
     }
   }
+
+  /* --- Header Media Queries --- */
+
+  /* 桌面端: 玩具导航 (min-width: 48rem) */
+  @media (min-width: 48rem) {
+    nav.header-nav .toy {
+      position: relative;
+      display: block;
+      padding-block-end: 1rem;
+    }
+
+    nav.toy-nav {
+      width: 200%;
+      max-height: 0;
+      display: flex;
+      flex-direction: column;
+      position: absolute;
+      background-color: var(--header-bg);
+      inset-inline-start: -50%;
+      overflow: hidden;
+      clip-path: polygon(0% 10%, 35% 10%, 50% 0%, 70% 10%, 100% 10%, 100% 100%, 0% 100%);
+      box-shadow: 0.1rem 0.1rem 0.4rem var(--theme-color) inset;
+      transition: max-height 0.5s ease-in-out;
+
+      & a:first-child {
+        padding-block-start: 1rem;
+      }
+
+      & a:hover {
+        cursor: pointer;
+        text-decoration-line: underline;
+        text-decoration-thickness: 0.2rem;
+        text-decoration-color: var(--theme-color);
+        text-underline-offset: 0.5rem;
+      }
+    }
+
+    div.toy:hover nav.toy-nav {
+      max-height: var(--toy-nav-height);
+      height: auto;
+    }
+  }
+
+  /* 平板端: 隐藏玩具 (max-width: 48rem) */
+  @media (max-width: 48rem) {
+    div.toy {
+      display: none;
+    }
+  }
+
+  /* 宽于手机: 隐藏开关 (min-width: 480px) */
+  @media (min-width: 480px) {
+    #switch-icon {
+      display: none;
+    }
+  }
+
+  /* 手机端: 汉堡菜单 (max-width: 480px) */
+  @media (max-width: 480px) {
+    justify-content: space-between;
+
+    & #switch-icon:hover {
+      cursor: pointer;
+    }
+
+    & #switch-icon {
+      padding: 1rem;
+      font-size: 2rem;
+    }
+
+    & a {
+      font-size: 2rem;
+      padding-inline-end: 1rem;
+    }
+
+    .header-nav {
+      width: 100%;
+      height: 0;
+      display: flex;
+      flex-direction: column;
+      position: fixed;
+      background-color: var(--header-bg);
+      backdrop-filter: blur(1rem);
+      -webkit-backdrop-filter: blur(1rem);
+      inset-block-start: var(--header-height);
+      overflow: hidden;
+      transition: height 0.5s ease;
+    }
+
+    /* 权重需要比 .header-nav 大 */
+    nav.header-nav.show {
+      height: auto;
+      height: calc-size(auto, size);
+    }
+  }
 }
 
-.post-meta {
-  display: flex;
-  font-size: 14px;
-  color: var(--theme-color);
-}
-
-.post-meta-flex-around {
-  justify-content: space-around;
-}
-
-.post-author {
-  font-weight: 600;
-  margin-inline-end: 0.4rem;
-  cursor: pointer;
-}
-
-.post-time {
-  margin-inline: .4rem;
-  font-style: italic;
-}
-
-.post-update-time {
-  margin-inline-start: 0.4rem;
-  font-style: italic;
-}
-
+/* ========================================
+   4. MAIN CONTENT (博客主内容)
+   ======================================== */
 main.blog-main {
-  display: flex;
-  justify-content: center;
   margin-block-end: 1.2rem;
 
   &:has(article.blog-article) {
     align-items: flex-start;
   }
-
 
   /* 除了锚点 a 都要换行 */
   & :not(:where(h2, h3, h4, h5, h6)) a[href^="http"] {
@@ -135,6 +214,57 @@ main.blog-main {
       box-shadow: 0.1rem 0.1rem 0.5rem var(--theme-color);
     }
   }
+
+  .pages {
+    display: flex;
+    justify-content: space-between;
+    margin-block-start: 4rem;
+  }
+
+  /* --- Main Media Queries --- */
+
+  /* 桌面端: 主内容宽度 (min-width: 48rem) */
+  @media (min-width: 48rem) {
+    & :where(.box, article.blog-article) {
+      width: var(--page-width);
+    }
+  }
+
+  /* 宽于手机: 居中 (min-width: 480px) */
+  @media (min-width: 480px) {
+    display: flex;
+    justify-content: center;
+  }
+}
+
+/* ========================================
+   5. ARTICLE (文章)
+   ======================================== */
+
+/* 文章内的链接 */
+article.blog-article a {
+  color: var(--color-a-link);
+
+  &:hover {
+    color: var(--color-a-link-hover);
+  }
+}
+
+/* 404 页面 */
+article:has(.not-found) {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* 通用容器 (如侧边栏) */
+main :where(article.blog-article, .box) {
+  border: 0.1rem solid var(--theme-color);
+  padding: 0.8rem 1rem;
+  margin-inline: 0.5rem;
+  margin-block-start: 1rem;
+  border-radius: 0.5rem;
+  box-shadow: 0rem 0rem 0.4rem var(--theme-color);
 }
 
 section.box :has(h3) {
@@ -149,24 +279,79 @@ section.box a {
   color: var(--theme-color);
 }
 
-main :where(article.blog-article, .box) {
-  backdrop-filter: blur(1rem);
-  -webkit-backdrop-filter: blur(1rem);
-  background-color: var(--header-bg);
-  border: 0.1rem solid var(--theme-color);
-  padding: 0.8rem 1rem;
-  margin-inline: 0.5rem;
-  margin-block-start: 1rem;
-  border-radius: 0.5rem;
-  box-shadow: 0rem 0rem 0.4rem var(--theme-color);
+
+/* ========================================
+   6. COMPONENTS (可复用组件)
+   ======================================== */
+
+/* --- Post Meta (文章元数据) --- */
+.post-meta {
+  display: flex;
+  font-size: 14px;
+  color: var(--theme-color);
 }
 
-main.blog-main .pages {
+.post-meta-flex-around {
+  justify-content: space-around;
+}
+
+.post-author {
+  font-weight: 600;
+  margin-inline-end: 0.4rem;
+  cursor: pointer;
+}
+
+.post-time {
+  margin-inline: .4rem;
+  font-style: italic;
+}
+
+.post-update-time {
+  margin-inline-start: 0.4rem;
+  font-style: italic;
+}
+
+/* --- Archive (归档时间线) --- */
+.archive-time-line {
   display: flex;
   justify-content: space-between;
-  margin-block-start: 4rem;
+  padding-block: 0.16rem;
+  gap: 1.2rem;
+
+  &:hover {
+    box-shadow: 0 0.2rem 0 var(--table-border-color);
+  }
+
+  .text {
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    /* 防止换行 */
+  }
+
+  .date {
+    flex-shrink: 0;
+    /* 防止日期被压缩 */
+  }
 }
 
+/* --- Giscus (评论) --- */
+.giscus {
+  width: var(--page-width);
+  margin: 0 auto;
+  margin-block-end: 4rem;
+
+  @media (max-width: 480px) {
+    width: 90%;
+    padding-inline: 1rem;
+  }
+}
+
+
+/* ========================================
+   7. FOOTER (博客底部)
+   ======================================== */
 footer.blog-footer {
   border-block-start: var(--theme-color) 0.1rem solid;
 
@@ -184,18 +369,16 @@ footer div.footer-icons-container {
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-block-end: 1rem;
 
   & a.icon {
     padding: 0 0.8rem;
   }
 }
 
-.giscus {
-  width: var(--page-width);
-  margin: 0 auto;
-  margin-block-end: 4rem;
-}
-
+/* ========================================
+   8. PAGE: ABOUT (关于页面)
+   ======================================== */
 main.about-main {
   display: flex;
   justify-content: center;
@@ -219,11 +402,17 @@ main.about-main {
     margin-block-end: 1.6rem;
   }
 
+  /* "关于" 页面内的 .box 样式覆盖 */
   section.box {
     width: auto;
     padding: 1.8rem 2rem;
     border-color: none;
     color: var(--theme-color);
+  }
+
+  /* 手机端: 堆叠 (max-width: 48rem) */
+  @media (max-width: 48rem) {
+    flex-direction: column;
   }
 }
 
@@ -261,154 +450,4 @@ main.about-main {
 
 .about-section-color-six {
   background: linear-gradient(120deg, rgba(0, 117, 195, 0.15) 0%, rgba(0, 202, 165, 0.239) 100%);
-}
-
-
-.archive-time-line {
-  display: flex;
-  justify-content: space-between;
-  padding-block: 0.16rem;
-  gap: 1.2rem;
-
-  &:hover {
-    box-shadow: 0 0.2rem 0 var(--table-border-color);
-  }
-}
-
-.archive-time-line .text {
-  min-width: 0;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  /** 防止换行 */
-}
-
-.archive-time-line .date {
-  flex-shrink: 0;
-  /** 防止日期被压缩 */
-}
-
-/* not found page */
-article:has(.not-found) {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-/* Match Chrome for about showing */
-@media (min-width: 48rem) {
-  main.blog-main :where(.box, article.blog-article) {
-    width: var(--page-width);
-  }
-
-  nav.header-nav .toy {
-    position: relative;
-    display: block;
-    padding-block-end: 1rem;
-  }
-
-  nav.toy-nav {
-    width: 200%;
-    max-height: 0;
-    display: flex;
-    flex-direction: column;
-    position: absolute;
-    background-color: var(--header-bg);
-    inset-inline-start: -50%;
-    overflow: hidden;
-    clip-path: polygon(0% 10%, 35% 10%, 50% 0%, 70% 10%, 100% 10%, 100% 100%, 0% 100%);
-    box-shadow: 0.1rem 0.1rem 0.4rem var(--theme-color) inset;
-    transition: max-height 0.5s ease-in-out;
-
-    & a:first-child {
-      padding-block-start: 1rem;
-    }
-
-    & a:hover {
-      cursor: pointer;
-      text-decoration-line: underline;
-      text-decoration-thickness: 0.2rem;
-      text-decoration-color: var(--theme-color);
-      text-underline-offset: 0.5rem;
-    }
-  }
-
-  div.toy:hover nav.toy-nav {
-    max-height: var(--toy-nav-height);
-    height: auto;
-  }
-}
-
-@media (max-width: 48rem) {
-  .disappear {
-    display: none;
-  }
-
-  div.toy {
-    display: none;
-  }
-
-  .about-row {
-    flex-direction: column;
-  }
-}
-
-@media (min-width: 480px) {
-  #switch-icon {
-    display: none;
-  }
-}
-
-/* Match phone */
-@media (max-width: 480px) {
-  main.blog-main article.blog-article {
-    width: 90%;
-  }
-
-  nav.toy-nav {
-    display: none !important;
-  }
-
-  header.blog-header {
-    justify-content: space-between;
-
-    & #switch-icon:hover {
-      cursor: pointer;
-    }
-
-    & #switch-icon {
-      padding: 1rem;
-      font-size: 2rem;
-    }
-
-    & a {
-      font-size: 2rem;
-      padding-inline-end: 1rem;
-    }
-
-    .header-nav {
-      width: 100%;
-      height: 0;
-      display: flex;
-      flex-direction: column;
-      position: fixed;
-      background-color: var(--header-bg);
-      backdrop-filter: blur(1rem);
-      -webkit-backdrop-filter: blur(1rem);
-      inset-block-start: var(--header-height);
-      overflow: hidden;
-      transition: height 0.5s ease;
-    }
-
-    /*权重需要比 .header-nav 大*/
-    nav.header-nav.show {
-      height: auto;
-      height: calc-size(auto, size);
-    }
-  }
-
-  .giscus {
-    width: 90%;
-    padding-inline: 1rem;
-  }
 }

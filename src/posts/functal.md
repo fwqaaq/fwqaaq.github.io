@@ -6,7 +6,7 @@ tags:
    - JavaScript
    - TypeScript
 summary: JavaScript 中的函数柯里化、偏函数以及惰性函数
-updateAt: 2025-02-23 15:12:58
+updateAt: 2025-11-09 23:00:55
 ---
 
 [TOC]

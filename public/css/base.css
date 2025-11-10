@@ -120,6 +120,11 @@ input {
   text-align: center;
 }
 
+/* 与文字底部对齐 */
+i {
+  vertical-align: baseline !important;
+}
+
 ::view-transition-new(root) {
   animation: turnOn 800ms ease-in-out;
   mix-blend-mode: normal;
