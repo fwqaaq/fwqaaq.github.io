@@ -34,16 +34,13 @@ export const convertToUSA = (date) => {
 
 /**
  * @param {{keywords: string, description: string, title: string, version: string, url: string, author: string}}
- * @param {string} [content]
+ * @param {string} head
  */
-export const replaceHead = async (
+export const replaceHead = (
   { keywords, description, title, version, url, author },
-  content,
+  head,
 ) => {
-  const res = content ??
-    await Deno.readTextFile(new URL('head.html', import.meta.url))
-
-  return res
+  return head
     .replaceAll('<!-- keywords -->', keywords)
     .replaceAll('<!-- author -->', author)
     .replaceAll('<!-- description -->', description)
@@ -56,23 +53,17 @@ export const replaceHead = async (
 }
 
 /**
+ * @param {string} head
  * @param {string} header
  * @param {string} footer
- * @param {string} version
- * @param {string} src
- * @param {string} author
- * @param {string} website
+ * @param {URL} src the source of the body template
  */
-export const replaceBody = (header, footer, version, src, author, website) => {
-  const body = Deno.readTextFileSync(new URL('../index.html', src))
-  return body.replace('<!-- Header -->', header)
+export const replaceBody = (head, header, footer, src) => {
+  const body = Deno.readTextFileSync(src)
+  return body
+    .replace('<!-- Head -->', head)
+    .replace('<!-- Header -->', header)
     .replace('<!-- Footer -->', footer)
-    .replace('<!-- base.css -->', `/public/css/base.${version}.css`)
-    .replace('<!-- index.css -->', `/public/css/index.${version}.css`)
-    .replace('<!-- markdown.css -->', `/public/css/markdown.${version}.css`)
-    .replace('<!-- index.js -->', `/public/JavaScript/index.${version}.js`)
-    .replaceAll('<!-- author -->', author)
-    .replaceAll('<!-- website -->', website)
 }
 
 /**
@@ -89,34 +80,36 @@ export const generateTags = (/**@type {string[]} */ tags, basePath = 'tags') =>
 
 /**@param {import("./type.js").GeneratePageOptions}*/
 export async function generatePage(
-  { group, basePath, dist, header, footer, version, author },
+  { group, basePath, dist, header, head, footer, version, author },
 ) {
   const url = new URL(`./${basePath}/index.html`, dist)
   const keys = Object.keys(group)
-  const head = await replaceHead({
+  const mainHead = replaceHead({
     keywords: keys.join(', '),
     summary: `${author} ~ ${basePath}`,
     title: `${author} ~ ${basePath}`,
     version,
-  })
+    author,
+  }, head)
 
   // a tags
   const body = templateArticle({
     title: basePath,
     content: generateTags(keys, basePath),
   })
-  const article = `${head}${header}${body}${footer}`
+  const article = `${mainHead}${header}${body}${footer}`
   if (!await exists(url)) await ensureFile(url)
   await Deno.writeTextFile(url, article)
 
   for (const [key, items] of Object.entries(group)) {
     const itemUrl = new URL(`./${basePath}/${key}/index.html`, dist)
-    const itemHead = await replaceHead({
+    const itemHead = replaceHead({
       keywords: [...new Set(items.flatMap((item) => item.tags))],
       summary: `${author} ~ ${key}`,
       title: `${author} ~ ${key}`,
       version,
-    })
+      author,
+    }, head)
     if (!await exists(itemUrl)) await ensureFile(itemUrl)
 
     // p tags

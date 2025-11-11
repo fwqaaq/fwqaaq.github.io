@@ -29,6 +29,7 @@
  * @property {number} version
  * @property {string} header
  * @property {string} footer
+ * @property {string} head
  */
 
 /**
@@ -45,8 +46,9 @@
  * @property {Record<string, import("../plugins/core.js").MetaData>} group
  * @property {"archive" | "tags"} basePath
  * @property {string} dist
- * @property {string} header
- * @property {string} footer
  * @property {string} version
  * @property {string} author
+ * @property {string} head
+ * @property {string} header
+ * @property {string} footer
  */

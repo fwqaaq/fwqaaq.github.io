@@ -1,5 +1,4 @@
-import { copy, ensureDir, ensureFile, exists, walk } from 'fs'
-import { replaceHead } from '../util/utils.js'
+import { copy, ensureDir, walk } from 'fs'
 import { createProcessor } from '../util/utils.js'
 
 export const assertPlugin = {
@@ -36,9 +35,8 @@ export const assertPlugin = {
             continue
           }
 
-          if (entry.name.includes('html') && entry.isFile) {
-            const html = await Deno.readTextFile(entry.path)
-            html.replace(
+          if (entry.path.includes('resume/index.html') && entry.isFile) {
+            const html = (await Deno.readTextFile(entry.path)).replace(
               '<?-- index.css -->',
               `/public/resume/index.${version}.css`,
             )
@@ -54,17 +52,6 @@ export const assertPlugin = {
 
           await copy(entry.path, __dist_p, {})
         }
-
-        // about me
-        const __dist_about = new URL('./about/index.html', dist)
-        if (!await exists(__dist_about)) await ensureFile(__dist_about)
-        const __src_about = new URL('./about/about.html', src)
-
-        const about = await replaceHead(
-          { version },
-          await Deno.readTextFile(__src_about),
-        )
-        Deno.writeTextFile(__dist_about, about)
       },
     )
   },

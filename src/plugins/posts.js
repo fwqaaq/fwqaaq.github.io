@@ -20,7 +20,8 @@ export const postPlugin = {
     core.addhook(
       'beforeBuild',
       async (/**@type {import("../util/type.js").Config} */ config) => {
-        const { dist, src, version, header, footer, website, author } = config
+        const { dist, src, version, header, footer, website, author, head } =
+          config
 
         const posts = new URL('./posts/', src)
         const iter = Deno.readDir(posts)[Symbol.asyncIterator]()
@@ -62,8 +63,12 @@ export const postPlugin = {
 
           const matches = postContent.match(updateRegex)
           const updateAt = matches ? matches[2].trim() : null
+          const oneDay = 24 * 60 * 60 * 1000
 
-          if (!updateAt || new Date(updateAt) < new Date(updated)) {
+          if (
+            !updateAt ||
+            +new Date(updateAt) + oneDay < +new Date(updated)
+          ) {
             postContent = postContent.replace(
               updateRegex,
               `updateAt: ${updated}`,
@@ -88,14 +93,14 @@ export const postPlugin = {
 
           const keywords = tags.join(', ')
           const url = `${website}/posts/${handleUTC(date)}/`
-          const head = await replaceHead({
+          const newHead = replaceHead({
             keywords,
             description,
             title,
             version,
             url,
             author,
-          })
+          }, head)
           const postMeta = `<div class="post-meta post-meta-flex-around">
               <div class="post-author" href="/./about/"><i class="fa-solid fa-user"></i> ${author}</div> 
               <div class="post-time"><i class="fa-solid fa-clock"></i> ${
@@ -111,7 +116,7 @@ export const postPlugin = {
             giscus,
             postMeta,
           })
-          const post = `${head}${header}${content}${footer}`
+          const post = `${newHead}${header}${content}${footer}`
 
           await Deno.writeTextFile(postDist, post)
 

@@ -5,6 +5,7 @@ import {
   generateTags,
   handleUTC,
   replaceBody,
+  replaceHead,
 } from '../util/utils.js'
 import { templateBox, templateProcess } from '../util/template.js'
 
@@ -17,34 +18,52 @@ export const pagesPlugin = {
     core.addhook(
       'afterBuild',
       async (/**@type {import("../util/type.js").Config} */ config) => {
-        const { dist, version, header, footer, src, author, website } = config
+        const { dist, version, header, footer, src, author, website, head } =
+          config
+        const newHead = replaceHead({
+          keywords: 'fwqaaq, blog, about, fwqaaq blog',
+          description: 'fwqaaq 的个人博客',
+          title: 'fwqaaq 的博客',
+          version,
+          url: website,
+          author,
+        }, head)
+
+        // handle the about page
+        const aboutURL = new URL('./about/index.html', src)
+        const aboutPage = replaceBody(newHead, header, footer, aboutURL)
+        await ensureDir(new URL('./about/', dist))
+        await Deno.writeTextFile(new URL('./about/index.html', dist), aboutPage)
 
         // Handle the archive
         const groupArchive = Object.groupBy(
-          meta,
+          meta.map((item) => ({ author, ...item })),
           (item) => new Date(item.date).getFullYear(),
         )
 
         // Handle the tags
         const groupTags = Object.groupBy(
-          meta.flatMap((item) => item.tags.map((tag) => ({ tag, ...item }))),
+          meta.flatMap((item) =>
+            item.tags.map((tag) => ({ tag, author, ...item }))
+          ),
           (item) => item.tag,
         )
 
         Promise.all([
-          generatePage({ group: groupArchive, basePath: 'archive', ...config }),
-          generatePage({ group: groupTags, basePath: 'tags', ...config }),
+          generatePage({
+            group: groupArchive,
+            basePath: 'archive',
+            head,
+            ...config,
+          }),
+          generatePage({ group: groupTags, basePath: 'tags', head, ...config }),
         ])
 
+        // index home temeplate url
+        const homeURL = new URL('../index.html', src)
+
         // handle the 404
-        const indexPage = replaceBody(
-          header,
-          footer,
-          version,
-          src,
-          author,
-          website,
-        )
+        const indexPage = replaceBody(newHead, header, footer, homeURL)
         const notFound = indexPage.replace(
           '<!-- Template -->',
           `<section class="not-found">

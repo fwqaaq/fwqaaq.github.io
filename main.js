@@ -19,6 +19,10 @@ async function createConfig() {
     version: Math.floor(Math.random() * 1000000),
   }
 
+  const head = await Deno.readTextFile(
+    new URL('./util/head.html', baseConfig.src),
+  )
+
   const header = await Deno.readTextFile(
     new URL('./util/header.html', baseConfig.src),
   )
@@ -26,7 +30,7 @@ async function createConfig() {
     new URL('./util/footer.html', baseConfig.src),
   )
 
-  return { ...baseConfig, header, footer }
+  return { ...baseConfig, header, footer, head }
 }
 
 const config = await createConfig()
