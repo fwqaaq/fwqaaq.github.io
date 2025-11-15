@@ -26,15 +26,15 @@ function toggleColor(isDarkTheme, e) {
   const colors = [
     ['--theme-color', isDarkTheme ? '#ffffff' : 'rgb(0, 0, 0)'],
     [
-      '--header-bg',
-      isDarkTheme ? 'rgba(26, 26, 26, 0.8)' : 'rgba(255, 255, 255, 0.8)',
-    ],
-    [
       '--color-a-link',
       isDarkTheme ? 'rgba(1, 202, 159, 0.8)' : 'rgba(0, 93, 73, 0.8)',
     ],
     ['--color-a-link-hover', isDarkTheme ? '#00d4a1' : '#014637'],
     ['--bg-color', isDarkTheme ? 'rgb(26, 26, 26)' : '#ffffff'],
+    [
+      '--background-image',
+      `url("/public/background-${isDarkTheme ? 'dark' : 'light'}.jpg")`,
+    ],
   ]
   colors.forEach(([v, c]) => document.documentElement.style.setProperty(v, c))
   metaTheme.content = isDarkTheme
@@ -43,14 +43,6 @@ function toggleColor(isDarkTheme, e) {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-  // Set toy-nav height
-  const toyNavs = document.querySelectorAll('nav.toy-nav a')
-  const toyNavHeight = toyNavs[0].clientHeight * toyNavs.length
-  document.documentElement.style.setProperty(
-    '--toy-nav-height',
-    toyNavHeight + 'px',
-  )
-
   const localDarkMode = globalThis.localStorage.getItem('darkMode')
   isDark = localDarkMode === 'undefined' ? isDark : localDarkMode === 'dark'
 
@@ -109,10 +101,10 @@ document.addEventListener('DOMContentLoaded', () => {
     if (e.target === switchIcon) {
       switchIcon.classList.toggle('fa-bars')
       switchIcon.classList.toggle('fa-xmark')
-      nav.classList.toggle('show')
+      nav.parentElement.classList.toggle('show')
       return
     }
-    nav.classList.remove('show')
+    nav.parentElement.classList.remove('show')
     switchIcon.classList.remove('fa-xmark')
     switchIcon.classList.add('fa-bars')
   })
@@ -129,7 +121,7 @@ document.addEventListener('DOMContentLoaded', () => {
     } else {
       header.style.top = headerHeight
       if (!globalThis.matchMedia('(max-width: 480px').matches) return
-      nav.classList.remove('show')
+      nav.parentElement.classList.remove('show')
       switchIcon.classList.remove('fa-xmark')
       switchIcon.classList.add('fa-bars')
     }

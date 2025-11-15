@@ -12,6 +12,7 @@ body {
   --page-width: 48rem;
   --max-about-width: 80rem;
   --theme-color: rgb(0, 0, 0);
+  --background-image: url("/public/background-light.jpg");
   --bg-color: #ffffff;
   --header-bg: rgba(255, 255, 255, 0.8);
   --color-a-link: rgba(0, 90, 71, 0.8);
@@ -30,8 +31,8 @@ body {
 }
 
 body {
-  background-color: var(--bg-color);
-  background-size: cover;
+  background-image: var(--background-image);
+  background-size: contain;
   position: relative;
   color: var(--theme-color);
   padding-block-start: calc(var(--header-height) + 1rem);

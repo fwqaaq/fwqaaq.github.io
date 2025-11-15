@@ -3,6 +3,7 @@
    ======================================== */
 @media (prefers-color-scheme: dark) {
   :root {
+    --background-image: url("/public/background-dark.jpg");
     --bg-color: rgb(26, 26, 26);
     --theme-color: #ffffff;
     --header-bg: rgba(26, 26, 26, 0.8);
@@ -26,7 +27,6 @@ main :where(article.blog-article, .box),
 header.blog-header {
   backdrop-filter: blur(1rem);
   -webkit-backdrop-filter: blur(1rem);
-  background-color: var(--header-bg);
 }
 
 /* 在中等屏幕上隐藏的元素 */
@@ -53,7 +53,7 @@ header.blog-header {
   transition: top 0.6s ease-in-out;
   border-block-end: var(--theme-color) 0.1rem solid;
 
-  & :where(a, div.toy) {
+  & :where(a) {
     padding-inline-start: 0.5rem;
     color: var(--theme-color);
 
@@ -69,11 +69,13 @@ header.blog-header {
     }
   }
 
-  &>.header-nav {
+  & .header-nav {
     display: flex;
     height: 100%;
+    backdrop-filter: blur(1rem);
+    -webkit-backdrop-filter: blur(1rem);
 
-    & :where(a, .toy) {
+    & :where(a) {
       flex: 1 1 auto;
       height: var(--header-height);
       line-height: var(--header-height);
@@ -84,53 +86,6 @@ header.blog-header {
   }
 
   /* --- Header Media Queries --- */
-
-  /* 桌面端: 玩具导航 (min-width: 48rem) */
-  @media (min-width: 48rem) {
-    nav.header-nav .toy {
-      position: relative;
-      display: block;
-      padding-block-end: 1rem;
-    }
-
-    nav.toy-nav {
-      width: 200%;
-      max-height: 0;
-      display: flex;
-      flex-direction: column;
-      position: absolute;
-      background-color: var(--header-bg);
-      inset-inline-start: -50%;
-      overflow: hidden;
-      clip-path: polygon(0% 10%, 35% 10%, 50% 0%, 70% 10%, 100% 10%, 100% 100%, 0% 100%);
-      box-shadow: 0.1rem 0.1rem 0.4rem var(--theme-color) inset;
-      transition: max-height 0.5s ease-in-out;
-
-      & a:first-child {
-        padding-block-start: 1rem;
-      }
-
-      & a:hover {
-        cursor: pointer;
-        text-decoration-line: underline;
-        text-decoration-thickness: 0.2rem;
-        text-decoration-color: var(--theme-color);
-        text-underline-offset: 0.5rem;
-      }
-    }
-
-    div.toy:hover nav.toy-nav {
-      max-height: var(--toy-nav-height);
-      height: auto;
-    }
-  }
-
-  /* 平板端: 隐藏玩具 (max-width: 48rem) */
-  @media (max-width: 48rem) {
-    div.toy {
-      display: none;
-    }
-  }
 
   /* 宽于手机: 隐藏开关 (min-width: 480px) */
   @media (min-width: 480px) {
@@ -157,22 +112,26 @@ header.blog-header {
       padding-inline-end: 1rem;
     }
 
-    .header-nav {
-      width: 100%;
-      height: 0;
-      display: flex;
-      flex-direction: column;
+    & .wrap-background {
       position: fixed;
-      background-color: var(--header-bg);
-      backdrop-filter: blur(1rem);
-      -webkit-backdrop-filter: blur(1rem);
-      inset-block-start: var(--header-height);
+      top: var(--header-height);
+      width: 100%;
+      background-image: var(--background-image);
+      height: 0;
       overflow: hidden;
       transition: height 0.5s ease;
     }
 
-    /* 权重需要比 .header-nav 大 */
-    nav.header-nav.show {
+    .header-nav {
+      display: flex;
+      flex-direction: column;
+      backdrop-filter: blur(1rem);
+      -webkit-backdrop-filter: blur(1rem);
+      inset-block-start: var(--header-height);
+    }
+
+    /* 权重需要比 .wrap-background 大 */
+    .wrap-background.show {
       height: auto;
       height: calc-size(auto, size);
     }
