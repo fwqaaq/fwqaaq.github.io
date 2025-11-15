@@ -313,6 +313,9 @@ section.box a {
    ======================================== */
 footer.blog-footer {
   border-block-start: var(--theme-color) 0.1rem solid;
+  backdrop-filter: blur(1rem);
+  -webkit-backdrop-filter: blur(1rem);
+  padding-block-end: 1rem;
 
   .footer-container {
     margin: 0 auto;
@@ -328,7 +331,6 @@ footer div.footer-icons-container {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-block-end: 1rem;
 
   & a.icon {
     padding: 0 0.8rem;
