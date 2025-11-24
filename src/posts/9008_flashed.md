@@ -6,7 +6,7 @@ tags:
    - Chore
    - Android
 summary: 一加 OxygenOS 16 刷机，完全封锁 fastboot 变砖记录
-updateAt: 2025-11-09 23:00:55
+updateAt: 2025-11-23 21:35:45
 ---
 
 [TOC]
@@ -41,4 +41,30 @@ updateAt: 2025-11-09 23:00:55
 
 ![毫无办法](https://img.fwqaaq.com/AQADFgxrG6w5YVR-.jpg)
 
-参考：<https://zhuanlan.zhihu.com/p/13623689140>
+## 刷机成功
+
+时隔一个月之后，再次补充完整，这次在 fastboot 完全损毁的情况下，刷入 ABL，成功进入 fastboot 模式，千万小心刷入使用 OTA 升级，很可能会导致 fastboot 不能使用，只能通过 9008 救砖。
+
+9008 救砖，需要官方的 digest 等文件握手成功获取 ACK 信号，才能进入 firehose 模式刷入，但是官方已经封锁了 OTP 授权，无法获取授权码。以下就是根据参考里提供的链接操作的，有问题请看以下参考链接。
+
+1. 进入 9008 模式，包里提供了 3 个文件，分别是 device programmer, sign 以及 digest 这是为了握手使用的，获得 ACK，以进入 firehose 模式刷入。
+2. 备份的话都无所谓，如果需要可以进行备份。
+3. 难点就是写入分区，包里**必须**提供了 `rawprogram0.xml` 文件，必须是 9008 刷机包。
+
+> BTW any new firmware with the "fix" WILL burn antirollback fuses and kill old firehose
+>
+> Do not ship newer firmware images and proprietary blobs with lineage please
+
+以上是直接写入 `rawprogram0.xml` 文件可能的问题，似乎是官方为了防止降级刷机而设置的防护措施。所以我一直收到 `NAK` 信号的响应错误。
+
+但是，pig 直接写入 ABL，而不是整个系统，成功进入 fastboot 模式，并没有任何问题，一个月的砖终于解除了。
+
+> [!WARNING]
+>
+> 不要自己看 GPT 规范尝试写入 ABL 分区，必须使用 9008 固件包提供的 rawprogram 文件。
+
+<video src="https://img.fwqaaq.com/IMG_0953.MOV" height="200px" controls></video>
+
+好了，以后 Pig 就是神了。
+
+参考：<https://zhuanlan.zhihu.com/p/13623689140>、<https://xdaforums.com/t/closed-world-first-free-offline-oppo-oneplus-realme-vip-workaround-in-edl-mode-has-arrived.4769052/>
