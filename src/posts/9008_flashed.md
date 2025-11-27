@@ -29,7 +29,7 @@ updateAt: 2025-11-23 21:35:45
 
 由于国版的 oneplus 刷 oxygenOS 之后，信号和摄像头模块都有问题，所以必须要装入模块包之后才能恢复，由于 pig 说 kernelsu 都支持，我就直接没查使用命令行进入了 fastboot 刷了 15 的 kernelsu 包，结果刷完之后根本没法开机，直接死在 logo 界面。
 
-<video src="https://img.fwqaaq.com/9008_flashed.mp4" height="200px" controls></video>
+<video src="https://img.fwqaaq.com/9008_flashed.mp4" width="200px" controls></video>
 
 视频链接：<https://img.fwqaaq.com/9008_flashed.mp4>
 

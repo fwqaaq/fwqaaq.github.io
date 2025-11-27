@@ -348,7 +348,6 @@ main.about-main {
 .about-container {
   display: flex;
   flex-direction: column;
-  width: 92%;
   max-width: var(--max-about-width);
 
   &>h2 {
