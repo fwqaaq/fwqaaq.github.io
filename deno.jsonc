@@ -20,7 +20,7 @@
   },
   "imports": {
     "@csstools/postcss-minify": "npm:@csstools/postcss-minify@^2.0.4",
-    "@std/io": "jsr:@std/io@^0.225.2",
+    "@std/io": "jsr:@std/io",
     "fs": "https://deno.land/std@0.194.0/fs/mod.ts",
     "type-mdast": "https://cdn.jsdelivr.net/npm/@types/mdast@4.0.3/index.d.ts",
     "unified": "https://esm.sh/unified@11.0.5",

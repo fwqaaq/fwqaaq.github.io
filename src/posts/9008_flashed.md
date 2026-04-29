@@ -6,7 +6,7 @@ tags:
    - Chore
    - Android
 summary: 一加 OxygenOS 16 刷机，完全封锁 fastboot 变砖记录
-updateAt: 2025-11-23 21:35:45
+updateAt: 2026-04-29 16:11:14
 ---
 
 [TOC]

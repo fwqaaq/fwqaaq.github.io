@@ -12,6 +12,9 @@ import remarkGfm from 'remark-gfm'
 import remarkGithubAlerts from './remark-github-alert.js'
 import remarkList from './remark-list.js'
 import remarkToc from './remark-toc.js'
+import remarkSponsor from './remark-sponsor.js'
+
+const sponsorAddress = 'https://personal-website-sponsorship-stripes.fwqaaq.com?amount=199'
 
 export const markdown = async (file) =>
   await unified()
@@ -20,6 +23,9 @@ export const markdown = async (file) =>
     .use(remarkGithubAlerts)
     .use(remarkList)
     .use(remarkToc)
+    .use(remarkSponsor, {
+      address: sponsorAddress
+    })
     .use(remarkRehype, { allowDangerousHtml: true })
     .use(rehypeShiki, {
       theme: 'andromeeda',

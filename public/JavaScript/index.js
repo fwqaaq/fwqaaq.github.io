@@ -72,11 +72,11 @@ document.addEventListener('DOMContentLoaded', () => {
     document.startViewTransition(
       () => toggleColor(darkMode === 'dark', darkIcon),
     )
-    ;[
-      ['--click-x', `${x}px`],
-      ['--click-y', `${y}px`],
-      ['--end-radius', `${endRadius}px`],
-    ].forEach(([v, c]) => document.documentElement.style.setProperty(v, c))
+      ;[
+        ['--click-x', `${x}px`],
+        ['--click-y', `${y}px`],
+        ['--end-radius', `${endRadius}px`],
+      ].forEach(([v, c]) => document.documentElement.style.setProperty(v, c))
   })
 
   const header = document.querySelector('header')
@@ -130,6 +130,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
   self.addEventListener('popstate', renderPage)
 })
+
+/**
+ * @param {number} amount 
+ */
+// deno-lint-ignore no-unused-vars
+function sponsor(amount) {
+  globalThis.location.href = `https://personal-website-sponsorship-stripes.fwqaaq.com?amount=${amount}`
+}
 
 const renderPage = async (e) => {
   // hash change, do nothing
