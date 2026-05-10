@@ -3,7 +3,7 @@ import { Core } from './src/plugins/core.js'
 import { feedPlugin } from './src/plugins/feed.js'
 import { pagesPlugin } from './src/plugins/pages.js'
 import { postPlugin } from './src/plugins/posts.js'
-import { existsSync } from 'fs'
+import { existsSync } from '@std/fs'
 import { startServer } from './src/util/utils.js'
 import { load } from 'dotenv'
 

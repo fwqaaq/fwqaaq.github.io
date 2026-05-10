@@ -1,4 +1,4 @@
-import { copy, ensureDir, walk } from 'fs'
+import { copy, ensureDir, walk } from '@std/fs'
 import { createProcessor } from '../util/utils.js'
 
 export const assertPlugin = {

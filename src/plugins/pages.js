@@ -1,4 +1,4 @@
-import { ensureDir } from 'fs'
+import { ensureDir } from '@std/fs'
 import {
   convertToUSA,
   generatePage,

@@ -1,6 +1,6 @@
-import { ensureFile, exists } from 'fs'
-import { parse } from 'yaml'
-import { format } from 'datetime'
+import { ensureFile, exists } from '@std/fs'
+import { parse } from '@std/yaml'
+import { format } from '@std/datetime'
 import { templateArticle } from './template.js'
 import postcss from 'postcss'
 import postcssPresetEnv from 'postcss-preset-env'
@@ -117,15 +117,13 @@ export async function generatePage(
       (acc, { date, summary }) => {
         const place = `/./posts/${handleUTC(date)}/index.html`
         return acc +
-          `<p class="archive-p-line"><a class="archive-time-line" href=${place} target="_blank"> <span class="text">${summary}</span> <span class="date">${
-            convertToUSA(date)
+          `<p class="archive-p-line"><a class="archive-time-line" href=${place} target="_blank"> <span class="text">${summary}</span> <span class="date">${convertToUSA(date)
           }</span></a></p>`
       },
       '',
     )
-    const itemBody = `${itemHead}${header}${
-      templateArticle({ title: key, content: p })
-    }${footer}`
+    const itemBody = `${itemHead}${header}${templateArticle({ title: key, content: p })
+      }${footer}`
     await Deno.writeTextFile(itemUrl, itemBody)
   }
 }

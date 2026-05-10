@@ -1,5 +1,5 @@
-import { parse } from 'yaml'
-import { copy, ensureDir } from 'fs'
+import { parse } from '@std/yaml'
+import { copy, ensureDir } from '@std/fs'
 
 function replaceExperience(content) {
   return content.map((item) =>

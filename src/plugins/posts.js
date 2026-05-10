@@ -2,9 +2,9 @@ import { markdown } from '../util/remark/markdown.js'
 import { giscus } from '../util/template.js'
 import { templateArticle } from '../util/template.js'
 import { handleUTC, parseYaml, replaceHead } from '../util/utils.js'
-import { ensureFile, exists } from 'fs'
+import { ensureFile, exists } from '@std/fs'
 import { readAll } from '@std/io'
-import { format } from 'datetime'
+import { format } from '@std/datetime'
 
 const formatDate = (date) => format(new Date(date), 'yyyy-MM-dd HH:mm:ss')
 const updateRegex = /^(updateAt:\s*)(.+)$/m
@@ -103,12 +103,10 @@ export const postPlugin = {
           }, head)
           const postMeta = `<div class="post-meta post-meta-flex-around">
               <div class="post-author" href="/./about/"><i class="fa-solid fa-user"></i> ${author}</div> 
-              <div class="post-time"><i class="fa-solid fa-clock"></i> ${
-            formatDate(date).slice(0, 10)
-          }</div> 
-              <div class="post-update-time"><i class="fa-solid fa-clock-rotate-left"></i> ${
-            updateAt.slice(0, 10)
-          }</div>
+              <div class="post-time"><i class="fa-solid fa-clock"></i> ${formatDate(date).slice(0, 10)
+            }</div> 
+              <div class="post-update-time"><i class="fa-solid fa-clock-rotate-left"></i> ${updateAt.slice(0, 10)
+            }</div>
             </div>`
           const content = templateArticle({
             content: await markdown(md),
