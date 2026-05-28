@@ -1,7 +1,9 @@
 code {
-  background-color: rgba(105, 167, 156, 0.8);
-  padding: 0.1rem 0.3rem;
-  border-radius: 0.25rem;
+  background-color: rgba(0, 122, 255, 0.08);
+  color: var(--color-tint);
+  padding: 0.15rem 0.4rem;
+  border-radius: 6px;
+  font-size: 0.9em;
 }
 
 /* clear */
@@ -11,13 +13,13 @@ pre code {
 }
 
 blockquote {
-  line-height: 1.5;
-  border-inline-start: 0.25rem solid rgba(41, 223, 202);
-  border-radius: 0 5px 5px 0;
+  line-height: 1.6;
+  border-inline-start: 3px solid var(--color-tint);
+  border-radius: 0 8px 8px 0;
   padding-inline-start: 0.25rem;
   padding-block: 0.3rem;
   margin-inline: 0;
-  background-color: rgba(0, 255, 174, 0.1);
+  background-color: rgba(0, 122, 255, 0.06);
 
   p {
     padding-inline-start: 1rem;
