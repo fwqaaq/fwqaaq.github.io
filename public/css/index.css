@@ -383,8 +383,6 @@ section.box {
 .archive-year {
   position: relative;
   padding-block-end: 28px;
-  content-visibility: auto;
-  contain-intrinsic-block-size: auto 320px;
 
   &:last-child {
     padding-block-end: 0;
