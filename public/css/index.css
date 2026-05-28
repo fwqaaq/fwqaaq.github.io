@@ -3,26 +3,26 @@
    ======================================== */
 @media (prefers-color-scheme: dark) {
   :root {
-    --color-label: #FFFFFF;
+    --color-label: #ffffff;
     --color-secondary-label: rgba(235, 235, 245, 0.6);
     --color-tertiary-label: rgba(235, 235, 245, 0.3);
-    --color-tint: #0A84FF;
+    --color-tint: #0a84ff;
     --color-separator: rgba(84, 84, 88, 0.65);
-    --bg-primary: #1C1C1E;
+    --bg-primary: #1c1c1e;
     --bg-secondary: #000000;
-    --bg-tertiary: #2C2C2E;
+    --bg-tertiary: #2c2c2e;
     --header-bg: rgba(28, 28, 30, 0.72);
-    --theme-color: #FFFFFF;
+    --theme-color: #ffffff;
     --bg-color: #000000;
-    --color-a-link: #0A84FF;
-    --color-a-link-hover: #409CFF;
-    --h-color: #FFFFFF;
-    --color-note: #0A84FF;
-    --color-tip: #30D158;
-    --color-warning: #FF9F0A;
-    --color-severe: #FF6B35;
-    --color-caution: #FF453A;
-    --color-important: #BF5AF2;
+    --color-a-link: #0a84ff;
+    --color-a-link-hover: #409cff;
+    --h-color: #ffffff;
+    --color-note: #0a84ff;
+    --color-tip: #30d158;
+    --color-warning: #ff9f0a;
+    --color-severe: #ff6b35;
+    --color-caution: #ff453a;
+    --color-important: #bf5af2;
   }
 }
 
@@ -162,7 +162,7 @@ header.blog-header {
 main.blog-main {
   margin-block-end: 24px;
 
-  & :not(:where(h2, h3, h4, h5, h6)) a[href^="http"] {
+  & :not(:where(h2, h3, h4, h5, h6)) a[href^='http'] {
     overflow-wrap: break-word;
     width: 100%;
   }
@@ -301,39 +301,228 @@ section.box {
 }
 
 /* Archive */
-.archive-time-line {
+.archive-timeline {
+  --archive-blue: var(--color-tint);
+  --archive-green: #34c759;
+  --archive-orange: #ff9500;
+  position: relative;
+  margin-block: 28px 4px;
+  padding-inline-start: 18px;
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset-block: 8px 14px;
+    inset-inline-start: 18px;
+    width: 2px;
+    border-radius: 999px;
+    background: linear-gradient(
+      180deg,
+      var(--archive-blue),
+      var(--archive-green) 48%,
+      var(--archive-orange)
+    );
+    opacity: 0.75;
+  }
+}
+
+.archive-year {
+  position: relative;
+  padding-block-end: 28px;
+
+  &:last-child {
+    padding-block-end: 0;
+  }
+}
+
+.archive-year-head {
+  position: relative;
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 8px 12px;
+  min-height: 36px;
+  margin-inline-start: 24px;
+}
+
+.archive-year-node {
+  position: absolute;
+  inset-block-start: 50%;
+  inset-inline-start: -30px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--archive-blue);
+  border: 2px solid var(--bg-primary);
+  box-shadow:
+    0 0 0 1px var(--color-separator),
+    0 0 0 4px rgba(0, 122, 255, 0.10);
+  transform: translateY(-50%);
+}
+
+.archive-year-title {
+  margin: 0;
+  text-align: start;
+  font-size: 24px;
+  line-height: 1;
+  letter-spacing: 0;
+}
+
+.archive-year-count,
+.archive-month-count {
+  color: var(--color-secondary-label);
+  font-size: 13px;
+  white-space: nowrap;
+}
+
+.archive-months {
+  display: grid;
+  gap: 16px;
+  margin: 10px 0 0 30px;
+  padding: 0;
+  list-style: none;
+}
+
+.archive-month {
+  position: relative;
+  padding-inline-start: 18px;
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset-block-start: 18px;
+    inset-inline-start: -29px;
+    width: 33px;
+    height: 1px;
+    background: var(--color-separator);
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    inset-block-start: 15px;
+    inset-inline-start: 1px;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--archive-green);
+    box-shadow: 0 0 0 3px rgba(52, 199, 89, 0.13);
+  }
+}
+
+.archive-month-head {
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  padding-block: 10px;
+  align-items: baseline;
   gap: 12px;
-  min-height: 44px;
+  padding-block: 4px 8px;
   border-bottom: 0.5px solid var(--color-separator);
-  transition: background 0.12s ease;
-  margin-inline: -20px;
-  padding-inline: 20px;
+}
+
+.archive-month-title {
+  color: var(--color-label);
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.archive-posts {
+  margin: 0;
+  padding: 2px 0 0;
+  list-style: none;
+}
+
+.archive-post {
+  border-bottom: 0.5px solid var(--color-separator);
 
   &:last-child {
     border-bottom: none;
   }
+}
+
+.archive-post-link {
+  display: grid;
+  grid-template-columns: 56px minmax(0, 1fr);
+  align-items: start;
+  gap: 12px;
+  margin-inline: -8px;
+  padding: 10px 8px;
+  border-radius: 8px;
+  transition: background 0.15s ease, transform 0.15s ease;
 
   &:hover {
-    background: rgba(0, 0, 0, 0.03);
+    background: rgba(0, 122, 255, 0.08);
+    transform: translateX(2px);
+  }
+}
+
+.archive-post-day {
+  color: var(--archive-orange);
+  font-size: 12px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  line-height: 1.7;
+}
+
+.archive-post-title {
+  color: var(--color-label);
+  font-size: 15px;
+  line-height: 1.55;
+  overflow-wrap: anywhere;
+}
+
+@media (max-width: 480px) {
+  .archive-timeline {
+    margin-block-start: 22px;
+    padding-inline-start: 12px;
+
+    &::before {
+      inset-inline-start: 12px;
+    }
   }
 
-  .text {
-    min-width: 0;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    font-size: 15px;
-    color: var(--color-label);
+  .archive-year {
+    padding-block-end: 24px;
   }
 
-  .date {
-    flex-shrink: 0;
-    font-size: 13px;
-    color: var(--color-secondary-label);
+  .archive-year-head {
+    margin-inline-start: 20px;
+  }
+
+  .archive-year-node {
+    inset-inline-start: -25.5px;
+    width: 9px;
+    height: 9px;
+  }
+
+  .archive-year-title {
+    font-size: 22px;
+  }
+
+  .archive-months {
+    gap: 14px;
+    margin-inline-start: 22px;
+  }
+
+  .archive-month {
+    padding-inline-start: 14px;
+
+    &::before {
+      inset-inline-start: -21px;
+      width: 25px;
+    }
+  }
+
+  .archive-month-head {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .archive-post-link {
+    grid-template-columns: 48px minmax(0, 1fr);
+    gap: 8px;
+    margin-inline: -6px;
+    padding-inline: 6px;
   }
 }
 
@@ -460,9 +649,15 @@ main.about-main {
   }
 }
 
-.about-card-8 { flex: 8; }
-.about-card-4 { flex: 4; }
-.about-card-3 { flex: 3; }
+.about-card-8 {
+  flex: 8;
+}
+.about-card-4 {
+  flex: 4;
+}
+.about-card-3 {
+  flex: 3;
+}
 
 .about-section-color-one,
 .about-section-color-two,

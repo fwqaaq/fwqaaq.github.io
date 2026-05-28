@@ -1,6 +1,7 @@
 import { ensureDir } from '@std/fs'
 import {
   convertToUSA,
+  generateArchiveTimelinePage,
   generatePage,
   generateTags,
   handleUTC,
@@ -35,12 +36,6 @@ export const pagesPlugin = {
         await ensureDir(new URL('./about/', dist))
         await Deno.writeTextFile(new URL('./about/index.html', dist), aboutPage)
 
-        // Handle the archive
-        const groupArchive = Object.groupBy(
-          meta.map((item) => ({ author, ...item })),
-          (item) => new Date(item.date).getFullYear(),
-        )
-
         // Handle the tags
         const groupTags = Object.groupBy(
           meta.flatMap((item) =>
@@ -49,10 +44,9 @@ export const pagesPlugin = {
           (item) => item.tag,
         )
 
-        Promise.all([
-          generatePage({
-            group: groupArchive,
-            basePath: 'archive',
+        await Promise.all([
+          generateArchiveTimelinePage({
+            meta: meta.map((item) => ({ author, ...item })),
             head,
             ...config,
           }),

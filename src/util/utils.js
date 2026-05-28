@@ -78,6 +78,136 @@ export const generateTags = (/**@type {string[]} */ tags, basePath = 'tags') =>
     '',
   )
 
+const toMonthKey = (/** @type {string} */ date) => {
+  const value = new Date(date)
+  return `${value.getFullYear()}-${
+    String(value.getMonth() + 1).padStart(2, '0')
+  }`
+}
+
+const toMonthLabel = (/** @type {string} */ date) => {
+  const value = new Date(date)
+  return `${value.getFullYear()} 年 ${value.getMonth() + 1} 月`
+}
+
+const toDateKey = (/** @type {string} */ date) => {
+  const value = new Date(date)
+  return `${value.getFullYear()}-${
+    String(value.getMonth() + 1).padStart(2, '0')
+  }-${String(value.getDate()).padStart(2, '0')}`
+}
+
+const toDayLabel = (/** @type {string} */ date) => {
+  const value = new Date(date)
+  return `${String(value.getMonth() + 1).padStart(2, '0')}-${
+    String(value.getDate()).padStart(2, '0')
+  }`
+}
+
+const createArchiveTimeline = (
+  /** @type {Array<import("./type.js").MetaData & { author?: string }>} */ meta,
+) => {
+  const sortedMeta = [...meta].sort((a, b) =>
+    new Date(b.date) - new Date(a.date)
+  )
+  const years = new Map()
+
+  for (const item of sortedMeta) {
+    const value = new Date(item.date)
+    const year = String(value.getFullYear())
+    const month = toMonthKey(item.date)
+
+    if (!years.has(year)) {
+      years.set(year, new Map())
+    }
+
+    const months = years.get(year)
+    if (!months.has(month)) {
+      months.set(month, [])
+    }
+
+    months.get(month).push(item)
+  }
+
+  return [...years.entries()].map(([year, months]) => {
+    const monthCount = months.size
+    const postCount = [...months.values()].reduce(
+      (total, items) => total + items.length,
+      0,
+    )
+    const monthItems = [...months.entries()].map(([month, posts]) => {
+      const date = new Date(posts[0].date)
+      const postItems = posts.map(({ date, title }) => {
+        const place = `/./posts/${handleUTC(date)}/index.html`
+        const day = toDayLabel(date)
+
+        return `<li class="archive-post">
+              <a class="archive-post-link" href="${place}">
+                <time class="archive-post-day" datetime="${
+          toDateKey(date)
+        }">${day}</time>
+                <span class="archive-post-title">${title}</span>
+              </a>
+            </li>`
+      }).join('')
+
+      return `<li class="archive-month">
+            <div class="archive-month-head">
+              <time class="archive-month-title" datetime="${month}">${
+        toMonthLabel(date)
+      }</time>
+              <span class="archive-month-count">${posts.length} 篇</span>
+            </div>
+            <ul class="archive-posts">
+              ${postItems}
+            </ul>
+          </li>`
+    }).join('')
+
+    return `<section class="archive-year" aria-labelledby="archive-year-${year}">
+          <div class="archive-year-head">
+            <span class="archive-year-node" aria-hidden="true"></span>
+            <h2 id="archive-year-${year}" class="archive-year-title">${year}</h2>
+            <span class="archive-year-count">${monthCount} 个月 / ${postCount} 篇</span>
+          </div>
+          <ol class="archive-months">
+            ${monthItems}
+          </ol>
+        </section>`
+  }).join('')
+}
+
+/**
+ * @param {{meta: Array<import("./type.js").MetaData & { author?: string }>, dist: string, header: string, head: string, footer: string, version: string, author: string, website: string}}
+ */
+export async function generateArchiveTimelinePage(
+  { meta, dist, header, head, footer, version, author, website },
+) {
+  const url = new URL('./archive/index.html', dist)
+  const years = [
+    ...new Set(meta.map((item) => new Date(item.date).getFullYear())),
+  ]
+    .sort((a, b) => b - a)
+  const timeline = createArchiveTimeline(meta)
+  const archiveHead = replaceHead({
+    keywords: years.join(', '),
+    description: `${author} 的文章归档`,
+    title: `${author} ~ archive`,
+    version,
+    url: `${website}archive/`,
+    author,
+  }, head)
+  const body = templateArticle({
+    title: 'archive',
+    content: `<section class="archive-timeline" aria-label="文章归档时间线">
+            ${timeline}
+          </section>`,
+  })
+
+  if (!await exists(url)) await ensureFile(url)
+  await Deno.writeTextFile(url, `${archiveHead}${header}${body}${footer}`)
+}
+
 /**@param {import("./type.js").GeneratePageOptions}*/
 export async function generatePage(
   { group, basePath, dist, header, head, footer, version, author },
@@ -117,13 +247,15 @@ export async function generatePage(
       (acc, { date, summary }) => {
         const place = `/./posts/${handleUTC(date)}/index.html`
         return acc +
-          `<p class="archive-p-line"><a class="archive-time-line" href=${place} target="_blank"> <span class="text">${summary}</span> <span class="date">${convertToUSA(date)
+          `<p class="archive-p-line"><a class="archive-time-line" href=${place} target="_blank"> <span class="text">${summary}</span> <span class="date">${
+            convertToUSA(date)
           }</span></a></p>`
       },
       '',
     )
-    const itemBody = `${itemHead}${header}${templateArticle({ title: key, content: p })
-      }${footer}`
+    const itemBody = `${itemHead}${header}${
+      templateArticle({ title: key, content: p })
+    }${footer}`
     await Deno.writeTextFile(itemUrl, itemBody)
   }
 }
