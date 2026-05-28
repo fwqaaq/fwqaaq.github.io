@@ -383,6 +383,8 @@ section.box {
 .archive-year {
   position: relative;
   padding-block-end: 28px;
+  content-visibility: auto;
+  contain-intrinsic-block-size: auto 320px;
 
   &:last-child {
     padding-block-end: 0;
@@ -397,6 +399,24 @@ section.box {
   gap: 8px 12px;
   min-height: 36px;
   margin-inline-start: 24px;
+  cursor: pointer;
+  user-select: none;
+  list-style: none;
+
+  &::-webkit-details-marker {
+    display: none;
+  }
+}
+
+.archive-year-chevron {
+  font-size: 12px;
+  color: var(--color-tertiary-label);
+  margin-inline-start: auto;
+  transition: transform 0.2s cubic-bezier(0.32, 0.72, 0, 1);
+}
+
+details[open] > summary .archive-year-chevron {
+  transform: rotate(90deg);
 }
 
 .archive-year-node {

@@ -136,7 +136,7 @@ const createArchiveTimeline = (
     months.get(month).push(item)
   }
 
-  return [...years.entries()].map(([year, months]) => {
+  return [...years.entries()].map(([year, months], index) => {
     const monthCount = months.size
     const postCount = [...months.values()].reduce(
       (total, items) => total + items.length,
@@ -171,16 +171,17 @@ const createArchiveTimeline = (
           </li>`
     }).join('')
 
-    return `<section class="archive-year" aria-labelledby="archive-year-${year}">
-          <div class="archive-year-head">
+    return `<details class="archive-year"${index === 0 ? ' open' : ''}>
+          <summary class="archive-year-head" aria-label="${year}年归档">
             <span class="archive-year-node" aria-hidden="true"></span>
-            <h2 id="archive-year-${year}" class="archive-year-title">${year}</h2>
+            <h2 class="archive-year-title">${year}</h2>
             <span class="archive-year-count">${monthCount} 个月 / ${postCount} 篇</span>
-          </div>
+            <i class="archive-year-chevron fa-solid fa-chevron-right" aria-hidden="true"></i>
+          </summary>
           <ol class="archive-months">
             ${monthItems}
           </ol>
-        </section>`
+        </details>`
   }).join('')
 }
 
