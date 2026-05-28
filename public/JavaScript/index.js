@@ -16,7 +16,6 @@ const metaTheme = document.head.querySelector("meta[name='theme-color']")
 /**
  * @param {boolean} isDarkTheme
  * @param {Element} e
- * @param {Array<[string, string]>} colors
  */
 function toggleColor(isDarkTheme, e) {
   e.classList.toggle('fa-sun')
@@ -82,8 +81,8 @@ document.addEventListener('DOMContentLoaded', () => {
   const header = document.querySelector('header')
   const nav = header.querySelector('nav')
   const switchIcon = document.getElementById('switch-icon')
-  const isWidthMatchMedia = !globalThis.matchMedia('(max-width: 480px').matches
-  if (!isWidthMatchMedia) switchIcon.hidden = true
+  const isMobile = globalThis.matchMedia('(max-width: 480px)').matches
+  if (!isMobile) switchIcon.hidden = true
 
   /**@param {HTMLElement | null} target*/
   const isRouterTag = (target) => {
@@ -96,8 +95,7 @@ document.addEventListener('DOMContentLoaded', () => {
       useRoute(e)
     }
 
-    // Not matched, return
-    if (isWidthMatchMedia) return
+    if (!isMobile) return
     if (e.target === switchIcon) {
       switchIcon.classList.toggle('fa-bars')
       switchIcon.classList.toggle('fa-xmark')
@@ -111,7 +109,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   let lastScrollTop = 0
   document.addEventListener('scroll', (_) => {
-    const current = globalThis.scrollX || document.documentElement.scrollTop
+    const current = globalThis.scrollY || document.documentElement.scrollTop
     const headerHeight = '-' +
       getComputedStyle(document.documentElement).getPropertyValue(
         '--header-height',
@@ -120,7 +118,7 @@ document.addEventListener('DOMContentLoaded', () => {
       header.style.top = '0'
     } else {
       header.style.top = headerHeight
-      if (!globalThis.matchMedia('(max-width: 480px').matches) return
+      if (!globalThis.matchMedia('(max-width: 480px)').matches) return
       nav.parentElement.classList.remove('show')
       switchIcon.classList.remove('fa-xmark')
       switchIcon.classList.add('fa-bars')
@@ -132,11 +130,46 @@ document.addEventListener('DOMContentLoaded', () => {
 })
 
 /**
- * @param {number} amount 
+ * @param {number} amount
  */
 // deno-lint-ignore no-unused-vars
 function sponsor(amount) {
   globalThis.location.href = `https://stripe.fwqaaq.workers.dev/Personal-Website-Sponsor/checkout?mode=once`
+}
+
+function loadGiscus() {
+  if (document.querySelector('.giscus')) return
+
+  const script = document.createElement('script')
+  const dataset = {
+    repo: 'fwqaaq/fwqaaq.github.io',
+    repoId: 'R_kgDOHCFK2A',
+    category: 'Show and tell',
+    categoryId: 'DIC_kwDOHCFK2M4CYOLh',
+    mapping: 'pathname',
+    strict: '0',
+    reactionsEnabled: '1',
+    emitMetadata: '1',
+    inputPosition: 'bottom',
+    theme: globalThis.localStorage.getItem('darkMode') ?? 'preferred_color_scheme',
+    lang: 'zh-CN',
+  }
+  script.src = 'https://giscus.app/client.js'
+  script.crossOrigin = 'anonymous'
+  script.async = true
+  for (const [key, value] of Object.entries(dataset)) {
+    script.dataset[key] = value
+  }
+
+  const giscus = document.createElement('div')
+  giscus.className = 'giscus'
+  document.body.querySelector('main.blog-main').insertAdjacentElement('afterend', giscus)
+  document.body.appendChild(script)
+}
+
+function unloadGiscus() {
+  document.querySelector('div.giscus')?.remove()
+  document.querySelector('script[src*="giscus"]')?.remove()
 }
 
 const renderPage = async (e) => {
@@ -144,52 +177,18 @@ const renderPage = async (e) => {
   if (e && e.type === 'popstate' && location.hash) return
 
   const path = location.pathname
-  if (path.includes('posts')) {
-    const script = document.createElement('script')
-    const { src, crossOrigin, async, dataset } = {
-      src: 'https://giscus.app/client.js',
-      dataset: {
-        repo: 'fwqaaq/fwqaaq.github.io',
-        repoId: 'R_kgDOHCFK2A',
-        category: 'Show and tell',
-        categoryId: 'DIC_kwDOHCFK2M4CYOLh',
-        mapping: 'pathname',
-        strict: '0',
-        reactionsEnabled: '1',
-        emitMetadata: '1',
-        inputPosition: 'bottom',
-        theme: globalThis.localStorage.getItem('darkMode') ??
-          'preferred_color_scheme',
-        lang: 'zh-CN',
-      },
-      crossOrigin: 'anonymous',
-      async: true,
-    }
-    Object.assign(script, {
-      src,
-      crossOrigin,
-      async,
-    })
-    // dataset only-read
-    for (const [key, value] of Object.entries(dataset)) {
-      script.dataset[key] = value
-    }
-
-    const giscus = document.createElement('div')
-    giscus.className = 'giscus'
-    const main = document.body.querySelector('main.blog-main')
-    main.insertAdjacentElement('afterend', giscus)
-
-    document.body.appendChild(script)
-  }
-
-  if (!path.includes('posts')) document.querySelector('div.giscus')?.remove()
 
   const res = await fetch(path)
   const html = await res.text()
 
   const [, content] = html.match(regex)
   document.body.querySelector('main').innerHTML = content
+
+  if (path.includes('posts')) {
+    loadGiscus()
+  } else {
+    unloadGiscus()
+  }
 }
 
 /**@param {MouseEvent} e*/

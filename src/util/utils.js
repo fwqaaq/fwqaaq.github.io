@@ -70,11 +70,18 @@ export const replaceBody = (head, header, footer, src) => {
  * @param {string[]} tags
  * @param {string} basePath
  */
-export const generateTags = (/**@type {string[]} */ tags, basePath = 'tags') =>
+/**
+ * @param {string[]} tags
+ * @param {string} basePath
+ * @param {Record<string, number> | null} counts
+ */
+export const generateTags = (tags, basePath = 'tags', counts = null) =>
   tags.reduce(
     (acc, tag) =>
       acc +
-      `<a class="tag" href="/./${basePath}/${tag}/"><i class="fa-solid fa-tag"></i> ${tag}</a>`,
+      `<a class="tag" href="/./${basePath}/${tag}/"><i class="fa-solid fa-tag"></i> ${tag}${
+        counts ? `<span class="tag-count">${counts[tag]}</span>` : ''
+      }</a>`,
     '',
   )
 
@@ -213,7 +220,12 @@ export async function generatePage(
   { group, basePath, dist, header, head, footer, version, author },
 ) {
   const url = new URL(`./${basePath}/index.html`, dist)
-  const keys = Object.keys(group)
+
+  // Sort tags by post count descending
+  const sortedEntries = Object.entries(group).sort(([, a], [, b]) => b.length - a.length)
+  const keys = sortedEntries.map(([k]) => k)
+  const counts = Object.fromEntries(sortedEntries.map(([k, v]) => [k, v.length]))
+
   const mainHead = replaceHead({
     keywords: keys.join(', '),
     summary: `${author} ~ ${basePath}`,
@@ -222,10 +234,9 @@ export async function generatePage(
     author,
   }, head)
 
-  // a tags
   const body = templateArticle({
     title: basePath,
-    content: generateTags(keys, basePath),
+    content: generateTags(keys, basePath, counts),
   })
   const article = `${mainHead}${header}${body}${footer}`
   if (!await exists(url)) await ensureFile(url)
@@ -242,19 +253,19 @@ export async function generatePage(
     }, head)
     if (!await exists(itemUrl)) await ensureFile(itemUrl)
 
-    // p tags
-    const p = items.reduce(
-      (acc, { date, summary }) => {
+    const postList = items.reduce(
+      (acc, { date, title }) => {
         const place = `/./posts/${handleUTC(date)}/index.html`
         return acc +
-          `<p class="archive-p-line"><a class="archive-time-line" href=${place} target="_blank"> <span class="text">${summary}</span> <span class="date">${
-            convertToUSA(date)
-          }</span></a></p>`
+          `<a class="tag-post-item" href="${place}">
+            <span class="tag-post-title">${title}</span>
+            <span class="tag-post-date">${convertToUSA(date)}</span>
+          </a>`
       },
       '',
     )
     const itemBody = `${itemHead}${header}${
-      templateArticle({ title: key, content: p })
+      templateArticle({ title: key, content: `<div class="tag-post-list">${postList}</div>` })
     }${footer}`
     await Deno.writeTextFile(itemUrl, itemBody)
   }
