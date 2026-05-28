@@ -24,18 +24,18 @@ function toggleColor(isDarkTheme, e) {
   globalThis.localStorage.setItem('darkMode', isDarkTheme ? 'dark' : 'light')
 
   const colors = [
-    ['--theme-color',           isDarkTheme ? '#FFFFFF'               : '#000000'],
-    ['--color-label',           isDarkTheme ? '#FFFFFF'               : '#000000'],
-    ['--h-color',               isDarkTheme ? '#FFFFFF'               : '#000000'],
-    ['--color-tint',            isDarkTheme ? '#0A84FF'               : '#007AFF'],
-    ['--color-a-link',          isDarkTheme ? '#0A84FF'               : '#007AFF'],
-    ['--color-a-link-hover',    isDarkTheme ? '#409CFF'               : '#0051D5'],
-    ['--bg-color',              isDarkTheme ? '#000000'               : '#F2F2F7'],
-    ['--bg-primary',            isDarkTheme ? '#1C1C1E'               : '#FFFFFF'],
-    ['--bg-secondary',          isDarkTheme ? '#000000'               : '#F2F2F7'],
-    ['--bg-tertiary',           isDarkTheme ? '#2C2C2E'               : '#FFFFFF'],
-    ['--header-bg',             isDarkTheme ? 'rgba(28,28,30,0.72)'   : 'rgba(255,255,255,0.72)'],
-    ['--color-separator',       isDarkTheme ? 'rgba(84,84,88,0.65)'   : 'rgba(60,60,67,0.29)'],
+    ['--theme-color', isDarkTheme ? '#FFFFFF' : '#000000'],
+    ['--color-label', isDarkTheme ? '#FFFFFF' : '#000000'],
+    ['--h-color', isDarkTheme ? '#FFFFFF' : '#000000'],
+    ['--color-tint', isDarkTheme ? '#0A84FF' : '#007AFF'],
+    ['--color-a-link', isDarkTheme ? '#0A84FF' : '#007AFF'],
+    ['--color-a-link-hover', isDarkTheme ? '#409CFF' : '#0051D5'],
+    ['--bg-color', isDarkTheme ? '#000000' : '#F2F2F7'],
+    ['--bg-primary', isDarkTheme ? '#1C1C1E' : '#FFFFFF'],
+    ['--bg-secondary', isDarkTheme ? '#000000' : '#F2F2F7'],
+    ['--bg-tertiary', isDarkTheme ? '#2C2C2E' : '#FFFFFF'],
+    ['--header-bg', isDarkTheme ? 'rgba(28,28,30,0.72)' : 'rgba(255,255,255,0.72)'],
+    ['--color-separator', isDarkTheme ? 'rgba(84,84,88,0.65)' : 'rgba(60,60,67,0.29)'],
     ['--color-secondary-label', isDarkTheme ? 'rgba(235,235,245,0.6)' : 'rgba(60,60,67,0.6)'],
   ]
   colors.forEach(([v, c]) => document.documentElement.style.setProperty(v, c))
@@ -136,7 +136,7 @@ document.addEventListener('DOMContentLoaded', () => {
  */
 // deno-lint-ignore no-unused-vars
 function sponsor(amount) {
-  globalThis.location.href = `https://personal-website-sponsorship-stripes.fwqaaq.com?amount=${amount}`
+  globalThis.location.href = `https://stripe.fwqaaq.workers.dev/Personal-Website-Sponsor/checkout?mode=once`
 }
 
 const renderPage = async (e) => {

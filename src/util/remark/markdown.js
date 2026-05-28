@@ -14,7 +14,7 @@ import remarkList from './remark-list.js'
 import remarkToc from './remark-toc.js'
 import remarkSponsor from './remark-sponsor.js'
 
-const sponsorAddress = 'https://personal-website-sponsorship-stripes.fwqaaq.com?amount=199'
+const sponsorAddress = 'https://stripe.fwqaaq.workers.dev/Personal-Website-Sponsor/checkout?mode=once'
 
 export const markdown = async (file) =>
   await unified()
