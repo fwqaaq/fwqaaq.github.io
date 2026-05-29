@@ -36,6 +36,7 @@ function toggleColor(isDarkTheme, e) {
     ['--color-separator', isDarkTheme ? 'rgba(84,84,88,0.65)' : 'rgba(60,60,67,0.29)'],
     ['--color-secondary-label', isDarkTheme ? 'rgba(235,235,245,0.6)' : 'rgba(60,60,67,0.6)'],
     ['--color-tertiary-label', isDarkTheme ? 'rgba(235,235,245,0.3)' : 'rgba(60,60,67,0.3)'],
+    ['--chip-bg', isDarkTheme ? 'rgba(120,120,128,0.24)' : 'rgba(120,120,128,0.12)'],
   ]
   colors.forEach(([v, c]) => document.documentElement.style.setProperty(v, c))
   metaTheme.content = isDarkTheme ? '#000000' : '#F2F2F7'

@@ -12,6 +12,7 @@
     --bg-secondary: #000000;
     --bg-tertiary: #2c2c2e;
     --header-bg: rgba(28, 28, 30, 0.72);
+    --chip-bg: rgba(120, 120, 128, 0.24);
     --theme-color: #ffffff;
     --bg-color: #000000;
     --color-a-link: #0a84ff;
@@ -719,7 +720,7 @@ main.about-main {
 
 .about-profile {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   gap: 24px;
   background: var(--bg-primary);
   border-radius: 20px;
@@ -768,7 +769,7 @@ main.about-main {
   font-size: 12px;
   font-weight: 500;
   color: var(--color-secondary-label);
-  background: var(--bg-secondary);
+  background: var(--chip-bg);
   border-radius: 999px;
   padding: 4px 10px;
 }

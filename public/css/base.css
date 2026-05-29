@@ -24,6 +24,7 @@ body {
   --bg-secondary: #F2F2F7;
   --bg-tertiary: #FFFFFF;
   --header-bg: rgba(255, 255, 255, 0.72);
+  --chip-bg: rgba(120, 120, 128, 0.12);
 
   /* Legacy aliases */
   --theme-color: #000000;
