@@ -35,6 +35,7 @@ function toggleColor(isDarkTheme, e) {
     ['--header-bg', isDarkTheme ? 'rgba(28,28,30,0.72)' : 'rgba(255,255,255,0.72)'],
     ['--color-separator', isDarkTheme ? 'rgba(84,84,88,0.65)' : 'rgba(60,60,67,0.29)'],
     ['--color-secondary-label', isDarkTheme ? 'rgba(235,235,245,0.6)' : 'rgba(60,60,67,0.6)'],
+    ['--color-tertiary-label', isDarkTheme ? 'rgba(235,235,245,0.3)' : 'rgba(60,60,67,0.3)'],
   ]
   colors.forEach(([v, c]) => document.documentElement.style.setProperty(v, c))
   metaTheme.content = isDarkTheme ? '#000000' : '#F2F2F7'
@@ -109,14 +110,10 @@ document.addEventListener('DOMContentLoaded', () => {
   let lastScrollTop = 0
   document.addEventListener('scroll', (_) => {
     const current = globalThis.scrollY || document.documentElement.scrollTop
-    const headerHeight = '-' +
-      getComputedStyle(document.documentElement).getPropertyValue(
-        '--header-height',
-      )
     if (current <= lastScrollTop) {
-      header.style.top = '0'
+      header.style.transform = 'translateY(0)'
     } else {
-      header.style.top = headerHeight
+      header.style.transform = 'translateY(-100%)'
       if (!globalThis.matchMedia('(max-width: 480px)').matches) return
       nav.parentElement.classList.remove('show')
       switchIcon.classList.remove('fa-xmark')
