@@ -1,8 +1,7 @@
 ///<reference lib="dom" />
 
-// Regex to match the content of the main tag
-const regex =
-  /\<head\>[\s\S]*\<\/head\>[\s\S]*?\<main[\s\S]*?\>([\s\S]*)\<\/main\>/
+// Regex to capture the full <main>…</main> element including its class attribute
+const regex = /(<main[\s\S]*<\/main>)/
 
 let isDark = globalThis.matchMedia('(prefers-color-scheme: dark)').matches
 
@@ -181,8 +180,10 @@ const renderPage = async (e) => {
   const res = await fetch(path)
   const html = await res.text()
 
-  const [, content] = html.match(regex)
-  document.body.querySelector('main').innerHTML = content
+  const [, mainHtml] = html.match(regex)
+  const temp = document.createElement('div')
+  temp.innerHTML = mainHtml
+  document.body.querySelector('main').replaceWith(temp.firstElementChild)
 
   if (path.includes('posts')) {
     loadGiscus()
