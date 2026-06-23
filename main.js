@@ -47,10 +47,45 @@ async function main() {
   await core.runHook('afterBuild', config)
 }
 
+/**
+ * Watch the public/ directory for changes and rebuild assets (CSS, JS).
+ * Only active in DEV mode. Uses Deno.watchFs to detect file changes
+ * that --unstable-hmr cannot see (files read via Deno.readTextFile at runtime).
+ * @param {Awaited<ReturnType<typeof createConfig>>} config
+ */
+async function watchPublicAssets(config) {
+  const publicDir = new URL('./public/', import.meta.url)
+  const watcher = Deno.watchFs(publicDir.pathname, { recursive: true })
+  let timer = undefined
+
+  for await (const event of watcher) {
+    if (event.kind === 'access') continue
+    if (timer) clearTimeout(timer)
+    timer = setTimeout(async () => {
+      console.log(
+        '[watcher] public/ change detected, rebuilding assets...',
+      )
+      try {
+        const core = new Core()
+        core.use(assertPlugin)
+        await core.runHook('beforeBuild', config)
+        console.log('[watcher] rebuild complete')
+      } catch (err) {
+        console.error('[watcher] rebuild failed:', err)
+      }
+    }, 300)
+  }
+}
+
 // Handle the http server
 const mode = Deno.env.get('MODE')
 if (mode === 'DEV' || mode === 'PRO') {
   main()
+}
+
+if (mode === 'DEV') {
+  // Watch public/ for CSS/JS changes (not covered by --unstable-hmr)
+  watchPublicAssets(config)
 }
 
 if (mode === 'DEV' || mode === 'PRE') {

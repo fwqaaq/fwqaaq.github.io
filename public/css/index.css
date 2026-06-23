@@ -24,7 +24,6 @@
     --bg-color: #0B1213;
     --color-a-link: var(--color-tint);
     --color-a-link-hover: var(--color-tint-hover);
-    --h-color: #ffffff;
     --color-note: #64D2CA;
     --color-tip: #30d158;
     --color-warning: #ff9f0a;
@@ -249,6 +248,7 @@ body {
 
 @media (max-width: 480px) {
   .language-switcher {
+    position: relative;
     display: block;
     height: auto;
   }
@@ -258,10 +258,35 @@ body {
   }
 
   .language-menu {
-    position: static;
-    width: calc(100% - 32px);
-    margin: 8px 16px 12px;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    inset-block-start: auto;
+    inset-inline-end: auto;
+    width: 100%;
+    max-height: 50vh;
+    overflow-y: auto;
+    margin: 0;
+    border-radius: 16px 16px 0 0;
+    box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.15);
+    z-index: 200;
+    padding-bottom: env(safe-area-inset-bottom);
+    animation: languageMenuSlideUp 0.25s cubic-bezier(0.32, 0.72, 0, 1);
+  }
+
+  .language-menu[hidden] {
+    display: none;
+    animation: none;
+  }
+}
+
+@keyframes languageMenuSlideUp {
+  from {
+    transform: translateY(100%);
+  }
+  to {
+    transform: translateY(0);
   }
 }
 

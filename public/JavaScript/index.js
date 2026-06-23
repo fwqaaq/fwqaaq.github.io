@@ -16,7 +16,6 @@ const themeTokens = {
   light: [
     ['--theme-color', '#000000'],
     ['--color-label', '#000000'],
-    ['--h-color', '#000000'],
     ['--color-tint', '#007A78'],
     ['--color-tint-hover', '#005F5D'],
     ['--color-tint-soft', 'rgba(0,122,120,0.12)'],
@@ -46,7 +45,6 @@ const themeTokens = {
   dark: [
     ['--theme-color', '#FFFFFF'],
     ['--color-label', '#FFFFFF'],
-    ['--h-color', '#FFFFFF'],
     ['--color-tint', '#64D2CA'],
     ['--color-tint-hover', '#9BECE6'],
     ['--color-tint-soft', 'rgba(100,210,202,0.16)'],
@@ -87,7 +85,6 @@ const languageCodes = new Set([
   'zh-TW',
 ])
 
-let googleTranslateReady = false
 let preferredLanguage = ''
 
 globalThis.googleTranslateElementInit = () => {
@@ -100,7 +97,6 @@ globalThis.googleTranslateElementInit = () => {
     layout: globalThis.google.translate.TranslateElement.InlineLayout.SIMPLE,
   }, 'google_translate_element')
 
-  googleTranslateReady = true
   globalThis.dispatchEvent(new Event('google-translate-ready'))
 }
 
@@ -134,15 +130,17 @@ function setTranslateCookie(value) {
   }
 }
 
-function clearTranslateCookie() {
-  const cookie = 'googtrans=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/'
-  document.cookie = cookie
-
-  const parts = location.hostname.split('.')
-  if (parts.length > 1) {
-    document.cookie = `${cookie}; domain=.${parts.slice(-2).join('.')}`
-  }
-}
+// Pre-set googtrans cookie BEFORE Google Translate's defer script runs.
+// This IIFE executes synchronously while the parser is blocked in <head>,
+// so the cookie exists when googleTranslateElementInit() fires.
+;(function preloadTranslateCookie() {
+  const saved = globalThis.localStorage.getItem('preferredLanguage')
+  if (saved === null) return // First visit, let Google auto-detect from browser
+  preferredLanguage = saved
+  // Empty string = original language — use /zh-CN/zh-CN to prevent
+  // Google from auto-detecting the browser language as target.
+  setTranslateCookie(saved ? '/zh-CN/' + saved : '/zh-CN/zh-CN')
+})()
 
 function updateLanguageOptions(language) {
   document.querySelectorAll('.language-option').forEach((option) => {
@@ -153,53 +151,45 @@ function updateLanguageOptions(language) {
   })
 }
 
-function openTranslateFallback(language) {
-  if (!language) return
 
-  const target = new URL('https://translate.google.com/translate')
-  target.searchParams.set('sl', 'zh-CN')
-  target.searchParams.set('tl', language)
-  target.searchParams.set('u', location.href)
-  globalThis.open(target.href, '_blank', 'noopener')
-}
-
-function applyLanguage(language, allowFallback = false, attempts = 0) {
+function applyLanguage(language, shouldReload = false) {
   if (!languageCodes.has(language)) return
 
   preferredLanguage = language
   updateLanguageOptions(language)
 
   if (!language) {
-    const wasTranslated = document.cookie.includes('googtrans=') ||
-      document.documentElement.className.includes('translated')
-    globalThis.localStorage.removeItem('preferredLanguage')
-    clearTranslateCookie()
+    globalThis.localStorage.setItem('preferredLanguage', '')
+    // Set cookie to /zh-CN/zh-CN (same source = target) to prevent
+    // Google from auto-detecting the browser language as target.
+    setTranslateCookie('/zh-CN/zh-CN')
+    if (shouldReload) {
+      location.reload()
+      return
+    }
+    // SPA path: try combo reset to stop translation
     const combo = getGoogleCombo()
-    if (combo) {
+    if (combo && combo.value !== '') {
       combo.value = ''
       combo.dispatchEvent(new Event('change'))
     }
-    if (wasTranslated) setTimeout(() => location.reload(), 100)
     return
   }
 
   globalThis.localStorage.setItem('preferredLanguage', language)
   setTranslateCookie(`/zh-CN/${language}`)
 
+  if (shouldReload) {
+    location.reload()
+    return
+  }
+
+  // SPA path: retrigger translation on new content
   const combo = getGoogleCombo()
-  if (combo) {
+  if (combo && combo.value !== language) {
     combo.value = language
     combo.dispatchEvent(new Event('change'))
-    return
   }
-
-  const maxAttempts = googleTranslateReady ? 4 : 12
-  if (attempts < maxAttempts) {
-    setTimeout(() => applyLanguage(language, allowFallback, attempts + 1), 250)
-    return
-  }
-
-  if (allowFallback) openTranslateFallback(language)
 }
 
 function detectPreferredLanguage() {
@@ -259,11 +249,11 @@ function initTranslationControls() {
 
   const initialLanguage = detectPreferredLanguage()
   updateLanguageOptions(initialLanguage)
-  if (initialLanguage) applyLanguage(initialLanguage)
-
-  globalThis.addEventListener('google-translate-ready', () => {
-    if (preferredLanguage) applyLanguage(preferredLanguage)
-  })
+  // Cookie was already set by the IIFE before Google Translate inited —
+  // the page is already in the correct language. Just track the preference.
+  if (initialLanguage) {
+    preferredLanguage = initialLanguage
+  }
 }
 
 document.addEventListener('DOMContentLoaded', () => {

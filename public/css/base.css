@@ -38,7 +38,6 @@ body {
   --bg-color: #F3F7F6;
   --color-a-link: var(--color-tint);
   --color-a-link-hover: var(--color-tint-hover);
-  --h-color: #000000;
   --list-color: var(--color-tint);
   --table-border-color: var(--color-separator);
 
@@ -72,12 +71,16 @@ main {
   min-height: calc(100vh - var(--header-height) - var(--footer-height));
 }
 
+/* ========================================
+   Headings — Apple HIG semantic color hierarchy
+   ======================================== */
 h1 {
   text-align: center;
   font-size: 28px;
   font-weight: 700;
   line-height: 1.2;
-  color: var(--h-color);
+  letter-spacing: -0.022em;
+  color: var(--color-tint);
 }
 
 h2,
@@ -86,16 +89,68 @@ h4,
 h5,
 h6 {
   line-height: 1.2;
-  color: var(--h-color);
 
   &:hover a[class="anchor"]::after {
     content: attr(data-anchorjs-icon);
   }
 }
 
-h2 { font-size: 22px; font-weight: 700; }
-h3 { font-size: 20px; font-weight: 600; }
-h4 { font-size: 17px; font-weight: 600; }
+h2 {
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: -0.016em;
+  color: var(--color-tint);
+  margin-top: 32px;
+
+  &:first-child {
+    margin-top: 0;
+  }
+}
+
+h3 {
+  font-size: 20px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--color-secondary-label);
+  margin-top: 24px;
+
+  &:first-child {
+    margin-top: 0;
+  }
+}
+
+h4 {
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--color-secondary-label);
+  margin-top: 20px;
+
+  &:first-child {
+    margin-top: 0;
+  }
+}
+
+h5 {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--color-secondary-label);
+  margin-top: 16px;
+
+  &:first-child {
+    margin-top: 0;
+  }
+}
+
+h6 {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--color-tertiary-label);
+  margin-top: 16px;
+
+  &:first-child {
+    margin-top: 0;
+  }
+}
 
 a {
   text-decoration: none;
@@ -121,14 +176,6 @@ input {
   }
 }
 
-.decoration-line:hover,
-.decoration-line:hover i {
-  text-decoration: underline;
-  text-decoration-thickness: 1px;
-  text-decoration-color: var(--color-tint);
-  text-underline-offset: 3px;
-}
-
 .loading::after {
   content: "";
   display: block;
@@ -146,7 +193,9 @@ input {
 }
 
 @keyframes spin {
-  to { transform: rotate(360deg); }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 .text-center {
@@ -177,5 +226,8 @@ i {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  * { animation: none !important; transition: none !important; }
+  * {
+    animation: none !important;
+    transition: none !important;
+  }
 }
