@@ -131,16 +131,17 @@ function setTranslateCookie(value) {
 }
 
 // Pre-set googtrans cookie BEFORE Google Translate's defer script runs.
-// This IIFE executes synchronously while the parser is blocked in <head>,
+// This block executes synchronously while the parser is blocked in <head>,
 // so the cookie exists when googleTranslateElementInit() fires.
-;(function preloadTranslateCookie() {
+{
   const saved = globalThis.localStorage.getItem('preferredLanguage')
-  if (saved === null) return // First visit, let Google auto-detect from browser
-  preferredLanguage = saved
-  // Empty string = original language — use /zh-CN/zh-CN to prevent
-  // Google from auto-detecting the browser language as target.
-  setTranslateCookie(saved ? '/zh-CN/' + saved : '/zh-CN/zh-CN')
-})()
+  if (saved !== null) {
+    preferredLanguage = saved
+    // Empty string = original language — use /zh-CN/zh-CN to prevent
+    // Google from auto-detecting the browser language as target.
+    setTranslateCookie(saved ? '/zh-CN/' + saved : '/zh-CN/zh-CN')
+  }
+}
 
 function updateLanguageOptions(language) {
   document.querySelectorAll('.language-option').forEach((option) => {
@@ -150,7 +151,6 @@ function updateLanguageOptions(language) {
     )
   })
 }
-
 
 function applyLanguage(language, shouldReload = false) {
   if (!languageCodes.has(language)) return
@@ -249,7 +249,7 @@ function initTranslationControls() {
 
   const initialLanguage = detectPreferredLanguage()
   updateLanguageOptions(initialLanguage)
-  // Cookie was already set by the IIFE before Google Translate inited —
+  // Cookie was already set by the synchronous block before Google Translate inited —
   // the page is already in the correct language. Just track the preference.
   if (initialLanguage) {
     preferredLanguage = initialLanguage
