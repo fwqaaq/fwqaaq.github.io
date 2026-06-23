@@ -17,7 +17,35 @@
             <a class="decoration-line" onclick="sponsor(199)">
                 <i class="fa-solid fa-circle-dollar-to-slot fa-xs"></i>
                 <span class="disappear">赞助</span></a>
-            <a class="decoration-line model" href="#" class="model"><i class="fa-solid fa-sun fa-xs"></i></a>
+            <div class="language-switcher notranslate">
+                <button class="language-toggle" type="button" aria-label="切换语言" aria-expanded="false"
+                    aria-controls="language-menu">
+                    <i class="fa-solid fa-globe fa-xs" aria-hidden="true"></i>
+                    <span class="disappear">语言</span>
+                </button>
+                <div class="language-menu" id="language-menu" role="menu" hidden>
+                    <button class="language-option" type="button" role="menuitemradio" data-lang=""
+                        aria-checked="true">原文</button>
+                    <button class="language-option" type="button" role="menuitemradio" data-lang="en"
+                        aria-checked="false">English</button>
+                    <button class="language-option" type="button" role="menuitemradio" data-lang="ja"
+                        aria-checked="false">日本語</button>
+                    <button class="language-option" type="button" role="menuitemradio" data-lang="ko"
+                        aria-checked="false">한국어</button>
+                    <button class="language-option" type="button" role="menuitemradio" data-lang="fr"
+                        aria-checked="false">Français</button>
+                    <button class="language-option" type="button" role="menuitemradio" data-lang="de"
+                        aria-checked="false">Deutsch</button>
+                    <button class="language-option" type="button" role="menuitemradio" data-lang="es"
+                        aria-checked="false">Español</button>
+                    <button class="language-option" type="button" role="menuitemradio" data-lang="ru"
+                        aria-checked="false">Русский</button>
+                    <button class="language-option" type="button" role="menuitemradio" data-lang="zh-TW"
+                        aria-checked="false">繁體中文</button>
+                </div>
+            </div>
+            <div id="google_translate_element" class="google-translate-element notranslate" aria-hidden="true"></div>
+            <a class="decoration-line model" href="#" aria-label="切换深浅色主题"><i class="fa-solid fa-sun fa-xs"></i></a>
         </nav>
     </div>
 </header>

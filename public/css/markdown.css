@@ -1,5 +1,5 @@
 code {
-  background-color: rgba(0, 122, 255, 0.08);
+  background-color: var(--color-tint-softer);
   color: var(--color-tint);
   padding: 0.15rem 0.4rem;
   border-radius: 6px;
@@ -19,7 +19,7 @@ blockquote {
   padding-inline-start: 0.25rem;
   padding-block: 0.3rem;
   margin-inline: 0;
-  background-color: rgba(0, 122, 255, 0.06);
+  background-color: var(--color-tint-softer);
 
   p {
     padding-inline-start: 1rem;
@@ -29,11 +29,11 @@ blockquote {
 pre {
   overflow: auto;
   padding: 1.5rem 1.2rem;
-  border-radius: 0.25rem;
+  border-radius: 12px;
   min-height: 2rem;
   margin: 0.2rem auto;
   /* shiki doesn't config colorReplacements */
-  background-color: rgba(72, 69, 138) !important;
+  background-color: var(--code-bg) !important;
 
   & code {
     background-color: inherit;
@@ -53,8 +53,8 @@ table {
 
   & th,
   td {
-    border: 0.2rem solid var(--table-border-color);
-    padding-inline-start: 0.2rem;
+    border: 0.5px solid var(--table-border-color);
+    padding: 8px 12px;
   }
 }
 

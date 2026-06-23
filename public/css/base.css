@@ -16,27 +16,34 @@ body {
   --color-label: #000000;
   --color-secondary-label: rgba(60, 60, 67, 0.6);
   --color-tertiary-label: rgba(60, 60, 67, 0.3);
-  --color-tint: #007AFF;
-  --color-separator: rgba(60, 60, 67, 0.29);
+  --color-tint: #007A78;
+  --color-tint-hover: #005F5D;
+  --color-tint-soft: rgba(0, 122, 120, 0.12);
+  --color-tint-softer: rgba(0, 122, 120, 0.07);
+  --color-tint-strong: rgba(0, 122, 120, 0.2);
+  --color-focus-ring: rgba(0, 122, 120, 0.28);
+  --color-separator: rgba(60, 67, 67, 0.24);
 
   /* Backgrounds */
   --bg-primary: #FFFFFF;
-  --bg-secondary: #F2F2F7;
-  --bg-tertiary: #FFFFFF;
-  --header-bg: rgba(255, 255, 255, 0.72);
-  --chip-bg: rgba(120, 120, 128, 0.12);
+  --bg-secondary: #F3F7F6;
+  --bg-tertiary: #F9FCFB;
+  --bg-elevated: rgba(255, 255, 255, 0.86);
+  --code-bg: #172224;
+  --header-bg: rgba(250, 253, 252, 0.76);
+  --chip-bg: rgba(0, 122, 120, 0.1);
 
   /* Legacy aliases */
   --theme-color: #000000;
-  --bg-color: #F2F2F7;
-  --color-a-link: #007AFF;
-  --color-a-link-hover: #0051D5;
+  --bg-color: #F3F7F6;
+  --color-a-link: var(--color-tint);
+  --color-a-link-hover: var(--color-tint-hover);
   --h-color: #000000;
-  --list-color: #007AFF;
+  --list-color: var(--color-tint);
   --table-border-color: var(--color-separator);
 
   /* Alert colors */
-  --color-note: #007AFF;
+  --color-note: #007A78;
   --color-tip: #34C759;
   --color-warning: #FF9500;
   --color-severe: #FF6B35;
@@ -110,7 +117,7 @@ input {
   font-family: inherit;
 
   &:focus {
-    box-shadow: 0 0 0 3.5px rgba(0, 122, 255, 0.3);
+    box-shadow: 0 0 0 3.5px var(--color-focus-ring);
   }
 }
 

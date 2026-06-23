@@ -12,44 +12,269 @@ const isViewTransition = document.startViewTransition &&
 /** @type {HTMLMetaElement}*/
 const metaTheme = document.head.querySelector("meta[name='theme-color']")
 
+const themeTokens = {
+  light: [
+    ['--theme-color', '#000000'],
+    ['--color-label', '#000000'],
+    ['--h-color', '#000000'],
+    ['--color-tint', '#007A78'],
+    ['--color-tint-hover', '#005F5D'],
+    ['--color-tint-soft', 'rgba(0,122,120,0.12)'],
+    ['--color-tint-softer', 'rgba(0,122,120,0.07)'],
+    ['--color-tint-strong', 'rgba(0,122,120,0.2)'],
+    ['--color-focus-ring', 'rgba(0,122,120,0.28)'],
+    ['--color-a-link', '#007A78'],
+    ['--color-a-link-hover', '#005F5D'],
+    ['--bg-color', '#F3F7F6'],
+    ['--bg-primary', '#FFFFFF'],
+    ['--bg-secondary', '#F3F7F6'],
+    ['--bg-tertiary', '#F9FCFB'],
+    ['--bg-elevated', 'rgba(255,255,255,0.86)'],
+    ['--code-bg', '#172224'],
+    ['--header-bg', 'rgba(250,253,252,0.76)'],
+    ['--color-separator', 'rgba(60,67,67,0.24)'],
+    ['--color-secondary-label', 'rgba(60,60,67,0.6)'],
+    ['--color-tertiary-label', 'rgba(60,60,67,0.3)'],
+    ['--chip-bg', 'rgba(0,122,120,0.1)'],
+    ['--color-note', '#007A78'],
+    ['--color-tip', '#34C759'],
+    ['--color-warning', '#FF9500'],
+    ['--color-severe', '#FF6B35'],
+    ['--color-caution', '#FF3B30'],
+    ['--color-important', '#AF52DE'],
+  ],
+  dark: [
+    ['--theme-color', '#FFFFFF'],
+    ['--color-label', '#FFFFFF'],
+    ['--h-color', '#FFFFFF'],
+    ['--color-tint', '#64D2CA'],
+    ['--color-tint-hover', '#9BECE6'],
+    ['--color-tint-soft', 'rgba(100,210,202,0.16)'],
+    ['--color-tint-softer', 'rgba(100,210,202,0.08)'],
+    ['--color-tint-strong', 'rgba(100,210,202,0.24)'],
+    ['--color-focus-ring', 'rgba(100,210,202,0.32)'],
+    ['--color-a-link', '#64D2CA'],
+    ['--color-a-link-hover', '#9BECE6'],
+    ['--bg-color', '#0B1213'],
+    ['--bg-primary', '#172224'],
+    ['--bg-secondary', '#0B1213'],
+    ['--bg-tertiary', '#1D2B2D'],
+    ['--bg-elevated', 'rgba(23,34,36,0.88)'],
+    ['--code-bg', '#0F1A1C'],
+    ['--header-bg', 'rgba(17,26,28,0.76)'],
+    ['--color-separator', 'rgba(84,96,98,0.65)'],
+    ['--color-secondary-label', 'rgba(235,235,245,0.6)'],
+    ['--color-tertiary-label', 'rgba(235,235,245,0.3)'],
+    ['--chip-bg', 'rgba(100,210,202,0.14)'],
+    ['--color-note', '#64D2CA'],
+    ['--color-tip', '#30D158'],
+    ['--color-warning', '#FF9F0A'],
+    ['--color-severe', '#FF6B35'],
+    ['--color-caution', '#FF453A'],
+    ['--color-important', '#BF5AF2'],
+  ],
+}
+
+const languageCodes = new Set([
+  '',
+  'en',
+  'ja',
+  'ko',
+  'fr',
+  'de',
+  'es',
+  'ru',
+  'zh-TW',
+])
+
+let googleTranslateReady = false
+let preferredLanguage = ''
+
+globalThis.googleTranslateElementInit = () => {
+  if (!globalThis.google?.translate?.TranslateElement) return
+
+  new globalThis.google.translate.TranslateElement({
+    pageLanguage: 'zh-CN',
+    includedLanguages: 'en,ja,ko,fr,de,es,ru,zh-TW',
+    autoDisplay: false,
+    layout: globalThis.google.translate.TranslateElement.InlineLayout.SIMPLE,
+  }, 'google_translate_element')
+
+  googleTranslateReady = true
+  globalThis.dispatchEvent(new Event('google-translate-ready'))
+}
+
 /**
  * @param {boolean} isDarkTheme
  * @param {Element} e
  */
 function toggleColor(isDarkTheme, e) {
-  e.classList.toggle('fa-sun')
-  e.classList.toggle('fa-moon')
+  e.classList.toggle('fa-sun', !isDarkTheme)
+  e.classList.toggle('fa-moon', isDarkTheme)
   globalThis.localStorage.setItem('darkMode', isDarkTheme ? 'dark' : 'light')
+  themeTokens[isDarkTheme ? 'dark' : 'light'].forEach(([v, c]) =>
+    document.documentElement.style.setProperty(v, c)
+  )
+  metaTheme.content = isDarkTheme ? '#0B1213' : '#F3F7F6'
+}
 
-  const colors = [
-    ['--theme-color', isDarkTheme ? '#FFFFFF' : '#000000'],
-    ['--color-label', isDarkTheme ? '#FFFFFF' : '#000000'],
-    ['--h-color', isDarkTheme ? '#FFFFFF' : '#000000'],
-    ['--color-tint', isDarkTheme ? '#0A84FF' : '#007AFF'],
-    ['--color-a-link', isDarkTheme ? '#0A84FF' : '#007AFF'],
-    ['--color-a-link-hover', isDarkTheme ? '#409CFF' : '#0051D5'],
-    ['--bg-color', isDarkTheme ? '#000000' : '#F2F2F7'],
-    ['--bg-primary', isDarkTheme ? '#1C1C1E' : '#FFFFFF'],
-    ['--bg-secondary', isDarkTheme ? '#000000' : '#F2F2F7'],
-    ['--bg-tertiary', isDarkTheme ? '#2C2C2E' : '#FFFFFF'],
-    ['--header-bg', isDarkTheme ? 'rgba(28,28,30,0.72)' : 'rgba(255,255,255,0.72)'],
-    ['--color-separator', isDarkTheme ? 'rgba(84,84,88,0.65)' : 'rgba(60,60,67,0.29)'],
-    ['--color-secondary-label', isDarkTheme ? 'rgba(235,235,245,0.6)' : 'rgba(60,60,67,0.6)'],
-    ['--color-tertiary-label', isDarkTheme ? 'rgba(235,235,245,0.3)' : 'rgba(60,60,67,0.3)'],
-    ['--chip-bg', isDarkTheme ? 'rgba(120,120,128,0.24)' : 'rgba(120,120,128,0.12)'],
-  ]
-  colors.forEach(([v, c]) => document.documentElement.style.setProperty(v, c))
-  metaTheme.content = isDarkTheme ? '#000000' : '#F2F2F7'
+function getGoogleCombo() {
+  return document.querySelector('.goog-te-combo')
+}
+
+function setTranslateCookie(value) {
+  const expires = new Date(Date.now() + 365 * 24 * 60 * 60 * 1000)
+    .toUTCString()
+  const cookie = `googtrans=${value}; expires=${expires}; path=/`
+  document.cookie = cookie
+
+  const parts = location.hostname.split('.')
+  if (parts.length > 1) {
+    document.cookie = `${cookie}; domain=.${parts.slice(-2).join('.')}`
+  }
+}
+
+function clearTranslateCookie() {
+  const cookie = 'googtrans=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/'
+  document.cookie = cookie
+
+  const parts = location.hostname.split('.')
+  if (parts.length > 1) {
+    document.cookie = `${cookie}; domain=.${parts.slice(-2).join('.')}`
+  }
+}
+
+function updateLanguageOptions(language) {
+  document.querySelectorAll('.language-option').forEach((option) => {
+    option.setAttribute(
+      'aria-checked',
+      option.dataset.lang === language ? 'true' : 'false',
+    )
+  })
+}
+
+function openTranslateFallback(language) {
+  if (!language) return
+
+  const target = new URL('https://translate.google.com/translate')
+  target.searchParams.set('sl', 'zh-CN')
+  target.searchParams.set('tl', language)
+  target.searchParams.set('u', location.href)
+  globalThis.open(target.href, '_blank', 'noopener')
+}
+
+function applyLanguage(language, allowFallback = false, attempts = 0) {
+  if (!languageCodes.has(language)) return
+
+  preferredLanguage = language
+  updateLanguageOptions(language)
+
+  if (!language) {
+    const wasTranslated = document.cookie.includes('googtrans=') ||
+      document.documentElement.className.includes('translated')
+    globalThis.localStorage.removeItem('preferredLanguage')
+    clearTranslateCookie()
+    const combo = getGoogleCombo()
+    if (combo) {
+      combo.value = ''
+      combo.dispatchEvent(new Event('change'))
+    }
+    if (wasTranslated) setTimeout(() => location.reload(), 100)
+    return
+  }
+
+  globalThis.localStorage.setItem('preferredLanguage', language)
+  setTranslateCookie(`/zh-CN/${language}`)
+
+  const combo = getGoogleCombo()
+  if (combo) {
+    combo.value = language
+    combo.dispatchEvent(new Event('change'))
+    return
+  }
+
+  const maxAttempts = googleTranslateReady ? 4 : 12
+  if (attempts < maxAttempts) {
+    setTimeout(() => applyLanguage(language, allowFallback, attempts + 1), 250)
+    return
+  }
+
+  if (allowFallback) openTranslateFallback(language)
+}
+
+function detectPreferredLanguage() {
+  const saved = globalThis.localStorage.getItem('preferredLanguage')
+  if (languageCodes.has(saved)) return saved
+
+  const browserLanguage = (navigator.languages?.[0] || navigator.language || '')
+    .toLowerCase()
+
+  if (!browserLanguage || browserLanguage.startsWith('zh-cn')) return ''
+  if (
+    browserLanguage.startsWith('zh-tw') ||
+    browserLanguage.startsWith('zh-hk') ||
+    browserLanguage.startsWith('zh-mo')
+  ) return 'zh-TW'
+
+  const baseLanguage = browserLanguage.split('-')[0]
+  return languageCodes.has(baseLanguage) ? baseLanguage : ''
+}
+
+function closeLanguageMenu() {
+  const languageToggle = document.querySelector('.language-toggle')
+  const languageMenu = document.getElementById('language-menu')
+  if (!languageToggle || !languageMenu) return
+
+  languageToggle.setAttribute('aria-expanded', 'false')
+  languageMenu.hidden = true
+}
+
+function closestElement(target, selector) {
+  return target instanceof Element ? target.closest(selector) : null
+}
+
+function initTranslationControls() {
+  const languageToggle = document.querySelector('.language-toggle')
+  const languageMenu = document.getElementById('language-menu')
+  if (!languageToggle || !languageMenu) return
+
+  languageToggle.addEventListener('click', (e) => {
+    e.preventDefault()
+    const expanded = languageToggle.getAttribute('aria-expanded') === 'true'
+    languageToggle.setAttribute('aria-expanded', String(!expanded))
+    languageMenu.hidden = expanded
+  })
+
+  languageMenu.addEventListener('click', (e) => {
+    const option = closestElement(e.target, '.language-option')
+    if (!option) return
+
+    applyLanguage(option.dataset.lang, true)
+    closeLanguageMenu()
+  })
+
+  document.addEventListener('click', (e) => {
+    if (!closestElement(e.target, '.language-switcher')) closeLanguageMenu()
+  })
+
+  const initialLanguage = detectPreferredLanguage()
+  updateLanguageOptions(initialLanguage)
+  if (initialLanguage) applyLanguage(initialLanguage)
+
+  globalThis.addEventListener('google-translate-ready', () => {
+    if (preferredLanguage) applyLanguage(preferredLanguage)
+  })
 }
 
 document.addEventListener('DOMContentLoaded', () => {
   const localDarkMode = globalThis.localStorage.getItem('darkMode')
-  isDark = localDarkMode === 'undefined' ? isDark : localDarkMode === 'dark'
+  isDark = localDarkMode === null ? isDark : localDarkMode === 'dark'
 
   const model = document.querySelector('a.model')
   const darkIcon = model.querySelector('i')
 
   toggleColor(isDark, darkIcon)
+  initTranslationControls()
 
   model.addEventListener('click', (e) => {
     e.preventDefault()
@@ -72,11 +297,11 @@ document.addEventListener('DOMContentLoaded', () => {
     document.startViewTransition(
       () => toggleColor(darkMode === 'dark', darkIcon),
     )
-      ;[
-        ['--click-x', `${x}px`],
-        ['--click-y', `${y}px`],
-        ['--end-radius', `${endRadius}px`],
-      ].forEach(([v, c]) => document.documentElement.style.setProperty(v, c))
+    ;[
+      ['--click-x', `${x}px`],
+      ['--click-y', `${y}px`],
+      ['--end-radius', `${endRadius}px`],
+    ].forEach(([v, c]) => document.documentElement.style.setProperty(v, c))
   })
 
   const header = document.querySelector('header')
@@ -88,11 +313,13 @@ document.addEventListener('DOMContentLoaded', () => {
   /**@param {HTMLElement | null} target*/
   const isRouterTag = (target) => {
     if (!target) return false
-    return target.matches('a') && target.getAttribute('href').startsWith('/./')
+    return target.matches('a') &&
+      (target.getAttribute('href') ?? '').startsWith('/./')
   }
 
   document.body.addEventListener('click', (e) => {
-    if (isRouterTag(e.target) || isRouterTag(e.target.parentElement)) {
+    const target = e.target instanceof HTMLElement ? e.target : null
+    if (isRouterTag(target) || isRouterTag(target?.parentElement)) {
       useRoute(e)
     }
 
@@ -103,6 +330,7 @@ document.addEventListener('DOMContentLoaded', () => {
       nav.parentElement.classList.toggle('show')
       return
     }
+    if (closestElement(e.target, '.language-switcher')) return
     nav.parentElement.classList.remove('show')
     switchIcon.classList.remove('fa-xmark')
     switchIcon.classList.add('fa-bars')
@@ -131,7 +359,8 @@ document.addEventListener('DOMContentLoaded', () => {
  */
 // deno-lint-ignore no-unused-vars
 function sponsor(amount) {
-  globalThis.location.href = `https://stripe.fwqaaq.workers.dev/Personal-Website-Sponsor/checkout?mode=once`
+  globalThis.location.href =
+    `https://stripe.fwqaaq.workers.dev/Personal-Website-Sponsor/checkout?mode=once`
 }
 
 function loadGiscus() {
@@ -148,7 +377,8 @@ function loadGiscus() {
     reactionsEnabled: '1',
     emitMetadata: '1',
     inputPosition: 'bottom',
-    theme: globalThis.localStorage.getItem('darkMode') ?? 'preferred_color_scheme',
+    theme: globalThis.localStorage.getItem('darkMode') ??
+      'preferred_color_scheme',
     lang: 'zh-CN',
   }
   script.src = 'https://giscus.app/client.js'
@@ -160,7 +390,10 @@ function loadGiscus() {
 
   const giscus = document.createElement('div')
   giscus.className = 'giscus'
-  document.body.querySelector('main.blog-main').insertAdjacentElement('afterend', giscus)
+  document.body.querySelector('main.blog-main').insertAdjacentElement(
+    'afterend',
+    giscus,
+  )
   document.body.appendChild(script)
 }
 
@@ -188,13 +421,18 @@ const renderPage = async (e) => {
   } else {
     unloadGiscus()
   }
+
+  if (preferredLanguage) {
+    setTimeout(() => applyLanguage(preferredLanguage), 0)
+  }
 }
 
 /**@param {MouseEvent} e*/
 const useRoute = async (e) => {
   e.preventDefault()
   /**@type {HTMLAnchorElement} */
-  const target = e.target.closest('a')
+  const target = closestElement(e.target, 'a')
+  if (!target) return
   history.pushState({}, '', target.href)
   document.body.classList.add('loading')
   await renderPage()
