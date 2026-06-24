@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#F3F7F6">
+  <meta name="description" content="分支  > [!NOTE] > 通过 `HEAD` 文件可以知道当前在哪个分支工作，并且 **HEAD 指向的分支**总是指向最新的 `commit`  ```bash      ...">
+  <meta name="keywords" content="Git">
+  <meta name="author" content="fwqaaq">
+  <meta property="og:site_name" content="fwqaaq 的博客">
+  <meta property="og:locale" content="zh_CN">
+  <meta property="og:title" content="Git 原理分支">
+  <meta property="og:description" content="分支  > [!NOTE] > 通过 `HEAD` 文件可以知道当前在哪个分支工作，并且 **HEAD 指向的分支**总是指向最新的 `commit`  ```bash      ...">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://www.fwqaaq.com//posts/20220702050503/">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="fwqaaq 的博客">
+  <meta name=application-name content="fwqaaq 的博客">
+  <meta name=apple-mobile-web-app-title content="fwqaaq 的博客">
+  <title>
+    Git 原理分支
+  </title>
+  <link rel="shortcut icon" href="/public/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="/public/css/base.849580.css">
+  <link rel="stylesheet" href="/public/css/index.849580.css">
+  <link rel="stylesheet" href="/public/css/markdown.849580.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+  <script src="/public/JavaScript/index.849580.js"></script>
+  <script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit" defer></script>
+</head>
+
+</html>
+<header class="blog-header">
+    <i id="switch-icon" class="fa-solid fa-bars"></i>
+    <a href="https://github.com/fwqaaq" target="_blank">
+        <img src="https://avatars.githubusercontent.com/u/82551626?v=4" loading="lazy" alt="me" srcset="">
+    </a>
+    <div class="wrap-background">
+        <nav class="header-nav">
+            <a class="decoration-line" href="/"><i class="fa-solid fa-house-chimney fa-xs"></i>
+                <span class="disappear">首页</span>
+            </a>
+            <a class="decoration-line" href="/./about/index.html"><i class="fa-solid fa-address-card fa-xs"></i>
+                <span class="disappear">关于</span></a>
+            <a class="decoration-line" href="/./archive/index.html"><i class="fa-solid fa-box-archive fa-xs"></i> <span
+                    class="disappear">归档</span></a>
+            <a class="decoration-line" href="/./tags/index.html"><i class="fa-solid fa-tag fa-xs"></i>
+                <span class="disappear">标签</span></a>
+            <a class="decoration-line" onclick="sponsor(199)">
+                <i class="fa-solid fa-circle-dollar-to-slot fa-xs"></i>
+                <span class="disappear">赞助</span></a>
+            <div class="language-switcher notranslate">
+                <button class="language-toggle" type="button" aria-label="切换语言" aria-expanded="false"
+                    aria-controls="language-menu">
+                    <i class="fa-solid fa-globe fa-xs" aria-hidden="true"></i>
+                    <span class="disappear" translate="yes">语言</span>
+                </button>
+                <div class="language-menu" id="language-menu" role="menu" hidden>
+                    <button class="language-option" type="button" role="menuitemradio" data-lang=""
+                        aria-checked="true">原文</button>
+                    <button class="language-option" type="button" role="menuitemradio" data-lang="en"
+                        aria-checked="false">English</button>
+                    <button class="language-option" type="button" role="menuitemradio" data-lang="ja"
+                        aria-checked="false">日本語</button>
+                    <button class="language-option" type="button" role="menuitemradio" data-lang="ko"
+                        aria-checked="false">한국어</button>
+                    <button class="language-option" type="button" role="menuitemradio" data-lang="fr"
+                        aria-checked="false">Français</button>
+                    <button class="language-option" type="button" role="menuitemradio" data-lang="de"
+                        aria-checked="false">Deutsch</button>
+                    <button class="language-option" type="button" role="menuitemradio" data-lang="es"
+                        aria-checked="false">Español</button>
+                    <button class="language-option" type="button" role="menuitemradio" data-lang="ru"
+                        aria-checked="false">Русский</button>
+                    <button class="language-option" type="button" role="menuitemradio" data-lang="zh-TW"
+                        aria-checked="false">繁體中文</button>
+                </div>
+            </div>
+            <div id="google_translate_element" class="google-translate-element notranslate" aria-hidden="true"></div>
+            <a class="decoration-line model" href="#" aria-label="切换深浅色主题"><i class="fa-solid fa-sun fa-xs"></i></a>
+        </nav>
+    </div>
+</header>
+        <main class="blog-main">
+          <article class="blog-article">
+            <h1>Git 原理分支</h1>
+          <div class="post-meta post-meta-flex-around">
+              <div class="post-author" href="/./about/"><i class="fa-solid fa-user"></i> fwqaaq</div> 
+              <div class="post-time"><i class="fa-solid fa-clock"></i> 2022-07-02</div> 
+              <div class="post-update-time"><i class="fa-solid fa-clock-rotate-left"></i> 2025-11-09</div>
+            </div>
+            <hr>
+            <details class="remark-toc-details"><summary class="remark-toc-summary">目录</summary><ul class="remark-toc">
+<li><a href="#%E5%88%86%E6%94%AF">分支</a></li>
+<li><a href="#git-checkout">git checkout</a></li>
+<li><a href="#%E8%BF%9C%E7%A8%8B%E5%88%86%E6%94%AF">远程分支</a></li>
+<li><a href="#%E5%AF%B9%E8%B1%A1%E5%8E%8B%E7%BC%A9">对象压缩</a></li>
+<li><a href="#%E5%9E%83%E5%9C%BE%E5%AF%B9%E8%B1%A1%E6%B8%85%E7%90%86">垃圾对象清理</a></li>
+</ul></details>
+<h2 id="分支">分支<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#分支"></a></h2>
+<div class="markdown-alert markdown-alert-note">
+<p class="markdown-alert-title"><svg class="octicon octicon-info mr-2" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8Zm8-6.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13ZM6.5 7.75A.75.75 0 0 1 7.25 7h1a.75.75 0 0 1 .75.75v2.75h.25a.75.75 0 0 1 0 1.5h-2a.75.75 0 0 1 0-1.5h.25v-2h-.25a.75.75 0 0 1-.75-.75ZM8 6a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"></path></svg>Note</p>
+<p>通过 <code>HEAD</code> 文件可以知道当前在哪个分支工作，并且 <strong>HEAD 指向的分支</strong>总是指向最新的 <code>commit</code></p>
+</div>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-bash"><span class="line"><span style="color:#FFE66D">                            HEAD</span></span>
+<span class="line"><span style="color:#EE5D43">                              |</span></span>
+<span class="line"><span style="color:#FFE66D">                            master</span></span>
+<span class="line"><span style="color:#EE5D43">                              |</span></span>
+<span class="line"><span style="color:#FFE66D">                       ├─---a219fd</span></span>
+<span class="line"><span style="color:#FFE66D">1e735a</span><span style="color:#EE5D43">  &#x3C;</span><span style="color:#96E072">---</span><span style="color:#96E072"> 8532d9</span><span style="color:#EE5D43"> &#x3C;</span><span style="color:#96E072">--</span><span style="color:#EE5D43">|</span><span style="color:#D5CED9">     </span></span>
+<span class="line"><span style="color:#FFE66D">                       ├─---e78125</span></span>
+<span class="line"><span style="color:#EE5D43">                              |</span></span>
+<span class="line"><span style="color:#FFE66D">                             dev</span></span>
+<span class="line"></span></code></pre>
+<ul class="remark-unordered-list">
+<li>通过切换 <code>HEAD</code> 的指向可以切换分支</li>
+</ul>
+<blockquote>
+<p>产看当前分支内容</p>
+</blockquote>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-bash"><span class="line"><span style="color:#FFE66D">cat</span><span style="color:#96E072"> .git/HEAD</span></span>
+<span class="line"><span style="color:#A0A1A7CC"># ref: refs/heads/master</span></span>
+<span class="line"><span style="color:#FFE66D">cat</span><span style="color:#96E072"> .git/refs/heads/master</span></span>
+<span class="line"><span style="color:#A0A1A7CC"># b27787b75a99a614f3b26fe482f0cd47bc3c186b (当前分支指向最新的 commit)</span></span>
+<span class="line"><span style="color:#FFE66D">git</span><span style="color:#96E072"> cat-file</span><span style="color:#EE5D43"> -t</span><span style="color:#96E072"> b27787b</span></span>
+<span class="line"><span style="color:#A0A1A7CC"># commit</span></span>
+<span class="line"></span></code></pre>
+<blockquote>
+<p>创建分支</p>
+</blockquote>
+<ul class="remark-unordered-list">
+<li><code>git branch dev</code>:创建一个 <code>dev</code> 的分支</li>
+</ul>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-bash"><span class="line"><span style="color:#FFE66D">git</span><span style="color:#96E072"> log</span></span>
+<span class="line"><span style="color:#A0A1A7CC"># master dev分支刚好指向同一条线上   </span></span>
+<span class="line"><span style="color:#A0A1A7CC"># commit b27787b75a99a614f3b26fe482f0cd47bc3c186b (HEAD -> master, dev)</span></span>
+<span class="line"></span></code></pre>
+<ul class="remark-unordered-list">
+<li><code>git checkout dev</code>:切换到 <code>dev</code> 分支</li>
+</ul>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-bash"><span class="line"><span style="color:#FFE66D">git</span><span style="color:#96E072"> checkout</span><span style="color:#96E072"> dev</span></span>
+<span class="line"><span style="color:#FFE66D">cat</span><span style="color:#96E072"> .git/HEAD</span></span>
+<span class="line"><span style="color:#A0A1A7CC"># ref: refs/heads/dev</span></span>
+<span class="line"></span></code></pre>
+<ul class="remark-unordered-list">
+<li>如果在 dev 上做完一次 <code>commit</code> 之后，分支之间会分叉</li>
+</ul>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-bash"><span class="line"><span style="color:#FFE66D">git</span><span style="color:#96E072"> log</span></span>
+<span class="line"><span style="color:#A0A1A7CC"># commit 609f9e53903da9cc53127619044bb8a02f36519a (HEAD -> dev)</span></span>
+<span class="line"><span style="color:#A0A1A7CC"># Author: Jack-Zhang-1314 &#x3C;fwqaaq@gmail.com></span></span>
+<span class="line"><span style="color:#A0A1A7CC"># Date:   Sat Jul 2 05:25:37 2022 +0800</span></span>
+<span class="line"><span style="color:#A0A1A7CC"># </span></span>
+<span class="line"><span style="color:#A0A1A7CC">#     dev 1st</span></span>
+<span class="line"><span style="color:#A0A1A7CC"># </span></span>
+<span class="line"><span style="color:#A0A1A7CC"># commit b27787b75a99a614f3b26fe482f0cd47bc3c186b (master)</span></span>
+<span class="line"></span></code></pre>
+<ul class="remark-unordered-list">
+<li>删除分支，只是删除分支的指针，分支上的对象不会被删除</li>
+</ul>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-bash"><span class="line"><span style="color:#A0A1A7CC"># D-->强制删除</span></span>
+<span class="line"><span style="color:#FFE66D">git</span><span style="color:#96E072"> branch</span><span style="color:#EE5D43"> -d</span><span style="color:#96E072"> dev</span></span>
+<span class="line"><span style="color:#FFE66D">git</span><span style="color:#96E072"> branch</span><span style="color:#EE5D43"> -D</span><span style="color:#96E072"> dev</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#A0A1A7CC"># 查看dev删除后的commit内容</span></span>
+<span class="line"><span style="color:#FFE66D">git</span><span style="color:#96E072"> cat-file</span><span style="color:#EE5D43"> -p</span><span style="color:#96E072"> 609f9e5</span></span>
+<span class="line"><span style="color:#A0A1A7CC"># tree fd59d47bd5ca961d23037b22377a89bc4debdce0</span></span>
+<span class="line"><span style="color:#A0A1A7CC"># parent b27787b75a99a614f3b26fe482f0cd47bc3c186b</span></span>
+<span class="line"><span style="color:#A0A1A7CC"># author Jack-Zhang-1314 &#x3C;fwqaaq@gmail.com> 1656710737 +0800</span></span>
+<span class="line"><span style="color:#A0A1A7CC"># committer Jack-Zhang-1314 &#x3C;fwqaaq@gmail.com> 1656710737 +0800</span></span>
+<span class="line"><span style="color:#A0A1A7CC"># </span></span>
+<span class="line"><span style="color:#A0A1A7CC"># dev 1st</span></span>
+<span class="line"></span></code></pre>
+<h2 id="git-checkout">git checkout<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#git-checkout"></a></h2>
+<blockquote>
+<p>使用 <code>git checkout</code> 叉出某一次 <code>commit</code></p>
+</blockquote>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-bash"><span class="line"><span style="color:#FFE66D">git</span><span style="color:#96E072"> checkout</span><span style="color:#96E072"> a3d91d1</span></span>
+<span class="line"><span style="color:#FFE66D">git</span><span style="color:#96E072"> branch</span></span>
+<span class="line"><span style="color:#A0A1A7CC"># 指向(HEAD detached at a3d91d1)</span></span>
+<span class="line"><span style="color:#FFE66D">git</span><span style="color:#96E072"> checkout</span><span style="color:#EE5D43"> -b</span><span style="color:#96E072"> tem</span></span>
+<span class="line"><span style="color:#A0A1A7CC">#将当前的提交叉到新的分支</span></span>
+<span class="line"><span style="color:#FFE66D">git</span><span style="color:#96E072"> log</span><span style="color:#D5CED9"> </span></span>
+<span class="line"><span style="color:#A0A1A7CC"># commit a3d91d125103f57b7b60d7ebd6502aa0987828ab (HEAD -> tem)</span></span>
+<span class="line"></span></code></pre>
+<blockquote>
+<p>将删除的分支找回</p>
+</blockquote>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-bash"><span class="line"><span style="color:#FFE66D">git</span><span style="color:#96E072"> reflog</span></span>
+<span class="line"><span style="color:#A0A1A7CC"># a3d91d1 (HEAD -> tem) HEAD@{0}: checkout: moving from a3d91d125103f57b7b60d7ebd6502aa0987828ab to tem</span></span>
+<span class="line"><span style="color:#A0A1A7CC"># a3d91d1 (HEAD -> tem) HEAD@{1}: checkout: moving from master to a3d91d12</span></span>
+<span class="line"><span style="color:#A0A1A7CC"># b27787b (master) HEAD@{2}: checkout: moving from dev to master</span></span>
+<span class="line"><span style="color:#A0A1A7CC"># 609f9e5 HEAD@{3}: commit: dev 1st</span></span>
+<span class="line"><span style="color:#A0A1A7CC"># b27787b (master) HEAD@{4}: checkout: moving from master to dev</span></span>
+<span class="line"><span style="color:#A0A1A7CC"># b27787b (master) HEAD@{5}: commit: 2st commit</span></span>
+<span class="line"><span style="color:#A0A1A7CC"># a3d91d1 (HEAD -> tem) HEAD@{6}: commit (initial): 1st commit</span></span>
+<span class="line"><span style="color:#FFE66D">git</span><span style="color:#96E072"> checkout</span><span style="color:#96E072"> 609f9e5</span></span>
+<span class="line"><span style="color:#FFE66D">git</span><span style="color:#96E072"> switch</span><span style="color:#EE5D43"> -c</span><span style="color:#96E072"> dev</span></span>
+<span class="line"></span></code></pre>
+<h2 id="远程分支">远程分支<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#远程分支"></a></h2>
+<blockquote>
+<p>添加远程分支</p>
+</blockquote>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-bash"><span class="line"><span style="color:#FFE66D">git</span><span style="color:#96E072"> remote</span><span style="color:#96E072"> add</span><span style="color:#96E072"> origin</span><span style="color:#96E072"> ssh...</span></span>
+<span class="line"></span></code></pre>
+<blockquote>
+<p>查看添加的内容<code>cat .git/config</code></p>
+</blockquote>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-bash"><span class="line"><span style="color:#D5CED9">[remote </span><span style="color:#96E072">"origin"</span><span style="color:#D5CED9">]</span></span>
+<span class="line"><span style="color:#FFE66D">        url</span><span style="color:#96E072"> =</span><span style="color:#96E072"> https://github.com/Jack-Zhang-1314/hexoPage.git</span></span>
+<span class="line"><span style="color:#FFE66D">        fetch</span><span style="color:#96E072"> =</span><span style="color:#96E072"> +refs/heads/</span><span style="color:#00E8C6">*</span><span style="color:#96E072">:refs/remotes/origin/</span><span style="color:#00E8C6">*</span></span>
+<span class="line"></span></code></pre>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-bash"><span class="line"><span style="color:#FFE66D">├─logs</span></span>
+<span class="line"><span style="color:#FFE66D">│</span><span style="color:#96E072">  │</span><span style="color:#96E072">  HEAD</span></span>
+<span class="line"><span style="color:#FFE66D">│</span><span style="color:#96E072">  │</span></span>
+<span class="line"><span style="color:#FFE66D">│</span><span style="color:#96E072">  ├─refs</span></span>
+<span class="line"><span style="color:#FFE66D">│</span><span style="color:#96E072">  │</span><span style="color:#96E072">    ├─heads</span></span>
+<span class="line"><span style="color:#FFE66D">│</span><span style="color:#96E072">  │</span><span style="color:#96E072">    │</span><span style="color:#96E072">      dev</span></span>
+<span class="line"><span style="color:#FFE66D">│</span><span style="color:#96E072">  │</span><span style="color:#96E072">    │</span><span style="color:#96E072">      master</span></span>
+<span class="line"><span style="color:#FFE66D">│</span><span style="color:#96E072">  │</span><span style="color:#96E072">    │</span></span>
+<span class="line"><span style="color:#FFE66D">│</span><span style="color:#96E072">  │</span><span style="color:#96E072">    └─remotes</span></span>
+<span class="line"><span style="color:#FFE66D">│</span><span style="color:#96E072">  │</span><span style="color:#96E072">        └─origin</span></span>
+<span class="line"><span style="color:#FFE66D">│</span><span style="color:#96E072">  │</span><span style="color:#96E072">            │</span><span style="color:#96E072">  HEAD</span></span>
+<span class="line"><span style="color:#FFE66D">│</span><span style="color:#96E072">  │</span><span style="color:#96E072">            └─</span><span style="color:#96E072"> master</span></span>
+<span class="line"><span style="color:#FFE66D">├─origin</span></span>
+<span class="line"><span style="color:#FFE66D">│</span><span style="color:#96E072">  │</span><span style="color:#96E072">     HEAD</span></span>
+<span class="line"><span style="color:#FFE66D">│</span><span style="color:#96E072">  └---</span><span style="color:#96E072">  master</span></span>
+<span class="line"></span></code></pre>
+<ul class="remark-unordered-list">
+<li>当提交远程之后，本地分支和远程分支是同步的</li>
+</ul>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-bash"><span class="line"><span style="color:#A0A1A7CC"># commit 4a71286c54dc6629322f13cfded0dfcdb417a1aa (HEAD -> master, origin/master, origin/HEAD)</span></span>
+<span class="line"></span></code></pre>
+<h2 id="对象压缩">对象压缩<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#对象压缩"></a></h2>
+<ul class="remark-ordered-list">
+<li>
+<p>查看 git 对象文件的大小</p>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-bash"><span class="line"><span style="color:#FFE66D">du</span><span style="color:#EE5D43"> -h</span><span style="color:#96E072"> .git/objects</span></span>
+<span class="line"><span style="color:#A0A1A7CC"># ...</span></span>
+<span class="line"><span style="color:#A0A1A7CC"># 1.1M    .git/objects/fa</span></span>
+<span class="line"><span style="color:#A0A1A7CC"># 944K    .git/objects/fd</span></span>
+<span class="line"><span style="color:#A0A1A7CC"># 0       .git/objects/info</span></span>
+<span class="line"><span style="color:#A0A1A7CC"># 22M     .git/objects/pack</span></span>
+<span class="line"><span style="color:#A0A1A7CC"># 42M     .git/objects</span></span>
+<span class="line"></span></code></pre>
+</li>
+<li>
+<p>使用 <code>git gc</code> 来压缩文件</p>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-bash"><span class="line"><span style="color:#FFE66D">git</span><span style="color:#96E072"> gc</span></span>
+<span class="line"><span style="color:#FFE66D">du</span><span style="color:#EE5D43"> -h</span><span style="color:#96E072"> .git/objects</span></span>
+<span class="line"><span style="color:#A0A1A7CC"># 9.0K    .git/objects/info</span></span>
+<span class="line"><span style="color:#A0A1A7CC"># 23M     .git/objects/pack</span></span>
+<span class="line"><span style="color:#A0A1A7CC"># 23M     .git/objects</span></span>
+<span class="line"></span></code></pre>
+</li>
+<li>
+<p>查看 <code>pack</code> 文件下文件的大小。文件被压缩到 <code>.pack</code> 文件中</p>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-bash"><span class="line"><span style="color:#FFE66D">ls</span><span style="color:#EE5D43"> -l</span><span style="color:#96E072"> .git/objects/pack</span></span>
+<span class="line"><span style="color:#A0A1A7CC"># total 23092</span></span>
+<span class="line"><span style="color:#A0A1A7CC"># -r--r--r-- 1 15531 197609   122816  7 月  2 06:21 pack-04c2ed0bfb1961df8ecdaf3a6a602936173ffc88.idx</span></span>
+<span class="line"><span style="color:#A0A1A7CC"># -r--r--r-- 1 15531 197609 23521212  7 月  2 06:21 pack-04c2ed0bfb1961df8ecdaf3a6a602936173ffc88.pack</span></span>
+<span class="line"></span></code></pre>
+</li>
+</ul>
+<blockquote>
+<p>解压缩 <code>git unpack-objects</code></p>
+</blockquote>
+<ul class="remark-unordered-list">
+<li>首先 <code>.pack</code> 文件不能再 <code>objects</code> 文件下，将它移到 <code>.git</code> 下后，使用解压缩的命令</li>
+</ul>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-bash"><span class="line"><span style="color:#FFE66D">git</span><span style="color:#96E072"> unpack-objects</span><span style="color:#EE5D43"> &#x3C;</span><span style="color:#96E072"> .git/pack-04c2ed0bfb1961df8ecdaf3a6a602936173ffc88.pack</span></span>
+<span class="line"></span></code></pre>
+<h2 id="垃圾对象清理">垃圾对象清理<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#垃圾对象清理"></a></h2>
+<blockquote>
+<p>在大部分时候每次使用 <code>git add</code> 会产生不必要的垃圾对象，这时候就需要使用 <code>git prune</code> 去清理这些不必要的对象</p>
+</blockquote>
+<ul class="remark-unordered-list">
+<li>不过一般情况下在使用 <code>git gc</code> 完全足够，他会去调用 <code>git prune</code> 清理不必要的对象</li>
+</ul>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-bash"><span class="line"><span style="color:#FFE66D">git</span><span style="color:#96E072"> prune</span><span style="color:#EE5D43"> -n</span></span>
+<span class="line"><span style="color:#A0A1A7CC"># 查看将会删除的不必要的垃圾对象</span></span>
+<span class="line"><span style="color:#FFE66D">git</span><span style="color:#96E072"> fsck</span></span>
+<span class="line"><span style="color:#A0A1A7CC">#查看仓库的垃圾对象</span></span>
+<span class="line"></span></code></pre>
+<div class="sponsor-container">
+  <button class="sponsor-btn">
+    <a href="https://stripe.fwqaaq.workers.dev/Personal-Website-Sponsor/checkout?mode=once" target="_blank" rel="noopener noreferrer" class="">
+      <span class="sponsor-icon">☕</span>
+      <span>请博主喝杯咖啡</span>
+  </a>
+  </button>
+</div>
+          </article>
+        </main><script src="https://giscus.app/client.js"
+        data-repo="fwqaaq/fwqaaq.github.io"
+        data-repo-id="R_kgDOHCFK2A"
+        data-category="Show and tell"
+        data-category-id="DIC_kwDOHCFK2M4CYOLh"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="1"
+        data-input-position="bottom"
+        data-theme="preferred_color_scheme"
+        data-lang="zh-CN"
+        crossorigin="anonymous"
+        async></script><footer class="blog-footer">
+  <div class="footer-container">
+    <p class="text-center"><a class="decoration-line"
+        href="https://creativecommons.org/licenses/by-sa/3.0/deed.zh-hans">© CC BY-SA</a> 2021 -
+      2025 <a class="decoration-line" href="https://github.com/fwqaaq">fwqaaq</a>.
+      Powered by <a class="decoration-line" href="https://deno.com">Deno</a>
+    </p>
+  </div>
+  <div class="footer-icons-container">
+    <a class="icon" href="https://github.com/fwqaaq">
+      <i class="fa-brands fa-github"></i>
+    </a>
+    <a class="icon" href="mailto:fwqaaq@gmail">
+      <i class="fa-solid fa-envelope"></i>
+    </a>
+    <a class="icon" href="https://www.fwqaaq.com/feed.xml">
+      <i class="fa-solid fa-rss"></i>
+    </a>
+    <a class="icon" href="https://t.me/fwqaaq">
+      <i class="fa-brands fa-telegram"></i>
+    </a>
+  </div>
+</footer>

@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#F3F7F6">
+  <meta name="description" content="场景  ```html <!DOCTYPE html> <html lang="en">  <head>   <title>Document</title>   <style>  ...">
+  <meta name="keywords" content="JavaScript">
+  <meta name="author" content="fwqaaq">
+  <meta property="og:site_name" content="fwqaaq 的博客">
+  <meta property="og:locale" content="zh_CN">
+  <meta property="og:title" content="防抖节流">
+  <meta property="og:description" content="场景  ```html <!DOCTYPE html> <html lang="en">  <head>   <title>Document</title>   <style>  ...">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://www.fwqaaq.com//posts/20220118155558/">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="fwqaaq 的博客">
+  <meta name=application-name content="fwqaaq 的博客">
+  <meta name=apple-mobile-web-app-title content="fwqaaq 的博客">
+  <title>
+    防抖节流
+  </title>
+  <link rel="shortcut icon" href="/public/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="/public/css/base.849580.css">
+  <link rel="stylesheet" href="/public/css/index.849580.css">
+  <link rel="stylesheet" href="/public/css/markdown.849580.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+  <script src="/public/JavaScript/index.849580.js"></script>
+  <script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit" defer></script>
+</head>
+
+</html>
+<header class="blog-header">
+    <i id="switch-icon" class="fa-solid fa-bars"></i>
+    <a href="https://github.com/fwqaaq" target="_blank">
+        <img src="https://avatars.githubusercontent.com/u/82551626?v=4" loading="lazy" alt="me" srcset="">
+    </a>
+    <div class="wrap-background">
+        <nav class="header-nav">
+            <a class="decoration-line" href="/"><i class="fa-solid fa-house-chimney fa-xs"></i>
+                <span class="disappear">首页</span>
+            </a>
+            <a class="decoration-line" href="/./about/index.html"><i class="fa-solid fa-address-card fa-xs"></i>
+                <span class="disappear">关于</span></a>
+            <a class="decoration-line" href="/./archive/index.html"><i class="fa-solid fa-box-archive fa-xs"></i> <span
+                    class="disappear">归档</span></a>
+            <a class="decoration-line" href="/./tags/index.html"><i class="fa-solid fa-tag fa-xs"></i>
+                <span class="disappear">标签</span></a>
+            <a class="decoration-line" onclick="sponsor(199)">
+                <i class="fa-solid fa-circle-dollar-to-slot fa-xs"></i>
+                <span class="disappear">赞助</span></a>
+            <div class="language-switcher notranslate">
+                <button class="language-toggle" type="button" aria-label="切换语言" aria-expanded="false"
+                    aria-controls="language-menu">
+                    <i class="fa-solid fa-globe fa-xs" aria-hidden="true"></i>
+                    <span class="disappear" translate="yes">语言</span>
+                </button>
+                <div class="language-menu" id="language-menu" role="menu" hidden>
+                    <button class="language-option" type="button" role="menuitemradio" data-lang=""
+                        aria-checked="true">原文</button>
+                    <button class="language-option" type="button" role="menuitemradio" data-lang="en"
+                        aria-checked="false">English</button>
+                    <button class="language-option" type="button" role="menuitemradio" data-lang="ja"
+                        aria-checked="false">日本語</button>
+                    <button class="language-option" type="button" role="menuitemradio" data-lang="ko"
+                        aria-checked="false">한국어</button>
+                    <button class="language-option" type="button" role="menuitemradio" data-lang="fr"
+                        aria-checked="false">Français</button>
+                    <button class="language-option" type="button" role="menuitemradio" data-lang="de"
+                        aria-checked="false">Deutsch</button>
+                    <button class="language-option" type="button" role="menuitemradio" data-lang="es"
+                        aria-checked="false">Español</button>
+                    <button class="language-option" type="button" role="menuitemradio" data-lang="ru"
+                        aria-checked="false">Русский</button>
+                    <button class="language-option" type="button" role="menuitemradio" data-lang="zh-TW"
+                        aria-checked="false">繁體中文</button>
+                </div>
+            </div>
+            <div id="google_translate_element" class="google-translate-element notranslate" aria-hidden="true"></div>
+            <a class="decoration-line model" href="#" aria-label="切换深浅色主题"><i class="fa-solid fa-sun fa-xs"></i></a>
+        </nav>
+    </div>
+</header>
+        <main class="blog-main">
+          <article class="blog-article">
+            <h1>防抖节流</h1>
+          <div class="post-meta post-meta-flex-around">
+              <div class="post-author" href="/./about/"><i class="fa-solid fa-user"></i> fwqaaq</div> 
+              <div class="post-time"><i class="fa-solid fa-clock"></i> 2022-01-18</div> 
+              <div class="post-update-time"><i class="fa-solid fa-clock-rotate-left"></i> 2025-11-09</div>
+            </div>
+            <hr>
+            <details class="remark-toc-details"><summary class="remark-toc-summary">目录</summary><ul class="remark-toc">
+<li>
+<p><a href="#%E5%9C%BA%E6%99%AF">场景</a></p>
+</li>
+<li>
+<p><a href="#%E9%98%B2%E6%8A%96">防抖</a></p>
+<ul>
+<li><a href="#%E7%AB%8B%E5%8D%B3%E6%89%A7%E8%A1%8C">立即执行</a></li>
+<li><a href="#%E5%8F%96%E6%B6%88">取消</a></li>
+</ul>
+</li>
+<li>
+<p><a href="#%E8%8A%82%E6%B5%81">节流</a></p>
+<ul>
+<li><a href="#%E4%BD%BF%E7%94%A8%E6%97%B6%E9%97%B4%E6%88%B3">使用时间戳</a></li>
+<li><a href="#%E4%BD%BF%E7%94%A8%E5%AE%9A%E6%97%B6%E5%99%A8">使用定时器</a></li>
+<li><a href="#%E4%BC%98%E5%8C%96">优化</a></li>
+<li><a href="#throttled-%E5%8F%96%E6%B6%88">throttled 取消</a></li>
+</ul>
+</li>
+</ul></details>
+<h2 id="场景">场景<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#场景"></a></h2>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-html"><span class="line"><span style="color:#D5CED9">&#x3C;!</span><span style="color:#F92672">DOCTYPE</span><span style="color:#FFE66D"> html</span><span style="color:#D5CED9">></span></span>
+<span class="line"><span style="color:#D5CED9">&#x3C;</span><span style="color:#F92672">html</span><span style="color:#FFE66D"> lang</span><span style="color:#D5CED9">=</span><span style="color:#96E072">"en"</span><span style="color:#D5CED9">></span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#D5CED9">&#x3C;</span><span style="color:#F92672">head</span><span style="color:#D5CED9">></span></span>
+<span class="line"><span style="color:#D5CED9">  &#x3C;</span><span style="color:#F92672">title</span><span style="color:#D5CED9">>Document&#x3C;/</span><span style="color:#F92672">title</span><span style="color:#D5CED9">></span></span>
+<span class="line"><span style="color:#D5CED9">  &#x3C;</span><span style="color:#F92672">style</span><span style="color:#D5CED9">></span></span>
+<span class="line"><span style="color:#EE5D43">    #container</span><span style="color:#D5CED9"> {</span></span>
+<span class="line"><span style="color:#D5CED9">      width: </span><span style="color:#F39C12">100%</span><span style="color:#D5CED9">;</span></span>
+<span class="line"><span style="color:#D5CED9">      height: </span><span style="color:#F39C12">200px</span><span style="color:#D5CED9">;</span></span>
+<span class="line"><span style="color:#D5CED9">      line-height: </span><span style="color:#F39C12">200px</span><span style="color:#D5CED9">;</span></span>
+<span class="line"><span style="color:#D5CED9">      text-align: </span><span style="color:#EE5D43">center</span><span style="color:#D5CED9">;</span></span>
+<span class="line"><span style="color:#D5CED9">      color: </span><span style="color:#EE5D43">#fff</span><span style="color:#D5CED9">;</span></span>
+<span class="line"><span style="color:#D5CED9">      background-color: </span><span style="color:#EE5D43">#444</span><span style="color:#D5CED9">;</span></span>
+<span class="line"><span style="color:#D5CED9">    }</span></span>
+<span class="line"><span style="color:#D5CED9">  &#x3C;/</span><span style="color:#F92672">style</span><span style="color:#D5CED9">></span></span>
+<span class="line"><span style="color:#D5CED9">&#x3C;/</span><span style="color:#F92672">head</span><span style="color:#D5CED9">></span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#D5CED9">&#x3C;</span><span style="color:#F92672">body</span><span style="color:#D5CED9">></span></span>
+<span class="line"><span style="color:#D5CED9">  &#x3C;</span><span style="color:#F92672">div</span><span style="color:#FFE66D"> id</span><span style="color:#D5CED9">=</span><span style="color:#96E072">"container"</span><span style="color:#D5CED9">>&#x3C;/</span><span style="color:#F92672">div</span><span style="color:#D5CED9">></span></span>
+<span class="line"><span style="color:#D5CED9">  &#x3C;</span><span style="color:#F92672">script</span><span style="color:#D5CED9">></span></span>
+<span class="line"><span style="color:#C74DED">    let</span><span style="color:#00E8C6"> count</span><span style="color:#EE5D43"> =</span><span style="color:#F39C12"> 0</span></span>
+<span class="line"><span style="color:#C74DED">    let</span><span style="color:#00E8C6"> divContainer</span><span style="color:#EE5D43"> =</span><span style="color:#F39C12"> document</span><span style="color:#D5CED9">.</span><span style="color:#FFE66D">getElementById</span><span style="color:#D5CED9">(</span><span style="color:#96E072">"container"</span><span style="color:#D5CED9">)</span></span>
+<span class="line"><span style="color:#C74DED">    function</span><span style="color:#FFE66D"> getUserAction</span><span style="color:#D5CED9">() {</span></span>
+<span class="line"><span style="color:#F39C12">      divContainer</span><span style="color:#D5CED9">.</span><span style="color:#00E8C6">innerHTML</span><span style="color:#EE5D43"> =</span><span style="color:#00E8C6"> count</span><span style="color:#EE5D43">++</span></span>
+<span class="line"><span style="color:#D5CED9">    }</span></span>
+<span class="line"><span style="color:#F39C12">    divContainer</span><span style="color:#D5CED9">.</span><span style="color:#00E8C6">onmousemove</span><span style="color:#EE5D43"> =</span><span style="color:#00E8C6"> getUserAction</span></span>
+<span class="line"><span style="color:#D5CED9">  &#x3C;/</span><span style="color:#F92672">script</span><span style="color:#D5CED9">></span></span>
+<span class="line"><span style="color:#D5CED9">&#x3C;/</span><span style="color:#F92672">body</span><span style="color:#D5CED9">></span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#D5CED9">&#x3C;/</span><span style="color:#F92672">html</span><span style="color:#D5CED9">></span></span>
+<span class="line"></span></code></pre>
+<div class="markdown-alert markdown-alert-tip">
+<p class="markdown-alert-title"><svg class="octicon octicon-light-bulb mr-2" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="M8 1.5c-2.363 0-4 1.69-4 3.75 0 .984.424 1.625.984 2.304l.214.253c.223.264.47.556.673.848.284.411.537.896.621 1.49a.75.75 0 0 1-1.484.211c-.04-.282-.163-.547-.37-.847a8.456 8.456 0 0 0-.542-.68c-.084-.1-.173-.205-.268-.32C3.201 7.75 2.5 6.766 2.5 5.25 2.5 2.31 4.863 0 8 0s5.5 2.31 5.5 5.25c0 1.516-.701 2.5-1.328 3.259-.095.115-.184.22-.268.319-.207.245-.383.453-.541.681-.208.3-.33.565-.37.847a.751.751 0 0 1-1.485-.212c.084-.593.337-1.078.621-1.489.203-.292.45-.584.673-.848.075-.088.147-.173.213-.253.561-.679.985-1.32.985-2.304 0-2.06-1.637-3.75-4-3.75ZM5.75 12h4.5a.75.75 0 0 1 0 1.5h-4.5a.75.75 0 0 1 0-1.5ZM6 15.25a.75.75 0 0 1 .75-.75h2.5a.75.75 0 0 1 0 1.5h-2.5a.75.75 0 0 1-.75-.75Z"></path></svg>Tip</p>
+<p>当鼠标一放到矩形框中，就会不停的触发事件 (如果是复杂的回调或者 ajax 的请求就会很频繁的触发事件)</p>
+<p>有两种解决方案：防抖和节流</p>
+</div>
+<h2 id="防抖">防抖<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#防抖"></a></h2>
+<blockquote>
+<p>防抖的原理就是：尽管触发事件，但是我只触发最后一次事件，且 n 秒内不再触发。总之，就是要等你触发完事件 n 秒内不再触发事件</p>
+</blockquote>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-js"><span class="line"><span style="color:#C74DED">function</span><span style="color:#FFE66D"> debounce</span><span style="color:#D5CED9">(</span><span style="color:#00E8C6">func</span><span style="color:#D5CED9">, </span><span style="color:#00E8C6">wait</span><span style="color:#D5CED9">) {</span></span>
+<span class="line"><span style="color:#C74DED">  let</span><span style="color:#00E8C6"> timeout</span><span style="color:#D5CED9">;</span></span>
+<span class="line"><span style="color:#C74DED">  return</span><span style="color:#C74DED"> function</span><span style="color:#D5CED9"> () {</span></span>
+<span class="line"><span style="color:#FFE66D">    clearTimeout</span><span style="color:#D5CED9">(</span><span style="color:#00E8C6">timeout</span><span style="color:#D5CED9">);</span></span>
+<span class="line"><span style="color:#00E8C6">    timeout</span><span style="color:#EE5D43"> =</span><span style="color:#FFE66D"> setTimeout</span><span style="color:#D5CED9">(() </span><span style="color:#C74DED">=></span><span style="color:#D5CED9"> {</span></span>
+<span class="line"><span style="color:#FFE66D">      func</span><span style="color:#D5CED9">();</span></span>
+<span class="line"><span style="color:#D5CED9">    }, </span><span style="color:#00E8C6">wait</span><span style="color:#D5CED9">);</span></span>
+<span class="line"><span style="color:#D5CED9">  };</span></span>
+<span class="line"><span style="color:#D5CED9">}</span></span>
+<span class="line"><span style="color:#F39C12">divContainer</span><span style="color:#D5CED9">.</span><span style="color:#00E8C6">onmousemove</span><span style="color:#EE5D43"> =</span><span style="color:#FFE66D"> debounce</span><span style="color:#D5CED9">(</span><span style="color:#00E8C6">getUserAction</span><span style="color:#D5CED9">, </span><span style="color:#F39C12">1000</span><span style="color:#D5CED9">);</span></span>
+<span class="line"></span></code></pre>
+<ul class="remark-unordered-list">
+<li>注意：
+<ul class="remark-ordered-list">
+<li>setTimeout 中建议使用箭头函数，会指向函数外的 this(这个 this 就是调用这个事件的 id 为 container 的 div)</li>
+<li>如果使用普通的函数，会指向 setTimeout 内部设定好的 this，即 window</li>
+<li>timeout 在外部初始化，<code>clearTimeout</code>会清理上一次的定时器</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>如果不使用箭头函数，就得考虑 this 绑定问题，还有事件对象<code>event</code></p>
+</blockquote>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-js"><span class="line"><span style="color:#C74DED">function</span><span style="color:#FFE66D"> debounce</span><span style="color:#D5CED9">(</span><span style="color:#00E8C6">func</span><span style="color:#D5CED9">, </span><span style="color:#00E8C6">wait</span><span style="color:#D5CED9">) {</span></span>
+<span class="line"><span style="color:#C74DED">  let</span><span style="color:#00E8C6"> timeout</span><span style="color:#D5CED9">;</span></span>
+<span class="line"><span style="color:#C74DED">  let</span><span style="color:#00E8C6"> _self</span><span style="color:#EE5D43"> =</span><span style="color:#FF00AA"> this</span><span style="color:#D5CED9">;</span></span>
+<span class="line"><span style="color:#C74DED">  return</span><span style="color:#C74DED"> function</span><span style="color:#D5CED9"> (</span><span style="color:#00E8C6">e</span><span style="color:#D5CED9">) {</span></span>
+<span class="line"><span style="color:#FFE66D">    clearTimeout</span><span style="color:#D5CED9">(</span><span style="color:#00E8C6">timeout</span><span style="color:#D5CED9">);</span></span>
+<span class="line"><span style="color:#00E8C6">    timeout</span><span style="color:#EE5D43"> =</span><span style="color:#FFE66D"> setTimeout</span><span style="color:#D5CED9">(</span><span style="color:#C74DED">function</span><span style="color:#D5CED9"> () {</span></span>
+<span class="line"><span style="color:#F39C12">      Reflect</span><span style="color:#D5CED9">.</span><span style="color:#FFE66D">apply</span><span style="color:#D5CED9">(</span><span style="color:#00E8C6">func</span><span style="color:#D5CED9">, </span><span style="color:#00E8C6">_self</span><span style="color:#D5CED9">, </span><span style="color:#00E8C6">e</span><span style="color:#D5CED9">);</span></span>
+<span class="line"><span style="color:#D5CED9">    }, </span><span style="color:#00E8C6">wait</span><span style="color:#D5CED9">);</span></span>
+<span class="line"><span style="color:#D5CED9">  };</span></span>
+<span class="line"><span style="color:#D5CED9">}</span></span>
+<span class="line"></span></code></pre>
+<h3 id="立即执行">立即执行<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#立即执行"></a></h3>
+<blockquote>
+<p>如果希望事件每次重新点击都会立刻执行，然后等到停止触发 n 秒后，才可以重新触发。而不是非要等到事件停止触发后才执行</p>
+</blockquote>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-js"><span class="line"><span style="color:#C74DED">function</span><span style="color:#FFE66D"> debounce</span><span style="color:#D5CED9">(</span><span style="color:#00E8C6">func</span><span style="color:#D5CED9">, </span><span style="color:#00E8C6">wait</span><span style="color:#D5CED9">, </span><span style="color:#00E8C6">immediate</span><span style="color:#D5CED9">) {</span></span>
+<span class="line"><span style="color:#C74DED">  let</span><span style="color:#00E8C6"> timeout</span><span style="color:#D5CED9">;</span></span>
+<span class="line"><span style="color:#C74DED">  return</span><span style="color:#C74DED"> function</span><span style="color:#D5CED9"> (</span><span style="color:#00E8C6">e</span><span style="color:#D5CED9">) {</span></span>
+<span class="line"><span style="color:#A0A1A7CC">    //timeout 为 false 才会立即执行</span></span>
+<span class="line"><span style="color:#C74DED">    let</span><span style="color:#00E8C6"> hasImmediate</span><span style="color:#EE5D43"> =</span><span style="color:#EE5D43"> !</span><span style="color:#00E8C6">timeout</span><span style="color:#EE5D43"> &#x26;&#x26;</span><span style="color:#00E8C6"> immediate</span><span style="color:#D5CED9">;</span></span>
+<span class="line"><span style="color:#C74DED">    if</span><span style="color:#D5CED9"> (</span><span style="color:#00E8C6">timeout</span><span style="color:#D5CED9">) </span><span style="color:#FFE66D">clearTimeout</span><span style="color:#D5CED9">(</span><span style="color:#00E8C6">timeout</span><span style="color:#D5CED9">);</span></span>
+<span class="line"><span style="color:#00E8C6">    timeout</span><span style="color:#EE5D43"> =</span><span style="color:#FFE66D"> setTimeout</span><span style="color:#D5CED9">(() </span><span style="color:#C74DED">=></span><span style="color:#D5CED9"> {</span></span>
+<span class="line"><span style="color:#A0A1A7CC">      //执行完定时器之后也会立即执行</span></span>
+<span class="line"><span style="color:#00E8C6">      timeout</span><span style="color:#EE5D43"> =</span><span style="color:#EE5D43"> null</span><span style="color:#D5CED9">;</span></span>
+<span class="line"><span style="color:#D5CED9">    }, </span><span style="color:#00E8C6">wait</span><span style="color:#D5CED9">);</span></span>
+<span class="line"><span style="color:#C74DED">    if</span><span style="color:#D5CED9"> (</span><span style="color:#00E8C6">hasImmediate</span><span style="color:#D5CED9">) {</span></span>
+<span class="line"><span style="color:#FFE66D">      func</span><span style="color:#D5CED9">(</span><span style="color:#00E8C6">e</span><span style="color:#D5CED9">);</span></span>
+<span class="line"><span style="color:#D5CED9">    }</span></span>
+<span class="line"><span style="color:#D5CED9">  };</span></span>
+<span class="line"><span style="color:#D5CED9">}</span></span>
+<span class="line"></span></code></pre>
+<ul class="remark-unordered-list">
+<li>两种立即执行的情况
+<ul class="remark-ordered-list">
+<li>当开始滑动时，再次触发事件，事件会立即执行</li>
+<li>setTimeout 是宏任务，初始化之后会放到队列中。</li>
+<li>当定时器执行完毕时，再次触发事件，事件会立即执行</li>
+<li>除了定时器之外的依然会按照事件的频率触发</li>
+</ul>
+</li>
+</ul>
+<h3 id="取消">取消<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#取消"></a></h3>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-js"><span class="line"><span style="color:#C74DED">function</span><span style="color:#FFE66D"> debounce</span><span style="color:#D5CED9">(</span><span style="color:#00E8C6">func</span><span style="color:#D5CED9">, </span><span style="color:#00E8C6">wait</span><span style="color:#D5CED9">, </span><span style="color:#00E8C6">immediate</span><span style="color:#D5CED9">) {</span></span>
+<span class="line"><span style="color:#C74DED">  let</span><span style="color:#00E8C6"> timeout</span><span style="color:#D5CED9">;</span></span>
+<span class="line"><span style="color:#C74DED">  function</span><span style="color:#FFE66D"> debounced</span><span style="color:#D5CED9">(</span><span style="color:#00E8C6">e</span><span style="color:#D5CED9">) {</span></span>
+<span class="line"><span style="color:#C74DED">    let</span><span style="color:#00E8C6"> hasImmediate</span><span style="color:#EE5D43"> =</span><span style="color:#EE5D43"> !</span><span style="color:#00E8C6">timeout</span><span style="color:#EE5D43"> &#x26;&#x26;</span><span style="color:#00E8C6"> immediate</span><span style="color:#D5CED9">;</span></span>
+<span class="line"><span style="color:#C74DED">    if</span><span style="color:#D5CED9"> (</span><span style="color:#00E8C6">timeout</span><span style="color:#D5CED9">) </span><span style="color:#FFE66D">clearTimeout</span><span style="color:#D5CED9">(</span><span style="color:#00E8C6">timeout</span><span style="color:#D5CED9">);</span></span>
+<span class="line"><span style="color:#00E8C6">    timeout</span><span style="color:#EE5D43"> =</span><span style="color:#FFE66D"> setTimeout</span><span style="color:#D5CED9">(() </span><span style="color:#C74DED">=></span><span style="color:#D5CED9"> {</span></span>
+<span class="line"><span style="color:#C74DED">      if</span><span style="color:#D5CED9"> (</span><span style="color:#00E8C6">timeout</span><span style="color:#D5CED9">) {</span></span>
+<span class="line"><span style="color:#FFE66D">        func</span><span style="color:#D5CED9">(</span><span style="color:#00E8C6">e</span><span style="color:#D5CED9">);</span></span>
+<span class="line"><span style="color:#D5CED9">      }</span></span>
+<span class="line"><span style="color:#00E8C6">      timeout</span><span style="color:#EE5D43"> =</span><span style="color:#EE5D43"> null</span><span style="color:#D5CED9">;</span></span>
+<span class="line"><span style="color:#D5CED9">    }, </span><span style="color:#00E8C6">wait</span><span style="color:#D5CED9">);</span></span>
+<span class="line"><span style="color:#C74DED">    if</span><span style="color:#D5CED9"> (</span><span style="color:#00E8C6">hasImmediate</span><span style="color:#D5CED9">) {</span></span>
+<span class="line"><span style="color:#FFE66D">      func</span><span style="color:#D5CED9">(</span><span style="color:#00E8C6">e</span><span style="color:#D5CED9">);</span></span>
+<span class="line"><span style="color:#D5CED9">    }</span></span>
+<span class="line"><span style="color:#D5CED9">  }</span></span>
+<span class="line"><span style="color:#F39C12">  debounced</span><span style="color:#D5CED9">.</span><span style="color:#FFE66D">cancel</span><span style="color:#EE5D43"> =</span><span style="color:#D5CED9"> () </span><span style="color:#C74DED">=></span><span style="color:#D5CED9"> {</span></span>
+<span class="line"><span style="color:#FFE66D">    clearTimeout</span><span style="color:#D5CED9">(</span><span style="color:#00E8C6">timeout</span><span style="color:#D5CED9">);</span></span>
+<span class="line"><span style="color:#00E8C6">    timeout</span><span style="color:#EE5D43"> =</span><span style="color:#EE5D43"> null</span><span style="color:#D5CED9">;</span></span>
+<span class="line"><span style="color:#D5CED9">  };</span></span>
+<span class="line"><span style="color:#C74DED">  return</span><span style="color:#00E8C6"> debounced</span><span style="color:#D5CED9">;</span></span>
+<span class="line"><span style="color:#D5CED9">}</span></span>
+<span class="line"></span></code></pre>
+<blockquote>
+<p>使用：<code>click</code>事件绑定一个监听器</p>
+</blockquote>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-js"><span class="line"><span style="color:#C74DED">let</span><span style="color:#00E8C6"> setUserAction</span><span style="color:#EE5D43"> =</span><span style="color:#FFE66D"> debounce</span><span style="color:#D5CED9">(</span><span style="color:#00E8C6">getUserAction</span><span style="color:#D5CED9">, </span><span style="color:#F39C12">10000</span><span style="color:#D5CED9">, </span><span style="color:#EE5D43">true</span><span style="color:#D5CED9">);</span></span>
+<span class="line"><span style="color:#F39C12">divContainer</span><span style="color:#D5CED9">.</span><span style="color:#00E8C6">onmousemove</span><span style="color:#EE5D43"> =</span><span style="color:#00E8C6"> setUserAction</span><span style="color:#D5CED9">;</span></span>
+<span class="line"><span style="color:#F39C12">document</span><span style="color:#D5CED9">.</span><span style="color:#FFE66D">getElementById</span><span style="color:#D5CED9">(</span><span style="color:#96E072">"btn"</span><span style="color:#D5CED9">).</span><span style="color:#FFE66D">addEventListener</span><span style="color:#D5CED9">(</span><span style="color:#96E072">"click"</span><span style="color:#D5CED9">, </span><span style="color:#C74DED">function</span><span style="color:#D5CED9"> () {</span></span>
+<span class="line"><span style="color:#F39C12">  setUserAction</span><span style="color:#D5CED9">.</span><span style="color:#FFE66D">cancel</span><span style="color:#D5CED9">();</span></span>
+<span class="line"><span style="color:#D5CED9">});</span></span>
+<span class="line"></span></code></pre>
+<ul class="remark-unordered-list">
+<li>不要绑定<code>click</code>事件，这是浏览器开放的一个鼠标点击自定义接口</li>
+<li>不要与<code>onclick</code>事件搞混</li>
+</ul>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-js"><span class="line"><span style="color:#F39C12">document</span><span style="color:#D5CED9">.</span><span style="color:#FFE66D">getElement</span><span style="color:#D5CED9">(</span><span style="color:#96E072">"btn"</span><span style="color:#D5CED9">).</span><span style="color:#FFE66D">onclick</span><span style="color:#EE5D43"> =</span><span style="color:#C74DED"> function</span><span style="color:#D5CED9"> () {</span></span>
+<span class="line"><span style="color:#F39C12">  setUserAction</span><span style="color:#D5CED9">.</span><span style="color:#FFE66D">cancel</span><span style="color:#D5CED9">();</span></span>
+<span class="line"><span style="color:#D5CED9">};</span></span>
+<span class="line"></span></code></pre>
+<h2 id="节流">节流<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#节流"></a></h2>
+<div class="markdown-alert markdown-alert-tip">
+<p class="markdown-alert-title"><svg class="octicon octicon-light-bulb mr-2" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="M8 1.5c-2.363 0-4 1.69-4 3.75 0 .984.424 1.625.984 2.304l.214.253c.223.264.47.556.673.848.284.411.537.896.621 1.49a.75.75 0 0 1-1.484.211c-.04-.282-.163-.547-.37-.847a8.456 8.456 0 0 0-.542-.68c-.084-.1-.173-.205-.268-.32C3.201 7.75 2.5 6.766 2.5 5.25 2.5 2.31 4.863 0 8 0s5.5 2.31 5.5 5.25c0 1.516-.701 2.5-1.328 3.259-.095.115-.184.22-.268.319-.207.245-.383.453-.541.681-.208.3-.33.565-.37.847a.751.751 0 0 1-1.485-.212c.084-.593.337-1.078.621-1.489.203-.292.45-.584.673-.848.075-.088.147-.173.213-.253.561-.679.985-1.32.985-2.304 0-2.06-1.637-3.75-4-3.75ZM5.75 12h4.5a.75.75 0 0 1 0 1.5h-4.5a.75.75 0 0 1 0-1.5ZM6 15.25a.75.75 0 0 1 .75-.75h2.5a.75.75 0 0 1 0 1.5h-2.5a.75.75 0 0 1-.75-.75Z"></path></svg>Tip</p>
+<p>持续触发事件，每隔一段时间，只执行一次事件</p>
+</div>
+<h3 id="使用时间戳">使用时间戳<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#使用时间戳"></a></h3>
+<blockquote>
+<p>当触发事件的时候，取出当前的时间戳，然后减去之前的时间戳 (一开始值为 0),如果大于设置的时间周期，然后更新时间戳为当前的时间戳。反之不执行</p>
+</blockquote>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-js"><span class="line"><span style="color:#C74DED">function</span><span style="color:#FFE66D"> throttle</span><span style="color:#D5CED9">(</span><span style="color:#00E8C6">func</span><span style="color:#D5CED9">, </span><span style="color:#00E8C6">wait</span><span style="color:#D5CED9">) {</span></span>
+<span class="line"><span style="color:#C74DED">  let</span><span style="color:#00E8C6"> previous</span><span style="color:#EE5D43"> =</span><span style="color:#F39C12"> 0</span><span style="color:#D5CED9">;</span></span>
+<span class="line"><span style="color:#C74DED">  return</span><span style="color:#C74DED"> function</span><span style="color:#D5CED9"> (</span><span style="color:#00E8C6">e</span><span style="color:#D5CED9">) {</span></span>
+<span class="line"><span style="color:#C74DED">    let</span><span style="color:#00E8C6"> now</span><span style="color:#EE5D43"> =</span><span style="color:#EE5D43"> new</span><span style="color:#FFE66D"> Date</span><span style="color:#D5CED9">().</span><span style="color:#FFE66D">getTime</span><span style="color:#D5CED9">();</span></span>
+<span class="line"><span style="color:#C74DED">    if</span><span style="color:#D5CED9"> (</span><span style="color:#00E8C6">now</span><span style="color:#EE5D43"> -</span><span style="color:#00E8C6"> previous</span><span style="color:#EE5D43"> ></span><span style="color:#00E8C6"> wait</span><span style="color:#D5CED9">) {</span></span>
+<span class="line"><span style="color:#FFE66D">      func</span><span style="color:#D5CED9">(</span><span style="color:#00E8C6">e</span><span style="color:#D5CED9">);</span></span>
+<span class="line"><span style="color:#00E8C6">      previous</span><span style="color:#EE5D43"> =</span><span style="color:#00E8C6"> now</span><span style="color:#D5CED9">;</span></span>
+<span class="line"><span style="color:#D5CED9">    }</span></span>
+<span class="line"><span style="color:#D5CED9">  };</span></span>
+<span class="line"><span style="color:#D5CED9">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F39C12">container</span><span style="color:#D5CED9">.</span><span style="color:#00E8C6">onmousemove</span><span style="color:#EE5D43"> =</span><span style="color:#FFE66D"> throttle</span><span style="color:#D5CED9">(</span><span style="color:#00E8C6">getuserAction</span><span style="color:#D5CED9">, </span><span style="color:#F39C12">1000</span><span style="color:#D5CED9">);</span></span>
+<span class="line"></span></code></pre>
+<h3 id="使用定时器">使用定时器<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#使用定时器"></a></h3>
+<blockquote>
+<p>当触发事件的时候，设置一个定时器，再触发事件的时候，如果定时器存在，就不执行，直到定时器执行完，执行函数，清空定时器</p>
+</blockquote>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-js"><span class="line"><span style="color:#C74DED">function</span><span style="color:#FFE66D"> throttle</span><span style="color:#D5CED9">(</span><span style="color:#00E8C6">func</span><span style="color:#D5CED9">, </span><span style="color:#00E8C6">wait</span><span style="color:#D5CED9">) {</span></span>
+<span class="line"><span style="color:#C74DED">  let</span><span style="color:#00E8C6"> timeout</span><span style="color:#D5CED9">;</span></span>
+<span class="line"><span style="color:#C74DED">  return</span><span style="color:#C74DED"> function</span><span style="color:#D5CED9"> (</span><span style="color:#00E8C6">e</span><span style="color:#D5CED9">) {</span></span>
+<span class="line"><span style="color:#00E8C6">    timeout</span><span style="color:#EE5D43"> =</span><span style="color:#FFE66D"> setTimeout</span><span style="color:#D5CED9">(() </span><span style="color:#C74DED">=></span><span style="color:#D5CED9"> {</span></span>
+<span class="line"><span style="color:#FFE66D">      func</span><span style="color:#D5CED9">(</span><span style="color:#00E8C6">e</span><span style="color:#D5CED9">);</span></span>
+<span class="line"><span style="color:#00E8C6">      timeout</span><span style="color:#EE5D43"> =</span><span style="color:#EE5D43"> null</span><span style="color:#D5CED9">;</span></span>
+<span class="line"><span style="color:#D5CED9">    }, </span><span style="color:#00E8C6">wait</span><span style="color:#D5CED9">);</span></span>
+<span class="line"><span style="color:#D5CED9">  };</span></span>
+<span class="line"><span style="color:#D5CED9">}</span></span>
+<span class="line"><span style="color:#F39C12">container</span><span style="color:#D5CED9">.</span><span style="color:#00E8C6">onmousemove</span><span style="color:#EE5D43"> =</span><span style="color:#FFE66D"> throttle</span><span style="color:#D5CED9">(</span><span style="color:#00E8C6">getUserAction</span><span style="color:#D5CED9">, </span><span style="color:#F39C12">1000</span><span style="color:#D5CED9">);</span></span>
+<span class="line"></span></code></pre>
+<ul class="remark-ordered-list">
+<li>使用时间戳事件会立刻执行，并且停止触发后不会再执行</li>
+<li>使用定时器事件会在 n 秒后执行，并且停止触发后依然会在执行一次</li>
+</ul>
+<h3 id="优化">优化<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#优化"></a></h3>
+<blockquote>
+<p>如果鼠标移入能立刻执行，且停止触发的时候还能在执行一次</p>
+</blockquote>
+<ul class="remark-ordered-list">
+<li>leading:false 表示禁用第一次</li>
+<li>trailing:false 表示警用停止触发</li>
+<li>不能同时设置为 false，同时为 false 的时候。鼠标移出过了设置的时间，在移入就会立即执行</li>
+</ul>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-js"><span class="line"><span style="color:#C74DED">function</span><span style="color:#FFE66D"> throttle</span><span style="color:#D5CED9">(</span><span style="color:#00E8C6">func</span><span style="color:#D5CED9">, </span><span style="color:#00E8C6">wait</span><span style="color:#D5CED9">, </span><span style="color:#00E8C6">options</span><span style="color:#D5CED9">) {</span></span>
+<span class="line"><span style="color:#C74DED">  let</span><span style="color:#00E8C6"> timeout</span><span style="color:#D5CED9">, </span><span style="color:#00E8C6">previous</span><span style="color:#EE5D43"> =</span><span style="color:#F39C12"> 0</span><span style="color:#D5CED9">;</span></span>
+<span class="line"><span style="color:#C74DED">  if</span><span style="color:#D5CED9"> (</span><span style="color:#EE5D43">!</span><span style="color:#00E8C6">options</span><span style="color:#D5CED9">) </span><span style="color:#00E8C6">options</span><span style="color:#EE5D43"> =</span><span style="color:#D5CED9"> {};</span></span>
+<span class="line"><span style="color:#C74DED">  let</span><span style="color:#FFE66D"> later</span><span style="color:#EE5D43"> =</span><span style="color:#C74DED"> function</span><span style="color:#D5CED9"> () {</span></span>
+<span class="line"><span style="color:#00E8C6">    privous</span><span style="color:#EE5D43"> =</span><span style="color:#F39C12"> options</span><span style="color:#D5CED9">.</span><span style="color:#00E8C6">leading</span><span style="color:#EE5D43"> ===</span><span style="color:#00E8C6"> fasle</span><span style="color:#EE5D43"> ?</span><span style="color:#F39C12"> 0</span><span style="color:#EE5D43"> :</span><span style="color:#EE5D43"> new</span><span style="color:#FFE66D"> Date</span><span style="color:#D5CED9">().</span><span style="color:#FFE66D">getTime</span><span style="color:#D5CED9">();</span></span>
+<span class="line"><span style="color:#C74DED">    let</span><span style="color:#00E8C6"> previous</span><span style="color:#EE5D43"> =</span><span style="color:#EE5D43"> new</span><span style="color:#FFE66D"> Date</span><span style="color:#D5CED9">().</span><span style="color:#FFE66D">getTime</span><span style="color:#D5CED9">();</span></span>
+<span class="line"><span style="color:#FFE66D">    func</span><span style="color:#D5CED9">();</span></span>
+<span class="line"><span style="color:#00E8C6">    timeout</span><span style="color:#EE5D43"> =</span><span style="color:#EE5D43"> null</span><span style="color:#D5CED9">;</span></span>
+<span class="line"><span style="color:#D5CED9">  };</span></span>
+<span class="line"><span style="color:#C74DED">  function</span><span style="color:#FFE66D"> throttled</span><span style="color:#D5CED9">() {</span></span>
+<span class="line"><span style="color:#C74DED">    let</span><span style="color:#00E8C6"> now</span><span style="color:#EE5D43"> =</span><span style="color:#EE5D43"> new</span><span style="color:#FFE66D"> Date</span><span style="color:#D5CED9">().</span><span style="color:#FFE66D">getTime</span><span style="color:#D5CED9">();</span></span>
+<span class="line"><span style="color:#C74DED">    if</span><span style="color:#D5CED9"> (</span><span style="color:#F39C12">options</span><span style="color:#D5CED9">.</span><span style="color:#00E8C6">leading</span><span style="color:#EE5D43"> ===</span><span style="color:#EE5D43"> false</span><span style="color:#EE5D43"> &#x26;&#x26;</span><span style="color:#EE5D43"> !</span><span style="color:#00E8C6">privous</span><span style="color:#D5CED9">) </span><span style="color:#00E8C6">privous</span><span style="color:#EE5D43"> =</span><span style="color:#00E8C6"> now</span><span style="color:#D5CED9">;</span></span>
+<span class="line"><span style="color:#C74DED">    let</span><span style="color:#00E8C6"> remaining</span><span style="color:#EE5D43"> =</span><span style="color:#00E8C6"> wait</span><span style="color:#EE5D43"> -</span><span style="color:#D5CED9"> (</span><span style="color:#00E8C6">now</span><span style="color:#EE5D43"> -</span><span style="color:#00E8C6"> previous</span><span style="color:#D5CED9">);</span></span>
+<span class="line"><span style="color:#C74DED">    if</span><span style="color:#D5CED9"> (</span><span style="color:#00E8C6">remaining</span><span style="color:#EE5D43"> &#x3C;</span><span style="color:#F39C12"> 0</span><span style="color:#EE5D43"> ||</span><span style="color:#00E8C6"> remaining</span><span style="color:#EE5D43"> ></span><span style="color:#00E8C6"> wait</span><span style="color:#D5CED9">) {</span></span>
+<span class="line"><span style="color:#C74DED">      if</span><span style="color:#D5CED9"> (</span><span style="color:#00E8C6">timeout</span><span style="color:#D5CED9">) {</span></span>
+<span class="line"><span style="color:#FFE66D">        clearTimeout</span><span style="color:#D5CED9">(</span><span style="color:#00E8C6">timeout</span><span style="color:#D5CED9">);</span></span>
+<span class="line"><span style="color:#00E8C6">        timeout</span><span style="color:#EE5D43"> =</span><span style="color:#EE5D43"> null</span><span style="color:#D5CED9">;</span></span>
+<span class="line"><span style="color:#D5CED9">      }</span></span>
+<span class="line"><span style="color:#00E8C6">      previous</span><span style="color:#EE5D43"> =</span><span style="color:#00E8C6"> now</span><span style="color:#D5CED9">;</span></span>
+<span class="line"><span style="color:#FFE66D">      func</span><span style="color:#D5CED9">();</span></span>
+<span class="line"><span style="color:#D5CED9">    } </span><span style="color:#C74DED">else</span><span style="color:#C74DED"> if</span><span style="color:#D5CED9"> (</span><span style="color:#EE5D43">!</span><span style="color:#00E8C6">timeout</span><span style="color:#EE5D43"> &#x26;&#x26;</span><span style="color:#F39C12"> options</span><span style="color:#D5CED9">.</span><span style="color:#00E8C6">trailing</span><span style="color:#EE5D43"> ===</span><span style="color:#EE5D43"> true</span><span style="color:#D5CED9">) {</span></span>
+<span class="line"><span style="color:#00E8C6">      timeout</span><span style="color:#EE5D43"> =</span><span style="color:#FFE66D"> setTimeout</span><span style="color:#D5CED9">(</span><span style="color:#00E8C6">later</span><span style="color:#D5CED9">, </span><span style="color:#00E8C6">remaining</span><span style="color:#D5CED9">);</span></span>
+<span class="line"><span style="color:#D5CED9">    }</span></span>
+<span class="line"><span style="color:#D5CED9">  }</span></span>
+<span class="line"><span style="color:#C74DED">  return</span><span style="color:#00E8C6"> throttled</span><span style="color:#D5CED9">;</span></span>
+<span class="line"><span style="color:#D5CED9">}</span></span>
+<span class="line"></span></code></pre>
+<ul class="remark-ordered-list">
+<li>为什么会有 <code>!timeout</code>,当触发的时间小于等待的时间的时候会执行，并且因为是定时器会在一段时间后再执行（并且不断的触发定时器都会重新执行，直到 <code>remaining&#x3C;=0</code>）</li>
+<li><code>remaining &#x3C;= 0 || remaining > wait</code>：小于等待时间，或者时间超过了等待时间（previous 只有在 if...内部会更新。第一次触发后只有 now 会不停更新）</li>
+</ul>
+<h3 id="throttled-取消">throttled 取消<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#throttled-取消"></a></h3>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-js"><span class="line"><span style="color:#F39C12">throttled</span><span style="color:#D5CED9">.</span><span style="color:#FFE66D">cancel</span><span style="color:#EE5D43"> =</span><span style="color:#C74DED"> function</span><span style="color:#D5CED9"> () {</span></span>
+<span class="line"><span style="color:#FFE66D">  clearTimeout</span><span style="color:#D5CED9">(</span><span style="color:#00E8C6">timeout</span><span style="color:#D5CED9">);</span></span>
+<span class="line"><span style="color:#00E8C6">  timeout</span><span style="color:#EE5D43"> =</span><span style="color:#EE5D43"> null</span><span style="color:#D5CED9">;</span></span>
+<span class="line"><span style="color:#00E8C6">  previous</span><span style="color:#EE5D43"> =</span><span style="color:#F39C12"> 0</span><span style="color:#D5CED9">;</span></span>
+<span class="line"><span style="color:#D5CED9">};</span></span>
+<span class="line"></span></code></pre>
+<div class="sponsor-container">
+  <button class="sponsor-btn">
+    <a href="https://stripe.fwqaaq.workers.dev/Personal-Website-Sponsor/checkout?mode=once" target="_blank" rel="noopener noreferrer" class="">
+      <span class="sponsor-icon">☕</span>
+      <span>请博主喝杯咖啡</span>
+  </a>
+  </button>
+</div>
+          </article>
+        </main><script src="https://giscus.app/client.js"
+        data-repo="fwqaaq/fwqaaq.github.io"
+        data-repo-id="R_kgDOHCFK2A"
+        data-category="Show and tell"
+        data-category-id="DIC_kwDOHCFK2M4CYOLh"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="1"
+        data-input-position="bottom"
+        data-theme="preferred_color_scheme"
+        data-lang="zh-CN"
+        crossorigin="anonymous"
+        async></script><footer class="blog-footer">
+  <div class="footer-container">
+    <p class="text-center"><a class="decoration-line"
+        href="https://creativecommons.org/licenses/by-sa/3.0/deed.zh-hans">© CC BY-SA</a> 2021 -
+      2025 <a class="decoration-line" href="https://github.com/fwqaaq">fwqaaq</a>.
+      Powered by <a class="decoration-line" href="https://deno.com">Deno</a>
+    </p>
+  </div>
+  <div class="footer-icons-container">
+    <a class="icon" href="https://github.com/fwqaaq">
+      <i class="fa-brands fa-github"></i>
+    </a>
+    <a class="icon" href="mailto:fwqaaq@gmail">
+      <i class="fa-solid fa-envelope"></i>
+    </a>
+    <a class="icon" href="https://www.fwqaaq.com/feed.xml">
+      <i class="fa-solid fa-rss"></i>
+    </a>
+    <a class="icon" href="https://t.me/fwqaaq">
+      <i class="fa-brands fa-telegram"></i>
+    </a>
+  </div>
+</footer>

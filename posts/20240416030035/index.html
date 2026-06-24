@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#F3F7F6">
+  <meta name="description" content="JavaScript  关于 JavaScript 中的[**可迭代协议**（Iterable protocol）](https://developer.mozilla.org/e...">
+  <meta name="keywords" content="Rust, JavaScript, TypeScript">
+  <meta name="author" content="fwqaaq">
+  <meta property="og:site_name" content="fwqaaq 的博客">
+  <meta property="og:locale" content="zh_CN">
+  <meta property="og:title" content="Iterator">
+  <meta property="og:description" content="JavaScript  关于 JavaScript 中的[**可迭代协议**（Iterable protocol）](https://developer.mozilla.org/e...">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://www.fwqaaq.com//posts/20240416030035/">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="fwqaaq 的博客">
+  <meta name=application-name content="fwqaaq 的博客">
+  <meta name=apple-mobile-web-app-title content="fwqaaq 的博客">
+  <title>
+    Iterator
+  </title>
+  <link rel="shortcut icon" href="/public/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="/public/css/base.849580.css">
+  <link rel="stylesheet" href="/public/css/index.849580.css">
+  <link rel="stylesheet" href="/public/css/markdown.849580.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+  <script src="/public/JavaScript/index.849580.js"></script>
+  <script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit" defer></script>
+</head>
+
+</html>
+<header class="blog-header">
+    <i id="switch-icon" class="fa-solid fa-bars"></i>
+    <a href="https://github.com/fwqaaq" target="_blank">
+        <img src="https://avatars.githubusercontent.com/u/82551626?v=4" loading="lazy" alt="me" srcset="">
+    </a>
+    <div class="wrap-background">
+        <nav class="header-nav">
+            <a class="decoration-line" href="/"><i class="fa-solid fa-house-chimney fa-xs"></i>
+                <span class="disappear">首页</span>
+            </a>
+            <a class="decoration-line" href="/./about/index.html"><i class="fa-solid fa-address-card fa-xs"></i>
+                <span class="disappear">关于</span></a>
+            <a class="decoration-line" href="/./archive/index.html"><i class="fa-solid fa-box-archive fa-xs"></i> <span
+                    class="disappear">归档</span></a>
+            <a class="decoration-line" href="/./tags/index.html"><i class="fa-solid fa-tag fa-xs"></i>
+                <span class="disappear">标签</span></a>
+            <a class="decoration-line" onclick="sponsor(199)">
+                <i class="fa-solid fa-circle-dollar-to-slot fa-xs"></i>
+                <span class="disappear">赞助</span></a>
+            <div class="language-switcher notranslate">
+                <button class="language-toggle" type="button" aria-label="切换语言" aria-expanded="false"
+                    aria-controls="language-menu">
+                    <i class="fa-solid fa-globe fa-xs" aria-hidden="true"></i>
+                    <span class="disappear" translate="yes">语言</span>
+                </button>
+                <div class="language-menu" id="language-menu" role="menu" hidden>
+                    <button class="language-option" type="button" role="menuitemradio" data-lang=""
+                        aria-checked="true">原文</button>
+                    <button class="language-option" type="button" role="menuitemradio" data-lang="en"
+                        aria-checked="false">English</button>
+                    <button class="language-option" type="button" role="menuitemradio" data-lang="ja"
+                        aria-checked="false">日本語</button>
+                    <button class="language-option" type="button" role="menuitemradio" data-lang="ko"
+                        aria-checked="false">한국어</button>
+                    <button class="language-option" type="button" role="menuitemradio" data-lang="fr"
+                        aria-checked="false">Français</button>
+                    <button class="language-option" type="button" role="menuitemradio" data-lang="de"
+                        aria-checked="false">Deutsch</button>
+                    <button class="language-option" type="button" role="menuitemradio" data-lang="es"
+                        aria-checked="false">Español</button>
+                    <button class="language-option" type="button" role="menuitemradio" data-lang="ru"
+                        aria-checked="false">Русский</button>
+                    <button class="language-option" type="button" role="menuitemradio" data-lang="zh-TW"
+                        aria-checked="false">繁體中文</button>
+                </div>
+            </div>
+            <div id="google_translate_element" class="google-translate-element notranslate" aria-hidden="true"></div>
+            <a class="decoration-line model" href="#" aria-label="切换深浅色主题"><i class="fa-solid fa-sun fa-xs"></i></a>
+        </nav>
+    </div>
+</header>
+        <main class="blog-main">
+          <article class="blog-article">
+            <h1>Iterator</h1>
+          <div class="post-meta post-meta-flex-around">
+              <div class="post-author" href="/./about/"><i class="fa-solid fa-user"></i> fwqaaq</div> 
+              <div class="post-time"><i class="fa-solid fa-clock"></i> 2024-04-16</div> 
+              <div class="post-update-time"><i class="fa-solid fa-clock-rotate-left"></i> 2025-11-09</div>
+            </div>
+            <hr>
+            <details class="remark-toc-details"><summary class="remark-toc-summary">目录</summary><ul class="remark-toc">
+<li>
+<p><a href="#javascript">JavaScript</a></p>
+<ul>
+<li><a href="#%E7%94%9F%E6%88%90%E5%99%A8generator">生成器（Generator）</a></li>
+<li><a href="#%E5%8D%8F%E7%A8%8Bcoroutine">协程（Coroutine）</a></li>
+</ul>
+</li>
+<li>
+<p><a href="#rust">Rust</a></p>
+<ul>
+<li><a href="#rust-%E4%B8%AD%E7%9A%84%E8%BF%AD%E4%BB%A3%E5%99%A8">Rust 中的迭代器</a></li>
+</ul>
+</li>
+<li>
+<p><a href="#go">Go</a></p>
+<ul>
+<li>
+<p><a href="#go-channel">Go Channel</a></p>
+<ul>
+<li><a href="#goroutine">Goroutine</a></li>
+<li><a href="#%E5%8D%95%E5%90%91-channel">单向 Channel</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul></details>
+<h2 id="javascript">JavaScript<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#javascript"></a></h2>
+<p>关于 JavaScript 中的<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Iteration_protocols#the_iterable_protocol"><strong>可迭代协议</strong>（Iterable protocol）</a>，在 MDN 文档中是说明实现了 <code>[Symbol.iterator]</code> 的对象，其可以被 <code>for...of</code> 循环遍历。</p>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-ts"><span class="line"><span style="color:#C74DED">interface</span><span style="color:#FFE66D"> Iterable</span><span style="color:#D5CED9">&#x3C;</span><span style="color:#FFE66D">T</span><span style="color:#D5CED9">> {</span></span>
+<span class="line"><span style="color:#D5CED9">    [</span><span style="color:#00E8C6">Symbol</span><span style="color:#D5CED9">.</span><span style="color:#00E8C6">iterator</span><span style="color:#D5CED9">]()</span><span style="color:#EE5D43">:</span><span style="color:#FFE66D"> Iterator</span><span style="color:#D5CED9">&#x3C;</span><span style="color:#FFE66D">T</span><span style="color:#D5CED9">>;</span></span>
+<span class="line"><span style="color:#D5CED9">}</span></span>
+<span class="line"></span></code></pre>
+<p>只要实现了以上的接口，那么就是一个可迭代的对象。实现<strong>可迭代协议</strong>并不意味着该对象可以被迭代，还需要实现<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Iteration_protocols#the_iterator_protocol"><strong>迭代器协议</strong>（Iterator protocol）</a>。<strong>可迭代协议</strong>返回了一个<strong>迭代器</strong>对象，实现了<strong>可迭代协议</strong>的对象都期待可以被迭代。</p>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-ts"><span class="line"><span style="color:#C74DED">interface</span><span style="color:#FFE66D"> Iterator</span><span style="color:#D5CED9">&#x3C;</span><span style="color:#FFE66D">T</span><span style="color:#D5CED9">, </span><span style="color:#FFE66D">TReturn</span><span style="color:#EE5D43"> =</span><span style="color:#D5CED9"> any, </span><span style="color:#FFE66D">TNext</span><span style="color:#EE5D43"> =</span><span style="color:#D5CED9"> undefined> {</span></span>
+<span class="line"><span style="color:#A0A1A7CC">    // NOTE: 'next' is defined using a tuple to ensure we report the correct assignability errors in all places.</span></span>
+<span class="line"><span style="color:#FFE66D">    next</span><span style="color:#D5CED9">(</span><span style="color:#EE5D43">...</span><span style="color:#00E8C6">args</span><span style="color:#EE5D43">:</span><span style="color:#D5CED9"> [] </span><span style="color:#EE5D43">|</span><span style="color:#D5CED9"> [</span><span style="color:#FFE66D">TNext</span><span style="color:#D5CED9">])</span><span style="color:#EE5D43">:</span><span style="color:#FFE66D"> IteratorResult</span><span style="color:#D5CED9">&#x3C;</span><span style="color:#FFE66D">T</span><span style="color:#D5CED9">, </span><span style="color:#FFE66D">TReturn</span><span style="color:#D5CED9">>;</span></span>
+<span class="line"><span style="color:#FFE66D">    return</span><span style="color:#EE5D43">?</span><span style="color:#D5CED9">(</span><span style="color:#00E8C6">value</span><span style="color:#EE5D43">?:</span><span style="color:#FFE66D"> TReturn</span><span style="color:#D5CED9">)</span><span style="color:#EE5D43">:</span><span style="color:#FFE66D"> IteratorResult</span><span style="color:#D5CED9">&#x3C;</span><span style="color:#FFE66D">T</span><span style="color:#D5CED9">, </span><span style="color:#FFE66D">TReturn</span><span style="color:#D5CED9">>;</span></span>
+<span class="line"><span style="color:#FFE66D">    throw</span><span style="color:#EE5D43">?</span><span style="color:#D5CED9">(</span><span style="color:#00E8C6">e</span><span style="color:#EE5D43">?:</span><span style="color:#D5CED9"> any)</span><span style="color:#EE5D43">:</span><span style="color:#FFE66D"> IteratorResult</span><span style="color:#D5CED9">&#x3C;</span><span style="color:#FFE66D">T</span><span style="color:#D5CED9">, </span><span style="color:#FFE66D">TReturn</span><span style="color:#D5CED9">>;</span></span>
+<span class="line"><span style="color:#D5CED9">}</span></span>
+<span class="line"></span></code></pre>
+<p>实现 <code>Iterator</code> 接口的对象，才可以被迭代。并且只有 <code>next</code> 方法是必须实现的，按照规范，<code>next</code> 方法必须返回一个 <code>IteratorResult</code> 对象，该对象的 <code>done</code> 值如果为 <code>true</code> 表示迭代结束，<code>value</code> 则为 <code>undefined</code>。因此我们可以很容易地实现一个可迭代的迭代器：</p>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-js"><span class="line"><span style="color:#C74DED">const</span><span style="color:#00E8C6"> myIterator</span><span style="color:#EE5D43"> =</span><span style="color:#D5CED9"> {</span></span>
+<span class="line"><span style="color:#D5CED9">  count: </span><span style="color:#F39C12">0</span><span style="color:#D5CED9">,</span></span>
+<span class="line"><span style="color:#FFE66D">  next</span><span style="color:#D5CED9">() {</span></span>
+<span class="line"><span style="color:#C74DED">    if</span><span style="color:#D5CED9"> (</span><span style="color:#FF00AA">this</span><span style="color:#D5CED9">.</span><span style="color:#00E8C6">count</span><span style="color:#EE5D43"> &#x3C;</span><span style="color:#F39C12"> 3</span><span style="color:#D5CED9">) {</span></span>
+<span class="line"><span style="color:#FF00AA">      this</span><span style="color:#D5CED9">.</span><span style="color:#00E8C6">count</span><span style="color:#EE5D43">++</span><span style="color:#D5CED9">;</span></span>
+<span class="line"><span style="color:#C74DED">      return</span><span style="color:#D5CED9"> { value : </span><span style="color:#FF00AA">this</span><span style="color:#D5CED9">.</span><span style="color:#00E8C6">count</span><span style="color:#D5CED9">, done: </span><span style="color:#EE5D43">false</span><span style="color:#D5CED9"> };</span></span>
+<span class="line"><span style="color:#D5CED9">    }</span></span>
+<span class="line"><span style="color:#C74DED">    return</span><span style="color:#D5CED9"> { value : </span><span style="color:#EE5D43">undefined</span><span style="color:#D5CED9">, done: </span><span style="color:#EE5D43">true</span><span style="color:#D5CED9"> };</span></span>
+<span class="line"><span style="color:#D5CED9">  },</span></span>
+<span class="line"><span style="color:#D5CED9">  [</span><span style="color:#F39C12">Symbol</span><span style="color:#D5CED9">.</span><span style="color:#00E8C6">iterator</span><span style="color:#D5CED9">] () {</span></span>
+<span class="line"><span style="color:#C74DED">    return</span><span style="color:#FF00AA"> this</span></span>
+<span class="line"><span style="color:#D5CED9">  }</span></span>
+<span class="line"><span style="color:#D5CED9">};</span></span>
+<span class="line"></span></code></pre>
+<p>因此几乎所有的语法和 API 都期望是可迭代的，而不是迭代器。<strong>可迭代的迭代器</strong>接口如下：</p>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-ts"><span class="line"><span style="color:#C74DED">interface</span><span style="color:#FFE66D"> IterableIterator</span><span style="color:#D5CED9">&#x3C;</span><span style="color:#FFE66D">T</span><span style="color:#D5CED9">> </span><span style="color:#C74DED">extends</span><span> </span><span style="color:#FFE66D;text-decoration:underline">Iterator</span><span style="color:#D5CED9">&#x3C;</span><span style="color:#FFE66D">T</span><span style="color:#D5CED9">> {</span></span>
+<span class="line"><span style="color:#D5CED9">    [</span><span style="color:#00E8C6">Symbol</span><span style="color:#D5CED9">.</span><span style="color:#00E8C6">iterator</span><span style="color:#D5CED9">]()</span><span style="color:#EE5D43">:</span><span style="color:#FFE66D"> IterableIterator</span><span style="color:#D5CED9">&#x3C;</span><span style="color:#FFE66D">T</span><span style="color:#D5CED9">>;</span></span>
+<span class="line"><span style="color:#D5CED9">}</span></span>
+<span class="line"></span></code></pre>
+<p>正如上面的示例，我们完全可以使用扩展运算符（<code>...</code>）、<code>for ... of</code> 等来迭代一个可迭代的对象。</p>
+<h3 id="生成器generator"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Iterators_and_Generators#generator_functions">生成器（Generator）</a><a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#生成器generator"></a></h3>
+<p>在 MDN 文档中很清晰地说明了<strong>生成器</strong>是一种特殊类型的<strong>迭代器</strong>，它返回一个 <code>Generator</code> 接口的对象。而之前的 <code>myIterator</code> 示例正是使用了手动管理状态的<strong>迭代器</strong>，这也就是为什么要使用<strong>生成器</strong>的原因，它不需要显示地管理内部状态，而是通过 <code>yield</code> 关键字来暂停和恢复函数的执行。它的语法如下：</p>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-ts"><span class="line"><span style="color:#C74DED">interface</span><span style="color:#FFE66D"> Generator</span><span style="color:#D5CED9">&#x3C;</span><span style="color:#FFE66D">T</span><span style="color:#EE5D43"> =</span><span style="color:#D5CED9"> unknown, </span><span style="color:#FFE66D">TReturn</span><span style="color:#EE5D43"> =</span><span style="color:#D5CED9"> any, </span><span style="color:#FFE66D">TNext</span><span style="color:#EE5D43"> =</span><span style="color:#D5CED9"> unknown> </span><span style="color:#C74DED">extends</span><span> </span><span style="color:#FFE66D;text-decoration:underline">Iterator</span><span style="color:#D5CED9">&#x3C;</span><span style="color:#FFE66D">T</span><span style="color:#D5CED9">, </span><span style="color:#FFE66D">TReturn</span><span style="color:#D5CED9">, </span><span style="color:#FFE66D">TNext</span><span style="color:#D5CED9">> {</span></span>
+<span class="line"><span style="color:#A0A1A7CC">    // NOTE: 'next' is defined using a tuple to ensure we report the correct assignability errors in all places.</span></span>
+<span class="line"><span style="color:#FFE66D">    next</span><span style="color:#D5CED9">(</span><span style="color:#EE5D43">...</span><span style="color:#00E8C6">args</span><span style="color:#EE5D43">:</span><span style="color:#D5CED9"> [] </span><span style="color:#EE5D43">|</span><span style="color:#D5CED9"> [</span><span style="color:#FFE66D">TNext</span><span style="color:#D5CED9">])</span><span style="color:#EE5D43">:</span><span style="color:#FFE66D"> IteratorResult</span><span style="color:#D5CED9">&#x3C;</span><span style="color:#FFE66D">T</span><span style="color:#D5CED9">, </span><span style="color:#FFE66D">TReturn</span><span style="color:#D5CED9">>;</span></span>
+<span class="line"><span style="color:#FFE66D">    return</span><span style="color:#D5CED9">(</span><span style="color:#00E8C6">value</span><span style="color:#EE5D43">:</span><span style="color:#FFE66D"> TReturn</span><span style="color:#D5CED9">)</span><span style="color:#EE5D43">:</span><span style="color:#FFE66D"> IteratorResult</span><span style="color:#D5CED9">&#x3C;</span><span style="color:#FFE66D">T</span><span style="color:#D5CED9">, </span><span style="color:#FFE66D">TReturn</span><span style="color:#D5CED9">>;</span></span>
+<span class="line"><span style="color:#FFE66D">    throw</span><span style="color:#D5CED9">(</span><span style="color:#00E8C6">e</span><span style="color:#EE5D43">:</span><span style="color:#D5CED9"> any)</span><span style="color:#EE5D43">:</span><span style="color:#FFE66D"> IteratorResult</span><span style="color:#D5CED9">&#x3C;</span><span style="color:#FFE66D">T</span><span style="color:#D5CED9">, </span><span style="color:#FFE66D">TReturn</span><span style="color:#D5CED9">>;</span></span>
+<span class="line"><span style="color:#D5CED9">    [</span><span style="color:#00E8C6">Symbol</span><span style="color:#D5CED9">.</span><span style="color:#00E8C6">iterator</span><span style="color:#D5CED9">]()</span><span style="color:#EE5D43">:</span><span style="color:#FFE66D"> Generator</span><span style="color:#D5CED9">&#x3C;</span><span style="color:#FFE66D">T</span><span style="color:#D5CED9">, </span><span style="color:#FFE66D">TReturn</span><span style="color:#D5CED9">, </span><span style="color:#FFE66D">TNext</span><span style="color:#D5CED9">>;</span></span>
+<span class="line"><span style="color:#D5CED9">}</span></span>
+<span class="line"></span></code></pre>
+<div class="markdown-alert markdown-alert-note">
+<p class="markdown-alert-title"><svg class="octicon octicon-info mr-2" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8Zm8-6.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13ZM6.5 7.75A.75.75 0 0 1 7.25 7h1a.75.75 0 0 1 .75.75v2.75h.25a.75.75 0 0 1 0 1.5h-2a.75.75 0 0 1 0-1.5h.25v-2h-.25a.75.75 0 0 1-.75-.75ZM8 6a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"></path></svg>Note</p>
+<p>异步迭代器（<code>AsyncIterator</code>）和异步生成器（<code>AsyncGenerator</code>）的接口和语法与同步的迭代器和生成器类似，只是返回值是 <code>Promise</code> 对象。</p>
+</div>
+<h3 id="协程coroutine">协程（Coroutine）<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#协程coroutine"></a></h3>
+<div class="markdown-alert markdown-alert-note">
+<p class="markdown-alert-title"><svg class="octicon octicon-info mr-2" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8Zm8-6.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13ZM6.5 7.75A.75.75 0 0 1 7.25 7h1a.75.75 0 0 1 .75.75v2.75h.25a.75.75 0 0 1 0 1.5h-2a.75.75 0 0 1 0-1.5h.25v-2h-.25a.75.75 0 0 1-.75-.75ZM8 6a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"></path></svg>Note</p>
+<p>协程是一种比线程更轻量化的并发处理方式，它只存在于用户态，并不需要内核态的支持。协程可以<strong>暂停</strong>、<strong>恢复</strong>和<strong>终止</strong>，并且可以从挂起点恢复执行，保留之前的状态。</p>
+</div>
+<p>所以，在 JavaScript 中，有状态的迭代器以及生成器都可以看作是协程的一种实现。<strong>协程</strong>是由编程语言自己实现的，它会让函数不断地暂停和恢复，而<strong>线程</strong>是由操作系统控制的，单核 CPU 只能同时执行一个线程，所以会使用<strong>时间片轮转</strong>的方式来切换线程，这样就会导致<strong>上下文切换</strong>的开销。</p>
+<p>但是在 JavaScript 中更常见的是使用 <code>async</code> 和 <code>await</code> 关键字来实现异步的协程。异步的关键就是将阻塞的函数挂起，将执行权移交给其他函数，等待异步操作执行完成后再恢复执行。利用 <code>yield</code> 挂起阻塞函数可以很容易的解决这个问题。</p>
+<p>但是什么时候该执行这个挂起的函数呢？这个时候就需要一个状态机来管理这个函数的执行状态，而 <code>Promise</code> 就是一个状态机，它提供了 <code>pending</code>、<code>fulfilled</code> 和 <code>rejected</code> 三种状态，最终会兑现为后面两种状态的一种。在 <code>yield</code> 之后，我们可以通过 <code>Promise</code> 来查看这个函数的执行状态。</p>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-js"><span class="line"><span style="color:#A0A1A7CC">// 模拟异步</span></span>
+<span class="line"><span style="color:#C74DED">function</span><span style="color:#FFE66D"> asyncFunc</span><span style="color:#D5CED9">() {</span></span>
+<span class="line"><span style="color:#C74DED">  return</span><span style="color:#EE5D43"> new</span><span style="color:#EE5D43"> Promise</span><span style="color:#D5CED9">((</span><span style="color:#00E8C6">resolve</span><span style="color:#D5CED9">) </span><span style="color:#C74DED">=></span><span style="color:#D5CED9"> {</span></span>
+<span class="line"><span style="color:#FFE66D">    setTimeout</span><span style="color:#D5CED9">(() </span><span style="color:#C74DED">=></span><span style="color:#D5CED9"> { </span><span style="color:#FFE66D">resolve</span><span style="color:#D5CED9">(</span><span style="color:#96E072">'fulfilled'</span><span style="color:#D5CED9">) }, </span><span style="color:#F39C12">1000</span><span style="color:#D5CED9">)</span></span>
+<span class="line"><span style="color:#D5CED9">  })</span></span>
+<span class="line"><span style="color:#D5CED9">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#C74DED">function*</span><span style="color:#FFE66D"> coroutine</span><span style="color:#D5CED9">() { </span></span>
+<span class="line"><span style="color:#C74DED">  yield</span><span style="color:#FFE66D"> asyncFunc</span><span style="color:#D5CED9">()</span></span>
+<span class="line"><span style="color:#A0A1A7CC">  // 挂起恢复之后的代码</span></span>
+<span class="line"><span style="color:#D5CED9">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#C74DED">const</span><span style="color:#00E8C6"> it</span><span style="color:#EE5D43"> =</span><span style="color:#FFE66D"> coroutine</span><span style="color:#D5CED9">()</span></span>
+<span class="line"><span style="color:#F39C12">it</span><span style="color:#D5CED9">.</span><span style="color:#FFE66D">next</span><span style="color:#D5CED9">().</span><span style="color:#00E8C6">value</span><span style="color:#D5CED9">.</span><span style="color:#FFE66D">then</span><span style="color:#D5CED9">((</span><span style="color:#00E8C6">value</span><span style="color:#D5CED9">) </span><span style="color:#C74DED">=></span><span style="color:#D5CED9"> { </span><span style="color:#F39C12">console</span><span style="color:#D5CED9">.</span><span style="color:#FFE66D">log</span><span style="color:#D5CED9">(</span><span style="color:#96E072">'value: '</span><span style="color:#D5CED9">, </span><span style="color:#00E8C6">value</span><span style="color:#D5CED9">) })</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#A0A1A7CC">// 阻塞</span></span>
+<span class="line"><span style="color:#C74DED">for</span><span style="color:#D5CED9"> (</span><span style="color:#C74DED">let</span><span style="color:#00E8C6"> i</span><span style="color:#EE5D43"> =</span><span style="color:#F39C12"> 0</span><span style="color:#D5CED9">; </span><span style="color:#00E8C6">i</span><span style="color:#EE5D43"> &#x3C;</span><span style="color:#F39C12"> 100</span><span style="color:#D5CED9">; </span><span style="color:#00E8C6">i</span><span style="color:#EE5D43">++</span><span style="color:#D5CED9">) { </span><span style="color:#F39C12">console</span><span style="color:#D5CED9">.</span><span style="color:#FFE66D">log</span><span style="color:#D5CED9">(</span><span style="color:#00E8C6">i</span><span style="color:#D5CED9">) }</span></span>
+<span class="line"></span></code></pre>
+<p><code>yield</code> 挂起之后会阻塞后面的代码，但是后面的 <code>for</code> 循环是阻塞的，所以即使 <code>Promise</code> 兑现了，也要等待 <code>for</code> 循环结束之后才会执行。</p>
+<div class="markdown-alert markdown-alert-tip">
+<p class="markdown-alert-title"><svg class="octicon octicon-light-bulb mr-2" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="M8 1.5c-2.363 0-4 1.69-4 3.75 0 .984.424 1.625.984 2.304l.214.253c.223.264.47.556.673.848.284.411.537.896.621 1.49a.75.75 0 0 1-1.484.211c-.04-.282-.163-.547-.37-.847a8.456 8.456 0 0 0-.542-.68c-.084-.1-.173-.205-.268-.32C3.201 7.75 2.5 6.766 2.5 5.25 2.5 2.31 4.863 0 8 0s5.5 2.31 5.5 5.25c0 1.516-.701 2.5-1.328 3.259-.095.115-.184.22-.268.319-.207.245-.383.453-.541.681-.208.3-.33.565-.37.847a.751.751 0 0 1-1.485-.212c.084-.593.337-1.078.621-1.489.203-.292.45-.584.673-.848.075-.088.147-.173.213-.253.561-.679.985-1.32.985-2.304 0-2.06-1.637-3.75-4-3.75ZM5.75 12h4.5a.75.75 0 0 1 0 1.5h-4.5a.75.75 0 0 1 0-1.5ZM6 15.25a.75.75 0 0 1 .75-.75h2.5a.75.75 0 0 1 0 1.5h-2.5a.75.75 0 0 1-.75-.75Z"></path></svg>Tip</p>
+<p>很多人觉得 <code>coroutine</code> 并不需要，直接 <code>.then</code> 就可以了，但是当多个异步操作依赖于上一个异步操作的结结果的时候，就会出现可怕的 <code>then</code> 嵌套。这就是为什么 <code>async</code>/<code>await</code> 语法会出现的原因。</p>
+</div>
+<h2 id="rust">Rust<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#rust"></a></h2>
+<p>在这篇<a href="https://blog.rust-lang.org/inside-rust/2023/10/23/coroutines.html">文章</a>中，Rust 将 <code>Generator</code> trait 全部改为 <code>Coroutine</code>。Rust 中在该 <a href="https://github.com/rust-lang/compiler-team/issues/682">PR</a> 阐述了为什么要将 <code>Generator</code> 改为 <code>Coroutine</code>，由于 Generator 本身就是一种特殊类型的迭代器，被用于产生迭代器，而 Rust 的实现已经是一种协程了，类似于 JavaScript，将其改为 <code>Coroutine</code> 更加合适。</p>
+<p>现在采用了更简单的（类似于异步/等待的）语法来创建迭代器：<a href="https://github.com/rust-lang/rfcs/pull/3513">https://github.com/rust-lang/rfcs/pull/3513</a></p>
+<h3 id="rust-中的迭代器">Rust 中的迭代器<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#rust-中的迭代器"></a></h3>
+<p>在 Rust 中，由于 Rust 的所有权概念以及借用检查，迭代器的设计更加负载。Rust 中的迭代器是一个<strong>迭代器适配器</strong>，它可以对迭代器进行转换、过滤、映射等操作。Rust 中的迭代器是<strong>惰性</strong>的，只有在需要的时候才会执行，这样可以减少内存的使用。</p>
+<p>为 Vec 实现的迭代器，实现了 IntoIterator trait（类似于可迭代的类型）会自动实现 <code>into_iter</code> 等一系列方法：</p>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-rust"><span class="line"><span style="color:#C74DED">impl</span><span style="color:#D5CED9">&#x3C;</span><span style="color:#FFE66D">T</span><span style="color:#D5CED9">, </span><span style="color:#FFE66D">A</span><span style="color:#EE5D43">:</span><span style="color:#FFE66D"> Allocator</span><span style="color:#D5CED9">> </span><span style="color:#FFE66D">IntoIterator</span><span style="color:#C74DED"> for</span><span style="color:#FFE66D"> Vec</span><span style="color:#D5CED9">&#x3C;</span><span style="color:#FFE66D">T</span><span style="color:#D5CED9">, </span><span style="color:#FFE66D">A</span><span style="color:#D5CED9">> {};</span></span>
+<span class="line"><span style="color:#C74DED">impl</span><span style="color:#D5CED9">&#x3C;'</span><span style="color:#FFE66D">a</span><span style="color:#D5CED9">, </span><span style="color:#FFE66D">T</span><span style="color:#D5CED9">, </span><span style="color:#FFE66D">A</span><span style="color:#EE5D43">:</span><span style="color:#FFE66D"> Allocator</span><span style="color:#D5CED9">> </span><span style="color:#FFE66D">IntoIterator</span><span style="color:#C74DED"> for</span><span style="color:#EE5D43"> &#x26;</span><span style="color:#D5CED9">'</span><span style="color:#FFE66D">a</span><span style="color:#FFE66D"> Vec</span><span style="color:#D5CED9">&#x3C;</span><span style="color:#FFE66D">T</span><span style="color:#D5CED9">, </span><span style="color:#FFE66D">A</span><span style="color:#D5CED9">>{};</span></span>
+<span class="line"><span style="color:#C74DED">impl</span><span style="color:#D5CED9">&#x3C;'</span><span style="color:#FFE66D">a</span><span style="color:#D5CED9">, </span><span style="color:#FFE66D">T</span><span style="color:#D5CED9">, </span><span style="color:#FFE66D">A</span><span style="color:#EE5D43">:</span><span style="color:#FFE66D"> Allocator</span><span style="color:#D5CED9">> </span><span style="color:#FFE66D">IntoIterator</span><span style="color:#C74DED"> for</span><span style="color:#EE5D43"> &#x26;</span><span style="color:#D5CED9">'</span><span style="color:#FFE66D">a</span><span style="color:#C74DED"> mut</span><span style="color:#FFE66D"> Vec</span><span style="color:#D5CED9">&#x3C;</span><span style="color:#FFE66D">T</span><span style="color:#D5CED9">, </span><span style="color:#FFE66D">A</span><span style="color:#D5CED9">>{};</span></span>
+<span class="line"></span></code></pre>
+<p>实现了 <code>Iterator</code> trait 的对象，也会自动实现 <code>IntoIterator</code> trait：</p>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-rust"><span class="line"><span style="color:#C74DED">impl</span><span style="color:#D5CED9">&#x3C;</span><span style="color:#FFE66D">I</span><span style="color:#EE5D43">:</span><span style="color:#FFE66D"> Iterator</span><span style="color:#D5CED9">> </span><span style="color:#FFE66D">IntoIterator</span><span style="color:#C74DED"> for</span><span style="color:#FFE66D"> I</span><span style="color:#D5CED9"> {</span></span>
+<span class="line"><span style="color:#C74DED">    type</span><span style="color:#FFE66D"> Item</span><span style="color:#EE5D43"> =</span><span style="color:#FFE66D"> I</span><span style="color:#EE5D43">::</span><span style="color:#FFE66D">Item</span><span style="color:#D5CED9">;</span></span>
+<span class="line"><span style="color:#C74DED">    type</span><span style="color:#FFE66D"> IntoIter</span><span style="color:#EE5D43"> =</span><span style="color:#FFE66D"> I</span><span style="color:#D5CED9">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#C74DED">    fn</span><span style="color:#FFE66D"> into_iter</span><span style="color:#D5CED9">(</span><span style="color:#00E8C6">self</span><span style="color:#D5CED9">) </span><span style="color:#EE5D43">-></span><span style="color:#FFE66D"> I</span><span style="color:#D5CED9"> {</span></span>
+<span class="line"><span style="color:#00E8C6">        self</span></span>
+<span class="line"><span style="color:#D5CED9">    }</span></span>
+<span class="line"><span style="color:#D5CED9">}</span></span>
+<span class="line"></span></code></pre>
+<p>总的来说，如果作为参数，使用 <code>IntoIterator</code>，它会接受所有迭代器类型。如果是返回值，使用 <code>Iterator</code>，调用者不用立即调用 <code>into_iter</code>。</p>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-rust"><span class="line"><span style="color:#C74DED">use</span><span style="color:#D5CED9"> rand</span><span style="color:#EE5D43">::</span><span style="color:#FFE66D">Rng</span><span style="color:#D5CED9">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#C74DED">struct</span><span style="color:#FFE66D"> Passwords</span><span style="color:#D5CED9"> {</span></span>
+<span class="line"><span style="color:#00E8C6">    length</span><span style="color:#EE5D43">:</span><span style="color:#FFE66D"> usize</span><span style="color:#D5CED9">,</span></span>
+<span class="line"><span style="color:#D5CED9">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#C74DED">impl</span><span style="color:#FFE66D"> Passwords</span><span style="color:#D5CED9"> {</span></span>
+<span class="line"><span style="color:#C74DED">    fn</span><span style="color:#FFE66D"> new</span><span style="color:#D5CED9">() </span><span style="color:#EE5D43">-></span><span style="color:#00E8C6"> Self</span><span style="color:#D5CED9"> {</span></span>
+<span class="line"><span style="color:#00E8C6">        Self</span><span style="color:#EE5D43">::</span><span style="color:#FFE66D">with_length</span><span style="color:#D5CED9">(</span><span style="color:#F39C12">10</span><span style="color:#D5CED9">)</span></span>
+<span class="line"><span style="color:#D5CED9">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#C74DED">    fn</span><span style="color:#FFE66D"> with_length</span><span style="color:#D5CED9">(</span><span style="color:#00E8C6">length</span><span style="color:#EE5D43">:</span><span style="color:#FFE66D"> usize</span><span style="color:#D5CED9">) </span><span style="color:#EE5D43">-></span><span style="color:#00E8C6"> Self</span><span style="color:#D5CED9"> {</span></span>
+<span class="line"><span style="color:#00E8C6">        Self</span><span style="color:#D5CED9"> { </span><span style="color:#00E8C6">length</span><span style="color:#D5CED9"> }</span></span>
+<span class="line"><span style="color:#D5CED9">    }</span></span>
+<span class="line"><span style="color:#D5CED9">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#C74DED">impl</span><span style="color:#FFE66D"> IntoIterator</span><span style="color:#C74DED"> for</span><span style="color:#FFE66D"> Passwords</span><span style="color:#D5CED9"> {</span></span>
+<span class="line"><span style="color:#C74DED">    type</span><span style="color:#FFE66D"> Item</span><span style="color:#EE5D43"> =</span><span style="color:#FFE66D"> String</span><span style="color:#D5CED9">;</span></span>
+<span class="line"><span style="color:#C74DED">    type</span><span style="color:#FFE66D"> IntoIter</span><span style="color:#EE5D43"> =</span><span style="color:#FFE66D"> PasswordsIterator</span><span style="color:#D5CED9">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#C74DED">    fn</span><span style="color:#FFE66D"> into_iter</span><span style="color:#D5CED9">(</span><span style="color:#00E8C6">self</span><span style="color:#D5CED9">) </span><span style="color:#EE5D43">-></span><span style="color:#00E8C6"> Self</span><span style="color:#EE5D43">::</span><span style="color:#FFE66D">IntoIter</span><span style="color:#D5CED9"> {</span></span>
+<span class="line"><span style="color:#FFE66D">        PasswordsIterator</span><span style="color:#D5CED9"> {</span></span>
+<span class="line"><span style="color:#00E8C6">            length</span><span style="color:#EE5D43">:</span><span style="color:#00E8C6"> self</span><span style="color:#EE5D43">.</span><span style="color:#D5CED9">length,</span></span>
+<span class="line"><span style="color:#D5CED9">        }</span></span>
+<span class="line"><span style="color:#D5CED9">    }</span></span>
+<span class="line"><span style="color:#D5CED9">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#C74DED">struct</span><span style="color:#FFE66D"> PasswordsIterator</span><span style="color:#D5CED9"> {</span></span>
+<span class="line"><span style="color:#00E8C6">    length</span><span style="color:#EE5D43">:</span><span style="color:#FFE66D"> usize</span><span style="color:#D5CED9">,</span></span>
+<span class="line"><span style="color:#D5CED9">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#C74DED">impl</span><span style="color:#FFE66D"> Iterator</span><span style="color:#C74DED"> for</span><span style="color:#FFE66D"> PasswordsIterator</span><span style="color:#D5CED9"> {</span></span>
+<span class="line"><span style="color:#C74DED">    type</span><span style="color:#FFE66D"> Item</span><span style="color:#EE5D43"> =</span><span style="color:#FFE66D"> String</span><span style="color:#D5CED9">;</span></span>
+<span class="line"><span style="color:#C74DED">    fn</span><span style="color:#FFE66D"> next</span><span style="color:#D5CED9">(</span><span style="color:#EE5D43">&#x26;</span><span style="color:#C74DED">mut</span><span style="color:#00E8C6"> self</span><span style="color:#D5CED9">) </span><span style="color:#EE5D43">-></span><span style="color:#FFE66D"> Option</span><span style="color:#D5CED9">&#x3C;</span><span style="color:#00E8C6">Self</span><span style="color:#EE5D43">::</span><span style="color:#FFE66D">Item</span><span style="color:#D5CED9">> {</span></span>
+<span class="line"><span style="color:#C74DED">        let</span><span style="color:#C74DED"> mut</span><span style="color:#00E8C6"> result</span><span style="color:#EE5D43"> =</span><span style="color:#FFE66D"> String</span><span style="color:#EE5D43">::</span><span style="color:#FFE66D">with_capacity</span><span style="color:#D5CED9">(</span><span style="color:#00E8C6">self</span><span style="color:#EE5D43">.</span><span style="color:#D5CED9">length);</span></span>
+<span class="line"><span style="color:#C74DED">        for</span><span style="color:#00E8C6"> _</span><span style="color:#C74DED"> in</span><span style="color:#F39C12"> 0</span><span style="color:#EE5D43">..</span><span style="color:#00E8C6">self</span><span style="color:#EE5D43">.</span><span style="color:#D5CED9">length {</span></span>
+<span class="line"><span style="color:#00E8C6">            result</span><span style="color:#EE5D43">.</span><span style="color:#FFE66D">push</span><span style="color:#D5CED9">((</span><span style="color:#96E072">b'a'</span><span style="color:#EE5D43"> +</span><span style="color:#D5CED9"> (rand</span><span style="color:#EE5D43">::</span><span style="color:#FFE66D">thread_rng</span><span style="color:#D5CED9">()</span><span style="color:#EE5D43">.</span><span style="color:#FFE66D">gen_range</span><span style="color:#D5CED9">(</span><span style="color:#F39C12">0</span><span style="color:#EE5D43">..=</span><span style="color:#D5CED9">(</span><span style="color:#96E072">b'z'</span><span style="color:#EE5D43"> -</span><span style="color:#96E072"> b'a'</span><span style="color:#D5CED9">)))) </span><span style="color:#C74DED">as</span><span style="color:#FFE66D"> char</span><span style="color:#D5CED9">);</span></span>
+<span class="line"><span style="color:#D5CED9">        }</span></span>
+<span class="line"><span style="color:#FFE66D">        Some</span><span style="color:#D5CED9">(</span><span style="color:#00E8C6">result</span><span style="color:#D5CED9">)</span></span>
+<span class="line"><span style="color:#D5CED9">    }</span></span>
+<span class="line"><span style="color:#D5CED9">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#C74DED">fn</span><span style="color:#FFE66D"> main</span><span style="color:#D5CED9">() {</span></span>
+<span class="line"><span style="color:#C74DED">    for</span><span style="color:#00E8C6"> password</span><span style="color:#C74DED"> in</span><span style="color:#FFE66D"> Passwords</span><span style="color:#EE5D43">::</span><span style="color:#FFE66D">new</span><span style="color:#D5CED9">()</span><span style="color:#EE5D43">.</span><span style="color:#FFE66D">into_iter</span><span style="color:#D5CED9">()</span><span style="color:#EE5D43">.</span><span style="color:#FFE66D">take</span><span style="color:#D5CED9">(</span><span style="color:#F39C12">3</span><span style="color:#D5CED9">) {</span></span>
+<span class="line"><span style="color:#FFE66D">        println!</span><span style="color:#D5CED9">(</span><span style="color:#96E072">"The next password is </span><span style="color:#F92672">{}</span><span style="color:#96E072">"</span><span style="color:#D5CED9">, </span><span style="color:#00E8C6">password</span><span style="color:#D5CED9">);</span></span>
+<span class="line"><span style="color:#D5CED9">    }</span></span>
+<span class="line"><span style="color:#D5CED9">}</span></span>
+<span class="line"></span></code></pre>
+<h2 id="go">Go<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#go"></a></h2>
+<p>Go 语言中的 channel 就是迭代器（暴论），事实是 Go 中并没有提供迭代器的概念，但是 channel 何尝不是一种迭代器。</p>
+<h3 id="go-channel">Go Channel<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#go-channel"></a></h3>
+<blockquote>
+<p>在 Go 语言中，Channel 也分为带缓冲区和不带缓冲区的。</p>
+</blockquote>
+<p>创建一个不带缓冲区的 Channel。同样，通过 channel 发送一个数据给接收者，如果接收者没有接受到这个数据，那么发送端则会阻塞。有两种方式创建该缓冲区：</p>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-go"><span class="line"><span style="color:#C74DED">var</span><span style="color:#00E8C6"> c</span><span style="color:#C74DED"> chan</span><span style="color:#C74DED"> interface</span><span style="color:#D5CED9">{}</span></span>
+<span class="line"><span style="color:#00E8C6">c</span><span style="color:#EE5D43"> =</span><span style="color:#FFE66D"> make</span><span style="color:#D5CED9">(</span><span style="color:#C74DED">chan</span><span style="color:#C74DED"> interface</span><span style="color:#D5CED9">{})</span></span>
+<span class="line"></span></code></pre>
+<p>或者</p>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-go"><span class="line"><span style="color:#00E8C6">c</span><span style="color:#EE5D43"> :=</span><span style="color:#FFE66D"> make</span><span style="color:#D5CED9">(</span><span style="color:#C74DED">chan</span><span style="color:#C74DED"> interface</span><span style="color:#D5CED9">{})</span></span>
+<span class="line"></span></code></pre>
+<p>带有缓冲区的 Channel。当 Channel 的缓冲区满了或者空的时候，channel 的发送和接收会被阻塞。</p>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-go"><span class="line"><span style="color:#C74DED">var</span><span style="color:#00E8C6"> c</span><span style="color:#C74DED"> chan</span><span style="color:#C74DED"> interface</span><span style="color:#D5CED9">{}</span></span>
+<span class="line"><span style="color:#00E8C6">c</span><span style="color:#EE5D43"> =</span><span style="color:#FFE66D"> make</span><span style="color:#D5CED9">(</span><span style="color:#C74DED">chan</span><span style="color:#C74DED"> interface</span><span style="color:#D5CED9">{}, </span><span style="color:#F39C12">1</span><span style="color:#D5CED9">)</span></span>
+<span class="line"></span></code></pre>
+<p>或者</p>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-go"><span class="line"><span style="color:#00E8C6">c</span><span style="color:#EE5D43"> :=</span><span style="color:#FFE66D"> make</span><span style="color:#D5CED9">(</span><span style="color:#C74DED">chan</span><span style="color:#C74DED"> interface</span><span style="color:#D5CED9">{}, </span><span style="color:#F39C12">1</span><span style="color:#D5CED9">)</span></span>
+<span class="line"></span></code></pre>
+<h4 id="goroutine">Goroutine<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#goroutine"></a></h4>
+<blockquote>
+<p>goroutine 是 Go 语言实现的一个有栈协程，它是基于多对多模型实现的。</p>
+</blockquote>
+<p>Go 语言中 channel 和 <code>goroutine</code> 一般是成对出现的。在接收 channel 值的时候，ok 有两种值，如果 channel 关闭，则是 false；反之则为 true。而接收值的时候，如果 channel 关闭，那么会根据类型给出 v 的值，例如 int 是 0，string 是 <code>''</code> 等等，而不是 <code>nil</code>。</p>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-go"><span class="line"><span style="color:#C74DED">func</span><span style="color:#FFE66D"> main</span><span style="color:#D5CED9">() {</span></span>
+<span class="line"><span style="color:#00E8C6">        c</span><span style="color:#EE5D43"> :=</span><span style="color:#FFE66D"> make</span><span style="color:#D5CED9">(</span><span style="color:#C74DED">chan</span><span style="color:#C74DED"> int</span><span style="color:#D5CED9">)</span></span>
+<span class="line"><span style="color:#C74DED">        go</span><span style="color:#C74DED"> func</span><span style="color:#D5CED9">() {</span></span>
+<span class="line"><span style="color:#00E8C6">                c</span><span style="color:#EE5D43"> &#x3C;-</span><span style="color:#F39C12"> 1</span></span>
+<span class="line"><span style="color:#D5CED9">        }()</span></span>
+<span class="line"><span style="color:#00E8C6">        v</span><span style="color:#D5CED9">, </span><span style="color:#00E8C6">ok</span><span style="color:#EE5D43"> :=</span><span style="color:#EE5D43"> &#x3C;-</span><span style="color:#00E8C6">c</span></span>
+<span class="line"><span style="color:#FFE66D">        println</span><span style="color:#D5CED9">(</span><span style="color:#00E8C6">v</span><span style="color:#D5CED9">)</span></span>
+<span class="line"><span style="color:#D5CED9">}</span></span>
+<span class="line"></span></code></pre>
+<p>带有缓冲区的 Channel，在这里一定要及时使用 <code>close</code> 关闭 channel，避免造成死锁。</p>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-go"><span class="line"><span style="color:#C74DED">func</span><span style="color:#FFE66D"> main</span><span style="color:#D5CED9">() {</span></span>
+<span class="line"><span style="color:#00E8C6">      c</span><span style="color:#EE5D43"> :=</span><span style="color:#FFE66D"> make</span><span style="color:#D5CED9">(</span><span style="color:#C74DED">chan</span><span style="color:#C74DED"> string</span><span style="color:#D5CED9">, </span><span style="color:#F39C12">3</span><span style="color:#D5CED9">)</span></span>
+<span class="line"><span style="color:#00E8C6">      s</span><span style="color:#EE5D43"> :=</span><span style="color:#D5CED9"> []</span><span style="color:#C74DED">string</span><span style="color:#D5CED9">{</span><span style="color:#96E072">"a"</span><span style="color:#D5CED9">, </span><span style="color:#96E072">"b"</span><span style="color:#D5CED9">, </span><span style="color:#96E072">"c"</span><span style="color:#D5CED9">, </span><span style="color:#96E072">"d"</span><span style="color:#D5CED9">}</span></span>
+<span class="line"><span style="color:#C74DED">      go</span><span style="color:#C74DED"> func</span><span style="color:#D5CED9">() {</span></span>
+<span class="line"><span style="color:#C74DED">              defer</span><span style="color:#FFE66D"> close</span><span style="color:#D5CED9">(</span><span style="color:#00E8C6">c</span><span style="color:#D5CED9">)</span></span>
+<span class="line"><span style="color:#C74DED">              for</span><span style="color:#00E8C6"> _</span><span style="color:#D5CED9">, </span><span style="color:#00E8C6">v</span><span style="color:#EE5D43"> :=</span><span style="color:#C74DED"> range</span><span style="color:#00E8C6"> s</span><span style="color:#D5CED9"> {</span></span>
+<span class="line"><span style="color:#00E8C6">                      c</span><span style="color:#EE5D43"> &#x3C;-</span><span style="color:#00E8C6"> v</span></span>
+<span class="line"><span style="color:#00E8C6">                      time</span><span style="color:#D5CED9">.</span><span style="color:#FFE66D">Sleep</span><span style="color:#D5CED9">(</span><span style="color:#F39C12">1</span><span style="color:#EE5D43"> *</span><span style="color:#00E8C6"> time</span><span style="color:#D5CED9">.</span><span style="color:#00E8C6">Second</span><span style="color:#D5CED9">)</span></span>
+<span class="line"><span style="color:#D5CED9">              }</span></span>
+<span class="line"><span style="color:#D5CED9">      }()</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#00E8C6">      time</span><span style="color:#D5CED9">.</span><span style="color:#FFE66D">Sleep</span><span style="color:#D5CED9">(</span><span style="color:#F39C12">5</span><span style="color:#EE5D43"> *</span><span style="color:#00E8C6"> time</span><span style="color:#D5CED9">.</span><span style="color:#00E8C6">Second</span><span style="color:#D5CED9">)</span></span>
+<span class="line"><span style="color:#C74DED">      for</span><span style="color:#00E8C6"> v</span><span style="color:#EE5D43"> :=</span><span style="color:#C74DED"> range</span><span style="color:#00E8C6"> c</span><span style="color:#D5CED9"> {</span></span>
+<span class="line"><span style="color:#FFE66D">              println</span><span style="color:#D5CED9">(</span><span style="color:#00E8C6">v</span><span style="color:#D5CED9">)</span></span>
+<span class="line"><span style="color:#D5CED9">      }</span></span>
+<span class="line"><span style="color:#D5CED9">}</span></span>
+<span class="line"></span></code></pre>
+<h4 id="单向-channel">单向 Channel<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#单向-channel"></a></h4>
+<blockquote>
+<p>单向发送</p>
+</blockquote>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-go"><span class="line"><span style="color:#C74DED">var</span><span style="color:#00E8C6"> c</span><span style="color:#C74DED"> chan</span><span style="color:#EE5D43"> &#x3C;-</span><span style="color:#C74DED"> interface</span><span style="color:#D5CED9">{}</span></span>
+<span class="line"><span style="color:#00E8C6">c</span><span style="color:#EE5D43"> =</span><span style="color:#FFE66D"> make</span><span style="color:#D5CED9">(</span><span style="color:#C74DED">chan</span><span style="color:#EE5D43"> &#x3C;-</span><span style="color:#C74DED"> interface</span><span style="color:#D5CED9">{})</span></span>
+<span class="line"><span style="color:#A0A1A7CC">// 另一种方式</span></span>
+<span class="line"><span style="color:#00E8C6">c</span><span style="color:#EE5D43"> :=</span><span style="color:#FFE66D"> make</span><span style="color:#D5CED9">(</span><span style="color:#C74DED">chan</span><span style="color:#EE5D43"> &#x3C;-</span><span style="color:#C74DED"> interface</span><span style="color:#D5CED9">{})</span></span>
+<span class="line"></span></code></pre>
+<blockquote>
+<p>单向接收</p>
+</blockquote>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-go"><span class="line"><span style="color:#C74DED">var</span><span style="color:#00E8C6"> c</span><span style="color:#EE5D43"> &#x3C;-</span><span style="color:#C74DED"> chan</span><span style="color:#C74DED"> interface</span><span style="color:#D5CED9">{}</span></span>
+<span class="line"><span style="color:#00E8C6">c</span><span style="color:#EE5D43"> =</span><span style="color:#FFE66D"> make</span><span style="color:#D5CED9">(</span><span style="color:#EE5D43">&#x3C;-</span><span style="color:#C74DED"> chan</span><span style="color:#C74DED"> interface</span><span style="color:#D5CED9">{})</span></span>
+<span class="line"><span style="color:#A0A1A7CC">// 另一种方式</span></span>
+<span class="line"><span style="color:#00E8C6">c</span><span style="color:#EE5D43"> :=</span><span style="color:#FFE66D"> make</span><span style="color:#D5CED9">(</span><span style="color:#EE5D43">&#x3C;-</span><span style="color:#C74DED"> chan</span><span style="color:#C74DED"> interface</span><span style="color:#D5CED9">{})</span></span>
+<span class="line"></span></code></pre>
+<p>但是一般会将双向的 channel 将其隐式的转换为单向的</p>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-go"><span class="line"><span style="color:#C74DED">func</span><span style="color:#FFE66D"> main</span><span style="color:#D5CED9">() {</span></span>
+<span class="line"><span style="color:#00E8C6">        c</span><span style="color:#EE5D43"> :=</span><span style="color:#FFE66D"> make</span><span style="color:#D5CED9">(</span><span style="color:#C74DED">chan</span><span style="color:#C74DED"> string</span><span style="color:#D5CED9">)</span></span>
+<span class="line"><span style="color:#C74DED">        go</span><span style="color:#C74DED"> func</span><span style="color:#D5CED9">(</span><span style="color:#00E8C6">c</span><span style="color:#C74DED"> chan</span><span style="color:#EE5D43">&#x3C;-</span><span style="color:#C74DED"> string</span><span style="color:#D5CED9">) {</span></span>
+<span class="line"><span style="color:#A0A1A7CC">                // 这里仅能发送，而不可以接收，下面是错误示例</span></span>
+<span class="line"><span style="color:#EE5D43">                &#x3C;-</span><span style="color:#00E8C6">c</span></span>
+<span class="line"><span style="color:#D5CED9">        }(</span><span style="color:#00E8C6">c</span><span style="color:#D5CED9">)</span></span>
+<span class="line"><span style="color:#D5CED9">}</span></span>
+<span class="line"></span></code></pre>
+<div class="markdown-alert markdown-alert-warning">
+<p class="markdown-alert-title"><svg class="octicon octicon-alert mr-2" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="M6.457 1.047c.659-1.234 2.427-1.234 3.086 0l6.082 11.378A1.75 1.75 0 0 1 14.082 15H1.918a1.75 1.75 0 0 1-1.543-2.575Zm1.763.707a.25.25 0 0 0-.44 0L1.698 13.132a.25.25 0 0 0 .22.368h12.164a.25.25 0 0 0 .22-.368Zm.53 3.996v2.5a.75.75 0 0 1-1.5 0v-2.5a.75.75 0 0 1 1.5 0ZM9 11a1 1 0 1 1-2 0 1 1 0 0 1 2 0Z"></path></svg>Warning</p>
+<p>对于一个已经阻塞的 channel 来说，如果继续发送，或接收会出现死锁的运行时错误。</p>
+</div>
+<p>例如，一个无缓冲区 channel，在没有发送方的情况下，就开始接收；后者只有发送方或者没有接收方。</p>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-go"><span class="line"><span style="color:#C74DED">func</span><span style="color:#FFE66D"> main</span><span style="color:#D5CED9">(){</span></span>
+<span class="line"><span style="color:#00E8C6">        c</span><span style="color:#EE5D43"> :=</span><span style="color:#FFE66D"> make</span><span style="color:#D5CED9">(</span><span style="color:#C74DED">chan</span><span style="color:#C74DED"> int</span><span style="color:#D5CED9">)</span></span>
+<span class="line"><span style="color:#EE5D43">        &#x3C;-</span><span style="color:#00E8C6"> c</span></span>
+<span class="line"><span style="color:#A0A1A7CC">        // 或者</span></span>
+<span class="line"><span style="color:#A0A1A7CC">        // c &#x3C;- 1</span></span>
+<span class="line"><span style="color:#D5CED9">}</span></span>
+<span class="line"></span></code></pre>
+<p>同理，对于带有缓冲区的 channel，在没有发送发的情况下，就开始接收也会出现死锁；在缓冲区满了之后，只有发送没有接收也会出现死锁。</p>
+<p>对于 channel，我们除了可以循环 channel 来获取发送的值，也可以通过如下方式：</p>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-go"><span class="line"><span style="color:#C74DED">package</span><span style="color:#FFE66D"> main</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#C74DED">func</span><span style="color:#FFE66D"> main</span><span style="color:#D5CED9">() {</span></span>
+<span class="line"><span style="color:#00E8C6">        c</span><span style="color:#EE5D43"> :=</span><span style="color:#FFE66D"> make</span><span style="color:#D5CED9">(</span><span style="color:#C74DED">chan</span><span style="color:#C74DED"> string</span><span style="color:#D5CED9">)</span></span>
+<span class="line"><span style="color:#00E8C6">        s</span><span style="color:#EE5D43"> :=</span><span style="color:#D5CED9"> []</span><span style="color:#C74DED">string</span><span style="color:#D5CED9">{</span><span style="color:#96E072">"a"</span><span style="color:#D5CED9">, </span><span style="color:#96E072">"b"</span><span style="color:#D5CED9">, </span><span style="color:#96E072">"c"</span><span style="color:#D5CED9">}</span></span>
+<span class="line"><span style="color:#C74DED">        go</span><span style="color:#C74DED"> func</span><span style="color:#D5CED9">() {</span></span>
+<span class="line"><span style="color:#C74DED">                defer</span><span style="color:#FFE66D"> close</span><span style="color:#D5CED9">(</span><span style="color:#00E8C6">c</span><span style="color:#D5CED9">)</span></span>
+<span class="line"><span style="color:#C74DED">                for</span><span style="color:#00E8C6"> _</span><span style="color:#D5CED9">, </span><span style="color:#00E8C6">v</span><span style="color:#EE5D43"> :=</span><span style="color:#C74DED"> range</span><span style="color:#00E8C6"> s</span><span style="color:#D5CED9"> {</span></span>
+<span class="line"><span style="color:#00E8C6">                        c</span><span style="color:#EE5D43"> &#x3C;-</span><span style="color:#00E8C6"> v</span></span>
+<span class="line"><span style="color:#D5CED9">                }</span></span>
+<span class="line"><span style="color:#D5CED9">        }()</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#A0A1A7CC">           // 对于不知道的情况，可以根据 ok 来判断</span></span>
+<span class="line"><span style="color:#C74DED">        for</span><span style="color:#D5CED9"> {</span></span>
+<span class="line"><span style="color:#00E8C6">                v</span><span style="color:#D5CED9">, </span><span style="color:#00E8C6">ok</span><span style="color:#EE5D43"> :=</span><span style="color:#EE5D43"> &#x3C;-</span><span style="color:#00E8C6">c</span></span>
+<span class="line"><span style="color:#C74DED">                if</span><span style="color:#EE5D43"> !</span><span style="color:#00E8C6">ok</span><span style="color:#D5CED9"> {</span></span>
+<span class="line"><span style="color:#C74DED">                        break</span></span>
+<span class="line"><span style="color:#D5CED9">                }</span></span>
+<span class="line"><span style="color:#FFE66D">                println</span><span style="color:#D5CED9">(</span><span style="color:#00E8C6">v</span><span style="color:#D5CED9">)</span></span>
+<span class="line"><span style="color:#D5CED9">        }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#A0A1A7CC">        // 如果知道已知的 channel 发送的值，直接循环</span></span>
+<span class="line"><span style="color:#A0A1A7CC">        // for i := 0; i &#x3C; len(s); i++ {</span></span>
+<span class="line"><span style="color:#A0A1A7CC">        //  v := &#x3C;-c</span></span>
+<span class="line"><span style="color:#A0A1A7CC">        //  println(v)</span></span>
+<span class="line"><span style="color:#A0A1A7CC">        // }</span></span>
+<span class="line"><span style="color:#D5CED9">}</span></span>
+<span class="line"></span></code></pre>
+<div class="sponsor-container">
+  <button class="sponsor-btn">
+    <a href="https://stripe.fwqaaq.workers.dev/Personal-Website-Sponsor/checkout?mode=once" target="_blank" rel="noopener noreferrer" class="">
+      <span class="sponsor-icon">☕</span>
+      <span>请博主喝杯咖啡</span>
+  </a>
+  </button>
+</div>
+          </article>
+        </main><script src="https://giscus.app/client.js"
+        data-repo="fwqaaq/fwqaaq.github.io"
+        data-repo-id="R_kgDOHCFK2A"
+        data-category="Show and tell"
+        data-category-id="DIC_kwDOHCFK2M4CYOLh"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="1"
+        data-input-position="bottom"
+        data-theme="preferred_color_scheme"
+        data-lang="zh-CN"
+        crossorigin="anonymous"
+        async></script><footer class="blog-footer">
+  <div class="footer-container">
+    <p class="text-center"><a class="decoration-line"
+        href="https://creativecommons.org/licenses/by-sa/3.0/deed.zh-hans">© CC BY-SA</a> 2021 -
+      2025 <a class="decoration-line" href="https://github.com/fwqaaq">fwqaaq</a>.
+      Powered by <a class="decoration-line" href="https://deno.com">Deno</a>
+    </p>
+  </div>
+  <div class="footer-icons-container">
+    <a class="icon" href="https://github.com/fwqaaq">
+      <i class="fa-brands fa-github"></i>
+    </a>
+    <a class="icon" href="mailto:fwqaaq@gmail">
+      <i class="fa-solid fa-envelope"></i>
+    </a>
+    <a class="icon" href="https://www.fwqaaq.com/feed.xml">
+      <i class="fa-solid fa-rss"></i>
+    </a>
+    <a class="icon" href="https://t.me/fwqaaq">
+      <i class="fa-brands fa-telegram"></i>
+    </a>
+  </div>
+</footer>

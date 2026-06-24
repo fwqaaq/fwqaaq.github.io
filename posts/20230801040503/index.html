@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#F3F7F6">
+  <meta name="description" content="2     ```rust    println!("result: {}", 11 >> 2);    ```  2. 一个数字乘以 2     ```rust    print...">
+  <meta name="keywords" content="Rust, Algorithm">
+  <meta name="author" content="fwqaaq">
+  <meta property="og:site_name" content="fwqaaq 的博客">
+  <meta property="og:locale" content="zh_CN">
+  <meta property="og:title" content="位运算">
+  <meta property="og:description" content="2     ```rust    println!("result: {}", 11 >> 2);    ```  2. 一个数字乘以 2     ```rust    print...">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://www.fwqaaq.com//posts/20230801040503/">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="fwqaaq 的博客">
+  <meta name=application-name content="fwqaaq 的博客">
+  <meta name=apple-mobile-web-app-title content="fwqaaq 的博客">
+  <title>
+    位运算
+  </title>
+  <link rel="shortcut icon" href="/public/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="/public/css/base.849580.css">
+  <link rel="stylesheet" href="/public/css/index.849580.css">
+  <link rel="stylesheet" href="/public/css/markdown.849580.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+  <script src="/public/JavaScript/index.849580.js"></script>
+  <script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit" defer></script>
+</head>
+
+</html>
+<header class="blog-header">
+    <i id="switch-icon" class="fa-solid fa-bars"></i>
+    <a href="https://github.com/fwqaaq" target="_blank">
+        <img src="https://avatars.githubusercontent.com/u/82551626?v=4" loading="lazy" alt="me" srcset="">
+    </a>
+    <div class="wrap-background">
+        <nav class="header-nav">
+            <a class="decoration-line" href="/"><i class="fa-solid fa-house-chimney fa-xs"></i>
+                <span class="disappear">首页</span>
+            </a>
+            <a class="decoration-line" href="/./about/index.html"><i class="fa-solid fa-address-card fa-xs"></i>
+                <span class="disappear">关于</span></a>
+            <a class="decoration-line" href="/./archive/index.html"><i class="fa-solid fa-box-archive fa-xs"></i> <span
+                    class="disappear">归档</span></a>
+            <a class="decoration-line" href="/./tags/index.html"><i class="fa-solid fa-tag fa-xs"></i>
+                <span class="disappear">标签</span></a>
+            <a class="decoration-line" onclick="sponsor(199)">
+                <i class="fa-solid fa-circle-dollar-to-slot fa-xs"></i>
+                <span class="disappear">赞助</span></a>
+            <div class="language-switcher notranslate">
+                <button class="language-toggle" type="button" aria-label="切换语言" aria-expanded="false"
+                    aria-controls="language-menu">
+                    <i class="fa-solid fa-globe fa-xs" aria-hidden="true"></i>
+                    <span class="disappear" translate="yes">语言</span>
+                </button>
+                <div class="language-menu" id="language-menu" role="menu" hidden>
+                    <button class="language-option" type="button" role="menuitemradio" data-lang=""
+                        aria-checked="true">原文</button>
+                    <button class="language-option" type="button" role="menuitemradio" data-lang="en"
+                        aria-checked="false">English</button>
+                    <button class="language-option" type="button" role="menuitemradio" data-lang="ja"
+                        aria-checked="false">日本語</button>
+                    <button class="language-option" type="button" role="menuitemradio" data-lang="ko"
+                        aria-checked="false">한국어</button>
+                    <button class="language-option" type="button" role="menuitemradio" data-lang="fr"
+                        aria-checked="false">Français</button>
+                    <button class="language-option" type="button" role="menuitemradio" data-lang="de"
+                        aria-checked="false">Deutsch</button>
+                    <button class="language-option" type="button" role="menuitemradio" data-lang="es"
+                        aria-checked="false">Español</button>
+                    <button class="language-option" type="button" role="menuitemradio" data-lang="ru"
+                        aria-checked="false">Русский</button>
+                    <button class="language-option" type="button" role="menuitemradio" data-lang="zh-TW"
+                        aria-checked="false">繁體中文</button>
+                </div>
+            </div>
+            <div id="google_translate_element" class="google-translate-element notranslate" aria-hidden="true"></div>
+            <a class="decoration-line model" href="#" aria-label="切换深浅色主题"><i class="fa-solid fa-sun fa-xs"></i></a>
+        </nav>
+    </div>
+</header>
+        <main class="blog-main">
+          <article class="blog-article">
+            <h1>位运算</h1>
+          <div class="post-meta post-meta-flex-around">
+              <div class="post-author" href="/./about/"><i class="fa-solid fa-user"></i> fwqaaq</div> 
+              <div class="post-time"><i class="fa-solid fa-clock"></i> 2023-08-01</div> 
+              <div class="post-update-time"><i class="fa-solid fa-clock-rotate-left"></i> 2025-11-09</div>
+            </div>
+            <hr>
+            <ul class="remark-ordered-list">
+<li>
+<p>一个数字除以 2</p>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-rust"><span class="line"><span style="color:#FFE66D">println!</span><span style="color:#D5CED9">(</span><span style="color:#96E072">"result: </span><span style="color:#F92672">{}</span><span style="color:#96E072">"</span><span style="color:#D5CED9">, </span><span style="color:#F39C12">11</span><span style="color:#EE5D43"> >></span><span style="color:#F39C12"> 2</span><span style="color:#D5CED9">);</span></span>
+<span class="line"></span></code></pre>
+</li>
+<li>
+<p>一个数字乘以 2</p>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-rust"><span class="line"><span style="color:#FFE66D">println!</span><span style="color:#D5CED9">(</span><span style="color:#96E072">"result: </span><span style="color:#F92672">{}</span><span style="color:#96E072">"</span><span style="color:#D5CED9">, </span><span style="color:#F39C12">11</span><span style="color:#EE5D43"> &#x3C;&#x3C;</span><span style="color:#F39C12"> 2</span><span style="color:#D5CED9">);</span></span>
+<span class="line"></span></code></pre>
+</li>
+<li>
+<p>快速球 2 的 n 次幂</p>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-rust"><span class="line"><span style="color:#FFE66D">println!</span><span style="color:#D5CED9">(</span><span style="color:#96E072">"result: </span><span style="color:#F92672">{}</span><span style="color:#96E072">"</span><span style="color:#D5CED9">, </span><span style="color:#F39C12">1</span><span style="color:#EE5D43"> &#x3C;&#x3C;</span><span style="color:#F39C12"> 10</span><span style="color:#D5CED9">);</span></span>
+<span class="line"></span></code></pre>
+</li>
+<li>
+<p>判断奇偶</p>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-rust"><span class="line"><span style="color:#FFE66D">println!</span><span style="color:#D5CED9">(</span><span style="color:#96E072">"result: </span><span style="color:#F92672">{}</span><span style="color:#96E072">"</span><span style="color:#D5CED9">, </span><span style="color:#F39C12">12</span><span style="color:#EE5D43"> &#x26;</span><span style="color:#F39C12"> 1</span><span style="color:#EE5D43"> ==</span><span style="color:#F39C12"> 0</span><span style="color:#D5CED9">);</span></span>
+<span class="line"></span></code></pre>
+</li>
+<li>
+<p>交换两个元素</p>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-rust"><span class="line"><span style="color:#C74DED">let</span><span style="color:#D5CED9"> (</span><span style="color:#C74DED">mut</span><span style="color:#00E8C6"> a</span><span style="color:#D5CED9">, </span><span style="color:#C74DED">mut</span><span style="color:#00E8C6">  b</span><span style="color:#D5CED9">) </span><span style="color:#EE5D43">=</span><span style="color:#D5CED9"> (</span><span style="color:#F39C12">10</span><span style="color:#D5CED9">, </span><span style="color:#F39C12">20</span><span style="color:#D5CED9">);</span></span>
+<span class="line"><span style="color:#00E8C6">a</span><span style="color:#EE5D43"> ^=</span><span style="color:#00E8C6"> b</span><span style="color:#D5CED9">;</span></span>
+<span class="line"><span style="color:#00E8C6">b</span><span style="color:#EE5D43"> ^=</span><span style="color:#00E8C6"> a</span><span style="color:#D5CED9">;</span></span>
+<span class="line"><span style="color:#00E8C6">a</span><span style="color:#EE5D43"> ^=</span><span style="color:#00E8C6"> b</span><span style="color:#D5CED9">;</span></span>
+<span class="line"></span></code></pre>
+</li>
+<li>
+<p>快速求余（仅当除数是 2 的 n 次幂）</p>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-rust"><span class="line"><span style="color:#C74DED"> let</span><span style="color:#D5CED9"> (</span><span style="color:#00E8C6">c</span><span style="color:#D5CED9">, </span><span style="color:#00E8C6">x</span><span style="color:#D5CED9">) </span><span style="color:#EE5D43">=</span><span style="color:#D5CED9"> (</span><span style="color:#F39C12">1</span><span style="color:#EE5D43"> &#x3C;&#x3C;</span><span style="color:#F39C12"> 10</span><span style="color:#D5CED9">, </span><span style="color:#F39C12">676433</span><span style="color:#D5CED9">);</span></span>
+<span class="line"><span style="color:#FFE66D"> println!</span><span style="color:#D5CED9">(</span><span style="color:#96E072">"r1: </span><span style="color:#F92672">{}</span><span style="color:#96E072">, r2: </span><span style="color:#F92672">{}</span><span style="color:#96E072">"</span><span style="color:#D5CED9">, </span><span style="color:#00E8C6">x</span><span style="color:#EE5D43"> %</span><span style="color:#00E8C6"> c</span><span style="color:#D5CED9">, </span><span style="color:#00E8C6">x</span><span style="color:#EE5D43"> &#x26;</span><span style="color:#D5CED9"> (</span><span style="color:#00E8C6">c</span><span style="color:#EE5D43"> -</span><span style="color:#F39C12"> 1</span><span style="color:#D5CED9">));</span></span>
+<span class="line"></span></code></pre>
+</li>
+<li>
+<p>获取某个二进制的第 k 位</p>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-rust"><span class="line"><span style="color:#C74DED">let</span><span style="color:#00E8C6"> x</span><span style="color:#EE5D43"> =</span><span style="color:#F39C12"> 190</span><span style="color:#D5CED9">;</span></span>
+<span class="line"><span style="color:#FFE66D">println!</span><span style="color:#D5CED9">(</span><span style="color:#96E072">"res: </span><span style="color:#F92672">{}</span><span style="color:#96E072">"</span><span style="color:#D5CED9">, </span><span style="color:#00E8C6">x</span><span style="color:#EE5D43"> >></span><span style="color:#F39C12"> 3</span><span style="color:#EE5D43"> &#x26;</span><span style="color:#F39C12"> 1</span><span style="color:#D5CED9">);</span></span>
+<span class="line"></span></code></pre>
+</li>
+<li>
+<p>将二进制的第 k 位设置为 1</p>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-rust"><span class="line"><span style="color:#C74DED">let</span><span style="color:#00E8C6"> x</span><span style="color:#EE5D43"> =</span><span style="color:#F39C12"> 190</span><span style="color:#D5CED9">;</span></span>
+<span class="line"><span style="color:#FFE66D">println!</span><span style="color:#D5CED9">(</span><span style="color:#96E072">"res: </span><span style="color:#F92672">{}</span><span style="color:#96E072">"</span><span style="color:#D5CED9">, </span><span style="color:#00E8C6">x</span><span style="color:#EE5D43"> |</span><span style="color:#D5CED9"> (</span><span style="color:#F39C12">1</span><span style="color:#EE5D43"> &#x3C;&#x3C;</span><span style="color:#F39C12"> 6</span><span style="color:#D5CED9">));</span></span>
+<span class="line"></span></code></pre>
+</li>
+</ul>
+<div class="sponsor-container">
+  <button class="sponsor-btn">
+    <a href="https://stripe.fwqaaq.workers.dev/Personal-Website-Sponsor/checkout?mode=once" target="_blank" rel="noopener noreferrer" class="">
+      <span class="sponsor-icon">☕</span>
+      <span>请博主喝杯咖啡</span>
+  </a>
+  </button>
+</div>
+          </article>
+        </main><script src="https://giscus.app/client.js"
+        data-repo="fwqaaq/fwqaaq.github.io"
+        data-repo-id="R_kgDOHCFK2A"
+        data-category="Show and tell"
+        data-category-id="DIC_kwDOHCFK2M4CYOLh"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="1"
+        data-input-position="bottom"
+        data-theme="preferred_color_scheme"
+        data-lang="zh-CN"
+        crossorigin="anonymous"
+        async></script><footer class="blog-footer">
+  <div class="footer-container">
+    <p class="text-center"><a class="decoration-line"
+        href="https://creativecommons.org/licenses/by-sa/3.0/deed.zh-hans">© CC BY-SA</a> 2021 -
+      2025 <a class="decoration-line" href="https://github.com/fwqaaq">fwqaaq</a>.
+      Powered by <a class="decoration-line" href="https://deno.com">Deno</a>
+    </p>
+  </div>
+  <div class="footer-icons-container">
+    <a class="icon" href="https://github.com/fwqaaq">
+      <i class="fa-brands fa-github"></i>
+    </a>
+    <a class="icon" href="mailto:fwqaaq@gmail">
+      <i class="fa-solid fa-envelope"></i>
+    </a>
+    <a class="icon" href="https://www.fwqaaq.com/feed.xml">
+      <i class="fa-solid fa-rss"></i>
+    </a>
+    <a class="icon" href="https://t.me/fwqaaq">
+      <i class="fa-brands fa-telegram"></i>
+    </a>
+  </div>
+</footer>

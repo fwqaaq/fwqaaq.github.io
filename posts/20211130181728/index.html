@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#F3F7F6">
+  <meta name="description" content="爬取页面或者接口数据  > 页面得是 ssr（服务器渲染）`post`,`get` 等请求都可以 > > 使用 `axios` 库  ```js const axios = req...">
+  <meta name="keywords" content="JavaScript, Config">
+  <meta name="author" content="fwqaaq">
+  <meta property="og:site_name" content="fwqaaq 的博客">
+  <meta property="og:locale" content="zh_CN">
+  <meta property="og:title" content="puppeteer">
+  <meta property="og:description" content="爬取页面或者接口数据  > 页面得是 ssr（服务器渲染）`post`,`get` 等请求都可以 > > 使用 `axios` 库  ```js const axios = req...">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://www.fwqaaq.com//posts/20211130181728/">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="fwqaaq 的博客">
+  <meta name=application-name content="fwqaaq 的博客">
+  <meta name=apple-mobile-web-app-title content="fwqaaq 的博客">
+  <title>
+    puppeteer
+  </title>
+  <link rel="shortcut icon" href="/public/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="/public/css/base.849580.css">
+  <link rel="stylesheet" href="/public/css/index.849580.css">
+  <link rel="stylesheet" href="/public/css/markdown.849580.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+  <script src="/public/JavaScript/index.849580.js"></script>
+  <script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit" defer></script>
+</head>
+
+</html>
+<header class="blog-header">
+    <i id="switch-icon" class="fa-solid fa-bars"></i>
+    <a href="https://github.com/fwqaaq" target="_blank">
+        <img src="https://avatars.githubusercontent.com/u/82551626?v=4" loading="lazy" alt="me" srcset="">
+    </a>
+    <div class="wrap-background">
+        <nav class="header-nav">
+            <a class="decoration-line" href="/"><i class="fa-solid fa-house-chimney fa-xs"></i>
+                <span class="disappear">首页</span>
+            </a>
+            <a class="decoration-line" href="/./about/index.html"><i class="fa-solid fa-address-card fa-xs"></i>
+                <span class="disappear">关于</span></a>
+            <a class="decoration-line" href="/./archive/index.html"><i class="fa-solid fa-box-archive fa-xs"></i> <span
+                    class="disappear">归档</span></a>
+            <a class="decoration-line" href="/./tags/index.html"><i class="fa-solid fa-tag fa-xs"></i>
+                <span class="disappear">标签</span></a>
+            <a class="decoration-line" onclick="sponsor(199)">
+                <i class="fa-solid fa-circle-dollar-to-slot fa-xs"></i>
+                <span class="disappear">赞助</span></a>
+            <div class="language-switcher notranslate">
+                <button class="language-toggle" type="button" aria-label="切换语言" aria-expanded="false"
+                    aria-controls="language-menu">
+                    <i class="fa-solid fa-globe fa-xs" aria-hidden="true"></i>
+                    <span class="disappear" translate="yes">语言</span>
+                </button>
+                <div class="language-menu" id="language-menu" role="menu" hidden>
+                    <button class="language-option" type="button" role="menuitemradio" data-lang=""
+                        aria-checked="true">原文</button>
+                    <button class="language-option" type="button" role="menuitemradio" data-lang="en"
+                        aria-checked="false">English</button>
+                    <button class="language-option" type="button" role="menuitemradio" data-lang="ja"
+                        aria-checked="false">日本語</button>
+                    <button class="language-option" type="button" role="menuitemradio" data-lang="ko"
+                        aria-checked="false">한국어</button>
+                    <button class="language-option" type="button" role="menuitemradio" data-lang="fr"
+                        aria-checked="false">Français</button>
+                    <button class="language-option" type="button" role="menuitemradio" data-lang="de"
+                        aria-checked="false">Deutsch</button>
+                    <button class="language-option" type="button" role="menuitemradio" data-lang="es"
+                        aria-checked="false">Español</button>
+                    <button class="language-option" type="button" role="menuitemradio" data-lang="ru"
+                        aria-checked="false">Русский</button>
+                    <button class="language-option" type="button" role="menuitemradio" data-lang="zh-TW"
+                        aria-checked="false">繁體中文</button>
+                </div>
+            </div>
+            <div id="google_translate_element" class="google-translate-element notranslate" aria-hidden="true"></div>
+            <a class="decoration-line model" href="#" aria-label="切换深浅色主题"><i class="fa-solid fa-sun fa-xs"></i></a>
+        </nav>
+    </div>
+</header>
+        <main class="blog-main">
+          <article class="blog-article">
+            <h1>puppeteer</h1>
+          <div class="post-meta post-meta-flex-around">
+              <div class="post-author" href="/./about/"><i class="fa-solid fa-user"></i> fwqaaq</div> 
+              <div class="post-time"><i class="fa-solid fa-clock"></i> 2021-11-30</div> 
+              <div class="post-update-time"><i class="fa-solid fa-clock-rotate-left"></i> 2025-11-09</div>
+            </div>
+            <hr>
+            <details class="remark-toc-details"><summary class="remark-toc-summary">目录</summary><ul class="remark-toc">
+<li>
+<p><a href="#%E7%88%AC%E5%8F%96%E9%A1%B5%E9%9D%A2%E6%88%96%E8%80%85%E6%8E%A5%E5%8F%A3%E6%95%B0%E6%8D%AE">爬取页面或者接口数据</a></p>
+</li>
+<li>
+<p><a href="#puppeteer-%E7%AE%80%E4%BB%8B">Puppeteer 简介</a></p>
+<ul>
+<li><a href="#%E4%BD%BF%E7%94%A8%E7%89%B9%E7%82%B9">使用特点</a></li>
+<li><a href="#puppeteer-core">puppeteer-core</a></li>
+<li><a href="#puppeteer-%E6%A6%82%E8%BF%B0">puppeteer 概述</a></li>
+</ul>
+</li>
+<li>
+<p><a href="#%E5%85%B3%E4%BA%8E%E4%BD%BF%E7%94%A8">关于使用</a></p>
+<ul>
+<li><a href="#%E4%BD%BF%E7%94%A8-connect-%E8%BF%9E%E6%8E%A5">使用 connect 连接</a></li>
+</ul>
+</li>
+</ul></details>
+<h2 id="爬取页面或者接口数据">爬取页面或者接口数据<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#爬取页面或者接口数据"></a></h2>
+<blockquote>
+<p>页面得是 ssr（服务器渲染）<code>post</code>,<code>get</code> 等请求都可以</p>
+<p>使用 <code>axios</code> 库</p>
+</blockquote>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-js"><span class="line"><span style="color:#C74DED">const</span><span style="color:#00E8C6"> axios</span><span style="color:#EE5D43"> =</span><span style="color:#FFE66D"> require</span><span style="color:#D5CED9">(</span><span style="color:#96E072">"axios"</span><span style="color:#D5CED9">);</span></span>
+<span class="line"><span style="color:#C74DED">const</span><span style="color:#00E8C6"> fs</span><span style="color:#EE5D43"> =</span><span style="color:#FFE66D"> require</span><span style="color:#D5CED9">(</span><span style="color:#96E072">"fs/promises"</span><span style="color:#D5CED9">);</span></span>
+<span class="line"><span style="color:#C74DED">const</span><span style="color:#00E8C6"> url</span><span style="color:#EE5D43"> =</span><span style="color:#96E072"> "https://music.163.com/#/song?id=30431367"</span><span style="color:#D5CED9">;</span></span>
+<span class="line"><span style="color:#F39C12">axios</span><span style="color:#D5CED9">.</span><span style="color:#FFE66D">get</span><span style="color:#D5CED9">(</span><span style="color:#00E8C6">url</span><span style="color:#D5CED9">, (</span><span style="color:#00E8C6">error</span><span style="color:#D5CED9">, </span><span style="color:#00E8C6">response</span><span style="color:#D5CED9">, </span><span style="color:#00E8C6">body</span><span style="color:#D5CED9">) </span><span style="color:#C74DED">=></span><span style="color:#D5CED9"> {</span></span>
+<span class="line"><span style="color:#F39C12">  fs</span><span style="color:#D5CED9">.</span><span style="color:#FFE66D">writeFile</span><span style="color:#D5CED9">(</span><span style="color:#96E072">"./bilibili.html"</span><span style="color:#D5CED9">, </span><span style="color:#00E8C6">body</span><span style="color:#D5CED9">);</span></span>
+<span class="line"><span style="color:#D5CED9">});</span></span>
+<span class="line"></span></code></pre>
+<h2 id="puppeteer-简介">Puppeteer 简介<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#puppeteer-简介"></a></h2>
+<blockquote>
+<p><code>Puppeteer</code> 是一个 <code>Node</code> 库，它提供了一个高级 API 来通过 DevTools 协议控制 <code>Chrome</code> 或 <code>Chromium</code>.<code>Puppeteer</code> 默认无头运行，但可以配置为运行完整 (非无头) <code>Chrome</code> 或 <code>Chromium</code>。</p>
+</blockquote>
+<h3 id="使用特点">使用特点<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#使用特点"></a></h3>
+<ul class="remark-ordered-list">
+<li>生成页面的屏幕截图和 PDF</li>
+<li>抓取 SPA(单页应用程序) 并生成预渲染内容 (即<code>SSR</code>(服务器端渲染))</li>
+<li>自动化表单提交，UI 测试，键盘输入等</li>
+<li>创建最新的自动化测试环境使用最新的 JavaScript 和浏览器功能，直接在最新版本的 Chrome 中运行您的测试</li>
+<li>捕获站点的时间线跟踪以帮助诊断性能问题</li>
+<li>测试 Chrome 扩展</li>
+</ul>
+<h3 id="puppeteer-core">puppeteer-core<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#puppeteer-core"></a></h3>
+<ul class="remark-unordered-list">
+<li>当您安装<code>Puppeteer</code>时，它会下载保证与 API 一起使用的最新版本的 <code>Chromium</code></li>
+<li><code>puppeteer-core</code>包，一个默认不下载任何浏览器的<code>Puppeteer</code>版本</li>
+</ul>
+<blockquote>
+<p>使用<code>puppeteer-core</code>需要传<code>google</code>所在的浏览器的绝对地址，属性<code>executablePath</code></p>
+</blockquote>
+<ul class="remark-unordered-list">
+<li>使用<strong>绝对地址</strong>或者使用插件库<code>carlo</code></li>
+</ul>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-js"><span class="line"><span style="color:#C74DED">const</span><span style="color:#00E8C6"> puppeteer</span><span style="color:#EE5D43"> =</span><span style="color:#FFE66D"> require</span><span style="color:#D5CED9">(</span><span style="color:#96E072">"puppeteer-core"</span><span style="color:#D5CED9">);</span></span>
+<span class="line"><span style="color:#C74DED">const</span><span style="color:#00E8C6"> findChrome</span><span style="color:#EE5D43"> =</span><span style="color:#FFE66D"> require</span><span style="color:#D5CED9">(</span><span style="color:#96E072">"./node_modules/carlo/lib/find_chrome"</span><span style="color:#D5CED9">);</span></span>
+<span class="line"><span style="color:#D5CED9">(</span><span style="color:#C74DED">async</span><span style="color:#C74DED"> function</span><span style="color:#D5CED9"> () {</span></span>
+<span class="line"><span style="color:#C74DED">  const</span><span style="color:#00E8C6"> findChromePath</span><span style="color:#EE5D43"> =</span><span style="color:#C74DED"> await</span><span style="color:#FFE66D"> findChrome</span><span style="color:#D5CED9">({});</span></span>
+<span class="line"><span style="color:#C74DED">  const</span><span style="color:#00E8C6"> executablePath</span><span style="color:#EE5D43"> =</span><span style="color:#C74DED"> await</span><span style="color:#F39C12"> findChromePath</span><span style="color:#D5CED9">.</span><span style="color:#00E8C6">executablePath</span><span style="color:#D5CED9">;</span></span>
+<span class="line"><span style="color:#C74DED">  const</span><span style="color:#00E8C6"> browser</span><span style="color:#EE5D43"> =</span><span style="color:#C74DED"> await</span><span style="color:#F39C12"> puppeteer</span><span style="color:#D5CED9">.</span><span style="color:#FFE66D">launch</span><span style="color:#D5CED9">({</span></span>
+<span class="line"><span style="color:#A0A1A7CC">    //executablePath: "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe",</span></span>
+<span class="line"><span style="color:#00E8C6">    executablePath</span><span style="color:#D5CED9">,</span></span>
+<span class="line"><span style="color:#D5CED9">    headless: </span><span style="color:#EE5D43">false</span><span style="color:#D5CED9">,</span></span>
+<span class="line"><span style="color:#D5CED9">    defaultViewport: </span><span style="color:#EE5D43">null</span><span style="color:#D5CED9">,</span></span>
+<span class="line"><span style="color:#D5CED9">    args: [</span><span style="color:#96E072">"--start-fullscreen"</span><span style="color:#D5CED9">],</span></span>
+<span class="line"><span style="color:#D5CED9">    ignoreHTTPSErrors: </span><span style="color:#EE5D43">true</span><span style="color:#D5CED9">,</span></span>
+<span class="line"><span style="color:#D5CED9">  });</span></span>
+<span class="line"><span style="color:#C74DED">  const</span><span style="color:#00E8C6"> page</span><span style="color:#EE5D43"> =</span><span style="color:#C74DED"> await</span><span style="color:#F39C12"> browser</span><span style="color:#D5CED9">.</span><span style="color:#FFE66D">newPage</span><span style="color:#D5CED9">();</span></span>
+<span class="line"><span style="color:#C74DED">  await</span><span style="color:#F39C12"> page</span><span style="color:#D5CED9">.</span><span style="color:#FFE66D">goto</span><span style="color:#D5CED9">(</span><span style="color:#96E072">"https://www.bilibili.com/"</span><span style="color:#D5CED9">);</span></span>
+<span class="line"><span style="color:#C74DED">  await</span><span style="color:#F39C12"> page</span><span style="color:#D5CED9">.</span><span style="color:#FFE66D">screenshot</span><span style="color:#D5CED9">({</span></span>
+<span class="line"><span style="color:#D5CED9">    path: </span><span style="color:#96E072">"./bilibili.png"</span><span style="color:#D5CED9">,</span></span>
+<span class="line"><span style="color:#D5CED9">    type: </span><span style="color:#96E072">"png"</span><span style="color:#D5CED9">,</span></span>
+<span class="line"><span style="color:#D5CED9">  });</span></span>
+<span class="line"><span style="color:#F39C12">  browser</span><span style="color:#D5CED9">.</span><span style="color:#FFE66D">close</span><span style="color:#D5CED9">();</span></span>
+<span class="line"><span style="color:#D5CED9">})();</span></span>
+<span class="line"></span></code></pre>
+<h3 id="puppeteer-概述">puppeteer 概述<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#puppeteer-概述"></a></h3>
+<blockquote>
+<p>Puppeteer API 是分层的，并反映了浏览器结构</p>
+</blockquote>
+<ul class="remark-ordered-list">
+<li><code>Puppeteer</code>：使用 DevTools 协议与浏览器通信。</li>
+<li><code>Browser</code> 实例可以拥有多个浏览器上下文。</li>
+<li><code>BrowserContext</code> 实例定义了一个浏览会话并且可以拥有多个页面。</li>
+<li><code>Page</code> 至少有一个框架主框架。可能还有其他框架由 iframe 或框架标签创建。</li>
+<li><code>Frame</code> 至少有一个执行上下文——默认执行上下文——框架的 JavaScript 在这里执行.Frame 可能具有与扩展相关联的附加执行上下文。</li>
+<li><code>Worker</code> 有一个单一的执行上下文并促进与 WebWorkers 的交互。</li>
+</ul>
+<blockquote>
+<p>参考:<a href="https://github.com/puppeteer/puppeteer/blob/main/docs/api.md#puppeteer-vs-puppeteer-core">https://github.com/puppeteer/puppeteer/blob/main/docs/api.md#puppeteer-vs-puppeteer-core</a></p>
+</blockquote>
+<h2 id="关于使用">关于使用<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#关于使用"></a></h2>
+<h3 id="使用-connect-连接">使用 connect 连接<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#使用-connect-连接"></a></h3>
+<blockquote>
+<p>启动带有所有插件和账号的 chrome</p>
+</blockquote>
+<p>查看 cdp 协议，在 settings > Experiments > Protocol Monitor 打开</p>
+<ul class="remark-ordered-list">
+<li>
+<p>首先打开 chrome 的快捷方式，在目标后输入<code>--remote-debugging-port=9222</code>.大概是下面这样</p>
+<blockquote>
+<p><code>"C:\Program Files\Google\Chrome\Application\chrome.exe" --remote-debugging-port=9222</code>
+切记 exe 后面一定要有空格，这种方式也有缺点，可能会有连接不上的时候
+他的 url 在：<code>http://localhost:9222/json/version</code>,可能打开浏览器两三次才会有连接</p>
+</blockquote>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-js"><span class="line"><span style="color:#C74DED">const</span><span style="color:#00E8C6"> puppeteer</span><span style="color:#EE5D43"> =</span><span style="color:#FFE66D"> require</span><span style="color:#D5CED9">(</span><span style="color:#96E072">'puppeteer-core'</span><span style="color:#D5CED9">);</span></span>
+<span class="line"><span style="color:#C74DED">const</span><span style="color:#00E8C6"> axios</span><span style="color:#EE5D43"> =</span><span style="color:#FFE66D"> require</span><span style="color:#D5CED9">(</span><span style="color:#96E072">"axios"</span><span style="color:#D5CED9">);</span></span>
+<span class="line"><span style="color:#D5CED9">(</span><span style="color:#C74DED">async</span><span style="color:#D5CED9"> () </span><span style="color:#C74DED">=></span><span style="color:#D5CED9"> {</span></span>
+<span class="line"><span style="color:#C74DED">  const</span><span style="color:#00E8C6"> response</span><span style="color:#EE5D43"> =</span><span style="color:#C74DED"> await</span><span style="color:#F39C12"> axios</span><span style="color:#D5CED9">.</span><span style="color:#FFE66D">get</span><span style="color:#D5CED9">(</span><span style="color:#96E072">"http://localhost:9222/json/version"</span><span style="color:#D5CED9">)</span></span>
+<span class="line"><span style="color:#C74DED">  const</span><span style="color:#D5CED9"> { </span><span style="color:#00E8C6">webSocketDebuggerUrl</span><span style="color:#D5CED9"> } </span><span style="color:#EE5D43">=</span><span style="color:#F39C12"> response</span><span style="color:#D5CED9">.</span><span style="color:#00E8C6">data</span></span>
+<span class="line"><span style="color:#C74DED">  const</span><span style="color:#00E8C6"> browser</span><span style="color:#EE5D43"> =</span><span style="color:#C74DED"> await</span><span style="color:#F39C12"> puppeteer</span><span style="color:#D5CED9">.</span><span style="color:#FFE66D">connect</span><span style="color:#D5CED9">({</span></span>
+<span class="line"><span style="color:#D5CED9">    browserWSEndpoint: </span><span style="color:#00E8C6">webSocketDebuggerUrl</span><span style="color:#D5CED9">,</span></span>
+<span class="line"><span style="color:#D5CED9">    defaultViewport: </span><span style="color:#EE5D43">null</span></span>
+<span class="line"><span style="color:#D5CED9">  });</span></span>
+<span class="line"><span style="color:#C74DED">  const</span><span style="color:#00E8C6"> page</span><span style="color:#EE5D43"> =</span><span style="color:#C74DED"> await</span><span style="color:#F39C12"> browser</span><span style="color:#D5CED9">.</span><span style="color:#FFE66D">newPage</span><span style="color:#D5CED9">()</span></span>
+<span class="line"><span style="color:#EE5D43">  ...</span></span>
+<span class="line"><span style="color:#C74DED">  await</span><span style="color:#F39C12"> browser</span><span style="color:#D5CED9">.</span><span style="color:#FFE66D">disconnect</span><span style="color:#D5CED9">();</span></span>
+<span class="line"><span style="color:#D5CED9">})();</span></span>
+<span class="line"></span></code></pre>
+</li>
+<li>
+<p>一般我们可以使用 cli 命令直接执行，例如在某 linux 发行版中</p>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-bash"><span class="line"><span style="color:#A0A1A7CC"># --user-data-dir 你也可以指定它数据的目录</span></span>
+<span class="line"><span style="color:#FFE66D">./chrome</span><span style="color:#EE5D43"> --remote-debugging-port=9929</span></span>
+<span class="line"></span></code></pre>
+<ul class="remark-unordered-list">
+<li>我们可以自己写一个自动启动脚本</li>
+</ul>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-bash"><span class="line"><span style="color:#A0A1A7CC">#!/usr/bin/env sh</span></span>
+<span class="line"><span style="color:#FFE66D">cd</span><span style="color:#96E072"> /opt/google/chrome/</span><span style="color:#D5CED9"> &#x26;&#x26; </span><span style="color:#FFE66D">./chrome</span><span style="color:#EE5D43"> --add-debugging-port=</span><span style="color:#00E8C6">$1</span></span>
+<span class="line"></span></code></pre>
+<ul class="remark-unordered-list">
+<li>一些权限操作</li>
+</ul>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-bash"><span class="line"><span style="color:#FFE66D">chmod</span><span style="color:#96E072"> +x</span><span style="color:#96E072"> ./chrome.sh</span></span>
+<span class="line"><span style="color:#FFE66D">ln</span><span style="color:#96E072"> ./chrome.sh</span><span style="color:#96E072"> /bin/chrome</span></span>
+<span class="line"></span></code></pre>
+<ul class="remark-unordered-list">
+<li>使用 <code>chrome 9929</code></li>
+</ul>
+</li>
+</ul>
+<div class="sponsor-container">
+  <button class="sponsor-btn">
+    <a href="https://stripe.fwqaaq.workers.dev/Personal-Website-Sponsor/checkout?mode=once" target="_blank" rel="noopener noreferrer" class="">
+      <span class="sponsor-icon">☕</span>
+      <span>请博主喝杯咖啡</span>
+  </a>
+  </button>
+</div>
+          </article>
+        </main><script src="https://giscus.app/client.js"
+        data-repo="fwqaaq/fwqaaq.github.io"
+        data-repo-id="R_kgDOHCFK2A"
+        data-category="Show and tell"
+        data-category-id="DIC_kwDOHCFK2M4CYOLh"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="1"
+        data-input-position="bottom"
+        data-theme="preferred_color_scheme"
+        data-lang="zh-CN"
+        crossorigin="anonymous"
+        async></script><footer class="blog-footer">
+  <div class="footer-container">
+    <p class="text-center"><a class="decoration-line"
+        href="https://creativecommons.org/licenses/by-sa/3.0/deed.zh-hans">© CC BY-SA</a> 2021 -
+      2025 <a class="decoration-line" href="https://github.com/fwqaaq">fwqaaq</a>.
+      Powered by <a class="decoration-line" href="https://deno.com">Deno</a>
+    </p>
+  </div>
+  <div class="footer-icons-container">
+    <a class="icon" href="https://github.com/fwqaaq">
+      <i class="fa-brands fa-github"></i>
+    </a>
+    <a class="icon" href="mailto:fwqaaq@gmail">
+      <i class="fa-solid fa-envelope"></i>
+    </a>
+    <a class="icon" href="https://www.fwqaaq.com/feed.xml">
+      <i class="fa-solid fa-rss"></i>
+    </a>
+    <a class="icon" href="https://t.me/fwqaaq">
+      <i class="fa-brands fa-telegram"></i>
+    </a>
+  </div>
+</footer>

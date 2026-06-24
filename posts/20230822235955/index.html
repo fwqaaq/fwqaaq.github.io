@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#F3F7F6">
+  <meta name="description" content="表  > [!NOTE] > iptables 是 Linux 下的防火墙，可以用来设置防火墙规则，限制网络访问。 > > 它由以下四个表组成：filter \< nat \< m...">
+  <meta name="keywords" content="Linux, Config">
+  <meta name="author" content="fwqaaq">
+  <meta property="og:site_name" content="fwqaaq 的博客">
+  <meta property="og:locale" content="zh_CN">
+  <meta property="og:title" content="iptables">
+  <meta property="og:description" content="表  > [!NOTE] > iptables 是 Linux 下的防火墙，可以用来设置防火墙规则，限制网络访问。 > > 它由以下四个表组成：filter \< nat \< m...">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://www.fwqaaq.com//posts/20230822235955/">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="fwqaaq 的博客">
+  <meta name=application-name content="fwqaaq 的博客">
+  <meta name=apple-mobile-web-app-title content="fwqaaq 的博客">
+  <title>
+    iptables
+  </title>
+  <link rel="shortcut icon" href="/public/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="/public/css/base.849580.css">
+  <link rel="stylesheet" href="/public/css/index.849580.css">
+  <link rel="stylesheet" href="/public/css/markdown.849580.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+  <script src="/public/JavaScript/index.849580.js"></script>
+  <script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit" defer></script>
+</head>
+
+</html>
+<header class="blog-header">
+    <i id="switch-icon" class="fa-solid fa-bars"></i>
+    <a href="https://github.com/fwqaaq" target="_blank">
+        <img src="https://avatars.githubusercontent.com/u/82551626?v=4" loading="lazy" alt="me" srcset="">
+    </a>
+    <div class="wrap-background">
+        <nav class="header-nav">
+            <a class="decoration-line" href="/"><i class="fa-solid fa-house-chimney fa-xs"></i>
+                <span class="disappear">首页</span>
+            </a>
+            <a class="decoration-line" href="/./about/index.html"><i class="fa-solid fa-address-card fa-xs"></i>
+                <span class="disappear">关于</span></a>
+            <a class="decoration-line" href="/./archive/index.html"><i class="fa-solid fa-box-archive fa-xs"></i> <span
+                    class="disappear">归档</span></a>
+            <a class="decoration-line" href="/./tags/index.html"><i class="fa-solid fa-tag fa-xs"></i>
+                <span class="disappear">标签</span></a>
+            <a class="decoration-line" onclick="sponsor(199)">
+                <i class="fa-solid fa-circle-dollar-to-slot fa-xs"></i>
+                <span class="disappear">赞助</span></a>
+            <div class="language-switcher notranslate">
+                <button class="language-toggle" type="button" aria-label="切换语言" aria-expanded="false"
+                    aria-controls="language-menu">
+                    <i class="fa-solid fa-globe fa-xs" aria-hidden="true"></i>
+                    <span class="disappear" translate="yes">语言</span>
+                </button>
+                <div class="language-menu" id="language-menu" role="menu" hidden>
+                    <button class="language-option" type="button" role="menuitemradio" data-lang=""
+                        aria-checked="true">原文</button>
+                    <button class="language-option" type="button" role="menuitemradio" data-lang="en"
+                        aria-checked="false">English</button>
+                    <button class="language-option" type="button" role="menuitemradio" data-lang="ja"
+                        aria-checked="false">日本語</button>
+                    <button class="language-option" type="button" role="menuitemradio" data-lang="ko"
+                        aria-checked="false">한국어</button>
+                    <button class="language-option" type="button" role="menuitemradio" data-lang="fr"
+                        aria-checked="false">Français</button>
+                    <button class="language-option" type="button" role="menuitemradio" data-lang="de"
+                        aria-checked="false">Deutsch</button>
+                    <button class="language-option" type="button" role="menuitemradio" data-lang="es"
+                        aria-checked="false">Español</button>
+                    <button class="language-option" type="button" role="menuitemradio" data-lang="ru"
+                        aria-checked="false">Русский</button>
+                    <button class="language-option" type="button" role="menuitemradio" data-lang="zh-TW"
+                        aria-checked="false">繁體中文</button>
+                </div>
+            </div>
+            <div id="google_translate_element" class="google-translate-element notranslate" aria-hidden="true"></div>
+            <a class="decoration-line model" href="#" aria-label="切换深浅色主题"><i class="fa-solid fa-sun fa-xs"></i></a>
+        </nav>
+    </div>
+</header>
+        <main class="blog-main">
+          <article class="blog-article">
+            <h1>iptables</h1>
+          <div class="post-meta post-meta-flex-around">
+              <div class="post-author" href="/./about/"><i class="fa-solid fa-user"></i> fwqaaq</div> 
+              <div class="post-time"><i class="fa-solid fa-clock"></i> 2023-08-22</div> 
+              <div class="post-update-time"><i class="fa-solid fa-clock-rotate-left"></i> 2025-11-09</div>
+            </div>
+            <hr>
+            <details class="remark-toc-details"><summary class="remark-toc-summary">目录</summary><ul class="remark-toc">
+<li><a href="#%E8%A1%A8">表</a></li>
+<li><a href="#%E9%93%BE">链</a></li>
+<li><a href="#%E8%A7%84%E5%88%99">规则</a></li>
+</ul></details>
+<h2 id="表">表<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#表"></a></h2>
+<div class="markdown-alert markdown-alert-note">
+<p class="markdown-alert-title"><svg class="octicon octicon-info mr-2" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8Zm8-6.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13ZM6.5 7.75A.75.75 0 0 1 7.25 7h1a.75.75 0 0 1 .75.75v2.75h.25a.75.75 0 0 1 0 1.5h-2a.75.75 0 0 1 0-1.5h.25v-2h-.25a.75.75 0 0 1-.75-.75ZM8 6a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"></path></svg>Note</p>
+<p>iptables 是 Linux 下的防火墙，可以用来设置防火墙规则，限制网络访问。</p>
+<p>它由以下四个表组成：filter &#x3C; nat &#x3C; mangle &#x3C; raw，每个表中都含有不同的链</p>
+</div>
+<ul class="remark-unordered-list">
+<li>filter：用来对数据包进行过滤，具体的规则要求决定如何处理一个数据包（对应于 <code>INPUT</code>、<code>FORWARD</code>、<code>OUTPUT</code> 链</li>
+<li>nat：主要用来修改数据包的 IP 地址、端口号信息（对应于 <code>PREROUTING</code>、<code>OUTPUT</code>、<code>POSTROUTING</code> 链</li>
+<li>mangle：主要用来修改数据包的服务类型，生存周期，为数据包设置标记，实现流量整形、策略路由等（对应于 <code>PREROUTING</code>、<code>INPUT</code>、<code>FORWARD</code>、<code>OUTPUT</code>、<code>POSTROUTING</code> 链</li>
+<li>raw：主要用来决定是否对数据包进行状态跟踪（对应于 <code>PREROUTING</code>、<code>OUTPUT</code> 链</li>
+</ul>
+<h2 id="链">链<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#链"></a></h2>
+<p><img src="https://media.githubusercontent.com/media/fwqaaq/fwqaaq.github.io/dev/src/picture/iptables.png" alt=" "></p>
+<ul class="remark-unordered-list">
+<li>PREROUTING: 在数据包进行路由选择之前执行</li>
+<li>INPUT: 在数据包进入本地系统后执行（访问防火墙本机地址的数据包</li>
+<li>FORWARD: 通过防火墙转发给其他地址的数据包时执行</li>
+<li>OUTPUT: 在数据包从本地系统发出数据包时执行</li>
+<li>POSTROUTING: 在数据包进行路由选择之后执行</li>
+</ul>
+<h2 id="规则">规则<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#规则"></a></h2>
+<ul class="remark-unordered-list">
+<li>查看表中的链以及其中的各个规则</li>
+</ul>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-bash"><span class="line"><span style="color:#FFE66D">iptables</span><span style="color:#EE5D43"> --table</span><span style="color:#96E072"> filter</span><span style="color:#EE5D43"> --list</span><span style="color:#EE5D43"> --line-numbers</span></span>
+<span class="line"></span></code></pre>
+<ul class="remark-unordered-list">
+<li>拒绝某个请求访问，默认是所有协议，<strong>所有规则都是从上往下进行执行</strong></li>
+</ul>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-bash"><span class="line"><span style="color:#FFE66D">sudo</span><span style="color:#96E072"> iptables</span><span style="color:#EE5D43"> --table</span><span style="color:#96E072"> filter</span><span style="color:#EE5D43"> --append</span><span style="color:#96E072"> INPUT</span><span style="color:#EE5D43"> --source</span><span style="color:#F39C12"> 192.168.50.16</span><span style="color:#EE5D43"> --jump</span><span style="color:#96E072"> REJECT</span></span>
+<span class="line"></span></code></pre>
+<ul class="remark-unordered-list">
+<li>删除某个规则</li>
+</ul>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-bash"><span class="line"><span style="color:#A0A1A7CC"># 删除 INPUT 链中的第一条规则</span></span>
+<span class="line"><span style="color:#FFE66D">sudo</span><span style="color:#96E072"> iptables</span><span style="color:#EE5D43"> --table</span><span style="color:#96E072"> filter</span><span style="color:#EE5D43"> --delete</span><span style="color:#96E072"> INPUT</span><span style="color:#F39C12"> 1</span></span>
+<span class="line"></span></code></pre>
+<p><a href="https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/6/html/security_guide/sect-security_guide-command_options_for_iptables-iptables_parameter_options">jump 参数</a>，标准的目标是：<code>ACCEPT</code>、<code>DROP</code>、<code>QUEUE</code>、<code>RETURN</code>，当然你也可以指定其他例如 <a href="https://book.huihoo.com/iptables-tutorial/c8815.htm">SNAT、DNAT 等目标</a>。</p>
+<ul class="remark-unordered-list">
+<li>参考：<a href="https://tinychen.com/20200414-iptables-principle-introduction/">https://tinychen.com/20200414-iptables-principle-introduction/</a></li>
+<li>参考：<a href="https://wangchujiang.com/reference/docs/iptables.html">https://wangchujiang.com/reference/docs/iptables.html</a></li>
+</ul>
+<div class="sponsor-container">
+  <button class="sponsor-btn">
+    <a href="https://stripe.fwqaaq.workers.dev/Personal-Website-Sponsor/checkout?mode=once" target="_blank" rel="noopener noreferrer" class="">
+      <span class="sponsor-icon">☕</span>
+      <span>请博主喝杯咖啡</span>
+  </a>
+  </button>
+</div>
+          </article>
+        </main><script src="https://giscus.app/client.js"
+        data-repo="fwqaaq/fwqaaq.github.io"
+        data-repo-id="R_kgDOHCFK2A"
+        data-category="Show and tell"
+        data-category-id="DIC_kwDOHCFK2M4CYOLh"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="1"
+        data-input-position="bottom"
+        data-theme="preferred_color_scheme"
+        data-lang="zh-CN"
+        crossorigin="anonymous"
+        async></script><footer class="blog-footer">
+  <div class="footer-container">
+    <p class="text-center"><a class="decoration-line"
+        href="https://creativecommons.org/licenses/by-sa/3.0/deed.zh-hans">© CC BY-SA</a> 2021 -
+      2025 <a class="decoration-line" href="https://github.com/fwqaaq">fwqaaq</a>.
+      Powered by <a class="decoration-line" href="https://deno.com">Deno</a>
+    </p>
+  </div>
+  <div class="footer-icons-container">
+    <a class="icon" href="https://github.com/fwqaaq">
+      <i class="fa-brands fa-github"></i>
+    </a>
+    <a class="icon" href="mailto:fwqaaq@gmail">
+      <i class="fa-solid fa-envelope"></i>
+    </a>
+    <a class="icon" href="https://www.fwqaaq.com/feed.xml">
+      <i class="fa-solid fa-rss"></i>
+    </a>
+    <a class="icon" href="https://t.me/fwqaaq">
+      <i class="fa-brands fa-telegram"></i>
+    </a>
+  </div>
+</footer>

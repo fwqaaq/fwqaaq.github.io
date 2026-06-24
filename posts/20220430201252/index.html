@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#F3F7F6">
+  <meta name="description" content="撤销  1. 存在工作目录。代码并没有提交到暂存区（没有进行`git add`操作）。在工作树中修改     ```bash    # 需要撤销的文件    git checkou...">
+  <meta name="keywords" content="Git">
+  <meta name="author" content="fwqaaq">
+  <meta property="og:site_name" content="fwqaaq 的博客">
+  <meta property="og:locale" content="zh_CN">
+  <meta property="og:title" content="Git 回滚与撤销">
+  <meta property="og:description" content="撤销  1. 存在工作目录。代码并没有提交到暂存区（没有进行`git add`操作）。在工作树中修改     ```bash    # 需要撤销的文件    git checkou...">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://www.fwqaaq.com//posts/20220430201252/">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="fwqaaq 的博客">
+  <meta name=application-name content="fwqaaq 的博客">
+  <meta name=apple-mobile-web-app-title content="fwqaaq 的博客">
+  <title>
+    Git 回滚与撤销
+  </title>
+  <link rel="shortcut icon" href="/public/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="/public/css/base.849580.css">
+  <link rel="stylesheet" href="/public/css/index.849580.css">
+  <link rel="stylesheet" href="/public/css/markdown.849580.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+  <script src="/public/JavaScript/index.849580.js"></script>
+  <script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit" defer></script>
+</head>
+
+</html>
+<header class="blog-header">
+    <i id="switch-icon" class="fa-solid fa-bars"></i>
+    <a href="https://github.com/fwqaaq" target="_blank">
+        <img src="https://avatars.githubusercontent.com/u/82551626?v=4" loading="lazy" alt="me" srcset="">
+    </a>
+    <div class="wrap-background">
+        <nav class="header-nav">
+            <a class="decoration-line" href="/"><i class="fa-solid fa-house-chimney fa-xs"></i>
+                <span class="disappear">首页</span>
+            </a>
+            <a class="decoration-line" href="/./about/index.html"><i class="fa-solid fa-address-card fa-xs"></i>
+                <span class="disappear">关于</span></a>
+            <a class="decoration-line" href="/./archive/index.html"><i class="fa-solid fa-box-archive fa-xs"></i> <span
+                    class="disappear">归档</span></a>
+            <a class="decoration-line" href="/./tags/index.html"><i class="fa-solid fa-tag fa-xs"></i>
+                <span class="disappear">标签</span></a>
+            <a class="decoration-line" onclick="sponsor(199)">
+                <i class="fa-solid fa-circle-dollar-to-slot fa-xs"></i>
+                <span class="disappear">赞助</span></a>
+            <div class="language-switcher notranslate">
+                <button class="language-toggle" type="button" aria-label="切换语言" aria-expanded="false"
+                    aria-controls="language-menu">
+                    <i class="fa-solid fa-globe fa-xs" aria-hidden="true"></i>
+                    <span class="disappear" translate="yes">语言</span>
+                </button>
+                <div class="language-menu" id="language-menu" role="menu" hidden>
+                    <button class="language-option" type="button" role="menuitemradio" data-lang=""
+                        aria-checked="true">原文</button>
+                    <button class="language-option" type="button" role="menuitemradio" data-lang="en"
+                        aria-checked="false">English</button>
+                    <button class="language-option" type="button" role="menuitemradio" data-lang="ja"
+                        aria-checked="false">日本語</button>
+                    <button class="language-option" type="button" role="menuitemradio" data-lang="ko"
+                        aria-checked="false">한국어</button>
+                    <button class="language-option" type="button" role="menuitemradio" data-lang="fr"
+                        aria-checked="false">Français</button>
+                    <button class="language-option" type="button" role="menuitemradio" data-lang="de"
+                        aria-checked="false">Deutsch</button>
+                    <button class="language-option" type="button" role="menuitemradio" data-lang="es"
+                        aria-checked="false">Español</button>
+                    <button class="language-option" type="button" role="menuitemradio" data-lang="ru"
+                        aria-checked="false">Русский</button>
+                    <button class="language-option" type="button" role="menuitemradio" data-lang="zh-TW"
+                        aria-checked="false">繁體中文</button>
+                </div>
+            </div>
+            <div id="google_translate_element" class="google-translate-element notranslate" aria-hidden="true"></div>
+            <a class="decoration-line model" href="#" aria-label="切换深浅色主题"><i class="fa-solid fa-sun fa-xs"></i></a>
+        </nav>
+    </div>
+</header>
+        <main class="blog-main">
+          <article class="blog-article">
+            <h1>Git 回滚与撤销</h1>
+          <div class="post-meta post-meta-flex-around">
+              <div class="post-author" href="/./about/"><i class="fa-solid fa-user"></i> fwqaaq</div> 
+              <div class="post-time"><i class="fa-solid fa-clock"></i> 2022-04-30</div> 
+              <div class="post-update-time"><i class="fa-solid fa-clock-rotate-left"></i> 2025-11-09</div>
+            </div>
+            <hr>
+            <details class="remark-toc-details"><summary class="remark-toc-summary">目录</summary><ul class="remark-toc">
+<li>
+<p><a href="#%E6%92%A4%E9%94%80">撤销</a></p>
+</li>
+<li>
+<p><a href="#%E5%9B%9E%E6%BB%9A">回滚</a></p>
+<ul>
+<li><a href="#merge-%E5%92%8C-rebase">merge 和 rebase</a></li>
+<li><a href="#%E6%92%A4%E9%94%80%E5%9B%9E%E9%80%80">撤销回退</a></li>
+</ul>
+</li>
+<li>
+<p><a href="#%E4%BF%AE%E6%94%B9%E6%8F%90%E4%BA%A4%E7%9A%84%E5%8E%86%E5%8F%B2%E8%AE%B0%E5%BD%95">修改提交的历史记录</a></p>
+<ul>
+<li><a href="#%E5%8E%8B%E7%BC%A9%E6%8F%90%E4%BA%A4squash-commits">压缩提交（squash commits）</a></li>
+<li><a href="#%E4%BF%AE%E6%94%B9%E6%8F%90%E4%BA%A4%E4%BF%A1%E6%81%AF">修改提交信息</a></li>
+</ul>
+</li>
+<li>
+<p><a href="#stash">stash</a></p>
+</li>
+</ul></details>
+<h2 id="撤销">撤销<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#撤销"></a></h2>
+<ul class="remark-ordered-list">
+<li>
+<p>存在工作目录。代码并没有提交到暂存区（没有进行<code>git add</code>操作）。在工作树中修改</p>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-bash"><span class="line"><span style="color:#A0A1A7CC"># 需要撤销的文件</span></span>
+<span class="line"><span style="color:#FFE66D">git</span><span style="color:#96E072"> checkout</span><span style="color:#EE5D43"> &#x3C;</span><span style="color:#96E072">filnam</span><span style="color:#D5CED9">e</span><span style="color:#EE5D43">></span></span>
+<span class="line"></span></code></pre>
+</li>
+<li>
+<p>代码提交到暂存区（进行了 <code>git add</code>），但是想要撤销提交</p>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-bash"><span class="line"><span style="color:#A0A1A7CC"># 需要从暂存区撤销的提交</span></span>
+<span class="line"><span style="color:#FFE66D">git</span><span style="color:#96E072"> reset</span><span style="color:#96E072"> HEAD</span><span style="color:#EE5D43"> &#x3C;</span><span style="color:#96E072">filenam</span><span style="color:#D5CED9">e</span><span style="color:#EE5D43">></span></span>
+<span class="line"></span></code></pre>
+</li>
+<li>
+<p>代码已经提交（<code>git commit</code>）</p>
+<ul class="remark-unordered-list">
+<li>已经进行多次提交，但是在最后一次修改后，不再产生新的提交</li>
+</ul>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-bash"><span class="line"><span style="color:#A0A1A7CC"># 注释名为最后一次的</span></span>
+<span class="line"><span style="color:#FFE66D">git</span><span style="color:#96E072"> commit</span><span style="color:#EE5D43"> --amend</span><span style="color:#EE5D43"> -m</span><span style="color:#96E072"> "最后一次的注释"</span></span>
+<span class="line"></span></code></pre>
+</li>
+</ul>
+<blockquote>
+<p>在 <code>git 2.3</code> 版本之后可以使用 restore 来执行 1，2 的操作</p>
+</blockquote>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-bash"><span class="line"><span style="color:#A0A1A7CC"># 撤销工作区文件修改， 不包括新建文件</span></span>
+<span class="line"><span style="color:#FFE66D">git</span><span style="color:#96E072"> restore</span><span style="color:#96E072"> README.md</span><span style="color:#A0A1A7CC"> # 一个文件</span></span>
+<span class="line"><span style="color:#FFE66D">git</span><span style="color:#96E072"> restore</span><span style="color:#96E072"> README.md</span><span style="color:#96E072"> README2.md</span><span style="color:#A0A1A7CC"> # 多个文件</span></span>
+<span class="line"><span style="color:#FFE66D">git</span><span style="color:#96E072"> restore</span><span style="color:#96E072"> .</span><span style="color:#A0A1A7CC"> # 当前全部文件</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#A0A1A7CC"># 从暂存区回到工作区</span></span>
+<span class="line"><span style="color:#FFE66D">git</span><span style="color:#96E072"> restore</span><span style="color:#EE5D43"> --staged</span><span style="color:#96E072"> README.md</span></span>
+<span class="line"></span></code></pre>
+<blockquote>
+<p>如果想撤销到其中某次 commit</p>
+</blockquote>
+<ul class="remark-unordered-list">
+<li>这些操作分别是对<strong>工作目录</strong>、<strong>暂存区</strong>、<strong>当前 HEAD</strong> 的位置的改变</li>
+<li><code>git reset [--hard|soft|mixed|merge|keep] [commit|HEAD]</code>
+<ul class="remark-ordered-list">
+<li><code>--hard</code>：重设当前 <code>HEAD</code> 位置。并将之前 commit 以来的<strong>工作区目录</strong>和<strong>暂存区</strong>的改变都丢弃
+<ul class="remark-unordered-list">
+<li>彻底回退到某一个版本。本地所欲的源码也会变为上一个版本的内容</li>
+<li>例如 <code>git reset --hard HEAD~1</code>：将代码回退到前一次提交，并且将之前的所有改变丢弃</li>
+</ul>
+</li>
+<li><code>--soft</code>：只重设当前 <code>HEAD</code> 位置。所有更改的文件会回到<strong>工作区目录</strong>和<strong>暂存区</strong>
+<ul class="remark-unordered-list">
+<li><code>git status</code>可以查看回退的状态。只是回退了提交的信息，不会回退提交的内容。</li>
+</ul>
+</li>
+<li><code>--mixed</code>：重设当前 <code>HEAD</code> 位置和<strong>暂存区</strong>位置。但是不会重设<strong>工作区</strong>的内容
+<ul class="remark-unordered-list">
+<li><code>git status</code>：查看回退的状态。已经回退到初始状态（没有使用 <code>git add</code> 之前）</li>
+<li>例如 <code>git reset --mixed HEAD~1</code>：将代码回退到上一次提交。提交内容保留在工作区</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="回滚">回滚<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#回滚"></a></h2>
+<blockquote>
+<p>如果已经使用 <code>git push</code>，推送到远程仓库中。对已经提交到远程仓库的还原操作叫回滚</p>
+</blockquote>
+<ul class="remark-ordered-list">
+<li>撤销本地仓库的提交
+<ul class="remark-unordered-list">
+<li><code>revert</code>：放弃指定提交的修改，会生成一次新的提交，并且以前的历史记录都在
+<ul class="remark-unordered-list">
+<li>例如：<code>git revert HEAD~1</code>.将代码回滚到上一次的提交，但是不会销毁之前提交，并且生成一个新的提交</li>
+</ul>
+</li>
+<li><code>reset</code>：是指将 HEAD 指针指到指定提交，历史记录中不会出现放弃的提交记录（会销毁之前的提交）</li>
+</ul>
+</li>
+<li>对远程仓库的提交进行回滚（撤销远程仓库的提交）
+<ul class="remark-unordered-list">
+<li>需要强制将本地回退的代码推到远程仓库，进行回滚操作</li>
+<li><code>git push origin branch --force-with-lease</code></li>
+<li><code>--force-with-lease</code> 并不会像 <code>--force</code> 强制将代码覆盖
+<ul class="remark-unordered-list">
+<li>如果远端有其他人推送了新的提交，那么推送将被拒绝，并且和 <code>--force</code> 参数时的拒绝是一样的</li>
+<li>如果远端没有其他人推送，会直接进行强制推送（<strong>回滚</strong>）</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>如果没有其他人推送提交时</p>
+</blockquote>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-bash"><span class="line"><span style="color:#FFE66D">git</span><span style="color:#96E072"> reset</span><span style="color:#EE5D43"> --hard</span><span style="color:#96E072"> HEAD~1</span></span>
+<span class="line"><span style="color:#FFE66D">git</span><span style="color:#96E072"> push</span><span style="color:#96E072"> origin</span><span style="color:#96E072"> 本地分支</span><span style="color:#EE5D43"> --force-with-lease</span></span>
+<span class="line"></span></code></pre>
+<blockquote>
+<p>当遇到其他人推送新的提交时（产生冲突），需要使用 <code>git fetch</code></p>
+</blockquote>
+<ul class="remark-unordered-list">
+<li>在 <code>git fetch</code> 之后需要合并 fetch 下的分支。需要考虑使用 <code>rebase</code> 和 <code>merge</code> 情况
+<ul class="remark-unordered-list">
+<li><code>rebase</code> 会将分支合并到一个分支，不会保留被合并分支的提交记录。保证主分支的纯粹
+<ul class="remark-unordered-list">
+<li><img src="https://media.githubusercontent.com/media/fwqaaq/fwqaaq.github.io/dev/src/picture/rebase.png" alt=" "></li>
+</ul>
+</li>
+<li><code>merge</code>会将分支合并到一个分支，会保留被合并分支的提交记录
+<ul class="remark-unordered-list">
+<li><img src="https://media.githubusercontent.com/media/fwqaaq/fwqaaq.github.io/dev/src/picture/merge.png" alt=" "></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>在开发中尽量选择 rebase 合并分支，来保证主分支的清晰</li>
+<li>继续推送以达到回滚的效果</li>
+</ul>
+<h3 id="merge-和-rebase">merge 和 rebase<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#merge-和-rebase"></a></h3>
+<ul class="remark-unordered-list">
+<li><code>rebase</code>：下游分支更新上游分支内容的时候使用</li>
+<li><code>merge</code>：上游分支合并下游分支内容的时候使用</li>
+<li><code>git pull origin dev --rebase</code> 更新当前分支的内容时一定要使用 <code>--rebase</code> 参数</li>
+</ul>
+<div class="markdown-alert markdown-alert-warning">
+<p class="markdown-alert-title"><svg class="octicon octicon-alert mr-2" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="M6.457 1.047c.659-1.234 2.427-1.234 3.086 0l6.082 11.378A1.75 1.75 0 0 1 14.082 15H1.918a1.75 1.75 0 0 1-1.543-2.575Zm1.763.707a.25.25 0 0 0-.44 0L1.698 13.132a.25.25 0 0 0 .22.368h12.164a.25.25 0 0 0 .22-.368Zm.53 3.996v2.5a.75.75 0 0 1-1.5 0v-2.5a.75.75 0 0 1 1.5 0ZM9 11a1 1 0 1 1-2 0 1 1 0 0 1 2 0Z"></path></svg>Warning</p>
+<p>例如现有上游分支 <code>master</code>，基于 <code>master</code> 分支拉出来一个开发分支 <code>dev</code>，在 <code>dev</code> 上开发了一段时间后要把 <code>master</code> 分支提交的新内容更新到 <code>dev</code> 分支</p>
+<p>此时切换到 <code>dev</code> 分支，使用 <code>git rebase master</code> 等 <code>dev</code> 分支开发完成了之后，要合并到上游分支 <code>master</code> 上的时候，切换到 <code>master</code> 分支，使用 <code>git merge dev</code></p>
+</div>
+<h3 id="撤销回退">撤销回退<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#撤销回退"></a></h3>
+<p><img src="https://media.githubusercontent.com/media/fwqaaq/fwqaaq.github.io/dev/src/picture/resetback.png" alt=" "></p>
+<blockquote>
+<p>如果在回退的时候回退过了怎么办</p>
+</blockquote>
+<ul class="remark-ordered-list">
+<li>
+<p>使用 <code>git reflog</code> 找到当前的提交记录的 <code>commit</code> 值（hash 值）</p>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-bash"><span class="line"><span style="color:#FFE66D">bf75e3e</span><span style="color:#D5CED9"> (HEAD -</span><span style="color:#EE5D43">></span><span style="color:#96E072"> dev,</span><span style="color:#96E072"> upstream/master,</span><span style="color:#96E072"> origin/test,</span><span style="color:#96E072"> origin/master,</span><span style="color:#96E072"> origin/dev,</span><span style="color:#96E072"> origin/HEAD</span><span style="color:#D5CED9">) HEAD@{</span><span style="color:#FFE66D">0}:</span><span style="color:#96E072"> reset:</span><span style="color:#96E072"> moving</span><span style="color:#96E072"> to</span><span style="color:#96E072"> HEAD~1</span></span>
+<span class="line"><span style="color:#FFE66D">e87c01a</span><span style="color:#96E072"> HEAD@{</span><span style="color:#F39C12">1</span><span style="color:#96E072">}:</span><span style="color:#96E072"> reset:</span><span style="color:#96E072"> moving</span><span style="color:#96E072"> to</span><span style="color:#96E072"> HEAD~4</span></span>
+<span class="line"></span></code></pre>
+</li>
+<li>
+<p><code>git checkout bf75e3e</code>。检出需要撤销到某一版本的提交</p>
+</li>
+<li>
+<p><code>git checkout -b mer</code> 为需要找回的版本创建新分支</p>
+</li>
+<li>
+<p><code>git branch dev</code> &#x26;&#x26; <code>git rebase mer</code> 切换分支并且合并分支</p>
+</li>
+<li>
+<p><code>git push origin dev --force-with-lease</code>：强制推送到远程仓库，完成撤销的回退</p>
+</li>
+</ul>
+<h2 id="修改提交的历史记录">修改提交的历史记录<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#修改提交的历史记录"></a></h2>
+<blockquote>
+<p>git 提供了针对一系列修改历史记录的操作</p>
+</blockquote>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-bash"><span class="line"><span style="color:#A0A1A7CC"># Commands:</span></span>
+<span class="line"><span style="color:#A0A1A7CC">#  p, pick = use commit</span></span>
+<span class="line"><span style="color:#A0A1A7CC">#  r, reword = use commit, but edit the commit message</span></span>
+<span class="line"><span style="color:#A0A1A7CC">#  e, edit = use commit, but stop for amending</span></span>
+<span class="line"><span style="color:#A0A1A7CC">#  s, squash = use commit, but meld into previous commit</span></span>
+<span class="line"><span style="color:#A0A1A7CC">#  f, fixup = like "squash", but discard this commit's log message</span></span>
+<span class="line"><span style="color:#A0A1A7CC">#  x, exec = run command (the rest of the line) using shell</span></span>
+<span class="line"><span style="color:#A0A1A7CC">#  d, drop = remove commit</span></span>
+<span class="line"></span></code></pre>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>操作</th><th>信息</th></tr></thead><tbody><tr><td>pick</td><td>使用此提交，保持原样。</td></tr><tr><td>reword</td><td>使用此提交，但编辑提交消息。</td></tr><tr><td>edit</td><td>使用此提交，但停下来让你编辑文件或进行其他操作。</td></tr><tr><td>squash</td><td>将此提交合并到前一个提交中，并将提交消息合并为一条。</td></tr><tr><td>fixup</td><td>类似于 squash，但忽略此提交的提交消息。</td></tr><tr><td>exec</td><td>运行一个命令，将 rest of the line 作为命令参数。</td></tr><tr><td>drop</td><td>删除此提交，从历史记录中完全删除。</td></tr><tr><td>break</td><td>在这里停止（稍后使用 git rebase --continue 继续重新设置基准）</td></tr><tr><td>label &#x3C;label></td><td>为当前提交添加一个标签。</td></tr><tr><td>reset &#x3C;label></td><td>将 HEAD 重置为标签所指向的提交</td></tr></tbody></table>
+<h3 id="压缩提交squash-commits">压缩提交（squash commits）<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#压缩提交squash-commits"></a></h3>
+<blockquote>
+<p><code>squash commits</code> 指将多个提交合并成一个提交。<code>git rebase</code> 进入交互模式（<code>-i</code>），常用的命令</p>
+</blockquote>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-bash"><span class="line"><span style="color:#FFE66D">git</span><span style="color:#96E072"> rebase</span><span style="color:#EE5D43"> --interactive</span><span style="color:#EE5D43"> |</span><span style="color:#FFE66D"> -i</span><span style="color:#96E072"> HEAD~[N]</span></span>
+<span class="line"><span style="color:#A0A1A7CC"># Or</span></span>
+<span class="line"><span style="color:#FFE66D">git</span><span style="color:#96E072"> rebase</span><span style="color:#EE5D43"> --interactive</span><span style="color:#EE5D43"> |</span><span style="color:#FFE66D"> -i</span><span style="color:#96E072"> commit_hash_start</span><span style="color:#96E072"> commit_hash_end</span></span>
+<span class="line"></span></code></pre>
+<blockquote>
+<p>使用 <code>commit_hash</code> 进行提交压缩</p>
+</blockquote>
+<ul class="remark-unordered-list">
+<li>注意：需要去取合并的提交记录的前一次，例如从 commit2，commit3，commit4，commit5，commit6 有五次提交记录，我们需要合并 commit3，commit4，commit5，commit6 那么开始的提交 id 应该是 commit2 的 hash</li>
+</ul>
+<ul class="remark-ordered-list">
+<li>
+<p>需要回退的范围</p>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-bash"><span class="line"><span style="color:#FFE66D">git</span><span style="color:#96E072"> rebase</span><span style="color:#EE5D43"> -i</span><span style="color:#D5CED9"> </span></span>
+<span class="line"><span style="color:#A0A1A7CC"># 将除了最新的提交的 pick 都改成 squash(s)</span></span>
+<span class="line"><span style="color:#FFE66D">pick</span><span style="color:#96E072"> 4646e9c</span><span style="color:#96E072"> fw3</span></span>
+<span class="line"><span style="color:#FFE66D">pick</span><span style="color:#96E072"> a0868c5</span><span style="color:#96E072"> fw4</span></span>
+<span class="line"><span style="color:#FFE66D">pick</span><span style="color:#96E072"> 911da7f</span><span style="color:#96E072"> fw5</span></span>
+<span class="line"><span style="color:#FFE66D">pick</span><span style="color:#96E072"> 5c2e562</span><span style="color:#96E072"> fw6</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#A0A1A7CC"># Rebase 4073aa6..5c2e562 onto 4073aa6 (4 commands)</span></span>
+<span class="line"><span style="color:#A0A1A7CC">#</span></span>
+<span class="line"><span style="color:#A0A1A7CC"># Commands:</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#D5CED9">>>>>>>>>>>>>>>>></span></span>
+<span class="line"><span style="color:#FFE66D">pick</span><span style="color:#96E072"> 4646e9c</span><span style="color:#96E072"> fw3</span></span>
+<span class="line"><span style="color:#FFE66D">s</span><span style="color:#96E072"> a0868c5</span><span style="color:#96E072"> fw4</span></span>
+<span class="line"><span style="color:#FFE66D">s</span><span style="color:#96E072"> 911da7f</span><span style="color:#96E072"> fw5</span></span>
+<span class="line"><span style="color:#FFE66D">s</span><span style="color:#96E072"> 5c2e562</span><span style="color:#96E072"> fw6</span></span>
+<span class="line"></span></code></pre>
+</li>
+<li>
+<p>显示所有的提交信息，有需要的可以更改，如果是使用的 squash，这些信息会合并到上一个信息中</p>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-bash"><span class="line"><span style="color:#A0A1A7CC"># This is the 1st commit message:</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FFE66D">fw3</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#A0A1A7CC"># This is the commit message #2:</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FFE66D">fw4</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#A0A1A7CC"># This is the commit message #3:</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FFE66D">fw5</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#A0A1A7CC"># This is the commit message #4:</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FFE66D">fw6</span></span>
+<span class="line"></span></code></pre>
+</li>
+<li>
+<p>压缩这些提交信息</p>
+<ul class="remark-unordered-list">
+<li><code>((d466032...))</code>，这时候会进入到一个检出的提交中，这时候需要合并到主分支</li>
+</ul>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-bash"><span class="line"><span style="color:#FFE66D">git</span><span style="color:#96E072"> checkout</span><span style="color:#EE5D43"> -b</span><span style="color:#96E072"> dev</span></span>
+<span class="line"><span style="color:#FFE66D">git</span><span style="color:#96E072"> checkout</span><span style="color:#96E072"> main</span></span>
+<span class="line"><span style="color:#FFE66D">git</span><span style="color:#96E072"> rebase</span><span style="color:#96E072"> dev</span></span>
+<span class="line"><span style="color:#FFE66D">git</span><span style="color:#96E072"> branch</span><span style="color:#EE5D43"> -D</span><span style="color:#96E072"> dev</span></span>
+<span class="line"></span></code></pre>
+</li>
+</ul>
+<p><img src="https://media.githubusercontent.com/media/fwqaaq/fwqaaq.github.io/dev/src/picture/squashcommit.png" alt=" "></p>
+<blockquote>
+<p>指定压缩的次数 如 <code>HEAD~3</code>(压缩前三次提交信息)</p>
+</blockquote>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-bash"><span class="line"><span style="color:#FFE66D">git</span><span style="color:#96E072"> rebase</span><span style="color:#EE5D43"> -i</span><span style="color:#96E072"> HEAD~3</span></span>
+<span class="line"><span style="color:#A0A1A7CC"># 与压缩提交类似，这里需要改正 edit 或者 e</span></span>
+<span class="line"></span></code></pre>
+<ul class="remark-unordered-list">
+<li>注意：这时候 <code>HEAD指针</code> 并不会进入游离态</li>
+</ul>
+<h3 id="修改提交信息">修改提交信息<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#修改提交信息"></a></h3>
+<blockquote>
+<p>修改最后一次提交信息</p>
+</blockquote>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-bash"><span class="line"><span style="color:#A0A1A7CC"># 仅修改提交信息</span></span>
+<span class="line"><span style="color:#FFE66D">git</span><span style="color:#96E072"> commit</span><span style="color:#EE5D43"> --amend</span><span style="color:#EE5D43"> --message=</span><span style="color:#96E072">"modify message"</span></span>
+<span class="line"><span style="color:#A0A1A7CC"># 修改提交信息并提交</span></span>
+<span class="line"><span style="color:#FFE66D">git</span><span style="color:#96E072"> commit</span><span style="color:#EE5D43"> -m</span><span style="color:#EE5D43"> --amend</span><span style="color:#96E072"> "modify and commit"</span></span>
+<span class="line"></span></code></pre>
+<blockquote>
+<p>修改其中的某次提交信息</p>
+</blockquote>
+<h2 id="stash">stash<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#stash"></a></h2>
+<blockquote>
+<p><code>git stash</code> 将工作副本暂时搁置到到一个栈（提交越迟，越早弹出，即索引越小）中，以便切换分支处理其他内容</p>
+</blockquote>
+<ul class="remark-unordered-list">
+<li>
+<p><code>git stash</code>：如果当前分支中的内容处于已暂存的状态（<code>git add .</code>）</p>
+<ul class="remark-unordered-list">
+<li><code>git stash -u</code>：如果当前分支未暂存，则需要添加 <code>--include-untracked</code></li>
+<li>**注意：**一些基础配置文件不能暂存，需要立刻提交，如 <code>.gitignore</code> 等</li>
+</ul>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-txt"><span class="line"><span>*.js</span></span>
+<span class="line"><span></span></span></code></pre>
+<ul class="remark-unordered-list">
+<li>如果此时 <code>.gitignore</code> 没有提交，这时候忽略 <code>.js</code> 结尾的文件并不会起作用，<code>.js</code> 结尾的文件会和 <code>.gitignore</code> 一起被搁置到<strong>栈</strong>中（但是此时切换分支忽略文件依然会被切换到另一个分支）</li>
+</ul>
+</li>
+<li>
+<p><code>git stash save "message"</code>:如果需要搁置多个内容到栈中，则可以使用 <code>message</code> 来命名</p>
+<ul class="remark-unordered-list">
+<li>同样，如果没有暂存则需要使用 <code>git stash save "message" -u</code></li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>重新应用搁置栈中的工作副本</p>
+</blockquote>
+<ul class="remark-ordered-list">
+<li>
+<p><code>git stash apply stash@{index}</code>:重新应用搁置栈中的工作副本，但是不会删除当前栈中暂存的状态</p>
+<ul class="remark-unordered-list">
+<li><code>git stash drop stash@{index}</code>:删除某个栈中的工工作副本，需要使用索引</li>
+</ul>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-bash"><span class="line"><span style="color:#FFE66D">git</span><span style="color:#96E072"> stash</span><span style="color:#96E072"> drop</span><span style="color:#96E072"> stash@{</span><span style="color:#F39C12">0</span><span style="color:#96E072">}</span></span>
+<span class="line"></span></code></pre>
+</li>
+<li>
+<p><code>git stash pop</code>:弹出最后一次提交到栈中的工作副本，并且同时删除栈中的工作副本</p>
+<ul class="remark-unordered-list">
+<li>或者直接指定需要应用的版本，与<code>apply</code>相同</li>
+</ul>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-bash"><span class="line"><span style="color:#A0A1A7CC"># index 指索引号，索引越小，离栈顶越近</span></span>
+<span class="line"><span style="color:#FFE66D"> git</span><span style="color:#96E072"> stash</span><span style="color:#D5CED9"> ( </span><span style="color:#96E072">pop</span><span style="color:#EE5D43"> |</span><span style="color:#FFE66D"> apply</span><span style="color:#D5CED9"> ) --index index</span></span>
+<span class="line"><span style="color:#A0A1A7CC"># 或者直接使用 stash@{index}</span></span>
+<span class="line"><span style="color:#FFE66D"> git</span><span style="color:#96E072"> stash</span><span style="color:#D5CED9"> ( </span><span style="color:#96E072">pop</span><span style="color:#EE5D43"> |</span><span style="color:#FFE66D"> apply</span><span style="color:#D5CED9"> ) stash@{</span><span style="color:#FFE66D">index}</span></span>
+<span class="line"></span></code></pre>
+</li>
+</ul>
+<blockquote>
+<p>清理栈中的内容</p>
+</blockquote>
+<ul class="remark-ordered-list">
+<li><code>git stash clear</code>:将栈中的所有内容清理</li>
+<li><code>git stash drop</code>:清理指定版本</li>
+</ul>
+<blockquote>
+<p>查看存储差异 (需要暂存之后才可以比较：<code>git add .</code>)</p>
+</blockquote>
+<ul class="remark-ordered-list">
+<li><code>git stash show</code>:查看存储的摘要</li>
+<li><code>git stash show -p</code>:查看存储的完整差异 (-p=--patch)</li>
+</ul>
+<blockquote>
+<p>从 stash 中创建分支</p>
+</blockquote>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-bash"><span class="line"><span style="color:#FFE66D">git</span><span style="color:#96E072"> stash</span><span style="color:#96E072"> branch</span><span style="color:#EE5D43"> &#x3C;</span><span style="color:#96E072">nam</span><span style="color:#D5CED9">e</span><span style="color:#EE5D43">></span><span style="color:#96E072"> stash@{</span><span style="color:#F39C12">1</span><span style="color:#96E072">}</span></span>
+<span class="line"></span></code></pre>
+<ul class="remark-unordered-list">
+<li>在此分支的基础上：创建一个叫做 &#x3C;name> 的分支，同时删除 <code>stash{1}</code> 的存储。此时指针不会指向原来分支，而是会指向 &#x3C;name> 分支</li>
+<li>如果在最新版本中遇到冲突时，这将会很有用
+<ul class="remark-unordered-list">
+<li>例如你搁置了该文件的更改到栈中，但是之后并没有理会，继续在该文件中做更改，这是就可以使用此方法</li>
+</ul>
+</li>
+</ul>
+<div class="sponsor-container">
+  <button class="sponsor-btn">
+    <a href="https://stripe.fwqaaq.workers.dev/Personal-Website-Sponsor/checkout?mode=once" target="_blank" rel="noopener noreferrer" class="">
+      <span class="sponsor-icon">☕</span>
+      <span>请博主喝杯咖啡</span>
+  </a>
+  </button>
+</div>
+          </article>
+        </main><script src="https://giscus.app/client.js"
+        data-repo="fwqaaq/fwqaaq.github.io"
+        data-repo-id="R_kgDOHCFK2A"
+        data-category="Show and tell"
+        data-category-id="DIC_kwDOHCFK2M4CYOLh"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="1"
+        data-input-position="bottom"
+        data-theme="preferred_color_scheme"
+        data-lang="zh-CN"
+        crossorigin="anonymous"
+        async></script><footer class="blog-footer">
+  <div class="footer-container">
+    <p class="text-center"><a class="decoration-line"
+        href="https://creativecommons.org/licenses/by-sa/3.0/deed.zh-hans">© CC BY-SA</a> 2021 -
+      2025 <a class="decoration-line" href="https://github.com/fwqaaq">fwqaaq</a>.
+      Powered by <a class="decoration-line" href="https://deno.com">Deno</a>
+    </p>
+  </div>
+  <div class="footer-icons-container">
+    <a class="icon" href="https://github.com/fwqaaq">
+      <i class="fa-brands fa-github"></i>
+    </a>
+    <a class="icon" href="mailto:fwqaaq@gmail">
+      <i class="fa-solid fa-envelope"></i>
+    </a>
+    <a class="icon" href="https://www.fwqaaq.com/feed.xml">
+      <i class="fa-solid fa-rss"></i>
+    </a>
+    <a class="icon" href="https://t.me/fwqaaq">
+      <i class="fa-brands fa-telegram"></i>
+    </a>
+  </div>
+</footer>

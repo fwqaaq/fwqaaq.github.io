@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#F3F7F6">
+  <meta name="description" content="Postgres  > 安装请参见：<https://gist.github.com/fwqaaq/d2a4b7c63a062cdc739c592921867625>  FROM（...">
+  <meta name="keywords" content="Config, DataBase">
+  <meta name="author" content="fwqaaq">
+  <meta property="og:site_name" content="fwqaaq 的博客">
+  <meta property="og:locale" content="zh_CN">
+  <meta property="og:title" content="Postgresql">
+  <meta property="og:description" content="Postgres  > 安装请参见：<https://gist.github.com/fwqaaq/d2a4b7c63a062cdc739c592921867625>  FROM（...">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://www.fwqaaq.com//posts/20231115171644/">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="fwqaaq 的博客">
+  <meta name=application-name content="fwqaaq 的博客">
+  <meta name=apple-mobile-web-app-title content="fwqaaq 的博客">
+  <title>
+    Postgresql
+  </title>
+  <link rel="shortcut icon" href="/public/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="/public/css/base.849580.css">
+  <link rel="stylesheet" href="/public/css/index.849580.css">
+  <link rel="stylesheet" href="/public/css/markdown.849580.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+  <script src="/public/JavaScript/index.849580.js"></script>
+  <script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit" defer></script>
+</head>
+
+</html>
+<header class="blog-header">
+    <i id="switch-icon" class="fa-solid fa-bars"></i>
+    <a href="https://github.com/fwqaaq" target="_blank">
+        <img src="https://avatars.githubusercontent.com/u/82551626?v=4" loading="lazy" alt="me" srcset="">
+    </a>
+    <div class="wrap-background">
+        <nav class="header-nav">
+            <a class="decoration-line" href="/"><i class="fa-solid fa-house-chimney fa-xs"></i>
+                <span class="disappear">首页</span>
+            </a>
+            <a class="decoration-line" href="/./about/index.html"><i class="fa-solid fa-address-card fa-xs"></i>
+                <span class="disappear">关于</span></a>
+            <a class="decoration-line" href="/./archive/index.html"><i class="fa-solid fa-box-archive fa-xs"></i> <span
+                    class="disappear">归档</span></a>
+            <a class="decoration-line" href="/./tags/index.html"><i class="fa-solid fa-tag fa-xs"></i>
+                <span class="disappear">标签</span></a>
+            <a class="decoration-line" onclick="sponsor(199)">
+                <i class="fa-solid fa-circle-dollar-to-slot fa-xs"></i>
+                <span class="disappear">赞助</span></a>
+            <div class="language-switcher notranslate">
+                <button class="language-toggle" type="button" aria-label="切换语言" aria-expanded="false"
+                    aria-controls="language-menu">
+                    <i class="fa-solid fa-globe fa-xs" aria-hidden="true"></i>
+                    <span class="disappear" translate="yes">语言</span>
+                </button>
+                <div class="language-menu" id="language-menu" role="menu" hidden>
+                    <button class="language-option" type="button" role="menuitemradio" data-lang=""
+                        aria-checked="true">原文</button>
+                    <button class="language-option" type="button" role="menuitemradio" data-lang="en"
+                        aria-checked="false">English</button>
+                    <button class="language-option" type="button" role="menuitemradio" data-lang="ja"
+                        aria-checked="false">日本語</button>
+                    <button class="language-option" type="button" role="menuitemradio" data-lang="ko"
+                        aria-checked="false">한국어</button>
+                    <button class="language-option" type="button" role="menuitemradio" data-lang="fr"
+                        aria-checked="false">Français</button>
+                    <button class="language-option" type="button" role="menuitemradio" data-lang="de"
+                        aria-checked="false">Deutsch</button>
+                    <button class="language-option" type="button" role="menuitemradio" data-lang="es"
+                        aria-checked="false">Español</button>
+                    <button class="language-option" type="button" role="menuitemradio" data-lang="ru"
+                        aria-checked="false">Русский</button>
+                    <button class="language-option" type="button" role="menuitemradio" data-lang="zh-TW"
+                        aria-checked="false">繁體中文</button>
+                </div>
+            </div>
+            <div id="google_translate_element" class="google-translate-element notranslate" aria-hidden="true"></div>
+            <a class="decoration-line model" href="#" aria-label="切换深浅色主题"><i class="fa-solid fa-sun fa-xs"></i></a>
+        </nav>
+    </div>
+</header>
+        <main class="blog-main">
+          <article class="blog-article">
+            <h1>Postgresql</h1>
+          <div class="post-meta post-meta-flex-around">
+              <div class="post-author" href="/./about/"><i class="fa-solid fa-user"></i> fwqaaq</div> 
+              <div class="post-time"><i class="fa-solid fa-clock"></i> 2023-11-15</div> 
+              <div class="post-update-time"><i class="fa-solid fa-clock-rotate-left"></i> 2025-11-09</div>
+            </div>
+            <hr>
+            <details class="remark-toc-details"><summary class="remark-toc-summary">目录</summary><ul class="remark-toc">
+<li>
+<p><a href="#postgres">Postgres</a></p>
+<ul>
+<li><a href="#%E5%8D%95%E5%BC%95%E5%8F%B7%E5%92%8C%E5%8F%8C%E5%BC%95%E5%8F%B7">单引号和双引号</a></li>
+<li><a href="#%E5%88%9B%E5%BB%BA%E8%A1%A8%E5%8D%95">创建表单</a></li>
+<li><a href="#%E8%A7%86%E5%9B%BE">视图</a></li>
+<li><a href="#%E7%B4%A2%E5%BC%95">索引</a></li>
+</ul>
+</li>
+</ul></details>
+<h2 id="postgres">Postgres<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#postgres"></a></h2>
+<blockquote>
+<p>安装请参见：<a href="https://gist.github.com/fwqaaq/d2a4b7c63a062cdc739c592921867625">https://gist.github.com/fwqaaq/d2a4b7c63a062cdc739c592921867625</a></p>
+</blockquote>
+<p>FROM（确定表/视图） > JOIN（邻接 FROM 子句中的表） > WHERE（删选邻接之后的表） > GROUP BY（将数据分组以进行聚合计算） > HAVING（在数据分组和聚合之后对分组的结果筛选） > SELECT（选择要返回的列） > DISTINCT（删除重复的行） > ORDER BY（对结果进行排序） > LIMIT/OFFSET（限制返回的行数或跳过前面的行数）</p>
+<h3 id="单引号和双引号">单引号和双引号<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#单引号和双引号"></a></h3>
+<blockquote>
+<p>双引号</p>
+</blockquote>
+<p>在 postgres 中，标识符默认都当作小写（例如 FOO，则在 postgres 中则是 foo，<code>SELECT FOO FROM database;</code>）这里的 SQL 语句等同于 <code>SELECT foo FROM database;</code> 如果默认大写，则需要使用受限字符（""）<code>SELECT "FOO" FROM database;</code></p>
+<blockquote>
+<p>单引号</p>
+</blockquote>
+<p>在 Postgres 中，使用单引号（''）包裹表示常量，例如（SELECT 'foo'）。</p>
+<blockquote>
+<p>$$</p>
+</blockquote>
+<p>可以使用 $$ 表示多行字符串，以及嵌入引号</p>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-sql"><span class="line"><span style="color:#C74DED">SELECT</span><span style="color:#D5CED9"> $$This </span><span style="color:#C74DED">is</span><span style="color:#D5CED9"> a</span></span>
+<span class="line"><span style="color:#D5CED9">multiline </span><span style="color:#96E072">"string"</span></span>
+<span class="line"><span style="color:#C74DED">using</span><span style="color:#D5CED9"> dollar</span><span style="color:#EE5D43">-</span><span style="color:#D5CED9">quoting.$$;</span></span>
+<span class="line"></span></code></pre>
+<blockquote>
+<p>||</p>
+</blockquote>
+<p>用于将两个字符串连接成一个字符串</p>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-sql"><span class="line"><span style="color:#C74DED">SELECT</span><span style="color:#D5CED9"> first_name </span><span style="color:#EE5D43">||</span><span style="color:#96E072"> ' '</span><span style="color:#EE5D43"> ||</span><span style="color:#D5CED9"> last_name </span><span style="color:#C74DED">AS</span><span style="color:#D5CED9"> full_name </span><span style="color:#C74DED">FROM</span><span style="color:#D5CED9"> users;</span></span>
+<span class="line"></span></code></pre>
+<h3 id="创建表单">创建表单<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#创建表单"></a></h3>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-sql"><span class="line"><span style="color:#C74DED">CREATE</span><span style="color:#C74DED"> TABLE</span><span style="color:#FFE66D"> table_name</span></span>
+<span class="line"><span style="color:#D5CED9">(</span></span>
+<span class="line"><span style="color:#D5CED9">column_name data_type column_constraint,</span></span>
+<span class="line"><span style="color:#D5CED9">column_name data_type,</span></span>
+<span class="line"><span style="color:#D5CED9">...,</span></span>
+<span class="line"><span style="color:#D5CED9">table_constraint</span></span>
+<span class="line"><span style="color:#D5CED9">);</span></span>
+<span class="line"></span></code></pre>
+<ul class="remark-unordered-list">
+<li>所有的字段类型：<a href="https://www.postgresql.org/docs/current/datatype.html">https://www.postgresql.org/docs/current/datatype.html</a></li>
+<li>所有的约束：<a href="https://www.postgresql.org/docs/current/ddl-constraints.html">https://www.postgresql.org/docs/current/ddl-constraints.html</a></li>
+</ul>
+<blockquote>
+<p>字段级别的约束（column constraint）</p>
+</blockquote>
+<ul class="remark-unordered-list">
+<li><code>NOT NULL</code>：非空约束，该字段的值不能为空（NULL）。</li>
+<li><code>UNIQUE</code>：唯一约束，该字段每一行的值不能重复。不过，PostgreSQL 允许该字段存在多个 NULL 值，并且将它们看作不同的值。<strong>需要注意的是 SQL 标准只允许 UNIQUE 字段中存在一个 NULL 值</strong>。</li>
+<li><code>PRIMARY KEY</code>：主键约束，包含了 NOT NULL 约束和 UNIQUE 约束。如果主键只包含一个字段，可以通过列级约束进行定义（参考上面的示例）；但是如果主键包含多个字段（复合主键）或者需要为主键指定一个自定义的名称，需要使用表级约束进行定义（参见下文示例）。</li>
+<li><code>REFERENCES</code>：外键约束，字段中的值必需已经在另一个表中存在。外键用于定义两个表之间的参照完整性（referential integrity），例如，员工的部门编号字段必须是一个已经存在的部门。</li>
+<li><code>CHECK</code>：检查约束，插入或更新数据时检查数据是否满足某个条件。例如，产品的价格必需大于零。</li>
+<li><code>DEFAULT</code>：默认值，插入数据时，如果没有为这种列指定值，系统将会使用默认值代替。</li>
+</ul>
+<blockquote>
+<p>表级别的约束（table constraint），<code>CONSTRAINT</code> 是声明一个约束的关键字，之后紧接约束的名称</p>
+</blockquote>
+<ul class="remark-unordered-list">
+<li><code>UNIQUE(column1, …)</code>：唯一约束，括号中的字段值或字段值的组合必须唯一。</li>
+<li><code>PRIMARY KEY(column1, …)</code>：主键约束，定义主键或者复合主键。</li>
+<li><code>REFERENCES</code>：定义外键约束。</li>
+<li><code>CHECK</code>：定义检查约束。</li>
+</ul>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-sql"><span class="line"><span style="color:#C74DED">CREATE</span><span style="color:#C74DED"> TABLE</span><span style="color:#FFE66D"> employees</span><span style="color:#D5CED9">( </span></span>
+<span class="line"><span style="color:#D5CED9">  employee_id </span><span style="color:#C74DED">INTEGER</span><span style="color:#C74DED"> NOT NULL</span><span style="color:#D5CED9">,</span></span>
+<span class="line"><span style="color:#D5CED9">  first_name </span><span style="color:#C74DED">CHARACTER VARYING</span><span style="color:#D5CED9">(</span><span style="color:#F39C12">20</span><span style="color:#D5CED9">),</span></span>
+<span class="line"><span style="color:#D5CED9">  last_name </span><span style="color:#C74DED">CHARACTER VARYING</span><span style="color:#D5CED9">(</span><span style="color:#F39C12">25</span><span style="color:#D5CED9">) </span><span style="color:#C74DED">NOT NULL</span><span style="color:#D5CED9">,</span></span>
+<span class="line"><span style="color:#D5CED9">  email </span><span style="color:#C74DED">CHARACTER VARYING</span><span style="color:#D5CED9">(</span><span style="color:#F39C12">25</span><span style="color:#D5CED9">) </span><span style="color:#C74DED">NOT NULL</span><span style="color:#D5CED9">,</span></span>
+<span class="line"><span style="color:#D5CED9">  phone_number </span><span style="color:#C74DED">CHARACTER VARYING</span><span style="color:#D5CED9">(</span><span style="color:#F39C12">20</span><span style="color:#D5CED9">),</span></span>
+<span class="line"><span style="color:#D5CED9">  hire_date </span><span style="color:#C74DED">DATE</span><span style="color:#C74DED"> NOT NULL</span><span style="color:#D5CED9">,</span></span>
+<span class="line"><span style="color:#D5CED9">  salary </span><span style="color:#C74DED">NUMERIC</span><span style="color:#D5CED9">(</span><span style="color:#F39C12">8</span><span style="color:#D5CED9">,</span><span style="color:#F39C12">2</span><span style="color:#D5CED9">),</span></span>
+<span class="line"><span style="color:#D5CED9">  commission_pct </span><span style="color:#C74DED">NUMERIC</span><span style="color:#D5CED9">(</span><span style="color:#F39C12">2</span><span style="color:#D5CED9">,</span><span style="color:#F39C12">2</span><span style="color:#D5CED9">),</span></span>
+<span class="line"><span style="color:#D5CED9">  manager_id </span><span style="color:#C74DED">INTEGER</span><span style="color:#D5CED9">,</span></span>
+<span class="line"><span style="color:#D5CED9">  department_id </span><span style="color:#C74DED">INTEGER</span><span style="color:#D5CED9">,</span></span>
+<span class="line"><span style="color:#C74DED">  CONSTRAINT</span><span style="color:#D5CED9"> emp_emp_id_pk </span><span style="color:#C74DED">PRIMARY KEY</span><span style="color:#D5CED9"> (employee_id), </span></span>
+<span class="line"><span style="color:#C74DED">  CONSTRAINT</span><span style="color:#D5CED9"> emp_salary_min </span><span style="color:#C74DED">CHECK</span><span style="color:#D5CED9"> (salary </span><span style="color:#EE5D43">></span><span style="color:#F39C12"> 0</span><span style="color:#D5CED9">), </span></span>
+<span class="line"><span style="color:#C74DED">  CONSTRAINT</span><span style="color:#D5CED9"> emp_email_uk </span><span style="color:#C74DED">UNIQUE</span><span style="color:#D5CED9"> (email), </span></span>
+<span class="line"><span style="color:#C74DED">  CONSTRAINT</span><span style="color:#D5CED9"> emp_dept_fk </span><span style="color:#C74DED">FOREIGN KEY</span><span style="color:#D5CED9"> (department_id) </span><span style="color:#C74DED">REFERENCES</span><span style="color:#D5CED9"> departments(department_id), </span></span>
+<span class="line"><span style="color:#C74DED">  CONSTRAINT</span><span style="color:#D5CED9"> emp_manager_fk </span><span style="color:#C74DED">FOREIGN KEY</span><span style="color:#D5CED9"> (manager_id) </span><span style="color:#C74DED">REFERENCES</span><span style="color:#D5CED9"> employees(employee_id)</span></span>
+<span class="line"><span style="color:#D5CED9">);</span></span>
+<span class="line"></span></code></pre>
+<h3 id="视图">视图<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#视图"></a></h3>
+<blockquote>
+<p>视图的概念：视图是基于 SQL 语句结果集的虚拟表。视图可以包含一个表的所有列或选定的几列，也可以来自一个或多个表，这取决于创建视图时所用的 SQL 查询。</p>
+</blockquote>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-sql"><span class="line"><span style="color:#C74DED">CREATE</span><span style="color:#C74DED"> VIEW</span><span style="color:#FFE66D"> department_average_salary</span><span style="color:#C74DED"> AS</span></span>
+<span class="line"><span style="color:#C74DED">SELECT</span><span style="color:#D5CED9"> department, </span><span style="color:#FFE66D">AVG</span><span style="color:#D5CED9">(salary) </span><span style="color:#C74DED">AS</span><span style="color:#D5CED9"> average_salary</span></span>
+<span class="line"><span style="color:#C74DED">FROM</span><span style="color:#D5CED9"> employees</span></span>
+<span class="line"><span style="color:#C74DED">GROUP BY</span><span style="color:#D5CED9"> department;</span></span>
+<span class="line"></span></code></pre>
+<p>视图作为虚拟表也可以像表一样使用，例如 JOIN、WHERE、GROUP BY、HAVING、ORDER BY 等。</p>
+<ul class="remark-unordered-list">
+<li>
+<p>使用视图可以简化复杂的查询：如果视图封装了复杂的逻辑，那么 JOIN 可以简化为单表查询。</p>
+</li>
+<li>
+<p>安全性和封装性：仅暴露必要的数据，隐藏了底层表的结构。</p>
+</li>
+<li>
+<p>可维护：如果改变了表中短发结构或者逻辑，只需改变视图的定义，而无需修改所有使用了该视图的查询。</p>
+</li>
+<li>
+<p>注意⚠️：</p>
+<ul class="remark-unordered-list">
+<li>性能：由于每次查询都会执行视图定义中的 SQL 语句，因此性能可能会受到影响。</li>
+<li>依赖：如果视图依赖于其他视图，那么在修改底层表的结构时，可能会导致视图不可用。</li>
+</ul>
+</li>
+</ul>
+<h3 id="索引">索引<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#索引"></a></h3>
+<blockquote>
+<p>索引的概念：索引的主要目的就是为了加速查询操作，帮助数据库快速定位到表中的特定记录。索引是一种特殊的数据结构，它以某种方式引用表中的记录，以便于快速检索表中的特定信息。索引类似于书籍的目录，它们提供了关于数据的快速访问路径。</p>
+</blockquote>
+<ul class="remark-unordered-list">
+<li>B 树索引：这是最常见的索引类型，适用于等值查询和范围查询。</li>
+<li>哈希索引：主要用于等值查询，不适用于排序或范围查找。</li>
+<li>GiST 索引：一种通用的搜索树，适用于多种不同类型的索引。</li>
+<li>GIN 索引：适用于包含多个值的字段，如数组或 JSON 对象。</li>
+<li>空间索引：用于地理空间数据。</li>
+</ul>
+<ul class="remark-ordered-list">
+<li>
+<p>创建单列索引（以及之下的多列索引，仅能是在 WHERE 操作中非常频繁的列）</p>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-sql"><span class="line"><span style="color:#C74DED">CREATE</span><span style="color:#C74DED"> INDEX</span><span style="color:#FFE66D"> index_name</span><span style="color:#C74DED"> ON</span><span style="color:#D5CED9"> table_name (column_name);</span></span>
+<span class="line"></span></code></pre>
+</li>
+<li>
+<p>创建多列索引</p>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-sql"><span class="line"><span style="color:#C74DED">CREATE</span><span style="color:#C74DED"> INDEX</span><span style="color:#FFE66D"> index_name</span><span style="color:#C74DED"> ON</span><span style="color:#D5CED9"> table_name (column1_name, column2_name);</span></span>
+<span class="line"></span></code></pre>
+</li>
+<li>
+<p>隐式索引：在创建<strong>主键约束</strong>或者<strong>唯一约束</strong>时，Postgres 会自动创建约束。如果有外键约束，最好也为外键创建索引。</p>
+</li>
+</ul>
+<p><strong>警告</strong>⚠️：索引不能用于较小的表上；大批量的插入、更新和删除操作的表上；也不应该使用在含大量 NULL 值的列上。</p>
+<div class="sponsor-container">
+  <button class="sponsor-btn">
+    <a href="https://stripe.fwqaaq.workers.dev/Personal-Website-Sponsor/checkout?mode=once" target="_blank" rel="noopener noreferrer" class="">
+      <span class="sponsor-icon">☕</span>
+      <span>请博主喝杯咖啡</span>
+  </a>
+  </button>
+</div>
+          </article>
+        </main><script src="https://giscus.app/client.js"
+        data-repo="fwqaaq/fwqaaq.github.io"
+        data-repo-id="R_kgDOHCFK2A"
+        data-category="Show and tell"
+        data-category-id="DIC_kwDOHCFK2M4CYOLh"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="1"
+        data-input-position="bottom"
+        data-theme="preferred_color_scheme"
+        data-lang="zh-CN"
+        crossorigin="anonymous"
+        async></script><footer class="blog-footer">
+  <div class="footer-container">
+    <p class="text-center"><a class="decoration-line"
+        href="https://creativecommons.org/licenses/by-sa/3.0/deed.zh-hans">© CC BY-SA</a> 2021 -
+      2025 <a class="decoration-line" href="https://github.com/fwqaaq">fwqaaq</a>.
+      Powered by <a class="decoration-line" href="https://deno.com">Deno</a>
+    </p>
+  </div>
+  <div class="footer-icons-container">
+    <a class="icon" href="https://github.com/fwqaaq">
+      <i class="fa-brands fa-github"></i>
+    </a>
+    <a class="icon" href="mailto:fwqaaq@gmail">
+      <i class="fa-solid fa-envelope"></i>
+    </a>
+    <a class="icon" href="https://www.fwqaaq.com/feed.xml">
+      <i class="fa-solid fa-rss"></i>
+    </a>
+    <a class="icon" href="https://t.me/fwqaaq">
+      <i class="fa-brands fa-telegram"></i>
+    </a>
+  </div>
+</footer>

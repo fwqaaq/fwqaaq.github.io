@@ -1,0 +1,798 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#F3F7F6">
+  <meta name="description" content="linux 目录  | 目录            | 解释                                                            ...">
+  <meta name="keywords" content="Linux, Config">
+  <meta name="author" content="fwqaaq">
+  <meta property="og:site_name" content="fwqaaq 的博客">
+  <meta property="og:locale" content="zh_CN">
+  <meta property="og:title" content="linux">
+  <meta property="og:description" content="linux 目录  | 目录            | 解释                                                            ...">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://www.fwqaaq.com//posts/20220127155955/">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="fwqaaq 的博客">
+  <meta name=application-name content="fwqaaq 的博客">
+  <meta name=apple-mobile-web-app-title content="fwqaaq 的博客">
+  <title>
+    linux
+  </title>
+  <link rel="shortcut icon" href="/public/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="/public/css/base.849580.css">
+  <link rel="stylesheet" href="/public/css/index.849580.css">
+  <link rel="stylesheet" href="/public/css/markdown.849580.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+  <script src="/public/JavaScript/index.849580.js"></script>
+  <script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit" defer></script>
+</head>
+
+</html>
+<header class="blog-header">
+    <i id="switch-icon" class="fa-solid fa-bars"></i>
+    <a href="https://github.com/fwqaaq" target="_blank">
+        <img src="https://avatars.githubusercontent.com/u/82551626?v=4" loading="lazy" alt="me" srcset="">
+    </a>
+    <div class="wrap-background">
+        <nav class="header-nav">
+            <a class="decoration-line" href="/"><i class="fa-solid fa-house-chimney fa-xs"></i>
+                <span class="disappear">首页</span>
+            </a>
+            <a class="decoration-line" href="/./about/index.html"><i class="fa-solid fa-address-card fa-xs"></i>
+                <span class="disappear">关于</span></a>
+            <a class="decoration-line" href="/./archive/index.html"><i class="fa-solid fa-box-archive fa-xs"></i> <span
+                    class="disappear">归档</span></a>
+            <a class="decoration-line" href="/./tags/index.html"><i class="fa-solid fa-tag fa-xs"></i>
+                <span class="disappear">标签</span></a>
+            <a class="decoration-line" onclick="sponsor(199)">
+                <i class="fa-solid fa-circle-dollar-to-slot fa-xs"></i>
+                <span class="disappear">赞助</span></a>
+            <div class="language-switcher notranslate">
+                <button class="language-toggle" type="button" aria-label="切换语言" aria-expanded="false"
+                    aria-controls="language-menu">
+                    <i class="fa-solid fa-globe fa-xs" aria-hidden="true"></i>
+                    <span class="disappear" translate="yes">语言</span>
+                </button>
+                <div class="language-menu" id="language-menu" role="menu" hidden>
+                    <button class="language-option" type="button" role="menuitemradio" data-lang=""
+                        aria-checked="true">原文</button>
+                    <button class="language-option" type="button" role="menuitemradio" data-lang="en"
+                        aria-checked="false">English</button>
+                    <button class="language-option" type="button" role="menuitemradio" data-lang="ja"
+                        aria-checked="false">日本語</button>
+                    <button class="language-option" type="button" role="menuitemradio" data-lang="ko"
+                        aria-checked="false">한국어</button>
+                    <button class="language-option" type="button" role="menuitemradio" data-lang="fr"
+                        aria-checked="false">Français</button>
+                    <button class="language-option" type="button" role="menuitemradio" data-lang="de"
+                        aria-checked="false">Deutsch</button>
+                    <button class="language-option" type="button" role="menuitemradio" data-lang="es"
+                        aria-checked="false">Español</button>
+                    <button class="language-option" type="button" role="menuitemradio" data-lang="ru"
+                        aria-checked="false">Русский</button>
+                    <button class="language-option" type="button" role="menuitemradio" data-lang="zh-TW"
+                        aria-checked="false">繁體中文</button>
+                </div>
+            </div>
+            <div id="google_translate_element" class="google-translate-element notranslate" aria-hidden="true"></div>
+            <a class="decoration-line model" href="#" aria-label="切换深浅色主题"><i class="fa-solid fa-sun fa-xs"></i></a>
+        </nav>
+    </div>
+</header>
+        <main class="blog-main">
+          <article class="blog-article">
+            <h1>linux</h1>
+          <div class="post-meta post-meta-flex-around">
+              <div class="post-author" href="/./about/"><i class="fa-solid fa-user"></i> fwqaaq</div> 
+              <div class="post-time"><i class="fa-solid fa-clock"></i> 2022-01-27</div> 
+              <div class="post-update-time"><i class="fa-solid fa-clock-rotate-left"></i> 2025-11-09</div>
+            </div>
+            <hr>
+            <details class="remark-toc-details"><summary class="remark-toc-summary">目录</summary><ul class="remark-toc">
+<li>
+<p><a href="#linux-%E7%9B%AE%E5%BD%95">linux 目录</a></p>
+</li>
+<li>
+<p><a href="#%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4">常用命令</a></p>
+<ul>
+<li>
+<p><a href="#%E6%9F%A5%E7%9C%8B%E6%96%87%E4%BB%B6%E5%B1%9E%E6%80%A7%E5%92%8C%E4%BF%AE%E6%94%B9">查看文件属性和修改</a></p>
+</li>
+<li>
+<p><a href="#%E6%96%87%E4%BB%B6%E5%86%85%E5%AE%B9%E6%9F%A5%E7%9C%8B">文件内容查看</a></p>
+</li>
+<li>
+<p><a href="#linux-%E9%93%BE%E6%8E%A5%E7%9A%84%E6%A6%82%E5%BF%B5">linux 链接的概念</a></p>
+</li>
+<li>
+<p><a href="#%E8%B4%A6%E5%8F%B7%E7%AE%A1%E7%90%86">账号管理</a></p>
+<ul>
+<li><a href="#%E5%8A%A0%E5%85%A5-sudo-%E7%94%A8%E6%88%B7%E7%BB%84">加入 sudo 用户组</a></li>
+</ul>
+</li>
+<li>
+<p><a href="#%E5%88%87%E6%8D%A2%E7%94%A8%E6%88%B7">切换用户</a></p>
+</li>
+<li>
+<p><a href="#%E9%94%81%E5%AE%9A%E8%B4%A6%E6%88%B7">锁定账户</a></p>
+</li>
+</ul>
+</li>
+<li>
+<p><a href="#%E7%94%A8%E6%88%B7%E7%BB%84%E7%AE%A1%E7%90%86">用户组管理</a></p>
+<ul>
+<li><a href="#%E6%96%87%E4%BB%B6%E7%9A%84%E6%9F%A5%E7%9C%8B">文件的查看</a></li>
+<li><a href="#%E7%A3%81%E7%9B%98%E7%AE%A1%E7%90%86">磁盘管理</a></li>
+</ul>
+</li>
+<li>
+<p><a href="#%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86">进程管理</a></p>
+<ul>
+<li><a href="#%E7%BB%93%E6%9D%9F%E8%BF%9B%E7%A8%8B">结束进程</a></li>
+</ul>
+</li>
+<li>
+<p><a href="#%E9%98%B2%E7%81%AB%E5%A2%99">防火墙</a></p>
+</li>
+<li>
+<p><a href="#env">env</a></p>
+</li>
+<li>
+<p><a href="#scp">scp</a></p>
+</li>
+<li>
+<p><a href="#curl">curl</a></p>
+</li>
+<li>
+<p><a href="#alias">alias</a></p>
+</li>
+<li>
+<p><a href="#%E5%91%BD%E4%BB%A4%E5%8E%86%E5%8F%B2">命令历史</a></p>
+</li>
+<li>
+<p><a href="#%E5%BF%AB%E6%8D%B7%E9%94%AE">快捷键</a></p>
+</li>
+<li>
+<p><a href="#%E6%96%87%E6%9C%AC%E5%A4%84%E7%90%86%E5%B7%A5%E5%85%B7">文本处理工具</a></p>
+</li>
+</ul></details>
+<h2 id="linux-目录">linux 目录<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#linux-目录"></a></h2>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>目录</th><th>解释</th></tr></thead><tbody><tr><td><strong>/bin</strong></td><td>存放最常使用的命令</td></tr><tr><td><strong>/boot</strong></td><td>启动 Linux 时使用的一些核心文件</td></tr><tr><td><strong>/dev</strong></td><td>存放 linux 外部的设备，在 linux 中访问设备的方式和访问文件的方式是相同的</td></tr><tr><td><strong>/etc</strong></td><td>这个目录用来存放所有的系统管理所需的配置文件和子目录</td></tr><tr><td><strong>/home</strong></td><td>用户的主目录，在 linux 中共每个用户都有一个自己的目录，一般该目录是由用户账号命名</td></tr><tr><td><strong>/lib</strong></td><td>这个目录存放系统最基本的动态连接共享库，类似于 windows 的 dll 文件</td></tr><tr><td><strong>/lost+found</strong></td><td>一般情况是空的，非法关机后，就会存放一些文件</td></tr><tr><td><strong>/media</strong></td><td>识别设备 (例如 u 盘等) 识别后，linux 会把识别的设备挂载到这个目录</td></tr><tr><td><strong>/mnt</strong></td><td>让用户临时挂别的文件系统，可以将光驱挂载在<code>/mnt</code></td></tr><tr><td><strong>/opt</strong></td><td>这是给主机额外安装软件所摆放的</td></tr><tr><td><strong>/proc</strong></td><td>虚拟目录。存放系统内存的映射</td></tr><tr><td><strong>/root</strong></td><td>系统管理员</td></tr><tr><td><strong>/run</strong></td><td>临时文件系统，存储系统启动依赖的信息.(重启会被删掉)</td></tr><tr><td><strong>/sbin</strong></td><td>存放的是使用的系统管理程序</td></tr><tr><td><strong>/srv</strong></td><td>存放一些服务启动之后需要提取的数据</td></tr><tr><td><strong>/sys</strong></td><td>2.6 之后才有的。该目录安装了 2.6 内核中出现的新的文件系统 sysfs</td></tr><tr><td><strong>/tmp</strong></td><td>存放临时文件，用完即删</td></tr><tr><td><strong>/usr</strong></td><td>用户的很多程序文件都在这个目录下，类似于<code>program files</code></td></tr><tr><td><strong>/usr/bin</strong></td><td>系统用户使用的应用程序</td></tr><tr><td><strong>/usr/sbin</strong></td><td>超级用户使用的比较高级的管理员程序和系统守护程序</td></tr><tr><td><strong>/usr/src</strong></td><td>内核源代码默认存放的目录</td></tr><tr><td><strong>/var</strong></td><td>这个目录存放着不断扩充的东子</td></tr></tbody></table>
+<h2 id="常用命令">常用命令<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#常用命令"></a></h2>
+<h3 id="查看文件属性和修改">查看文件属性和修改<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#查看文件属性和修改"></a></h3>
+<ul class="remark-unordered-list">
+<li>
+<p>第一个 root 是<code>属主</code>,第二个 root 是<code>属组</code></p>
+</li>
+<li>
+<p>关于第一个字符的含义</p>
+<ul class="remark-ordered-list">
+<li><code>-d</code>:代表是目录</li>
+<li><code>-</code>:代表的是文件</li>
+<li><code>-l</code>:代表的是链接文档 (<code>link file</code>)</li>
+<li><code>b</code>:表示为装置文件里面的可供储存的接口设备 (可随机存取的装置)</li>
+<li><code>c</code>:表示为装置文件里卖弄的串行端口设备 (键盘，鼠标等一次性读取装置)</li>
+</ul>
+</li>
+<li>
+<p>剩下字符的含义</p>
+<ul class="remark-ordered-list">
+<li><code>r</code>:表示可读</li>
+<li><code>w</code>:表示可写</li>
+<li><code>x</code>:代表可执行</li>
+<li><code>-</code>:代表没有这个权限</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>修改文件属性</p>
+</blockquote>
+<ul class="remark-ordered-list">
+<li><strong>chagrp:更改文件数组</strong>
+<ul class="remark-unordered-list">
+<li><code>chgrp [-R] 属组名 文件名</code></li>
+<li><code>-R</code>:递归更改文件属组。放在更改某文件的同时，他目录下的所有文件属性都会更改</li>
+</ul>
+</li>
+<li><strong>chown:更改文件属主，也可以同时更改文件属组</strong>
+<ul class="remark-unordered-list">
+<li><code>chown [-R] 属主名 文件名</code></li>
+<li><code>chown [-R] 属主名:属组名 文件名</code></li>
+</ul>
+</li>
+<li><strong>chmod:更改文件 9 个属性</strong>（最重要）
+<ul class="remark-unordered-list">
+<li><code>chmod [-R] xyz 文件或者目录</code></li>
+<li>两种设置：一种是数字 (常用) 一种是符号</li>
+<li>基本权限：<code>owner/group/others</code>每个都有自己身份的<code>read/write/execute</code>(途中的两个 root 分别就是主和组)</li>
+</ul>
+</li>
+<li>每个字符对应的数字</li>
+</ul>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-shell"><span class="line"><span style="color:#FFE66D">r:4</span><span style="color:#96E072">   w:2</span><span style="color:#96E072">   x:1</span></span>
+<span class="line"><span style="color:#FFE66D">chmod</span><span style="color:#F39C12"> 770</span><span style="color:#96E072"> filename</span><span style="color:#A0A1A7CC"> # rwxrwx---</span></span>
+<span class="line"></span></code></pre>
+<ul class="remark-unordered-list">
+<li>例如：<code>chmod 777 filename</code>:赋予文件最高权限</li>
+</ul>
+<h3 id="文件内容查看">文件内容查看<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#文件内容查看"></a></h3>
+<ul class="remark-unordered-list">
+<li><code>cat</code>:从第一行开始显示文件的内容</li>
+<li><code>tac</code>:从最后一行显示文件的内容</li>
+<li><code>nl</code>:现实的时候顺道输出行号</li>
+<li><code>more</code>:一页一页的显示文件内容 (空格代表翻页，enter 代表按行向下翻)</li>
+<li><code>less</code>:与 more 相比，可以往前翻页 (上下键，q 是退出)
+<ul class="remark-unordered-list">
+<li>查询：<code>/+查询字符</code>从头到尾向下查询，<code>?+查询字符</code>从尾到头向下查询</li>
+</ul>
+</li>
+<li><code>head</code>:只有头几行</li>
+<li><code>tail</code>:只有尾几行</li>
+</ul>
+<blockquote>
+<p><code>/etc/sysconfig/network-scripts</code>:linux 网络配置文件</p>
+</blockquote>
+<h3 id="linux-链接的概念">linux 链接的概念<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#linux-链接的概念"></a></h3>
+<ul class="remark-unordered-list">
+<li>
+<p><strong>硬链接</strong>:硬链接相当于指向的是文件实际存储路径。可以使用这种机制建立到一些重要文件，防止误删</p>
+</li>
+<li>
+<p><strong>软链接</strong>:软连接相当于指向文件路径，删除源文件，就访问不了</p>
+</li>
+<li>
+<p>创建链接：<code>ln</code></p>
+<ul class="remark-ordered-list">
+<li>硬链接：<code>ln f1 f2</code>,创建 1 个 f1 的硬链接</li>
+<li>软链接：<code>ln -s f1 f3</code>,s 代表软连接。创建 1 个 f1 的软链接<code>f3->f1</code></li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>ls -a 有箭头指向的是软连接</p>
+</blockquote>
+<h3 id="账号管理">账号管理<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#账号管理"></a></h3>
+<ul class="remark-unordered-list">
+<li>以下都需要 root 权限</li>
+</ul>
+<blockquote>
+<p>一些云服务器会限制使用 root 或者<strong>密码登录</strong>，这时候我们需要更改它的默认配置</p>
+</blockquote>
+<ul class="remark-ordered-list">
+<li>
+<p>切换到 root 权限中，进入 sshd_config 配置文件中</p>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-bash"><span class="line"><span style="color:#FFE66D">sudo</span><span style="color:#EE5D43"> -i</span></span>
+<span class="line"><span style="color:#FFE66D">cd</span><span style="color:#96E072"> /etc/ssh/sshd_config</span></span>
+<span class="line"></span></code></pre>
+</li>
+<li>
+<p>修改 sshd_config 配置文件</p>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-bash"><span class="line"><span style="color:#A0A1A7CC"># Authentication:</span></span>
+<span class="line"><span style="color:#FFE66D">PermitRootLogin</span><span style="color:#96E072"> yes</span><span style="color:#96E072"> //默认为</span><span style="color:#96E072"> no，需要开启</span><span style="color:#96E072"> root</span><span style="color:#96E072"> 用户访问改为</span><span style="color:#96E072"> yes</span></span>
+<span class="line"><span style="color:#A0A1A7CC"># Change to no to disable tunnelled clear text passwords</span></span>
+<span class="line"><span style="color:#FFE66D">PasswordAuthentication</span><span style="color:#96E072"> yes</span><span style="color:#96E072"> //默认为</span><span style="color:#96E072"> no，改为</span><span style="color:#96E072"> yes</span><span style="color:#96E072"> 开启密码登陆</span></span>
+<span class="line"></span></code></pre>
+</li>
+<li>
+<p>重新开启 sshd 服务</p>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-bash"><span class="line"><span style="color:#FFE66D">systemctl</span><span style="color:#96E072"> restart</span><span style="color:#96E072"> sshd</span></span>
+<span class="line"><span style="color:#A0A1A7CC"># 或者是 ssh</span></span>
+<span class="line"><span style="color:#A0A1A7CC"># systemctl restart ssh</span></span>
+<span class="line"></span></code></pre>
+</li>
+<li>
+<p>在 root 权限下更改 user 的密码</p>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-bash"><span class="line"><span style="color:#FFE66D">passwd</span><span style="color:#96E072"> user</span></span>
+<span class="line"></span></code></pre>
+</li>
+</ul>
+<blockquote>
+<p>添加用户：<code>useradd -选项 用户名</code></p>
+</blockquote>
+<ul class="remark-unordered-list">
+<li>
+<p><code>-m</code>：使用者目录。没有则自动建立</p>
+</li>
+<li>
+<p><code>-c</code>：指定一段注释性描述</p>
+</li>
+<li>
+<p><code>-d</code>  目录：指定用户主目录，如果此目录不存在，则同时使用 <code>-m</code> 选项，可以创建主目录</p>
+</li>
+<li>
+<p><code>-g</code> 用户组：指定用户所属的用户组</p>
+</li>
+<li>
+<p><code>-G</code> 用户组：指定用户所属的附加组</p>
+</li>
+<li>
+<p><code>-s</code> Shell：指定用户的登录 Shell</p>
+</li>
+<li>
+<p><code>-u</code> 用户号：指定用户的用户号，如果同时有 <code>-o</code>，则可以重复使用其它用户的标识号</p>
+</li>
+<li>
+<p><strong>创建用户的本质就是在 <code>/etc/password</code> 种写入一个用户的信息</strong></p>
+</li>
+</ul>
+<blockquote>
+<p>删除指定的用户：userdel 选项 用户名</p>
+</blockquote>
+<ul class="remark-unordered-list">
+<li><code>-r</code>:删除用户的时候将他的目录也一起删掉</li>
+</ul>
+<blockquote>
+<p>修改用户：usermod 选项 用户名</p>
+</blockquote>
+<ul class="remark-unordered-list">
+<li><code>-m -c -d -g -G -s -u</code>：这些和以上的选项作用一样</li>
+</ul>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-shell"><span class="line"><span style="color:#D5CED9">[root@VM-12-17-centos home]# usermod -d /home/fw1314 fw</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#A0A1A7CC"># 在/etc/password查看</span></span>
+<span class="line"><span style="color:#FFE66D">fw:x:1001:1001::/home/fw1314:/bin/bash</span></span>
+<span class="line"></span></code></pre>
+<h4 id="加入-sudo-用户组">加入 sudo 用户组<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#加入-sudo-用户组"></a></h4>
+<blockquote>
+<p>Ubuntu, kbuntu, debian, etc</p>
+</blockquote>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-bash"><span class="line"><span style="color:#FFE66D">usermod</span><span style="color:#EE5D43"> -a</span><span style="color:#EE5D43"> -G</span><span style="color:#96E072"> sudo</span><span style="color:#96E072"> user</span></span>
+<span class="line"></span></code></pre>
+<blockquote>
+<p>RedHat, Fedora, CentOS, etc</p>
+</blockquote>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-bash"><span class="line"><span style="color:#FFE66D">usermod</span><span style="color:#EE5D43"> -a</span><span style="color:#EE5D43"> -G</span><span style="color:#96E072"> wheel</span><span style="color:#96E072"> user</span></span>
+<span class="line"></span></code></pre>
+<h3 id="切换用户">切换用户<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#切换用户"></a></h3>
+<ul class="remark-ordered-list">
+<li>切换用户的命令：<code>su username</code>(username 是用户名)</li>
+<li>从普通的用户切换到 <code>root</code>：<code>su root</code> 需要输入密码</li>
+<li>在终端输入 exit 或者 <code>ctrl+d</code> 也可以退回到原来的账号</li>
+<li><code>hostname</code> 主机名：修改主机名</li>
+</ul>
+<blockquote>
+<ul class="remark-unordered-list">
+<li>root 给用户设置密码：<code>passwd 用户名</code></li>
+<li>普通用户直接输入：<code>passwd</code>,修改密码</li>
+</ul>
+</blockquote>
+<h3 id="锁定账户">锁定账户<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#锁定账户"></a></h3>
+<blockquote>
+<ul class="remark-unordered-list">
+<li><code>passwd -l</code> 用户名：将该账户锁定</li>
+<li><code>passwd -d</code> 用户名：将这个账户密码清空</li>
+</ul>
+</blockquote>
+<h2 id="用户组管理">用户组管理<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#用户组管理"></a></h2>
+<blockquote>
+<p>每个用户都有一个用户组，系统可以对一个用户组种的所有用户进行集中管理 (例如开发，测试，运维，root 等).不同的 Linux 系统对用户组的规定有所不同</p>
+<p>用户组的管理涉及用户组的添加，修改，删除。组的增加，删除和修改实际上就是对
+<code>/etc/group</code> 文件的更新</p>
+</blockquote>
+<ul class="remark-unordered-list">
+<li>创建一个用户组 <code>groupadd 组名</code>
+<ul class="remark-unordered-list">
+<li>查看 <code>cat /etc/group</code></li>
+<li>创建完用户组可以得到一个组的 id <code>-g id</code>，如果不指定可以自增</li>
+</ul>
+</li>
+</ul>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-shell"><span class="line"><span style="color:#D5CED9">[root@VM-12-17-centos home]# groupadd fw1314 -g 120</span></span>
+<span class="line"><span style="color:#A0A1A7CC"># fw1314:x:120:</span></span>
+<span class="line"></span></code></pre>
+<blockquote>
+<p>删除用户组 <code>groupdel 组名</code></p>
+<p>修改用户组的权限<code>groupmod 选项 组名</code></p>
+</blockquote>
+<ul class="remark-unordered-list">
+<li><code>-g</code>：修改 id</li>
+<li><code>-n</code>：修改组名</li>
+</ul>
+<blockquote>
+<p>修改用户组 (一般直接在创建用户时使用 <code>-G</code> 分配组)</p>
+</blockquote>
+<ul class="remark-unordered-list">
+<li>普通用户 <code>newgrp 组名</code></li>
+</ul>
+<h3 id="文件的查看">文件的查看<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#文件的查看"></a></h3>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-shell"><span class="line"><span style="color:#FFE66D">root:x:0:0:root:/root:/bin/bash</span></span>
+<span class="line"></span></code></pre>
+<ul class="remark-unordered-list">
+<li><code>/etc/password</code>：用户名:口令 (登录密码，不可见):用户标识符:组标识号:注释性描述:主目录:登录 shell
+<ul class="remark-unordered-list">
+<li>每一行都代表一个用户，从中可以看出这个用户的主目录在哪，属于哪一个组</li>
+<li>密码放在 <code>/etc/shadow</code> 中</li>
+</ul>
+</li>
+</ul>
+<h3 id="磁盘管理">磁盘管理<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#磁盘管理"></a></h3>
+<ul class="remark-ordered-list">
+<li><code>df</code>：列出文件系统整体的磁盘使用量 (<code>-h</code> 使用十进制表示)</li>
+<li><code>du</code>：检查当前磁盘空间的使用量
+<ul class="remark-unordered-list">
+<li><code>du -sm /*</code>：检查根目录下所占用的容量</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>Mac 或者用 Linux 挂载一些本地磁盘或者文件</p>
+</blockquote>
+<ul class="remark-unordered-list">
+<li><code>mount /dev/fw /mnt/fw</code>：将外部设备 <code>/dev/fw</code> 挂载到 <code>/mnt/fw</code>，因为外部设备都会在 <code>/dev/fw</code> 中
+<ul class="remark-unordered-list">
+<li><code>umount</code>：卸载。<code>-f</code>强制卸载</li>
+</ul>
+</li>
+</ul>
+<h2 id="进程管理">进程管理<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#进程管理"></a></h2>
+<p><code>ps 选项</code>:查看系统中正在进行的进程信息</p>
+<p>选项 解释 -a 显示当前终端运行的所有进程信息 (当前的进程) -u 以用户的信息显示进程
+-x 显示后台运行进程的参数</p>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-shell"><span class="line"><span style="color:#FFE66D">A</span><span style="color:#EE5D43">|</span><span style="color:#FFE66D">B</span><span style="color:#A0A1A7CC"> #使用A命令的结果来操作B命令</span></span>
+<span class="line"><span style="color:#FFE66D">ps</span><span style="color:#EE5D43"> -aux</span><span style="color:#A0A1A7CC"> # 查看所有的进程</span></span>
+<span class="line"></span></code></pre>
+<ul class="remark-unordered-list">
+<li><code>grep</code>:查找文件中符合条件的字符串</li>
+</ul>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-shell"><span class="line"><span style="color:#FFE66D">ps</span><span style="color:#EE5D43"> -aux</span><span style="color:#EE5D43"> |</span><span style="color:#FFE66D"> grep</span><span style="color:#96E072"> nginx</span></span>
+<span class="line"></span></code></pre>
+<ul class="remark-unordered-list">
+<li><strong>ps -ef</strong>:查看父进程的信息</li>
+</ul>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-shell"><span class="line"><span style="color:#FFE66D">ps</span><span style="color:#EE5D43"> -ef</span><span style="color:#EE5D43"> |</span><span style="color:#FFE66D"> grep</span><span style="color:#96E072"> nginx</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#A0A1A7CC"># 一般使用目录树结构查看</span></span>
+<span class="line"><span style="color:#FFE66D">pstree</span><span style="color:#EE5D43"> -pu</span></span>
+<span class="line"></span></code></pre>
+<ul class="remark-unordered-list">
+<li><strong>pstree</strong>:以目录树结构查看
+<ul class="remark-unordered-list">
+<li><code>-p</code>:显示父 id</li>
+<li><code>-u</code>:显示用户组</li>
+</ul>
+</li>
+</ul>
+<h3 id="结束进程">结束进程<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#结束进程"></a></h3>
+<ul class="remark-unordered-list">
+<li><code>kill 进程id</code>:杀掉进程
+<ul class="remark-unordered-list">
+<li><code>-9</code>:强制杀掉进程</li>
+</ul>
+</li>
+</ul>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-shell"><span class="line"><span style="color:#FFE66D">kill</span><span style="color:#EE5D43"> -9</span><span style="color:#F39C12"> 873518</span></span>
+<span class="line"></span></code></pre>
+<h2 id="防火墙">防火墙<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#防火墙"></a></h2>
+<ul class="remark-ordered-list">
+<li>查看防火墙状态
+<ul class="remark-unordered-list">
+<li>查看防火墙状态 <code>systemctl status firewalld</code></li>
+<li>开启防火墙 <code>systemctl start firewalld</code></li>
+<li>关闭防火墙 <code>systemctl stop firewalld</code></li>
+<li>开启防火墙 <code>service firewalld start</code></li>
+</ul>
+</li>
+<li>查看对外开放的端口状态
+<ul class="remark-unordered-list">
+<li>查询已开放的端口 <code>netstat  -ntulp | grep 端口号</code>:可以具体查看某一个端口号</li>
+<li>查看想开的端口是否已开：<code>firewall-cmd --query-port=6379/tcp</code></li>
+<li>添加指定需要开放的端口：<code>firewall-cmd --add-port=123/tcp --permanent</code></li>
+<li>重载入添加的端口：<code>firewall-cmd --reload</code></li>
+<li>移除指定端口：<code>firewall-cmd --permanent --remove-port=123/tcp</code></li>
+</ul>
+</li>
+<li>若遇到无法开启
+<ul class="remark-unordered-list">
+<li>先用：<code>systemctl unmask firewalld.service</code></li>
+<li>然后：<code>systemctl start firewalld.service</code></li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>由于你开了防火墙的同时，可能还有 docker 服务，会遇到如下错误</p>
+</blockquote>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-shell"><span class="line"><span style="color:#FFE66D">Error</span><span style="color:#96E072"> response</span><span style="color:#96E072"> from</span><span style="color:#96E072"> daemon:</span><span style="color:#96E072"> driver</span><span style="color:#96E072"> failed</span><span style="color:#96E072"> programming</span><span style="color:#96E072"> external</span><span style="color:#96E072"> connectivity</span><span style="color:#96E072"> on</span><span style="color:#96E072"> endpoint</span><span style="color:#96E072"> quirky_allen</span><span style="color:#D5CED9"> (4127da7466709fd45695a1fbe98e13c2ac30c2a554e18fb902ef5a03ba308438): (</span><span style="color:#FFE66D">iptables</span><span style="color:#96E072"> failed:</span><span style="color:#96E072"> iptables</span><span style="color:#EE5D43"> --wait</span><span style="color:#EE5D43"> -t</span><span style="color:#96E072"> nat</span><span style="color:#EE5D43"> -A</span><span style="color:#96E072"> DOCKER</span><span style="color:#EE5D43"> -p</span><span style="color:#96E072"> tcp</span><span style="color:#EE5D43"> -d</span><span style="color:#96E072"> 0/0</span><span style="color:#EE5D43"> --dport</span><span style="color:#F39C12"> 9000</span><span style="color:#EE5D43"> -j</span><span style="color:#96E072"> DNAT</span><span style="color:#EE5D43"> --to-destination</span><span style="color:#96E072"> 172.17.0.2:80</span><span style="color:#96E072"> !</span><span style="color:#EE5D43"> -i</span><span style="color:#96E072"> docker0:</span><span style="color:#96E072"> iptables:</span><span style="color:#96E072"> No</span><span style="color:#96E072"> chain/target/match</span><span style="color:#96E072"> by</span><span style="color:#96E072"> that</span><span style="color:#96E072"> name.</span></span>
+<span class="line"><span style="color:#D5CED9">(</span><span style="color:#FFE66D">exit</span><span style="color:#96E072"> status</span><span style="color:#F39C12"> 1</span><span style="color:#D5CED9">))</span></span>
+<span class="line"></span></code></pre>
+<ul class="remark-unordered-list">
+<li><code>firewall</code> 的底层是使用 <code>iptables</code> 进行数据过滤，建立在 <code>iptables</code> 之上，这可能会与 <code>Docker</code> 产生冲突。</li>
+</ul>
+<p>当 firewalld 启动或者重启的时候，将会从 iptables 中移除 DOCKER 的规则，从而影响了
+Docker 的正常工作。</p>
+<p>当你使用的是 Systemd 的时候，firewalld 会在 Docker 之前启动，但是如果你在 <code>Docker</code> 启动之后再启 或者重启 <code>firewalld</code>，你就需要重启 Docker 进程了</p>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-shell"><span class="line"><span style="color:#FFE66D">systemctl</span><span style="color:#96E072"> restart</span><span style="color:#96E072"> docker</span></span>
+<span class="line"></span></code></pre>
+<h2 id="env">env<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#env"></a></h2>
+<ul class="remark-ordered-list">
+<li>
+<p><code>env</code>:查看所有环境变量</p>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-shell"><span class="line"><span style="color:#FFE66D">env</span></span>
+<span class="line"></span></code></pre>
+</li>
+<li>
+<p><code>export</code>:查看所有环境变量</p>
+<ul class="remark-unordered-list">
+<li><code>export PATH="..."</code>: 在 PATH 最后添加指定变量 (环境变量)</li>
+<li>指定的环境变量立即生效</li>
+</ul>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-shell"><span class="line"><span style="color:#FFE66D">source</span><span style="color:#96E072"> /etc/profile</span></span>
+<span class="line"></span></code></pre>
+<ul class="remark-unordered-list">
+<li>如果要删除某个环境变量，首先使用 <code>echo $PATH</code> 获取所有环境变量，然后使用
+<code>export PATH="..."</code> 来指定不要删除的环境变量 (排除删除的即可)</li>
+</ul>
+</li>
+</ul>
+<h2 id="scp">scp<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#scp"></a></h2>
+<blockquote>
+<p>假设我们有两台主机 A and B，但是我们现在在主机 A 中</p>
+</blockquote>
+<ul class="remark-ordered-list">
+<li>
+<p>如果我们想要将主机 A 的文件拷贝到主机 B</p>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-bash"><span class="line"><span style="color:#00E8C6">$scp</span><span style="color:#D5CED9"> -r local_folder remote_username@remote_ip:remote_folder</span></span>
+<span class="line"><span style="color:#A0A1A7CC"># 如果已经有对方公钥的情况</span></span>
+<span class="line"><span style="color:#00E8C6">$scp</span><span style="color:#D5CED9"> -r local_folder remote_ip:remote_folder</span></span>
+<span class="line"></span></code></pre>
+</li>
+</ul>
+<h2 id="curl">curl<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#curl"></a></h2>
+<blockquote>
+<p>使用 <code>curl url</code> 可以返回对方的响应地址，默认是 get 请求</p>
+</blockquote>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-bash"><span class="line"><span style="color:#FFE66D">curl</span><span style="color:#96E072"> 'https://s1.hdslb.com/bfs/seed/bplus-common/icon-font/2.1.2/bp-icon-font.css'</span></span>
+<span class="line"></span></code></pre>
+<ul class="remark-unordered-list">
+<li>如果需要发送 post 请求，需要 <code>curl -X -POST url</code> 来发送，当然也可以将 X 和
+POST 合起来写 <code>-XPOST</code>
+<ul class="remark-unordered-list">
+<li>如果要返回数据，需要添加 -d 标志</li>
+</ul>
+</li>
+</ul>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-bash"><span class="line"><span style="color:#A0A1A7CC"># 添加 json 格式的数据</span></span>
+<span class="line"><span style="color:#FFE66D">curl</span><span style="color:#EE5D43"> -XPOST</span><span style="color:#96E072"> url</span><span style="color:#EE5D43"> -d</span><span style="color:#96E072"> '{"fw":"me"}'</span></span>
+<span class="line"></span></code></pre>
+<ul class="remark-unordered-list">
+<li>更新数据 <code>-XPUT</code></li>
+</ul>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-bash"><span class="line"><span style="color:#FFE66D">curl</span><span style="color:#EE5D43"> -XPUT</span><span style="color:#96E072"> url</span><span style="color:#EE5D43"> -d</span><span style="color:#96E072"> '{"update":"更新数据"}'</span></span>
+<span class="line"></span></code></pre>
+<ul class="remark-unordered-list">
+<li>删除数据 <code>-XDELETE</code></li>
+</ul>
+<blockquote>
+<p>如果我们需要添加 header 信息，需要使用 <code>-H</code> 选项</p>
+</blockquote>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-bash"><span class="line"><span style="color:#A0A1A7CC"># 如果需要多个 header，可以添加多个 -H，例如 -H ... -H ...</span></span>
+<span class="line"><span style="color:#FFE66D">curl</span><span style="color:#EE5D43"> -XPOST</span><span style="color:#96E072"> url</span><span style="color:#EE5D43"> -H</span><span style="color:#96E072"> 'Content-Type:application/json'</span><span style="color:#EE5D43"> -d</span><span style="color:#96E072"> '{"fw":"me"}'</span></span>
+<span class="line"></span></code></pre>
+<ul class="remark-unordered-list">
+<li>如果我们想要获取到响应的 header 信息，可以使用 <code>curl -I url</code></li>
+</ul>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-bash"><span class="line"><span style="color:#FFE66D">curl</span><span style="color:#EE5D43"> -I</span><span style="color:#96E072"> 'https://s1.hdslb.com/bfs/seed/bplus-common/icon-font/2.1.2/bp-icon-font.css'</span></span>
+<span class="line"></span></code></pre>
+<blockquote>
+<p>如果目标端有资源需要处理，需要使用 <code>curl -O url</code>,
+会将资源直接下载到当前的目标的文件夹中</p>
+</blockquote>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-bash"><span class="line"><span style="color:#FFE66D">curl</span><span style="color:#EE5D43"> -O</span><span style="color:#96E072"> 'https://s1.hdslb.com/bfs/seed/bplus-common/icon-font/2.1.2/bp-icon-font.css'</span></span>
+<span class="line"></span></code></pre>
+<ul class="remark-unordered-list">
+<li>当然，如果使用 <code>-o filename</code> 就可以修改文件名</li>
+</ul>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-bash"><span class="line"><span style="color:#FFE66D">curl</span><span style="color:#EE5D43"> -o</span><span style="color:#96E072"> fw.css</span><span style="color:#96E072"> 'https://s1.hdslb.com/bfs/seed/bplus-common/icon-font/2.1.2/bp-icon-font.css'</span></span>
+<span class="line"></span></code></pre>
+<ul class="remark-unordered-list">
+<li>如果下载大文件，并且想要限制速度，可以使用 <code>--limit-rate</code> 速度
+(不设置单位默认是<strong>字节</strong>)</li>
+</ul>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-bash"><span class="line"><span style="color:#FFE66D">curl</span><span style="color:#EE5D43"> --limit-rate</span><span style="color:#96E072"> 100k</span><span style="color:#EE5D43"> -o</span><span style="color:#96E072"> fw.css</span><span style="color:#96E072"> 'https://s1.hdslb.com/bfs/seed/bplus-common/icon-font/2.1.2/bp-icon-font.css'</span></span>
+<span class="line"></span></code></pre>
+<ul class="remark-unordered-list">
+<li>如果下载中止（可能是 <kbd>ctrl</kbd>+<kbd>c</kbd>）这时候可以使用 <code>-C</code> 其它命令</li>
+</ul>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-bash"><span class="line"><span style="color:#A0A1A7CC">#因为这里不需要其他参数，所以 -C 后跟 -</span></span>
+<span class="line"><span style="color:#FFE66D">curl</span><span style="color:#EE5D43"> -C</span><span style="color:#96E072"> -</span><span style="color:#EE5D43"> -o</span><span style="color:#96E072"> fw.css</span><span style="color:#96E072"> 'https://s1.hdslb.com/bfs/seed/bplus-common/icon-font/2.1.2/bp-icon-font.css'</span></span>
+<span class="line"></span></code></pre>
+<blockquote>
+<p>curl 默认不会跟着重定向</p>
+</blockquote>
+<ul class="remark-unordered-list">
+<li>为了跟着重定向，我们需要使用 <code>-L</code></li>
+</ul>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-bash"><span class="line"><span style="color:#FFE66D">curl</span><span style="color:#96E072"> https://www.bilibili.com</span><span style="color:#EE5D43"> -L</span></span>
+<span class="line"></span></code></pre>
+<blockquote>
+<p>如果想要查看连接的所有信息，需要使用 <code>-v</code></p>
+</blockquote>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-bash"><span class="line"><span style="color:#FFE66D">curl</span><span style="color:#EE5D43"> -v</span><span style="color:#96E072"> https://www.bilibili.com</span><span style="color:#EE5D43"> -L</span></span>
+<span class="line"></span></code></pre>
+<ul class="remark-unordered-list">
+<li>使用代理去请求（<code>--proxy</code>），一般情况下，这个都是需要账户和密码的</li>
+</ul>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-bash"><span class="line"><span style="color:#FFE66D">curl</span><span style="color:#EE5D43"> --proxy</span><span style="color:#96E072"> "https://xxx@ip:port"</span><span style="color:#96E072"> url</span></span>
+<span class="line"></span></code></pre>
+<ul class="remark-unordered-list">
+<li>如果是 ftp 协议，需要用户名和密码，那么就可以用小写的 <code>-u</code> 来指定</li>
+</ul>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-bash"><span class="line"><span style="color:#FFE66D">curl</span><span style="color:#EE5D43"> -u</span><span style="color:#96E072"> user:password</span><span style="color:#EE5D43"> -O</span><span style="color:#96E072"> ftp://server/xxx</span></span>
+<span class="line"></span></code></pre>
+<ul class="remark-unordered-list">
+<li>如果上传文件，需要增加 <code>-T</code> 后面跟着文件名</li>
+</ul>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-bash"><span class="line"><span style="color:#FFE66D">curl</span><span style="color:#EE5D43"> -u</span><span style="color:#96E072"> user:password</span><span style="color:#EE5D43"> -T</span><span style="color:#96E072"> file</span><span style="color:#96E072"> ftp://server/xxx</span></span>
+<span class="line"></span></code></pre>
+<h2 id="alias">alias<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#alias"></a></h2>
+<p>设置别名</p>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-bash"><span class="line"><span style="color:#C74DED">alias</span><span style="color:#00E8C6"> rm</span><span style="color:#EE5D43">=</span><span style="color:#96E072">"rm i"</span></span>
+<span class="line"></span></code></pre>
+<p>取消别名</p>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-bash"><span class="line"><span style="color:#FFE66D">unalias</span><span style="color:#96E072"> rm</span></span>
+<span class="line"></span></code></pre>
+<h2 id="命令历史">命令历史<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#命令历史"></a></h2>
+<p>查看所有命令历史</p>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-bash"><span class="line"><span style="color:#FFE66D">history</span></span>
+<span class="line"></span></code></pre>
+<p>查看上一条命令</p>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-bash"><span class="line"><span style="color:#EE5D43">!!</span></span>
+<span class="line"></span></code></pre>
+<h2 id="快捷键">快捷键<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#快捷键"></a></h2>
+<ul class="remark-unordered-list">
+<li>ctrl + a 移动到行首</li>
+<li>ctrl + e 移动到行尾</li>
+<li>ctrl + u 删光所有字符</li>
+<li>ctrl + k 删除光标之后到</li>
+<li>ctrl + l 清空屏幕终端的内容</li>
+</ul>
+<h2 id="文本处理工具">文本处理工具<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#文本处理工具"></a></h2>
+<ul class="remark-ordered-list">
+<li>grep: 文本过滤工具（模式：pattern）</li>
+<li>sed: stream editor；文本编辑工具</li>
+<li>awk: 文本报告生成器（支持格式化文本）</li>
+</ul>
+<div class="sponsor-container">
+  <button class="sponsor-btn">
+    <a href="https://stripe.fwqaaq.workers.dev/Personal-Website-Sponsor/checkout?mode=once" target="_blank" rel="noopener noreferrer" class="">
+      <span class="sponsor-icon">☕</span>
+      <span>请博主喝杯咖啡</span>
+  </a>
+  </button>
+</div>
+          </article>
+        </main><script src="https://giscus.app/client.js"
+        data-repo="fwqaaq/fwqaaq.github.io"
+        data-repo-id="R_kgDOHCFK2A"
+        data-category="Show and tell"
+        data-category-id="DIC_kwDOHCFK2M4CYOLh"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="1"
+        data-input-position="bottom"
+        data-theme="preferred_color_scheme"
+        data-lang="zh-CN"
+        crossorigin="anonymous"
+        async></script><footer class="blog-footer">
+  <div class="footer-container">
+    <p class="text-center"><a class="decoration-line"
+        href="https://creativecommons.org/licenses/by-sa/3.0/deed.zh-hans">© CC BY-SA</a> 2021 -
+      2025 <a class="decoration-line" href="https://github.com/fwqaaq">fwqaaq</a>.
+      Powered by <a class="decoration-line" href="https://deno.com">Deno</a>
+    </p>
+  </div>
+  <div class="footer-icons-container">
+    <a class="icon" href="https://github.com/fwqaaq">
+      <i class="fa-brands fa-github"></i>
+    </a>
+    <a class="icon" href="mailto:fwqaaq@gmail">
+      <i class="fa-solid fa-envelope"></i>
+    </a>
+    <a class="icon" href="https://www.fwqaaq.com/feed.xml">
+      <i class="fa-solid fa-rss"></i>
+    </a>
+    <a class="icon" href="https://t.me/fwqaaq">
+      <i class="fa-brands fa-telegram"></i>
+    </a>
+  </div>
+</footer>

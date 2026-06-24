@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#F3F7F6">
+  <meta name="description" content="n 和使用 workflows 是两个不同的操作  1. 使用 [workflows](https://docs.github.com/cn/actions/using-workf...">
+  <meta name="keywords" content="Git, GitHub">
+  <meta name="author" content="fwqaaq">
+  <meta property="og:site_name" content="fwqaaq 的博客">
+  <meta property="og:locale" content="zh_CN">
+  <meta property="og:title" content="GitHub Action MetaData">
+  <meta property="og:description" content="n 和使用 workflows 是两个不同的操作  1. 使用 [workflows](https://docs.github.com/cn/actions/using-workf...">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://www.fwqaaq.com//posts/20220521135320/">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="fwqaaq 的博客">
+  <meta name=application-name content="fwqaaq 的博客">
+  <meta name=apple-mobile-web-app-title content="fwqaaq 的博客">
+  <title>
+    GitHub Action MetaData
+  </title>
+  <link rel="shortcut icon" href="/public/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="/public/css/base.849580.css">
+  <link rel="stylesheet" href="/public/css/index.849580.css">
+  <link rel="stylesheet" href="/public/css/markdown.849580.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+  <script src="/public/JavaScript/index.849580.js"></script>
+  <script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit" defer></script>
+</head>
+
+</html>
+<header class="blog-header">
+    <i id="switch-icon" class="fa-solid fa-bars"></i>
+    <a href="https://github.com/fwqaaq" target="_blank">
+        <img src="https://avatars.githubusercontent.com/u/82551626?v=4" loading="lazy" alt="me" srcset="">
+    </a>
+    <div class="wrap-background">
+        <nav class="header-nav">
+            <a class="decoration-line" href="/"><i class="fa-solid fa-house-chimney fa-xs"></i>
+                <span class="disappear">首页</span>
+            </a>
+            <a class="decoration-line" href="/./about/index.html"><i class="fa-solid fa-address-card fa-xs"></i>
+                <span class="disappear">关于</span></a>
+            <a class="decoration-line" href="/./archive/index.html"><i class="fa-solid fa-box-archive fa-xs"></i> <span
+                    class="disappear">归档</span></a>
+            <a class="decoration-line" href="/./tags/index.html"><i class="fa-solid fa-tag fa-xs"></i>
+                <span class="disappear">标签</span></a>
+            <a class="decoration-line" onclick="sponsor(199)">
+                <i class="fa-solid fa-circle-dollar-to-slot fa-xs"></i>
+                <span class="disappear">赞助</span></a>
+            <div class="language-switcher notranslate">
+                <button class="language-toggle" type="button" aria-label="切换语言" aria-expanded="false"
+                    aria-controls="language-menu">
+                    <i class="fa-solid fa-globe fa-xs" aria-hidden="true"></i>
+                    <span class="disappear" translate="yes">语言</span>
+                </button>
+                <div class="language-menu" id="language-menu" role="menu" hidden>
+                    <button class="language-option" type="button" role="menuitemradio" data-lang=""
+                        aria-checked="true">原文</button>
+                    <button class="language-option" type="button" role="menuitemradio" data-lang="en"
+                        aria-checked="false">English</button>
+                    <button class="language-option" type="button" role="menuitemradio" data-lang="ja"
+                        aria-checked="false">日本語</button>
+                    <button class="language-option" type="button" role="menuitemradio" data-lang="ko"
+                        aria-checked="false">한국어</button>
+                    <button class="language-option" type="button" role="menuitemradio" data-lang="fr"
+                        aria-checked="false">Français</button>
+                    <button class="language-option" type="button" role="menuitemradio" data-lang="de"
+                        aria-checked="false">Deutsch</button>
+                    <button class="language-option" type="button" role="menuitemradio" data-lang="es"
+                        aria-checked="false">Español</button>
+                    <button class="language-option" type="button" role="menuitemradio" data-lang="ru"
+                        aria-checked="false">Русский</button>
+                    <button class="language-option" type="button" role="menuitemradio" data-lang="zh-TW"
+                        aria-checked="false">繁體中文</button>
+                </div>
+            </div>
+            <div id="google_translate_element" class="google-translate-element notranslate" aria-hidden="true"></div>
+            <a class="decoration-line model" href="#" aria-label="切换深浅色主题"><i class="fa-solid fa-sun fa-xs"></i></a>
+        </nav>
+    </div>
+</header>
+        <main class="blog-main">
+          <article class="blog-article">
+            <h1>GitHub Action MetaData</h1>
+          <div class="post-meta post-meta-flex-around">
+              <div class="post-author" href="/./about/"><i class="fa-solid fa-user"></i> fwqaaq</div> 
+              <div class="post-time"><i class="fa-solid fa-clock"></i> 2022-05-21</div> 
+              <div class="post-update-time"><i class="fa-solid fa-clock-rotate-left"></i> 2025-11-09</div>
+            </div>
+            <hr>
+            <blockquote>
+<p>创建 action 和使用 workflows 是两个不同的操作</p>
+</blockquote>
+<ul class="remark-ordered-list">
+<li>使用 <a href="https://docs.github.com/cn/actions/using-workflows/about-workflows">workflows</a> 是一个自动化的过程
+<ul class="remark-unordered-list">
+<li>由 <code>.github/workflows</code> 下的 <code>yaml</code> 文件定义，可以是事件，事件或者手动触发</li>
+</ul>
+</li>
+<li>创建 <a href="https://docs.github.com/cn/actions/creating-actions/about-custom-actions">action</a> 可以创建自己的操作或者使用和自定义 github 社区分享的操作
+<ul class="remark-unordered-list">
+<li>在操作主要元数据文件按来定义操作的输入，输出和主要进入点。元数据的文件名必须要 <code>action.yml</code></li>
+</ul>
+</li>
+</ul>
+<h2 id="javascript-操作"><a href="https://docs.github.com/cn/actions/creating-actions/creating-a-javascript-action">JavaScript 操作</a><a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#javascript-操作"></a></h2>
+<ul class="remark-unordered-list">
+<li>这里尝试演示一个使用 actions 元数据去编写一个 Issue 自动提交</li>
+</ul>
+<blockquote>
+<p><a href="https://docs.github.com/cn/actions/creating-actions/metadata-syntax-for-github-actions">GitHub Actions 的元数据语法</a></p>
+</blockquote>
+<ul class="remark-unordered-list">
+<li>在根目录下创建一个 <code>action.yml</code> 文件，并且文件名称只能是这个</li>
+</ul>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-yaml"><span class="line"><span style="color:#00E8C6">name</span><span style="color:#D5CED9">: </span><span style="color:#96E072">'test one create issues'</span></span>
+<span class="line"><span style="color:#00E8C6">description</span><span style="color:#D5CED9">: </span><span style="color:#96E072">'test create issues'</span></span>
+<span class="line"><span style="color:#00E8C6">inputs</span><span style="color:#D5CED9">:</span></span>
+<span class="line"><span style="color:#00E8C6">  token</span><span style="color:#D5CED9">:</span></span>
+<span class="line"><span style="color:#00E8C6">    description</span><span style="color:#D5CED9">: </span><span style="color:#96E072">'ACTION_ACCESS'</span></span>
+<span class="line"><span style="color:#00E8C6">    required</span><span style="color:#D5CED9">: </span><span style="color:#EE5D43">true</span></span>
+<span class="line"><span style="color:#00E8C6">    default</span><span style="color:#D5CED9">: </span><span style="color:#96E072">${{github.token}}</span></span>
+<span class="line"><span style="color:#00E8C6">  repoURL</span><span style="color:#D5CED9">:</span></span>
+<span class="line"><span style="color:#00E8C6">    description</span><span style="color:#D5CED9">: </span><span style="color:#96E072">'repo'</span></span>
+<span class="line"><span style="color:#00E8C6">    default</span><span style="color:#D5CED9">: </span><span style="color:#96E072">${{github.repositoryUrl}}</span></span>
+<span class="line"><span style="color:#00E8C6">  path</span><span style="color:#D5CED9">:</span></span>
+<span class="line"><span style="color:#00E8C6">    description</span><span style="color:#D5CED9">: </span><span style="color:#96E072">'path'</span></span>
+<span class="line"><span style="color:#00E8C6">    default</span><span style="color:#D5CED9">: </span><span style="color:#96E072">${{github.action_path}}</span></span>
+<span class="line"><span style="color:#00E8C6">runs</span><span style="color:#D5CED9">:</span></span>
+<span class="line"><span style="color:#00E8C6">  using</span><span style="color:#D5CED9">: </span><span style="color:#96E072">'node16'</span></span>
+<span class="line"><span style="color:#00E8C6">  main</span><span style="color:#D5CED9">: </span><span style="color:#96E072">'index.mjs'</span></span>
+<span class="line"></span></code></pre>
+<ul class="remark-unordered-list">
+<li><code>inputs</code> 是指定从工作流（workflows）中获取对应的输入字段，<code>token</code> 是工作流（workflows）中的名称</li>
+<li><code>runs</code>：指定的操作，这里必须指定是 JavaScript 操作，复合操作还是 Docker 容器操作以及操作的执行方式
+<ul class="remark-unordered-list">
+<li>
+<p><code>using</code>：<strong>必要</strong>。指定 <code>main</code> 中代码的执行环境</p>
+</li>
+<li>
+<p><code>main</code>：<strong>必要</strong>。包含操作的文件</p>
+</li>
+<li>
+<p><code>pre</code>：允许你在 <code>main</code> 操作开始之前，在作业开始时运行脚本</p>
+</li>
+<li>
+<p><code>pre-if</code>：允许定义 <code>pre</code> 操作执行的条件。pre 操作只会在满足 <code>pre-if</code> 中的条件运行。如果未设置，则 <code>pre-if</code> 默认使用 <code>always()</code></p>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-yml"><span class="line"><span style="color:#00E8C6">pre</span><span style="color:#D5CED9">: </span><span style="color:#96E072">'cleanup.js'</span></span>
+<span class="line"><span style="color:#00E8C6">pre-if</span><span style="color:#D5CED9">: </span><span style="color:#96E072">runner.os == 'linux'</span></span>
+<span class="line"></span></code></pre>
+</li>
+<li>
+<p><code>post</code>：允许你在 <code>main</code> 操作完成后，在作业结束时运行脚本</p>
+<ul class="remark-unordered-list">
+<li>例如，你可以使用 <code>post</code> 终止某些进程或删除不需要的文件</li>
+</ul>
+</li>
+<li>
+<p><code>post-if</code>：允许定义的 <code>post</code> 操作执行的条件，和 <code>pre-if</code> 类似</p>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-yml"><span class="line"><span style="color:#00E8C6">runs</span><span style="color:#D5CED9">:</span></span>
+<span class="line"><span style="color:#00E8C6">  using</span><span style="color:#D5CED9">: </span><span style="color:#96E072">'node16'</span></span>
+<span class="line"><span style="color:#00E8C6">  main</span><span style="color:#D5CED9">: </span><span style="color:#96E072">'index.js'</span></span>
+<span class="line"><span style="color:#00E8C6">  post</span><span style="color:#D5CED9">: </span><span style="color:#96E072">'cleanup.js'</span></span>
+<span class="line"><span style="color:#00E8C6">  post</span><span style="color:#D5CED9">: </span><span style="color:#96E072">'cleanup.js'</span></span>
+<span class="line"><span style="color:#00E8C6">  post-if</span><span style="color:#D5CED9">: </span><span style="color:#96E072">runner.os == 'linux'</span></span>
+<span class="line"></span></code></pre>
+</li>
+<li>
+<p><code>steps</code>：操作中的步骤。这里是符合操作，using 必须指定--><code>using:"composite"</code></p>
+<ul class="remark-unordered-list">
+<li><code>shell</code>：如果有 run 操作，必须指定 <code>shell</code></li>
+</ul>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-js"><span class="line"><span style="color:#D5CED9">runs:</span></span>
+<span class="line"><span style="color:#D5CED9">  using: </span><span style="color:#96E072">"composite"</span></span>
+<span class="line"><span style="color:#D5CED9">  steps:</span></span>
+<span class="line"><span style="color:#EE5D43">    -</span><span style="color:#D5CED9"> run: </span><span style="color:#F92672">${</span><span style="color:#D5CED9">{ </span><span style="color:#F39C12">github</span><span style="color:#D5CED9">.</span><span style="color:#00E8C6">action_path</span><span style="color:#D5CED9"> }</span><span style="color:#F92672">}</span><span style="color:#EE5D43">/</span><span style="color:#00E8C6">test</span><span style="color:#EE5D43">/</span><span style="color:#F39C12">script</span><span style="color:#D5CED9">.</span><span style="color:#00E8C6">sh</span></span>
+<span class="line"><span style="color:#D5CED9">      shell: </span><span style="color:#00E8C6">bash</span></span>
+<span class="line"></span></code></pre>
+<p>...</p>
+</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>编写 index.js 文件</p>
+</blockquote>
+<ul class="remark-unordered-list">
+<li>
+<p>下载 octokit:<code>pnpm add octokit</code>，这里需要使用这个包对 github 暴露的接口进行操作</p>
+</li>
+<li>
+<p>下载 <code>@actions/core</code>:<code>pnpm add @actions/core</code>，该包提供一个接口，用于工作流程命令，输入和输出变量，退出状态以及调试</p>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-js"><span class="line"><span style="color:#C74DED">import</span><span style="color:#D5CED9"> { </span><span style="color:#00E8C6">Octokit</span><span style="color:#D5CED9"> } </span><span style="color:#C74DED">from</span><span style="color:#96E072"> "octokit"</span><span style="color:#D5CED9">;</span></span>
+<span class="line"><span style="color:#C74DED">import</span><span style="color:#D5CED9"> { </span><span style="color:#00E8C6">getInput</span><span style="color:#D5CED9"> } </span><span style="color:#C74DED">from</span><span style="color:#96E072"> "@actions/core"</span><span style="color:#D5CED9">;</span></span>
+<span class="line"><span style="color:#C74DED">import</span><span style="color:#00E8C6"> dayjs</span><span style="color:#C74DED"> from</span><span style="color:#96E072"> "dayjs"</span><span style="color:#D5CED9">;</span></span>
+<span class="line"><span style="color:#C74DED">const</span><span style="color:#00E8C6"> token</span><span style="color:#EE5D43"> =</span><span style="color:#FFE66D"> getInput</span><span style="color:#D5CED9">(</span><span style="color:#96E072">"token"</span><span style="color:#D5CED9">);</span></span>
+<span class="line"><span style="color:#C74DED">const</span><span style="color:#00E8C6"> octokit</span><span style="color:#EE5D43"> =</span><span style="color:#EE5D43"> new</span><span style="color:#FFE66D"> Octokit</span><span style="color:#D5CED9">({</span></span>
+<span class="line"><span style="color:#D5CED9">  auth: </span><span style="color:#00E8C6">token</span><span style="color:#D5CED9">,</span></span>
+<span class="line"><span style="color:#D5CED9">});</span></span>
+<span class="line"><span style="color:#C74DED">await</span><span style="color:#F39C12"> octokit</span><span style="color:#D5CED9">.</span><span style="color:#00E8C6">rest</span><span style="color:#D5CED9">.</span><span style="color:#00E8C6">issues</span><span style="color:#D5CED9">.</span><span style="color:#FFE66D">create</span><span style="color:#D5CED9">({</span></span>
+<span class="line"><span style="color:#D5CED9">  owner: </span><span style="color:#96E072">"fwqaaq"</span><span style="color:#D5CED9">,</span></span>
+<span class="line"><span style="color:#D5CED9">  repo: </span><span style="color:#96E072">"demo"</span><span style="color:#D5CED9">,</span></span>
+<span class="line"><span style="color:#D5CED9">  title: </span><span style="color:#FFE66D">getTitle</span><span style="color:#D5CED9">(),</span></span>
+<span class="line"><span style="color:#D5CED9">  body: </span><span style="color:#FFE66D">getBody</span><span style="color:#D5CED9">(),</span></span>
+<span class="line"><span style="color:#D5CED9">});</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#C74DED">function</span><span style="color:#FFE66D"> getTitle</span><span style="color:#D5CED9">() {</span></span>
+<span class="line"><span style="color:#C74DED">  return</span><span style="color:#FFE66D"> dayjs</span><span style="color:#D5CED9">().</span><span style="color:#FFE66D">format</span><span style="color:#D5CED9">(</span><span style="color:#96E072">"YYYY-MM-DD"</span><span style="color:#D5CED9">);</span></span>
+<span class="line"><span style="color:#D5CED9">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#C74DED">function</span><span style="color:#FFE66D"> getBody</span><span style="color:#D5CED9">() {</span></span>
+<span class="line"><span style="color:#C74DED">  return</span><span style="color:#96E072"> "* test a new task"</span><span style="color:#D5CED9">;</span></span>
+<span class="line"><span style="color:#D5CED9">}</span></span>
+<span class="line"></span></code></pre>
+</li>
+<li>
+<p>这里的 <code>auth:token</code>，是获取的 <code>workflows</code> 中 <code>with</code> 关键字设置的输入参数</p>
+</li>
+</ul>
+<blockquote>
+<p>编写工作流 <code>workflows</code></p>
+</blockquote>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-js"><span class="line"><span style="color:#D5CED9">on: [</span><span style="color:#00E8C6">push</span><span style="color:#D5CED9">]</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#D5CED9">jobs:</span></span>
+<span class="line"><span style="color:#D5CED9">  test_one_issues:</span></span>
+<span class="line"><span style="color:#00E8C6">    runs</span><span style="color:#EE5D43">-</span><span style="color:#D5CED9">on: </span><span style="color:#00E8C6">ubuntu</span><span style="color:#EE5D43">-</span><span style="color:#00E8C6">latest</span></span>
+<span class="line"><span style="color:#D5CED9">    name: </span><span style="color:#00E8C6">create</span><span style="color:#00E8C6"> issues</span><span style="color:#00E8C6"> action</span></span>
+<span class="line"><span style="color:#D5CED9">    steps:</span></span>
+<span class="line"><span style="color:#EE5D43">      -</span><span style="color:#D5CED9"> name: </span><span style="color:#00E8C6">Checkout</span></span>
+<span class="line"><span style="color:#D5CED9">        uses: </span><span style="color:#00E8C6">actions</span><span style="color:#EE5D43">/</span><span style="color:#00E8C6">checkout</span><span style="color:#D5CED9">@</span><span style="color:#00E8C6">v3</span></span>
+<span class="line"><span style="color:#EE5D43">      -</span><span style="color:#D5CED9"> name: </span><span style="color:#00E8C6">node</span></span>
+<span class="line"><span style="color:#D5CED9">        uses: </span><span style="color:#00E8C6">actions</span><span style="color:#EE5D43">/</span><span style="color:#00E8C6">setup</span><span style="color:#EE5D43">-</span><span style="color:#00E8C6">node</span><span style="color:#D5CED9">@</span><span style="color:#00E8C6">v3</span><span style="color:#D5CED9">.</span><span style="color:#F39C12">0.0</span></span>
+<span class="line"><span style="color:#C74DED">        with</span><span style="color:#D5CED9">:</span></span>
+<span class="line"><span style="color:#00E8C6">          node</span><span style="color:#EE5D43">-</span><span style="color:#D5CED9">version: </span><span style="color:#96E072">"16.x"</span></span>
+<span class="line"><span style="color:#EE5D43">      -</span><span style="color:#D5CED9"> name: </span><span style="color:#00E8C6">install</span></span>
+<span class="line"><span style="color:#D5CED9">        run: </span><span style="color:#00E8C6">npm</span><span style="color:#00E8C6"> install</span></span>
+<span class="line"><span style="color:#EE5D43">      -</span><span style="color:#D5CED9"> name: </span><span style="color:#00E8C6">create</span><span style="color:#00E8C6"> issues</span></span>
+<span class="line"><span style="color:#D5CED9">        uses: .</span><span style="color:#EE5D43">/</span></span>
+<span class="line"><span style="color:#C74DED">        with</span><span style="color:#D5CED9">:</span></span>
+<span class="line"><span style="color:#D5CED9">          token: </span><span style="color:#F92672">${</span><span style="color:#D5CED9">{</span><span style="color:#F39C12">secrets</span><span style="color:#D5CED9">.</span><span style="color:#00E8C6">ACTION_ACCESS</span><span style="color:#D5CED9">}</span><span style="color:#F92672">}</span></span>
+<span class="line"></span></code></pre>
+<ul class="remark-unordered-list">
+<li>最后一个 <code>create issues</code> 中的 <code>uses:./</code> 就是指定根路径下自己的 action 元数据 <code>action.yml</code></li>
+<li><code>with</code> 就是传给 <code>action.yml</code> 的键值对。并且在 <code>index.js</code> 中使用了 <code>@action/core</code> 中的 <code>getInput</code> 获取</li>
+</ul>
+<blockquote>
+<p>如果只想打包 dist 文件到仓库，可以使用 <code>@vercel/ncc</code> 这个包，这个包只会把引用的模块加载到 dist 包中</p>
+</blockquote>
+<ul class="remark-unordered-list">
+<li>下载 ncc 包：<code>pnpm add @vercel/ncc</code></li>
+<li>然后添加脚本：<code>"build": "ncc build index.mjs --license licenses.txt"</code></li>
+<li>运行之后就可以使用 dist 包每天更新 issue</li>
+</ul>
+<div class="sponsor-container">
+  <button class="sponsor-btn">
+    <a href="https://stripe.fwqaaq.workers.dev/Personal-Website-Sponsor/checkout?mode=once" target="_blank" rel="noopener noreferrer" class="">
+      <span class="sponsor-icon">☕</span>
+      <span>请博主喝杯咖啡</span>
+  </a>
+  </button>
+</div>
+          </article>
+        </main><script src="https://giscus.app/client.js"
+        data-repo="fwqaaq/fwqaaq.github.io"
+        data-repo-id="R_kgDOHCFK2A"
+        data-category="Show and tell"
+        data-category-id="DIC_kwDOHCFK2M4CYOLh"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="1"
+        data-input-position="bottom"
+        data-theme="preferred_color_scheme"
+        data-lang="zh-CN"
+        crossorigin="anonymous"
+        async></script><footer class="blog-footer">
+  <div class="footer-container">
+    <p class="text-center"><a class="decoration-line"
+        href="https://creativecommons.org/licenses/by-sa/3.0/deed.zh-hans">© CC BY-SA</a> 2021 -
+      2025 <a class="decoration-line" href="https://github.com/fwqaaq">fwqaaq</a>.
+      Powered by <a class="decoration-line" href="https://deno.com">Deno</a>
+    </p>
+  </div>
+  <div class="footer-icons-container">
+    <a class="icon" href="https://github.com/fwqaaq">
+      <i class="fa-brands fa-github"></i>
+    </a>
+    <a class="icon" href="mailto:fwqaaq@gmail">
+      <i class="fa-solid fa-envelope"></i>
+    </a>
+    <a class="icon" href="https://www.fwqaaq.com/feed.xml">
+      <i class="fa-solid fa-rss"></i>
+    </a>
+    <a class="icon" href="https://t.me/fwqaaq">
+      <i class="fa-brands fa-telegram"></i>
+    </a>
+  </div>
+</footer>

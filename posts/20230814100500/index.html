@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#F3F7F6">
+  <meta name="description" content="[Github Action 上下文](https://docs.github.com/zh/actions/learn-github-actions/contexts#about...">
+  <meta name="keywords" content="Git, Github">
+  <meta name="author" content="fwqaaq">
+  <meta property="og:site_name" content="fwqaaq 的博客">
+  <meta property="og:locale" content="zh_CN">
+  <meta property="og:title" content="Github Action 技巧查询">
+  <meta property="og:description" content="[Github Action 上下文](https://docs.github.com/zh/actions/learn-github-actions/contexts#about...">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://www.fwqaaq.com//posts/20230814100500/">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="fwqaaq 的博客">
+  <meta name=application-name content="fwqaaq 的博客">
+  <meta name=apple-mobile-web-app-title content="fwqaaq 的博客">
+  <title>
+    Github Action 技巧查询
+  </title>
+  <link rel="shortcut icon" href="/public/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="/public/css/base.849580.css">
+  <link rel="stylesheet" href="/public/css/index.849580.css">
+  <link rel="stylesheet" href="/public/css/markdown.849580.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+  <script src="/public/JavaScript/index.849580.js"></script>
+  <script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit" defer></script>
+</head>
+
+</html>
+<header class="blog-header">
+    <i id="switch-icon" class="fa-solid fa-bars"></i>
+    <a href="https://github.com/fwqaaq" target="_blank">
+        <img src="https://avatars.githubusercontent.com/u/82551626?v=4" loading="lazy" alt="me" srcset="">
+    </a>
+    <div class="wrap-background">
+        <nav class="header-nav">
+            <a class="decoration-line" href="/"><i class="fa-solid fa-house-chimney fa-xs"></i>
+                <span class="disappear">首页</span>
+            </a>
+            <a class="decoration-line" href="/./about/index.html"><i class="fa-solid fa-address-card fa-xs"></i>
+                <span class="disappear">关于</span></a>
+            <a class="decoration-line" href="/./archive/index.html"><i class="fa-solid fa-box-archive fa-xs"></i> <span
+                    class="disappear">归档</span></a>
+            <a class="decoration-line" href="/./tags/index.html"><i class="fa-solid fa-tag fa-xs"></i>
+                <span class="disappear">标签</span></a>
+            <a class="decoration-line" onclick="sponsor(199)">
+                <i class="fa-solid fa-circle-dollar-to-slot fa-xs"></i>
+                <span class="disappear">赞助</span></a>
+            <div class="language-switcher notranslate">
+                <button class="language-toggle" type="button" aria-label="切换语言" aria-expanded="false"
+                    aria-controls="language-menu">
+                    <i class="fa-solid fa-globe fa-xs" aria-hidden="true"></i>
+                    <span class="disappear" translate="yes">语言</span>
+                </button>
+                <div class="language-menu" id="language-menu" role="menu" hidden>
+                    <button class="language-option" type="button" role="menuitemradio" data-lang=""
+                        aria-checked="true">原文</button>
+                    <button class="language-option" type="button" role="menuitemradio" data-lang="en"
+                        aria-checked="false">English</button>
+                    <button class="language-option" type="button" role="menuitemradio" data-lang="ja"
+                        aria-checked="false">日本語</button>
+                    <button class="language-option" type="button" role="menuitemradio" data-lang="ko"
+                        aria-checked="false">한국어</button>
+                    <button class="language-option" type="button" role="menuitemradio" data-lang="fr"
+                        aria-checked="false">Français</button>
+                    <button class="language-option" type="button" role="menuitemradio" data-lang="de"
+                        aria-checked="false">Deutsch</button>
+                    <button class="language-option" type="button" role="menuitemradio" data-lang="es"
+                        aria-checked="false">Español</button>
+                    <button class="language-option" type="button" role="menuitemradio" data-lang="ru"
+                        aria-checked="false">Русский</button>
+                    <button class="language-option" type="button" role="menuitemradio" data-lang="zh-TW"
+                        aria-checked="false">繁體中文</button>
+                </div>
+            </div>
+            <div id="google_translate_element" class="google-translate-element notranslate" aria-hidden="true"></div>
+            <a class="decoration-line model" href="#" aria-label="切换深浅色主题"><i class="fa-solid fa-sun fa-xs"></i></a>
+        </nav>
+    </div>
+</header>
+        <main class="blog-main">
+          <article class="blog-article">
+            <h1>Github Action 技巧查询</h1>
+          <div class="post-meta post-meta-flex-around">
+              <div class="post-author" href="/./about/"><i class="fa-solid fa-user"></i> fwqaaq</div> 
+              <div class="post-time"><i class="fa-solid fa-clock"></i> 2023-08-14</div> 
+              <div class="post-update-time"><i class="fa-solid fa-clock-rotate-left"></i> 2025-11-09</div>
+            </div>
+            <hr>
+            <details class="remark-toc-details"><summary class="remark-toc-summary">目录</summary><ul class="remark-toc">
+<li>
+<p><a href="#github-action-%E4%B8%8A%E4%B8%8B%E6%96%87">Github Action 上下文</a></p>
+<ul>
+<li><a href="#%E8%AE%BE%E7%BD%AE%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F">设置环境变量</a></li>
+<li><a href="#%E4%BF%9D%E7%95%99-job-%E7%9A%84%E8%BE%93%E5%87%BA">保留 job 的输出</a></li>
+</ul>
+</li>
+<li>
+<p><a href="#%E6%8C%87%E5%AE%9A%E4%BB%93%E5%BA%93%E6%89%A7%E8%A1%8C">指定仓库执行</a></p>
+</li>
+<li>
+<p><a href="#%E7%9F%A9%E9%98%B5%E7%AD%96%E7%95%A5">矩阵策略</a></p>
+</li>
+</ul></details>
+<h2 id="github-action-上下文"><a href="https://docs.github.com/zh/actions/learn-github-actions/contexts#about-contexts">Github Action 上下文</a><a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#github-action-上下文"></a></h2>
+<ul class="remark-unordered-list">
+<li><a href="https://docs.github.com/zh/actions/learn-github-actions/contexts#secrets-context">secrets</a> 上下文中的 <code>secrets.GITHUB_TOKEN</code> 用于身份验证</li>
+</ul>
+<h3 id="设置环境变量"><a href="https://docs.github.com/zh/actions/learn-github-actions/contexts#secrets-context">设置环境变量</a><a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#设置环境变量"></a></h3>
+<p>除了通过 <a href="https://docs.github.com/zh/actions/learn-github-actions/variables#%E4%B8%BA%E5%8D%95%E4%B8%AA%E5%B7%A5%E4%BD%9C%E6%B5%81%E5%AE%9A%E4%B9%89%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F"><code>env:</code> 字段</a>来直接指定环境变量，还可以在工作流运行期间使用 <a href="https://docs.github.com/zh/actions/using-workflows/workflow-commands-for-github-actions#setting-an-environment-variable"><code>set-env</code></a> 命令来设置环境变量。</p>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-bash"><span class="line"><span style="color:#FFE66D">echo</span><span style="color:#96E072"> "{environment_variable_name}={value}"</span><span style="color:#EE5D43"> >></span><span style="color:#96E072"> "</span><span style="color:#00E8C6">$GITHUB_ENV</span><span style="color:#96E072">"</span></span>
+<span class="line"></span></code></pre>
+<h3 id="保留-job-的输出"><a href="https://docs.github.com/zh/actions/using-workflows/workflow-commands-for-github-actions#setting-an-output-parameter">保留 job 的输出</a><a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#保留-job-的输出"></a></h3>
+<p>输出也是有两种方式（但是这两种方式都是要 job/step 的 <code>id</code>）：</p>
+<ul class="remark-ordered-list">
+<li>直接使用 <a href="https://docs.github.com/zh/actions/using-workflows/workflow-commands-for-github-actions#setting-an-output-parameter"><code>GITHUB_OUTPUT</code></a> 来获取，但是这种方式只能在终端中使用</li>
+<li>使用 <a href="https://docs.github.com/zh/actions/using-workflows/workflow-syntax-for-github-actions#jobsjob_idoutputs"><code>output:</code> 字段</a>，这种方式可以用于任何类型的输出，该字段在不同的 job 之间可以共享输出，但是需要 <code>needs</code> 指定顺序。</li>
+</ul>
+<p>可以查询这个比较简单的<a href="https://github.com/Borber/seam/blob/defa7bf79dc97fefa0521655828e98a5bd2d2a38/.github/workflows/release_gui.yml#L12-L30">示例</a>，以下仅展示一部分：</p>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-yaml"><span class="line"><span style="color:#00E8C6">  create_release</span><span style="color:#D5CED9">:</span></span>
+<span class="line"><span style="color:#00E8C6">    runs-on</span><span style="color:#D5CED9">: </span><span style="color:#96E072">ubuntu-latest</span></span>
+<span class="line"><span style="color:#00E8C6">    outputs</span><span style="color:#D5CED9">:</span></span>
+<span class="line"><span style="color:#00E8C6">      changes</span><span style="color:#D5CED9">: </span><span style="color:#96E072">${{ steps.changelog_reader.outputs.changes }}</span></span>
+<span class="line"><span style="color:#00E8C6">      version</span><span style="color:#D5CED9">: </span><span style="color:#96E072">${{ steps.changelog_reader.outputs.VERSION }}</span></span>
+<span class="line"><span style="color:#00E8C6">    steps</span><span style="color:#D5CED9">:</span></span>
+<span class="line"><span style="color:#D5CED9">      - </span><span style="color:#00E8C6">uses</span><span style="color:#D5CED9">: </span><span style="color:#96E072">actions/checkout@v3</span></span>
+<span class="line"><span style="color:#D5CED9">      - </span><span style="color:#00E8C6">name</span><span style="color:#D5CED9">: </span><span style="color:#96E072">Get version number</span></span>
+<span class="line"><span style="color:#00E8C6">        id</span><span style="color:#D5CED9">: </span><span style="color:#96E072">get_version</span></span>
+<span class="line"><span style="color:#00E8C6">        run</span><span style="color:#D5CED9">: </span><span style="color:#C74DED">|</span></span>
+<span class="line"><span style="color:#96E072">          VERSION=${GITHUB_REF#refs/tags/}</span></span>
+<span class="line"><span style="color:#96E072">          echo "VERSION=${VERSION/v_gui\./}" >> $GITHUB_ENV</span></span>
+<span class="line"><span style="color:#D5CED9">      - </span><span style="color:#00E8C6">name</span><span style="color:#D5CED9">: </span><span style="color:#96E072">Changelog Reader</span></span>
+<span class="line"><span style="color:#00E8C6">        id</span><span style="color:#D5CED9">: </span><span style="color:#96E072">changelog_reader</span></span>
+<span class="line"><span style="color:#00E8C6">        uses</span><span style="color:#D5CED9">: </span><span style="color:#96E072">mindsers/changelog-reader-action@v2.2.2</span></span>
+<span class="line"><span style="color:#00E8C6">        with</span><span style="color:#D5CED9">:</span></span>
+<span class="line"><span style="color:#00E8C6">          path</span><span style="color:#D5CED9">: </span><span style="color:#96E072">'./crates/cli/CHANGELOG.md'</span></span>
+<span class="line"><span style="color:#00E8C6">          version</span><span style="color:#D5CED9">: </span><span style="color:#96E072">${{ steps.get_version.outputs.version }}</span></span>
+<span class="line"></span></code></pre>
+<p>之后我们指定该 job，然后使用 <code>${{ needs.create_release.outputs.changes }}</code> 方式来访问。</p>
+<h2 id="指定仓库执行">指定仓库执行<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#指定仓库执行"></a></h2>
+<p>在其它成员 fork 仓库的时候，我们不希望其它成员也运行 GitHub workflow，可以使用 if 语句进行判别。像这样：</p>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-yaml"><span class="line"><span style="color:#00E8C6">if</span><span style="color:#D5CED9">: </span><span style="color:#96E072">github.repository == 'jaywcjlove/reference'</span></span>
+<span class="line"></span></code></pre>
+<p>参考：<a href="https://github.com/fwqaaq/translator/blob/23dcf1f6679531457df49d38d6b9e28dd8430d8d/.github/workflows/main.yaml#L12">https://github.com/fwqaaq/translator/blob/23dcf1f6679531457df49d38d6b9e28dd8430d8d/.github/workflows/main.yaml#L12</a></p>
+<h2 id="矩阵策略"><a href="https://docs.github.com/zh/actions/using-jobs/using-a-matrix-for-your-jobs#using-a-matrix-strategy">矩阵策略</a><a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#矩阵策略"></a></h2>
+<p>在 matrix 你可以指定不同平台，不同版本之间的组合，进行多个 job 的执行。</p>
+<div class="sponsor-container">
+  <button class="sponsor-btn">
+    <a href="https://stripe.fwqaaq.workers.dev/Personal-Website-Sponsor/checkout?mode=once" target="_blank" rel="noopener noreferrer" class="">
+      <span class="sponsor-icon">☕</span>
+      <span>请博主喝杯咖啡</span>
+  </a>
+  </button>
+</div>
+          </article>
+        </main><script src="https://giscus.app/client.js"
+        data-repo="fwqaaq/fwqaaq.github.io"
+        data-repo-id="R_kgDOHCFK2A"
+        data-category="Show and tell"
+        data-category-id="DIC_kwDOHCFK2M4CYOLh"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="1"
+        data-input-position="bottom"
+        data-theme="preferred_color_scheme"
+        data-lang="zh-CN"
+        crossorigin="anonymous"
+        async></script><footer class="blog-footer">
+  <div class="footer-container">
+    <p class="text-center"><a class="decoration-line"
+        href="https://creativecommons.org/licenses/by-sa/3.0/deed.zh-hans">© CC BY-SA</a> 2021 -
+      2025 <a class="decoration-line" href="https://github.com/fwqaaq">fwqaaq</a>.
+      Powered by <a class="decoration-line" href="https://deno.com">Deno</a>
+    </p>
+  </div>
+  <div class="footer-icons-container">
+    <a class="icon" href="https://github.com/fwqaaq">
+      <i class="fa-brands fa-github"></i>
+    </a>
+    <a class="icon" href="mailto:fwqaaq@gmail">
+      <i class="fa-solid fa-envelope"></i>
+    </a>
+    <a class="icon" href="https://www.fwqaaq.com/feed.xml">
+      <i class="fa-solid fa-rss"></i>
+    </a>
+    <a class="icon" href="https://t.me/fwqaaq">
+      <i class="fa-brands fa-telegram"></i>
+    </a>
+  </div>
+</footer>

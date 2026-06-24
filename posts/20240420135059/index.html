@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#F3F7F6">
+  <meta name="description" content="为什么要写这篇文章？  原因是在为 grammy 提 [PR](https://github.com/grammyjs/grammY/pull/560#discussion_r15...">
+  <meta name="keywords" content="Unix, Linux, Go, Rust, JavaScript, TypeScript">
+  <meta name="author" content="fwqaaq">
+  <meta property="og:site_name" content="fwqaaq 的博客">
+  <meta property="og:locale" content="zh_CN">
+  <meta property="og:title" content="I/O Stream">
+  <meta property="og:description" content="为什么要写这篇文章？  原因是在为 grammy 提 [PR](https://github.com/grammyjs/grammY/pull/560#discussion_r15...">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://www.fwqaaq.com//posts/20240420135059/">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="fwqaaq 的博客">
+  <meta name=application-name content="fwqaaq 的博客">
+  <meta name=apple-mobile-web-app-title content="fwqaaq 的博客">
+  <title>
+    I/O Stream
+  </title>
+  <link rel="shortcut icon" href="/public/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="/public/css/base.849580.css">
+  <link rel="stylesheet" href="/public/css/index.849580.css">
+  <link rel="stylesheet" href="/public/css/markdown.849580.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+  <script src="/public/JavaScript/index.849580.js"></script>
+  <script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit" defer></script>
+</head>
+
+</html>
+<header class="blog-header">
+    <i id="switch-icon" class="fa-solid fa-bars"></i>
+    <a href="https://github.com/fwqaaq" target="_blank">
+        <img src="https://avatars.githubusercontent.com/u/82551626?v=4" loading="lazy" alt="me" srcset="">
+    </a>
+    <div class="wrap-background">
+        <nav class="header-nav">
+            <a class="decoration-line" href="/"><i class="fa-solid fa-house-chimney fa-xs"></i>
+                <span class="disappear">首页</span>
+            </a>
+            <a class="decoration-line" href="/./about/index.html"><i class="fa-solid fa-address-card fa-xs"></i>
+                <span class="disappear">关于</span></a>
+            <a class="decoration-line" href="/./archive/index.html"><i class="fa-solid fa-box-archive fa-xs"></i> <span
+                    class="disappear">归档</span></a>
+            <a class="decoration-line" href="/./tags/index.html"><i class="fa-solid fa-tag fa-xs"></i>
+                <span class="disappear">标签</span></a>
+            <a class="decoration-line" onclick="sponsor(199)">
+                <i class="fa-solid fa-circle-dollar-to-slot fa-xs"></i>
+                <span class="disappear">赞助</span></a>
+            <div class="language-switcher notranslate">
+                <button class="language-toggle" type="button" aria-label="切换语言" aria-expanded="false"
+                    aria-controls="language-menu">
+                    <i class="fa-solid fa-globe fa-xs" aria-hidden="true"></i>
+                    <span class="disappear" translate="yes">语言</span>
+                </button>
+                <div class="language-menu" id="language-menu" role="menu" hidden>
+                    <button class="language-option" type="button" role="menuitemradio" data-lang=""
+                        aria-checked="true">原文</button>
+                    <button class="language-option" type="button" role="menuitemradio" data-lang="en"
+                        aria-checked="false">English</button>
+                    <button class="language-option" type="button" role="menuitemradio" data-lang="ja"
+                        aria-checked="false">日本語</button>
+                    <button class="language-option" type="button" role="menuitemradio" data-lang="ko"
+                        aria-checked="false">한국어</button>
+                    <button class="language-option" type="button" role="menuitemradio" data-lang="fr"
+                        aria-checked="false">Français</button>
+                    <button class="language-option" type="button" role="menuitemradio" data-lang="de"
+                        aria-checked="false">Deutsch</button>
+                    <button class="language-option" type="button" role="menuitemradio" data-lang="es"
+                        aria-checked="false">Español</button>
+                    <button class="language-option" type="button" role="menuitemradio" data-lang="ru"
+                        aria-checked="false">Русский</button>
+                    <button class="language-option" type="button" role="menuitemradio" data-lang="zh-TW"
+                        aria-checked="false">繁體中文</button>
+                </div>
+            </div>
+            <div id="google_translate_element" class="google-translate-element notranslate" aria-hidden="true"></div>
+            <a class="decoration-line model" href="#" aria-label="切换深浅色主题"><i class="fa-solid fa-sun fa-xs"></i></a>
+        </nav>
+    </div>
+</header>
+        <main class="blog-main">
+          <article class="blog-article">
+            <h1>I/O Stream</h1>
+          <div class="post-meta post-meta-flex-around">
+              <div class="post-author" href="/./about/"><i class="fa-solid fa-user"></i> fwqaaq</div> 
+              <div class="post-time"><i class="fa-solid fa-clock"></i> 2024-04-20</div> 
+              <div class="post-update-time"><i class="fa-solid fa-clock-rotate-left"></i> 2025-11-09</div>
+            </div>
+            <hr>
+            <details class="remark-toc-details"><summary class="remark-toc-summary">目录</summary><ul class="remark-toc">
+<li>
+<p><a href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E5%86%99%E8%BF%99%E7%AF%87%E6%96%87%E7%AB%A0">为什么要写这篇文章？</a></p>
+</li>
+<li>
+<p><a href="#io-%E6%B5%81%E7%9A%84%E5%88%86%E7%B1%BB">I/O 流的分类</a></p>
+<ul>
+<li><a href="#%E7%BC%93%E5%86%B2">缓冲</a></li>
+</ul>
+</li>
+<li>
+<p><a href="#io-%E5%BA%93%E7%9A%84%E8%AE%BE%E8%AE%A1">I/O 库的设计</a></p>
+</li>
+</ul></details>
+<h2 id="为什么要写这篇文章">为什么要写这篇文章？<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#为什么要写这篇文章"></a></h2>
+<p>原因是在为 grammy 提 <a href="https://github.com/grammyjs/grammY/pull/560#discussion_r1571818711">PR</a> 的时候，Deno 1.42.0 在使用 <code>using</code> 去释放文件描述符时有 bug（1.42.4 修复了）：</p>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-ts"><span class="line"><span style="color:#C74DED">async</span><span style="color:#C74DED"> function</span><span style="color:#FFE66D"> getStream</span><span style="color:#D5CED9">() {</span></span>
+<span class="line"><span style="color:#C74DED">  using</span><span style="color:#00E8C6"> fd</span><span style="color:#EE5D43"> =</span><span style="color:#C74DED"> await</span><span style="color:#00E8C6"> Deno</span><span style="color:#D5CED9">.</span><span style="color:#FFE66D">open</span><span style="color:#D5CED9">(</span><span style="color:#96E072">"README.md"</span><span style="color:#D5CED9">)</span></span>
+<span class="line"><span style="color:#C74DED">  return</span><span style="color:#00E8C6"> fd</span><span style="color:#D5CED9">.</span><span style="color:#00E8C6">readable</span></span>
+<span class="line"><span style="color:#D5CED9">}</span></span>
+<span class="line"></span></code></pre>
+<p>文件描述符被释放了，这时候返回是不可能有资源的，返回的 stream 也是没有写到缓冲区的，所以这段代码本身就是有问题的，然而直接返回 stream，并没有关闭文件描述符会造成资源泄漏（🤡）。</p>
+<p>当然在 Deno 中完全可以使用 <code>const</code> 然后返回一个异步迭代器的方式，异步迭代器在 <code>done: true</code> 的时候会主动释放文件描述符，具体参考：<a href="https://github.com/denoland/deno/issues/23481">https://github.com/denoland/deno/issues/23481</a>。</p>
+<h2 id="io-流的分类">I/O 流的分类<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#io-流的分类"></a></h2>
+<ul class="remark-ordered-list">
+<li>按照类型分：分为<strong>文件 I/O</strong>和<strong>网络 I/O</strong></li>
+<li>按照缓冲分：分为<strong>带缓冲</strong>和<strong>不带缓冲</strong>，其中分为<strong>全缓冲</strong>（fully buffering）、行缓冲（line buffering）以及无缓冲（non Buffering）</li>
+<li>......</li>
+</ul>
+<h3 id="缓冲">缓冲<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#缓冲"></a></h3>
+<blockquote>
+<p>提供<strong>缓冲</strong>（Buffer）是为了提高内存和 I/O 设备之间的交换速度设计的，例如每次需要对硬盘进行 100 次读写，而有缓冲区之后可能就是每秒 10 次；缓存是 CPU 和内存之间的数据交换，弥补内存的频率过低问题</p>
+</blockquote>
+<ul class="remark-ordered-list">
+<li>全缓冲：当数据填满整个缓冲区之后才进行实际的 I/O 操作（驻留在磁盘上的文件的读写通常是使用全缓冲），当缓冲区满了，或者手动刷新时，才会将缓冲区的数据写出。</li>
+<li>行缓冲：每当输入输出遇到<strong>换行</strong>或者<strong>缓冲区</strong>满了的情况下才会进行实际的 I/O 操作（当涉及到终端输入输出的时候通常使用行缓冲），读取到一个换行符时，才会将缓冲区中的数据写出。</li>
+<li>无缓冲：要求 I/O 立即进行，如标准错误流，若果出现错误，会立马输出</li>
+</ul>
+<p>Rust 中使用 I/O 缓冲和不使用缓冲的示例：<a href="https://nnethercote.github.io/perf-book/io.html#buffering">https://nnethercote.github.io/perf-book/io.html#buffering</a>。Rust 中缓冲区的默认大小是 <code>0x2000</code></p>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-rust"><span class="line"><span style="color:#C74DED">fn</span><span style="color:#FFE66D"> main</span><span style="color:#D5CED9">() </span><span style="color:#EE5D43">-></span><span style="color:#FFE66D"> Result</span><span style="color:#D5CED9">&#x3C;(), </span><span style="color:#FFE66D">Box</span><span style="color:#D5CED9">&#x3C;</span><span style="color:#C74DED">dyn</span><span style="color:#FFE66D"> Error</span><span style="color:#D5CED9">>> {</span></span>
+<span class="line"><span style="color:#C74DED">    let</span><span style="color:#C74DED"> mut</span><span style="color:#00E8C6"> writer</span><span style="color:#EE5D43"> =</span><span style="color:#FFE66D"> BufWriter</span><span style="color:#EE5D43">::</span><span style="color:#FFE66D">new</span><span style="color:#D5CED9">(File</span><span style="color:#EE5D43">::</span><span style="color:#FFE66D">create</span><span style="color:#D5CED9">(</span><span style="color:#96E072">"README.md"</span><span style="color:#D5CED9">)</span><span style="color:#EE5D43">?</span><span style="color:#D5CED9">);</span></span>
+<span class="line"><span style="color:#C74DED">    let</span><span style="color:#00E8C6"> content</span><span style="color:#EE5D43"> =</span><span style="color:#96E072"> b"# Hello, world!"</span><span style="color:#D5CED9">;</span></span>
+<span class="line"><span style="color:#C74DED">    for</span><span style="color:#00E8C6"> c</span><span style="color:#C74DED"> in</span><span style="color:#00E8C6"> content</span><span style="color:#EE5D43">.</span><span style="color:#FFE66D">iter</span><span style="color:#D5CED9">() {</span></span>
+<span class="line"><span style="color:#FFE66D">        write!</span><span style="color:#D5CED9">(</span><span style="color:#00E8C6">writer</span><span style="color:#D5CED9">, </span><span style="color:#96E072">"</span><span style="color:#F92672">{}</span><span style="color:#96E072">"</span><span style="color:#D5CED9">, </span><span style="color:#EE5D43">*</span><span style="color:#00E8C6">c</span><span style="color:#C74DED"> as</span><span style="color:#FFE66D"> char</span><span style="color:#D5CED9">)</span><span style="color:#EE5D43">?</span><span style="color:#D5CED9">;</span></span>
+<span class="line"><span style="color:#D5CED9">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FFE66D">    Ok</span><span style="color:#D5CED9">(())</span></span>
+<span class="line"><span style="color:#D5CED9">}</span></span>
+<span class="line"></span></code></pre>
+<p>Go 中使用 <code>bufio</code> 中的 <code>NewWriter</code> 和 <code>NewReader</code> 来缓冲 <code>io.Writer</code> 和 <code>io.Reader</code>，它的默认大小是 4096 个字节</p>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-go"><span class="line"><span style="color:#C74DED">func</span><span style="color:#FFE66D"> main</span><span style="color:#D5CED9">() {</span></span>
+<span class="line"><span style="color:#00E8C6">        writer</span><span style="color:#EE5D43"> :=</span><span style="color:#00E8C6"> bufio</span><span style="color:#D5CED9">.</span><span style="color:#FFE66D">NewWriter</span><span style="color:#D5CED9">(</span><span style="color:#00E8C6">os</span><span style="color:#D5CED9">.</span><span style="color:#00E8C6">Stdout</span><span style="color:#D5CED9">)</span></span>
+<span class="line"><span style="color:#00E8C6">        fd</span><span style="color:#D5CED9">, </span><span style="color:#00E8C6">err</span><span style="color:#EE5D43"> :=</span><span style="color:#00E8C6"> os</span><span style="color:#D5CED9">.</span><span style="color:#FFE66D">Open</span><span style="color:#D5CED9">(</span><span style="color:#96E072">"go.mod"</span><span style="color:#D5CED9">)</span></span>
+<span class="line"><span style="color:#C74DED">        defer</span><span style="color:#00E8C6"> fd</span><span style="color:#D5CED9">.</span><span style="color:#FFE66D">Close</span><span style="color:#D5CED9">()</span></span>
+<span class="line"><span style="color:#C74DED">        if</span><span style="color:#00E8C6"> err</span><span style="color:#EE5D43"> !=</span><span style="color:#EE5D43"> nil</span><span style="color:#D5CED9"> {</span></span>
+<span class="line"><span style="color:#00E8C6">                fmt</span><span style="color:#D5CED9">.</span><span style="color:#FFE66D">Printf</span><span style="color:#D5CED9">(</span><span style="color:#96E072">"打开文件失败"</span><span style="color:#D5CED9">)</span></span>
+<span class="line"><span style="color:#D5CED9">        }</span></span>
+<span class="line"><span style="color:#00E8C6">        writer</span><span style="color:#D5CED9">.</span><span style="color:#FFE66D">ReadFrom</span><span style="color:#D5CED9">(</span><span style="color:#00E8C6">fd</span><span style="color:#D5CED9">)</span></span>
+<span class="line"><span style="color:#00E8C6">        writer</span><span style="color:#D5CED9">.</span><span style="color:#FFE66D">Flush</span><span style="color:#D5CED9">()</span></span>
+<span class="line"><span style="color:#D5CED9">}</span></span>
+<span class="line"></span></code></pre>
+<p>Go 中的 I/O 流甚至更简单，只要实现 Writer interface 就是可读流，实现 Reader interface 就是可写流。</p>
+<p><code>bytes</code> 库提供了一个既可读也可写的 <code>Buffer</code> 类型</p>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-go"><span class="line"><span style="color:#C74DED">func</span><span style="color:#FFE66D"> main</span><span style="color:#D5CED9">() {</span></span>
+<span class="line"><span style="color:#00E8C6">        producer</span><span style="color:#EE5D43"> :=</span><span style="color:#D5CED9"> []</span><span style="color:#C74DED">string</span><span style="color:#D5CED9">{</span></span>
+<span class="line"><span style="color:#96E072">                "Channels orchestrate mutexes serialize"</span><span style="color:#D5CED9">,</span></span>
+<span class="line"><span style="color:#96E072">                "Cgo is not go"</span><span style="color:#D5CED9">,</span></span>
+<span class="line"><span style="color:#96E072">                "Errors are values"</span><span style="color:#D5CED9">,</span></span>
+<span class="line"><span style="color:#96E072">                "Don't panic"</span><span style="color:#D5CED9">,</span></span>
+<span class="line"><span style="color:#D5CED9">        }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#C74DED">        var</span><span style="color:#00E8C6"> buffer</span><span style="color:#FFE66D"> bytes</span><span style="color:#D5CED9">.</span><span style="color:#FFE66D">Buffer</span></span>
+<span class="line"><span style="color:#C74DED">        for</span><span style="color:#00E8C6"> _</span><span style="color:#D5CED9">, </span><span style="color:#00E8C6">p</span><span style="color:#EE5D43"> :=</span><span style="color:#C74DED"> range</span><span style="color:#00E8C6"> producer</span><span style="color:#D5CED9"> {</span></span>
+<span class="line"><span style="color:#00E8C6">                n</span><span style="color:#D5CED9">, </span><span style="color:#00E8C6">err</span><span style="color:#EE5D43"> :=</span><span style="color:#00E8C6"> buffer</span><span style="color:#D5CED9">.</span><span style="color:#FFE66D">Write</span><span style="color:#D5CED9">([]</span><span style="color:#C74DED">byte</span><span style="color:#D5CED9">(</span><span style="color:#00E8C6">p</span><span style="color:#D5CED9">))</span></span>
+<span class="line"><span style="color:#C74DED">                if</span><span style="color:#00E8C6"> err</span><span style="color:#EE5D43"> !=</span><span style="color:#EE5D43"> nil</span><span style="color:#D5CED9"> {</span></span>
+<span class="line"><span style="color:#00E8C6">                        fmt</span><span style="color:#D5CED9">.</span><span style="color:#FFE66D">Println</span><span style="color:#D5CED9">(</span><span style="color:#00E8C6">err</span><span style="color:#D5CED9">)</span></span>
+<span class="line"><span style="color:#00E8C6">                        os</span><span style="color:#D5CED9">.</span><span style="color:#FFE66D">Exit</span><span style="color:#D5CED9">(</span><span style="color:#F39C12">1</span><span style="color:#D5CED9">)</span></span>
+<span class="line"><span style="color:#D5CED9">                }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#C74DED">                if</span><span style="color:#00E8C6"> n</span><span style="color:#EE5D43"> !=</span><span style="color:#FFE66D"> len</span><span style="color:#D5CED9">(</span><span style="color:#00E8C6">p</span><span style="color:#D5CED9">) {</span></span>
+<span class="line"><span style="color:#00E8C6">                         fmt</span><span style="color:#D5CED9">.</span><span style="color:#FFE66D">Println</span><span style="color:#D5CED9">(</span><span style="color:#96E072">"failure"</span><span style="color:#D5CED9">)</span></span>
+<span class="line"><span style="color:#00E8C6">                         os</span><span style="color:#D5CED9">.</span><span style="color:#FFE66D">Exit</span><span style="color:#D5CED9">(</span><span style="color:#F39C12">1</span><span style="color:#D5CED9">)</span></span>
+<span class="line"><span style="color:#D5CED9">                }</span></span>
+<span class="line"><span style="color:#D5CED9">        }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#00E8C6">        fs</span><span style="color:#D5CED9">, </span><span style="color:#00E8C6">err</span><span style="color:#EE5D43"> :=</span><span style="color:#00E8C6"> os</span><span style="color:#D5CED9">.</span><span style="color:#FFE66D">Create</span><span style="color:#D5CED9">(</span><span style="color:#96E072">"data.txt"</span><span style="color:#D5CED9">)</span></span>
+<span class="line"><span style="color:#C74DED">        if</span><span style="color:#00E8C6"> err</span><span style="color:#EE5D43"> !=</span><span style="color:#EE5D43"> nil</span><span style="color:#D5CED9"> {</span></span>
+<span class="line"><span style="color:#00E8C6">                fmt</span><span style="color:#D5CED9">.</span><span style="color:#FFE66D">Println</span><span style="color:#D5CED9">(</span><span style="color:#00E8C6">err</span><span style="color:#D5CED9">)</span></span>
+<span class="line"><span style="color:#00E8C6">                os</span><span style="color:#D5CED9">.</span><span style="color:#FFE66D">Exit</span><span style="color:#D5CED9">(</span><span style="color:#F39C12">1</span><span style="color:#D5CED9">)</span></span>
+<span class="line"><span style="color:#D5CED9">        }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#00E8C6">        buffer</span><span style="color:#D5CED9">.</span><span style="color:#FFE66D">WriteTo</span><span style="color:#D5CED9">(</span><span style="color:#00E8C6">fs</span><span style="color:#D5CED9">)</span></span>
+<span class="line"><span style="color:#D5CED9">}</span></span>
+<span class="line"></span></code></pre>
+<p>C 中提供了<strong>低级 I/O</strong>、<strong>标准 I/O</strong>（fopen、fwrite 等带有 I/O）以及<strong>高级 I/O</strong>。</p>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-c"><span class="line"><span style="color:#C74DED">int</span><span style="color:#FFE66D"> main</span><span style="color:#D5CED9">(){</span></span>
+<span class="line"><span style="color:#C74DED">    for</span><span style="color:#D5CED9"> (</span><span style="color:#C74DED">int</span><span style="color:#D5CED9"> i </span><span style="color:#EE5D43">=</span><span style="color:#F39C12"> 0</span><span style="color:#D5CED9">; i </span><span style="color:#EE5D43">&#x3C;</span><span style="color:#F39C12"> 10000</span><span style="color:#D5CED9">; i</span><span style="color:#EE5D43">++</span><span style="color:#D5CED9">)</span></span>
+<span class="line"><span style="color:#FFE66D">        fputs</span><span style="color:#D5CED9">(</span><span style="color:#96E072">"hello world"</span><span style="color:#D5CED9">, stdout);</span></span>
+<span class="line"><span style="color:#C74DED">    return</span><span style="color:#F39C12"> 0</span><span style="color:#D5CED9">;</span></span>
+<span class="line"><span style="color:#D5CED9">}</span></span>
+<span class="line"></span></code></pre>
+<p>我们可以使用以下命令来查看缓冲之后会执行多少次 write（Linux），如果没有缓冲，将是执行 10000 次。</p>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-shell"><span class="line"><span style="color:#FFE66D">strace</span><span style="color:#96E072"> ./main</span><span style="color:#EE5D43"> 2></span><span style="color:#96E072">err</span></span>
+<span class="line"><span style="color:#FFE66D">grep</span><span style="color:#96E072"> "write("</span><span style="color:#96E072"> err</span><span style="color:#EE5D43"> |</span><span style="color:#FFE66D"> wc</span><span style="color:#EE5D43"> -l</span></span>
+<span class="line"></span></code></pre>
+<p>在 C 中很容易就可以写一个带缓冲的 I/O 流</p>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-c"><span class="line"><span style="color:#C74DED">#include</span><span style="color:#96E072"> &#x3C;stdio.h></span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#C74DED">int</span><span style="color:#FFE66D"> main</span><span style="color:#D5CED9">() {</span></span>
+<span class="line"><span style="color:#A0A1A7CC">    // 文件指针</span></span>
+<span class="line"><span style="color:#D5CED9">    FILE </span><span style="color:#EE5D43">*</span><span style="color:#D5CED9">fp;</span></span>
+<span class="line"><span style="color:#A0A1A7CC">    // 用于存储读取的字符</span></span>
+<span class="line"><span style="color:#C74DED">    char</span><span style="color:#D5CED9"> ch;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#A0A1A7CC">    // 打开文件用于读取</span></span>
+<span class="line"><span style="color:#D5CED9">    fp </span><span style="color:#EE5D43">=</span><span style="color:#FFE66D"> fopen</span><span style="color:#D5CED9">(</span><span style="color:#96E072">"main.go"</span><span style="color:#D5CED9">, </span><span style="color:#96E072">"r"</span><span style="color:#D5CED9">);</span></span>
+<span class="line"><span style="color:#C74DED">    if</span><span style="color:#D5CED9"> (fp </span><span style="color:#EE5D43">==</span><span style="color:#EE5D43"> NULL</span><span style="color:#D5CED9">) {</span></span>
+<span class="line"><span style="color:#FFE66D">        perror</span><span style="color:#D5CED9">(</span><span style="color:#96E072">"Error opening file"</span><span style="color:#D5CED9">);</span></span>
+<span class="line"><span style="color:#C74DED">        return</span><span style="color:#F39C12"> 1</span><span style="color:#D5CED9">;</span></span>
+<span class="line"><span style="color:#D5CED9">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#A0A1A7CC">    // 读取文件内容并打印</span></span>
+<span class="line"><span style="color:#C74DED">    while</span><span style="color:#D5CED9"> ((ch </span><span style="color:#EE5D43">=</span><span style="color:#FFE66D"> fgetc</span><span style="color:#D5CED9">(fp)) </span><span style="color:#EE5D43">!=</span><span style="color:#D5CED9"> EOF) {</span></span>
+<span class="line"><span style="color:#FFE66D">        putchar</span><span style="color:#D5CED9">(ch);</span></span>
+<span class="line"><span style="color:#D5CED9">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#A0A1A7CC">    // 关闭文件</span></span>
+<span class="line"><span style="color:#FFE66D">    fclose</span><span style="color:#D5CED9">(fp);</span></span>
+<span class="line"><span style="color:#C74DED">    return</span><span style="color:#F39C12"> 0</span><span style="color:#D5CED9">;</span></span>
+<span class="line"><span style="color:#D5CED9">}</span></span>
+<span class="line"></span></code></pre>
+<p>关于 JavaScript 中的 <code>ReadableStream</code> 和 <code>WriteableStream</code> 也是同样的，它们本身就是可缓冲的。</p>
+<h2 id="io-库的设计">I/O 库的设计<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#io-库的设计"></a></h2>
+<p>Deno 2.0 中将 1.0 命名空间中 <code>Reader</code>、<code>Writer</code> 等接口迁移到了标准库中，但是诸如 <code>Seeker</code> 等接口还是保留在了命名空间中，但是实际上 <code>FsFile</code> 这类方法已经确实实现了 <code>Reader</code>、<code>Writer</code> 等接口，这种迁移之后有巨大的割裂感，参考：<a href="https://github.com/denoland/deno/blob/5683ca40707ae98bba6b58c710b9ff31e9f41944/cli/tsc/dts/lib.deno.ns.d.ts#L2312-L2321">https://github.com/denoland/deno/blob/5683ca40707ae98bba6b58c710b9ff31e9f41944/cli/tsc/dts/lib.deno.ns.d.ts#L2312-L2321</a>。</p>
+<p>但是 Deno 中设计 I/O 接口的整体思路和 Golang 十分相似，或者就是直接照搬过来，下面来学习一下：</p>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-ts"><span class="line"><span style="color:#A0A1A7CC">// Reader</span></span>
+<span class="line"><span style="color:#C74DED">export</span><span style="color:#C74DED"> interface</span><span style="color:#FFE66D"> Reader</span><span style="color:#D5CED9"> {</span></span>
+<span class="line"><span style="color:#FFE66D">  read</span><span style="color:#D5CED9">(</span><span style="color:#00E8C6">p</span><span style="color:#EE5D43">:</span><span style="color:#FFE66D"> Uint8Array</span><span style="color:#D5CED9">)</span><span style="color:#EE5D43">:</span><span style="color:#FFE66D"> Promise</span><span style="color:#D5CED9">&#x3C;number </span><span style="color:#EE5D43">|</span><span style="color:#D5CED9"> null>;</span></span>
+<span class="line"><span style="color:#D5CED9">}</span></span>
+<span class="line"><span style="color:#A0A1A7CC">// Writer</span></span>
+<span class="line"><span style="color:#C74DED">export</span><span style="color:#C74DED"> interface</span><span style="color:#FFE66D"> Writer</span><span style="color:#D5CED9"> {</span></span>
+<span class="line"><span style="color:#FFE66D">  write</span><span style="color:#D5CED9">(</span><span style="color:#00E8C6">p</span><span style="color:#EE5D43">:</span><span style="color:#FFE66D"> Uint8Array</span><span style="color:#D5CED9">)</span><span style="color:#EE5D43">:</span><span style="color:#FFE66D"> Promise</span><span style="color:#D5CED9">&#x3C;number>;</span></span>
+<span class="line"><span style="color:#D5CED9">}</span></span>
+<span class="line"><span style="color:#A0A1A7CC">// Seeker</span></span>
+<span class="line"><span style="color:#C74DED">export</span><span style="color:#C74DED"> interface</span><span style="color:#FFE66D"> Seeker</span><span style="color:#D5CED9"> {</span></span>
+<span class="line"><span style="color:#FFE66D">  seek</span><span style="color:#D5CED9">(</span><span style="color:#00E8C6">offset</span><span style="color:#EE5D43">:</span><span style="color:#D5CED9"> number </span><span style="color:#EE5D43">|</span><span style="color:#D5CED9"> bigint, </span><span style="color:#00E8C6">whence</span><span style="color:#EE5D43">:</span><span style="color:#FFE66D"> SeekMode</span><span style="color:#D5CED9">)</span><span style="color:#EE5D43">:</span><span style="color:#FFE66D"> Promise</span><span style="color:#D5CED9">&#x3C;number>;</span></span>
+<span class="line"><span style="color:#D5CED9">}</span></span>
+<span class="line"><span style="color:#A0A1A7CC">// Closer</span></span>
+<span class="line"><span style="color:#C74DED">export</span><span style="color:#C74DED"> interface</span><span style="color:#FFE66D"> Closer</span><span style="color:#D5CED9"> {</span></span>
+<span class="line"><span style="color:#FFE66D">  close</span><span style="color:#D5CED9">()</span><span style="color:#EE5D43">:</span><span style="color:#D5CED9"> void;</span></span>
+<span class="line"><span style="color:#D5CED9">}</span></span>
+<span class="line"></span></code></pre>
+<p>然后看一下 Go 中接口的定义：</p>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-go"><span class="line"><span style="color:#C74DED">type</span><span style="color:#FFE66D"> Reader</span><span style="color:#C74DED"> interface</span><span style="color:#D5CED9"> {</span></span>
+<span class="line"><span style="color:#FFE66D">        Read</span><span style="color:#D5CED9">(</span><span style="color:#00E8C6">p</span><span style="color:#D5CED9"> []</span><span style="color:#C74DED">byte</span><span style="color:#D5CED9">) (</span><span style="color:#00E8C6">n</span><span style="color:#C74DED"> int</span><span style="color:#D5CED9">, </span><span style="color:#00E8C6">err</span><span style="color:#C74DED"> error</span><span style="color:#D5CED9">)</span></span>
+<span class="line"><span style="color:#D5CED9">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#C74DED">type</span><span style="color:#FFE66D"> Writer</span><span style="color:#C74DED"> interface</span><span style="color:#D5CED9"> {</span></span>
+<span class="line"><span style="color:#FFE66D">        Write</span><span style="color:#D5CED9">(</span><span style="color:#00E8C6">p</span><span style="color:#D5CED9"> []</span><span style="color:#C74DED">byte</span><span style="color:#D5CED9">) (</span><span style="color:#00E8C6">n</span><span style="color:#C74DED"> int</span><span style="color:#D5CED9">, </span><span style="color:#00E8C6">err</span><span style="color:#C74DED"> error</span><span style="color:#D5CED9">)</span></span>
+<span class="line"><span style="color:#D5CED9">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#C74DED">type</span><span style="color:#FFE66D"> Closer</span><span style="color:#C74DED"> interface</span><span style="color:#D5CED9"> {</span></span>
+<span class="line"><span style="color:#FFE66D">        Close</span><span style="color:#D5CED9">() </span><span style="color:#C74DED">error</span></span>
+<span class="line"><span style="color:#D5CED9">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#C74DED">type</span><span style="color:#FFE66D"> Seeker</span><span style="color:#C74DED"> interface</span><span style="color:#D5CED9"> {</span></span>
+<span class="line"><span style="color:#FFE66D">        Seek</span><span style="color:#D5CED9">(</span><span style="color:#00E8C6">offset</span><span style="color:#C74DED"> int64</span><span style="color:#D5CED9">, </span><span style="color:#00E8C6">whence</span><span style="color:#C74DED"> int</span><span style="color:#D5CED9">) (</span><span style="color:#C74DED">int64</span><span style="color:#D5CED9">, </span><span style="color:#C74DED">error</span><span style="color:#D5CED9">)</span></span>
+<span class="line"><span style="color:#D5CED9">}</span></span>
+<span class="line"></span></code></pre>
+<p>Rust 中的 trait 相比较于 Go 和 Deno 更加复杂一点，虽然在实现 <code>Reader</code> 等 trait 的时候只要实现其中的 <code>read</code> 方法，但是 trait 中有一系列相关的方法都以提前实现好，只要实现了该 trait 之后，就可以实现这类方法。而 Deno 中更简洁，类似于 Go，这一系列方法都要自己实现：<a href="https://github.com/denoland/deno/blob/5683ca40707ae98bba6b58c710b9ff31e9f41944/ext/fs/30_fs.js#L659-L804">https://github.com/denoland/deno/blob/5683ca40707ae98bba6b58c710b9ff31e9f41944/ext/fs/30_fs.js#L659-L804</a>。</p>
+<p>相较于 Go 和 Rust，它们的文件句柄都稍微复杂，由于多线程可能产生数据竞争，它们往往都需要加锁，而 Deno 更加简单一点。</p>
+<div class="sponsor-container">
+  <button class="sponsor-btn">
+    <a href="https://stripe.fwqaaq.workers.dev/Personal-Website-Sponsor/checkout?mode=once" target="_blank" rel="noopener noreferrer" class="">
+      <span class="sponsor-icon">☕</span>
+      <span>请博主喝杯咖啡</span>
+  </a>
+  </button>
+</div>
+          </article>
+        </main><script src="https://giscus.app/client.js"
+        data-repo="fwqaaq/fwqaaq.github.io"
+        data-repo-id="R_kgDOHCFK2A"
+        data-category="Show and tell"
+        data-category-id="DIC_kwDOHCFK2M4CYOLh"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="1"
+        data-input-position="bottom"
+        data-theme="preferred_color_scheme"
+        data-lang="zh-CN"
+        crossorigin="anonymous"
+        async></script><footer class="blog-footer">
+  <div class="footer-container">
+    <p class="text-center"><a class="decoration-line"
+        href="https://creativecommons.org/licenses/by-sa/3.0/deed.zh-hans">© CC BY-SA</a> 2021 -
+      2025 <a class="decoration-line" href="https://github.com/fwqaaq">fwqaaq</a>.
+      Powered by <a class="decoration-line" href="https://deno.com">Deno</a>
+    </p>
+  </div>
+  <div class="footer-icons-container">
+    <a class="icon" href="https://github.com/fwqaaq">
+      <i class="fa-brands fa-github"></i>
+    </a>
+    <a class="icon" href="mailto:fwqaaq@gmail">
+      <i class="fa-solid fa-envelope"></i>
+    </a>
+    <a class="icon" href="https://www.fwqaaq.com/feed.xml">
+      <i class="fa-solid fa-rss"></i>
+    </a>
+    <a class="icon" href="https://t.me/fwqaaq">
+      <i class="fa-brands fa-telegram"></i>
+    </a>
+  </div>
+</footer>

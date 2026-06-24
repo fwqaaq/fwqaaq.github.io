@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#F3F7F6">
+  <meta name="description" content="MAC 上配置 PGP 密钥  请参考：<https://gist.github.com/Peredery/38d0538dd34381bbd9d13414269a1f27>  #...">
+  <meta name="keywords" content="Config">
+  <meta name="author" content="fwqaaq">
+  <meta property="og:site_name" content="fwqaaq 的博客">
+  <meta property="og:locale" content="zh_CN">
+  <meta property="og:title" content="PGP">
+  <meta property="og:description" content="MAC 上配置 PGP 密钥  请参考：<https://gist.github.com/Peredery/38d0538dd34381bbd9d13414269a1f27>  #...">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://www.fwqaaq.com//posts/20231130154305/">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="fwqaaq 的博客">
+  <meta name=application-name content="fwqaaq 的博客">
+  <meta name=apple-mobile-web-app-title content="fwqaaq 的博客">
+  <title>
+    PGP
+  </title>
+  <link rel="shortcut icon" href="/public/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="/public/css/base.849580.css">
+  <link rel="stylesheet" href="/public/css/index.849580.css">
+  <link rel="stylesheet" href="/public/css/markdown.849580.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+  <script src="/public/JavaScript/index.849580.js"></script>
+  <script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit" defer></script>
+</head>
+
+</html>
+<header class="blog-header">
+    <i id="switch-icon" class="fa-solid fa-bars"></i>
+    <a href="https://github.com/fwqaaq" target="_blank">
+        <img src="https://avatars.githubusercontent.com/u/82551626?v=4" loading="lazy" alt="me" srcset="">
+    </a>
+    <div class="wrap-background">
+        <nav class="header-nav">
+            <a class="decoration-line" href="/"><i class="fa-solid fa-house-chimney fa-xs"></i>
+                <span class="disappear">首页</span>
+            </a>
+            <a class="decoration-line" href="/./about/index.html"><i class="fa-solid fa-address-card fa-xs"></i>
+                <span class="disappear">关于</span></a>
+            <a class="decoration-line" href="/./archive/index.html"><i class="fa-solid fa-box-archive fa-xs"></i> <span
+                    class="disappear">归档</span></a>
+            <a class="decoration-line" href="/./tags/index.html"><i class="fa-solid fa-tag fa-xs"></i>
+                <span class="disappear">标签</span></a>
+            <a class="decoration-line" onclick="sponsor(199)">
+                <i class="fa-solid fa-circle-dollar-to-slot fa-xs"></i>
+                <span class="disappear">赞助</span></a>
+            <div class="language-switcher notranslate">
+                <button class="language-toggle" type="button" aria-label="切换语言" aria-expanded="false"
+                    aria-controls="language-menu">
+                    <i class="fa-solid fa-globe fa-xs" aria-hidden="true"></i>
+                    <span class="disappear" translate="yes">语言</span>
+                </button>
+                <div class="language-menu" id="language-menu" role="menu" hidden>
+                    <button class="language-option" type="button" role="menuitemradio" data-lang=""
+                        aria-checked="true">原文</button>
+                    <button class="language-option" type="button" role="menuitemradio" data-lang="en"
+                        aria-checked="false">English</button>
+                    <button class="language-option" type="button" role="menuitemradio" data-lang="ja"
+                        aria-checked="false">日本語</button>
+                    <button class="language-option" type="button" role="menuitemradio" data-lang="ko"
+                        aria-checked="false">한국어</button>
+                    <button class="language-option" type="button" role="menuitemradio" data-lang="fr"
+                        aria-checked="false">Français</button>
+                    <button class="language-option" type="button" role="menuitemradio" data-lang="de"
+                        aria-checked="false">Deutsch</button>
+                    <button class="language-option" type="button" role="menuitemradio" data-lang="es"
+                        aria-checked="false">Español</button>
+                    <button class="language-option" type="button" role="menuitemradio" data-lang="ru"
+                        aria-checked="false">Русский</button>
+                    <button class="language-option" type="button" role="menuitemradio" data-lang="zh-TW"
+                        aria-checked="false">繁體中文</button>
+                </div>
+            </div>
+            <div id="google_translate_element" class="google-translate-element notranslate" aria-hidden="true"></div>
+            <a class="decoration-line model" href="#" aria-label="切换深浅色主题"><i class="fa-solid fa-sun fa-xs"></i></a>
+        </nav>
+    </div>
+</header>
+        <main class="blog-main">
+          <article class="blog-article">
+            <h1>PGP</h1>
+          <div class="post-meta post-meta-flex-around">
+              <div class="post-author" href="/./about/"><i class="fa-solid fa-user"></i> fwqaaq</div> 
+              <div class="post-time"><i class="fa-solid fa-clock"></i> 2023-11-30</div> 
+              <div class="post-update-time"><i class="fa-solid fa-clock-rotate-left"></i> 2025-11-09</div>
+            </div>
+            <hr>
+            <details class="remark-toc-details"><summary class="remark-toc-summary">目录</summary><ul class="remark-toc">
+<li>
+<p><a href="#mac-%E4%B8%8A%E9%85%8D%E7%BD%AE-pgp-%E5%AF%86%E9%92%A5">MAC 上配置 PGP 密钥</a></p>
+</li>
+<li>
+<p><a href="#pgp">PGP</a></p>
+<ul>
+<li>
+<p><a href="#%E7%94%9F%E6%88%90%E5%AF%86%E9%92%A5">生成密钥</a></p>
+</li>
+<li>
+<p><a href="#%E6%9F%A5%E7%9C%8B%E4%BF%A1%E6%81%AF">查看信息</a></p>
+</li>
+<li>
+<p><a href="#gpg-%E5%AF%86%E9%92%A5%E6%9C%8D%E5%8A%A1%E5%99%A8">GPG 密钥服务器</a></p>
+</li>
+<li>
+<p><a href="#%E5%AF%BC%E5%85%A5%E5%AF%BC%E5%87%BA">导入/导出</a></p>
+</li>
+<li>
+<p><a href="#%E7%AD%BE%E5%90%8D%E5%92%8C%E5%8A%A0%E5%AF%86">签名和加密</a></p>
+<ul>
+<li><a href="#%E7%AD%BE%E5%90%8D%E5%AF%B9%E6%96%B9%E7%9A%84%E5%85%AC%E9%92%A5">签名对方的公钥</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul></details>
+<h2 id="mac-上配置-pgp-密钥">MAC 上配置 PGP 密钥<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#mac-上配置-pgp-密钥"></a></h2>
+<p>请参考：<a href="https://gist.github.com/Peredery/38d0538dd34381bbd9d13414269a1f27">https://gist.github.com/Peredery/38d0538dd34381bbd9d13414269a1f27</a></p>
+<h2 id="pgp">PGP<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#pgp"></a></h2>
+<blockquote>
+<p>一个 GPG（GNU Privacy Guard）密钥实际上是一对密钥，它们由以下几部分组成：</p>
+</blockquote>
+<ul class="remark-ordered-list">
+<li>私钥（Private Key）：私钥是您保密的密钥部分，用于解密收到的信息和对您的信息进行数字签名。只有密钥的拥有者应该访问私钥。</li>
+<li>公钥（Public Key）：公钥是可以公开分享的密钥部分，用于加密发送给私钥拥有者的信息和验证其签名。任何人都可以使用公钥来加密信息，但只有对应的私钥可以解密这些信息。</li>
+<li>用户 ID（User ID）：每个 GPG 密钥都与至少一个用户 ID 关联。用户 ID 通常包含名字和电子邮件地址，用于识别密钥的拥有者。</li>
+<li>数字签名（Digital Signatures）：密钥可以被其他密钥的拥有者用其私钥签名。这些签名用于建立信任网络，表明签名者信任密钥的合法性。</li>
+<li>信任度（Trust Level）：信任度表明了密钥拥有者对密钥的信任程度。它是一个用于评估密钥可靠性的机制。</li>
+<li>到期日期（Expiration Date）（可选）：密钥可以设置一个到期日期，超过这个日期密钥将不再有效。这是一个安全特性，用于防止丢失或被遗忘的密钥无限期地存在。</li>
+<li>其他元数据：如创建日期、密钥算法（如 RSA、ElGamal）、密钥长度（如 2048 位）、指纹（一种用于唯一识别公钥的较长的哈希值）等。</li>
+</ul>
+<h3 id="生成密钥"><strong>生成密钥</strong><a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#生成密钥"></a></h3>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-bash"><span class="line"><span style="color:#FFE66D">gpg</span><span style="color:#EE5D43"> --full-generate-key</span></span>
+<span class="line"></span></code></pre>
+<h3 id="查看信息"><strong>查看信息</strong><a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#查看信息"></a></h3>
+<blockquote>
+<p>查看公钥信息</p>
+</blockquote>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-bash"><span class="line"><span style="color:#FFE66D">gpg</span><span style="color:#EE5D43"> --list-keys</span></span>
+<span class="line"><span style="color:#FFE66D">gpg</span><span style="color:#EE5D43"> --list-keys</span><span style="color:#EE5D43"> --keyid-format</span><span style="color:#96E072"> LONG</span></span>
+<span class="line"></span></code></pre>
+<p>公钥的完整格式如下：</p>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-txt"><span class="line"><span>pub   rsa3072/1E4C46XX01BEA325 2023-05-10 [SC]</span></span>
+<span class="line"><span>      5F0E8C2DC8305C37DDBB83C51E4C46DD01BEA325</span></span>
+<span class="line"><span>uid                 [ultimate] XCF (XY) &#x3C;xxxx@gmail.com></span></span>
+<span class="line"><span>sub   rsa3072/E626729XHJC37E8C 2023-05-10 [E]</span></span>
+<span class="line"><span></span></span></code></pre>
+<ul class="remark-ordered-list">
+<li><code>pub</code>：这表示一个“公钥”（public key）的记录。
+<ul class="remark-unordered-list">
+<li><code>rsa3072</code> 表明密钥使用的是 RSA 加密算法，且密钥长度为 3072 位。</li>
+<li>1E4C46XX01BEA325：这是公钥的短格式 ID。这是一个识别公钥的独特序列。</li>
+<li>2023-05-10 [SC]：这个日期是密钥创建的日期。[SC] 表示这个密钥有<strong>签名</strong>（Sign）和<strong>证书</strong>（Certificate）功能。它可以用于签名其他数据和密钥。</li>
+<li>5F0E8C2DC8305C37DDBB83C51E4C46DD01BEA325：这是公钥的指纹，是公钥的一个更长、更具体的识别符。指纹是通过对密钥的某些部分应用哈希算法生成的。</li>
+</ul>
+</li>
+<li><code>uid</code>：uid 代表“用户标识符”（User ID）。这通常包含用户的名字和电子邮件地址，用于标识公钥的拥有者。
+<ul class="remark-unordered-list">
+<li>[ultimate] 表示这个密钥的信任等级是最高的，意味着您对这个密钥的控制是完全的。</li>
+<li>fwqaaq (FW) <a href="mailto:fwqaaq@gmail.com">fwqaaq@gmail.com</a> 是与这个密钥关联的具体用户信息，包括姓名、昵称和电子邮件地址。</li>
+</ul>
+</li>
+<li><code>sub</code>：这表示一个“子密钥”（subkey）的记录。子密钥通常用于加密数据，而主密钥（pub）用于签名和验证。</li>
+</ul>
+<blockquote>
+<p>查看私钥信息</p>
+</blockquote>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-bash"><span class="line"><span style="color:#FFE66D">gpg</span><span style="color:#EE5D43"> --list-secret-keys</span></span>
+<span class="line"><span style="color:#FFE66D">gpg</span><span style="color:#EE5D43"> --list-secret-keys</span><span style="color:#EE5D43"> --keyid-format</span><span style="color:#96E072"> LONG</span></span>
+<span class="line"></span></code></pre>
+<blockquote>
+<p>查看特定密钥的信息</p>
+</blockquote>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-bash"><span class="line"><span style="color:#FFE66D">gpg</span><span style="color:#EE5D43"> --list-sigs</span><span style="color:#D5CED9"> [key-id]</span></span>
+<span class="line"><span style="color:#FFE66D">gpg</span><span style="color:#EE5D43"> --list-secret-sigs</span><span style="color:#D5CED9"> [key-id]</span></span>
+<span class="line"></span></code></pre>
+<blockquote>
+<p>查看指纹</p>
+</blockquote>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-bash"><span class="line"><span style="color:#FFE66D">gpg</span><span style="color:#EE5D43"> --fingerprint</span><span style="color:#D5CED9"> [key-id]</span></span>
+<span class="line"></span></code></pre>
+<h3 id="gpg-密钥服务器">GPG 密钥服务器<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#gpg-密钥服务器"></a></h3>
+<blockquote>
+<p>设置 keyserver：在 <code>~/.gnupg/gpg.conf</code> 中添加：</p>
+</blockquote>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-txt"><span class="line"><span>keyserver hkp://keys.openpgp.org</span></span>
+<span class="line"><span>keyserver hkp://keyserver.ubuntu.com</span></span>
+<span class="line"><span></span></span></code></pre>
+<blockquote>
+<p>上传公钥</p>
+</blockquote>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-bash"><span class="line"><span style="color:#A0A1A7CC"># 使用默认的 keyserver</span></span>
+<span class="line"><span style="color:#FFE66D">gpg</span><span style="color:#EE5D43"> --keyserver</span><span style="color:#EE5D43"> --send-keys</span><span style="color:#D5CED9"> [key-id]</span></span>
+<span class="line"><span style="color:#A0A1A7CC"># 使用指定的 keyserver</span></span>
+<span class="line"><span style="color:#FFE66D">gpg</span><span style="color:#EE5D43"> --keyserver</span><span style="color:#96E072"> hkp://keys.openpgp.org</span><span style="color:#EE5D43"> --send-keys</span><span style="color:#D5CED9"> [key-id]</span></span>
+<span class="line"></span></code></pre>
+<h3 id="导入导出">导入/导出<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#导入导出"></a></h3>
+<blockquote>
+<p>导出公钥/私钥</p>
+</blockquote>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-bash"><span class="line"><span style="color:#A0A1A7CC"># 导出公钥</span></span>
+<span class="line"><span style="color:#FFE66D">gpg</span><span style="color:#EE5D43"> --export</span><span style="color:#EE5D43"> -a</span><span style="color:#D5CED9"> [email/ID] </span><span style="color:#EE5D43">></span><span style="color:#D5CED9"> mypublickey.asc</span></span>
+<span class="line"><span style="color:#A0A1A7CC"># 导出私钥</span></span>
+<span class="line"><span style="color:#FFE66D">gpg</span><span style="color:#EE5D43"> --export-secret-keys</span><span style="color:#EE5D43"> -a</span><span style="color:#D5CED9"> [email/ID] </span><span style="color:#EE5D43">></span><span style="color:#D5CED9"> myprivatekey.asc</span></span>
+<span class="line"></span></code></pre>
+<blockquote>
+<p>导入公钥/私钥</p>
+</blockquote>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-bash"><span class="line"><span style="color:#A0A1A7CC"># 导入公钥</span></span>
+<span class="line"><span style="color:#FFE66D">gpg</span><span style="color:#EE5D43"> --import</span><span style="color:#96E072"> mypublickey.asc</span></span>
+<span class="line"><span style="color:#A0A1A7CC"># 导入私钥</span></span>
+<span class="line"><span style="color:#FFE66D">gpg</span><span style="color:#EE5D43"> --allow-secret-key-import</span><span style="color:#EE5D43"> --import</span><span style="color:#96E072"> myprivatekey.asc</span></span>
+<span class="line"></span></code></pre>
+<h3 id="签名和加密">签名和加密<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#签名和加密"></a></h3>
+<blockquote>
+<p>签名/验证文件</p>
+</blockquote>
+<ul class="remark-unordered-list">
+<li>签名文件：将内容和签名一起保存到新创建的文件中</li>
+</ul>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-bash"><span class="line"><span style="color:#FFE66D">gpg</span><span style="color:#D5CED9"> [-u </span><span style="color:#96E072">email/ID]</span><span style="color:#EE5D43"> --sign</span><span style="color:#D5CED9"> [file]</span></span>
+<span class="line"></span></code></pre>
+<ul class="remark-unordered-list">
+<li>创建单独的签名文件：单独保存签名，而不是将签名和内容保存到同一个文件中</li>
+</ul>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-bash"><span class="line"><span style="color:#FFE66D">gpg</span><span style="color:#D5CED9"> [-u </span><span style="color:#96E072">email/ID]</span><span style="color:#EE5D43"> --detach-sign</span><span style="color:#D5CED9"> [file]</span></span>
+<span class="line"></span></code></pre>
+<ul class="remark-unordered-list">
+<li>验证签名：验证文件的签名是否有效，只有当签名是分离的时候，才需要源文件</li>
+</ul>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-bash"><span class="line"><span style="color:#FFE66D">gpg</span><span style="color:#EE5D43"> --verify</span><span style="color:#D5CED9"> [sign_file] [file]</span></span>
+<span class="line"></span></code></pre>
+<blockquote>
+<p>加密/解密文件</p>
+</blockquote>
+<p>使用接收者的公钥加密文件，email/ID 是接收者的邮箱或 ID，需要接收者的私钥才能解密。</p>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-bash"><span class="line"><span style="color:#FFE66D">gpg</span><span style="color:#EE5D43"> --encrypt</span><span style="color:#EE5D43"> --recipient</span><span style="color:#D5CED9"> [email/ID] [file]</span></span>
+<span class="line"></span></code></pre>
+<p>解密文件：</p>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-bash"><span class="line"><span style="color:#FFE66D">gpg</span><span style="color:#EE5D43"> --decrypt</span><span style="color:#D5CED9"> [file]</span></span>
+<span class="line"></span></code></pre>
+<h4 id="签名对方的公钥">签名对方的公钥<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#签名对方的公钥"></a></h4>
+<ul class="remark-ordered-list">
+<li>
+<p>导入对方的公钥：在签名之前，您需要有对方的公钥在您的密钥环中。如果还没有，需要先导入他们的公钥。</p>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-bash"><span class="line"><span style="color:#A0A1A7CC"># 导入公钥</span></span>
+<span class="line"><span style="color:#FFE66D">gpg</span><span style="color:#D5CED9"> [--keyserver] --recv-keys [email/ID]</span></span>
+<span class="line"></span></code></pre>
+</li>
+<li>
+<p>确认密钥：在签名之前，您应当验证这把公钥确实属于您想签名的个人。这通常涉及到通过某种方式（例如面对面会议、视频通话或其他可靠通道）核对公钥的指纹。</p>
+</li>
+<li>
+<p>签名密钥：使用 <code>gpg [-u email/ID] --sign-key [email/ID]</code> 来签名公钥，<code>-u</code> 用于指定使用哪个密钥签名。</p>
+</li>
+<li>
+<p>上传签名后的密钥：签名后，可以选择将更新后的公钥上传到密钥服务器，以便他人也可以看到对该密钥的信任。（<strong>将对方的公钥上传</strong>）</p>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-bash"><span class="line"><span style="color:#FFE66D">gpg</span><span style="color:#D5CED9"> [--keyserver </span><span style="color:#96E072">url]</span><span style="color:#EE5D43"> --send-keys</span><span style="color:#D5CED9"> [email/ID]</span></span>
+<span class="line"></span></code></pre>
+</li>
+</ul>
+<blockquote>
+<p>查看签名</p>
+</blockquote>
+<ul class="remark-unordered-list">
+<li>从密钥服务器获取公钥签名</li>
+</ul>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-bash"><span class="line"><span style="color:#FFE66D">gpg</span><span style="color:#EE5D43"> --recv-keys</span><span style="color:#D5CED9"> [email/ID]</span></span>
+<span class="line"></span></code></pre>
+<ul class="remark-unordered-list">
+<li>查看公钥签名</li>
+</ul>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-bash"><span class="line"><span style="color:#FFE66D">gpg</span><span style="color:#EE5D43"> --list-sigs</span><span style="color:#D5CED9"> [ID]</span></span>
+<span class="line"><span style="color:#FFE66D">gpg</span><span style="color:#EE5D43"> --check-sigs</span><span style="color:#D5CED9"> [ID]</span></span>
+<span class="line"></span></code></pre>
+<div class="sponsor-container">
+  <button class="sponsor-btn">
+    <a href="https://stripe.fwqaaq.workers.dev/Personal-Website-Sponsor/checkout?mode=once" target="_blank" rel="noopener noreferrer" class="">
+      <span class="sponsor-icon">☕</span>
+      <span>请博主喝杯咖啡</span>
+  </a>
+  </button>
+</div>
+          </article>
+        </main><script src="https://giscus.app/client.js"
+        data-repo="fwqaaq/fwqaaq.github.io"
+        data-repo-id="R_kgDOHCFK2A"
+        data-category="Show and tell"
+        data-category-id="DIC_kwDOHCFK2M4CYOLh"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="1"
+        data-input-position="bottom"
+        data-theme="preferred_color_scheme"
+        data-lang="zh-CN"
+        crossorigin="anonymous"
+        async></script><footer class="blog-footer">
+  <div class="footer-container">
+    <p class="text-center"><a class="decoration-line"
+        href="https://creativecommons.org/licenses/by-sa/3.0/deed.zh-hans">© CC BY-SA</a> 2021 -
+      2025 <a class="decoration-line" href="https://github.com/fwqaaq">fwqaaq</a>.
+      Powered by <a class="decoration-line" href="https://deno.com">Deno</a>
+    </p>
+  </div>
+  <div class="footer-icons-container">
+    <a class="icon" href="https://github.com/fwqaaq">
+      <i class="fa-brands fa-github"></i>
+    </a>
+    <a class="icon" href="mailto:fwqaaq@gmail">
+      <i class="fa-solid fa-envelope"></i>
+    </a>
+    <a class="icon" href="https://www.fwqaaq.com/feed.xml">
+      <i class="fa-solid fa-rss"></i>
+    </a>
+    <a class="icon" href="https://t.me/fwqaaq">
+      <i class="fa-brands fa-telegram"></i>
+    </a>
+  </div>
+</footer>

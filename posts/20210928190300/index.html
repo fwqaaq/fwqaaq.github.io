@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#F3F7F6">
+  <meta name="description" content="动态路由  - 将给定匹配模式的路由映射到同一个组件  > 在 Vue Router 中，我们可以在路径中使用一个动态字段来实现，我们称之为 路径参数  ```js {   pat...">
+  <meta name="keywords" content="Vue, JavaScript, TypeScript">
+  <meta name="author" content="fwqaaq">
+  <meta property="og:site_name" content="fwqaaq 的博客">
+  <meta property="og:locale" content="zh_CN">
+  <meta property="og:title" content="VueRouter">
+  <meta property="og:description" content="动态路由  - 将给定匹配模式的路由映射到同一个组件  > 在 Vue Router 中，我们可以在路径中使用一个动态字段来实现，我们称之为 路径参数  ```js {   pat...">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://www.fwqaaq.com//posts/20210928190300/">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="fwqaaq 的博客">
+  <meta name=application-name content="fwqaaq 的博客">
+  <meta name=apple-mobile-web-app-title content="fwqaaq 的博客">
+  <title>
+    VueRouter
+  </title>
+  <link rel="shortcut icon" href="/public/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="/public/css/base.849580.css">
+  <link rel="stylesheet" href="/public/css/index.849580.css">
+  <link rel="stylesheet" href="/public/css/markdown.849580.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+  <script src="/public/JavaScript/index.849580.js"></script>
+  <script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit" defer></script>
+</head>
+
+</html>
+<header class="blog-header">
+    <i id="switch-icon" class="fa-solid fa-bars"></i>
+    <a href="https://github.com/fwqaaq" target="_blank">
+        <img src="https://avatars.githubusercontent.com/u/82551626?v=4" loading="lazy" alt="me" srcset="">
+    </a>
+    <div class="wrap-background">
+        <nav class="header-nav">
+            <a class="decoration-line" href="/"><i class="fa-solid fa-house-chimney fa-xs"></i>
+                <span class="disappear">首页</span>
+            </a>
+            <a class="decoration-line" href="/./about/index.html"><i class="fa-solid fa-address-card fa-xs"></i>
+                <span class="disappear">关于</span></a>
+            <a class="decoration-line" href="/./archive/index.html"><i class="fa-solid fa-box-archive fa-xs"></i> <span
+                    class="disappear">归档</span></a>
+            <a class="decoration-line" href="/./tags/index.html"><i class="fa-solid fa-tag fa-xs"></i>
+                <span class="disappear">标签</span></a>
+            <a class="decoration-line" onclick="sponsor(199)">
+                <i class="fa-solid fa-circle-dollar-to-slot fa-xs"></i>
+                <span class="disappear">赞助</span></a>
+            <div class="language-switcher notranslate">
+                <button class="language-toggle" type="button" aria-label="切换语言" aria-expanded="false"
+                    aria-controls="language-menu">
+                    <i class="fa-solid fa-globe fa-xs" aria-hidden="true"></i>
+                    <span class="disappear" translate="yes">语言</span>
+                </button>
+                <div class="language-menu" id="language-menu" role="menu" hidden>
+                    <button class="language-option" type="button" role="menuitemradio" data-lang=""
+                        aria-checked="true">原文</button>
+                    <button class="language-option" type="button" role="menuitemradio" data-lang="en"
+                        aria-checked="false">English</button>
+                    <button class="language-option" type="button" role="menuitemradio" data-lang="ja"
+                        aria-checked="false">日本語</button>
+                    <button class="language-option" type="button" role="menuitemradio" data-lang="ko"
+                        aria-checked="false">한국어</button>
+                    <button class="language-option" type="button" role="menuitemradio" data-lang="fr"
+                        aria-checked="false">Français</button>
+                    <button class="language-option" type="button" role="menuitemradio" data-lang="de"
+                        aria-checked="false">Deutsch</button>
+                    <button class="language-option" type="button" role="menuitemradio" data-lang="es"
+                        aria-checked="false">Español</button>
+                    <button class="language-option" type="button" role="menuitemradio" data-lang="ru"
+                        aria-checked="false">Русский</button>
+                    <button class="language-option" type="button" role="menuitemradio" data-lang="zh-TW"
+                        aria-checked="false">繁體中文</button>
+                </div>
+            </div>
+            <div id="google_translate_element" class="google-translate-element notranslate" aria-hidden="true"></div>
+            <a class="decoration-line model" href="#" aria-label="切换深浅色主题"><i class="fa-solid fa-sun fa-xs"></i></a>
+        </nav>
+    </div>
+</header>
+        <main class="blog-main">
+          <article class="blog-article">
+            <h1>VueRouter</h1>
+          <div class="post-meta post-meta-flex-around">
+              <div class="post-author" href="/./about/"><i class="fa-solid fa-user"></i> fwqaaq</div> 
+              <div class="post-time"><i class="fa-solid fa-clock"></i> 2021-09-28</div> 
+              <div class="post-update-time"><i class="fa-solid fa-clock-rotate-left"></i> 2025-11-09</div>
+            </div>
+            <hr>
+            <details class="remark-toc-details"><summary class="remark-toc-summary">目录</summary><ul class="remark-toc">
+<li>
+<p><a href="#%E5%8A%A8%E6%80%81%E8%B7%AF%E7%94%B1">动态路由</a></p>
+<ul>
+<li>
+<p><a href="#%E5%8A%A8%E6%80%81%E8%B7%AF%E7%94%B1%E5%8F%96%E5%80%BC">动态路由取值</a></p>
+<ul>
+<li><a href="#%E5%9C%A8-template-%E4%B8%AD">在 template 中</a></li>
+<li><a href="#%E5%9C%A8-setup-%E4%B8%AD">在 setup 中</a></li>
+</ul>
+</li>
+<li>
+<p><a href="#%E5%8C%B9%E9%85%8D%E5%A4%9A%E4%B8%AA%E5%80%BC">匹配多个值</a></p>
+</li>
+</ul>
+</li>
+<li>
+<p><a href="#notfound-%E9%A1%B5%E9%9D%A2">NotFound 页面</a></p>
+</li>
+<li>
+<p><a href="#%E5%B5%8C%E5%A5%97%E8%B7%AF%E7%94%B1">嵌套路由</a></p>
+</li>
+<li>
+<p><a href="#router-link">&#x3C;router-link></a></p>
+<ul>
+<li>
+<p><a href="#%E4%BB%A3%E7%A0%81%E7%9A%84%E9%A1%B5%E9%9D%A2%E8%B7%B3%E8%BD%AC">代码的页面跳转</a></p>
+<ul>
+<li><a href="#%E4%BD%BF%E7%94%A8-routerpush">使用 router.push(...)</a></li>
+</ul>
+</li>
+<li>
+<p><a href="#%E6%9B%BF%E6%8D%A2%E5%BD%93%E5%89%8D%E4%BD%8D%E7%BD%AE">替换当前位置</a></p>
+</li>
+<li>
+<p><a href="#custom">custom</a></p>
+</li>
+<li>
+<p><a href="#router-link-%E4%B8%AD%E7%9A%84-v-slot">router-link 中的 v-slot</a></p>
+</li>
+<li>
+<p><a href="#%E5%85%B6%E5%AE%83-api">其它 api</a></p>
+</li>
+</ul>
+</li>
+<li>
+<p><a href="#router-view">router-view</a></p>
+</li>
+<li>
+<p><a href="#%E5%8A%A8%E6%80%81%E7%9A%84%E6%B7%BB%E5%8A%A0%E5%88%A0%E9%99%A4%E8%B7%AF%E7%94%B1">动态的添加删除路由</a></p>
+<ul>
+<li><a href="#%E6%B7%BB%E5%8A%A0%E8%B7%AF%E7%94%B1">添加路由</a></li>
+<li><a href="#%E5%88%A0%E9%99%A4%E8%B7%AF%E7%94%B1">删除路由</a></li>
+<li><a href="#%E5%85%B6%E4%BB%96-api">其他 API</a></li>
+</ul>
+</li>
+<li>
+<p><a href="#uselink-%E5%92%8C-routerlink">useLink 和 RouterLink</a></p>
+</li>
+<li>
+<p><a href="#%E8%B7%AF%E7%94%B1%E5%AE%88%E5%8D%AB">路由守卫</a></p>
+<ul>
+<li><a href="#%E5%85%A8%E5%B1%80%E8%B7%AF%E7%94%B1%E5%AE%88%E5%8D%AB-beforeeach">全局路由守卫 (beforeEach)</a></li>
+<li><a href="#%E8%B7%AF%E7%94%B1%E7%8B%AC%E4%BA%AB%E5%AE%88%E5%8D%AB-beforeenter">路由独享守卫 (beforeEnter)</a></li>
+<li><a href="#%E5%85%A8%E5%B1%80%E5%90%8E%E7%BD%AE%E5%90%8E%E5%8D%AB">全局后置后卫</a></li>
+<li><a href="#%E7%BB%84%E4%BB%B6%E5%86%85%E5%AE%88%E5%8D%AB">组件内守卫</a></li>
+</ul>
+</li>
+</ul></details>
+<h2 id="动态路由">动态路由<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#动态路由"></a></h2>
+<ul class="remark-unordered-list">
+<li>将给定匹配模式的路由映射到同一个组件</li>
+</ul>
+<blockquote>
+<p>在 Vue Router 中，我们可以在路径中使用一个动态字段来实现，我们称之为 路径参数</p>
+</blockquote>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-js"><span class="line"><span style="color:#D5CED9">{</span></span>
+<span class="line"><span style="color:#D5CED9">  path:</span><span style="color:#96E072">"/user/:id"</span><span style="color:#D5CED9">,</span></span>
+<span class="line"><span style="color:#D5CED9">  component:()</span><span style="color:#C74DED">=></span><span style="color:#EE5D43">import</span><span style="color:#D5CED9">(</span><span style="color:#96E072">"../pages/User.vue"</span><span style="color:#D5CED9">)</span></span>
+<span class="line"><span style="color:#D5CED9">}</span></span>
+<span class="line"></span></code></pre>
+<ul class="remark-unordered-list">
+<li>在<code>router-link</code>中进行跳转</li>
+</ul>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-html"><span class="line"><span style="color:#D5CED9">&#x3C;</span><span style="color:#F92672">router-link</span><span style="color:#FFE66D"> to</span><span style="color:#D5CED9">=</span><span style="color:#96E072">"/user/123"</span><span style="color:#D5CED9">>用户 123&#x3C;/</span><span style="color:#F92672">router-link</span><span style="color:#D5CED9">></span></span>
+<span class="line"></span></code></pre>
+<h3 id="动态路由取值">动态路由取值<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#动态路由取值"></a></h3>
+<h4 id="在-template-中">在 template 中<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#在-template-中"></a></h4>
+<ul class="remark-unordered-list">
+<li>通过 $route.params 获取值</li>
+</ul>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-html"><span class="line"><span style="color:#D5CED9">&#x3C;</span><span style="color:#F92672">template</span><span style="color:#D5CED9">></span></span>
+<span class="line"><span style="color:#D5CED9">  &#x3C;</span><span style="color:#F92672">div</span><span style="color:#D5CED9">></span></span>
+<span class="line"><span style="color:#D5CED9">    &#x3C;</span><span style="color:#F92672">h2</span><span style="color:#D5CED9">>用户界面:{{$route.params.id}}&#x3C;/</span><span style="color:#F92672">h2</span><span style="color:#D5CED9">></span></span>
+<span class="line"><span style="color:#D5CED9">  &#x3C;/</span><span style="color:#F92672">div</span><span style="color:#D5CED9">></span></span>
+<span class="line"><span style="color:#D5CED9">&#x3C;/</span><span style="color:#F92672">template</span><span style="color:#D5CED9">></span></span>
+<span class="line"></span></code></pre>
+<h4 id="在-setup-中">在 setup 中<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#在-setup-中"></a></h4>
+<ul class="remark-unordered-list">
+<li>使用用 <code>vue-router</code>库给我们提供的一个 hook <code>useRoute</code></li>
+</ul>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-js"><span class="line"><span style="color:#C74DED">import</span><span style="color:#D5CED9"> { </span><span style="color:#00E8C6">useRoute</span><span style="color:#D5CED9"> } </span><span style="color:#C74DED">from</span><span style="color:#96E072"> "vue-router"</span><span style="color:#D5CED9">;</span></span>
+<span class="line"><span style="color:#C74DED">export</span><span style="color:#C74DED"> default</span><span style="color:#D5CED9"> {</span></span>
+<span class="line"><span style="color:#FFE66D">  setup</span><span style="color:#D5CED9">() {</span></span>
+<span class="line"><span style="color:#C74DED">    const</span><span style="color:#00E8C6"> route</span><span style="color:#EE5D43"> =</span><span style="color:#FFE66D"> useRoute</span><span style="color:#D5CED9">();</span></span>
+<span class="line"><span style="color:#F39C12">    console</span><span style="color:#D5CED9">.</span><span style="color:#FFE66D">log</span><span style="color:#D5CED9">(</span><span style="color:#F39C12">route</span><span style="color:#D5CED9">.</span><span style="color:#00E8C6">params</span><span style="color:#D5CED9">.</span><span style="color:#00E8C6">id</span><span style="color:#D5CED9">);</span></span>
+<span class="line"><span style="color:#D5CED9">  },</span></span>
+<span class="line"><span style="color:#D5CED9">};</span></span>
+<span class="line"></span></code></pre>
+<h3 id="匹配多个值">匹配多个值<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#匹配多个值"></a></h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>匹配模式</th><th>匹配路径</th><th><code>$route.params</code></th></tr></thead><tbody><tr><td>/users/:user</td><td>/users/lisi</td><td><code>{ user: 'lisi' }</code></td></tr><tr><td>/users/:user/id/:id</td><td>/users/:lisi/id/123</td><td><code>{ user: 'lisi', id: '123' }</code></td></tr></tbody></table>
+<h2 id="notfound-页面">NotFound 页面<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#notfound-页面"></a></h2>
+<blockquote>
+<p>对于哪些没有匹配到的路由，可以编写一个动态路由将他们匹配到固定的某个页面</p>
+</blockquote>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-js"><span class="line"><span style="color:#D5CED9">{</span></span>
+<span class="line"><span style="color:#D5CED9">  path:</span><span style="color:#96E072">"/:pathMatch(.*)"</span><span style="color:#D5CED9">,</span></span>
+<span class="line"><span style="color:#D5CED9">  component:()</span><span style="color:#C74DED">=></span><span style="color:#EE5D43">import</span><span style="color:#D5CED9">(</span><span style="color:#96E072">"../pages/NotFound.vue"</span><span style="color:#D5CED9">)</span></span>
+<span class="line"><span style="color:#D5CED9">}</span></span>
+<span class="line"></span></code></pre>
+<ul class="remark-unordered-list">
+<li>可以在 <code>template</code> 中使用 <code>$route.params.pathMatch</code> 获取路径参数
+<ul class="remark-unordered-list">
+<li>例如：<code>user/hhh/111</code></li>
+</ul>
+</li>
+<li>注意在 <code>/:pathMatch(.*)</code> 后面又加了一个 <code>*</code>，即 <code>/:pathMatch(.*)*</code> 时
+<ul class="remark-unordered-list">
+<li><code>$route.params.pathMatch</code> 获取路径参数是一个数组 ["user","hhh","111"]</li>
+</ul>
+</li>
+</ul>
+<h2 id="嵌套路由">嵌套路由<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#嵌套路由"></a></h2>
+<blockquote>
+<p>使用嵌套路由配置来表达某些应用程序的 UI 由嵌套多级的组件组成</p>
+</blockquote>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-js"><span class="line"><span style="color:#C74DED">const</span><span style="color:#00E8C6"> routes</span><span style="color:#EE5D43"> =</span><span style="color:#D5CED9"> [</span></span>
+<span class="line"><span style="color:#D5CED9">  {</span></span>
+<span class="line"><span style="color:#D5CED9">    path: </span><span style="color:#96E072">'/home'</span><span style="color:#D5CED9">,</span></span>
+<span class="line"><span style="color:#FFE66D">    component</span><span style="color:#D5CED9">: ()</span><span style="color:#C74DED">=></span><span style="color:#EE5D43">import</span><span style="color:#D5CED9">(</span><span style="color:#96E072">"../pages/Home.vue"</span><span style="color:#D5CED9">),</span></span>
+<span class="line"><span style="color:#D5CED9">    children: [</span></span>
+<span class="line"><span style="color:#D5CED9">      {</span></span>
+<span class="line"><span style="color:#D5CED9">        path: </span><span style="color:#96E072">''</span><span style="color:#D5CED9">,</span></span>
+<span class="line"><span style="color:#D5CED9">        redirect:</span><span style="color:#96E072">"/home/product"</span><span style="color:#A0A1A7CC">//重定向</span></span>
+<span class="line"><span style="color:#D5CED9">      },</span></span>
+<span class="line"><span style="color:#D5CED9">      {</span></span>
+<span class="line"><span style="color:#D5CED9">        path: </span><span style="color:#96E072">'product'</span><span style="color:#D5CED9">,</span></span>
+<span class="line"><span style="color:#D5CED9">        component:</span><span style="color:#00E8C6">component</span><span style="color:#D5CED9">:()</span><span style="color:#C74DED">=></span><span style="color:#EE5D43">import</span><span style="color:#D5CED9">(</span><span style="color:#96E072">"../pages/HomeProduct.vue"</span><span style="color:#D5CED9">),</span></span>
+<span class="line"><span style="color:#D5CED9">      },</span></span>
+<span class="line"><span style="color:#D5CED9">    ],</span></span>
+<span class="line"><span style="color:#D5CED9">  },</span></span>
+<span class="line"><span style="color:#D5CED9">]</span></span>
+<span class="line"></span></code></pre>
+<ul class="remark-unordered-list">
+<li>以<code>/</code>开头的嵌套路径将被视为根路径，这将更好的利用组件嵌套</li>
+</ul>
+<h2 id="router-link">&#x3C;router-link><a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#router-link"></a></h2>
+<h3 id="代码的页面跳转">代码的页面跳转<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#代码的页面跳转"></a></h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>声明式</th><th>程序化</th></tr></thead><tbody><tr><td>&#x3C;router-link :to="..."></td><td><code>router.push(...)</code></td></tr></tbody></table>
+<h4 id="使用-routerpush">使用 router.push(...)<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#使用-routerpush"></a></h4>
+<ul class="remark-unordered-list">
+<li>使用字符串地址<code>router.push('/users/123')</code></li>
+<li>使用对象地址<code>router.push({'/users/123'})</code></li>
+<li>使用命名路由并携带 params 参数：</li>
+</ul>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-js"><span class="line"><span style="color:#C74DED">import</span><span style="color:#D5CED9"> { </span><span style="color:#00E8C6">useRouter</span><span style="color:#D5CED9"> } </span><span style="color:#C74DED">from</span><span style="color:#96E072"> "vue-router"</span><span style="color:#D5CED9">;</span></span>
+<span class="line"><span style="color:#C74DED">export</span><span style="color:#C74DED"> default</span><span style="color:#D5CED9"> {</span></span>
+<span class="line"><span style="color:#FFE66D">  setup</span><span style="color:#D5CED9">() {</span></span>
+<span class="line"><span style="color:#C74DED">    const</span><span style="color:#00E8C6"> router</span><span style="color:#EE5D43"> =</span><span style="color:#FFE66D"> useRouter</span><span style="color:#D5CED9">();</span></span>
+<span class="line"><span style="color:#F39C12">    router</span><span style="color:#D5CED9">.</span><span style="color:#FFE66D">push</span><span style="color:#D5CED9">({ name: </span><span style="color:#96E072">"user"</span><span style="color:#D5CED9">, params: { username: </span><span style="color:#96E072">"eduardo"</span><span style="color:#D5CED9"> } });</span></span>
+<span class="line"><span style="color:#D5CED9">  },</span></span>
+<span class="line"><span style="color:#D5CED9">};</span></span>
+<span class="line"></span></code></pre>
+<ul class="remark-unordered-list">
+<li>
+<p>携带 query 参数：</p>
+<ul class="remark-unordered-list">
+<li><code>router.push({path:'/register',query:{plan:'private'})</code></li>
+</ul>
+</li>
+<li>
+<p>使用可重复使用的 params 时，使用 name 属性，或者 path 这样编写<code>/user/${username}</code></p>
+</li>
+</ul>
+<h3 id="替换当前位置">替换当前位置<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#替换当前位置"></a></h3>
+<blockquote>
+<p>使用 push 的特点是压入一个新的页面，那么在用户点击返回时，上一个页面还可以回退，但是如果希望当前页面是一个替换操作，那么可以使用<code>replace</code></p>
+</blockquote>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>声明式</th><th>程序化</th></tr></thead><tbody><tr><td>&#x3C;router-link :to="..." replace></td><td><code>router.replace(...)</code></td></tr></tbody></table>
+<h3 id="custom">custom<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#custom"></a></h3>
+<blockquote>
+<p>custom 选项防止 &#x3C;router-link> 将其内容包装在 &#x3C;a> 元素内</p>
+<p>默认情况下，&#x3C;router-link> 将呈现其内容包裹在一个 &#x3C;a> 元素，即使使用 <code>v-slot</code>。使用 <code>custom</code>，删除该行为</p>
+</blockquote>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-html"><span class="line"><span style="color:#D5CED9">&#x3C;</span><span style="color:#F92672">router-link</span><span style="color:#FFE66D"> to</span><span style="color:#D5CED9">=</span><span style="color:#96E072">"/home"</span><span style="color:#FFE66D"> custom</span><span style="color:#FFE66D"> v-slot</span><span style="color:#D5CED9">=</span><span style="color:#96E072">"{navigate,href,route}"</span><span style="color:#D5CED9">></span></span>
+<span class="line"><span style="color:#D5CED9">  &#x3C;</span><span style="color:#F92672">a</span><span style="color:#FFE66D"> :href</span><span style="color:#D5CED9">=</span><span style="color:#96E072">"href"</span><span style="color:#FFE66D"> @click</span><span style="color:#D5CED9">=</span><span style="color:#96E072">"navigate"</span><span style="color:#D5CED9">>{{ route.fullPath }}&#x3C;/</span><span style="color:#F92672">a</span><span style="color:#D5CED9">></span></span>
+<span class="line"><span style="color:#D5CED9">&#x3C;/</span><span style="color:#F92672">router-link</span><span style="color:#D5CED9">></span></span>
+<span class="line"></span></code></pre>
+<h3 id="router-link-中的-v-slot">router-link 中的 v-slot<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#router-link-中的-v-slot"></a></h3>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-html"><span class="line"><span style="color:#D5CED9">&#x3C;</span><span style="color:#F92672">router-link</span></span>
+<span class="line"><span style="color:#FFE66D">  to</span><span style="color:#D5CED9">=</span><span style="color:#96E072">"/about"</span></span>
+<span class="line"><span style="color:#FFE66D">  custom</span></span>
+<span class="line"><span style="color:#FFE66D">  v-slot</span><span style="color:#D5CED9">=</span><span style="color:#96E072">"{href,route,navigate,isActive,isExactActive}"</span><span style="color:#D5CED9">></span></span>
+<span class="line"><span style="color:#D5CED9">  &#x3C;</span><span style="color:#F92672">p</span><span style="color:#FFE66D"> @click</span><span style="color:#D5CED9">=</span><span style="color:#96E072">"navigate"</span><span style="color:#D5CED9">>跳转 about&#x3C;/</span><span style="color:#F92672">p</span><span style="color:#D5CED9">></span></span>
+<span class="line"><span style="color:#D5CED9">  &#x3C;</span><span style="color:#F92672">div</span><span style="color:#D5CED9">></span></span>
+<span class="line"><span style="color:#D5CED9">    &#x3C;</span><span style="color:#F92672">p</span><span style="color:#D5CED9">>href:{{href}}&#x3C;/</span><span style="color:#F92672">p</span><span style="color:#D5CED9">></span></span>
+<span class="line"><span style="color:#D5CED9">    &#x3C;</span><span style="color:#F92672">p</span><span style="color:#D5CED9">>route:{{route}}&#x3C;/</span><span style="color:#F92672">p</span><span style="color:#D5CED9">></span></span>
+<span class="line"><span style="color:#D5CED9">    &#x3C;</span><span style="color:#F92672">p</span><span style="color:#D5CED9">>isActive:{{isActive}}&#x3C;/</span><span style="color:#F92672">p</span><span style="color:#D5CED9">></span></span>
+<span class="line"><span style="color:#D5CED9">    &#x3C;</span><span style="color:#F92672">p</span><span style="color:#D5CED9">>isExactActive:{{isExactActive}}&#x3C;/</span><span style="color:#F92672">p</span><span style="color:#D5CED9">>    </span></span>
+<span class="line"><span style="color:#D5CED9">  &#x3C;/</span><span style="color:#F92672">div</span><span style="color:#D5CED9">></span></span>
+<span class="line"><span style="color:#D5CED9">&#x3C;/</span><span style="color:#F92672">router-link</span><span style="color:#D5CED9">></span></span>
+<span class="line"></span></code></pre>
+<ul class="remark-unordered-list">
+<li><code>href</code>解析后的 url</li>
+<li><code>route</code>解析后的规范化的 route 对象</li>
+<li><code>navigate</code>触发导航的函数</li>
+<li><code>isActive</code>是否匹配的状态</li>
+<li><code>isExactActive</code>是否是精准匹配的状态</li>
+</ul>
+<h3 id="其它-api">其它 api<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#其它-api"></a></h3>
+<blockquote>
+<p>参考<a href="https://next.router.vuejs.org/api/#aria-current-value">https://next.router.vuejs.org/api/#aria-current-value</a></p>
+</blockquote>
+<h2 id="router-view">router-view<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#router-view"></a></h2>
+<ul class="remark-unordered-list">
+<li>&#x3C;router-view> 公开一个 <code>v-slot</code> API，主要是用 &#x3C;transition> 和 &#x3C;keep-alive> 组件包装你的路由组件</li>
+</ul>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-html"><span class="line"><span style="color:#D5CED9">&#x3C;</span><span style="color:#F92672">router-view</span><span style="color:#FFE66D"> v-slot</span><span style="color:#D5CED9">=</span><span style="color:#96E072">"{Component}"</span><span style="color:#D5CED9">></span></span>
+<span class="line"><span style="color:#D5CED9">  &#x3C;</span><span style="color:#F92672">transition</span><span style="color:#FFE66D"> name</span><span style="color:#D5CED9">=</span><span style="color:#96E072">"why"</span><span style="color:#D5CED9">></span></span>
+<span class="line"><span style="color:#D5CED9">    &#x3C;</span><span style="color:#F92672">component</span><span style="color:#FFE66D"> :is</span><span style="color:#D5CED9">=</span><span style="color:#96E072">"Component"</span><span style="color:#D5CED9">>&#x3C;/</span><span style="color:#F92672">component</span><span style="color:#D5CED9">></span></span>
+<span class="line"><span style="color:#D5CED9">  &#x3C;/</span><span style="color:#F92672">transition</span><span style="color:#D5CED9">></span></span>
+<span class="line"><span style="color:#D5CED9">&#x3C;/</span><span style="color:#F92672">router-view</span><span style="color:#D5CED9">></span></span>
+<span class="line"></span></code></pre>
+<h2 id="动态的添加删除路由">动态的添加删除路由<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#动态的添加删除路由"></a></h2>
+<h3 id="添加路由">添加路由<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#添加路由"></a></h3>
+<ul class="remark-unordered-list">
+<li>
+<p>某些情况下我们可能需要动态的来添加路由</p>
+<ul class="remark-unordered-list">
+<li>如根据用户不同的权限，注册不同的路由</li>
+<li>可以使用一个方法 <code>addRoute</code></li>
+</ul>
+</li>
+<li>
+<p>直接添加顶级路由，参数只要传一个动态路由的名称</p>
+</li>
+<li>
+<p>或者是为路由添加子路由，那么还应该传入对应的 name 属性</p>
+</li>
+</ul>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-js"><span class="line"><span style="color:#C74DED">const</span><span style="color:#00E8C6"> about</span><span style="color:#EE5D43"> =</span><span style="color:#D5CED9"> {</span></span>
+<span class="line"><span style="color:#D5CED9">  path: </span><span style="color:#96E072">"id"</span><span style="color:#D5CED9">,</span></span>
+<span class="line"><span style="color:#FFE66D">  component</span><span style="color:#D5CED9">: () </span><span style="color:#C74DED">=></span><span style="color:#EE5D43"> import</span><span style="color:#D5CED9">(</span><span style="color:#96E072">"../pages/About"</span><span style="color:#D5CED9">),</span></span>
+<span class="line"><span style="color:#D5CED9">};</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F39C12">router</span><span style="color:#D5CED9">.</span><span style="color:#FFE66D">addRoute</span><span style="color:#D5CED9">(</span><span style="color:#96E072">"home"</span><span style="color:#D5CED9">, </span><span style="color:#00E8C6">about</span><span style="color:#D5CED9">);</span></span>
+<span class="line"></span></code></pre>
+<ul class="remark-unordered-list">
+<li>如果新增加的路由的位置与原有的路由相匹配，那就需要你手动导航与<code>router.push()</code>或<code>router.replace()</code>以显示新的路线</li>
+</ul>
+<h3 id="删除路由">删除路由<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#删除路由"></a></h3>
+<ul class="remark-unordered-list">
+<li>添加一个 name 相同的路由</li>
+<li>通过<code>removeRoute</code>方法，传入路由的名称</li>
+<li>通过<code>addRoute</code>方法的返回值回调</li>
+</ul>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-js"><span class="line"><span style="color:#A0A1A7CC">//添加一个 name 相同的路由</span></span>
+<span class="line"><span style="color:#F39C12">router</span><span style="color:#D5CED9">.</span><span style="color:#FFE66D">addRoute</span><span style="color:#D5CED9">({ path: </span><span style="color:#96E072">"/about"</span><span style="color:#D5CED9">, name: </span><span style="color:#96E072">"about"</span><span style="color:#D5CED9">, component: </span><span style="color:#00E8C6">About</span><span style="color:#D5CED9"> });</span></span>
+<span class="line"><span style="color:#F39C12">router</span><span style="color:#D5CED9">.</span><span style="color:#FFE66D">addRoute</span><span style="color:#D5CED9">({ path: </span><span style="color:#96E072">"/home"</span><span style="color:#D5CED9">, name: </span><span style="color:#96E072">"about"</span><span style="color:#D5CED9">, component: </span><span style="color:#00E8C6">Home</span><span style="color:#D5CED9"> });</span></span>
+<span class="line"><span style="color:#A0A1A7CC">//通过 removeRoute 方法，传入路由的名称</span></span>
+<span class="line"><span style="color:#F39C12">router</span><span style="color:#D5CED9">.</span><span style="color:#FFE66D">addRoute</span><span style="color:#D5CED9">({ path: </span><span style="color:#96E072">"/about"</span><span style="color:#D5CED9">, name: </span><span style="color:#96E072">"about"</span><span style="color:#D5CED9">, component: </span><span style="color:#00E8C6">About</span><span style="color:#D5CED9"> });</span></span>
+<span class="line"><span style="color:#F39C12">router</span><span style="color:#D5CED9">.</span><span style="color:#FFE66D">removeRoute</span><span style="color:#D5CED9">(</span><span style="color:#96E072">"about"</span><span style="color:#D5CED9">);</span></span>
+<span class="line"><span style="color:#A0A1A7CC">//通过`addRoute`方法的返回值回调</span></span>
+<span class="line"><span style="color:#C74DED">const</span><span style="color:#00E8C6"> removeRoute</span><span style="color:#EE5D43"> =</span><span style="color:#F39C12"> router</span><span style="color:#D5CED9">.</span><span style="color:#FFE66D">addRoute</span><span style="color:#D5CED9">({</span></span>
+<span class="line"><span style="color:#D5CED9">  path: </span><span style="color:#96E072">"/about"</span><span style="color:#D5CED9">,</span></span>
+<span class="line"><span style="color:#D5CED9">  name: </span><span style="color:#96E072">"about"</span><span style="color:#D5CED9">,</span></span>
+<span class="line"><span style="color:#D5CED9">  component: </span><span style="color:#00E8C6">About</span><span style="color:#D5CED9">,</span></span>
+<span class="line"><span style="color:#D5CED9">});</span></span>
+<span class="line"><span style="color:#FFE66D">removeRoute</span><span style="color:#D5CED9">();</span></span>
+<span class="line"></span></code></pre>
+<h3 id="其他-api">其他 API<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#其他-api"></a></h3>
+<ul class="remark-unordered-list">
+<li><code>router.hasRoute()</code>检查路由是否存在。</li>
+<li><code>router.getRoutes()</code>获取一个包含所有路由记录的数组</li>
+</ul>
+<h2 id="uselink-和-routerlink">useLink 和 RouterLink<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#uselink-和-routerlink"></a></h2>
+<blockquote>
+<p>Vue Router 将 <code>RouterLink</code> 的内部行为公开为 Composition API
+函数。它提供访问与<code>v-slot</code>API 相同的属性</p>
+</blockquote>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-js"><span class="line"><span style="color:#C74DED">import</span><span style="color:#D5CED9"> { </span><span style="color:#00E8C6">RouterLink</span><span style="color:#D5CED9">, </span><span style="color:#00E8C6">useLink</span><span style="color:#D5CED9"> } </span><span style="color:#C74DED">from</span><span style="color:#96E072"> "vue-router"</span><span style="color:#D5CED9">;</span></span>
+<span class="line"><span style="color:#C74DED">export</span><span style="color:#C74DED"> default</span><span style="color:#D5CED9"> {</span></span>
+<span class="line"><span style="color:#D5CED9">  name: </span><span style="color:#96E072">"App"</span><span style="color:#D5CED9">,</span></span>
+<span class="line"><span style="color:#D5CED9">  props: {</span></span>
+<span class="line"><span style="color:#EE5D43">    ...</span><span style="color:#F39C12">RouterLink</span><span style="color:#D5CED9">.</span><span style="color:#00E8C6">props</span><span style="color:#D5CED9">,</span></span>
+<span class="line"><span style="color:#D5CED9">  },</span></span>
+<span class="line"><span style="color:#FFE66D">  setup</span><span style="color:#D5CED9">(</span><span style="color:#00E8C6">props</span><span style="color:#D5CED9">) {</span></span>
+<span class="line"><span style="color:#C74DED">    const</span><span style="color:#D5CED9"> { </span><span style="color:#00E8C6">route</span><span style="color:#D5CED9">, </span><span style="color:#00E8C6">href</span><span style="color:#D5CED9">, </span><span style="color:#00E8C6">isActive</span><span style="color:#D5CED9">, </span><span style="color:#00E8C6">isExactActive</span><span style="color:#D5CED9">, </span><span style="color:#00E8C6">navigate</span><span style="color:#D5CED9"> } </span><span style="color:#EE5D43">=</span><span style="color:#FFE66D"> useLink</span><span style="color:#D5CED9">(</span><span style="color:#00E8C6">props</span><span style="color:#D5CED9">);</span></span>
+<span class="line"><span style="color:#C74DED">    return</span><span style="color:#D5CED9"> { </span><span style="color:#00E8C6">href</span><span style="color:#D5CED9">, </span><span style="color:#00E8C6">navigate</span><span style="color:#D5CED9">, </span><span style="color:#00E8C6">isActive</span><span style="color:#D5CED9"> };</span></span>
+<span class="line"><span style="color:#D5CED9">  },</span></span>
+<span class="line"><span style="color:#D5CED9">};</span></span>
+<span class="line"></span></code></pre>
+<h2 id="路由守卫">路由守卫<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#路由守卫"></a></h2>
+<blockquote>
+<p>路由守卫的触发时机</p>
+</blockquote>
+<ul class="remark-unordered-list">
+<li>导航被触发。</li>
+<li>在失活的组件里调用 beforeRouteLeave 守卫。</li>
+<li>调用全局的 beforeEach 守卫。</li>
+<li>在重用的组件里调用 beforeRouteUpdate 守卫 (2.2+)。</li>
+<li>在路由配置里调用 beforeEnter。</li>
+<li>解析异步路由组件。</li>
+<li>在被激活的组件里调用 beforeRouteEnter。</li>
+<li>调用全局的 beforeResolve 守卫 (2.5+)。</li>
+<li>导航被确认。</li>
+<li>调用全局的 afterEach 钩子。</li>
+<li>触发 DOM 更新。</li>
+<li>调用 beforeRouteEnter 守卫中传给 next
+的回调函数，创建好的组件实例会作为回调函数的参数传入。</li>
+</ul>
+<blockquote>
+<p>Vue router
+提供的路由守卫主要用于通过重定向或取消路由来保护路由。有多种方法可以连接到路由导航过程:全局，每个路由或组件内</p>
+</blockquote>
+<ul class="remark-unordered-list">
+<li>
+<p>接收两个参数</p>
+<ul class="remark-unordered-list">
+<li>to 即将进入的路由 Route 对象</li>
+<li>from 即将离开的路由 Route 对象</li>
+</ul>
+</li>
+<li>
+<p>return 返回值</p>
+<ul class="remark-unordered-list">
+<li>false 取消当前导航</li>
+<li>不返回或者 undefined 进行默认导航</li>
+<li>返回一个路由地址
+<ul class="remark-unordered-list">
+<li>可以是一个 string 类型的路径</li>
+<li>可以是一个对象，对象中包含<code>path,query,params</code>等信息</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>第三个参数<code>next</code>在 vue3 中已经不推荐使用</p>
+</li>
+</ul>
+<h3 id="全局路由守卫-beforeeach">全局路由守卫 (beforeEach)<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#全局路由守卫-beforeeach"></a></h3>
+<blockquote>
+<p>用来做一些进入页面的限制。比如没有登录，就不能进入某些页面，只有登录了之后才有权限查看某些页面 (初始化的时候被调用，每次路由切换之前被调用)</p>
+</blockquote>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-js"><span class="line"><span style="color:#C74DED">const</span><span style="color:#00E8C6"> router</span><span style="color:#EE5D43"> =</span><span style="color:#FFE66D"> createRouter</span><span style="color:#D5CED9">({ </span><span style="color:#EE5D43">...</span><span style="color:#D5CED9"> })</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F39C12">router</span><span style="color:#D5CED9">.</span><span style="color:#FFE66D">beforeEach</span><span style="color:#D5CED9">((</span><span style="color:#00E8C6">to</span><span style="color:#D5CED9">, </span><span style="color:#00E8C6">from</span><span style="color:#D5CED9">) </span><span style="color:#C74DED">=></span><span style="color:#D5CED9"> {</span></span>
+<span class="line"><span style="color:#A0A1A7CC">  // ...</span></span>
+<span class="line"><span style="color:#C74DED">  return</span><span style="color:#EE5D43"> false</span></span>
+<span class="line"><span style="color:#D5CED9">})</span></span>
+<span class="line"></span></code></pre>
+<h3 id="路由独享守卫-beforeenter">路由独享守卫 (beforeEnter)<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#路由独享守卫-beforeenter"></a></h3>
+<blockquote>
+<p>beforeEnter 守卫只在进入路由时触发不会在 params,query 或 hash 改变时触发</p>
+</blockquote>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-js"><span class="line"><span style="color:#C74DED">const</span><span style="color:#00E8C6"> routes</span><span style="color:#EE5D43"> =</span><span style="color:#D5CED9"> [</span></span>
+<span class="line"><span style="color:#D5CED9">  {</span></span>
+<span class="line"><span style="color:#D5CED9">    path: </span><span style="color:#96E072">"/users/:id"</span><span style="color:#D5CED9">,</span></span>
+<span class="line"><span style="color:#D5CED9">    component: </span><span style="color:#00E8C6">UserDetails</span><span style="color:#D5CED9">,</span></span>
+<span class="line"><span style="color:#FFE66D">    beforeEnter</span><span style="color:#D5CED9">: (</span><span style="color:#00E8C6">to</span><span style="color:#D5CED9">, </span><span style="color:#00E8C6">from</span><span style="color:#D5CED9">) </span><span style="color:#C74DED">=></span><span style="color:#D5CED9"> {</span></span>
+<span class="line"><span style="color:#C74DED">      return</span><span style="color:#EE5D43"> false</span><span style="color:#D5CED9">;</span></span>
+<span class="line"><span style="color:#D5CED9">    },</span></span>
+<span class="line"><span style="color:#D5CED9">  },</span></span>
+<span class="line"><span style="color:#D5CED9">];</span></span>
+<span class="line"></span></code></pre>
+<h3 id="全局后置后卫">全局后置后卫<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#全局后置后卫"></a></h3>
+<blockquote>
+<p>不会接受返回值也不会改变导航本身。用于分析、更改页面标题、声明页面等辅助功能</p>
+</blockquote>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-js"><span class="line"><span style="color:#F39C12">router</span><span style="color:#D5CED9">.</span><span style="color:#FFE66D">afterEach</span><span style="color:#D5CED9">((</span><span style="color:#00E8C6">to</span><span style="color:#D5CED9">, </span><span style="color:#00E8C6">from</span><span style="color:#D5CED9">) </span><span style="color:#C74DED">=></span><span style="color:#D5CED9"> {</span></span>
+<span class="line"><span style="color:#A0A1A7CC">  //...</span></span>
+<span class="line"><span style="color:#D5CED9">})</span></span>
+<span class="line"></span></code></pre>
+<h3 id="组件内守卫">组件内守卫<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#组件内守卫"></a></h3>
+<p>参考 <a href="https://next.router.vuejs.org/zh/guide/advanced/composition-api.html#%E5%AF%BC%E8%88%AA%E5%AE%88%E5%8D%AB">https://next.router.vuejs.org/zh/guide/advanced/composition-api.html#%E5%AF%BC%E8%88%AA%E5%AE%88%E5%8D%AB</a></p>
+<div class="sponsor-container">
+  <button class="sponsor-btn">
+    <a href="https://stripe.fwqaaq.workers.dev/Personal-Website-Sponsor/checkout?mode=once" target="_blank" rel="noopener noreferrer" class="">
+      <span class="sponsor-icon">☕</span>
+      <span>请博主喝杯咖啡</span>
+  </a>
+  </button>
+</div>
+          </article>
+        </main><script src="https://giscus.app/client.js"
+        data-repo="fwqaaq/fwqaaq.github.io"
+        data-repo-id="R_kgDOHCFK2A"
+        data-category="Show and tell"
+        data-category-id="DIC_kwDOHCFK2M4CYOLh"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="1"
+        data-input-position="bottom"
+        data-theme="preferred_color_scheme"
+        data-lang="zh-CN"
+        crossorigin="anonymous"
+        async></script><footer class="blog-footer">
+  <div class="footer-container">
+    <p class="text-center"><a class="decoration-line"
+        href="https://creativecommons.org/licenses/by-sa/3.0/deed.zh-hans">© CC BY-SA</a> 2021 -
+      2025 <a class="decoration-line" href="https://github.com/fwqaaq">fwqaaq</a>.
+      Powered by <a class="decoration-line" href="https://deno.com">Deno</a>
+    </p>
+  </div>
+  <div class="footer-icons-container">
+    <a class="icon" href="https://github.com/fwqaaq">
+      <i class="fa-brands fa-github"></i>
+    </a>
+    <a class="icon" href="mailto:fwqaaq@gmail">
+      <i class="fa-solid fa-envelope"></i>
+    </a>
+    <a class="icon" href="https://www.fwqaaq.com/feed.xml">
+      <i class="fa-solid fa-rss"></i>
+    </a>
+    <a class="icon" href="https://t.me/fwqaaq">
+      <i class="fa-brands fa-telegram"></i>
+    </a>
+  </div>
+</footer>

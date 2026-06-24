@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#F3F7F6">
+  <meta name="description" content="[Project Reference](https://zhuanlan.zhihu.com/p/550953856)  > 在一个项目 `src` 目录下有两个相对独立的模块，分...">
+  <meta name="keywords" content="JavaScript, TypeScript">
+  <meta name="author" content="fwqaaq">
+  <meta property="og:site_name" content="fwqaaq 的博客">
+  <meta property="og:locale" content="zh_CN">
+  <meta property="og:title" content="TypeScript 技巧">
+  <meta property="og:description" content="[Project Reference](https://zhuanlan.zhihu.com/p/550953856)  > 在一个项目 `src` 目录下有两个相对独立的模块，分...">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://www.fwqaaq.com//posts/20220808051042/">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="fwqaaq 的博客">
+  <meta name=application-name content="fwqaaq 的博客">
+  <meta name=apple-mobile-web-app-title content="fwqaaq 的博客">
+  <title>
+    TypeScript 技巧
+  </title>
+  <link rel="shortcut icon" href="/public/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="/public/css/base.849580.css">
+  <link rel="stylesheet" href="/public/css/index.849580.css">
+  <link rel="stylesheet" href="/public/css/markdown.849580.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+  <script src="/public/JavaScript/index.849580.js"></script>
+  <script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit" defer></script>
+</head>
+
+</html>
+<header class="blog-header">
+    <i id="switch-icon" class="fa-solid fa-bars"></i>
+    <a href="https://github.com/fwqaaq" target="_blank">
+        <img src="https://avatars.githubusercontent.com/u/82551626?v=4" loading="lazy" alt="me" srcset="">
+    </a>
+    <div class="wrap-background">
+        <nav class="header-nav">
+            <a class="decoration-line" href="/"><i class="fa-solid fa-house-chimney fa-xs"></i>
+                <span class="disappear">首页</span>
+            </a>
+            <a class="decoration-line" href="/./about/index.html"><i class="fa-solid fa-address-card fa-xs"></i>
+                <span class="disappear">关于</span></a>
+            <a class="decoration-line" href="/./archive/index.html"><i class="fa-solid fa-box-archive fa-xs"></i> <span
+                    class="disappear">归档</span></a>
+            <a class="decoration-line" href="/./tags/index.html"><i class="fa-solid fa-tag fa-xs"></i>
+                <span class="disappear">标签</span></a>
+            <a class="decoration-line" onclick="sponsor(199)">
+                <i class="fa-solid fa-circle-dollar-to-slot fa-xs"></i>
+                <span class="disappear">赞助</span></a>
+            <div class="language-switcher notranslate">
+                <button class="language-toggle" type="button" aria-label="切换语言" aria-expanded="false"
+                    aria-controls="language-menu">
+                    <i class="fa-solid fa-globe fa-xs" aria-hidden="true"></i>
+                    <span class="disappear" translate="yes">语言</span>
+                </button>
+                <div class="language-menu" id="language-menu" role="menu" hidden>
+                    <button class="language-option" type="button" role="menuitemradio" data-lang=""
+                        aria-checked="true">原文</button>
+                    <button class="language-option" type="button" role="menuitemradio" data-lang="en"
+                        aria-checked="false">English</button>
+                    <button class="language-option" type="button" role="menuitemradio" data-lang="ja"
+                        aria-checked="false">日本語</button>
+                    <button class="language-option" type="button" role="menuitemradio" data-lang="ko"
+                        aria-checked="false">한국어</button>
+                    <button class="language-option" type="button" role="menuitemradio" data-lang="fr"
+                        aria-checked="false">Français</button>
+                    <button class="language-option" type="button" role="menuitemradio" data-lang="de"
+                        aria-checked="false">Deutsch</button>
+                    <button class="language-option" type="button" role="menuitemradio" data-lang="es"
+                        aria-checked="false">Español</button>
+                    <button class="language-option" type="button" role="menuitemradio" data-lang="ru"
+                        aria-checked="false">Русский</button>
+                    <button class="language-option" type="button" role="menuitemradio" data-lang="zh-TW"
+                        aria-checked="false">繁體中文</button>
+                </div>
+            </div>
+            <div id="google_translate_element" class="google-translate-element notranslate" aria-hidden="true"></div>
+            <a class="decoration-line model" href="#" aria-label="切换深浅色主题"><i class="fa-solid fa-sun fa-xs"></i></a>
+        </nav>
+    </div>
+</header>
+        <main class="blog-main">
+          <article class="blog-article">
+            <h1>TypeScript 技巧</h1>
+          <div class="post-meta post-meta-flex-around">
+              <div class="post-author" href="/./about/"><i class="fa-solid fa-user"></i> fwqaaq</div> 
+              <div class="post-time"><i class="fa-solid fa-clock"></i> 2022-08-08</div> 
+              <div class="post-update-time"><i class="fa-solid fa-clock-rotate-left"></i> 2025-11-09</div>
+            </div>
+            <hr>
+            <details class="remark-toc-details"><summary class="remark-toc-summary">目录</summary><ul class="remark-toc">
+<li>
+<p><a href="#project-reference">Project Reference</a></p>
+</li>
+<li>
+<p><a href="#ts-%E7%B1%BB%E5%9E%8B%E6%9D%A5%E6%BA%90">TS 类型来源</a></p>
+</li>
+<li>
+<p><a href="#ts-%E6%A8%A1%E5%9D%97%E5%8C%96%E5%BC%80%E5%8F%91">TS 模块化开发</a></p>
+<ul>
+<li>
+<p><a href="#%E5%91%BD%E5%90%8D%E7%A9%BA%E9%97%B4">命名空间</a></p>
+</li>
+<li>
+<p><a href="#%E7%B1%BB%E5%9E%8B%E6%9F%A5%E6%89%BE">类型查找</a></p>
+<ul>
+<li><a href="#%E5%86%85%E7%BD%AE%E7%B1%BB%E5%9E%8B%E5%A3%B0%E6%98%8E">内置类型声明</a></li>
+<li><a href="#%E5%A4%96%E9%83%A8%E5%AE%9A%E4%B9%89%E7%B1%BB%E5%9E%8B%E5%A3%B0%E6%98%8E">外部定义类型声明</a></li>
+<li><a href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E5%A3%B0%E6%98%8E">自定义声明</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><a href="#%E8%AE%BE%E7%BD%AE%E5%88%AB%E5%90%8D">设置别名</a></p>
+</li>
+</ul></details>
+<h2 id="project-reference"><a href="https://zhuanlan.zhihu.com/p/550953856">Project Reference</a><a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#project-reference"></a></h2>
+<blockquote>
+<p>在一个项目 <code>src</code> 目录下有两个相对独立的模块，分别是 <code>src1</code> 和
+<code>src2</code>,其中他们都包含一系列的 <code>.ts</code> 文件</p>
+</blockquote>
+<ul class="remark-unordered-list">
+<li>
+<p>此时，在根目录需要使用 <code>tsconfig.json</code> 来配置编译的方式</p>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-json"><span class="line"><span style="color:#D5CED9">{</span></span>
+<span class="line"><span style="color:#00E8C6">  "compilerOptions"</span><span style="color:#D5CED9">: {</span></span>
+<span class="line"><span style="color:#00E8C6">    "lib"</span><span style="color:#D5CED9">: [</span><span style="color:#96E072">"es2015"</span><span style="color:#D5CED9">, </span><span style="color:#96E072">"dom"</span><span style="color:#D5CED9">],</span></span>
+<span class="line"><span style="color:#00E8C6">    "types"</span><span style="color:#D5CED9">: [],</span></span>
+<span class="line"><span style="color:#00E8C6">    "outDir"</span><span style="color:#D5CED9">: </span><span style="color:#96E072">"dist"</span></span>
+<span class="line"><span style="color:#D5CED9">  },</span></span>
+<span class="line"><span style="color:#00E8C6">  "include"</span><span style="color:#D5CED9">: [</span><span style="color:#96E072">"src/**/*.ts"</span><span style="color:#D5CED9">]</span></span>
+<span class="line"><span style="color:#D5CED9">}</span></span>
+<span class="line"></span></code></pre>
+</li>
+<li>
+<p>此时编译后的文件会分别到 <code>dist/src1</code> 和 <code>dist/src2</code> 目录下。但是如果 <code>src1</code> 变化了，<code>src2</code> 同时也会再次被编译，这时候我们需要做一些缓存设置</p>
+</li>
+</ul>
+<ul class="remark-ordered-list">
+<li>
+<p>在 <code>src1</code> 和 <code>src2</code> 目录下分别创建 <code>tsconfig.json</code> 文件，其中需要添加
+<code>composite:true</code> 这样的配置</p>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-json"><span class="line"><span style="color:#A0A1A7CC">//src1 目录下`tsconfig.json`,src2 目录同理</span></span>
+<span class="line"><span style="color:#D5CED9">{</span></span>
+<span class="line"><span style="color:#00E8C6">  "compilerOptions"</span><span style="color:#D5CED9">: {</span></span>
+<span class="line"><span style="color:#00E8C6">    "composite"</span><span style="color:#D5CED9">: </span><span style="color:#96E072">"true"</span><span style="color:#D5CED9">,</span></span>
+<span class="line"><span style="color:#00E8C6">    "lib"</span><span style="color:#D5CED9">: [</span><span style="color:#96E072">"es2015"</span><span style="color:#D5CED9">, </span><span style="color:#96E072">"dom"</span><span style="color:#D5CED9">],</span></span>
+<span class="line"><span style="color:#00E8C6">    "types"</span><span style="color:#D5CED9">: [],</span></span>
+<span class="line"><span style="color:#00E8C6">    "outDir"</span><span style="color:#D5CED9">: </span><span style="color:#96E072">"dist"</span></span>
+<span class="line"><span style="color:#D5CED9">  },</span></span>
+<span class="line"><span style="color:#00E8C6">  "include"</span><span style="color:#D5CED9">: [</span><span style="color:#96E072">"../../dist/src1"</span><span style="color:#D5CED9">]</span></span>
+<span class="line"><span style="color:#D5CED9">}</span></span>
+<span class="line"></span></code></pre>
+</li>
+<li>
+<p>然后在根目录的 <code>tsconfig.json</code> 里加上一个 <code>references</code> 的配置</p>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-json"><span class="line"><span style="color:#A0A1A7CC">// 根目录下`tsconfig.json`</span></span>
+<span class="line"><span style="color:#D5CED9">{</span></span>
+<span class="line"><span style="color:#00E8C6">  "compilerOptions"</span><span style="color:#D5CED9">: {</span></span>
+<span class="line"><span style="color:#00E8C6">    "lib"</span><span style="color:#D5CED9">: [</span><span style="color:#96E072">"es2015"</span><span style="color:#D5CED9">, </span><span style="color:#96E072">"dom"</span><span style="color:#D5CED9">],</span></span>
+<span class="line"><span style="color:#00E8C6">    "types"</span><span style="color:#D5CED9">: [],</span></span>
+<span class="line"><span style="color:#00E8C6">    "outDir"</span><span style="color:#D5CED9">: </span><span style="color:#96E072">"dist"</span></span>
+<span class="line"><span style="color:#D5CED9">  },</span></span>
+<span class="line"><span style="color:#00E8C6">  "references"</span><span style="color:#D5CED9">: [</span></span>
+<span class="line"><span style="color:#D5CED9">    { </span><span style="color:#00E8C6">"path"</span><span style="color:#D5CED9">: </span><span style="color:#96E072">"./src/src1"</span><span style="color:#D5CED9"> },</span></span>
+<span class="line"><span style="color:#D5CED9">    { </span><span style="color:#00E8C6">"path"</span><span style="color:#D5CED9">: </span><span style="color:#96E072">"./src/src2"</span><span style="color:#D5CED9"> }</span></span>
+<span class="line"><span style="color:#D5CED9">  ]</span></span>
+<span class="line"><span style="color:#D5CED9">}</span></span>
+<span class="line"></span></code></pre>
+</li>
+<li>
+<p>运行 <code>tsc --build</code>,编译的结果会多出 <code>.d.ts</code> 文件，和缓存文件
+<code>tsconfig.tsbuildinfo</code>(此文件会记录这些文件的 hash 值)</p>
+<ul class="remark-unordered-list">
+<li>使用 <code>Project Refrence</code> 需要使用 <code>tsc --build | -b</code>
+来编译,并且需要在子模块中设置 <code>composite:true</code> 来指定</li>
+<li>当然，也可以通过 <code>prepend</code> 来指定编译顺序。此时可以优先编译 <code>src2</code></li>
+</ul>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-json"><span class="line"><span style="color:#D5CED9">{</span></span>
+<span class="line"><span style="color:#D5CED9"> ...,</span></span>
+<span class="line"><span style="color:#00E8C6"> "references"</span><span style="color:#D5CED9">:[</span></span>
+<span class="line"><span style="color:#D5CED9">     {</span><span style="color:#00E8C6">"path"</span><span style="color:#D5CED9">:</span><span style="color:#96E072">"./src/src1"</span><span style="color:#D5CED9">},</span></span>
+<span class="line"><span style="color:#D5CED9">     {</span><span style="color:#00E8C6">"path"</span><span style="color:#D5CED9">:</span><span style="color:#96E072">"./src/src2"</span><span style="color:#D5CED9">,</span><span style="color:#00E8C6">"prepend"</span><span style="color:#D5CED9">:</span><span style="color:#EE5D43">true</span><span style="color:#D5CED9">}</span></span>
+<span class="line"><span style="color:#D5CED9">   ]</span></span>
+<span class="line"><span style="color:#D5CED9">}</span></span>
+<span class="line"></span></code></pre>
+</li>
+</ul>
+<h2 id="ts-类型来源"><a href="https://zhuanlan.zhihu.com/p/531084864">TS 类型来源</a><a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#ts-类型来源"></a></h2>
+<blockquote>
+<p>ts 中的 <code>declare</code> 语法可以单独声明变量的类型</p>
+</blockquote>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-js"><span class="line"><span style="color:#A0A1A7CC">//object</span></span>
+<span class="line"><span style="color:#C74DED">interface</span><span style="color:#FFE66D"> Person</span><span style="color:#D5CED9"> {</span></span>
+<span class="line"><span style="color:#00E8C6">    name</span><span style="color:#EE5D43">:</span><span style="color:#C74DED"> string</span></span>
+<span class="line"><span style="color:#00E8C6">    age</span><span style="color:#EE5D43">?:</span><span style="color:#C74DED"> number</span></span>
+<span class="line"><span style="color:#D5CED9">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#C74DED">declare</span><span style="color:#C74DED"> const</span><span style="color:#00E8C6"> guang</span><span style="color:#EE5D43">:</span><span style="color:#FFE66D"> Person</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#A0A1A7CC">//function</span></span>
+<span class="line"><span style="color:#C74DED">declare</span><span style="color:#C74DED"> function</span><span style="color:#FFE66D"> add</span><span style="color:#D5CED9">(</span><span style="color:#00E8C6">num1</span><span style="color:#EE5D43">:</span><span style="color:#C74DED"> number</span><span style="color:#D5CED9">, </span><span style="color:#00E8C6">num2</span><span style="color:#EE5D43">:</span><span style="color:#C74DED"> number</span><span style="color:#D5CED9">)</span><span style="color:#EE5D43">:</span><span style="color:#C74DED"> number</span></span>
+<span class="line"></span></code></pre>
+<ul class="remark-unordered-list">
+<li>
+<p>但是像浏览器中内置的类型，基本都是必用的。所以 typescript
+中内置了这些类型声明，在 typescript 下的 <code>lib</code> 文件下</p>
+<ul class="remark-unordered-list">
+<li>因为是内置的，所以很容易就可以配置</li>
+</ul>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-json"><span class="line"><span style="color:#A0A1A7CC">//stsconfig.json`</span></span>
+<span class="line"><span style="color:#D5CED9">{</span></span>
+<span class="line"><span style="color:#00E8C6">   "compilerOptions"</span><span style="color:#D5CED9">:{</span></span>
+<span class="line"><span style="color:#00E8C6">     "lib"</span><span style="color:#D5CED9">:[</span><span style="color:#96E072">"es2015"</span><span style="color:#D5CED9">,</span><span style="color:#96E072">"dom"</span><span style="color:#D5CED9">],</span></span>
+<span class="line"><span style="color:#A0A1A7CC">     //...</span></span>
+<span class="line"><span style="color:#D5CED9">   },</span></span>
+<span class="line"><span style="color:#A0A1A7CC">   //...</span></span>
+<span class="line"><span style="color:#D5CED9">}</span></span>
+<span class="line"></span></code></pre>
+</li>
+<li>
+<p>像 <code>node</code> 这种非内置的类型，使用时需要下载 <code>@types/node</code>
+才可以使用，这些包会默认放置在 <code>node_modules</code> 目录下的 <code>@types</code> 中</p>
+<ul class="remark-unordered-list">
+<li>当然也是需要引入才可以使用</li>
+</ul>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-json"><span class="line"><span style="color:#A0A1A7CC">//stsconfig.json`</span></span>
+<span class="line"><span style="color:#D5CED9">{</span></span>
+<span class="line"><span style="color:#00E8C6">   "compilerOptions"</span><span style="color:#D5CED9">:{</span></span>
+<span class="line"><span style="color:#00E8C6">     "types"</span><span style="color:#D5CED9">:[</span><span style="color:#96E072">"node"</span><span style="color:#D5CED9">],</span></span>
+<span class="line"><span style="color:#A0A1A7CC">     //...</span></span>
+<span class="line"><span style="color:#D5CED9">   },</span></span>
+<span class="line"><span style="color:#A0A1A7CC">   //...</span></span>
+<span class="line"><span style="color:#D5CED9">}</span></span>
+<span class="line"></span></code></pre>
+</li>
+<li>
+<p>如果像 <code>vue3</code> 这种使用 typescript 编写的，可以自动生成内置的 <code>.d.ts</code> 文件</p>
+</li>
+<li>
+<p>注意：</p>
+<ul class="remark-unordered-list">
+<li><code>module</code> 后一般接一个路径，而 <code>namespace</code> 后一般是一个命名空间名字</li>
+<li>但是，现在一般推荐使用 <code>esmodule</code>,<strong>如果在 dts 中没有 <code>import</code> 或者
+<code>export</code>,那么所有的类型声明都是全局的，否则是模块内部的</strong></li>
+</ul>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-json"><span class="line"><span style="color:#A0A1A7CC">//tsconfig.json</span></span>
+<span class="line"><span style="color:#D5CED9">{</span></span>
+<span class="line"><span style="color:#00E8C6">  "files"</span><span style="color:#D5CED9">: [</span><span style="color:#96E072">"./global.d.ts"</span><span style="color:#D5CED9">],</span></span>
+<span class="line"><span style="color:#00E8C6">  "include"</span><span style="color:#D5CED9">: [</span></span>
+<span class="line"><span style="color:#96E072">    "./types/**/*"</span><span style="color:#D5CED9">,</span></span>
+<span class="line"><span style="color:#96E072">    "./src/**/*"</span></span>
+<span class="line"><span style="color:#D5CED9">  ]</span></span>
+<span class="line"><span style="color:#D5CED9">}</span></span>
+<span class="line"></span></code></pre>
+<ul class="remark-unordered-list">
+<li>以下如果不注释 import，那么 .d.ts 不会是全局的</li>
+</ul>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-ts"><span class="line"><span style="color:#A0A1A7CC">//global.d.ts</span></span>
+<span class="line"><span style="color:#C74DED">import</span><span style="color:#EE5D43"> *</span><span style="color:#C74DED"> as</span><span style="color:#00E8C6"> fs</span><span style="color:#C74DED"> from</span><span style="color:#96E072"> "fs"</span><span style="color:#D5CED9">;</span></span>
+<span class="line"><span style="color:#C74DED">declare</span><span style="color:#C74DED"> const</span><span style="color:#FFE66D"> fn</span><span style="color:#EE5D43">:</span><span style="color:#D5CED9"> (</span><span style="color:#00E8C6">a</span><span style="color:#EE5D43">:</span><span style="color:#D5CED9"> number, </span><span style="color:#00E8C6">b</span><span style="color:#EE5D43">:</span><span style="color:#D5CED9"> number) </span><span style="color:#C74DED">=></span><span style="color:#D5CED9"> number;</span></span>
+<span class="line"></span></code></pre>
+</li>
+<li>
+<p><code>reference</code> 可以指定使用的模块的类型，所以在 <code>.d.ts</code> 文件中使用的是
+reference，而不是 import</p>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-ts"><span class="line"><span style="color:#A0A1A7CC">/// &#x3C;reference types="node"></span></span>
+<span class="line"><span style="color:#C74DED">declare</span><span style="color:#C74DED"> const</span><span style="color:#FFE66D"> fn</span><span style="color:#EE5D43">:</span><span style="color:#D5CED9"> (</span><span style="color:#00E8C6">a</span><span style="color:#EE5D43">:</span><span style="color:#D5CED9"> number, </span><span style="color:#00E8C6">b</span><span style="color:#EE5D43">:</span><span style="color:#D5CED9"> number) </span><span style="color:#C74DED">=></span><span style="color:#D5CED9"> number;</span></span>
+<span class="line"></span></code></pre>
+<ul class="remark-unordered-list">
+<li>或者在一些配置文件中也可以使用，例如 vite 中的 <code>env.d.ts</code></li>
+</ul>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-ts"><span class="line"><span style="color:#A0A1A7CC">/// &#x3C;</span><span style="color:#F92672">reference</span><span style="color:#FFE66D"> types</span><span style="color:#EE5D43">=</span><span style="color:#96E072">"vite/client"</span><span style="color:#A0A1A7CC"> /></span></span>
+<span class="line"><span style="color:#A0A1A7CC">//...</span></span>
+<span class="line"></span></code></pre>
+</li>
+</ul>
+<h2 id="ts-模块化开发">TS 模块化开发<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#ts-模块化开发"></a></h2>
+<ul class="remark-unordered-list">
+<li>TypeScript 的两种支持
+<ul class="remark-unordered-list">
+<li>模块化：每个文件可以是一个独立的模块，支持 ES Module，也支持 CommonJS</li>
+<li>命名空间：通过<code>nampspace</code>来声明一个命名空间</li>
+</ul>
+</li>
+</ul>
+<h3 id="命名空间">命名空间<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#命名空间"></a></h3>
+<blockquote>
+<p>在 TypeScript 早期时，称之为内部模块，主要是将一个模块内部再惊醒作用域的划分，防止命名冲突</p>
+</blockquote>
+<ul class="remark-unordered-list">
+<li>命名空间是在 Web
+应用程序中构建代码的好方法，所有依赖项都作为&#x3C;script>标签包含在 HTML 页面中</li>
+</ul>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-ts"><span class="line"><span style="color:#C74DED">export</span><span style="color:#C74DED"> namespace</span><span style="color:#FFE66D"> price</span><span style="color:#D5CED9"> {</span></span>
+<span class="line"><span style="color:#C74DED">  export</span><span style="color:#C74DED"> function</span><span style="color:#FFE66D"> format</span><span style="color:#D5CED9">(</span><span style="color:#00E8C6">price</span><span style="color:#EE5D43">:</span><span style="color:#D5CED9"> number) {</span></span>
+<span class="line"><span style="color:#C74DED">    return</span><span style="color:#96E072"> "99.99"</span><span style="color:#D5CED9">;</span></span>
+<span class="line"><span style="color:#D5CED9">  }</span></span>
+<span class="line"><span style="color:#D5CED9">}</span></span>
+<span class="line"></span></code></pre>
+<h3 id="类型查找">类型查找<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#类型查找"></a></h3>
+<ul class="remark-unordered-list">
+<li>另外的一种<code>typescript</code>文件：<code>.d.ts</code>文件
+<ul class="remark-unordered-list">
+<li>通常的<code>TypeScript</code>文件都是以<code>.ts</code>文件输出</li>
+<li>另外一种<code>.d.ts</code>文件按，是用来做类型的声明<code>declare</code>.(仅仅是用来做类型监测，告知 typescript 有哪些类型)</li>
+</ul>
+</li>
+<li>三种类型声明
+<ul class="remark-unordered-list">
+<li>内置类型声明</li>
+<li>外部定义类型声明</li>
+<li>自己定义类型声明</li>
+</ul>
+</li>
+</ul>
+<h4 id="内置类型声明">内置类型声明<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#内置类型声明"></a></h4>
+<ul class="remark-unordered-list">
+<li>内置类型声明是<code>typescript</code>自带的，帮助我们内置了<code>JavaScript</code>运行时的一些标准化 API 的声明文件
+<ul class="remark-unordered-list">
+<li>包括比如<code>Math,Date</code>等内置类型，也包括<code>DOM API</code>，比如<code>Window</code>,<code>Document</code>等</li>
+</ul>
+</li>
+<li>内置类型声明通常在我们安装 typescript 的环境中会带有的：
+<ul class="remark-unordered-list">
+<li><a href="https://github.com/microsoft/TypeScript/tree/main/lib">https://github.com/microsoft/TypeScript/tree/main/lib</a></li>
+</ul>
+</li>
+</ul>
+<h4 id="外部定义类型声明">外部定义类型声明<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#外部定义类型声明"></a></h4>
+<ul class="remark-unordered-list">
+<li>外部类型声明通常是我们使用一些库 (比如第三方库) 时，需要的一些类型声明
+<ul class="remark-unordered-list">
+<li>在自己库中进行类型声明 (编写<code>.d.ts</code>文件)，比如<code>axios</code></li>
+<li>通过社区的一个公有库<code>DefinitelyTyped</code>存放类型声明文件
+<ul class="remark-unordered-list">
+<li>该库的 GitHub 地址:<a href="https://github.com/DefinitelyTyped/DefinitelyTyped/">https://github.com/DefinitelyTyped/DefinitelyTyped/</a></li>
+<li>该库查找声明安装方式的地址:<a href="https://www.typescriptlang.org/dt/search?search">https://www.typescriptlang.org/dt/search?search</a>=</li>
+<li>比如我们安装 react 的类型声明：<code>npm i @types/react --save-dev</code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="自定义声明">自定义声明<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#自定义声明"></a></h4>
+<blockquote>
+<p>何时使用自定义声明</p>
+</blockquote>
+<ul class="remark-ordered-list">
+<li>我们使用的第三方库是一个纯的 JavaScript 库，没有对应的声明文件：比如 lodash</li>
+<li>我们给自己的代码中声明一些类型，方便在其他地方直接进行使用</li>
+</ul>
+<blockquote>
+<p>变量 - 函数 - 类的声明</p>
+</blockquote>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-ts"><span class="line"><span style="color:#C74DED">declare</span><span style="color:#C74DED"> let</span><span style="color:#00E8C6"> whyHeight</span><span style="color:#EE5D43">:</span><span style="color:#D5CED9"> number;</span></span>
+<span class="line"><span style="color:#C74DED">declare</span><span style="color:#C74DED"> function</span><span style="color:#FFE66D"> whyFoo</span><span style="color:#D5CED9">()</span><span style="color:#EE5D43">:</span><span style="color:#D5CED9"> void;</span></span>
+<span class="line"><span style="color:#C74DED">declare</span><span style="color:#C74DED"> class</span><span style="color:#FFE66D"> Person</span><span style="color:#D5CED9"> {</span></span>
+<span class="line"><span style="color:#00E8C6">  name</span><span style="color:#EE5D43">:</span><span style="color:#D5CED9"> string;</span></span>
+<span class="line"><span style="color:#00E8C6">  age</span><span style="color:#EE5D43">:</span><span style="color:#D5CED9"> number;</span></span>
+<span class="line"><span style="color:#C74DED">  constructor</span><span style="color:#D5CED9">(</span><span style="color:#00E8C6">name</span><span style="color:#EE5D43">:</span><span style="color:#D5CED9"> string, </span><span style="color:#00E8C6">age</span><span style="color:#EE5D43">:</span><span style="color:#D5CED9"> number);</span></span>
+<span class="line"><span style="color:#D5CED9">}</span></span>
+<span class="line"></span></code></pre>
+<blockquote>
+<p>声明模块</p>
+</blockquote>
+<ul class="remark-unordered-list">
+<li>我们也可以声明模块，比如 lodash 模块默认不能使用的情况</li>
+<li>声明模块的语法：<code>declare module '模块名' {}</code>
+<ul class="remark-unordered-list">
+<li>在声明模块的内部，我们可以通过 <code>export</code> 导出对应库的类、函数等</li>
+</ul>
+</li>
+</ul>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-ts"><span class="line"><span style="color:#C74DED">declare</span><span style="color:#C74DED"> module</span><span style="color:#96E072"> "lodash"</span><span style="color:#D5CED9"> {</span></span>
+<span class="line"><span style="color:#C74DED">  export</span><span style="color:#C74DED"> function</span><span style="color:#FFE66D"> join</span><span style="color:#D5CED9">(</span><span style="color:#00E8C6">arr</span><span style="color:#EE5D43">:</span><span style="color:#D5CED9"> any[])</span><span style="color:#EE5D43">:</span><span style="color:#D5CED9"> void;</span></span>
+<span class="line"><span style="color:#D5CED9">}</span></span>
+<span class="line"></span></code></pre>
+<blockquote>
+<p>声明文件</p>
+</blockquote>
+<ul class="remark-unordered-list">
+<li>在开发中我们使用了 jpg
+这类图片文件，默认<code>typescript</code>也是不支持的，也需要对其进行声明</li>
+</ul>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-ts"><span class="line"><span style="color:#C74DED">declare</span><span style="color:#C74DED"> module</span><span style="color:#96E072"> "*.jpg"</span><span style="color:#D5CED9"> {</span></span>
+<span class="line"><span style="color:#C74DED">  const</span><span style="color:#00E8C6"> src</span><span style="color:#EE5D43">:</span><span style="color:#D5CED9"> string;</span></span>
+<span class="line"><span style="color:#C74DED">  export</span><span style="color:#C74DED"> default</span><span style="color:#00E8C6"> src</span><span style="color:#D5CED9">;</span></span>
+<span class="line"><span style="color:#D5CED9">}</span></span>
+<span class="line"></span></code></pre>
+<blockquote>
+<p>在我们构建 vue 项目时，vue 会自己初始化一个<code>shimes-vue.d.ts</code>文件</p>
+</blockquote>
+<ul class="remark-unordered-list">
+<li>其中 vue 的<code>.d.ts</code>文件并没有构建其他的全局属性 (或者自己添加的),所以如果要使用，最好加上去</li>
+</ul>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-ts"><span class="line"><span style="color:#C74DED">declare</span><span style="color:#C74DED"> module</span><span style="color:#96E072"> "*.vue"</span><span style="color:#D5CED9"> {</span></span>
+<span class="line"><span style="color:#C74DED">  import</span><span style="color:#C74DED"> type</span><span style="color:#D5CED9"> { </span><span style="color:#00E8C6">DefineComponent</span><span style="color:#D5CED9"> } </span><span style="color:#C74DED">from</span><span style="color:#96E072"> "vue"</span><span style="color:#D5CED9">;</span></span>
+<span class="line"><span style="color:#C74DED">  const</span><span style="color:#00E8C6"> component</span><span style="color:#EE5D43">:</span><span style="color:#FFE66D"> DefineComponent</span><span style="color:#D5CED9">&#x3C;{}, {}, any>;</span></span>
+<span class="line"><span style="color:#C74DED">  export</span><span style="color:#C74DED"> default</span><span style="color:#00E8C6"> component</span><span style="color:#D5CED9">;</span></span>
+<span class="line"><span style="color:#D5CED9">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#C74DED">declare</span><span style="color:#C74DED"> module</span><span style="color:#96E072"> "*.json"</span><span style="color:#D5CED9">;</span></span>
+<span class="line"><span style="color:#A0A1A7CC">//暴露两个全局属性</span></span>
+<span class="line"><span style="color:#C74DED">declare</span><span style="color:#C74DED"> const</span><span style="color:#00E8C6"> $store</span><span style="color:#EE5D43">:</span><span style="color:#D5CED9"> any;</span></span>
+<span class="line"><span style="color:#C74DED">declare</span><span style="color:#C74DED"> const</span><span style="color:#00E8C6"> $filters</span><span style="color:#EE5D43">:</span><span style="color:#D5CED9"> any;</span></span>
+<span class="line"></span></code></pre>
+<h2 id="设置别名">设置别名<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#设置别名"></a></h2>
+<p>使用 vite 开发的时候，经常会使用类似 <code>@</code> 的别名等情况，如果使用 TypeScript 来设置，需要在 <code>tsconfig.json</code> 来设置，再在 <code>vite.config.ts</code> 中设置 <code>alias</code>，这样才可以使用</p>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-json"><span class="line"><span style="color:#D5CED9">{</span></span>
+<span class="line"><span style="color:#00E8C6">  "compilerOptions"</span><span style="color:#D5CED9">: {</span></span>
+<span class="line"><span style="color:#00E8C6">    "baseUrl"</span><span style="color:#D5CED9">: </span><span style="color:#96E072">"."</span><span style="color:#D5CED9">,</span></span>
+<span class="line"><span style="color:#00E8C6">    "paths"</span><span style="color:#D5CED9">: {</span></span>
+<span class="line"><span style="color:#00E8C6">      "@/*"</span><span style="color:#D5CED9">: [</span><span style="color:#96E072">"src/*"</span><span style="color:#D5CED9">]</span></span>
+<span class="line"><span style="color:#D5CED9">    }</span></span>
+<span class="line"><span style="color:#D5CED9">  }</span></span>
+<span class="line"><span style="color:#D5CED9">}</span></span>
+<span class="line"></span></code></pre>
+<div class="sponsor-container">
+  <button class="sponsor-btn">
+    <a href="https://stripe.fwqaaq.workers.dev/Personal-Website-Sponsor/checkout?mode=once" target="_blank" rel="noopener noreferrer" class="">
+      <span class="sponsor-icon">☕</span>
+      <span>请博主喝杯咖啡</span>
+  </a>
+  </button>
+</div>
+          </article>
+        </main><script src="https://giscus.app/client.js"
+        data-repo="fwqaaq/fwqaaq.github.io"
+        data-repo-id="R_kgDOHCFK2A"
+        data-category="Show and tell"
+        data-category-id="DIC_kwDOHCFK2M4CYOLh"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="1"
+        data-input-position="bottom"
+        data-theme="preferred_color_scheme"
+        data-lang="zh-CN"
+        crossorigin="anonymous"
+        async></script><footer class="blog-footer">
+  <div class="footer-container">
+    <p class="text-center"><a class="decoration-line"
+        href="https://creativecommons.org/licenses/by-sa/3.0/deed.zh-hans">© CC BY-SA</a> 2021 -
+      2025 <a class="decoration-line" href="https://github.com/fwqaaq">fwqaaq</a>.
+      Powered by <a class="decoration-line" href="https://deno.com">Deno</a>
+    </p>
+  </div>
+  <div class="footer-icons-container">
+    <a class="icon" href="https://github.com/fwqaaq">
+      <i class="fa-brands fa-github"></i>
+    </a>
+    <a class="icon" href="mailto:fwqaaq@gmail">
+      <i class="fa-solid fa-envelope"></i>
+    </a>
+    <a class="icon" href="https://www.fwqaaq.com/feed.xml">
+      <i class="fa-solid fa-rss"></i>
+    </a>
+    <a class="icon" href="https://t.me/fwqaaq">
+      <i class="fa-brands fa-telegram"></i>
+    </a>
+  </div>
+</footer>

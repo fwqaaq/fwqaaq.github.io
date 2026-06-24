@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#F3F7F6">
+  <meta name="description" content="Git 问题收集  > [!NOTE] > 本文档收集一些关于开发中遇到的 Git 问题，以及解决方案。  1. 在帮朋友下载 brew 的时候遇到一个 Git 的问题：RPC f...">
+  <meta name="keywords" content="Git">
+  <meta name="author" content="fwqaaq">
+  <meta property="og:site_name" content="fwqaaq 的博客">
+  <meta property="og:locale" content="zh_CN">
+  <meta property="og:title" content="Git 问题收集">
+  <meta property="og:description" content="Git 问题收集  > [!NOTE] > 本文档收集一些关于开发中遇到的 Git 问题，以及解决方案。  1. 在帮朋友下载 brew 的时候遇到一个 Git 的问题：RPC f...">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://www.fwqaaq.com//posts/20240220132514/">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="fwqaaq 的博客">
+  <meta name=application-name content="fwqaaq 的博客">
+  <meta name=apple-mobile-web-app-title content="fwqaaq 的博客">
+  <title>
+    Git 问题收集
+  </title>
+  <link rel="shortcut icon" href="/public/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="/public/css/base.849580.css">
+  <link rel="stylesheet" href="/public/css/index.849580.css">
+  <link rel="stylesheet" href="/public/css/markdown.849580.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+  <script src="/public/JavaScript/index.849580.js"></script>
+  <script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit" defer></script>
+</head>
+
+</html>
+<header class="blog-header">
+    <i id="switch-icon" class="fa-solid fa-bars"></i>
+    <a href="https://github.com/fwqaaq" target="_blank">
+        <img src="https://avatars.githubusercontent.com/u/82551626?v=4" loading="lazy" alt="me" srcset="">
+    </a>
+    <div class="wrap-background">
+        <nav class="header-nav">
+            <a class="decoration-line" href="/"><i class="fa-solid fa-house-chimney fa-xs"></i>
+                <span class="disappear">首页</span>
+            </a>
+            <a class="decoration-line" href="/./about/index.html"><i class="fa-solid fa-address-card fa-xs"></i>
+                <span class="disappear">关于</span></a>
+            <a class="decoration-line" href="/./archive/index.html"><i class="fa-solid fa-box-archive fa-xs"></i> <span
+                    class="disappear">归档</span></a>
+            <a class="decoration-line" href="/./tags/index.html"><i class="fa-solid fa-tag fa-xs"></i>
+                <span class="disappear">标签</span></a>
+            <a class="decoration-line" onclick="sponsor(199)">
+                <i class="fa-solid fa-circle-dollar-to-slot fa-xs"></i>
+                <span class="disappear">赞助</span></a>
+            <div class="language-switcher notranslate">
+                <button class="language-toggle" type="button" aria-label="切换语言" aria-expanded="false"
+                    aria-controls="language-menu">
+                    <i class="fa-solid fa-globe fa-xs" aria-hidden="true"></i>
+                    <span class="disappear" translate="yes">语言</span>
+                </button>
+                <div class="language-menu" id="language-menu" role="menu" hidden>
+                    <button class="language-option" type="button" role="menuitemradio" data-lang=""
+                        aria-checked="true">原文</button>
+                    <button class="language-option" type="button" role="menuitemradio" data-lang="en"
+                        aria-checked="false">English</button>
+                    <button class="language-option" type="button" role="menuitemradio" data-lang="ja"
+                        aria-checked="false">日本語</button>
+                    <button class="language-option" type="button" role="menuitemradio" data-lang="ko"
+                        aria-checked="false">한국어</button>
+                    <button class="language-option" type="button" role="menuitemradio" data-lang="fr"
+                        aria-checked="false">Français</button>
+                    <button class="language-option" type="button" role="menuitemradio" data-lang="de"
+                        aria-checked="false">Deutsch</button>
+                    <button class="language-option" type="button" role="menuitemradio" data-lang="es"
+                        aria-checked="false">Español</button>
+                    <button class="language-option" type="button" role="menuitemradio" data-lang="ru"
+                        aria-checked="false">Русский</button>
+                    <button class="language-option" type="button" role="menuitemradio" data-lang="zh-TW"
+                        aria-checked="false">繁體中文</button>
+                </div>
+            </div>
+            <div id="google_translate_element" class="google-translate-element notranslate" aria-hidden="true"></div>
+            <a class="decoration-line model" href="#" aria-label="切换深浅色主题"><i class="fa-solid fa-sun fa-xs"></i></a>
+        </nav>
+    </div>
+</header>
+        <main class="blog-main">
+          <article class="blog-article">
+            <h1>Git 问题收集</h1>
+          <div class="post-meta post-meta-flex-around">
+              <div class="post-author" href="/./about/"><i class="fa-solid fa-user"></i> fwqaaq</div> 
+              <div class="post-time"><i class="fa-solid fa-clock"></i> 2024-02-20</div> 
+              <div class="post-update-time"><i class="fa-solid fa-clock-rotate-left"></i> 2025-11-09</div>
+            </div>
+            <hr>
+            <details class="remark-toc-details"><summary class="remark-toc-summary">目录</summary><ul class="remark-toc">
+<li><a href="#git-%E9%97%AE%E9%A2%98%E6%94%B6%E9%9B%86">Git 问题收集</a></li>
+</ul></details>
+<h2 id="git-问题收集">Git 问题收集<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#git-问题收集"></a></h2>
+<div class="markdown-alert markdown-alert-note">
+<p class="markdown-alert-title"><svg class="octicon octicon-info mr-2" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8Zm8-6.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13ZM6.5 7.75A.75.75 0 0 1 7.25 7h1a.75.75 0 0 1 .75.75v2.75h.25a.75.75 0 0 1 0 1.5h-2a.75.75 0 0 1 0-1.5h.25v-2h-.25a.75.75 0 0 1-.75-.75ZM8 6a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"></path></svg>Note</p>
+<p>本文档收集一些关于开发中遇到的 Git 问题，以及解决方案。</p>
+</div>
+<ul class="remark-ordered-list">
+<li>
+<p>在帮朋友下载 brew 的时候遇到一个 Git 的问题：RPC failed; curl 92 HTTP/2 stream 5 was not closed cleanly: CANCEL (err 8)</p>
+<ul class="remark-unordered-list">
+<li>原因可能是这样：I encountered this error when pushing GIT through an ADSL Broadband Wi-Fi network with low signal strength, low stability, and low speed.</li>
+<li>解决方式：Then, I was able to push it very successfully when I pushed it into the GIT through a Fibre Broadband Wi-Fi network with greater signal strength, greater stability, and higher speed.</li>
+<li>参考：<a href="https://stackoverflow.com/questions/59282476/error-rpc-failed-curl-92-http-2-stream-0-was-not-closed-cleanly-protocol-erro">https://stackoverflow.com/questions/59282476/error-rpc-failed-curl-92-http-2-stream-0-was-not-closed-cleanly-protocol-erro</a></li>
+</ul>
+</li>
+<li>
+<p>有多个 GitHub 账号，如何切换账号的问题：</p>
+<ul class="remark-unordered-list">
+<li>在原仓库中运行以下命令，一定要设置好 SSH key，不要覆盖原来的 SSH key。</li>
+</ul>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-bash"><span class="line"><span style="color:#FFE66D">git</span><span style="color:#96E072"> config</span><span style="color:#96E072"> user.name</span><span style="color:#96E072"> "username"</span></span>
+<span class="line"><span style="color:#FFE66D">git</span><span style="color:#96E072"> config</span><span style="color:#96E072"> user.email</span><span style="color:#96E072"> "email"</span></span>
+<span class="line"><span style="color:#FFE66D">git</span><span style="color:#96E072"> config</span><span style="color:#96E072"> core.sshCommand</span><span style="color:#96E072"> "ssh -i ~/.ssh/id_rsa_xxx"</span></span>
+<span class="line"></span></code></pre>
+</li>
+<li>
+<p>提交一个空提交</p>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-bash"><span class="line"><span style="color:#FFE66D">git</span><span style="color:#96E072"> commit</span><span style="color:#EE5D43"> --allow-empty</span><span style="color:#EE5D43"> -m</span><span style="color:#96E072"> "empty commit"</span></span>
+<span class="line"></span></code></pre>
+</li>
+<li>
+<p>Git 提交验证，由于 Git 服务器对提交的作者一般都不会进行身份验证，所以如果使用了别人的身份信息提交代码进行“投毒”是很容易的，所以多数仓库会进行 <code>ssh</code> 和 <code>GPG</code> 的验证：</p>
+<ul class="remark-unordered-list">
+<li><a href="https://docs.github.com/zh/authentication/managing-commit-signature-verification/telling-git-about-your-signing-key#telling-git-about-your-ssh-key"><code>ssh</code> 签名验证</a></li>
+<li><a href="https://docs.github.com/zh/authentication/managing-commit-signature-verification/generating-a-new-gpg-key"><code>GPG</code> 签名验证</a>，在 Mac 上使用 PGP 签名可能有问题，具体参考：<a href="https://gist.github.com/Peredery/38d0538dd34381bbd9d13414269a1f27">https://gist.github.com/Peredery/38d0538dd34381bbd9d13414269a1f27</a></li>
+</ul>
+</li>
+<li>
+<p>Git 在提交后，因文件名大小问题进行修改后，由于系统的原因，无法直接修改，可以使用 <code>git mv</code> 进行修改：</p>
+<ul class="remark-unordered-list">
+<li><a href="https://github.com/fwqaaq/scripts/blob/main/shell/rename_file.sh"><code>git mv</code> 批量修改脚本</a></li>
+</ul>
+</li>
+</ul>
+<div class="sponsor-container">
+  <button class="sponsor-btn">
+    <a href="https://stripe.fwqaaq.workers.dev/Personal-Website-Sponsor/checkout?mode=once" target="_blank" rel="noopener noreferrer" class="">
+      <span class="sponsor-icon">☕</span>
+      <span>请博主喝杯咖啡</span>
+  </a>
+  </button>
+</div>
+          </article>
+        </main><script src="https://giscus.app/client.js"
+        data-repo="fwqaaq/fwqaaq.github.io"
+        data-repo-id="R_kgDOHCFK2A"
+        data-category="Show and tell"
+        data-category-id="DIC_kwDOHCFK2M4CYOLh"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="1"
+        data-input-position="bottom"
+        data-theme="preferred_color_scheme"
+        data-lang="zh-CN"
+        crossorigin="anonymous"
+        async></script><footer class="blog-footer">
+  <div class="footer-container">
+    <p class="text-center"><a class="decoration-line"
+        href="https://creativecommons.org/licenses/by-sa/3.0/deed.zh-hans">© CC BY-SA</a> 2021 -
+      2025 <a class="decoration-line" href="https://github.com/fwqaaq">fwqaaq</a>.
+      Powered by <a class="decoration-line" href="https://deno.com">Deno</a>
+    </p>
+  </div>
+  <div class="footer-icons-container">
+    <a class="icon" href="https://github.com/fwqaaq">
+      <i class="fa-brands fa-github"></i>
+    </a>
+    <a class="icon" href="mailto:fwqaaq@gmail">
+      <i class="fa-solid fa-envelope"></i>
+    </a>
+    <a class="icon" href="https://www.fwqaaq.com/feed.xml">
+      <i class="fa-solid fa-rss"></i>
+    </a>
+    <a class="icon" href="https://t.me/fwqaaq">
+      <i class="fa-brands fa-telegram"></i>
+    </a>
+  </div>
+</footer>

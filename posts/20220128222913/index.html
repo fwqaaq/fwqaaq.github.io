@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#F3F7F6">
+  <meta name="description" content="下以 `nuxt3` 集成 ESlint 举例  - `npx nuxi init nuxt-app`：首先得初始化一个 nuxt3 的项目  ## 初始化 ESlint  - `...">
+  <meta name="keywords" content="ESlint, JavaScript, TypeScript">
+  <meta name="author" content="fwqaaq">
+  <meta property="og:site_name" content="fwqaaq 的博客">
+  <meta property="og:locale" content="zh_CN">
+  <meta property="og:title" content="ESLint">
+  <meta property="og:description" content="下以 `nuxt3` 集成 ESlint 举例  - `npx nuxi init nuxt-app`：首先得初始化一个 nuxt3 的项目  ## 初始化 ESlint  - `...">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://www.fwqaaq.com//posts/20220128222913/">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="fwqaaq 的博客">
+  <meta name=application-name content="fwqaaq 的博客">
+  <meta name=apple-mobile-web-app-title content="fwqaaq 的博客">
+  <title>
+    ESLint
+  </title>
+  <link rel="shortcut icon" href="/public/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="/public/css/base.849580.css">
+  <link rel="stylesheet" href="/public/css/index.849580.css">
+  <link rel="stylesheet" href="/public/css/markdown.849580.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+  <script src="/public/JavaScript/index.849580.js"></script>
+  <script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit" defer></script>
+</head>
+
+</html>
+<header class="blog-header">
+    <i id="switch-icon" class="fa-solid fa-bars"></i>
+    <a href="https://github.com/fwqaaq" target="_blank">
+        <img src="https://avatars.githubusercontent.com/u/82551626?v=4" loading="lazy" alt="me" srcset="">
+    </a>
+    <div class="wrap-background">
+        <nav class="header-nav">
+            <a class="decoration-line" href="/"><i class="fa-solid fa-house-chimney fa-xs"></i>
+                <span class="disappear">首页</span>
+            </a>
+            <a class="decoration-line" href="/./about/index.html"><i class="fa-solid fa-address-card fa-xs"></i>
+                <span class="disappear">关于</span></a>
+            <a class="decoration-line" href="/./archive/index.html"><i class="fa-solid fa-box-archive fa-xs"></i> <span
+                    class="disappear">归档</span></a>
+            <a class="decoration-line" href="/./tags/index.html"><i class="fa-solid fa-tag fa-xs"></i>
+                <span class="disappear">标签</span></a>
+            <a class="decoration-line" onclick="sponsor(199)">
+                <i class="fa-solid fa-circle-dollar-to-slot fa-xs"></i>
+                <span class="disappear">赞助</span></a>
+            <div class="language-switcher notranslate">
+                <button class="language-toggle" type="button" aria-label="切换语言" aria-expanded="false"
+                    aria-controls="language-menu">
+                    <i class="fa-solid fa-globe fa-xs" aria-hidden="true"></i>
+                    <span class="disappear" translate="yes">语言</span>
+                </button>
+                <div class="language-menu" id="language-menu" role="menu" hidden>
+                    <button class="language-option" type="button" role="menuitemradio" data-lang=""
+                        aria-checked="true">原文</button>
+                    <button class="language-option" type="button" role="menuitemradio" data-lang="en"
+                        aria-checked="false">English</button>
+                    <button class="language-option" type="button" role="menuitemradio" data-lang="ja"
+                        aria-checked="false">日本語</button>
+                    <button class="language-option" type="button" role="menuitemradio" data-lang="ko"
+                        aria-checked="false">한국어</button>
+                    <button class="language-option" type="button" role="menuitemradio" data-lang="fr"
+                        aria-checked="false">Français</button>
+                    <button class="language-option" type="button" role="menuitemradio" data-lang="de"
+                        aria-checked="false">Deutsch</button>
+                    <button class="language-option" type="button" role="menuitemradio" data-lang="es"
+                        aria-checked="false">Español</button>
+                    <button class="language-option" type="button" role="menuitemradio" data-lang="ru"
+                        aria-checked="false">Русский</button>
+                    <button class="language-option" type="button" role="menuitemradio" data-lang="zh-TW"
+                        aria-checked="false">繁體中文</button>
+                </div>
+            </div>
+            <div id="google_translate_element" class="google-translate-element notranslate" aria-hidden="true"></div>
+            <a class="decoration-line model" href="#" aria-label="切换深浅色主题"><i class="fa-solid fa-sun fa-xs"></i></a>
+        </nav>
+    </div>
+</header>
+        <main class="blog-main">
+          <article class="blog-article">
+            <h1>ESLint</h1>
+          <div class="post-meta post-meta-flex-around">
+              <div class="post-author" href="/./about/"><i class="fa-solid fa-user"></i> fwqaaq</div> 
+              <div class="post-time"><i class="fa-solid fa-clock"></i> 2022-01-28</div> 
+              <div class="post-update-time"><i class="fa-solid fa-clock-rotate-left"></i> 2025-11-09</div>
+            </div>
+            <hr>
+            <details class="remark-toc-details"><summary class="remark-toc-summary">目录</summary><ul class="remark-toc">
+<li>
+<p><a href="#%E5%88%9D%E5%A7%8B%E5%8C%96-eslint">初始化 ESlint</a></p>
+<ul>
+<li><a href="#extends">extends</a></li>
+<li><a href="#plugin">plugin</a></li>
+<li><a href="#rules">rules</a></li>
+<li><a href="#extends-%E5%92%8C-plugins-%E7%9A%84%E5%8C%BA%E5%88%AB">extends 和 plugins 的区别</a></li>
+<li><a href="#parseroptions">parserOptions</a></li>
+<li><a href="#%E4%BF%AE%E6%94%B9%E6%94%AF%E6%8C%81-vue3">修改支持 vue3</a></li>
+<li><a href="#eslint-%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%8F%82%E6%95%B0">ESlint 命令行参数</a></li>
+</ul>
+</li>
+<li>
+<p><a href="#prettier-%E5%92%8C-husky">prettier 和 husky</a></p>
+<ul>
+<li><a href="#husky">husky</a></li>
+<li><a href="#lint-staged">Lint-staged</a></li>
+</ul>
+</li>
+</ul></details>
+<blockquote>
+<p>以下以 <code>nuxt3</code> 集成 ESlint 举例</p>
+</blockquote>
+<ul class="remark-unordered-list">
+<li><code>npx nuxi init nuxt-app</code>：首先得初始化一个 nuxt3 的项目</li>
+</ul>
+<h2 id="初始化-eslint">初始化 ESlint<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#初始化-eslint"></a></h2>
+<ul class="remark-unordered-list">
+<li>
+<p><code>eslint</code> 可以全局安装，也可以局部安装，在这里我就使用 <code>pnpm add eslint -D</code></p>
+</li>
+<li>
+<p><code>npx eslint --init</code>：此命令可以创建一个配置，并且你就可以继承推荐的规则</p>
+</li>
+</ul>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-js"><span class="line"><span style="color:#C74DED">module</span><span style="color:#D5CED9">.</span><span style="color:#C74DED">exports</span><span style="color:#EE5D43"> =</span><span style="color:#D5CED9"> {</span></span>
+<span class="line"><span style="color:#96E072">  "env"</span><span style="color:#D5CED9">: {</span></span>
+<span class="line"><span style="color:#96E072">    "browser"</span><span style="color:#D5CED9">: </span><span style="color:#EE5D43">true</span><span style="color:#D5CED9">,</span></span>
+<span class="line"><span style="color:#96E072">    "es2021"</span><span style="color:#D5CED9">: </span><span style="color:#EE5D43">true</span><span style="color:#D5CED9">,</span></span>
+<span class="line"><span style="color:#D5CED9">  },</span></span>
+<span class="line"><span style="color:#96E072">  "extends"</span><span style="color:#D5CED9">: [</span></span>
+<span class="line"><span style="color:#96E072">    "eslint:recommended"</span><span style="color:#D5CED9">,</span></span>
+<span class="line"><span style="color:#96E072">    "plugin:vue/essential"</span><span style="color:#D5CED9">,</span></span>
+<span class="line"><span style="color:#96E072">    "plugin:@typescript-eslint/recommended"</span><span style="color:#D5CED9">,</span></span>
+<span class="line"><span style="color:#D5CED9">  ],</span></span>
+<span class="line"><span style="color:#96E072">  "parserOptions"</span><span style="color:#D5CED9">: {</span></span>
+<span class="line"><span style="color:#96E072">    "ecmaVersion"</span><span style="color:#D5CED9">: </span><span style="color:#96E072">"latest"</span><span style="color:#D5CED9">,</span></span>
+<span class="line"><span style="color:#96E072">    "parser"</span><span style="color:#D5CED9">: </span><span style="color:#96E072">"@typescript-eslint/parser"</span><span style="color:#D5CED9">,</span></span>
+<span class="line"><span style="color:#96E072">    "sourceType"</span><span style="color:#D5CED9">: </span><span style="color:#96E072">"module"</span><span style="color:#D5CED9">,</span></span>
+<span class="line"><span style="color:#D5CED9">  },</span></span>
+<span class="line"><span style="color:#96E072">  "plugins"</span><span style="color:#D5CED9">: [</span></span>
+<span class="line"><span style="color:#96E072">    "vue"</span><span style="color:#D5CED9">,</span></span>
+<span class="line"><span style="color:#96E072">    "@typescript-eslint"</span><span style="color:#D5CED9">,</span></span>
+<span class="line"><span style="color:#D5CED9">  ],</span></span>
+<span class="line"><span style="color:#96E072">  "rules"</span><span style="color:#D5CED9">: {},</span></span>
+<span class="line"><span style="color:#D5CED9">};</span></span>
+<span class="line"></span></code></pre>
+<ul class="remark-unordered-list">
+<li><strong>env</strong>:项目环境</li>
+</ul>
+<h3 id="extends"><strong>extends</strong><a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#extends"></a></h3>
+<blockquote>
+<p>extends 的模块名称以 <code>eslint-config-</code> 开头，例如 eslint-config-myconfig。同时支持
+npm 作用域模块，例如
+:@scope/eslint-config。使用的时候可以用全称，也可以用缩写 (不使用<code>eslint-config-</code>)</p>
+<p>例如上面配置文件，extends 中 <code>"plugin:@typescript-eslint/recommended"</code>，这个就是插件中的配置</p>
+</blockquote>
+<ul class="remark-unordered-list">
+<li><strong>指定配置的字符串</strong>（配置文件的路径，可共享配置的名称，<code>eslint:recommended</code> 或 <code>eslint:all</code>）</li>
+<li><strong>字符串数组</strong>：每个配置继承它前面的配置</li>
+</ul>
+<ul class="remark-ordered-list">
+<li>extends 可以看做是集成一个个配置方案的最佳实践。它配置的内容实际就是一份份别人配置好的 <code>.eslintrc.js</code></li>
+<li>允许 extends 配置多个模块，如果规则冲突，位置靠后的包将覆盖前面的</li>
+<li>rules 中的规则相同，并且优先级恒定高于 extends</li>
+</ul>
+<h3 id="plugin">plugin<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#plugin"></a></h3>
+<blockquote>
+<p>每个插件是一个命名格式为 eslint-plugin-&#x3C;plugin-name> ，比如
+eslint-plugin-vue。你也可以用这样的格式 @&#x3C;scope>/eslint-plugin-&#x3C;plugin-name>
+限定在包作用域下，比如 @vue/eslint-plugin-vue。同样可以使用缩写</p>
+<p>例如上面配置文件中，plugins 中的<code>"vue"</code>，这个就是简写的插件</p>
+</blockquote>
+<ul class="remark-ordered-list">
+<li>引入 <code>plugin</code> 可以理解为只是加载了（拥有额外的自定义的 rules）插件。但是只有在 <strong>rules,extends</strong> 中定义后才会生效，如果没有则不生效</li>
+<li>plugin 里除了自定义的 rules。还可以配置 <code>.eslintrc.js</code>（例如 <code>"plugin:vue/essential"</code>），并且这部分可以在 extends 里配置：<code>plugin:config</code> 名称
+<ul class="remark-unordered-list">
+<li>参考：<a href="https://cn.eslint.org/docs/developer-guide/working-with-plugins#configs-in-plugins">https://cn.eslint.org/docs/developer-guide/working-with-plugins#configs-in-plugins</a></li>
+</ul>
+</li>
+</ul>
+<h3 id="rules"><strong>rules</strong><a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#rules"></a></h3>
+<blockquote>
+<p><a href="https://eslint.org/docs/user-guide/configuring/rules">可以做下面的任何事情以扩展（或覆盖）规则</a></p>
+</blockquote>
+<ul class="remark-unordered-list">
+<li><code>"off"</code> 或 <code>0</code>——关闭规则</li>
+<li><code>"warn"</code> 或 <code>1</code>——打开规则作为警告（不影响退出代码）</li>
+<li><code>"error"</code> 或 <code>2</code>——将规则作为错误打开（触发时退出代码为 1）</li>
+</ul>
+<ul class="remark-ordered-list">
+<li>启用额外的规则</li>
+<li>改变继承的规则级别而不改变它的选项
+<ul class="remark-unordered-list">
+<li>基础配置：<code>"eqeqeq": ["error", "allow-null"]</code></li>
+<li>派生的配置：<code>"eqeqeq": "warn"</code></li>
+<li>最后生成的配置：<code>"eqeqeq": ["warn", "allow-null"]</code></li>
+<li><code>eqeqeq</code> 是需要 <code>===</code> 和 <code>!==</code></li>
+</ul>
+</li>
+<li>覆盖基础配置中的规则的选项
+<ul class="remark-unordered-list">
+<li>基础配置：<code>"quotes": ["error", "single", "avoid-escape"]</code></li>
+<li>派生的配置：<code>"quotes": ["error", "single"]</code></li>
+<li>最后生成的配置：<code>"quotes": ["error", "single"]</code></li>
+<li><code>quotes</code> 强制一致使用反引号、双引号或单引号</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>开启 "eslint:recommended"</p>
+<p>值为 <code>eslint:recommended</code> 的 extends 属性启用一系列核心规则，这些规则报告一些常见问题</p>
+<p>如果配置集成了推荐的规则：在使用命令行的 <code>--fix</code> 选项之前，检查一下报告的问题，这样就可以知道一个新的可修复的推荐的规则将更改代码</p>
+</blockquote>
+<h3 id="extends-和-plugins-的区别">extends 和 plugins 的区别<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#extends-和-plugins-的区别"></a></h3>
+<ul class="remark-ordered-list">
+<li>一般对 JavaScript 来说，extends 是针对 rules 做的规则说明，类似于别人配置好的 <code>.eslintrc.js</code>。而 plugins 是一堆规则集合</li>
+<li>extends 一般会加载 plugin 中的配置集，形成一套核心规则</li>
+<li>plugin 不仅仅可以对 javascript 做扩展，又可以对除了 JavaScript 之外的做扩展</li>
+</ul>
+<blockquote>
+<p>在 extends 中使用<a href="https://cn.eslint.org/docs/developer-guide/working-with-plugins#configs-in-plugins">plugins 插件</a></p>
+</blockquote>
+<ul class="remark-unordered-list">
+<li>extends 里的 config 和 plugin 里的 config 的区别
+<ul class="remark-ordered-list">
+<li><code>extends</code> 中的 config 是一种命名规范，扩展名称格式必须为 eslint-config-&#x3C;name></li>
+<li>plugin 中的 config 是一个属性，用于配置一堆自定义的规则的集合</li>
+</ul>
+</li>
+</ul>
+<h3 id="parseroptions">parserOptions<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#parseroptions"></a></h3>
+<blockquote>
+<p>参考<a href="https://eslint.bootcss.com/docs/user-guide/configuring">https://eslint.bootcss.com/docs/user-guide/configuring</a></p>
+</blockquote>
+<h3 id="修改支持-vue3">修改支持 vue3<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#修改支持-vue3"></a></h3>
+<blockquote>
+<p>参考<a href="https://eslint.vuejs.org/user-guide/#usage">https://eslint.vuejs.org/user-guide/#usage</a></p>
+</blockquote>
+<ul class="remark-ordered-list">
+<li>
+<p>将 extends 里的 <code>"plugin:vue/essential"</code> 换成 vue3</p>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-js"><span class="line"><span style="color:#D5CED9">extends: [</span></span>
+<span class="line"><span style="color:#EE5D43">  ...</span><span style="color:#D5CED9">,</span></span>
+<span class="line"><span style="color:#96E072">  'plugin:vue/vue3-recommended'</span><span style="color:#D5CED9">,</span></span>
+<span class="line"><span style="color:#D5CED9">],</span></span>
+<span class="line"></span></code></pre>
+</li>
+<li>
+<p>配置 nuxt3 中额外的规则</p>
+<ul class="remark-unordered-list">
+<li>下载插件：<code>npm install -D eslint-plugin-nuxt</code></li>
+</ul>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-js"><span class="line"><span style="color:#D5CED9">extends:[</span></span>
+<span class="line"><span style="color:#EE5D43">  ...</span><span style="color:#D5CED9">,</span></span>
+<span class="line"><span style="color:#96E072">  "plugin:nuxt/recommended"</span></span>
+<span class="line"><span style="color:#D5CED9">]</span></span>
+<span class="line"></span></code></pre>
+</li>
+</ul>
+<h3 id="eslint-命令行参数">ESlint 命令行参数<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#eslint-命令行参数"></a></h3>
+<blockquote>
+<p>首先在脚本中配置 eslint 检查</p>
+</blockquote>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-json"><span class="line"><span style="color:#D5CED9">scripts:{</span></span>
+<span class="line"><span style="color:#A0A1A7CC">  // npx 会自动执行脚本，不需要加上 npx</span></span>
+<span class="line"><span style="color:#00E8C6">  "lint"</span><span style="color:#D5CED9">: </span><span style="color:#96E072">"eslint . --ext .ts,.vue"</span></span>
+<span class="line"><span style="color:#D5CED9">}</span></span>
+<span class="line"></span></code></pre>
+<blockquote>
+<ul class="remark-unordered-list">
+<li>语法：<code>eslint [options] [file|dir|glob]*</code></li>
+<li>常用命令行参数，通过 <code>npx eslint --help</code> 来输出所有选项参数</li>
+</ul>
+</blockquote>
+<ul class="remark-unordered-list">
+<li>
+<p>正常的使用</p>
+<ul class="remark-ordered-list">
+<li><code>eslint app.js main.js</code>：检查<code>app.js</code>、<code>main.js</code>文件</li>
+<li><code>eslint lib/**</code>：检查 lib 下面的所有文件</li>
+</ul>
+</li>
+<li>
+<p>一些常用选项</p>
+<ul class="remark-ordered-list">
+<li>
+<p><code>--ext</code>：允许你指定 ESLint 在指定的目录下查找 JavaScript 文件时要使用的文件扩展名。默认情况下 <code>.js</code> 作为唯一性文件扩展名</p>
+<ul class="remark-unordered-list">
+<li><code>--ext</code> 只用当参数为目录时才会生效</li>
+</ul>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-shell"><span class="line"><span style="color:#A0A1A7CC"># 当前目录下所有目录</span></span>
+<span class="line"><span style="color:#FFE66D">eslint</span><span style="color:#EE5D43"> --ext</span><span style="color:#96E072"> .ts,.vue</span><span style="color:#96E072"> .</span></span>
+<span class="line"><span style="color:#A0A1A7CC"># 忽略扩展名，匹配 src 下所有文件</span></span>
+<span class="line"><span style="color:#FFE66D">eslint</span><span style="color:#EE5D43"> --ext</span><span style="color:#96E072"> .vue</span><span style="color:#96E072"> ./src/</span><span style="color:#00E8C6">**</span><span style="color:#96E072">/</span><span style="color:#00E8C6">*</span></span>
+<span class="line"></span></code></pre>
+</li>
+<li>
+<p><code>--rulesdir</code>：允许你指定另一个加载规则文件的目录。允许你在运行时动态加载新规则。当你有自定义规则绑定到 eslint 会很有用。</p>
+<ul class="remark-unordered-list">
+<li><code>eslint --rulesdir my-rules/file.js</code>：只绑定一个规则文件</li>
+<li><code>eslint --rulesdir my-rules/ --rulesdir my-other-rules/file.js</code>：绑定多个规则文件</li>
+<li>注意，与核心规则和插件规则一样，你仍需要在配置文件或通过 <code>--rule</code>
+命令行选项启用这些规则，以便在检测过程中实际运行这些规则。使用 <code>--rulesdir</code>
+指定一个规则目录不会自动启用那些目录下的规则</li>
+</ul>
+</li>
+<li>
+<p><code>-o, --output-file</code>：将报告写到一个文件</p>
+<ul class="remark-unordered-list">
+<li><code>eslint -o ./test.txt</code>：将报告写到 <code>test.txt</code></li>
+</ul>
+</li>
+<li>
+<p><code>--fix</code>：该选项指示 ESLint
+试图修复尽可能多的问题。修复只针对实际文件本身，而且剩下的未修复的问题才会输出。不是所有的问题都能使用这个选项进行修复，该选项在以下情形中不起作用：</p>
+<ul class="remark-unordered-list">
+<li>当代码传递给 ESLint 时，这个选项抛出一个错误。</li>
+<li>这个选项对使用处理器的代码不起作用。</li>
+<li>该选项对使用处理器的代码没有影响，除非处理器选择允许自动修复</li>
+</ul>
+</li>
+</ul>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-json"><span class="line"><span style="color:#D5CED9">{</span></span>
+<span class="line"><span style="color:#00E8C6">  "script"</span><span style="color:#D5CED9">: {</span></span>
+<span class="line"><span style="color:#00E8C6">    "lint"</span><span style="color:#D5CED9">: </span><span style="color:#96E072">"eslint --fix --ext .tsx,.ts ."</span></span>
+<span class="line"><span style="color:#D5CED9">  }</span></span>
+<span class="line"><span style="color:#D5CED9">}</span></span>
+<span class="line"></span></code></pre>
+</li>
+</ul>
+<blockquote>
+<p><code>.eslintignore</code> 文件：eslint 会忽略当前目录下的这些文件。</p>
+</blockquote>
+<ul class="remark-unordered-list">
+<li><code>.eslintignore</code> 是 <code>--ignore-path</code> 的选项的一个扩展，更方便的去管理文件</li>
+</ul>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-shell"><span class="line"><span style="color:#FFE66D">/dist/*</span></span>
+<span class="line"><span style="color:#FFE66D">.local</span></span>
+<span class="line"><span style="color:#FFE66D">.output.js</span></span>
+<span class="line"><span style="color:#FFE66D">/node_modules/**</span></span>
+<span class="line"><span style="color:#EE5D43">**</span><span style="color:#D5CED9">/</span><span style="color:#EE5D43">*</span><span style="color:#D5CED9">.svg</span></span>
+<span class="line"><span style="color:#EE5D43">**</span><span style="color:#D5CED9">/</span><span style="color:#EE5D43">*</span><span style="color:#D5CED9">.sh</span></span>
+<span class="line"><span style="color:#FFE66D">/public/*</span></span>
+<span class="line"></span></code></pre>
+<h2 id="prettier-和-husky">prettier 和 husky<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#prettier-和-husky"></a></h2>
+<blockquote>
+<ul class="remark-unordered-list">
+<li>使用 prettier 去规范代码风格</li>
+<li>参考:<a href="https://prettier.io/">https://prettier.io/</a></li>
+</ul>
+</blockquote>
+<ul class="remark-unordered-list">
+<li>下载关于 prettier 的插件：<code>npm i -D prettier eslint-plugin-prettier eslint-config-prettier</code></li>
+</ul>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-js"><span class="line"><span style="color:#C74DED">module</span><span style="color:#D5CED9">.</span><span style="color:#C74DED">exports</span><span style="color:#EE5D43">=</span><span style="color:#D5CED9">{</span></span>
+<span class="line"><span style="color:#96E072">  "extends"</span><span style="color:#D5CED9">:[</span></span>
+<span class="line"><span style="color:#EE5D43">  ...</span><span style="color:#D5CED9">,</span></span>
+<span class="line"><span style="color:#A0A1A7CC">  // 用 eslint-config-prettier</span></span>
+<span class="line"><span style="color:#96E072">  'plugin:prettier/recommended'</span></span>
+<span class="line"><span style="color:#D5CED9">  ],</span></span>
+<span class="line"><span style="color:#D5CED9">  plugin:[</span><span style="color:#96E072">"prettier"</span><span style="color:#D5CED9">]</span><span style="color:#A0A1A7CC">// 避免与 prettier 冲突</span></span>
+<span class="line"><span style="color:#D5CED9">}</span></span>
+<span class="line"></span></code></pre>
+<blockquote>
+<p>配置 <a href="https://prettier.io/docs/en/options.html"><code>.prettierrc</code></a> 文件，同时也可以添加 <code>.prettierignore</code> 文件来忽略不想要检查的文件</p>
+</blockquote>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-js"><span class="line"><span style="color:#D5CED9">{</span></span>
+<span class="line"><span style="color:#D5CED9">  printWidth: </span><span style="color:#F39C12">80</span><span style="color:#D5CED9">, </span><span style="color:#A0A1A7CC">//单行长度</span></span>
+<span class="line"><span style="color:#D5CED9">  tabWidth: </span><span style="color:#F39C12">2</span><span style="color:#D5CED9">, </span><span style="color:#A0A1A7CC">//缩进长度，不管是空格还是 Tab</span></span>
+<span class="line"><span style="color:#D5CED9">  useTabs: </span><span style="color:#EE5D43">false</span><span style="color:#D5CED9">, </span><span style="color:#A0A1A7CC">//使用空格代替 tab 缩进</span></span>
+<span class="line"><span style="color:#D5CED9">  semi: </span><span style="color:#EE5D43">true</span><span style="color:#D5CED9">, </span><span style="color:#A0A1A7CC">//句末使用分号</span></span>
+<span class="line"><span style="color:#D5CED9">  singleQuote: </span><span style="color:#EE5D43">true</span><span style="color:#D5CED9">, </span><span style="color:#A0A1A7CC">//使用单引号</span></span>
+<span class="line"><span style="color:#D5CED9">  quoteProps: </span><span style="color:#96E072">'as-needed'</span><span style="color:#D5CED9">, </span><span style="color:#A0A1A7CC">//仅在必需时为对象的 key 添加引号</span></span>
+<span class="line"><span style="color:#D5CED9">  jsxSingleQuote: </span><span style="color:#EE5D43">true</span><span style="color:#D5CED9">, </span><span style="color:#A0A1A7CC">// jsx 中使用单引号</span></span>
+<span class="line"><span style="color:#D5CED9">  trailingComma: </span><span style="color:#96E072">'all'</span><span style="color:#D5CED9">, </span><span style="color:#A0A1A7CC">//多行时尽可能打印尾随逗号</span></span>
+<span class="line"><span style="color:#D5CED9">  bracketSpacing: </span><span style="color:#EE5D43">true</span><span style="color:#D5CED9">, </span><span style="color:#A0A1A7CC">//在对象前后添加空格-eg: { foo: bar }</span></span>
+<span class="line"><span style="color:#D5CED9">  jsxBracketSameLine: </span><span style="color:#EE5D43">true</span><span style="color:#D5CED9">, </span><span style="color:#A0A1A7CC">//多属性 html 标签的‘>’折行放置</span></span>
+<span class="line"><span style="color:#D5CED9">  arrowParens: </span><span style="color:#96E072">'always'</span><span style="color:#D5CED9">, </span><span style="color:#A0A1A7CC">//单参数箭头函数参数周围使用圆括号-eg: (x) => x</span></span>
+<span class="line"><span style="color:#D5CED9">  requirePragma: </span><span style="color:#EE5D43">false</span><span style="color:#D5CED9">, </span><span style="color:#A0A1A7CC">//无需顶部注释即可格式化</span></span>
+<span class="line"><span style="color:#D5CED9">  insertPragma: </span><span style="color:#EE5D43">false</span><span style="color:#D5CED9">, </span><span style="color:#A0A1A7CC">//在已被 preitter 格式化的文件顶部加上标注</span></span>
+<span class="line"><span style="color:#D5CED9">  proseWrap: </span><span style="color:#96E072">'preserve'</span><span style="color:#D5CED9">, </span><span style="color:#A0A1A7CC">//不知道怎么翻译</span></span>
+<span class="line"><span style="color:#D5CED9">  htmlWhitespaceSensitivity: </span><span style="color:#96E072">'ignore'</span><span style="color:#D5CED9">, </span><span style="color:#A0A1A7CC">//对 HTML 全局空白不敏感</span></span>
+<span class="line"><span style="color:#D5CED9">  vueIndentScriptAndStyle: </span><span style="color:#EE5D43">false</span><span style="color:#D5CED9">, </span><span style="color:#A0A1A7CC">//不对 vue 中的 script 及 style 标签缩进</span></span>
+<span class="line"><span style="color:#D5CED9">  endOfLine: </span><span style="color:#96E072">'lf'</span><span style="color:#D5CED9">, </span><span style="color:#A0A1A7CC">//结束行形式</span></span>
+<span class="line"><span style="color:#D5CED9">  embeddedLanguageFormatting: </span><span style="color:#96E072">'auto'</span><span style="color:#D5CED9">, </span><span style="color:#A0A1A7CC">//对引用代码进行格式化</span></span>
+<span class="line"><span style="color:#D5CED9">}</span></span>
+<span class="line"></span></code></pre>
+<ul class="remark-unordered-list">
+<li>增加脚本配置 <code>prettier --write .</code></li>
+</ul>
+<h3 id="husky">husky<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#husky"></a></h3>
+<blockquote>
+<p>线初始化 husky：<code>git husky install</code></p>
+</blockquote>
+<ul class="remark-unordered-list">
+<li><code>npx husky add .husky/pre-commit "npx lint-staged"</code> 将代码检查添加到预提交</li>
+</ul>
+<h3 id="lint-staged">Lint-staged<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#lint-staged"></a></h3>
+<ul class="remark-unordered-list">
+<li>直接使用命令：<code>npx mrm@2 lint-staged</code></li>
+</ul>
+<blockquote>
+<p>此命令将根据项目依赖项中的代码质量工具安装和配置 husky 和 `lint-staged
+package.json，因此请确保在此之前安装 npm install
+--save-dev 并配置所有代码质量工具，如 Prettier 和 ESLint</p>
+</blockquote>
+<ul class="remark-unordered-list">
+<li><code>Lint-staged</code> 参考：<a href="https://github.com/okonet/lint-staged">https://github.com/okonet/lint-staged</a></li>
+</ul>
+<div class="sponsor-container">
+  <button class="sponsor-btn">
+    <a href="https://stripe.fwqaaq.workers.dev/Personal-Website-Sponsor/checkout?mode=once" target="_blank" rel="noopener noreferrer" class="">
+      <span class="sponsor-icon">☕</span>
+      <span>请博主喝杯咖啡</span>
+  </a>
+  </button>
+</div>
+          </article>
+        </main><script src="https://giscus.app/client.js"
+        data-repo="fwqaaq/fwqaaq.github.io"
+        data-repo-id="R_kgDOHCFK2A"
+        data-category="Show and tell"
+        data-category-id="DIC_kwDOHCFK2M4CYOLh"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="1"
+        data-input-position="bottom"
+        data-theme="preferred_color_scheme"
+        data-lang="zh-CN"
+        crossorigin="anonymous"
+        async></script><footer class="blog-footer">
+  <div class="footer-container">
+    <p class="text-center"><a class="decoration-line"
+        href="https://creativecommons.org/licenses/by-sa/3.0/deed.zh-hans">© CC BY-SA</a> 2021 -
+      2025 <a class="decoration-line" href="https://github.com/fwqaaq">fwqaaq</a>.
+      Powered by <a class="decoration-line" href="https://deno.com">Deno</a>
+    </p>
+  </div>
+  <div class="footer-icons-container">
+    <a class="icon" href="https://github.com/fwqaaq">
+      <i class="fa-brands fa-github"></i>
+    </a>
+    <a class="icon" href="mailto:fwqaaq@gmail">
+      <i class="fa-solid fa-envelope"></i>
+    </a>
+    <a class="icon" href="https://www.fwqaaq.com/feed.xml">
+      <i class="fa-solid fa-rss"></i>
+    </a>
+    <a class="icon" href="https://t.me/fwqaaq">
+      <i class="fa-brands fa-telegram"></i>
+    </a>
+  </div>
+</footer>

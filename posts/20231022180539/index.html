@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#F3F7F6">
+  <meta name="description" content="生成补丁  > 在 Git 中，补丁是一种特殊的文件，它包含了两个提交之间的差异。补丁文件可以用来在两个不同的代码库之间传递更改，或者用来在两个不同的分支之间传递更改。  使用 `...">
+  <meta name="keywords" content="Git">
+  <meta name="author" content="fwqaaq">
+  <meta property="og:site_name" content="fwqaaq 的博客">
+  <meta property="og:locale" content="zh_CN">
+  <meta property="og:title" content="Git_Patch">
+  <meta property="og:description" content="生成补丁  > 在 Git 中，补丁是一种特殊的文件，它包含了两个提交之间的差异。补丁文件可以用来在两个不同的代码库之间传递更改，或者用来在两个不同的分支之间传递更改。  使用 `...">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://www.fwqaaq.com//posts/20231022180539/">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="fwqaaq 的博客">
+  <meta name=application-name content="fwqaaq 的博客">
+  <meta name=apple-mobile-web-app-title content="fwqaaq 的博客">
+  <title>
+    Git_Patch
+  </title>
+  <link rel="shortcut icon" href="/public/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="/public/css/base.849580.css">
+  <link rel="stylesheet" href="/public/css/index.849580.css">
+  <link rel="stylesheet" href="/public/css/markdown.849580.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+  <script src="/public/JavaScript/index.849580.js"></script>
+  <script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit" defer></script>
+</head>
+
+</html>
+<header class="blog-header">
+    <i id="switch-icon" class="fa-solid fa-bars"></i>
+    <a href="https://github.com/fwqaaq" target="_blank">
+        <img src="https://avatars.githubusercontent.com/u/82551626?v=4" loading="lazy" alt="me" srcset="">
+    </a>
+    <div class="wrap-background">
+        <nav class="header-nav">
+            <a class="decoration-line" href="/"><i class="fa-solid fa-house-chimney fa-xs"></i>
+                <span class="disappear">首页</span>
+            </a>
+            <a class="decoration-line" href="/./about/index.html"><i class="fa-solid fa-address-card fa-xs"></i>
+                <span class="disappear">关于</span></a>
+            <a class="decoration-line" href="/./archive/index.html"><i class="fa-solid fa-box-archive fa-xs"></i> <span
+                    class="disappear">归档</span></a>
+            <a class="decoration-line" href="/./tags/index.html"><i class="fa-solid fa-tag fa-xs"></i>
+                <span class="disappear">标签</span></a>
+            <a class="decoration-line" onclick="sponsor(199)">
+                <i class="fa-solid fa-circle-dollar-to-slot fa-xs"></i>
+                <span class="disappear">赞助</span></a>
+            <div class="language-switcher notranslate">
+                <button class="language-toggle" type="button" aria-label="切换语言" aria-expanded="false"
+                    aria-controls="language-menu">
+                    <i class="fa-solid fa-globe fa-xs" aria-hidden="true"></i>
+                    <span class="disappear" translate="yes">语言</span>
+                </button>
+                <div class="language-menu" id="language-menu" role="menu" hidden>
+                    <button class="language-option" type="button" role="menuitemradio" data-lang=""
+                        aria-checked="true">原文</button>
+                    <button class="language-option" type="button" role="menuitemradio" data-lang="en"
+                        aria-checked="false">English</button>
+                    <button class="language-option" type="button" role="menuitemradio" data-lang="ja"
+                        aria-checked="false">日本語</button>
+                    <button class="language-option" type="button" role="menuitemradio" data-lang="ko"
+                        aria-checked="false">한국어</button>
+                    <button class="language-option" type="button" role="menuitemradio" data-lang="fr"
+                        aria-checked="false">Français</button>
+                    <button class="language-option" type="button" role="menuitemradio" data-lang="de"
+                        aria-checked="false">Deutsch</button>
+                    <button class="language-option" type="button" role="menuitemradio" data-lang="es"
+                        aria-checked="false">Español</button>
+                    <button class="language-option" type="button" role="menuitemradio" data-lang="ru"
+                        aria-checked="false">Русский</button>
+                    <button class="language-option" type="button" role="menuitemradio" data-lang="zh-TW"
+                        aria-checked="false">繁體中文</button>
+                </div>
+            </div>
+            <div id="google_translate_element" class="google-translate-element notranslate" aria-hidden="true"></div>
+            <a class="decoration-line model" href="#" aria-label="切换深浅色主题"><i class="fa-solid fa-sun fa-xs"></i></a>
+        </nav>
+    </div>
+</header>
+        <main class="blog-main">
+          <article class="blog-article">
+            <h1>Git_Patch</h1>
+          <div class="post-meta post-meta-flex-around">
+              <div class="post-author" href="/./about/"><i class="fa-solid fa-user"></i> fwqaaq</div> 
+              <div class="post-time"><i class="fa-solid fa-clock"></i> 2023-10-22</div> 
+              <div class="post-update-time"><i class="fa-solid fa-clock-rotate-left"></i> 2025-11-09</div>
+            </div>
+            <hr>
+            <details class="remark-toc-details"><summary class="remark-toc-summary">目录</summary><ul class="remark-toc">
+<li><a href="#%E7%94%9F%E6%88%90%E8%A1%A5%E4%B8%81">生成补丁</a></li>
+<li><a href="#%E5%BA%94%E7%94%A8%E8%A1%A5%E4%B8%81">应用补丁</a></li>
+</ul></details>
+<h2 id="生成补丁">生成补丁<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#生成补丁"></a></h2>
+<blockquote>
+<p>在 Git 中，补丁是一种特殊的文件，它包含了两个提交之间的差异。补丁文件可以用来在两个不同的代码库之间传递更改，或者用来在两个不同的分支之间传递更改。</p>
+</blockquote>
+<p>使用 <code>git diff</code> 生成补丁文件，此补丁文件没有详细的提交信息，只有内容更改</p>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-bash"><span class="line"><span style="color:#FFE66D">git</span><span style="color:#96E072"> diff</span><span style="color:#EE5D43"> ></span><span style="color:#96E072"> patch.diff</span></span>
+<span class="line"></span></code></pre>
+<p>使用 <code>git format-patch</code> 生成补丁文件，此补丁文件包含详细的提交信息</p>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-bash"><span class="line"><span style="color:#A0A1A7CC"># 生成最后一次提交的补丁</span></span>
+<span class="line"><span style="color:#FFE66D">git</span><span style="color:#96E072"> format-patch</span><span style="color:#96E072"> HEAD^</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#A0A1A7CC"># 生成最后两次提交的补丁（以此类推）</span></span>
+<span class="line"><span style="color:#FFE66D">git</span><span style="color:#96E072"> format-patch</span><span style="color:#96E072"> HEAD^^</span></span>
+<span class="line"><span style="color:#A0A1A7CC"># or</span></span>
+<span class="line"><span style="color:#FFE66D">git</span><span style="color:#96E072"> format-patch</span><span style="color:#EE5D43"> -2</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#A0A1A7CC"># 生成两个提交之间的补丁 -> (]</span></span>
+<span class="line"><span style="color:#FFE66D">git</span><span style="color:#96E072"> format-patch</span><span style="color:#96E072"> da71ea0..02c520e</span></span>
+<span class="line"></span></code></pre>
+<h2 id="应用补丁">应用补丁<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#应用补丁"></a></h2>
+<blockquote>
+<p>在打入补丁前，确保你的工作区是干净的，没有任何未提交的更改。</p>
+</blockquote>
+<p>检查是否可以打入补丁</p>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-bash"><span class="line"><span style="color:#FFE66D">git</span><span style="color:#96E072"> apply</span><span style="color:#EE5D43"> --check</span><span style="color:#96E072"> patch.diff</span></span>
+<span class="line"></span></code></pre>
+<p>打入补丁</p>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-bash"><span class="line"><span style="color:#FFE66D">git</span><span style="color:#96E072"> apply</span><span style="color:#96E072"> patch.diff</span></span>
+<span class="line"></span></code></pre>
+<p>如果打入 patch 有冲突，可以使用 <code>git apply --reject</code> 命令，它会将冲突的文件保存为 <code>.rej</code> 文件</p>
+<p>参考：<a href="https://git-scm.com/docs/git-apply#Documentation/git-apply.txt---reject">https://git-scm.com/docs/git-apply#Documentation/git-apply.txt---reject</a></p>
+<div class="sponsor-container">
+  <button class="sponsor-btn">
+    <a href="https://stripe.fwqaaq.workers.dev/Personal-Website-Sponsor/checkout?mode=once" target="_blank" rel="noopener noreferrer" class="">
+      <span class="sponsor-icon">☕</span>
+      <span>请博主喝杯咖啡</span>
+  </a>
+  </button>
+</div>
+          </article>
+        </main><script src="https://giscus.app/client.js"
+        data-repo="fwqaaq/fwqaaq.github.io"
+        data-repo-id="R_kgDOHCFK2A"
+        data-category="Show and tell"
+        data-category-id="DIC_kwDOHCFK2M4CYOLh"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="1"
+        data-input-position="bottom"
+        data-theme="preferred_color_scheme"
+        data-lang="zh-CN"
+        crossorigin="anonymous"
+        async></script><footer class="blog-footer">
+  <div class="footer-container">
+    <p class="text-center"><a class="decoration-line"
+        href="https://creativecommons.org/licenses/by-sa/3.0/deed.zh-hans">© CC BY-SA</a> 2021 -
+      2025 <a class="decoration-line" href="https://github.com/fwqaaq">fwqaaq</a>.
+      Powered by <a class="decoration-line" href="https://deno.com">Deno</a>
+    </p>
+  </div>
+  <div class="footer-icons-container">
+    <a class="icon" href="https://github.com/fwqaaq">
+      <i class="fa-brands fa-github"></i>
+    </a>
+    <a class="icon" href="mailto:fwqaaq@gmail">
+      <i class="fa-solid fa-envelope"></i>
+    </a>
+    <a class="icon" href="https://www.fwqaaq.com/feed.xml">
+      <i class="fa-solid fa-rss"></i>
+    </a>
+    <a class="icon" href="https://t.me/fwqaaq">
+      <i class="fa-brands fa-telegram"></i>
+    </a>
+  </div>
+</footer>

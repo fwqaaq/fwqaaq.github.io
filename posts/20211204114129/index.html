@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#F3F7F6">
+  <meta name="description" content="Reflect  1. Reflect 并非一个构造函数，不能通过 new 运算符对其进行调用，或者将 Reflect 对象作为一个函数来调用 (将原本 Object 命令式改为函...">
+  <meta name="keywords" content="JavaScript, TypeScript">
+  <meta name="author" content="fwqaaq">
+  <meta property="og:site_name" content="fwqaaq 的博客">
+  <meta property="og:locale" content="zh_CN">
+  <meta property="og:title" content="Reflect">
+  <meta property="og:description" content="Reflect  1. Reflect 并非一个构造函数，不能通过 new 运算符对其进行调用，或者将 Reflect 对象作为一个函数来调用 (将原本 Object 命令式改为函...">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://www.fwqaaq.com//posts/20211204114129/">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="fwqaaq 的博客">
+  <meta name=application-name content="fwqaaq 的博客">
+  <meta name=apple-mobile-web-app-title content="fwqaaq 的博客">
+  <title>
+    Reflect
+  </title>
+  <link rel="shortcut icon" href="/public/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="/public/css/base.849580.css">
+  <link rel="stylesheet" href="/public/css/index.849580.css">
+  <link rel="stylesheet" href="/public/css/markdown.849580.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+  <script src="/public/JavaScript/index.849580.js"></script>
+  <script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit" defer></script>
+</head>
+
+</html>
+<header class="blog-header">
+    <i id="switch-icon" class="fa-solid fa-bars"></i>
+    <a href="https://github.com/fwqaaq" target="_blank">
+        <img src="https://avatars.githubusercontent.com/u/82551626?v=4" loading="lazy" alt="me" srcset="">
+    </a>
+    <div class="wrap-background">
+        <nav class="header-nav">
+            <a class="decoration-line" href="/"><i class="fa-solid fa-house-chimney fa-xs"></i>
+                <span class="disappear">首页</span>
+            </a>
+            <a class="decoration-line" href="/./about/index.html"><i class="fa-solid fa-address-card fa-xs"></i>
+                <span class="disappear">关于</span></a>
+            <a class="decoration-line" href="/./archive/index.html"><i class="fa-solid fa-box-archive fa-xs"></i> <span
+                    class="disappear">归档</span></a>
+            <a class="decoration-line" href="/./tags/index.html"><i class="fa-solid fa-tag fa-xs"></i>
+                <span class="disappear">标签</span></a>
+            <a class="decoration-line" onclick="sponsor(199)">
+                <i class="fa-solid fa-circle-dollar-to-slot fa-xs"></i>
+                <span class="disappear">赞助</span></a>
+            <div class="language-switcher notranslate">
+                <button class="language-toggle" type="button" aria-label="切换语言" aria-expanded="false"
+                    aria-controls="language-menu">
+                    <i class="fa-solid fa-globe fa-xs" aria-hidden="true"></i>
+                    <span class="disappear" translate="yes">语言</span>
+                </button>
+                <div class="language-menu" id="language-menu" role="menu" hidden>
+                    <button class="language-option" type="button" role="menuitemradio" data-lang=""
+                        aria-checked="true">原文</button>
+                    <button class="language-option" type="button" role="menuitemradio" data-lang="en"
+                        aria-checked="false">English</button>
+                    <button class="language-option" type="button" role="menuitemradio" data-lang="ja"
+                        aria-checked="false">日本語</button>
+                    <button class="language-option" type="button" role="menuitemradio" data-lang="ko"
+                        aria-checked="false">한국어</button>
+                    <button class="language-option" type="button" role="menuitemradio" data-lang="fr"
+                        aria-checked="false">Français</button>
+                    <button class="language-option" type="button" role="menuitemradio" data-lang="de"
+                        aria-checked="false">Deutsch</button>
+                    <button class="language-option" type="button" role="menuitemradio" data-lang="es"
+                        aria-checked="false">Español</button>
+                    <button class="language-option" type="button" role="menuitemradio" data-lang="ru"
+                        aria-checked="false">Русский</button>
+                    <button class="language-option" type="button" role="menuitemradio" data-lang="zh-TW"
+                        aria-checked="false">繁體中文</button>
+                </div>
+            </div>
+            <div id="google_translate_element" class="google-translate-element notranslate" aria-hidden="true"></div>
+            <a class="decoration-line model" href="#" aria-label="切换深浅色主题"><i class="fa-solid fa-sun fa-xs"></i></a>
+        </nav>
+    </div>
+</header>
+        <main class="blog-main">
+          <article class="blog-article">
+            <h1>Reflect</h1>
+          <div class="post-meta post-meta-flex-around">
+              <div class="post-author" href="/./about/"><i class="fa-solid fa-user"></i> fwqaaq</div> 
+              <div class="post-time"><i class="fa-solid fa-clock"></i> 2021-12-04</div> 
+              <div class="post-update-time"><i class="fa-solid fa-clock-rotate-left"></i> 2025-11-09</div>
+            </div>
+            <hr>
+            <details class="remark-toc-details"><summary class="remark-toc-summary">目录</summary><ul class="remark-toc">
+<li>
+<p><a href="#reflect">Reflect</a></p>
+<ul>
+<li><a href="#reflectapply">Reflect.apply()</a></li>
+<li><a href="#reflectconstruct">Reflect.construct()</a></li>
+<li><a href="#reflectdefineproperty">Reflect.defineProperty()</a></li>
+<li><a href="#reflectdeleteproperty">Reflect.deleteProperty()</a></li>
+<li><a href="#reflecthas">Reflect.has()</a></li>
+<li><a href="#reflectget">Reflect.get()</a></li>
+<li><a href="#reflectset">Reflect.set()</a></li>
+<li><a href="#reflectgetownpropertydescriptor">Reflect.getOwnPropertyDescriptor()</a></li>
+<li><a href="#reflectgetprototypeof">Reflect.getPrototypeOf()</a></li>
+<li><a href="#reflectsetprototypeof">Reflect.setPrototypeOf()</a></li>
+<li><a href="#reflectisextensible">Reflect.isExtensible()</a></li>
+<li><a href="#reflectownkeys">Reflect.ownKeys()</a></li>
+<li><a href="#reflectpreventextensions">Reflect.preventExtensions()</a></li>
+</ul>
+</li>
+</ul></details>
+<h2 id="reflect">Reflect<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#reflect"></a></h2>
+<ul class="remark-ordered-list">
+<li>Reflect 并非一个构造函数，不能通过 new 运算符对其进行调用，或者将 Reflect 对象作为一个函数来调用 (将原本 Object 命令式改为函数行为)
+<ul class="remark-unordered-list">
+<li><code>'assign' in Object</code></li>
+<li><code>Reflect.has(Object, 'assign')</code></li>
+</ul>
+</li>
+<li>Reflect 的所有属性和方法都是静态的</li>
+<li>Reflect 提供了以下静态方法与 proxy handler methods(en-US) 的命名相同</li>
+<li>其中的一些方法 Object 相同，
+尽管二者之间存在某些细微上的差别。即 Reflect 对象上可以拿到语言内部的方法</li>
+</ul>
+<h3 id="reflectapply">Reflect.apply()<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#reflectapply"></a></h3>
+<blockquote>
+<p>过指定的参数列表发起对目标 (target) 函数的调用</p>
+</blockquote>
+<ul class="remark-unordered-list">
+<li>注意：如果 target 对象不可调用，抛出 TypeError</li>
+<li>调用完带着指定参数和 this 值的给定的函数后返回的结果</li>
+</ul>
+<ul class="remark-ordered-list">
+<li><code>target</code>:目标函数</li>
+<li><code>thisArgument</code>:target 函数调用时绑定的 this 对象</li>
+<li><code>argumentsList</code>:target 函数调用时传入的实参列表 l，该参数应该是一个类数组的对象</li>
+</ul>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-js"><span class="line"><span style="color:#F39C12">Reflect</span><span style="color:#D5CED9">.</span><span style="color:#FFE66D">apply</span><span style="color:#D5CED9">(</span><span style="color:#EE5D43">RegExp</span><span style="color:#D5CED9">.</span><span style="color:#00E8C6">prototype</span><span style="color:#D5CED9">.</span><span style="color:#00E8C6">test</span><span style="color:#D5CED9">,</span><span style="color:#96E072"> /</span><span style="color:#7CB7FF">ab</span><span style="color:#96E072">/</span><span style="color:#D5CED9">, [</span><span style="color:#96E072">"confabulation"</span><span style="color:#D5CED9">]);</span></span>
+<span class="line"><span style="color:#A0A1A7CC">//true</span></span>
+<span class="line"></span></code></pre>
+<h3 id="reflectconstruct">Reflect.construct()<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#reflectconstruct"></a></h3>
+<blockquote>
+<p>类似于 new 操作符构造函数，相当于运行<code>new target(...args)</code></p>
+</blockquote>
+<ul class="remark-unordered-list">
+<li>如果 target 不是构造函数，抛出 TypeError</li>
+<li>以 target(如果 newTarget 存在，则为 newTarget) 函数为构造函数，argumentList 为其初始化参数的对象实例</li>
+</ul>
+<ul class="remark-ordered-list">
+<li><code>target</code>:被运行的目标<strong>构造函数</strong></li>
+<li><code>argumentsList</code>:类数组，目标构造函数调用时的参数</li>
+<li><code>newTarget</code>(可选):作为新创建对象的原型对象的 constructor 属性，参考<code>new.target</code>操作符，默认值为 target</li>
+</ul>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-js"><span class="line"><span style="color:#C74DED">function</span><span style="color:#FFE66D"> OneClass</span><span style="color:#D5CED9">() {</span></span>
+<span class="line"><span style="color:#FF00AA">  this</span><span style="color:#D5CED9">.</span><span style="color:#00E8C6">name</span><span style="color:#EE5D43"> =</span><span style="color:#96E072"> "one"</span><span style="color:#D5CED9">;</span></span>
+<span class="line"><span style="color:#D5CED9">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#C74DED">function</span><span style="color:#FFE66D"> OtherClass</span><span style="color:#D5CED9">() {</span></span>
+<span class="line"><span style="color:#FF00AA">  this</span><span style="color:#D5CED9">.</span><span style="color:#00E8C6">name</span><span style="color:#EE5D43"> =</span><span style="color:#96E072"> "other"</span><span style="color:#D5CED9">;</span></span>
+<span class="line"><span style="color:#D5CED9">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#A0A1A7CC">// 创建一个对象：</span></span>
+<span class="line"><span style="color:#C74DED">const</span><span style="color:#00E8C6"> obj1</span><span style="color:#EE5D43"> =</span><span style="color:#F39C12"> Reflect</span><span style="color:#D5CED9">.</span><span style="color:#FFE66D">construct</span><span style="color:#D5CED9">(</span><span style="color:#00E8C6">OneClass</span><span style="color:#D5CED9">, </span><span style="color:#00E8C6">args</span><span style="color:#D5CED9">, </span><span style="color:#00E8C6">OtherClass</span><span style="color:#D5CED9">);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#A0A1A7CC">// 与上述方法等效：</span></span>
+<span class="line"><span style="color:#C74DED">const</span><span style="color:#00E8C6"> obj2</span><span style="color:#EE5D43"> =</span><span style="color:#F39C12"> Object</span><span style="color:#D5CED9">.</span><span style="color:#FFE66D">create</span><span style="color:#D5CED9">(</span><span style="color:#EE5D43">OtherClass</span><span style="color:#D5CED9">.</span><span style="color:#00E8C6">prototype</span><span style="color:#D5CED9">);</span></span>
+<span class="line"><span style="color:#F39C12">OneClass</span><span style="color:#D5CED9">.</span><span style="color:#FFE66D">apply</span><span style="color:#D5CED9">(</span><span style="color:#00E8C6">obj2</span><span style="color:#D5CED9">, </span><span style="color:#00E8C6">args</span><span style="color:#D5CED9">);</span></span>
+<span class="line"></span></code></pre>
+<ul class="remark-ordered-list">
+<li>
+<p>当使用<code>Object.create()</code>和<code>Function.prototype.apply()</code>时，如果不使用 new 操作符调用构造函数，构造函数内部的 new.target 值会指向 undefined</p>
+</li>
+<li>
+<p>当调用<code>Reflect.construct()</code>来创建对象，new.target 值会自动指定到 target(或者 newTarget，前提是 newTarget 指定了)</p>
+</li>
+</ul>
+<h3 id="reflectdefineproperty">Reflect.defineProperty()<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#reflectdefineproperty"></a></h3>
+<blockquote>
+<p>基本等同于<code>Object.defineProperty()</code>方法唯一不同是返回 Boolean 值</p>
+</blockquote>
+<ul class="remark-unordered-list">
+<li>注意：如果 target 不是 Object，抛出一个 TypeError</li>
+<li>Boolean 值指示了属性是否被成功定义</li>
+</ul>
+<ul class="remark-ordered-list">
+<li><code>target</code>:目标对象</li>
+<li><code>propertyKey</code>:要定义或修改的属性的名称</li>
+<li><code>attributes</code>:要定义或修改的属性的描述</li>
+</ul>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-js"><span class="line"><span style="color:#C74DED">let</span><span style="color:#00E8C6"> obj</span><span style="color:#EE5D43"> =</span><span style="color:#D5CED9"> { </span><span style="color:#96E072">"x"</span><span style="color:#D5CED9">: </span><span style="color:#F39C12">2</span><span style="color:#D5CED9"> };</span></span>
+<span class="line"><span style="color:#F39C12">Reflect</span><span style="color:#D5CED9">.</span><span style="color:#FFE66D">defineProperty</span><span style="color:#D5CED9">(</span><span style="color:#00E8C6">obj</span><span style="color:#D5CED9">, </span><span style="color:#96E072">"y"</span><span style="color:#D5CED9">, { value: </span><span style="color:#F39C12">7</span><span style="color:#D5CED9"> }); </span><span style="color:#A0A1A7CC">// true</span></span>
+<span class="line"><span style="color:#F39C12">console</span><span style="color:#D5CED9">.</span><span style="color:#FFE66D">log</span><span style="color:#D5CED9">(</span><span style="color:#00E8C6">obj</span><span style="color:#D5CED9">); </span><span style="color:#A0A1A7CC">//{x: 2, y: 7}</span></span>
+<span class="line"></span></code></pre>
+<h3 id="reflectdeleteproperty">Reflect.deleteProperty()<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#reflectdeleteproperty"></a></h3>
+<blockquote>
+<p>用于删除属性。类似<code>delete operator</code>但它是一个函数</p>
+</blockquote>
+<ul class="remark-unordered-list">
+<li>如果 target 不是 Object，抛出一个 TypeError</li>
+<li>返回<code>Boolean</code>值表明该属性是否被成功删除</li>
+</ul>
+<ul class="remark-ordered-list">
+<li><code>target</code>:删除属性的目标对象</li>
+<li><code>propertyKey</code>:需要删除的属性的名称</li>
+</ul>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-js"><span class="line"><span style="color:#C74DED">const</span><span style="color:#00E8C6"> obj</span><span style="color:#EE5D43"> =</span><span style="color:#D5CED9"> { x: </span><span style="color:#F39C12">1</span><span style="color:#D5CED9">, y: </span><span style="color:#F39C12">2</span><span style="color:#D5CED9"> };</span></span>
+<span class="line"><span style="color:#F39C12">Reflect</span><span style="color:#D5CED9">.</span><span style="color:#FFE66D">deleteProperty</span><span style="color:#D5CED9">(</span><span style="color:#00E8C6">obj</span><span style="color:#D5CED9">, </span><span style="color:#96E072">"x"</span><span style="color:#D5CED9">); </span><span style="color:#A0A1A7CC">// true</span></span>
+<span class="line"><span style="color:#00E8C6">obj</span><span style="color:#D5CED9">; </span><span style="color:#A0A1A7CC">// { y: 2 }</span></span>
+<span class="line"></span></code></pre>
+<ul class="remark-ordered-list">
+<li>如果是数组：数组对象和下标</li>
+<li>如果是一个空对象，删除属性，返回<code>true</code></li>
+<li>如果属性不可配置<code>Object.freeze({foo: 1})</code>,则返回 false</li>
+</ul>
+<h3 id="reflecthas">Reflect.has()<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#reflecthas"></a></h3>
+<blockquote>
+<p><code>Reflect.has(target, propertyKey)</code>作用与 in 操作符相同</p>
+</blockquote>
+<ul class="remark-unordered-list">
+<li>注意：如果目标对象不是 Object 类型，则抛出 TypeError</li>
+<li>返回一个 boolean 类型</li>
+</ul>
+<ul class="remark-ordered-list">
+<li><code>target</code>:目标对象</li>
+<li><code>propertyKey</code>:属性名，需要检查目标对象是否存在此属</li>
+</ul>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-js"><span class="line"><span style="color:#A0A1A7CC">//如果该属性存在于原型链中，返回 true</span></span>
+<span class="line"><span style="color:#F39C12">Reflect</span><span style="color:#D5CED9">.</span><span style="color:#FFE66D">has</span><span style="color:#D5CED9">({ x: </span><span style="color:#F39C12">0</span><span style="color:#D5CED9"> }, </span><span style="color:#96E072">"toString"</span><span style="color:#D5CED9">);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#A0A1A7CC">// Proxy 对象的 .has() 句柄方法</span></span>
+<span class="line"><span style="color:#C74DED">const</span><span style="color:#00E8C6"> obj</span><span style="color:#EE5D43"> =</span><span style="color:#EE5D43"> new</span><span style="color:#FFE66D"> Proxy</span><span style="color:#D5CED9">({}, {</span></span>
+<span class="line"><span style="color:#FFE66D">  has</span><span style="color:#D5CED9">(</span><span style="color:#00E8C6">t</span><span style="color:#D5CED9">, </span><span style="color:#00E8C6">k</span><span style="color:#D5CED9">) {</span></span>
+<span class="line"><span style="color:#C74DED">    return</span><span style="color:#F39C12"> k</span><span style="color:#D5CED9">.</span><span style="color:#FFE66D">startsWith</span><span style="color:#D5CED9">(</span><span style="color:#96E072">"door"</span><span style="color:#D5CED9">);</span></span>
+<span class="line"><span style="color:#D5CED9">  },</span></span>
+<span class="line"><span style="color:#D5CED9">});</span></span>
+<span class="line"><span style="color:#F39C12">Reflect</span><span style="color:#D5CED9">.</span><span style="color:#FFE66D">has</span><span style="color:#D5CED9">(</span><span style="color:#00E8C6">obj</span><span style="color:#D5CED9">, </span><span style="color:#96E072">"doorbell"</span><span style="color:#D5CED9">); </span><span style="color:#A0A1A7CC">// true</span></span>
+<span class="line"></span></code></pre>
+<h3 id="reflectget">Reflect.get()<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#reflectget"></a></h3>
+<blockquote>
+<p>该方法与从对象<code>(target[propertyKey])</code>中读取属性类似，但它是通过一个函数执行来操作的</p>
+</blockquote>
+<ul class="remark-unordered-list">
+<li>注意：如果目标对象不是 Object 类型，则抛出 TypeError</li>
+<li>返回属性的值</li>
+</ul>
+<ul class="remark-ordered-list">
+<li><code>target</code>:需要取值的目标对象</li>
+<li><code>propertyKey</code>:需要获取的值的键值</li>
+<li><code>receiver</code>:如果 target 对象中指定了 getter,receiver 则为 getter 调用时的 this 值</li>
+</ul>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-js"><span class="line"><span style="color:#C74DED">const</span><span style="color:#00E8C6"> x</span><span style="color:#EE5D43"> =</span><span style="color:#D5CED9"> { p: </span><span style="color:#F39C12">1</span><span style="color:#D5CED9"> };</span></span>
+<span class="line"><span style="color:#C74DED">const</span><span style="color:#00E8C6"> obj</span><span style="color:#EE5D43"> =</span><span style="color:#EE5D43"> new</span><span style="color:#FFE66D"> Proxy</span><span style="color:#D5CED9">(</span><span style="color:#00E8C6">x</span><span style="color:#D5CED9">, {</span></span>
+<span class="line"><span style="color:#FFE66D">  get</span><span style="color:#D5CED9">(</span><span style="color:#00E8C6">t</span><span style="color:#D5CED9">, </span><span style="color:#00E8C6">k</span><span style="color:#D5CED9">, </span><span style="color:#00E8C6">r</span><span style="color:#D5CED9">) {</span></span>
+<span class="line"><span style="color:#C74DED">    return</span><span style="color:#00E8C6"> k</span><span style="color:#EE5D43"> +</span><span style="color:#96E072"> "bar"</span><span style="color:#D5CED9">;</span></span>
+<span class="line"><span style="color:#D5CED9">  },</span></span>
+<span class="line"><span style="color:#D5CED9">});</span></span>
+<span class="line"><span style="color:#F39C12">Reflect</span><span style="color:#D5CED9">.</span><span style="color:#FFE66D">get</span><span style="color:#D5CED9">(</span><span style="color:#00E8C6">obj</span><span style="color:#D5CED9">, </span><span style="color:#96E072">"foo"</span><span style="color:#D5CED9">); </span><span style="color:#A0A1A7CC">// "foobar"</span></span>
+<span class="line"></span></code></pre>
+<h3 id="reflectset">Reflect.set()<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#reflectset"></a></h3>
+<blockquote>
+<p>在一个对象上设置一个属性</p>
+</blockquote>
+<ul class="remark-unordered-list">
+<li>注意：如果目标对象不是 Object 类型，则抛出 TypeError</li>
+<li>返回一个布尔值表示是否设置成功</li>
+</ul>
+<ul class="remark-ordered-list">
+<li><code>target</code>:设置属性的目标对象</li>
+<li><code>propertyKey</code>:设置的属性的名称</li>
+<li><code>value</code>:设置的值</li>
+<li><code>receiver</code>:如果遇到 setter,receiver 则为 setter 调用时的 this 值</li>
+</ul>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-js"><span class="line"><span style="color:#C74DED">const</span><span style="color:#00E8C6"> obj</span><span style="color:#EE5D43"> =</span><span style="color:#D5CED9"> {};</span></span>
+<span class="line"><span style="color:#F39C12">Reflect</span><span style="color:#D5CED9">.</span><span style="color:#FFE66D">set</span><span style="color:#D5CED9">(</span><span style="color:#00E8C6">obj</span><span style="color:#D5CED9">, </span><span style="color:#96E072">"prop"</span><span style="color:#D5CED9">, </span><span style="color:#96E072">"value"</span><span style="color:#D5CED9">); </span><span style="color:#A0A1A7CC">// true</span></span>
+<span class="line"><span style="color:#F39C12">obj</span><span style="color:#D5CED9">.</span><span style="color:#00E8C6">prop</span><span style="color:#D5CED9">; </span><span style="color:#A0A1A7CC">// "value"</span></span>
+<span class="line"></span></code></pre>
+<h3 id="reflectgetownpropertydescriptor">Reflect.getOwnPropertyDescriptor()<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#reflectgetownpropertydescriptor"></a></h3>
+<blockquote>
+<p>如果属性在对象中存在，则返回给定的属性的属性描述符。否则返回<code>undefined</code></p>
+</blockquote>
+<ul class="remark-unordered-list">
+<li>注意：如果目标不是<code>Object</code>,抛出一个
+TypeError 而<code>Object.getOwnPropertyDescriptor</code>会将非对象强制转换成对象</li>
+<li>如果在给定的目标对象中，则返回属性。如果存在，则返回 undefined</li>
+</ul>
+<ul class="remark-ordered-list">
+<li>target:需要寻找属性的目标对象</li>
+<li>propertyKey:获取自己的属性描述符的属性的名称</li>
+</ul>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-js"><span class="line"><span style="color:#F39C12">Reflect</span><span style="color:#D5CED9">.</span><span style="color:#FFE66D">getOwnPropertyDescriptor</span><span style="color:#D5CED9">({ x: </span><span style="color:#96E072">"hello"</span><span style="color:#D5CED9"> }, </span><span style="color:#96E072">"x"</span><span style="color:#D5CED9">);</span></span>
+<span class="line"><span style="color:#A0A1A7CC">// {value: "hello", writable: true, enumerable: true, configurable: true}</span></span>
+<span class="line"></span></code></pre>
+<h3 id="reflectgetprototypeof">Reflect.getPrototypeOf()<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#reflectgetprototypeof"></a></h3>
+<blockquote>
+<p>返回指定对象的原型</p>
+</blockquote>
+<ul class="remark-unordered-list">
+<li>注意：如果目标对象不是 Object 类型，则抛出 TypeError</li>
+<li>如果属性存在于给定的目标对象中，则返回属性描述符；否则，返回 undefined</li>
+</ul>
+<ul class="remark-ordered-list">
+<li>target:需要寻找属性的目标对象</li>
+</ul>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-js"><span class="line"><span style="color:#F39C12">Reflect</span><span style="color:#D5CED9">.</span><span style="color:#FFE66D">getPrototypeOf</span><span style="color:#D5CED9">({});</span></span>
+<span class="line"><span style="color:#A0A1A7CC">// Object.prototype</span></span>
+<span class="line"></span></code></pre>
+<h3 id="reflectsetprototypeof">Reflect.setPrototypeOf()<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#reflectsetprototypeof"></a></h3>
+<blockquote>
+<p>它可设置对象的原型 (即内部的<code>[[Prototype]]</code>属性) 为另一个对象或
+null，如果操作成功返回 true，否则返回 false</p>
+</blockquote>
+<ul class="remark-unordered-list">
+<li>注意：如果目标对象不是 Object 类型，则抛出 TypeError</li>
+<li>返回一个 Boolean 值证明已经初步成功设置</li>
+</ul>
+<ul class="remark-ordered-list">
+<li><code>target</code>:设置目的的目标对象。</li>
+<li><code>prototype</code>:对象的新原型 (一个对象或 null)</li>
+</ul>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-js"><span class="line"><span style="color:#F39C12">Reflect</span><span style="color:#D5CED9">.</span><span style="color:#FFE66D">setPrototypeOf</span><span style="color:#D5CED9">({}, </span><span style="color:#EE5D43">Object</span><span style="color:#D5CED9">.</span><span style="color:#00E8C6">prototype</span><span style="color:#D5CED9">);</span></span>
+<span class="line"><span style="color:#A0A1A7CC">// true</span></span>
+<span class="line"></span></code></pre>
+<h3 id="reflectisextensible">Reflect.isExtensible()<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#reflectisextensible"></a></h3>
+<blockquote>
+<p>判断一个对象是否可扩展 (即是否能够添加新的属性)</p>
+</blockquote>
+<ul class="remark-unordered-list">
+<li>注意：如果目标对象不是 Object 类型，则抛出 TypeError</li>
+<li>返回一个 Boolean 值表明该对象是否可扩展</li>
+</ul>
+<ul class="remark-ordered-list">
+<li><code>target</code>:检查是否可扩展的目标对象</li>
+</ul>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-js"><span class="line"><span style="color:#C74DED">const</span><span style="color:#00E8C6"> frozen</span><span style="color:#EE5D43"> =</span><span style="color:#F39C12"> Object</span><span style="color:#D5CED9">.</span><span style="color:#FFE66D">freeze</span><span style="color:#D5CED9">({});</span></span>
+<span class="line"><span style="color:#F39C12">Reflect</span><span style="color:#D5CED9">.</span><span style="color:#FFE66D">isExtensible</span><span style="color:#D5CED9">(</span><span style="color:#00E8C6">frozen</span><span style="color:#D5CED9">); </span><span style="color:#A0A1A7CC">//false</span></span>
+<span class="line"></span></code></pre>
+<h3 id="reflectownkeys">Reflect.ownKeys()<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#reflectownkeys"></a></h3>
+<blockquote>
+<p>返回一个由目标对象自身的属性键组成的数组</p>
+</blockquote>
+<ul class="remark-unordered-list">
+<li>注意：如果目标对象不是 Object 类型，则抛出 TypeError</li>
+<li>由目标对象的自身属性键组成的 Array</li>
+</ul>
+<ul class="remark-ordered-list">
+<li><code>target</code>:检查是否可扩展的目标对象</li>
+</ul>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-js"><span class="line"><span style="color:#F39C12">Reflect</span><span style="color:#D5CED9">.</span><span style="color:#FFE66D">ownKeys</span><span style="color:#D5CED9">({ z: </span><span style="color:#F39C12">3</span><span style="color:#D5CED9">, y: </span><span style="color:#F39C12">2</span><span style="color:#D5CED9">, x: </span><span style="color:#F39C12">1</span><span style="color:#D5CED9"> });</span></span>
+<span class="line"><span style="color:#A0A1A7CC">// [ "z", "y", "x" ]</span></span>
+<span class="line"></span></code></pre>
+<h3 id="reflectpreventextensions">Reflect.preventExtensions()<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#reflectpreventextensions"></a></h3>
+<blockquote>
+<p>阻止新属性添加到对象 (例如：防止将来对对象的扩展被添加到对象中)</p>
+</blockquote>
+<ul class="remark-unordered-list">
+<li>注意：如果目标对象不是 Object 类型，则抛出 TypeError</li>
+<li>返回一个价值保证 Boolean 目标对象是否成功被设置为不可扩展</li>
+</ul>
+<ul class="remark-ordered-list">
+<li><code>target</code>:阻止扩展的目标对象</li>
+</ul>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-js"><span class="line"><span style="color:#C74DED">const</span><span style="color:#00E8C6"> empty</span><span style="color:#EE5D43"> =</span><span style="color:#D5CED9"> {};</span></span>
+<span class="line"><span style="color:#F39C12">Reflect</span><span style="color:#D5CED9">.</span><span style="color:#FFE66D">isExtensible</span><span style="color:#D5CED9">(</span><span style="color:#00E8C6">empty</span><span style="color:#D5CED9">); </span><span style="color:#A0A1A7CC">//true</span></span>
+<span class="line"><span style="color:#F39C12">Reflect</span><span style="color:#D5CED9">.</span><span style="color:#FFE66D">preventExtensions</span><span style="color:#D5CED9">(</span><span style="color:#00E8C6">empty</span><span style="color:#D5CED9">);</span></span>
+<span class="line"><span style="color:#F39C12">Reflect</span><span style="color:#D5CED9">.</span><span style="color:#FFE66D">isExtensible</span><span style="color:#D5CED9">(</span><span style="color:#00E8C6">empty</span><span style="color:#D5CED9">); </span><span style="color:#A0A1A7CC">//false</span></span>
+<span class="line"></span></code></pre>
+<div class="sponsor-container">
+  <button class="sponsor-btn">
+    <a href="https://stripe.fwqaaq.workers.dev/Personal-Website-Sponsor/checkout?mode=once" target="_blank" rel="noopener noreferrer" class="">
+      <span class="sponsor-icon">☕</span>
+      <span>请博主喝杯咖啡</span>
+  </a>
+  </button>
+</div>
+          </article>
+        </main><script src="https://giscus.app/client.js"
+        data-repo="fwqaaq/fwqaaq.github.io"
+        data-repo-id="R_kgDOHCFK2A"
+        data-category="Show and tell"
+        data-category-id="DIC_kwDOHCFK2M4CYOLh"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="1"
+        data-input-position="bottom"
+        data-theme="preferred_color_scheme"
+        data-lang="zh-CN"
+        crossorigin="anonymous"
+        async></script><footer class="blog-footer">
+  <div class="footer-container">
+    <p class="text-center"><a class="decoration-line"
+        href="https://creativecommons.org/licenses/by-sa/3.0/deed.zh-hans">© CC BY-SA</a> 2021 -
+      2025 <a class="decoration-line" href="https://github.com/fwqaaq">fwqaaq</a>.
+      Powered by <a class="decoration-line" href="https://deno.com">Deno</a>
+    </p>
+  </div>
+  <div class="footer-icons-container">
+    <a class="icon" href="https://github.com/fwqaaq">
+      <i class="fa-brands fa-github"></i>
+    </a>
+    <a class="icon" href="mailto:fwqaaq@gmail">
+      <i class="fa-solid fa-envelope"></i>
+    </a>
+    <a class="icon" href="https://www.fwqaaq.com/feed.xml">
+      <i class="fa-solid fa-rss"></i>
+    </a>
+    <a class="icon" href="https://t.me/fwqaaq">
+      <i class="fa-brands fa-telegram"></i>
+    </a>
+  </div>
+</footer>

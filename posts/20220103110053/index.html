@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#F3F7F6">
+  <meta name="description" content="Viewport  > [!TIP] > 视口代表一个可看见的多边形区域（通常是矩形）.在浏览器的范畴里，他代表的就是浏览器网站中可见内容的部分，视口外的内容在被滚动进来前都是不可...">
+  <meta name="keywords" content="JavaScript">
+  <meta name="author" content="fwqaaq">
+  <meta property="og:site_name" content="fwqaaq 的博客">
+  <meta property="og:locale" content="zh_CN">
+  <meta property="og:title" content="bom">
+  <meta property="og:description" content="Viewport  > [!TIP] > 视口代表一个可看见的多边形区域（通常是矩形）.在浏览器的范畴里，他代表的就是浏览器网站中可见内容的部分，视口外的内容在被滚动进来前都是不可...">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://www.fwqaaq.com//posts/20220103110053/">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="fwqaaq 的博客">
+  <meta name=application-name content="fwqaaq 的博客">
+  <meta name=apple-mobile-web-app-title content="fwqaaq 的博客">
+  <title>
+    bom
+  </title>
+  <link rel="shortcut icon" href="/public/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="/public/css/base.849580.css">
+  <link rel="stylesheet" href="/public/css/index.849580.css">
+  <link rel="stylesheet" href="/public/css/markdown.849580.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+  <script src="/public/JavaScript/index.849580.js"></script>
+  <script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit" defer></script>
+</head>
+
+</html>
+<header class="blog-header">
+    <i id="switch-icon" class="fa-solid fa-bars"></i>
+    <a href="https://github.com/fwqaaq" target="_blank">
+        <img src="https://avatars.githubusercontent.com/u/82551626?v=4" loading="lazy" alt="me" srcset="">
+    </a>
+    <div class="wrap-background">
+        <nav class="header-nav">
+            <a class="decoration-line" href="/"><i class="fa-solid fa-house-chimney fa-xs"></i>
+                <span class="disappear">首页</span>
+            </a>
+            <a class="decoration-line" href="/./about/index.html"><i class="fa-solid fa-address-card fa-xs"></i>
+                <span class="disappear">关于</span></a>
+            <a class="decoration-line" href="/./archive/index.html"><i class="fa-solid fa-box-archive fa-xs"></i> <span
+                    class="disappear">归档</span></a>
+            <a class="decoration-line" href="/./tags/index.html"><i class="fa-solid fa-tag fa-xs"></i>
+                <span class="disappear">标签</span></a>
+            <a class="decoration-line" onclick="sponsor(199)">
+                <i class="fa-solid fa-circle-dollar-to-slot fa-xs"></i>
+                <span class="disappear">赞助</span></a>
+            <div class="language-switcher notranslate">
+                <button class="language-toggle" type="button" aria-label="切换语言" aria-expanded="false"
+                    aria-controls="language-menu">
+                    <i class="fa-solid fa-globe fa-xs" aria-hidden="true"></i>
+                    <span class="disappear" translate="yes">语言</span>
+                </button>
+                <div class="language-menu" id="language-menu" role="menu" hidden>
+                    <button class="language-option" type="button" role="menuitemradio" data-lang=""
+                        aria-checked="true">原文</button>
+                    <button class="language-option" type="button" role="menuitemradio" data-lang="en"
+                        aria-checked="false">English</button>
+                    <button class="language-option" type="button" role="menuitemradio" data-lang="ja"
+                        aria-checked="false">日本語</button>
+                    <button class="language-option" type="button" role="menuitemradio" data-lang="ko"
+                        aria-checked="false">한국어</button>
+                    <button class="language-option" type="button" role="menuitemradio" data-lang="fr"
+                        aria-checked="false">Français</button>
+                    <button class="language-option" type="button" role="menuitemradio" data-lang="de"
+                        aria-checked="false">Deutsch</button>
+                    <button class="language-option" type="button" role="menuitemradio" data-lang="es"
+                        aria-checked="false">Español</button>
+                    <button class="language-option" type="button" role="menuitemradio" data-lang="ru"
+                        aria-checked="false">Русский</button>
+                    <button class="language-option" type="button" role="menuitemradio" data-lang="zh-TW"
+                        aria-checked="false">繁體中文</button>
+                </div>
+            </div>
+            <div id="google_translate_element" class="google-translate-element notranslate" aria-hidden="true"></div>
+            <a class="decoration-line model" href="#" aria-label="切换深浅色主题"><i class="fa-solid fa-sun fa-xs"></i></a>
+        </nav>
+    </div>
+</header>
+        <main class="blog-main">
+          <article class="blog-article">
+            <h1>bom</h1>
+          <div class="post-meta post-meta-flex-around">
+              <div class="post-author" href="/./about/"><i class="fa-solid fa-user"></i> fwqaaq</div> 
+              <div class="post-time"><i class="fa-solid fa-clock"></i> 2022-01-03</div> 
+              <div class="post-update-time"><i class="fa-solid fa-clock-rotate-left"></i> 2025-11-09</div>
+            </div>
+            <hr>
+            <details class="remark-toc-details"><summary class="remark-toc-summary">目录</summary><ul class="remark-toc">
+<li>
+<p><a href="#viewport">Viewport</a></p>
+<ul>
+<li><a href="#%E6%B5%8F%E8%A7%88%E5%99%A8%E7%AA%97%E5%8F%A3%E5%A4%A7%E5%B0%8F">浏览器窗口大小</a></li>
+<li><a href="#dom-%E5%85%83%E7%B4%A0%E5%A4%A7%E5%B0%8F">DOM 元素大小</a></li>
+<li><a href="#event-%E4%BA%8B%E4%BB%B6%E4%B8%8A%E7%9A%84%E5%85%83%E7%B4%A0%E5%A4%A7%E5%B0%8F">event 事件上的元素大小</a></li>
+</ul>
+</li>
+<li>
+<p><a href="#location">location</a></p>
+</li>
+<li>
+<p><a href="#url">URL</a></p>
+<ul>
+<li>
+<p><a href="#new-url">new URL()</a></p>
+</li>
+<li>
+<p><a href="#urlsearchparams">URLSearchParams</a></p>
+<ul>
+<li><a href="#new-urlsearchparams">new URLSearchParams()</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><a href="#history">History</a></p>
+<ul>
+<li><a href="#%E7%AE%A1%E7%90%86%E5%8E%86%E5%8F%B2%E7%8A%B6%E6%80%81">管理历史状态</a></li>
+</ul>
+</li>
+</ul></details>
+<h2 id="viewport">Viewport<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#viewport"></a></h2>
+<div class="markdown-alert markdown-alert-tip">
+<p class="markdown-alert-title"><svg class="octicon octicon-light-bulb mr-2" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="M8 1.5c-2.363 0-4 1.69-4 3.75 0 .984.424 1.625.984 2.304l.214.253c.223.264.47.556.673.848.284.411.537.896.621 1.49a.75.75 0 0 1-1.484.211c-.04-.282-.163-.547-.37-.847a8.456 8.456 0 0 0-.542-.68c-.084-.1-.173-.205-.268-.32C3.201 7.75 2.5 6.766 2.5 5.25 2.5 2.31 4.863 0 8 0s5.5 2.31 5.5 5.25c0 1.516-.701 2.5-1.328 3.259-.095.115-.184.22-.268.319-.207.245-.383.453-.541.681-.208.3-.33.565-.37.847a.751.751 0 0 1-1.485-.212c.084-.593.337-1.078.621-1.489.203-.292.45-.584.673-.848.075-.088.147-.173.213-.253.561-.679.985-1.32.985-2.304 0-2.06-1.637-3.75-4-3.75ZM5.75 12h4.5a.75.75 0 0 1 0 1.5h-4.5a.75.75 0 0 1 0-1.5ZM6 15.25a.75.75 0 0 1 .75-.75h2.5a.75.75 0 0 1 0 1.5h-2.5a.75.75 0 0 1-.75-.75Z"></path></svg>Tip</p>
+<p>视口代表一个可看见的多边形区域（通常是矩形）.在浏览器的范畴里，他代表的就是浏览器网站中可见内容的部分，视口外的内容在被滚动进来前都是不可见的</p>
+</div>
+<ul class="remark-unordered-list">
+<li><strong>可见视口</strong>：视口当前可见的部分。可见视口可能回避布局视口更小，因为当用户缩小浏览器的比例，布局视口不变，而可见视口会变小</li>
+<li><strong>布局视口</strong>：是浏览器在其中绘制网页的视口。从本质上讲，它表示可查看的内容，而可视视口表示用户显示设备上当前可见的内容</li>
+</ul>
+<h3 id="浏览器窗口大小">浏览器窗口大小<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#浏览器窗口大小"></a></h3>
+<ul class="remark-ordered-list">
+<li><code>innerWidth</code>、<code>innerHeight</code>：返回浏览器窗口中页面<strong>可见视口</strong>的大小（不包含边框，工具栏）
+<ul class="remark-unordered-list">
+<li>使用：<code>window.innerWidth</code></li>
+</ul>
+</li>
+<li><code>outerWidth</code>、<code>outerHeight</code>：返回浏览器窗口自身的大小（整个浏览器，包含边框，工具栏）
+<ul class="remark-unordered-list">
+<li>使用：<code>window.outerWidth</code></li>
+</ul>
+</li>
+<li><code>scrollX</code>、<code>scrollY</code>：返回文档当前水平滚动和垂直滚动的像素数
+<ul class="remark-unordered-list">
+<li>使用<code>window.scroll(0,0)</code>：这样会把文档重新滚动到左上角</li>
+</ul>
+</li>
+<li><code>clientWidth</code>、<code>clientHeight</code>：返回<strong>布局视口元素</strong>的大小
+<ul class="remark-unordered-list">
+<li>使用：<code>document.documentElement.clientWidth</code></li>
+</ul>
+</li>
+<li><code>screen.height</code>、<code>screen.width</code>：返回屏幕（整个显示器）的大小</li>
+<li><code>screen.availHeight</code>、<code>screen.availWidth</code>：返回可使用的屏幕高度或者宽度（不会包括固定的任务栏等不可使用的区域）</li>
+</ul>
+<blockquote>
+<p>注意：布局视口相对于可见视口的概念.可见视口只能显示页面的一小部分。</p>
+</blockquote>
+<p><img src="https://media.githubusercontent.com/media/fwqaaq/fwqaaq.github.io/dev/src/picture/%E6%B5%8F%E8%A7%88%E5%99%A8%E8%A7%86%E5%8F%A3.png" alt="浏览器视口"></p>
+<ul class="remark-unordered-list">
+<li><strong>移动窗口</strong>（moveTo、moveBy）和<strong>缩放窗口</strong>（resizeTo、resizeBy）方法一般浏览器会禁用</li>
+</ul>
+<h3 id="dom-元素大小">DOM 元素大小<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#dom-元素大小"></a></h3>
+<ul class="remark-ordered-list">
+<li><code>clientWidth</code>、<code>clientHeight</code>：CSS 的 width/height 和 padding 属性值之和
+<ul class="remark-unordered-list">
+<li>元素边框和滚动条不包括在内，也不包含任何可能的滚动区域</li>
+</ul>
+</li>
+<li><code>offsetWidth</code>、<code>offsetHeight</code>：元素在页面中占据的 width/height 总和，包括 width、padding、border 以及滚动条的宽度</li>
+<li><code>offsetLeft</code>、<code>offsetTop</code>：只读。返回元素左上角相对于 <code>HTMLElement.offsetParent</code>（父元素不是 <code>display:none</code>）节点的左或者上边界的偏移量</li>
+<li><code>scrollWidth</code>、<code>scrollHeight</code> 当元素不是 <code>overflow:hidden</code> 样式属性时，元素的总宽度（滚动宽度）
+<ul class="remark-unordered-list">
+<li>在默认状态下，如果该属性值大于 clientWidth 属性值，则元素会显示滚动条，以便能够翻阅被隐藏的区域</li>
+</ul>
+</li>
+</ul>
+<h3 id="event-事件上的元素大小">event 事件上的元素大小<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#event-事件上的元素大小"></a></h3>
+<div class="markdown-alert markdown-alert-important">
+<p class="markdown-alert-title"><svg class="octicon octicon-report mr-2" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="M0 1.75C0 .784.784 0 1.75 0h12.5C15.216 0 16 .784 16 1.75v9.5A1.75 1.75 0 0 1 14.25 13H8.06l-2.573 2.573A1.458 1.458 0 0 1 3 14.543V13H1.75A1.75 1.75 0 0 1 0 11.25Zm1.75-.25a.25.25 0 0 0-.25.25v9.5c0 .138.112.25.25.25h2a.75.75 0 0 1 .75.75v2.19l2.72-2.72a.749.749 0 0 1 .53-.22h6.5a.25.25 0 0 0 .25-.25v-9.5a.25.25 0 0 0-.25-.25Zm7 2.25v2.5a.75.75 0 0 1-1.5 0v-2.5a.75.75 0 0 1 1.5 0ZM9 9a1 1 0 1 1-2 0 1 1 0 0 1 2 0Z"></path></svg>Important</p>
+<p>该元素只会在 event（如 click、mousemove 等）上才有的属性</p>
+</div>
+<ul class="remark-unordered-list">
+<li>
+<p>以下属性的方位都是相对于左上方为原点的坐标系，越往右/下，值越大</p>
+</li>
+<li>
+<p><code>offsetX</code>、<code>offsetY</code>：鼠标相对于目标元素的距离。</p>
+<ul class="remark-unordered-list">
+<li>参照点是目标元素的左上角</li>
+</ul>
+</li>
+<li>
+<p><code>clientX</code>、<code>clientY</code>：鼠标相对于浏览器视口的距离。</p>
+<ul class="remark-unordered-list">
+<li>参照点是目标元素的左上角，计算鼠标点距离浏览器内容区域的左上角的距离（不包含任何可能的滚动区域）</li>
+</ul>
+</li>
+<li>
+<p><code>layerX</code>、<code>layerY</code>：鼠标相对于定位属性的距离。</p>
+<ul class="remark-unordered-list">
+<li>参照点是父元素（如果自身有定位属性的话就是相对于自身）都没有的话：就是相对于 body 元素</li>
+</ul>
+</li>
+<li>
+<p><code>pageX</code>、<code>pageY</code>：鼠标相对与整个页面左上角的距离。</p>
+<ul class="remark-unordered-list">
+<li>参照点是页面本身的 body 原点。会以 body 左上角计算值，并且把滚动条滚过的高或宽计算在内（受滚动区域影响）</li>
+</ul>
+</li>
+<li>
+<p><code>screenX</code>、<code>screenY</code>：鼠标相对于屏幕的距离。</p>
+<ul class="remark-unordered-list">
+<li>参照点是屏幕的左上角</li>
+</ul>
+</li>
+</ul>
+<h2 id="location">location<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#location"></a></h2>
+<blockquote>
+<p><code>window.location</code> 和 <code>document.location</code>指向同一个对象</p>
+</blockquote>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>属性</th><th>描述</th></tr></thead><tbody><tr><td>Location.href</td><td>包含整个 URL,location 的 toString() 方法返回</td></tr><tr><td>Location.protocol</td><td>页面使用的协议。通常包括<code>http</code>或<code>https:</code></td></tr><tr><td>Location.host</td><td>服务器名和端口号</td></tr><tr><td>Location.hostname</td><td>服务器名</td></tr><tr><td>Location.port</td><td>端口号</td></tr><tr><td>Location.pathname</td><td>url 的路径</td></tr><tr><td>Location.search</td><td>查询字符串。以 <code>?</code> 开头</td></tr><tr><td>Location.hash</td><td>哈希散列值，开头有一个“#”</td></tr><tr><td>Location.username</td><td>域名前指定的用户名</td></tr><tr><td>Location.password</td><td>域名前指定的密码</td></tr><tr><td>Location.origin</td><td>url 的源地址</td></tr></tbody></table>
+<blockquote>
+<p>查询字符串的解码 <code>decodeURIComponent</code> 和编码 <code>encodeURIComponent</code></p>
+</blockquote>
+<ul class="remark-ordered-list">
+<li><code>encodeURIComponent()</code>：原字串作为 URI 组成部分被编码后组成的新字符串</li>
+<li>转义除了如下所示的所有文字 <code>A-Z a-z 0-9 - _ . ! ~ * ' ( )</code></li>
+<li>反之，<code>decodeURIComponent()</code> 就是将编码之后的字符串解码</li>
+</ul>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-js"><span class="line"><span style="color:#FFE66D">encodeURIComponent</span><span style="color:#D5CED9">(</span><span style="color:#96E072">"#"</span><span style="color:#D5CED9">);</span></span>
+<span class="line"><span style="color:#A0A1A7CC">//'%23'</span></span>
+<span class="line"><span style="color:#FFE66D">decodeURIComponent</span><span style="color:#D5CED9">(</span><span style="color:#96E072">"%23"</span><span style="color:#D5CED9">);</span></span>
+<span class="line"><span style="color:#A0A1A7CC">//'#'</span></span>
+<span class="line"></span></code></pre>
+<ul class="remark-unordered-list">
+<li><code>URLSearchParams</code>：给构造函数传入一个查询字符串即可创造一个实例。并且暴露了 <code>get()</code>、<code>has()</code>、<code>delete()</code> 等等，同时可以作为可迭代对象</li>
+</ul>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-js"><span class="line"><span style="color:#C74DED">let</span><span style="color:#00E8C6"> searchParams</span><span style="color:#EE5D43"> =</span><span style="color:#EE5D43"> new</span><span style="color:#FFE66D"> URLSearchParams</span><span style="color:#D5CED9">(</span><span style="color:#96E072">"?name=zhangsan&#x26;sex=gender"</span><span style="color:#D5CED9">);</span></span>
+<span class="line"><span style="color:#F39C12">searchParams</span><span style="color:#D5CED9">.</span><span style="color:#FFE66D">has</span><span style="color:#D5CED9">(</span><span style="color:#96E072">"name"</span><span style="color:#D5CED9">); </span><span style="color:#A0A1A7CC">//true</span></span>
+<span class="line"><span style="color:#F39C12">searchParams</span><span style="color:#D5CED9">.</span><span style="color:#FFE66D">get</span><span style="color:#D5CED9">(</span><span style="color:#96E072">"name"</span><span style="color:#D5CED9">); </span><span style="color:#A0A1A7CC">//zhangsan</span></span>
+<span class="line"><span style="color:#F39C12">searchParams</span><span style="color:#D5CED9">.</span><span style="color:#FFE66D">set</span><span style="color:#D5CED9">(</span><span style="color:#96E072">"age"</span><span style="color:#D5CED9">, </span><span style="color:#96E072">"15"</span><span style="color:#D5CED9">);</span></span>
+<span class="line"><span style="color:#F39C12">searchParams</span><span style="color:#D5CED9">.</span><span style="color:#FFE66D">toString</span><span style="color:#D5CED9">();</span></span>
+<span class="line"><span style="color:#A0A1A7CC">//'name=zhangsan&#x26;sex=gender&#x26;age=15'</span></span>
+<span class="line"></span></code></pre>
+<blockquote>
+<p>操作地址</p>
+</blockquote>
+<ul class="remark-unordered-list">
+<li>例如：<code>location.assign("www.baidu.com")</code>，如果使用 <code>location.href</code> 设置一个 url，也会以同一个 url 值调用 assign() 方法</li>
+<li>除了 <strong>hash</strong> 之外，只要修改了 <code>location</code> 的一个属性，就会导致页面重新加载 url</li>
+</ul>
+<div class="markdown-alert markdown-alert-note">
+<p class="markdown-alert-title"><svg class="octicon octicon-info mr-2" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8Zm8-6.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13ZM6.5 7.75A.75.75 0 0 1 7.25 7h1a.75.75 0 0 1 .75.75v2.75h.25a.75.75 0 0 1 0 1.5h-2a.75.75 0 0 1 0-1.5h.25v-2h-.25a.75.75 0 0 1-.75-.75ZM8 6a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"></path></svg>Note</p>
+<p>如果不希望浏览器的操作地址增加，可以使用 <code>location.replace()</code>，用户不能回到前一页</p>
+<p><code>location.reload()</code>：重新加载当前显示页面</p>
+<ul class="remark-unordered-list">
+<li>如果不传参数，会以最有效的方式加载 (可能是缓存)</li>
+<li>如果传 <code>true</code>，会从服务器加载</li>
+</ul>
+</div>
+<h2 id="url">URL<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#url"></a></h2>
+<blockquote>
+<p>URL 用于解析，构造，规范化和编码 url。如果浏览器不支持 <code>new URL()</code> 构造函数。可以使用 <code>new window.URL()</code></p>
+</blockquote>
+<h3 id="new-url">new URL()<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#new-url"></a></h3>
+<blockquote>
+<p>构造函数：new URL(url[,base])</p>
+</blockquote>
+<ul class="remark-unordered-list">
+<li><code>url</code>：表示绝对或者相对的 url.如果是绝对的 url，无论 baseurl 有没有参数都会被忽略。如果是相对的 url，则参数会添加到 baseurl 后</li>
+<li><code>base</code>：可选的，表示基准的 url。只有 url 是带协议才可以生效。否则报一个 TypeError</li>
+</ul>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-js"><span class="line"><span style="color:#C74DED">let</span><span style="color:#00E8C6"> baseurl</span><span style="color:#EE5D43"> =</span><span style="color:#96E072"> "https://www.baidu.com/laji"</span><span style="color:#D5CED9">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#A0A1A7CC">//忽略参数</span></span>
+<span class="line"><span style="color:#EE5D43">new</span><span style="color:#FFE66D"> URL</span><span style="color:#D5CED9">(</span><span style="color:#96E072">"/zhenlan"</span><span style="color:#D5CED9">, </span><span style="color:#00E8C6">baseurl</span><span style="color:#D5CED9">); </span><span style="color:#A0A1A7CC">//https://www.baidu.com/zhenlan</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#A0A1A7CC">//TypeError</span></span>
+<span class="line"><span style="color:#EE5D43">new</span><span style="color:#FFE66D"> URL</span><span style="color:#D5CED9">(</span><span style="color:#96E072">"www.baidu.com"</span><span style="color:#D5CED9">);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#EE5D43">new</span><span style="color:#FFE66D"> URL</span><span style="color:#D5CED9">(</span><span style="color:#96E072">"https://www.baidu.com"</span><span style="color:#D5CED9">); </span><span style="color:#A0A1A7CC">//https://www.baidu.com</span></span>
+<span class="line"></span></code></pre>
+<ul class="remark-unordered-list">
+<li><code>hash</code>：返回包含 URL 标识中的 '#' 和 fragment 标识符</li>
+<li><code>host</code>：返回一个主机信息。即 <code>hostname</code>,如果 URL 接口有端口号（如果是默认端口号，则不会包含），也会包含端口号</li>
+<li><code>hostname</code>：不包含端口号的主机信息</li>
+<li><code>href</code>：返回一个完整的 url</li>
+<li><code>origin</code>：只读属性。
+<ul class="remark-unordered-list">
+<li>如果是 <code>http</code> 或者是 <code>https</code>，返回源地址</li>
+<li>如果是 ftp 协议，视浏览器而定</li>
+<li>如果是 <code>blob:</code> 协议，返回的是 <code>blob:</code> 紧跟的源地址
+<ul class="remark-unordered-list">
+<li><code>"blob:https://mozilla.org"</code> 返回 <code>https://mozilla.org</code></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><code>pathname</code>：返回一个初始 <code>/</code> 和 URL 的路径（如果没有路径，则为空字符串）</li>
+<li><code>port</code>：如果 url 中包含明确的端口信息，则返回一个端口号。否则返回 <code>""</code></li>
+<li><code>protocol</code>：返回一个 url 的协议值</li>
+<li><code>search</code>：返回一个查询字符串。<code>?</code> 紧跟的</li>
+<li><code>searchParams</code>：返回一个 <a href="https://developer.mozilla.org/zh-CN/docs/Web/API/URLSearchParams">URLSearchParams</a>。这个对象包含当前 URL 中解码后的 GET 查询参数</li>
+</ul>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-js"><span class="line"><span style="color:#C74DED">const</span><span style="color:#00E8C6"> url</span><span style="color:#EE5D43"> =</span><span style="color:#EE5D43"> new</span><span style="color:#FFE66D"> URL</span><span style="color:#D5CED9">(</span></span>
+<span class="line"><span style="color:#96E072">  "https://developer.mozilla.org:3300/en-US/docs/Web/API/URL/href?q=123#Examples"</span><span style="color:#D5CED9">,</span></span>
+<span class="line"><span style="color:#D5CED9">);</span></span>
+<span class="line"><span style="color:#C74DED">const</span><span style="color:#00E8C6"> hash</span><span style="color:#EE5D43"> =</span><span style="color:#F39C12"> url</span><span style="color:#D5CED9">.</span><span style="color:#00E8C6">hash</span><span style="color:#D5CED9">; </span><span style="color:#A0A1A7CC">//#Examples</span></span>
+<span class="line"><span style="color:#C74DED">const</span><span style="color:#00E8C6"> host</span><span style="color:#EE5D43"> =</span><span style="color:#F39C12"> url</span><span style="color:#D5CED9">.</span><span style="color:#00E8C6">host</span><span style="color:#D5CED9">; </span><span style="color:#A0A1A7CC">//developer.mozilla.org:3300</span></span>
+<span class="line"><span style="color:#C74DED">const</span><span style="color:#00E8C6"> host</span><span style="color:#EE5D43"> =</span><span style="color:#F39C12"> url</span><span style="color:#D5CED9">.</span><span style="color:#00E8C6">hostname</span><span style="color:#D5CED9">; </span><span style="color:#A0A1A7CC">//developer.mozilla.org</span></span>
+<span class="line"><span style="color:#C74DED">const</span><span style="color:#00E8C6"> host</span><span style="color:#EE5D43"> =</span><span style="color:#F39C12"> url</span><span style="color:#D5CED9">.</span><span style="color:#00E8C6">href</span><span style="color:#D5CED9">; </span><span style="color:#A0A1A7CC">//https://developer.mozilla.org:3300/en-US/docs/Web/API/URL/href#Examples</span></span>
+<span class="line"><span style="color:#C74DED">const</span><span style="color:#00E8C6"> origin</span><span style="color:#EE5D43"> =</span><span style="color:#F39C12"> url</span><span style="color:#D5CED9">.</span><span style="color:#00E8C6">origin</span><span style="color:#D5CED9">; </span><span style="color:#A0A1A7CC">//https://developer.mozilla.org</span></span>
+<span class="line"><span style="color:#C74DED">const</span><span style="color:#00E8C6"> pathname</span><span style="color:#EE5D43"> =</span><span style="color:#F39C12"> url</span><span style="color:#D5CED9">.</span><span style="color:#00E8C6">pathname</span><span style="color:#D5CED9">; </span><span style="color:#A0A1A7CC">///en-US/docs/Web/API/URL/href</span></span>
+<span class="line"><span style="color:#C74DED">const</span><span style="color:#00E8C6"> port</span><span style="color:#EE5D43"> =</span><span style="color:#F39C12"> url</span><span style="color:#D5CED9">.</span><span style="color:#00E8C6">port</span><span style="color:#D5CED9">; </span><span style="color:#A0A1A7CC">//3300</span></span>
+<span class="line"><span style="color:#C74DED">const</span><span style="color:#00E8C6"> protocol</span><span style="color:#EE5D43"> =</span><span style="color:#F39C12"> url</span><span style="color:#D5CED9">.</span><span style="color:#00E8C6">protocol</span><span style="color:#D5CED9">; </span><span style="color:#A0A1A7CC">//https</span></span>
+<span class="line"><span style="color:#C74DED">const</span><span style="color:#00E8C6"> search</span><span style="color:#EE5D43"> =</span><span style="color:#F39C12"> url</span><span style="color:#D5CED9">.</span><span style="color:#00E8C6">search</span><span style="color:#D5CED9">; </span><span style="color:#A0A1A7CC">//?q=123</span></span>
+<span class="line"></span></code></pre>
+<ul class="remark-unordered-list">
+<li><code>username</code>：包含域名前指定的 username</li>
+<li><code>password</code>：返回域名之前指定的密码</li>
+</ul>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-js"><span class="line"><span style="color:#C74DED">const</span><span style="color:#00E8C6"> url</span><span style="color:#EE5D43"> =</span><span style="color:#EE5D43"> new</span><span style="color:#FFE66D"> URL</span><span style="color:#D5CED9">(</span></span>
+<span class="line"><span style="color:#96E072">  "https://anonymous:flabada@developer.mozilla.org/en-US/docs/Web/API/URL/password"</span><span style="color:#D5CED9">,</span></span>
+<span class="line"><span style="color:#D5CED9">);</span></span>
+<span class="line"><span style="color:#C74DED">const</span><span style="color:#00E8C6"> password</span><span style="color:#EE5D43"> =</span><span style="color:#F39C12"> url</span><span style="color:#D5CED9">.</span><span style="color:#00E8C6">password</span><span style="color:#D5CED9">; </span><span style="color:#A0A1A7CC">//flabada</span></span>
+<span class="line"><span style="color:#C74DED">const</span><span style="color:#00E8C6"> username</span><span style="color:#EE5D43"> =</span><span style="color:#F39C12"> url</span><span style="color:#D5CED9">.</span><span style="color:#00E8C6">username</span><span style="color:#D5CED9">; </span><span style="color:#A0A1A7CC">//anonymous</span></span>
+<span class="line"></span></code></pre>
+<p>静态方法</p>
+<ul class="remark-ordered-list">
+<li><code>URL.createObjectURL(object)</code>:创建一个表示参数中给出的对象的 URL
+<ul class="remark-unordered-list">
+<li>这个新的 URL 对象表示指定的<code>File</code>对象或<code>Blob</code>对象</li>
+<li><code>object</code>:用于创建 URL 的<code>File</code>对象，<code>Blob</code>对象或者<code>MediaSource</code>对象</li>
+<li>返回一个用于指定源的 URL</li>
+</ul>
+</li>
+<li><code>URL.revokeObjectURL(objectURL)</code>:释放一个之前已经存在的，通过调用<code>URL.createObjectURL()</code>创建的 URL 对象
+<ul class="remark-unordered-list">
+<li><code>objectURL</code>:通过调用<code>URL.createObjectURL()</code>方法产生的 URL 对象</li>
+</ul>
+</li>
+<li><code>URL.toString()</code>与<code>URL.toJSON()</code>与<code>url.href</code>一样，返回序列化的 url</li>
+</ul>
+<h3 id="urlsearchparams"><a href="https://developer.mozilla.org/zh-CN/docs/Web/API/URLSearchParams/append">URLSearchParams</a><a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#urlsearchparams"></a></h3>
+<p>该接口定义了一些实用的方法来处理 URL 的查询字符串</p>
+<h4 id="new-urlsearchparams">new URLSearchParams()<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#new-urlsearchparams"></a></h4>
+<p><code>URLSearchParams()</code> 构造器创建并返回一个新的 <code>URLSearchParams</code> 对象。并且会忽略 <code>?</code></p>
+<ul class="remark-unordered-list">
+<li><code>const URLSearchParams = new URLSearchParams(init)</code></li>
+<li><code>init</code>:需要 USVString(对应 unicode 标量值的所有可能序列的集合)</li>
+</ul>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-js"><span class="line"><span style="color:#EE5D43">new</span><span style="color:#FFE66D"> URLSearchParams</span><span style="color:#D5CED9">(</span><span style="color:#96E072">"?foo=1&#x26;bar=2"</span><span style="color:#D5CED9">);</span></span>
+<span class="line"><span style="color:#EE5D43">new</span><span style="color:#FFE66D"> URLSearchParams</span><span style="color:#D5CED9">(</span><span style="color:#F39C12">url</span><span style="color:#D5CED9">.</span><span style="color:#00E8C6">search</span><span style="color:#D5CED9">);</span></span>
+<span class="line"><span style="color:#EE5D43">new</span><span style="color:#FFE66D"> URLSearchParams</span><span style="color:#D5CED9">([[</span><span style="color:#96E072">"foo"</span><span style="color:#D5CED9">, </span><span style="color:#F39C12">1</span><span style="color:#D5CED9">], [</span><span style="color:#96E072">"bar"</span><span style="color:#D5CED9">, </span><span style="color:#F39C12">2</span><span style="color:#D5CED9">]]);</span></span>
+<span class="line"><span style="color:#EE5D43">new</span><span style="color:#FFE66D"> URLSearchParams</span><span style="color:#D5CED9">({ </span><span style="color:#96E072">"foo"</span><span style="color:#D5CED9">: </span><span style="color:#F39C12">1</span><span style="color:#D5CED9">, </span><span style="color:#96E072">"bar"</span><span style="color:#D5CED9">: </span><span style="color:#F39C12">2</span><span style="color:#D5CED9"> });</span></span>
+<span class="line"></span></code></pre>
+<p>方法</p>
+<ul class="remark-unordered-list">
+<li><code>append(name, value)</code>：可以插入一个新搜索参数</li>
+<li><code>getAll(name)</code>：以数组的形式返回与指定搜索参数对应的所有值</li>
+<li><code>get(name)</code>：返回第一个与搜索参数对应的值</li>
+<li><code>has(name)</code>：返回一个布尔值，表示查找的键名是否存在</li>
+<li><code>set()</code>：设置和搜索参数相关联的值。如果设置前已经存在匹配的值，该方法会删除多余的，如果将要设置的值不存在，则创建它</li>
+<li><code>delete(name)</code>：可以删除指定名称的所有搜索参数</li>
+<li><code>sort()</code>：对对象中的所有键/值对进行排序。按 unicode 编码</li>
+<li><code>entries()</code>：返回一个 <code>iterator</code>，允许遍历该对象中包含的所有键/值对</li>
+<li><code>forEach(callback)</code>：该回调函数可以接收到 3 个参数 value、key、searchParams</li>
+<li><code>keys()</code>：返回一个 iterator，遍历器允许遍历对象中包含的所有键</li>
+<li><code>values()</code>：返回一个 iterator，遍历器允许遍历对象中包含的所有值</li>
+<li><code>toString()</code>：返回适用在 URL 中的查询字符串</li>
+</ul>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-js"><span class="line"><span style="color:#C74DED">let</span><span style="color:#00E8C6"> url</span><span style="color:#EE5D43"> =</span><span style="color:#EE5D43"> new</span><span style="color:#FFE66D"> URL</span><span style="color:#D5CED9">(</span><span style="color:#96E072">"https://example.com?foo=1&#x26;bar=2"</span><span style="color:#D5CED9">);</span></span>
+<span class="line"><span style="color:#C74DED">let</span><span style="color:#00E8C6"> params</span><span style="color:#EE5D43"> =</span><span style="color:#EE5D43"> new</span><span style="color:#FFE66D"> URLSearchParams</span><span style="color:#D5CED9">(</span><span style="color:#F39C12">url</span><span style="color:#D5CED9">.</span><span style="color:#00E8C6">search</span><span style="color:#D5CED9">);</span></span>
+<span class="line"><span style="color:#F39C12">params</span><span style="color:#D5CED9">.</span><span style="color:#FFE66D">getAll</span><span style="color:#D5CED9">(</span><span style="color:#96E072">"foo"</span><span style="color:#D5CED9">); </span><span style="color:#A0A1A7CC">//['1', '4']</span></span>
+<span class="line"><span style="color:#F39C12">params</span><span style="color:#D5CED9">.</span><span style="color:#FFE66D">get</span><span style="color:#D5CED9">(</span><span style="color:#96E072">"foo"</span><span style="color:#D5CED9">); </span><span style="color:#A0A1A7CC">//'1'</span></span>
+<span class="line"><span style="color:#F39C12">params</span><span style="color:#D5CED9">.</span><span style="color:#FFE66D">append</span><span style="color:#D5CED9">(</span><span style="color:#96E072">"foo"</span><span style="color:#D5CED9">, </span><span style="color:#F39C12">4</span><span style="color:#D5CED9">); </span><span style="color:#A0A1A7CC">//foo=1&#x26;bar=2&#x26;foo=4</span></span>
+<span class="line"><span style="color:#F39C12">params</span><span style="color:#D5CED9">.</span><span style="color:#FFE66D">has</span><span style="color:#D5CED9">(</span><span style="color:#96E072">"bar"</span><span style="color:#D5CED9">); </span><span style="color:#A0A1A7CC">// true</span></span>
+<span class="line"><span style="color:#F39C12">params</span><span style="color:#D5CED9">.</span><span style="color:#FFE66D">set</span><span style="color:#D5CED9">(</span><span style="color:#96E072">"foo"</span><span style="color:#D5CED9">, </span><span style="color:#F39C12">2</span><span style="color:#D5CED9">); </span><span style="color:#A0A1A7CC">//foo=2&#x26;bar=2</span></span>
+<span class="line"><span style="color:#F39C12">params</span><span style="color:#D5CED9">.</span><span style="color:#FFE66D">delete</span><span style="color:#D5CED9">(</span><span style="color:#96E072">"foo"</span><span style="color:#D5CED9">); </span><span style="color:#A0A1A7CC">//bar=2</span></span>
+<span class="line"><span style="color:#F39C12">params</span><span style="color:#D5CED9">.</span><span style="color:#FFE66D">set</span><span style="color:#D5CED9">(</span><span style="color:#96E072">"foo"</span><span style="color:#D5CED9">, </span><span style="color:#F39C12">4</span><span style="color:#D5CED9">);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#A0A1A7CC">//entries</span></span>
+<span class="line"><span style="color:#C74DED">for</span><span style="color:#D5CED9"> (</span><span style="color:#C74DED">let</span><span style="color:#D5CED9"> [</span><span style="color:#00E8C6">key</span><span style="color:#D5CED9">, </span><span style="color:#00E8C6">value</span><span style="color:#D5CED9">] </span><span style="color:#EE5D43">of</span><span style="color:#F39C12"> params</span><span style="color:#D5CED9">.</span><span style="color:#FFE66D">entries</span><span style="color:#D5CED9">()) {</span></span>
+<span class="line"><span style="color:#F39C12">  console</span><span style="color:#D5CED9">.</span><span style="color:#FFE66D">log</span><span style="color:#D5CED9">(</span><span style="color:#00E8C6">key</span><span style="color:#D5CED9">, </span><span style="color:#00E8C6">value</span><span style="color:#D5CED9">);</span></span>
+<span class="line"><span style="color:#A0A1A7CC">  //bar 2</span></span>
+<span class="line"><span style="color:#A0A1A7CC">  //foo 4</span></span>
+<span class="line"><span style="color:#D5CED9">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#A0A1A7CC">//forEach</span></span>
+<span class="line"><span style="color:#F39C12">params</span><span style="color:#D5CED9">.</span><span style="color:#FFE66D">forEach</span><span style="color:#D5CED9">((</span><span style="color:#00E8C6">item</span><span style="color:#D5CED9">, </span><span style="color:#00E8C6">key</span><span style="color:#D5CED9">) </span><span style="color:#C74DED">=></span><span style="color:#F39C12"> console</span><span style="color:#D5CED9">.</span><span style="color:#FFE66D">log</span><span style="color:#D5CED9">(</span><span style="color:#00E8C6">item</span><span style="color:#D5CED9">, </span><span style="color:#00E8C6">key</span><span style="color:#D5CED9">));</span></span>
+<span class="line"><span style="color:#A0A1A7CC">//bar 2</span></span>
+<span class="line"><span style="color:#A0A1A7CC">//foo 4</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#A0A1A7CC">//keys()</span></span>
+<span class="line"><span style="color:#F39C12">console</span><span style="color:#D5CED9">.</span><span style="color:#FFE66D">log</span><span style="color:#D5CED9">(</span><span style="color:#EE5D43">...</span><span style="color:#F39C12">params</span><span style="color:#D5CED9">.</span><span style="color:#FFE66D">keys</span><span style="color:#D5CED9">());</span></span>
+<span class="line"><span style="color:#A0A1A7CC">//bar foo</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#A0A1A7CC">//values()</span></span>
+<span class="line"><span style="color:#F39C12">console</span><span style="color:#D5CED9">.</span><span style="color:#FFE66D">log</span><span style="color:#D5CED9">(</span><span style="color:#EE5D43">...</span><span style="color:#F39C12">params</span><span style="color:#D5CED9">.</span><span style="color:#FFE66D">values</span><span style="color:#D5CED9">());</span></span>
+<span class="line"><span style="color:#A0A1A7CC">//2 4</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F39C12">params</span><span style="color:#D5CED9">.</span><span style="color:#FFE66D">toString</span><span style="color:#D5CED9">();</span></span>
+<span class="line"><span style="color:#A0A1A7CC">//'bar=2&#x26;foo=4'</span></span>
+<span class="line"></span></code></pre>
+<h2 id="history">History<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#history"></a></h2>
+<ul class="remark-ordered-list">
+<li><code>history.go(-1)</code> 相当于 <code>history.back()</code>：后退一页</li>
+<li><code>history.go(1)</code> 相当于 <code>history.forward()</code>：前进一页</li>
+<li>可以接受一个字符串：可能前进也可能后退</li>
+<li><code>history.length</code>：返回具体的数目</li>
+</ul>
+<div class="markdown-alert markdown-alert-note">
+<p class="markdown-alert-title"><svg class="octicon octicon-info mr-2" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8Zm8-6.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13ZM6.5 7.75A.75.75 0 0 1 7.25 7h1a.75.75 0 0 1 .75.75v2.75h.25a.75.75 0 0 1 0 1.5h-2a.75.75 0 0 1 0-1.5h.25v-2h-.25a.75.75 0 0 1-.75-.75ZM8 6a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"></path></svg>Note</p>
+<p>如果页面的 url 发生变化，则会在历史记录中生成一个新条目。这也包括 url 的散列值 (<code>location.hash</code>)</p>
+</div>
+<h3 id="管理历史状态">管理历史状态<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#管理历史状态"></a></h3>
+<ul class="remark-ordered-list">
+<li><code>history.pushState()</code>：接收三个参数，<code>state</code> 对象、一个新状态的标题、相对的 url（可选）</li>
+<li>一旦 <code>pushState()</code> 方法执行后，状态信息就会被推到历史记录中，浏览器地址栏也会相应变化新的 url。也就会相应的启用后退按钮</li>
+<li>当活动历史记录条目更改时，将触发 <code>popstate</code> 事件如果被激活的历史记录条目是通过对 <code>history.pushState()</code> 的调用创建，或者受到对 <code>history.replaceState()</code> 的调用的影响，popstate 事件的 state 属性包含历史条目的状态对象的副本</li>
+<li>注意用 <code>history.pushState()</code> 或 <code>history.replaceState()</code> 不会触发 popstate 事件只有在做出浏览器动作时，才会触发该事件</li>
+<li>测试：<a href="http://example.com/example.html">http://example.com/example.html</a></li>
+</ul>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-js"><span class="line"><span style="color:#F39C12">window</span><span style="color:#D5CED9">.</span><span style="color:#FFE66D">addEventListener</span><span style="color:#D5CED9">(</span><span style="color:#96E072">"popstate"</span><span style="color:#D5CED9">, (</span><span style="color:#00E8C6">event</span><span style="color:#D5CED9">) </span><span style="color:#C74DED">=></span><span style="color:#D5CED9"> {</span></span>
+<span class="line"><span style="color:#F39C12">  console</span><span style="color:#D5CED9">.</span><span style="color:#FFE66D">log</span><span style="color:#D5CED9">(</span></span>
+<span class="line"><span style="color:#96E072">    "location: "</span><span style="color:#EE5D43"> +</span><span style="color:#F39C12"> document</span><span style="color:#D5CED9">.</span><span style="color:#00E8C6">location</span><span style="color:#EE5D43"> +</span><span style="color:#96E072"> ", state: "</span><span style="color:#EE5D43"> +</span></span>
+<span class="line"><span style="color:#00E8C6">      JSON</span><span style="color:#D5CED9">.</span><span style="color:#FFE66D">stringify</span><span style="color:#D5CED9">(</span><span style="color:#F39C12">event</span><span style="color:#D5CED9">.</span><span style="color:#00E8C6">state</span><span style="color:#D5CED9">),</span></span>
+<span class="line"><span style="color:#D5CED9">  );</span></span>
+<span class="line"><span style="color:#D5CED9">});</span></span>
+<span class="line"><span style="color:#F39C12">history</span><span style="color:#D5CED9">.</span><span style="color:#FFE66D">pushState</span><span style="color:#D5CED9">({ page: </span><span style="color:#F39C12">1</span><span style="color:#D5CED9"> }, </span><span style="color:#96E072">"title 1"</span><span style="color:#D5CED9">, </span><span style="color:#96E072">"?page=1"</span><span style="color:#D5CED9">);</span></span>
+<span class="line"><span style="color:#F39C12">history</span><span style="color:#D5CED9">.</span><span style="color:#FFE66D">pushState</span><span style="color:#D5CED9">({ page: </span><span style="color:#F39C12">2</span><span style="color:#D5CED9"> }, </span><span style="color:#96E072">"title 2"</span><span style="color:#D5CED9">, </span><span style="color:#96E072">"?page=2"</span><span style="color:#D5CED9">);</span></span>
+<span class="line"><span style="color:#F39C12">history</span><span style="color:#D5CED9">.</span><span style="color:#FFE66D">replaceState</span><span style="color:#D5CED9">({ page: </span><span style="color:#F39C12">3</span><span style="color:#D5CED9"> }, </span><span style="color:#96E072">"title 3"</span><span style="color:#D5CED9">, </span><span style="color:#96E072">"?page=3"</span><span style="color:#D5CED9">);</span></span>
+<span class="line"><span style="color:#F39C12">history</span><span style="color:#D5CED9">.</span><span style="color:#FFE66D">back</span><span style="color:#D5CED9">();</span></span>
+<span class="line"><span style="color:#A0A1A7CC">// Logs "location: http://example.com/example.html?page=1, state: {"page":1}"</span></span>
+<span class="line"><span style="color:#F39C12">history</span><span style="color:#D5CED9">.</span><span style="color:#FFE66D">back</span><span style="color:#D5CED9">();</span></span>
+<span class="line"><span style="color:#A0A1A7CC">// Logs "location: http://example.com/example.html, state: null</span></span>
+<span class="line"><span style="color:#F39C12">history</span><span style="color:#D5CED9">.</span><span style="color:#FFE66D">go</span><span style="color:#D5CED9">(</span><span style="color:#F39C12">2</span><span style="color:#D5CED9">);</span></span>
+<span class="line"><span style="color:#A0A1A7CC">// Logs "location: http://example.com/example.html?page=3, state: {"page":3}</span></span>
+<span class="line"></span></code></pre>
+<p>同时也可以使用 <code>history.state</code> 获取当前状态（<code>state对象</code>）。<code>history.replaceState()</code> 更新状态不会创建新历史记录，只会覆盖当前状态</p>
+<div class="sponsor-container">
+  <button class="sponsor-btn">
+    <a href="https://stripe.fwqaaq.workers.dev/Personal-Website-Sponsor/checkout?mode=once" target="_blank" rel="noopener noreferrer" class="">
+      <span class="sponsor-icon">☕</span>
+      <span>请博主喝杯咖啡</span>
+  </a>
+  </button>
+</div>
+          </article>
+        </main><script src="https://giscus.app/client.js"
+        data-repo="fwqaaq/fwqaaq.github.io"
+        data-repo-id="R_kgDOHCFK2A"
+        data-category="Show and tell"
+        data-category-id="DIC_kwDOHCFK2M4CYOLh"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="1"
+        data-input-position="bottom"
+        data-theme="preferred_color_scheme"
+        data-lang="zh-CN"
+        crossorigin="anonymous"
+        async></script><footer class="blog-footer">
+  <div class="footer-container">
+    <p class="text-center"><a class="decoration-line"
+        href="https://creativecommons.org/licenses/by-sa/3.0/deed.zh-hans">© CC BY-SA</a> 2021 -
+      2025 <a class="decoration-line" href="https://github.com/fwqaaq">fwqaaq</a>.
+      Powered by <a class="decoration-line" href="https://deno.com">Deno</a>
+    </p>
+  </div>
+  <div class="footer-icons-container">
+    <a class="icon" href="https://github.com/fwqaaq">
+      <i class="fa-brands fa-github"></i>
+    </a>
+    <a class="icon" href="mailto:fwqaaq@gmail">
+      <i class="fa-solid fa-envelope"></i>
+    </a>
+    <a class="icon" href="https://www.fwqaaq.com/feed.xml">
+      <i class="fa-solid fa-rss"></i>
+    </a>
+    <a class="icon" href="https://t.me/fwqaaq">
+      <i class="fa-brands fa-telegram"></i>
+    </a>
+  </div>
+</footer>

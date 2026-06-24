@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#F3F7F6">
+  <meta name="description" content="理解插槽  - 使组件具备更强的通用性，组件中的内容不再限制为固定的 div、span 等等这些元素 - 使用者可以决定某一块区域到底存放什么内容和元素 - 定义插槽 slot  ...">
+  <meta name="keywords" content="Vue, JavaScript, TypeScript">
+  <meta name="author" content="fwqaaq">
+  <meta property="og:site_name" content="fwqaaq 的博客">
+  <meta property="og:locale" content="zh_CN">
+  <meta property="og:title" content="Vue3 的组件化">
+  <meta property="og:description" content="理解插槽  - 使组件具备更强的通用性，组件中的内容不再限制为固定的 div、span 等等这些元素 - 使用者可以决定某一块区域到底存放什么内容和元素 - 定义插槽 slot  ...">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://www.fwqaaq.com//posts/20210925105451/">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="fwqaaq 的博客">
+  <meta name=application-name content="fwqaaq 的博客">
+  <meta name=apple-mobile-web-app-title content="fwqaaq 的博客">
+  <title>
+    Vue3 的组件化
+  </title>
+  <link rel="shortcut icon" href="/public/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="/public/css/base.849580.css">
+  <link rel="stylesheet" href="/public/css/index.849580.css">
+  <link rel="stylesheet" href="/public/css/markdown.849580.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+  <script src="/public/JavaScript/index.849580.js"></script>
+  <script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit" defer></script>
+</head>
+
+</html>
+<header class="blog-header">
+    <i id="switch-icon" class="fa-solid fa-bars"></i>
+    <a href="https://github.com/fwqaaq" target="_blank">
+        <img src="https://avatars.githubusercontent.com/u/82551626?v=4" loading="lazy" alt="me" srcset="">
+    </a>
+    <div class="wrap-background">
+        <nav class="header-nav">
+            <a class="decoration-line" href="/"><i class="fa-solid fa-house-chimney fa-xs"></i>
+                <span class="disappear">首页</span>
+            </a>
+            <a class="decoration-line" href="/./about/index.html"><i class="fa-solid fa-address-card fa-xs"></i>
+                <span class="disappear">关于</span></a>
+            <a class="decoration-line" href="/./archive/index.html"><i class="fa-solid fa-box-archive fa-xs"></i> <span
+                    class="disappear">归档</span></a>
+            <a class="decoration-line" href="/./tags/index.html"><i class="fa-solid fa-tag fa-xs"></i>
+                <span class="disappear">标签</span></a>
+            <a class="decoration-line" onclick="sponsor(199)">
+                <i class="fa-solid fa-circle-dollar-to-slot fa-xs"></i>
+                <span class="disappear">赞助</span></a>
+            <div class="language-switcher notranslate">
+                <button class="language-toggle" type="button" aria-label="切换语言" aria-expanded="false"
+                    aria-controls="language-menu">
+                    <i class="fa-solid fa-globe fa-xs" aria-hidden="true"></i>
+                    <span class="disappear" translate="yes">语言</span>
+                </button>
+                <div class="language-menu" id="language-menu" role="menu" hidden>
+                    <button class="language-option" type="button" role="menuitemradio" data-lang=""
+                        aria-checked="true">原文</button>
+                    <button class="language-option" type="button" role="menuitemradio" data-lang="en"
+                        aria-checked="false">English</button>
+                    <button class="language-option" type="button" role="menuitemradio" data-lang="ja"
+                        aria-checked="false">日本語</button>
+                    <button class="language-option" type="button" role="menuitemradio" data-lang="ko"
+                        aria-checked="false">한국어</button>
+                    <button class="language-option" type="button" role="menuitemradio" data-lang="fr"
+                        aria-checked="false">Français</button>
+                    <button class="language-option" type="button" role="menuitemradio" data-lang="de"
+                        aria-checked="false">Deutsch</button>
+                    <button class="language-option" type="button" role="menuitemradio" data-lang="es"
+                        aria-checked="false">Español</button>
+                    <button class="language-option" type="button" role="menuitemradio" data-lang="ru"
+                        aria-checked="false">Русский</button>
+                    <button class="language-option" type="button" role="menuitemradio" data-lang="zh-TW"
+                        aria-checked="false">繁體中文</button>
+                </div>
+            </div>
+            <div id="google_translate_element" class="google-translate-element notranslate" aria-hidden="true"></div>
+            <a class="decoration-line model" href="#" aria-label="切换深浅色主题"><i class="fa-solid fa-sun fa-xs"></i></a>
+        </nav>
+    </div>
+</header>
+        <main class="blog-main">
+          <article class="blog-article">
+            <h1>Vue3 的组件化</h1>
+          <div class="post-meta post-meta-flex-around">
+              <div class="post-author" href="/./about/"><i class="fa-solid fa-user"></i> fwqaaq</div> 
+              <div class="post-time"><i class="fa-solid fa-clock"></i> 2021-09-25</div> 
+              <div class="post-update-time"><i class="fa-solid fa-clock-rotate-left"></i> 2025-11-09</div>
+            </div>
+            <hr>
+            <details class="remark-toc-details"><summary class="remark-toc-summary">目录</summary><ul class="remark-toc">
+<li>
+<p><a href="#%E7%90%86%E8%A7%A3%E6%8F%92%E6%A7%BD">理解插槽</a></p>
+<ul>
+<li><a href="#%E9%BB%98%E8%AE%A4%E6%8F%92%E6%A7%BD">默认插槽</a></li>
+<li><a href="#%E5%85%B7%E5%90%8D%E6%8F%92%E6%A7%BD">具名插槽</a></li>
+<li><a href="#%E4%BD%9C%E7%94%A8%E5%9F%9F%E6%8F%92%E6%A7%BD">作用域插槽</a></li>
+</ul>
+</li>
+<li>
+<p><a href="#%E5%8A%A8%E6%80%81%E7%BB%84%E4%BB%B6">动态组件</a></p>
+</li>
+<li>
+<p><a href="#%E7%BC%93%E5%AD%98%E7%BB%84%E4%BB%B6-keep-alive">缓存组件 keep-alive</a></p>
+<ul>
+<li><a href="#keep-alive-%E7%9A%84%E4%B8%80%E4%BA%9B%E5%B1%9E%E6%80%A7">keep-alive 的一些属性</a></li>
+<li><a href="#%E7%BC%93%E5%AD%98%E7%BB%84%E4%BB%B6%E7%9A%84%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F">缓存组件的生命周期</a></li>
+</ul>
+</li>
+<li>
+<p><a href="#%E5%BC%82%E6%AD%A5%E7%BB%84%E4%BB%B6%E7%9A%84%E5%AE%9E%E7%8E%B0-%E5%A4%9A%E5%9C%A8%E8%B7%AF%E7%94%B1%E4%B8%AD%E7%94%A8%E5%88%B0">异步组件的实现 (多在路由中用到)</a></p>
+<ul>
+<li><a href="#webpack-%E7%9A%84%E4%BB%A3%E7%A0%81%E5%88%86%E5%8C%85">webpack 的代码分包</a></li>
+<li><a href="#vue-%E4%B8%AD%E5%AE%9E%E7%8E%B0%E5%BC%82%E6%AD%A5%E7%BB%84%E4%BB%B6">vue 中实现异步组件</a></li>
+<li><a href="#%E5%BC%82%E6%AD%A5%E7%BB%84%E4%BB%B6%E4%B8%8E-suspense">异步组件与 Suspense</a></li>
+</ul>
+</li>
+<li>
+<p><a href="#%E5%BC%95%E7%94%A8%E5%85%83%E7%B4%A0%E5%92%8C%E7%BB%84%E4%BB%B6">引用元素和组件</a></p>
+</li>
+<li>
+<p><a href="#%E7%BB%84%E4%BB%B6%E7%9A%84-v-model">组件的 v-model</a></p>
+</li>
+</ul></details>
+<h2 id="理解插槽">理解插槽<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#理解插槽"></a></h2>
+<ul class="remark-unordered-list">
+<li>使组件具备更强的通用性，组件中的内容不再限制为固定的 div、span 等等这些元素</li>
+<li>使用者可以决定某一块区域到底存放什么内容和元素</li>
+<li>定义插槽 slot
+<ul class="remark-unordered-list">
+<li>插槽的使用过程其实是抽取共性、预留不同</li>
+<li>我们会将共同的元素、内容依然在组件内进行封装</li>
+<li>同时会将不同的元素使用 slot 作为占位，让外部决定到底显示什么样的元素</li>
+</ul>
+</li>
+<li>使用插槽
+<ul class="remark-unordered-list">
+<li>Vue 中将 &#x3C;slot> 元素作为承载分发内容的出口</li>
+<li>在封装组件中，使用特殊的元素 &#x3C;slot> 就可以为封装组件开启一个插槽</li>
+<li>该插槽插入什么内容取决于父组件如何使用</li>
+</ul>
+</li>
+</ul>
+<h3 id="默认插槽">默认插槽<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#默认插槽"></a></h3>
+<blockquote>
+<p>当插槽内部不具有 name 属性时，vue 会自动给一个隐式名称<code>name:default</code></p>
+<blockquote>
+<p>且子组件不管有多少个插槽，每个插槽都会显示一样的内容</p>
+</blockquote>
+</blockquote>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-html"><span class="line"><span style="color:#D5CED9"> 父组件中:</span></span>
+<span class="line"><span style="color:#D5CED9">&#x3C;</span><span style="color:#F92672">Category</span><span style="color:#D5CED9">></span></span>
+<span class="line"><span style="color:#D5CED9">  &#x3C;</span><span style="color:#F92672">div</span><span style="color:#D5CED9">>html 结构&#x3C;/</span><span style="color:#F92672">div</span><span style="color:#D5CED9">></span></span>
+<span class="line"><span style="color:#D5CED9">&#x3C;/</span><span style="color:#F92672">Category</span><span style="color:#D5CED9">></span></span>
+<span class="line"><span style="color:#D5CED9">子组件中:</span></span>
+<span class="line"><span style="color:#D5CED9">&#x3C;</span><span style="color:#F92672">template</span><span style="color:#D5CED9">></span></span>
+<span class="line"><span style="color:#D5CED9">   &#x3C;</span><span style="color:#F92672">div</span><span style="color:#D5CED9">></span></span>
+<span class="line"><span style="color:#A0A1A7CC">    &#x3C;!--定义插槽--></span></span>
+<span class="line"><span style="color:#D5CED9">      &#x3C;</span><span style="color:#F92672">slot</span><span style="color:#D5CED9">>插槽默认值&#x3C;/</span><span style="color:#F92672">slot</span><span style="color:#D5CED9">></span></span>
+<span class="line"><span style="color:#D5CED9">   &#x3C;/</span><span style="color:#F92672">div</span><span style="color:#D5CED9">></span></span>
+<span class="line"><span style="color:#D5CED9">&#x3C;/</span><span style="color:#F92672">template</span><span style="color:#D5CED9">></span></span>
+<span class="line"></span></code></pre>
+<h3 id="具名插槽">具名插槽<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#具名插槽"></a></h3>
+<ul class="remark-unordered-list">
+<li>具名插槽顾名思义就是给插槽起一个名字，&#x3C;slot> 元素有一个特殊的
+<code>attribute：name</code></li>
+<li>一个不带 name 的 slot，会带有隐含的名字 default</li>
+</ul>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-html"><span class="line"><span style="color:#D5CED9">//父组件中</span></span>
+<span class="line"><span style="color:#D5CED9">&#x3C;</span><span style="color:#F92672">Footer</span><span style="color:#D5CED9">></span></span>
+<span class="line"><span style="color:#D5CED9">  &#x3C;</span><span style="color:#F92672">template</span><span style="color:#FFE66D"> v-slot:footer</span><span style="color:#D5CED9">></span></span>
+<span class="line"><span style="color:#D5CED9">    &#x3C;</span><span style="color:#F92672">div</span><span style="color:#D5CED9">></span></span>
+<span class="line"><span style="color:#D5CED9">      你好</span></span>
+<span class="line"><span style="color:#D5CED9">    &#x3C;/</span><span style="color:#F92672">div</span><span style="color:#D5CED9">></span></span>
+<span class="line"><span style="color:#D5CED9">  &#x3C;/</span><span style="color:#F92672">template</span><span style="color:#D5CED9">></span></span>
+<span class="line"><span style="color:#D5CED9">&#x3C;/</span><span style="color:#F92672">Footer</span><span style="color:#D5CED9">></span></span>
+<span class="line"><span style="color:#D5CED9">//子组件中</span></span>
+<span class="line"><span style="color:#D5CED9">&#x3C;</span><span style="color:#F92672">slot</span><span style="color:#FFE66D"> name</span><span style="color:#D5CED9">=</span><span style="color:#96E072">"footer"</span><span style="color:#D5CED9">>插槽默认值&#x3C;/</span><span style="color:#F92672">slot</span><span style="color:#D5CED9">></span></span>
+<span class="line"></span></code></pre>
+<ul class="remark-unordered-list">
+<li>动态插槽名</li>
+</ul>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-html"><span class="line"><span style="color:#D5CED9">&#x3C;</span><span style="color:#F92672">template</span><span style="color:#FFE66D"> v-slot:[name]</span><span style="color:#D5CED9">></span></span>
+<span class="line"><span style="color:#D5CED9">  &#x3C;</span><span style="color:#F92672">div</span><span style="color:#D5CED9">></span></span>
+<span class="line"><span style="color:#D5CED9">    你好</span></span>
+<span class="line"><span style="color:#D5CED9">  &#x3C;/</span><span style="color:#F92672">div</span><span style="color:#D5CED9">></span></span>
+<span class="line"><span style="color:#D5CED9">&#x3C;/</span><span style="color:#F92672">template</span><span style="color:#D5CED9">></span></span>
+<span class="line"><span style="color:#D5CED9">&#x3C;</span><span style="color:#F92672">script</span><span style="color:#D5CED9">></span></span>
+<span class="line"><span style="color:#A0A1A7CC">  //...</span></span>
+<span class="line"><span style="color:#FFE66D">  data</span><span style="color:#D5CED9">(){</span></span>
+<span class="line"><span style="color:#C74DED">    return</span><span style="color:#D5CED9"> {</span></span>
+<span class="line"><span style="color:#D5CED9">      name:</span><span style="color:#96E072">"footer"</span></span>
+<span class="line"><span style="color:#D5CED9">    }</span></span>
+<span class="line"><span style="color:#D5CED9">  }</span></span>
+<span class="line"><span style="color:#D5CED9">&#x3C;/</span><span style="color:#F92672">script</span><span style="color:#D5CED9">></span></span>
+<span class="line"></span></code></pre>
+<ul class="remark-unordered-list">
+<li>具名插槽的缩写
+<ul class="remark-unordered-list">
+<li>把参数之前的所有内容<code>(v-slot:)</code>替换为字符 <code>#</code>
+<ul class="remark-unordered-list">
+<li>例如 <code>#footer</code>或者<code>#[name]</code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="作用域插槽">作用域插槽<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#作用域插槽"></a></h3>
+<ul class="remark-unordered-list">
+<li>
+<p>vue 渲染作用域：</p>
+<ul class="remark-unordered-list">
+<li>父级模板里的所有内容都是在父级作用域中编译的</li>
+<li>子模板里的所有内容都是在子作用域中编译的</li>
+</ul>
+</li>
+<li>
+<p>希望插槽可以访问到子组件中的内容</p>
+<ul class="remark-unordered-list">
+<li>当一个组件被用来渲染一个数组元素时，我们使用插槽，并且希望插槽中没有显示每项的内容</li>
+</ul>
+</li>
+</ul>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-html"><span class="line"><span style="color:#A0A1A7CC">&#x3C;!-- 子组件中：有一个 names 的数组 --></span></span>
+<span class="line"><span style="color:#D5CED9">  &#x3C;</span><span style="color:#F92672">template</span><span style="color:#FFE66D"> v-for</span><span style="color:#D5CED9">=</span><span style="color:#96E072">"(item,index) in names"</span><span style="color:#FFE66D"> :key</span><span style="color:#D5CED9">=</span><span style="color:#96E072">"item"</span><span style="color:#D5CED9">></span></span>
+<span class="line"><span style="color:#D5CED9">     &#x3C;</span><span style="color:#F92672">slot</span><span style="color:#FFE66D"> name</span><span style="color:#D5CED9">=</span><span style="color:#96E072">"footer"</span><span style="color:#FFE66D"> :item</span><span style="color:#D5CED9">=</span><span style="color:#96E072">"item"</span><span style="color:#FFE66D"> :index</span><span style="color:#D5CED9">=</span><span style="color:#96E072">"index"</span><span style="color:#D5CED9">>&#x3C;/</span><span style="color:#F92672">slot</span><span style="color:#D5CED9">></span></span>
+<span class="line"><span style="color:#D5CED9">  &#x3C;/</span><span style="color:#F92672">template</span><span style="color:#D5CED9">></span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#A0A1A7CC">&#x3C;!-- 具名插槽与作用域插槽 --></span></span>
+<span class="line"><span style="color:#D5CED9">&#x3C;</span><span style="color:#F92672">Footer</span><span style="color:#D5CED9">></span></span>
+<span class="line"><span style="color:#D5CED9">  &#x3C;</span><span style="color:#F92672">template</span><span style="color:#FFE66D"> #footer</span><span style="color:#D5CED9">=</span><span style="color:#96E072">"slotProps"</span><span style="color:#D5CED9">></span></span>
+<span class="line"><span style="color:#D5CED9">    &#x3C;</span><span style="color:#F92672">button</span><span style="color:#D5CED9">>{{slotProps.item}}-{{slotProps.index}}&#x3C;/</span><span style="color:#F92672">button</span><span style="color:#D5CED9">></span></span>
+<span class="line"><span style="color:#D5CED9">  &#x3C;/</span><span style="color:#F92672">template</span><span style="color:#D5CED9">></span></span>
+<span class="line"><span style="color:#D5CED9">&#x3C;/</span><span style="color:#F92672">Footer</span><span style="color:#D5CED9">></span></span>
+<span class="line"></span></code></pre>
+<ul class="remark-unordered-list">
+<li>独占默认插槽
+<ul class="remark-unordered-list">
+<li>当默认插槽和作用域插槽简写，如果还有其它具名插槽那么简写方式不可以</li>
+<li>子组件中的 &#x3C;slot> 标签不能有 name 属性</li>
+</ul>
+</li>
+</ul>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-html"><span class="line"><span style="color:#D5CED9">&#x3C;</span><span style="color:#F92672">Foot</span><span style="color:#FFE66D"> v-slot</span><span style="color:#D5CED9">=</span><span style="color:#96E072">"slotProps"</span><span style="color:#D5CED9">></span></span>
+<span class="line"><span style="color:#D5CED9">  &#x3C;</span><span style="color:#F92672">button</span><span style="color:#D5CED9">>{{slotProps.item}}-{{slotProps.index}}&#x3C;/</span><span style="color:#F92672">button</span><span style="color:#D5CED9">></span></span>
+<span class="line"><span style="color:#D5CED9">&#x3C;/</span><span style="color:#F92672">Footer</span><span style="color:#D5CED9">></span></span>
+<span class="line"></span></code></pre>
+<h2 id="动态组件">动态组件<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#动态组件"></a></h2>
+<blockquote>
+<p>动态组件是使用 <code>component</code> 组件，通过一个特殊的<code>attribute is</code>
+来实现，is 属性是一个组件</p>
+</blockquote>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-html"><span class="line"><span style="color:#D5CED9">&#x3C;</span><span style="color:#F92672">component</span><span style="color:#D5CED9"> </span></span>
+<span class="line"><span style="color:#FFE66D">  :is</span><span style="color:#D5CED9">=</span><span style="color:#96E072">"currentTab"</span><span style="color:#D5CED9"> </span></span>
+<span class="line"><span style="color:#FFE66D">  :age</span><span style="color:#D5CED9">=</span><span style="color:#96E072">"18"</span><span style="color:#D5CED9"> </span></span>
+<span class="line"><span style="color:#FFE66D">  name</span><span style="color:#D5CED9">=</span><span style="color:#96E072">"张三"</span><span style="color:#D5CED9"> </span></span>
+<span class="line"><span style="color:#FFE66D">  @pageClick</span><span style="color:#D5CED9">=</span><span style="color:#96E072">"pageClick"</span><span style="color:#D5CED9">></span></span>
+<span class="line"><span style="color:#D5CED9">&#x3C;/</span><span style="color:#F92672">component</span><span style="color:#D5CED9">></span></span>
+<span class="line"></span></code></pre>
+<ul class="remark-unordered-list">
+<li>注意点：
+<ul class="remark-ordered-list">
+<li>currentTab 可以是通过 component 函数注册的组件</li>
+<li>currentTab 可以是在一个组件对象的 components 对象中注册的组件</li>
+<li>动态组件的传值和其它组件的传值 是一样的</li>
+</ul>
+</li>
+</ul>
+<h2 id="缓存组件-keep-alive">缓存组件 keep-alive<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#缓存组件-keep-alive"></a></h2>
+<blockquote>
+<p>默认情况下，我们在切换组件后，组件会被销毁掉，再次回来时会重新创建组件</p>
+<blockquote>
+<p>然而某些情况我们希望继续保持组件的状态，而不是销毁掉，这个时候我们就可以使用一个内置组件：<code>keep-alive</code></p>
+</blockquote>
+</blockquote>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-html"><span class="line"><span style="color:#D5CED9">&#x3C;</span><span style="color:#F92672">keep-alive</span><span style="color:#FFE66D"> include</span><span style="color:#D5CED9">=</span><span style="color:#96E072">"home,about"</span><span style="color:#D5CED9">></span></span>
+<span class="line"><span style="color:#D5CED9">  &#x3C;</span><span style="color:#F92672">component</span><span style="color:#D5CED9"> </span></span>
+<span class="line"><span style="color:#FFE66D">    :is</span><span style="color:#D5CED9">=</span><span style="color:#96E072">"currentTab"</span><span style="color:#D5CED9"> </span></span>
+<span class="line"><span style="color:#FFE66D">    :age</span><span style="color:#D5CED9">=</span><span style="color:#96E072">"18"</span><span style="color:#D5CED9"> </span></span>
+<span class="line"><span style="color:#FFE66D">    name</span><span style="color:#D5CED9">=</span><span style="color:#96E072">"张三"</span><span style="color:#D5CED9"> </span></span>
+<span class="line"><span style="color:#FFE66D">    @pageClick</span><span style="color:#D5CED9">=</span><span style="color:#96E072">"pageClick"</span><span style="color:#D5CED9">></span></span>
+<span class="line"><span style="color:#D5CED9">  &#x3C;/</span><span style="color:#F92672">component</span><span style="color:#D5CED9">></span></span>
+<span class="line"><span style="color:#D5CED9">&#x3C;/</span><span style="color:#F92672">keep-alive</span><span style="color:#D5CED9">></span></span>
+<span class="line"></span></code></pre>
+<h3 id="keep-alive-的一些属性">keep-alive 的一些属性<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#keep-alive-的一些属性"></a></h3>
+<ul class="remark-unordered-list">
+<li>
+<p><code>include</code>:可以使用<code>string</code>|<code>RegExp</code>|<code>Array</code>.只有名称匹配的组件会被缓存</p>
+<ul class="remark-unordered-list">
+<li>string:<code>include:"a,b"</code></li>
+<li>RegExp:<code>:include:"/a|b/"</code></li>
+<li>Array:<code>:include:"['a','b']"</code></li>
+</ul>
+</li>
+<li>
+<p><code>exclude</code> : <code>string</code> | <code>RegExp</code> | <code>Array</code>.任何名称匹配的组件都不会被缓存</p>
+</li>
+<li>
+<p><code>max</code>(不常用) : <code>number</code> |
+<code>string</code>.最多可以缓存多少组件实例，一旦达到这个数字，那么缓存组件中最近没有被访问的实例会被销毁</p>
+</li>
+</ul>
+<h3 id="缓存组件的生命周期">缓存组件的生命周期<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#缓存组件的生命周期"></a></h3>
+<blockquote>
+<p><span style="color:red">对于缓存的组件来说，再次进入时，我们是不会执行 created 或者 mounted 等生命周期函数的</span></p>
+</blockquote>
+<ul class="remark-unordered-list">
+<li><strong>activated</strong>:在 vue 对象存活的情况下，进入当前存在<code>activated()</code>函数的页面时，一切到改页面就触发。</li>
+<li><strong>deactivated</strong>:当离开组件 A，切到组件 B 之前，需要对组件 A 做某些处理，比如清除定时器，这时就需要使用<strong>deactivated</strong></li>
+</ul>
+<h2 id="异步组件的实现-多在路由中用到">异步组件的实现 (多在路由中用到)<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#异步组件的实现-多在路由中用到"></a></h2>
+<blockquote>
+<p>默认情况下，在构建整个组件树的过程中，因为组件和组件之间是通过模块化直接依赖的，那么 webpack 在打包时就会将组件模块打包到一起（比如一个 app.js 文件中）</p>
+</blockquote>
+<h3 id="webpack-的代码分包">webpack 的代码分包<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#webpack-的代码分包"></a></h3>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-js"><span class="line"><span style="color:#EE5D43">import</span><span style="color:#D5CED9">(</span><span style="color:#96E072">"./utils/math"</span><span style="color:#D5CED9">).</span><span style="color:#FFE66D">then</span><span style="color:#D5CED9">(</span></span>
+<span class="line"><span style="color:#D5CED9">  (</span><span style="color:#00E8C6">res</span><span style="color:#D5CED9">) </span><span style="color:#C74DED">=></span><span style="color:#D5CED9"> {</span></span>
+<span class="line"><span style="color:#F39C12">    console</span><span style="color:#D5CED9">.</span><span style="color:#FFE66D">log</span><span style="color:#D5CED9">(</span><span style="color:#F39C12">res</span><span style="color:#D5CED9">.</span><span style="color:#FFE66D">sum</span><span style="color:#D5CED9">(</span><span style="color:#F39C12">20</span><span style="color:#D5CED9">, </span><span style="color:#F39C12">30</span><span style="color:#D5CED9">));</span></span>
+<span class="line"><span style="color:#D5CED9">  },</span></span>
+<span class="line"><span style="color:#D5CED9">);</span></span>
+<span class="line"></span></code></pre>
+<h3 id="vue-中实现异步组件">vue 中实现异步组件<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#vue-中实现异步组件"></a></h3>
+<ul class="remark-unordered-list">
+<li>
+<p>如果我们的项目过大了，对于某些组件我们希望通过异步的方式来进行加载 (即进行分包处理),利用 vue 中的<code>defineAsyncComponent</code>函数</p>
+<ul class="remark-unordered-list">
+<li>写成工厂函数，该工厂函数需要返回一个 Promise 对象</li>
+</ul>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-js"><span class="line"><span style="color:#C74DED">import</span><span style="color:#D5CED9"> { </span><span style="color:#00E8C6">defineAsyncComponent</span><span style="color:#D5CED9"> } </span><span style="color:#C74DED">from</span><span style="color:#96E072"> "vue"</span><span style="color:#D5CED9">;</span></span>
+<span class="line"><span style="color:#C74DED">const</span><span style="color:#00E8C6"> AsyncMain</span><span style="color:#EE5D43"> =</span><span style="color:#FFE66D"> defineAsyncComponent</span><span style="color:#D5CED9">(() </span><span style="color:#C74DED">=></span><span style="color:#EE5D43"> import</span><span style="color:#D5CED9">(</span><span style="color:#96E072">"./components/Main.vue"</span><span style="color:#D5CED9">));</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#C74DED">export</span><span style="color:#C74DED"> default</span><span style="color:#D5CED9"> ({</span></span>
+<span class="line"><span style="color:#D5CED9">  components: {</span></span>
+<span class="line"><span style="color:#00E8C6">    AsyncMain</span><span style="color:#D5CED9">,</span></span>
+<span class="line"><span style="color:#D5CED9">  },</span></span>
+<span class="line"><span style="color:#D5CED9">});</span></span>
+<span class="line"></span></code></pre>
+<ul class="remark-unordered-list">
+<li>接受一个对象类型，对异步函数进行配置</li>
+</ul>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-js"><span class="line"><span style="color:#C74DED">const</span><span style="color:#00E8C6"> AsyncMain</span><span style="color:#EE5D43">=</span><span style="color:#FFE66D">defineAsyncComponent</span><span style="color:#D5CED9">({</span></span>
+<span class="line"><span style="color:#FFE66D">loader</span><span style="color:#D5CED9">:()</span><span style="color:#C74DED">=></span><span style="color:#EE5D43">import</span><span style="color:#D5CED9">(</span><span style="color:#96E072">"./components/Main.vue"</span><span style="color:#D5CED9">),</span></span>
+<span class="line"><span style="color:#D5CED9">loadingComponent: </span><span style="color:#00E8C6">Loading</span><span style="color:#D5CED9">,</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#D5CED9">errorComponent:</span><span style="color:#00E8C6">Failing</span></span>
+<span class="line"><span style="color:#A0A1A7CC">//在显示 loadingComponents 组件之前，等待多长时间</span></span>
+<span class="line"><span style="color:#00E8C6">delay</span><span style="color:#D5CED9">:</span><span style="color:#F39C12">2000</span><span style="color:#D5CED9">,</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FFE66D">onError</span><span style="color:#D5CED9">:</span><span style="color:#C74DED">function</span><span style="color:#D5CED9">(</span><span style="color:#00E8C6">err</span><span style="color:#D5CED9">,</span><span style="color:#00E8C6">retry</span><span style="color:#D5CED9">,</span><span style="color:#00E8C6">fail</span><span style="color:#D5CED9">,</span><span style="color:#00E8C6">attempts</span><span style="color:#D5CED9">){}</span></span>
+<span class="line"><span style="color:#D5CED9">})</span></span>
+<span class="line"></span></code></pre>
+</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>属性</th><th>描述</th></tr></thead><tbody><tr><td><code>loadingComponent</code></td><td>传入一个组件，如果没有加载出异步组件，占位组件会占位</td></tr><tr><td><code>errorComponent</code></td><td>传入一个组件，组件加载失败时显示的组件</td></tr><tr><td><code>delay</code></td><td>在显示 loadingComponents 组件之前，等待多长时间</td></tr><tr><td><code>onError</code></td><td>传入一个带有四个参数的函数，</td></tr></tbody></table>
+<ul class="remark-unordered-list">
+<li><code>onError</code>参数
+<ul class="remark-unordered-list">
+<li><code>err</code>:错误信息</li>
+<li><code>retry</code>:函数，调用 retry 尝试重新加载</li>
+<li><code>fail</code>:函数，指加载程序结束退出</li>
+<li><code>attempts</code>:记录尝试的次数</li>
+</ul>
+</li>
+</ul>
+<h3 id="异步组件与-suspense">异步组件与 Suspense<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#异步组件与-suspense"></a></h3>
+<ul class="remark-unordered-list">
+<li><code>Suspense</code>是一个内置的全局组件，该组件有两个插槽：
+<ul class="remark-unordered-list">
+<li><code>default</code>：如果 default 可以显示，那么显示 default 的内容</li>
+<li><code>fallback</code>：如果 default 无法显示，那么会显示 fallback 插槽的内容</li>
+</ul>
+</li>
+</ul>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-html"><span class="line"><span style="color:#D5CED9">&#x3C;</span><span style="color:#F92672">template</span><span style="color:#FFE66D"> #default</span><span style="color:#D5CED9">></span></span>
+<span class="line"><span style="color:#D5CED9">  &#x3C;</span><span style="color:#F92672">AsyncHeader</span><span style="color:#D5CED9">>&#x3C;/</span><span style="color:#F92672">AsyncHeader</span><span style="color:#D5CED9">></span></span>
+<span class="line"><span style="color:#D5CED9">&#x3C;/</span><span style="color:#F92672">template</span><span style="color:#D5CED9">></span></span>
+<span class="line"><span style="color:#D5CED9">&#x3C;</span><span style="color:#F92672">template</span><span style="color:#FFE66D"> #fallback</span><span style="color:#D5CED9">></span></span>
+<span class="line"><span style="color:#D5CED9">  &#x3C;</span><span style="color:#F92672">Loading</span><span style="color:#D5CED9">>&#x3C;/</span><span style="color:#F92672">Loading</span><span style="color:#D5CED9">></span></span>
+<span class="line"><span style="color:#D5CED9">&#x3C;/</span><span style="color:#F92672">template</span><span style="color:#D5CED9">></span></span>
+<span class="line"></span></code></pre>
+<h2 id="引用元素和组件">引用元素和组件<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#引用元素和组件"></a></h2>
+<ul class="remark-unordered-list">
+<li><code>$refs</code>:持有注册过<code>ref attribute</code> 的所有 DOM 元素或者组件实例</li>
+<li><code>$parent</code> 和 <code>$root</code>,获取父元素实例和根元素实例</li>
+</ul>
+<h2 id="组件的-v-model">组件的 v-model<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#组件的-v-model"></a></h2>
+<blockquote>
+<p>在 input 中可以使用 v-model 来完成双向绑定</p>
+<p>在封装一个组件，其他地方在使用这个组件时，也可以使用 v-model 来同时完成这两个功能</p>
+</blockquote>
+<ul class="remark-unordered-list">
+<li>在&#x3C;input>中绑定<code>v-model</code>默认帮我们完成的两件事：
+<ul class="remark-unordered-list">
+<li><span style="color:red">v-bind:value 的数据绑定和@input 的事件监听</span></li>
+</ul>
+</li>
+</ul>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-html"><span class="line"><span style="color:#A0A1A7CC">&#x3C;!-- 父组件 --></span></span>
+<span class="line"><span style="color:#D5CED9">&#x3C;</span><span style="color:#F92672">MainInput</span><span style="color:#FFE66D"> v-model</span><span style="color:#D5CED9">=</span><span style="color:#96E072">"message"</span><span style="color:#D5CED9">>&#x3C;/</span><span style="color:#F92672">MainInput</span><span style="color:#D5CED9">></span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#A0A1A7CC">&#x3C;!-- 组件直接绑定 v-model，相当于写成以下模式 --></span></span>
+<span class="line"><span style="color:#D5CED9">&#x3C;</span><span style="color:#F92672">MainInput</span><span style="color:#FFE66D"> :modelValue</span><span style="color:#D5CED9">=</span><span style="color:#96E072">"message"</span><span style="color:#D5CED9"> </span></span>
+<span class="line"><span style="color:#FFE66D">           @update:modelValue</span><span style="color:#D5CED9">=</span><span style="color:#96E072">"message=$event"</span><span style="color:#D5CED9">></span></span>
+<span class="line"><span style="color:#D5CED9">&#x3C;/</span><span style="color:#F92672">MainInput</span><span style="color:#D5CED9">></span></span>
+<span class="line"></span></code></pre>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-html"><span class="line"><span style="color:#A0A1A7CC">&#x3C;!-- 子组件 --></span></span>
+<span class="line"><span style="color:#D5CED9">&#x3C;</span><span style="color:#F92672">template</span><span style="color:#D5CED9">></span></span>
+<span class="line"><span style="color:#D5CED9">  &#x3C;</span><span style="color:#F92672">div</span><span style="color:#D5CED9">></span></span>
+<span class="line"><span style="color:#D5CED9">     &#x3C;</span><span style="color:#F92672">input</span><span style="color:#FFE66D"> v-model</span><span style="color:#D5CED9">=</span><span style="color:#96E072">"value"</span><span style="color:#D5CED9">></span></span>
+<span class="line"><span style="color:#D5CED9">     &#x3C;</span><span style="color:#F92672">h2</span><span style="color:#D5CED9">>Main 的 message:{{modelValue}}&#x3C;/</span><span style="color:#F92672">h2</span><span style="color:#D5CED9">></span></span>
+<span class="line"><span style="color:#D5CED9">  &#x3C;/</span><span style="color:#F92672">div</span><span style="color:#D5CED9">></span></span>
+<span class="line"><span style="color:#D5CED9">&#x3C;/</span><span style="color:#F92672">template</span><span style="color:#D5CED9">></span></span>
+<span class="line"><span style="color:#D5CED9">&#x3C;</span><span style="color:#F92672">script</span><span style="color:#D5CED9">></span></span>
+<span class="line"><span style="color:#C74DED">export</span><span style="color:#C74DED"> default</span><span style="color:#D5CED9"> {</span></span>
+<span class="line"><span style="color:#D5CED9">  props:{</span></span>
+<span class="line"><span style="color:#D5CED9">    modelValue:</span><span style="color:#00E8C6">String</span><span style="color:#D5CED9">,</span></span>
+<span class="line"><span style="color:#D5CED9">  },</span></span>
+<span class="line"><span style="color:#D5CED9">  emits:[</span><span style="color:#96E072">"update:modelValue"</span><span style="color:#D5CED9">],</span></span>
+<span class="line"><span style="color:#D5CED9">  computed:{</span></span>
+<span class="line"><span style="color:#D5CED9">    value:{</span></span>
+<span class="line"><span style="color:#FFE66D">      get</span><span style="color:#D5CED9">(){</span></span>
+<span class="line"><span style="color:#C74DED">        return</span><span style="color:#FF00AA"> this</span><span style="color:#D5CED9">.</span><span style="color:#00E8C6">modelValue</span></span>
+<span class="line"><span style="color:#D5CED9">      },</span></span>
+<span class="line"><span style="color:#FFE66D">      set</span><span style="color:#D5CED9">(</span><span style="color:#00E8C6">value</span><span style="color:#D5CED9">){</span></span>
+<span class="line"><span style="color:#FF00AA">        this</span><span style="color:#D5CED9">.</span><span style="color:#FFE66D">$emit</span><span style="color:#D5CED9">(</span><span style="color:#96E072">"update:modelValue"</span><span style="color:#D5CED9">,</span><span style="color:#00E8C6">value</span><span style="color:#D5CED9">)</span></span>
+<span class="line"><span style="color:#D5CED9">      }</span></span>
+<span class="line"><span style="color:#D5CED9">    }</span></span>
+<span class="line"><span style="color:#D5CED9">  },</span></span>
+<span class="line"><span style="color:#D5CED9">}</span></span>
+<span class="line"><span style="color:#D5CED9">&#x3C;/</span><span style="color:#F92672">script</span><span style="color:#D5CED9">></span></span>
+<span class="line"></span></code></pre>
+<ul class="remark-unordered-list">
+<li>
+<p>注意:<span style="color:red">v-model 不能直接绑定到 props,props 中的属性只读不要改</span></p>
+</li>
+<li>
+<p>绑定多个参数，可以给<code>v-model</code>传参</p>
+<ul class="remark-ordered-list">
+<li>默认情况下:v-model 其实是绑定了 <code>modelValue</code> 属性和
+<code>@update:modelValue</code>的事件</li>
+<li><code>v-model:tittle</code>绑定了<code>title</code>属性，监听了 <code>@update:title</code>的事件</li>
+</ul>
+</li>
+</ul>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-html"><span class="line"><span style="color:#A0A1A7CC">&#x3C;!-- 父组件 --></span></span>
+<span class="line"><span style="color:#D5CED9">&#x3C;</span><span style="color:#F92672">MainInput</span><span style="color:#FFE66D"> v-model:demo</span><span style="color:#D5CED9">=</span><span style="color:#96E072">"message"</span><span style="color:#FFE66D"> v-model:tittle</span><span style="color:#D5CED9">=</span><span style="color:#96E072">"tittle"</span><span style="color:#D5CED9">>&#x3C;/</span><span style="color:#F92672">MainInput</span><span style="color:#D5CED9">></span></span>
+<span class="line"></span></code></pre>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-html"><span class="line"><span style="color:#A0A1A7CC">&#x3C;!-- 子组件 --></span></span>
+<span class="line"><span style="color:#D5CED9">&#x3C;</span><span style="color:#F92672">template</span><span style="color:#D5CED9">></span></span>
+<span class="line"><span style="color:#D5CED9">  &#x3C;</span><span style="color:#F92672">div</span><span style="color:#D5CED9">></span></span>
+<span class="line"><span style="color:#D5CED9">     &#x3C;</span><span style="color:#F92672">input</span><span style="color:#FFE66D"> v-model</span><span style="color:#D5CED9">=</span><span style="color:#96E072">"tittleValue"</span><span style="color:#D5CED9">></span></span>
+<span class="line"><span style="color:#D5CED9">     &#x3C;</span><span style="color:#F92672">h2</span><span style="color:#D5CED9">>Main 的 message:{{tittleValue}}&#x3C;/</span><span style="color:#F92672">h2</span><span style="color:#D5CED9">></span></span>
+<span class="line"><span style="color:#D5CED9">      &#x3C;</span><span style="color:#F92672">input</span><span style="color:#FFE66D"> v-model</span><span style="color:#D5CED9">=</span><span style="color:#96E072">"demoValue"</span><span style="color:#D5CED9">></span></span>
+<span class="line"><span style="color:#D5CED9">     &#x3C;</span><span style="color:#F92672">h2</span><span style="color:#D5CED9">>Main 的 message:{{demoValue}}&#x3C;/</span><span style="color:#F92672">h2</span><span style="color:#D5CED9">></span></span>
+<span class="line"><span style="color:#D5CED9">  &#x3C;/</span><span style="color:#F92672">div</span><span style="color:#D5CED9">></span></span>
+<span class="line"><span style="color:#D5CED9">&#x3C;/</span><span style="color:#F92672">template</span><span style="color:#D5CED9">></span></span>
+<span class="line"><span style="color:#D5CED9">&#x3C;</span><span style="color:#F92672">script</span><span style="color:#D5CED9">></span></span>
+<span class="line"><span style="color:#C74DED">export</span><span style="color:#C74DED"> default</span><span style="color:#D5CED9"> {</span></span>
+<span class="line"><span style="color:#D5CED9">  props:{</span></span>
+<span class="line"><span style="color:#D5CED9">    demo:</span><span style="color:#00E8C6">String</span><span style="color:#D5CED9">,</span></span>
+<span class="line"><span style="color:#D5CED9">    tittle:</span><span style="color:#00E8C6">String</span></span>
+<span class="line"><span style="color:#D5CED9">  },</span></span>
+<span class="line"><span style="color:#D5CED9">  emits:[</span><span style="color:#96E072">"update:tittle"</span><span style="color:#D5CED9">,</span><span style="color:#96E072">"update:demo"</span><span style="color:#D5CED9">],</span></span>
+<span class="line"><span style="color:#D5CED9">  computed:{</span></span>
+<span class="line"><span style="color:#D5CED9">    tittleValue:{</span></span>
+<span class="line"><span style="color:#FFE66D">      get</span><span style="color:#D5CED9">(){</span></span>
+<span class="line"><span style="color:#C74DED">        return</span><span style="color:#FF00AA"> this</span><span style="color:#D5CED9">.</span><span style="color:#00E8C6">tittle</span></span>
+<span class="line"><span style="color:#D5CED9">      },</span></span>
+<span class="line"><span style="color:#FFE66D">      set</span><span style="color:#D5CED9">(</span><span style="color:#00E8C6">value</span><span style="color:#D5CED9">){</span></span>
+<span class="line"><span style="color:#FF00AA">        this</span><span style="color:#D5CED9">.</span><span style="color:#FFE66D">$emit</span><span style="color:#D5CED9">(</span><span style="color:#96E072">"update:tittle"</span><span style="color:#D5CED9">,</span><span style="color:#00E8C6">value</span><span style="color:#D5CED9">)</span></span>
+<span class="line"><span style="color:#D5CED9">      }</span></span>
+<span class="line"><span style="color:#D5CED9">    },</span></span>
+<span class="line"><span style="color:#D5CED9">    demoValue:{</span></span>
+<span class="line"><span style="color:#FFE66D">      get</span><span style="color:#D5CED9">(){</span></span>
+<span class="line"><span style="color:#C74DED">        return</span><span style="color:#FF00AA"> this</span><span style="color:#D5CED9">.</span><span style="color:#00E8C6">demo</span></span>
+<span class="line"><span style="color:#D5CED9">      },</span></span>
+<span class="line"><span style="color:#FFE66D">      set</span><span style="color:#D5CED9">(</span><span style="color:#00E8C6">value</span><span style="color:#D5CED9">){</span></span>
+<span class="line"><span style="color:#FF00AA">        this</span><span style="color:#D5CED9">.</span><span style="color:#FFE66D">$emit</span><span style="color:#D5CED9">(</span><span style="color:#96E072">"update:demo"</span><span style="color:#D5CED9">,</span><span style="color:#00E8C6">value</span><span style="color:#D5CED9">)</span></span>
+<span class="line"><span style="color:#D5CED9">      }</span></span>
+<span class="line"><span style="color:#D5CED9">    }</span></span>
+<span class="line"><span style="color:#D5CED9">  },</span></span>
+<span class="line"><span style="color:#D5CED9">}</span></span>
+<span class="line"><span style="color:#D5CED9">&#x3C;/</span><span style="color:#F92672">script</span><span style="color:#D5CED9">></span></span>
+<span class="line"></span></code></pre>
+<div class="sponsor-container">
+  <button class="sponsor-btn">
+    <a href="https://stripe.fwqaaq.workers.dev/Personal-Website-Sponsor/checkout?mode=once" target="_blank" rel="noopener noreferrer" class="">
+      <span class="sponsor-icon">☕</span>
+      <span>请博主喝杯咖啡</span>
+  </a>
+  </button>
+</div>
+          </article>
+        </main><script src="https://giscus.app/client.js"
+        data-repo="fwqaaq/fwqaaq.github.io"
+        data-repo-id="R_kgDOHCFK2A"
+        data-category="Show and tell"
+        data-category-id="DIC_kwDOHCFK2M4CYOLh"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="1"
+        data-input-position="bottom"
+        data-theme="preferred_color_scheme"
+        data-lang="zh-CN"
+        crossorigin="anonymous"
+        async></script><footer class="blog-footer">
+  <div class="footer-container">
+    <p class="text-center"><a class="decoration-line"
+        href="https://creativecommons.org/licenses/by-sa/3.0/deed.zh-hans">© CC BY-SA</a> 2021 -
+      2025 <a class="decoration-line" href="https://github.com/fwqaaq">fwqaaq</a>.
+      Powered by <a class="decoration-line" href="https://deno.com">Deno</a>
+    </p>
+  </div>
+  <div class="footer-icons-container">
+    <a class="icon" href="https://github.com/fwqaaq">
+      <i class="fa-brands fa-github"></i>
+    </a>
+    <a class="icon" href="mailto:fwqaaq@gmail">
+      <i class="fa-solid fa-envelope"></i>
+    </a>
+    <a class="icon" href="https://www.fwqaaq.com/feed.xml">
+      <i class="fa-solid fa-rss"></i>
+    </a>
+    <a class="icon" href="https://t.me/fwqaaq">
+      <i class="fa-brands fa-telegram"></i>
+    </a>
+  </div>
+</footer>

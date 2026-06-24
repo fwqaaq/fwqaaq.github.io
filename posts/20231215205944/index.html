@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#F3F7F6">
+  <meta name="description" content="天发现 blog 的文章文字溢出，其实这种情况也不是一次两次了，所以就准备总结一下文本的换行问题。  ## 文字换行  不同的文字换行是不同的  > [!TIP] > 如果是汉字，...">
+  <meta name="keywords" content="CSS">
+  <meta name="author" content="fwqaaq">
+  <meta property="og:site_name" content="fwqaaq 的博客">
+  <meta property="og:locale" content="zh_CN">
+  <meta property="og:title" content="文本换行">
+  <meta property="og:description" content="天发现 blog 的文章文字溢出，其实这种情况也不是一次两次了，所以就准备总结一下文本的换行问题。  ## 文字换行  不同的文字换行是不同的  > [!TIP] > 如果是汉字，...">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://www.fwqaaq.com//posts/20231215205944/">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="fwqaaq 的博客">
+  <meta name=application-name content="fwqaaq 的博客">
+  <meta name=apple-mobile-web-app-title content="fwqaaq 的博客">
+  <title>
+    文本换行
+  </title>
+  <link rel="shortcut icon" href="/public/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="/public/css/base.849580.css">
+  <link rel="stylesheet" href="/public/css/index.849580.css">
+  <link rel="stylesheet" href="/public/css/markdown.849580.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+  <script src="/public/JavaScript/index.849580.js"></script>
+  <script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit" defer></script>
+</head>
+
+</html>
+<header class="blog-header">
+    <i id="switch-icon" class="fa-solid fa-bars"></i>
+    <a href="https://github.com/fwqaaq" target="_blank">
+        <img src="https://avatars.githubusercontent.com/u/82551626?v=4" loading="lazy" alt="me" srcset="">
+    </a>
+    <div class="wrap-background">
+        <nav class="header-nav">
+            <a class="decoration-line" href="/"><i class="fa-solid fa-house-chimney fa-xs"></i>
+                <span class="disappear">首页</span>
+            </a>
+            <a class="decoration-line" href="/./about/index.html"><i class="fa-solid fa-address-card fa-xs"></i>
+                <span class="disappear">关于</span></a>
+            <a class="decoration-line" href="/./archive/index.html"><i class="fa-solid fa-box-archive fa-xs"></i> <span
+                    class="disappear">归档</span></a>
+            <a class="decoration-line" href="/./tags/index.html"><i class="fa-solid fa-tag fa-xs"></i>
+                <span class="disappear">标签</span></a>
+            <a class="decoration-line" onclick="sponsor(199)">
+                <i class="fa-solid fa-circle-dollar-to-slot fa-xs"></i>
+                <span class="disappear">赞助</span></a>
+            <div class="language-switcher notranslate">
+                <button class="language-toggle" type="button" aria-label="切换语言" aria-expanded="false"
+                    aria-controls="language-menu">
+                    <i class="fa-solid fa-globe fa-xs" aria-hidden="true"></i>
+                    <span class="disappear" translate="yes">语言</span>
+                </button>
+                <div class="language-menu" id="language-menu" role="menu" hidden>
+                    <button class="language-option" type="button" role="menuitemradio" data-lang=""
+                        aria-checked="true">原文</button>
+                    <button class="language-option" type="button" role="menuitemradio" data-lang="en"
+                        aria-checked="false">English</button>
+                    <button class="language-option" type="button" role="menuitemradio" data-lang="ja"
+                        aria-checked="false">日本語</button>
+                    <button class="language-option" type="button" role="menuitemradio" data-lang="ko"
+                        aria-checked="false">한국어</button>
+                    <button class="language-option" type="button" role="menuitemradio" data-lang="fr"
+                        aria-checked="false">Français</button>
+                    <button class="language-option" type="button" role="menuitemradio" data-lang="de"
+                        aria-checked="false">Deutsch</button>
+                    <button class="language-option" type="button" role="menuitemradio" data-lang="es"
+                        aria-checked="false">Español</button>
+                    <button class="language-option" type="button" role="menuitemradio" data-lang="ru"
+                        aria-checked="false">Русский</button>
+                    <button class="language-option" type="button" role="menuitemradio" data-lang="zh-TW"
+                        aria-checked="false">繁體中文</button>
+                </div>
+            </div>
+            <div id="google_translate_element" class="google-translate-element notranslate" aria-hidden="true"></div>
+            <a class="decoration-line model" href="#" aria-label="切换深浅色主题"><i class="fa-solid fa-sun fa-xs"></i></a>
+        </nav>
+    </div>
+</header>
+        <main class="blog-main">
+          <article class="blog-article">
+            <h1>文本换行</h1>
+          <div class="post-meta post-meta-flex-around">
+              <div class="post-author" href="/./about/"><i class="fa-solid fa-user"></i> fwqaaq</div> 
+              <div class="post-time"><i class="fa-solid fa-clock"></i> 2023-12-15</div> 
+              <div class="post-update-time"><i class="fa-solid fa-clock-rotate-left"></i> 2025-11-09</div>
+            </div>
+            <hr>
+            <details class="remark-toc-details"><summary class="remark-toc-summary">目录</summary><ul class="remark-toc">
+<li><a href="#%E6%96%87%E5%AD%97%E6%8D%A2%E8%A1%8C">文字换行</a></li>
+<li><a href="#overflow-wrap">overflow-wrap</a></li>
+<li><a href="#word-break">word-break</a></li>
+<li><a href="#white-space">white-space</a></li>
+<li><a href="#line-break">line-break</a></li>
+<li><a href="#%E6%96%87%E5%AD%97%E6%BA%A2%E5%87%BA">文字溢出</a></li>
+<li><a href="#hyphens">hyphens</a></li>
+<li><a href="#%E6%80%BB%E7%BB%93">总结</a></li>
+</ul></details>
+<blockquote>
+<p>今天发现 blog 的文章文字溢出，其实这种情况也不是一次两次了，所以就准备总结一下文本的换行问题。</p>
+</blockquote>
+<h2 id="文字换行">文字换行<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#文字换行"></a></h2>
+<p>不同的文字换行是不同的</p>
+<div class="markdown-alert markdown-alert-tip">
+<p class="markdown-alert-title"><svg class="octicon octicon-light-bulb mr-2" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="M8 1.5c-2.363 0-4 1.69-4 3.75 0 .984.424 1.625.984 2.304l.214.253c.223.264.47.556.673.848.284.411.537.896.621 1.49a.75.75 0 0 1-1.484.211c-.04-.282-.163-.547-.37-.847a8.456 8.456 0 0 0-.542-.68c-.084-.1-.173-.205-.268-.32C3.201 7.75 2.5 6.766 2.5 5.25 2.5 2.31 4.863 0 8 0s5.5 2.31 5.5 5.25c0 1.516-.701 2.5-1.328 3.259-.095.115-.184.22-.268.319-.207.245-.383.453-.541.681-.208.3-.33.565-.37.847a.751.751 0 0 1-1.485-.212c.084-.593.337-1.078.621-1.489.203-.292.45-.584.673-.848.075-.088.147-.173.213-.253.561-.679.985-1.32.985-2.304 0-2.06-1.637-3.75-4-3.75ZM5.75 12h4.5a.75.75 0 0 1 0 1.5h-4.5a.75.75 0 0 1 0-1.5ZM6 15.25a.75.75 0 0 1 .75-.75h2.5a.75.75 0 0 1 0 1.5h-2.5a.75.75 0 0 1-.75-.75Z"></path></svg>Tip</p>
+<p>如果是汉字，在没有标点的情况下，<span style="color: red;">任意的文字都是换行点</span>；如果有标点，有些标点不能出现在开头，有些标点不能显示在结尾</p>
+</div>
+<ul class="remark-unordered-list">
+<li><strong>避头标点</strong>：不能出现在开头的标点。例如：逗号、句号、问号、顿号、感叹号等</li>
+<li><strong>闭尾标点</strong>：不能放在尾部的标点。例如：上引号、上括号等</li>
+</ul>
+<blockquote>
+<p>英文字符只能在某些特定的中断字符那里才会触发换行</p>
+</blockquote>
+<ul class="remark-unordered-list">
+<li><strong>Space</strong>（空格）：unicode 值为 <code>U+0020</code></li>
+<li><code>google</code>、<code>safria</code>、<code>webview</code>：短横线（U+002D）<span style="color: red;">后面是字母或者数字，不能是标点</span>，英文问号（U+003F），各种前括号 <code>(</code>、<code>[</code>、<code>{</code></li>
+<li><code>firfox</code>：短横线（U+002D），<span style="color: red;">后面是字母，不能是数字</span>，斜杠（U+002F）</li>
+<li><code>Edge</code>：短横线（U+002D）<span style="color: red;">前后是字符个数大于 1 的字符单元</span>，连续百分号 <code>%</code></li>
+</ul>
+<h2 id="overflow-wrap"><a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/overflow-wrap">overflow-wrap</a><a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#overflow-wrap"></a></h2>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-css"><span class="line"><span style="color:#F92672">overflow-wrap</span><span style="color:#D5CED9">: normal | </span><span style="color:#F92672">break-word</span><span style="color:#D5CED9"> | anywhere;</span></span>
+<span class="line"></span></code></pre>
+<ul class="remark-unordered-list">
+<li><strong>normal</strong>：默认值，只在允许的默认点点换行（<code>word-break</code>）</li>
+<li><strong>break-word</strong>：如果行内没有多余的地方容纳该单词到结尾，则那些正常的不能被分割的单词会被强制分割换行。</li>
+<li><strong>anywhere</strong>：允许在单词内换行。</li>
+</ul>
+<p><code>break-word</code> 和 <code>anywhere</code> 区别：如果是自适应的宽度，那们 <code>width: min-content</code> 的大小第一个会是最长单词的宽度，而 <code>anywhere</code> 将每个字母都会换行，宽度就是字母宽度。</p>
+<h2 id="word-break"><a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/word-break">word-break</a><a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#word-break"></a></h2>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-css"><span class="line"><span style="color:#F92672">word-break</span><span style="color:#D5CED9">: normal | </span><span style="color:#F92672">break-all</span><span style="color:#D5CED9"> | </span><span style="color:#F92672">keep-all</span><span style="color:#D5CED9">;</span></span>
+<span class="line"></span></code></pre>
+<ul class="remark-unordered-list">
+<li><strong>normal</strong>：默认值，只在允许的默认点点换行（<code>overflow-wrap</code>）</li>
+<li><strong>break-all</strong>：对于 non-CJK 文本允许在单词内换行。</li>
+<li><strong>keep-all</strong>：CJK 文本不断行。Non-CJK 文本表现同 normal。</li>
+</ul>
+<h2 id="white-space"><a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/white-space">white-space</a><a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#white-space"></a></h2>
+<blockquote>
+<p>white-space 属性用于设置如何处理元素内的空白字符，这里的空白指的是 HTML 文件中的留白。</p>
+</blockquote>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-css"><span class="line"><span style="color:#F92672">white-space</span><span style="color:#D5CED9">: normal | nowrap | </span><span style="color:#F92672">pre</span><span style="color:#D5CED9"> | </span><span style="color:#F92672">pre-wrap</span><span style="color:#D5CED9"> | </span><span style="color:#F92672">pre-line</span><span style="color:#D5CED9"> | </span><span style="color:#F92672">break-spaces</span><span style="color:#D5CED9">;</span></span>
+<span class="line"></span></code></pre>
+<ul class="remark-unordered-list">
+<li><strong>normal</strong>：默认值，空白会被浏览器忽略。</li>
+<li><strong>nowrap</strong>：文本不会换行，文本会在在同一行上继续，直到遇到 <code>&#x3C;br></code> 标签为止。</li>
+<li><strong>pre</strong>：空白会被浏览器保留。其行为方式类似 HTML 中的 <code>&#x3C;pre></code> 标签。</li>
+<li><strong>pre-wrap</strong>：保留空白符序列，但是正常地进行换行。</li>
+<li><strong>pre-line</strong>：合并空白符序列，但是保留换行符。</li>
+<li><strong>break-spaces</strong>：与 <code>pre-wrap</code> 类似，但是在遇到换行符或者 <code>&#x3C;br></code> 标签时会进行换行。</li>
+</ul>
+<h2 id="line-break"><a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/line-break">line-break</a><a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#line-break"></a></h2>
+<blockquote>
+<p>用来处理如何断开（break lines）带有标点符号的中文、日文或韩文（CJK）文本的行。</p>
+</blockquote>
+<h2 id="文字溢出">文字溢出<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#文字溢出"></a></h2>
+<blockquote>
+<p>web 默认的换行特性带来的连续英文宽度溢出问题</p>
+</blockquote>
+<ul class="remark-unordered-list">
+<li>由于默认特性会在 <code>-</code> 字符换行，只需要加上 <code>word-break: break-all</code> 就可以使单词断行，而不是 <code>-</code></li>
+</ul>
+<blockquote>
+<p><code>break-all</code> 断开了单词或者固定词组，因为小部分的场景的排版问题，牺牲了大多数场景的阅读体验</p>
+</blockquote>
+<ul class="remark-unordered-list">
+<li><strong>注意</strong>：<code>word-break: break-all</code> 无法使破折号换行
+<ul class="remark-unordered-list">
+<li>使用 <code>word-break: break-word</code> 使中文破折号换行（已弃用）。现在已使用 <code>overflow-wrap</code> 代替，<code>word-wrap</code> 现在用作 <code>overflow-wrap</code></li>
+<li><code>overflow-wrap</code> 仅会在无法将整个单词放在自己的行而不会移除的情况下才会产生中断</li>
+</ul>
+</li>
+</ul>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-css"><span class="line"><span style="color:#A0A1A7CC">/* 字符换行 */</span></span>
+<span class="line"><span style="color:#F92672">word-break</span><span style="color:#D5CED9">: </span><span style="color:#F92672">break-all</span><span style="color:#D5CED9">;</span></span>
+<span class="line"><span style="color:#A0A1A7CC">/* 破折号换行 */</span></span>
+<span class="line"><span style="color:#F92672">overflow-wrap</span><span style="color:#D5CED9">: </span><span style="color:#F92672">break-word</span><span style="color:#D5CED9">;</span></span>
+<span class="line"></span></code></pre>
+<h2 id="hyphens"><a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/hyphens">hyphens</a><a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#hyphens"></a></h2>
+<blockquote>
+<p>在英文文字换行的时候自动添加连接符（<code>-</code>）</p>
+</blockquote>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-css"><span class="line"><span style="color:#D5CED9">hyphens: none | manual | auto;</span></span>
+<span class="line"></span></code></pre>
+<ul class="remark-unordered-list">
+<li>两种连字符
+<ul class="remark-unordered-list">
+<li><strong>硬连字符</strong>：（U+2010），可见换行机会</li>
+<li><strong>软连字符</strong>：（U+00AD），不可见换行机会。<span style="color: red;">需要换行时候连字符才出现，不需要换行的时候连字符隐藏</span>
+<ul class="remark-unordered-list">
+<li>在 HTML 中使用 <code>&#x26;shy;</code> 表示软连字符。只适用于英文字符换行，不适用于 url 换行</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>&#x3C;wbr>&#x3C;/wbr>：表示有机会才换行</p>
+</blockquote>
+<ul class="remark-unordered-list">
+<li>原理：创建了一个 Unicode 编码为 <code>U+200B</code> 的 0 宽换行空格</li>
+</ul>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-css"><span class="line"><span style="color:#F92672">wbr</span><span style="color:#FFE66D">:after</span><span style="color:#D5CED9">{</span></span>
+<span class="line"><span style="color:#D5CED9">  content:</span><span style="color:#96E072">"</span><span style="color:#EE5D43">\00200B</span><span style="color:#96E072">"</span><span style="color:#D5CED9">;</span></span>
+<span class="line"><span style="color:#D5CED9">}</span></span>
+<span class="line"></span></code></pre>
+<h2 id="总结">总结<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#总结"></a></h2>
+<ul class="remark-unordered-list">
+<li>动态内容：使用 <code>word-break: break-all</code> 以及 <code>overflow-wrap:break-all</code> 来进行换行</li>
+<li>静态内容：排版英文单词使用 <code>&#x26;shy</code>；软连字符优化排版；如果使非英文单词，使用 &#x3C;wbr> 标签优化排版</li>
+</ul>
+<ul class="remark-ordered-list">
+<li>中文都是换行点的情况（中文默认都是换行点），<code>word-break: keep-all</code> 中文不再换行</li>
+<li>避首避尾标点不是换行点，<code>line-break:anywhere</code> 首尾标点是换行点</li>
+<li>连续破折号不是换行点，<code>overflow-wrap:break-word</code></li>
+<li>空格是换行点，<code>white-space:nowrap</code> 空格不再换行。由于中文之后的换行点也是插入 <code>\n</code>，所以也可以改变中文不再换行</li>
+<li>英文单词不是换行点 <code>word-break:break-all</code></li>
+<li>部分引文标点不是换行点，<code>overflow-wrap:anywhere</code>：使部分英文标点成为换行点（如 <code>'</code>）</li>
+</ul>
+<p>参考：<a href="https://juejin.cn/post/7111880813230161933">https://juejin.cn/post/7111880813230161933</a></p>
+<div class="sponsor-container">
+  <button class="sponsor-btn">
+    <a href="https://stripe.fwqaaq.workers.dev/Personal-Website-Sponsor/checkout?mode=once" target="_blank" rel="noopener noreferrer" class="">
+      <span class="sponsor-icon">☕</span>
+      <span>请博主喝杯咖啡</span>
+  </a>
+  </button>
+</div>
+          </article>
+        </main><script src="https://giscus.app/client.js"
+        data-repo="fwqaaq/fwqaaq.github.io"
+        data-repo-id="R_kgDOHCFK2A"
+        data-category="Show and tell"
+        data-category-id="DIC_kwDOHCFK2M4CYOLh"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="1"
+        data-input-position="bottom"
+        data-theme="preferred_color_scheme"
+        data-lang="zh-CN"
+        crossorigin="anonymous"
+        async></script><footer class="blog-footer">
+  <div class="footer-container">
+    <p class="text-center"><a class="decoration-line"
+        href="https://creativecommons.org/licenses/by-sa/3.0/deed.zh-hans">© CC BY-SA</a> 2021 -
+      2025 <a class="decoration-line" href="https://github.com/fwqaaq">fwqaaq</a>.
+      Powered by <a class="decoration-line" href="https://deno.com">Deno</a>
+    </p>
+  </div>
+  <div class="footer-icons-container">
+    <a class="icon" href="https://github.com/fwqaaq">
+      <i class="fa-brands fa-github"></i>
+    </a>
+    <a class="icon" href="mailto:fwqaaq@gmail">
+      <i class="fa-solid fa-envelope"></i>
+    </a>
+    <a class="icon" href="https://www.fwqaaq.com/feed.xml">
+      <i class="fa-solid fa-rss"></i>
+    </a>
+    <a class="icon" href="https://t.me/fwqaaq">
+      <i class="fa-brands fa-telegram"></i>
+    </a>
+  </div>
+</footer>

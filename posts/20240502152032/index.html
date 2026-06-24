@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#F3F7F6">
+  <meta name="description" content="为什么要写这篇文章？  > 首先感谢一位炒美股的朋友 Jenny，是她带我认识了一点经济学的知识，让我对经济学有了些许兴趣。  后续她给我推荐了《日本蜡烛图技术》，看了两章之后，收...">
+  <meta name="keywords" content="Economics, Others">
+  <meta name="author" content="fwqaaq">
+  <meta property="og:site_name" content="fwqaaq 的博客">
+  <meta property="og:locale" content="zh_CN">
+  <meta property="og:title" content="蜡烛图技术（反转形态）">
+  <meta property="og:description" content="为什么要写这篇文章？  > 首先感谢一位炒美股的朋友 Jenny，是她带我认识了一点经济学的知识，让我对经济学有了些许兴趣。  后续她给我推荐了《日本蜡烛图技术》，看了两章之后，收...">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://www.fwqaaq.com//posts/20240502152032/">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="fwqaaq 的博客">
+  <meta name=application-name content="fwqaaq 的博客">
+  <meta name=apple-mobile-web-app-title content="fwqaaq 的博客">
+  <title>
+    蜡烛图技术（反转形态）
+  </title>
+  <link rel="shortcut icon" href="/public/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="/public/css/base.849580.css">
+  <link rel="stylesheet" href="/public/css/index.849580.css">
+  <link rel="stylesheet" href="/public/css/markdown.849580.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+  <script src="/public/JavaScript/index.849580.js"></script>
+  <script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit" defer></script>
+</head>
+
+</html>
+<header class="blog-header">
+    <i id="switch-icon" class="fa-solid fa-bars"></i>
+    <a href="https://github.com/fwqaaq" target="_blank">
+        <img src="https://avatars.githubusercontent.com/u/82551626?v=4" loading="lazy" alt="me" srcset="">
+    </a>
+    <div class="wrap-background">
+        <nav class="header-nav">
+            <a class="decoration-line" href="/"><i class="fa-solid fa-house-chimney fa-xs"></i>
+                <span class="disappear">首页</span>
+            </a>
+            <a class="decoration-line" href="/./about/index.html"><i class="fa-solid fa-address-card fa-xs"></i>
+                <span class="disappear">关于</span></a>
+            <a class="decoration-line" href="/./archive/index.html"><i class="fa-solid fa-box-archive fa-xs"></i> <span
+                    class="disappear">归档</span></a>
+            <a class="decoration-line" href="/./tags/index.html"><i class="fa-solid fa-tag fa-xs"></i>
+                <span class="disappear">标签</span></a>
+            <a class="decoration-line" onclick="sponsor(199)">
+                <i class="fa-solid fa-circle-dollar-to-slot fa-xs"></i>
+                <span class="disappear">赞助</span></a>
+            <div class="language-switcher notranslate">
+                <button class="language-toggle" type="button" aria-label="切换语言" aria-expanded="false"
+                    aria-controls="language-menu">
+                    <i class="fa-solid fa-globe fa-xs" aria-hidden="true"></i>
+                    <span class="disappear" translate="yes">语言</span>
+                </button>
+                <div class="language-menu" id="language-menu" role="menu" hidden>
+                    <button class="language-option" type="button" role="menuitemradio" data-lang=""
+                        aria-checked="true">原文</button>
+                    <button class="language-option" type="button" role="menuitemradio" data-lang="en"
+                        aria-checked="false">English</button>
+                    <button class="language-option" type="button" role="menuitemradio" data-lang="ja"
+                        aria-checked="false">日本語</button>
+                    <button class="language-option" type="button" role="menuitemradio" data-lang="ko"
+                        aria-checked="false">한국어</button>
+                    <button class="language-option" type="button" role="menuitemradio" data-lang="fr"
+                        aria-checked="false">Français</button>
+                    <button class="language-option" type="button" role="menuitemradio" data-lang="de"
+                        aria-checked="false">Deutsch</button>
+                    <button class="language-option" type="button" role="menuitemradio" data-lang="es"
+                        aria-checked="false">Español</button>
+                    <button class="language-option" type="button" role="menuitemradio" data-lang="ru"
+                        aria-checked="false">Русский</button>
+                    <button class="language-option" type="button" role="menuitemradio" data-lang="zh-TW"
+                        aria-checked="false">繁體中文</button>
+                </div>
+            </div>
+            <div id="google_translate_element" class="google-translate-element notranslate" aria-hidden="true"></div>
+            <a class="decoration-line model" href="#" aria-label="切换深浅色主题"><i class="fa-solid fa-sun fa-xs"></i></a>
+        </nav>
+    </div>
+</header>
+        <main class="blog-main">
+          <article class="blog-article">
+            <h1>蜡烛图技术（反转形态）</h1>
+          <div class="post-meta post-meta-flex-around">
+              <div class="post-author" href="/./about/"><i class="fa-solid fa-user"></i> fwqaaq</div> 
+              <div class="post-time"><i class="fa-solid fa-clock"></i> 2024-05-02</div> 
+              <div class="post-update-time"><i class="fa-solid fa-clock-rotate-left"></i> 2025-11-09</div>
+            </div>
+            <hr>
+            <details class="remark-toc-details"><summary class="remark-toc-summary">目录</summary><ul class="remark-toc">
+<li>
+<p><a href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E5%86%99%E8%BF%99%E7%AF%87%E6%96%87%E7%AB%A0">为什么要写这篇文章？</a></p>
+</li>
+<li>
+<p><a href="#%E7%86%8A%E5%B8%82%E7%89%9B%E5%B8%82%E7%9A%84%E5%9F%BA%E6%9C%AC%E8%BD%AC%E6%8D%A2">熊市牛市的基本转换</a></p>
+</li>
+<li>
+<p><a href="#%E8%9C%A1%E7%83%9B%E5%9B%BE%E7%9A%84%E7%BB%98%E5%88%B6">蜡烛图的绘制</a></p>
+</li>
+<li>
+<p><a href="#%E5%8F%8D%E8%BD%AC%E5%BD%A2%E6%80%81">反转形态</a></p>
+<ul>
+<li><a href="#%E4%BC%9E%E5%9E%8B%E7%BA%BF">伞型线</a></li>
+<li><a href="#%E5%90%9E%E6%B2%A1%E5%BD%A2%E6%80%81">吞没形态</a></li>
+<li><a href="#%E4%B9%8C%E4%BA%91%E7%9B%96%E9%A1%B6%E5%BD%A2%E6%80%81">乌云盖顶形态</a></li>
+<li><a href="#%E5%88%BA%E9%80%8F%E5%BD%A2%E6%80%81">刺透形态</a></li>
+</ul>
+</li>
+<li>
+<p><a href="#%E6%98%9F%E7%BA%BF">星线</a></p>
+<ul>
+<li><a href="#%E5%90%AF%E6%98%8E%E6%98%9F">启明星</a></li>
+<li><a href="#%E9%BB%84%E6%98%8F%E6%98%9F%E5%BD%A2%E6%80%81">黄昏星形态</a></li>
+<li><a href="#%E5%8D%81%E5%AD%97%E5%90%AF%E6%98%8E%E6%98%9F%E5%92%8C%E5%8D%81%E5%AD%97%E9%BB%84%E6%98%8F%E6%98%9F%E5%BD%A2%E6%80%81">十字启明星和十字黄昏星形态</a></li>
+<li><a href="#%E6%B5%81%E6%98%9F%E5%BD%A2%E6%80%81%E4%B8%8E%E5%80%92%E9%94%A4%E5%AD%90%E5%BD%A2%E6%80%81">流星形态与倒锤子形态</a></li>
+</ul>
+</li>
+<li>
+<p><a href="#%E5%85%B6%E4%BB%96%E5%8F%8D%E8%BD%AC%E5%BD%A2%E6%80%81">其他反转形态</a></p>
+<ul>
+<li><a href="#%E5%AD%95%E7%BA%BF%E5%BD%A2%E6%80%81">孕线形态</a></li>
+<li><a href="#%E5%B9%B3%E5%A4%B4%E9%A1%B6%E9%83%A8%E5%BD%A2%E6%80%81%E5%92%8C%E5%B9%B3%E5%A4%B4%E5%BA%95%E9%83%A8%E5%BD%A2%E6%80%81">平头顶部形态和平头底部形态</a></li>
+<li><a href="#%E6%8D%89%E8%85%B0%E5%B8%A6%E7%BA%BF">捉腰带线</a></li>
+<li><a href="#%E5%90%91%E4%B8%8A%E8%B7%B3%E7%A9%BA%E4%B8%A4%E5%8F%AA%E4%B9%8C%E9%B8%A6">向上跳空两只乌鸦</a></li>
+<li><a href="#%E4%B8%89%E5%8F%AA%E4%B9%8C%E9%B8%A6">三只乌鸦</a></li>
+<li><a href="#%E7%99%BD%E4%B8%89%E5%85%B5%E6%8C%BA%E8%BF%9B%E5%BD%A2%E6%80%81">白三兵挺进形态</a></li>
+<li><a href="#%E4%B8%89%E5%B1%B1%E5%BD%A2%E6%80%81%E5%92%8C%E4%B8%89%E5%B7%9D%E5%BD%A2%E6%80%81">三山形态和三川形态</a></li>
+<li><a href="#%E5%8F%8D%E5%87%BB%E7%BA%BF%E5%BD%A2%E6%80%81%E7%BA%A6%E4%BC%9A%E7%BA%BF%E5%BD%A2%E6%80%81">反击线形态（约会线形态）</a></li>
+<li><a href="#%E5%9C%86%E5%BD%A2%E9%A1%B6%E9%83%A8%E5%BD%A2%E6%80%81%E5%92%8C%E5%B9%B3%E5%BA%95%E9%94%85%E5%BA%95%E9%83%A8%E5%BD%A2%E6%80%81%E5%9C%86%E5%BD%A2%E5%BA%95%E9%83%A8%E5%BD%A2%E6%80%81">圆形顶部形态和平底锅底部形态（圆形底部形态）</a></li>
+<li><a href="#%E5%A1%94%E5%BD%A2%E9%A1%B6%E9%83%A8%E5%92%8C%E5%A1%94%E5%BD%A2%E5%BA%95%E9%83%A8%E5%BD%A2%E6%80%81">塔形顶部和塔形底部形态</a></li>
+</ul>
+</li>
+</ul></details>
+<h2 id="为什么要写这篇文章">为什么要写这篇文章？<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#为什么要写这篇文章"></a></h2>
+<blockquote>
+<p>首先感谢一位炒美股的朋友 Jenny，是她带我认识了一点经济学的知识，让我对经济学有了些许兴趣。</p>
+</blockquote>
+<p>后续她给我推荐了《日本蜡烛图技术》，看了两章之后，收益匪浅，准备将一些重要的内容记录一下，方便日后对自己的交易有所帮助。或许也可以帮助到其他正在迷茫的人，在我写下这篇文章的时候，已经正值熊市的开端（也许是回调，说不定吧），不止是区块链在下跌，美股也是。如果你看到这篇文章，希望其中的内容对你有所帮助。</p>
+<h2 id="熊市牛市的基本转换">熊市牛市的基本转换<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#熊市牛市的基本转换"></a></h2>
+<p><img src="https://media.githubusercontent.com/media/fwqaaq/fwqaaq.github.io/dev/src/picture/candlestick/cycle.png" alt="周期转换图"></p>
+<div class="markdown-alert markdown-alert-tip">
+<p class="markdown-alert-title"><svg class="octicon octicon-light-bulb mr-2" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="M8 1.5c-2.363 0-4 1.69-4 3.75 0 .984.424 1.625.984 2.304l.214.253c.223.264.47.556.673.848.284.411.537.896.621 1.49a.75.75 0 0 1-1.484.211c-.04-.282-.163-.547-.37-.847a8.456 8.456 0 0 0-.542-.68c-.084-.1-.173-.205-.268-.32C3.201 7.75 2.5 6.766 2.5 5.25 2.5 2.31 4.863 0 8 0s5.5 2.31 5.5 5.25c0 1.516-.701 2.5-1.328 3.259-.095.115-.184.22-.268.319-.207.245-.383.453-.541.681-.208.3-.33.565-.37.847a.751.751 0 0 1-1.485-.212c.084-.593.337-1.078.621-1.489.203-.292.45-.584.673-.848.075-.088.147-.173.213-.253.561-.679.985-1.32.985-2.304 0-2.06-1.637-3.75-4-3.75ZM5.75 12h4.5a.75.75 0 0 1 0 1.5h-4.5a.75.75 0 0 1 0-1.5ZM6 15.25a.75.75 0 0 1 .75-.75h2.5a.75.75 0 0 1 0 1.5h-2.5a.75.75 0 0 1-.75-.75Z"></path></svg>Tip</p>
+<p>该图是牛熊市的周期转换图，其蜡烛图反转信号一半发生在阶段四（或阶段一），其所追求的就是尽早地取得趋势发生变换的警告。</p>
+</div>
+<ul class="remark-ordered-list">
+<li>阶段一：熊市发展到极致，市场快速下跌，达到低水平，看跌着均已入场，多头绝望斩仓，交易量扩大。但是阴极而阳生，卖方后继乏力，蜡烛图开始出现反转信号。</li>
+<li>阶段二：市场继续维持在低位，转入横向延伸到趋势；交易量收缩，市场渐渐尝试上方的水平。</li>
+<li>阶段三：多头继续力量，最终形成向上的突破；西方技术信号出现，牛市进入第二阶段；空头且战且退，交易量逐步增加。</li>
+<li>阶段四：牛市发展到高潮，市场快速上升，达到高水平；看涨者均已入场，空头绝望斩仓，交易量扩大。但是阳极而阴生，买方后继乏力，蜡烛图开始出现反转信号。</li>
+<li>阶段五：市场继续维持在高位，转入横向延伸到趋势；交易量收缩，市场渐渐尝试下方的水平。</li>
+<li>阶段六：空头继续力量，最终形成向下的突破；西方技术信号出现，熊市进入第二阶段；多头且战且退，不过在下降趋势中，交易量既可能逐步扩大，也可能减少。</li>
+</ul>
+<div class="markdown-alert markdown-alert-warning">
+<p class="markdown-alert-title"><svg class="octicon octicon-alert mr-2" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="M6.457 1.047c.659-1.234 2.427-1.234 3.086 0l6.082 11.378A1.75 1.75 0 0 1 14.082 15H1.918a1.75 1.75 0 0 1-1.543-2.575Zm1.763.707a.25.25 0 0 0-.44 0L1.698 13.132a.25.25 0 0 0 .22.368h12.164a.25.25 0 0 0 .22-.368Zm.53 3.996v2.5a.75.75 0 0 1-1.5 0v-2.5a.75.75 0 0 1 1.5 0ZM9 11a1 1 0 1 1-2 0 1 1 0 0 1 2 0Z"></path></svg>Warning</p>
+<p>蜡烛图可以提供相当灵敏的信号，但是也正是这种灵敏性，使得它经常出现伪信号。因此，对蜡烛图的分析，至少要从过去的市场开始分析，随着时间的推移，自己的感觉才会越来越敏锐。</p>
+</div>
+<h2 id="蜡烛图的绘制">蜡烛图的绘制<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#蜡烛图的绘制"></a></h2>
+<div class="markdown-alert markdown-alert-note">
+<p class="markdown-alert-title"><svg class="octicon octicon-info mr-2" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8Zm8-6.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13ZM6.5 7.75A.75.75 0 0 1 7.25 7h1a.75.75 0 0 1 .75.75v2.75h.25a.75.75 0 0 1 0 1.5h-2a.75.75 0 0 1 0-1.5h.25v-2h-.25a.75.75 0 0 1-.75-.75ZM8 6a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"></path></svg>Note</p>
+<p>这里以某交易所的绘制图为例，绿色是<strong>收市价</strong>大于<strong>开市价</strong>，红色是<strong>收市价</strong>小于<strong>开市价</strong>。</p>
+</div>
+<p><img src="https://media.githubusercontent.com/media/fwqaaq/fwqaaq.github.io/dev/src/picture/candlestick/candlestick_yang_yin.png" alt="周期转换图"></p>
+<ul class="remark-unordered-list">
+<li><strong>实体</strong>：每一根蜡烛线的矩形部分被称为实体，它表示开市价和收市价之间的价格区间。</li>
+<li><strong>影线</strong>：在实体的上下方的细细垂直线，它表示当日市场曾经向上或者向下运动的极端价格。
+<ul class="remark-unordered-list">
+<li><strong>上影线</strong>：实体上方的影线，表示当日的最高价。</li>
+<li><strong>下影线</strong>：实体下方的影线，表示当日的最低价。</li>
+</ul>
+</li>
+<li><strong>光头蜡烛线</strong>：没有上影线的蜡烛线。</li>
+<li><strong>光脚蜡烛线</strong>：没有下影线的蜡烛线。</li>
+</ul>
+<h2 id="反转形态">反转形态<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#反转形态"></a></h2>
+<div class="markdown-alert markdown-alert-tip">
+<p class="markdown-alert-title"><svg class="octicon octicon-light-bulb mr-2" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="M8 1.5c-2.363 0-4 1.69-4 3.75 0 .984.424 1.625.984 2.304l.214.253c.223.264.47.556.673.848.284.411.537.896.621 1.49a.75.75 0 0 1-1.484.211c-.04-.282-.163-.547-.37-.847a8.456 8.456 0 0 0-.542-.68c-.084-.1-.173-.205-.268-.32C3.201 7.75 2.5 6.766 2.5 5.25 2.5 2.31 4.863 0 8 0s5.5 2.31 5.5 5.25c0 1.516-.701 2.5-1.328 3.259-.095.115-.184.22-.268.319-.207.245-.383.453-.541.681-.208.3-.33.565-.37.847a.751.751 0 0 1-1.485-.212c.084-.593.337-1.078.621-1.489.203-.292.45-.584.673-.848.075-.088.147-.173.213-.253.561-.679.985-1.32.985-2.304 0-2.06-1.637-3.75-4-3.75ZM5.75 12h4.5a.75.75 0 0 1 0 1.5h-4.5a.75.75 0 0 1 0-1.5ZM6 15.25a.75.75 0 0 1 .75-.75h2.5a.75.75 0 0 1 0 1.5h-2.5a.75.75 0 0 1-.75-.75Z"></path></svg>Tip</p>
+<p>趋势反转信号的出现，意味着之前的市场趋势可能发生变换，但是市场并不一定逆转到相反的方向。（反转信号的图有兴趣的可以看书）</p>
+</div>
+<h3 id="伞型线">伞型线<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#伞型线"></a></h3>
+<p>由于实体所处的位置接近顶端，下影线较长，这类蜡烛线就被称为伞型线。这两类蜡烛线既可以是看涨信号，也可以是看跌信号。</p>
+<p><img src="https://media.githubusercontent.com/media/fwqaaq/fwqaaq.github.io/dev/src/picture/candlestick/like_umberlla.png" alt="伞型线"></p>
+<ul class="remark-unordered-list">
+<li><strong>锤子线</strong>（探水杆）：原意是类比市场在摸索底部，它的出现就是下降趋势即将结束的信号。</li>
+<li><strong>上吊线</strong>：它的出现就是上升趋势即将结束的信号。</li>
+</ul>
+<p>识别锤子线和上吊线：</p>
+<ul class="remark-ordered-list">
+<li>实体处于整个价格区间的上端，但实体本身的颜色无所谓。</li>
+<li>带有长长的下影线，下影线的长度至少是实体的<strong>两倍</strong>。</li>
+<li>上影线很短，甚至没有。</li>
+</ul>
+<div class="markdown-alert markdown-alert-tip">
+<p class="markdown-alert-title"><svg class="octicon octicon-light-bulb mr-2" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="M8 1.5c-2.363 0-4 1.69-4 3.75 0 .984.424 1.625.984 2.304l.214.253c.223.264.47.556.673.848.284.411.537.896.621 1.49a.75.75 0 0 1-1.484.211c-.04-.282-.163-.547-.37-.847a8.456 8.456 0 0 0-.542-.68c-.084-.1-.173-.205-.268-.32C3.201 7.75 2.5 6.766 2.5 5.25 2.5 2.31 4.863 0 8 0s5.5 2.31 5.5 5.25c0 1.516-.701 2.5-1.328 3.259-.095.115-.184.22-.268.319-.207.245-.383.453-.541.681-.208.3-.33.565-.37.847a.751.751 0 0 1-1.485-.212c.084-.593.337-1.078.621-1.489.203-.292.45-.584.673-.848.075-.088.147-.173.213-.253.561-.679.985-1.32.985-2.304 0-2.06-1.637-3.75-4-3.75ZM5.75 12h4.5a.75.75 0 0 1 0 1.5h-4.5a.75.75 0 0 1 0-1.5ZM6 15.25a.75.75 0 0 1 .75-.75h2.5a.75.75 0 0 1 0 1.5h-2.5a.75.75 0 0 1-.75-.75Z"></path></svg>Tip</p>
+<p></p>
+<ul class="remark-unordered-list">
+<li>如果锤子线是绿色的，那么它的意义就更大了，因为这意味着市场在低位的时候，买方的力量已经开始增强。</li>
+<li>上吊线出现之后，最低限度的验证是之后时段的开市价低于上吊线的实体。但是最好以收市价低于上吊线的实体为验证信号。</li>
+</ul>
+</div>
+<h3 id="吞没形态">吞没形态<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#吞没形态"></a></h3>
+<p>吞没形态是由数根蜡烛线组成的组合形态，它有看吞涨没和看吞跌没两种形态。</p>
+<p>关于吞没形态有三条判断标准：</p>
+<ul class="remark-ordered-list">
+<li>在吞没形态之前，市场必须处在<strong>明确的</strong>上升趋势中（看跌吞没）或下降趋势（看涨吞没形态）中，哪怕这个趋势是短期的。</li>
+<li>吞没形态由两条蜡烛线组成。其中第二根蜡烛线的实体必须覆盖第一根蜡烛线的实体（但是不一定需要吞没前者的上下影线）</li>
+<li>吞没形态的第二根蜡烛线的实体颜色必须与趋势相反。</li>
+</ul>
+<p>吞没形态如果有以下特征，重要的反转信号可能增强：</p>
+<ul class="remark-ordered-list">
+<li>如果在吞没形态中，第一天的实体很小（即<strong>纺锤线</strong>），而第二天的实体非常大。第一天的蜡烛线的小实体反映出原有的趋势在消退，而第二天的蜡烛线的长实体证明新趋势的潜力很大</li>
+<li>如果吞没形态出现在超长延伸的或非常快速的市场运动之后。如果存在非常快速的或超长程的行情运动，则导致市场朝一个方向走的太远（要么超买，要么超卖），容易遭受获利平仓头寸的打击。</li>
+<li>如果在吞没形态中，第二个实体伴有超额的交易量。</li>
+</ul>
+<div class="markdown-alert markdown-alert-tip">
+<p class="markdown-alert-title"><svg class="octicon octicon-light-bulb mr-2" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="M8 1.5c-2.363 0-4 1.69-4 3.75 0 .984.424 1.625.984 2.304l.214.253c.223.264.47.556.673.848.284.411.537.896.621 1.49a.75.75 0 0 1-1.484.211c-.04-.282-.163-.547-.37-.847a8.456 8.456 0 0 0-.542-.68c-.084-.1-.173-.205-.268-.32C3.201 7.75 2.5 6.766 2.5 5.25 2.5 2.31 4.863 0 8 0s5.5 2.31 5.5 5.25c0 1.516-.701 2.5-1.328 3.259-.095.115-.184.22-.268.319-.207.245-.383.453-.541.681-.208.3-.33.565-.37.847a.751.751 0 0 1-1.485-.212c.084-.593.337-1.078.621-1.489.203-.292.45-.584.673-.848.075-.088.147-.173.213-.253.561-.679.985-1.32.985-2.304 0-2.06-1.637-3.75-4-3.75ZM5.75 12h4.5a.75.75 0 0 1 0 1.5h-4.5a.75.75 0 0 1 0-1.5ZM6 15.25a.75.75 0 0 1 .75-.75h2.5a.75.75 0 0 1 0 1.5h-2.5a.75.75 0 0 1-.75-.75Z"></path></svg>Tip</p>
+<p></p>
+<ul class="remark-unordered-list">
+<li>将吞没形态看作阻挡水平或者支撑水平，非常有用，尤其是当市场离开低点过远（看涨）或离开高点过远（看跌）。</li>
+<li>在本时段收市时才能确认当前蜡烛线组成的吞没形态，市场可能已经远离地点了。这时候，可以等待市场调整，再下一个吞没形态附近的支撑区域入场。</li>
+</ul>
+</div>
+<p><img src="https://media.githubusercontent.com/media/fwqaaq/fwqaaq.github.io/dev/src/picture/candlestick/engulfing_pattern.png" alt="吞没形态"></p>
+<h3 id="乌云盖顶形态">乌云盖顶形态<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#乌云盖顶形态"></a></h3>
+<p><img src="https://media.githubusercontent.com/media/fwqaaq/fwqaaq.github.io/dev/src/picture/candlestick/dark_cloud_cover.png" alt="乌云盖顶形态"></p>
+<p><strong>乌云盖顶形态</strong>也是由两根蜡烛线组成：一般是第一天是一根坚挺的绿色实体；第二天的开市价高于第一天的收市价，但是收市价低于第一天的开市价，形成一个<strong>红色实体</strong>，并深深扎入绿色实体的内部，如果扎入程度越深，构成顶部反转的可能性就越大啊。</p>
+<p>如果乌云盖顶有如下特征，则更有可能构成市场顶部的信号：</p>
+<ul class="remark-ordered-list">
+<li>红色实体的收市价向下穿入前一个绿色实体的程度越深，则该形态构成的市场顶部的机会就越大（如果红色实体覆盖了前一天的整个绿色实体，则形成了看跌吞没形态）。看跌吞没形态比乌云盖顶形态更强烈。如果在乌云盖顶形态或者看跌吞没形态之后，出现了一根长长的绿色实体，而且其收市价超过了这两种形态的最高价，那么可能是新一轮上冲行情的到来。</li>
+<li>如果乌云盖顶形态发生在超长程的上升趋势中，它的第一天是一个光脚的绿色实体，即<strong>开市价就是最低价</strong>，收市价就是最高价；第二天是一个光脚的红色实体。</li>
+<li>如果第二个实体的开市价高于某个主要的阻挡水平，但是市场未能成功地坚守住，那么多头可能无力控制市场了。</li>
+<li>如果在第二天开市的时候，交易量非常大，那么可能发生“涨爆”现象。即当日开始的时候，开市价创出了新高，而且开市成交量极大。随后，市场发生了抛售行情。（对期货交易来说，<strong>极高的持仓量也是一种警告</strong>）</li>
+</ul>
+<div class="markdown-alert markdown-alert-note">
+<p class="markdown-alert-title"><svg class="octicon octicon-info mr-2" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8Zm8-6.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13ZM6.5 7.75A.75.75 0 0 1 7.25 7h1a.75.75 0 0 1 .75.75v2.75h.25a.75.75 0 0 1 0 1.5h-2a.75.75 0 0 1 0-1.5h.25v-2h-.25a.75.75 0 0 1-.75-.75ZM8 6a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"></path></svg>Note</p>
+<p>乌云盖顶在第二天收市的时候才会确认，这时候市场可能已经远离了顶部。这时候可以等待市场调整，再下一个乌云盖顶附近的支撑区域入场。</p>
+</div>
+<h3 id="刺透形态">刺透形态<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#刺透形态"></a></h3>
+<p>对于大多数蜡烛图，有一个看跌形态就有一个相反的看涨形态。<strong>刺透形态</strong>就是乌云盖顶形态的相反形态。其出现在下跌的市场中，是一个看涨信号，也是由两根蜡烛线组成。</p>
+<p>在刺透形态中，绿色蜡烛线的开市价最好跌至前一个红色蜡烛线的最低价之下，但是后来市场又将价格深深刺入红色蜡烛线内部。并且绿色蜡烛线刺入的程度越大，构成底部反转的可能性就越大。</p>
+<p><img src="https://media.githubusercontent.com/media/fwqaaq/fwqaaq.github.io/dev/src/picture/candlestick/piercing_line.png" alt="刺透形态"></p>
+<p>刺透形态的四项特征与乌云盖顶的四项特征相同，但是方向相反。并且刺透形态的第二天的实体的收市价必须高于第一天的实体的中点（乌云盖顶并没有这个要求，有一定灵活余地）。</p>
+<p>理由是日本人对于底部反转形态更加的谨慎，它们将其分为三种情况：</p>
+<ul class="remark-unordered-list">
+<li><strong>待入线形态</strong>：绿色蜡烛线（外形一般较小）的收市价位于前一个蜡烛线的最低价下方附近。</li>
+<li><strong>切入线形态</strong>：绿色蜡烛线（它的外形也应当一般较小）的收市价稍微进入前一个红色实体的范围之内。</li>
+<li><strong>插入线形态</strong>：绿色蜡烛线比上述两种情况应该更长，其收市价应该更多地进入红色实体的范围之内，但是没有达到中心位置。</li>
+</ul>
+<h2 id="星线">星线<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#星线"></a></h2>
+<blockquote>
+<p>星蜡烛线（星线）的实体较小（可以是红色，也可以是绿色），并且在它的实体与它前面较大的实体之间形成了价格跳空。也就是说，星线的实体可以处在前面一个时段的上影线的范围内；只要星线的实体与前一个实体没有任何重叠（有一些例外情况），那么这个形态就是有效的。</p>
+</blockquote>
+<p><img src="https://media.githubusercontent.com/media/fwqaaq/fwqaaq.github.io/dev/src/picture/candlestick/star_line.png" alt="星线"></p>
+<p>如果星线的实体已经缩小为<strong>十字线</strong>，则被称为<strong>十字星线</strong>，当星线或者十字星线出现的时候，就是一个警告信号，表示市场的好景可能不长了。</p>
+<div class="markdown-alert markdown-alert-tip">
+<p class="markdown-alert-title"><svg class="octicon octicon-light-bulb mr-2" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="M8 1.5c-2.363 0-4 1.69-4 3.75 0 .984.424 1.625.984 2.304l.214.253c.223.264.47.556.673.848.284.411.537.896.621 1.49a.75.75 0 0 1-1.484.211c-.04-.282-.163-.547-.37-.847a8.456 8.456 0 0 0-.542-.68c-.084-.1-.173-.205-.268-.32C3.201 7.75 2.5 6.766 2.5 5.25 2.5 2.31 4.863 0 8 0s5.5 2.31 5.5 5.25c0 1.516-.701 2.5-1.328 3.259-.095.115-.184.22-.268.319-.207.245-.383.453-.541.681-.208.3-.33.565-.37.847a.751.751 0 0 1-1.485-.212c.084-.593.337-1.078.621-1.489.203-.292.45-.584.673-.848.075-.088.147-.173.213-.253.561-.679.985-1.32.985-2.304 0-2.06-1.637-3.75-4-3.75ZM5.75 12h4.5a.75.75 0 0 1 0 1.5h-4.5a.75.75 0 0 1 0-1.5ZM6 15.25a.75.75 0 0 1 .75-.75h2.5a.75.75 0 0 1 0 1.5h-2.5a.75.75 0 0 1-.75-.75Z"></path></svg>Tip</p>
+<p>如果星线是较小的实体表示，则空头和多头的对峙已经转入了相持阶段。如果在上升过程中出现星线，则构成警告信号：原本受到买方控制的市场，现在已经是相持阶段。如果下降趋势中，出现星线，同样的道理，只是方向相反（下降趋势中的星线，人们通常称为“雨滴”）。</p>
+</div>
+<p>星线有如下四种反转形态：启明星、黄昏星、十字星、流星。</p>
+<h3 id="启明星">启明星<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#启明星"></a></h3>
+<p>启明星属于底部反转信号，该信号由三根蜡烛线组成：</p>
+<ul class="remark-ordered-list">
+<li>第一天是一个长长的红色实体。</li>
+<li>第二天是一个较小的实体，并且它与前一根实体不相接触（已组成星线）。小实体意味着卖方丧失了驱动市场走低的能力。</li>
+<li>第三天是一个绿色实体，它明显地向上推进到第一个时段的红色实体之中。</li>
+</ul>
+<p><img src="https://media.githubusercontent.com/media/fwqaaq/fwqaaq.github.io/dev/src/picture/candlestick/morning_star_pattern.png" alt="启明星"></p>
+<div class="markdown-alert markdown-alert-tip">
+<p class="markdown-alert-title"><svg class="octicon octicon-light-bulb mr-2" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="M8 1.5c-2.363 0-4 1.69-4 3.75 0 .984.424 1.625.984 2.304l.214.253c.223.264.47.556.673.848.284.411.537.896.621 1.49a.75.75 0 0 1-1.484.211c-.04-.282-.163-.547-.37-.847a8.456 8.456 0 0 0-.542-.68c-.084-.1-.173-.205-.268-.32C3.201 7.75 2.5 6.766 2.5 5.25 2.5 2.31 4.863 0 8 0s5.5 2.31 5.5 5.25c0 1.516-.701 2.5-1.328 3.259-.095.115-.184.22-.268.319-.207.245-.383.453-.541.681-.208.3-.33.565-.37.847a.751.751 0 0 1-1.485-.212c.084-.593.337-1.078.621-1.489.203-.292.45-.584.673-.848.075-.088.147-.173.213-.253.561-.679.985-1.32.985-2.304 0-2.06-1.637-3.75-4-3.75ZM5.75 12h4.5a.75.75 0 0 1 0 1.5h-4.5a.75.75 0 0 1 0-1.5ZM6 15.25a.75.75 0 0 1 .75-.75h2.5a.75.75 0 0 1 0 1.5h-2.5a.75.75 0 0 1-.75-.75Z"></path></svg>Tip</p>
+<p></p>
+<ul class="remark-unordered-list">
+<li>理想的启明星形态是第二根蜡烛线与第三根蜡烛线的实体有<strong>跳空</strong>。根据作者的经验这不是必须的，如果没有这个价格跳空，也不会削减启明星形态的有效性。决定性因素是，第二根蜡烛线应为<strong>纺锤线</strong>，同时第三根蜡烛线应该显著深入第一根蜡烛线内部。</li>
+<li>启明星形态的不足在于，由于有三段蜡烛线组成，在第三根蜡烛线完成的时候，市场有可能极速回弹了，不能提供风险报偿比具有吸引力的交易机会。这时可以选择等待行情回落到启明星形态附近的支撑区域再入场，小口小口地吃进做多。</li>
+</ul>
+</div>
+<h3 id="黄昏星形态">黄昏星形态<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#黄昏星形态"></a></h3>
+<p>黄昏星是启明星的反面对等形态，它是一个顶部反转信号，由三根蜡烛线组成：第一根是长长的绿色实体，第二根是星线（意味着到达顶部）。第三根是红色实体，它深深地刺入第一根绿色实体的内部。</p>
+<p><img src="https://media.githubusercontent.com/media/fwqaaq/fwqaaq.github.io/dev/src/picture/candlestick/evening_star.png" alt="黄昏星"></p>
+<p>与启明星形态相同，它的第二个价格跳空并不常见，并不是必要条件。本形态的关键在于第三天的红色实体向下穿入第一天的绿色实体的程度。</p>
+<p>如果黄昏星形态有如下趋势，则有助于增加他们构成反转信号：</p>
+<ul class="remark-ordered-list">
+<li>如果第一根蜡烛线和第二根蜡烛线，第二根蜡烛线与第三根蜡烛线的实体之间不存在重叠。</li>
+<li>如果第三根蜡烛线的收市价深深扎入第一根蜡烛线的内部。</li>
+<li>如果第一根蜡烛线的交易量较小，而第三根蜡烛线的交易量较大。这表明之前的趋势的驱动力正在减弱，而新的趋势的驱动力正在增强。</li>
+</ul>
+<div class="markdown-alert markdown-alert-tip">
+<p class="markdown-alert-title"><svg class="octicon octicon-light-bulb mr-2" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="M8 1.5c-2.363 0-4 1.69-4 3.75 0 .984.424 1.625.984 2.304l.214.253c.223.264.47.556.673.848.284.411.537.896.621 1.49a.75.75 0 0 1-1.484.211c-.04-.282-.163-.547-.37-.847a8.456 8.456 0 0 0-.542-.68c-.084-.1-.173-.205-.268-.32C3.201 7.75 2.5 6.766 2.5 5.25 2.5 2.31 4.863 0 8 0s5.5 2.31 5.5 5.25c0 1.516-.701 2.5-1.328 3.259-.095.115-.184.22-.268.319-.207.245-.383.453-.541.681-.208.3-.33.565-.37.847a.751.751 0 0 1-1.485-.212c.084-.593.337-1.078.621-1.489.203-.292.45-.584.673-.848.075-.088.147-.173.213-.253.561-.679.985-1.32.985-2.304 0-2.06-1.637-3.75-4-3.75ZM5.75 12h4.5a.75.75 0 0 1 0 1.5h-4.5a.75.75 0 0 1 0-1.5ZM6 15.25a.75.75 0 0 1 .75-.75h2.5a.75.75 0 0 1 0 1.5h-2.5a.75.75 0 0 1-.75-.75Z"></path></svg>Tip</p>
+<p>在黄昏星线形态中，因为必须等到第三天的收市价才能确认，市场可能已经远离了顶部。这时候可以等待市场调整，再下一个黄昏星附近的支撑区域入场，小口小口地吃进做空。</p>
+</div>
+<h3 id="十字启明星和十字黄昏星形态">十字启明星和十字黄昏星形态<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#十字启明星和十字黄昏星形态"></a></h3>
+<p>如果黄昏星形态中的星线是<strong>十字星</strong>，则称为<strong>十字黄昏星</strong>；如果十字线的下影线不与第一根蜡烛线的上影线重叠，也不与第三根蜡烛线的上影线重叠，那么这个十字线就构成了主要的市场反转信号，称为<strong>弃婴顶部形态</strong>。</p>
+<p>如果启明星形态中的星线是<strong>十字星</strong>，则称为<strong>十字启明星</strong>；同样，如果在该十字线的附近均发生价格跳空，那么这个十字线就构成了一个主要的底部形态，称为<strong>弃婴底部形态</strong>。</p>
+<p><img src="https://media.githubusercontent.com/media/fwqaaq/fwqaaq.github.io/dev/src/picture/candlestick/doji_evening_and_morning_star.png" alt="十字启明星和十字黄昏星形态"></p>
+<h3 id="流星形态与倒锤子形态">流星形态与倒锤子形态<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#流星形态与倒锤子形态"></a></h3>
+<p>在<strong>流星形态</strong>中，流星型具有较小的实体，而且实体处于其价格区间的下端，同时，流星线的上影线较长。流星线通常只是一个时段，通常不像<strong>看跌吞没</strong>形态或<strong>黄昏星</strong>形态那样构成主要的反转信号。并且与所有的星蜡烛线一样，流星线的实体颜色并不重要。</p>
+<p>流星线属于看跌反转信号，出现在上升趋势之后。理想的流星线与前一根蜡烛线的实体之间存在价格<strong>跳空</strong>。然而正如前面几个示例所示，跳空并不是必要条件，没有向上跳空恰好为他的负面意义增添一个理由。</p>
+<p><img src="https://media.githubusercontent.com/media/fwqaaq/fwqaaq.github.io/dev/src/picture/candlestick/shooting_star_and_hammer.png" alt="流星形态与倒锤子形态"></p>
+<p><strong>倒锤子</strong>线不属于是星线形态，然而它的外形和流星线相似。它和流星线唯一的区别在于到锤子形态出现在市场下跌之后，其也是不需要看颜色的。<strong>倒锤子</strong>形态和<strong>流星线</strong>是一对，<strong>锤子</strong>线和<strong>上吊</strong>线是一对。</p>
+<p>正如上吊线需要其他看跌信号的验证，倒锤子线也需要其他看涨信号的验证。验证信号既可以是次日开市价高于倒锤子线的实体，也可以是次日收市价高于倒锤子线的实体，后者更有力。</p>
+<p>倒锤子之所以要看涨信号，正是它的上影线。在倒锤子线中，市场的开市价位于当日最低处，或者接近当日最低处。但是后来市场涨了。但是多头无力维持市场高位，最后，市场在最低价附近收市。</p>
+<p>如果后一天的开市价高于倒锤子实体之上，那么当天做空的人都纷纷亏损，平仓卖出，做多的也会进场，形成螺旋上升的局面。</p>
+<h2 id="其他反转形态">其他反转形态<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#其他反转形态"></a></h2>
+<p>本章节讨论<strong>其他反转形态</strong>，其中一部分是较弱的反转形态，并不能总是构成反转信号。这些形态包括<strong>孕线形态</strong>、<strong>平头顶部形态</strong>、<strong>捉腰带蜡烛线</strong>、<strong>向上跳空两只乌鸦</strong>、<strong>反击蜡烛线</strong>等。此外，本章还会讨论包括<strong>三只乌鸦</strong>、<strong>三山形态</strong>、<strong>三川形态</strong>、<strong>圆形顶</strong>、<strong>搭形顶</strong>和<strong>塔形底</strong>较强的反转形态。</p>
+<h3 id="孕线形态">孕线形态<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#孕线形态"></a></h3>
+<p><img src="https://media.githubusercontent.com/media/fwqaaq/fwqaaq.github.io/dev/src/picture/candlestick/inside_bar.png" alt="孕线"></p>
+<p>其中后面一根蜡烛线的实体较小，并且被前一根的实体完全包围。在本形态中，长的蜡烛线被称为<strong>母线</strong>，而较小的蜡烛线被称为<strong>子线</strong>。</p>
+<p>在牛市行情中，孕线形态中的前一个绿色的实体表现出市场本来就充满了活力，但是最后一个实体却表示出市场的犹疑不定。在熊市行情中，孕线形态中的前一个黑色实体表现出市场的沉重的抛售压力，随后的小实体却反映市场踌躇不前。</p>
+<div class="markdown-alert markdown-alert-tip">
+<p class="markdown-alert-title"><svg class="octicon octicon-light-bulb mr-2" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="M8 1.5c-2.363 0-4 1.69-4 3.75 0 .984.424 1.625.984 2.304l.214.253c.223.264.47.556.673.848.284.411.537.896.621 1.49a.75.75 0 0 1-1.484.211c-.04-.282-.163-.547-.37-.847a8.456 8.456 0 0 0-.542-.68c-.084-.1-.173-.205-.268-.32C3.201 7.75 2.5 6.766 2.5 5.25 2.5 2.31 4.863 0 8 0s5.5 2.31 5.5 5.25c0 1.516-.701 2.5-1.328 3.259-.095.115-.184.22-.268.319-.207.245-.383.453-.541.681-.208.3-.33.565-.37.847a.751.751 0 0 1-1.485-.212c.084-.593.337-1.078.621-1.489.203-.292.45-.584.673-.848.075-.088.147-.173.213-.253.561-.679.985-1.32.985-2.304 0-2.06-1.637-3.75-4-3.75ZM5.75 12h4.5a.75.75 0 0 1 0 1.5h-4.5a.75.75 0 0 1 0-1.5ZM6 15.25a.75.75 0 0 1 .75-.75h2.5a.75.75 0 0 1 0 1.5h-2.5a.75.75 0 0 1-.75-.75Z"></path></svg>Tip</p>
+<p>孕线形态与吞没形态的另一个区别是，在吞没形态中，两根蜡烛线的<strong>颜色应该互不相同</strong>。但是在孕线形态中是不必要的。</p>
+</div>
+<p>十字孕线形态：第二根蜡烛线的实体越小，市场的矛盾心越重，越有可能反转。</p>
+<h3 id="平头顶部形态和平头底部形态">平头顶部形态和平头底部形态<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#平头顶部形态和平头底部形态"></a></h3>
+<p><strong>平头形态</strong>是由几乎具有相同水平的最高点的两根蜡烛线组成的，或者是由几乎具有相同最低点的两根蜡烛线组成的。在上升的市场中，当几根蜡烛线的最高点的位置不相上下的时候，就形成了<strong>平头顶部形态</strong>。在下跌的市场中，当几根蜡烛线的最低点的位置不相上下的时候，就形成了<strong>平头底部形态</strong>。平头形态既可以由实体构成也可以由影线或者十字线构成。在理想的情况下，平头形态应当由前一根长实体蜡烛线与后一根小实体蜡烛线组合而成。</p>
+<p><img src="https://media.githubusercontent.com/media/fwqaaq/fwqaaq.github.io/dev/src/picture/candlestick/head_and_shoulders_top_bottom.png" alt="平头顶部形态和平头底部形态"></p>
+<ul class="remark-ordered-list">
+<li>平头顶部形态与十字孕线形态：这个双蜡烛线既是十字孕线又是一个平头形态，可能构成重要的反转信号。</li>
+<li>平头顶部形态与上吊线：先是一根长长的绿色蜡烛线，然后事一根上吊线。下一时段，如果市场开始于上吊线的实体之下，尤其是收市于上吊线的实体之下，那么这个形态就构成了一个重要的反转信号。</li>
+<li>平头顶部形态与流星线：在这个平头顶部形态中，第二根蜡烛线又是一个看跌的流星线。</li>
+<li>平头顶部形态与乌云盖顶形态：理想情况下，平头形态的第二个时段的高点与第一个时段的高点相同，也是一个<em>小实体</em>。然而这里第二个时段完成了一个乌云搞定形态的变体。然而正是最后这一点，两个时段的高点处在相同水平，给乌云盖顶形态提供了更多疲软的可能。</li>
+<li>平头底部形态与锤子线：由于后一根锤子线、市场对支撑水平的成功试探，两方面因素同时证明了卖方已经丧失对市场的控制。（同时他们的组合也可以看成孕线形态）</li>
+<li>平头底部形态与刺透形态：虽然第二根蜡烛线不是小实体，它是它的确完成了一个看涨刺透形态（理想的刺透形态，第二天的开市价低于第一天的最低价；而这里第二天的开市价仅低于第一天的收市价）。因为这一点，还构成了平头底部形态。</li>
+</ul>
+<div class="markdown-alert markdown-alert-warning">
+<p class="markdown-alert-title"><svg class="octicon octicon-alert mr-2" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="M6.457 1.047c.659-1.234 2.427-1.234 3.086 0l6.082 11.378A1.75 1.75 0 0 1 14.082 15H1.918a1.75 1.75 0 0 1-1.543-2.575Zm1.763.707a.25.25 0 0 0-.44 0L1.698 13.132a.25.25 0 0 0 .22.368h12.164a.25.25 0 0 0 .22-.368Zm.53 3.996v2.5a.75.75 0 0 1-1.5 0v-2.5a.75.75 0 0 1 1.5 0ZM9 11a1 1 0 1 1-2 0 1 1 0 0 1 2 0Z"></path></svg>Warning</p>
+<p>对于日线图和日内图表上的平头形态，必须牢记一个主要的方面，在同时具备其他特定蜡烛线组合特征的前提下，才可以根据平头形态采取行动。</p>
+</div>
+<h3 id="捉腰带线">捉腰带线<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#捉腰带线"></a></h3>
+<p>捉腰带形态事由一根蜡烛线构成的。<strong>看涨捉腰带形态</strong>（开盘光脚阳线）是一根绿色的坚挺蜡烛线，其开市价位于本时段的最地点（或着这根蜡烛线只有极短的下影线）。</p>
+<p><strong>看跌捉腰带形态</strong>（开盘光头阴线）是一根长长的红色蜡烛线，它的开市价位于本时段的最高点。</p>
+<p><img src="https://media.githubusercontent.com/media/fwqaaq/fwqaaq.github.io/dev/src/picture/candlestick/belt_hold.png" alt="捉腰带线"></p>
+<h3 id="向上跳空两只乌鸦">向上跳空两只乌鸦<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#向上跳空两只乌鸦"></a></h3>
+<p><img src="https://media.githubusercontent.com/media/fwqaaq/fwqaaq.github.io/dev/src/picture/candlestick/upside_gap_two_crows.png" alt="向上跳空两只乌鸦"></p>
+<p><strong>向上跳空</strong>指的是图示的红色实体与它们之前的实体（第一个小红色之前的实体，通常是一根长长的绿色蜡烛线）之间的价格跳空。理想的向上跳空两只乌鸦形态，第二根红色实体的开市价高于第一个红色实体的开市价，并且它的收市价低于第一个红色实体的收市价。</p>
+<div class="markdown-alert markdown-alert-tip">
+<p class="markdown-alert-title"><svg class="octicon octicon-light-bulb mr-2" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="M8 1.5c-2.363 0-4 1.69-4 3.75 0 .984.424 1.625.984 2.304l.214.253c.223.264.47.556.673.848.284.411.537.896.621 1.49a.75.75 0 0 1-1.484.211c-.04-.282-.163-.547-.37-.847a8.456 8.456 0 0 0-.542-.68c-.084-.1-.173-.205-.268-.32C3.201 7.75 2.5 6.766 2.5 5.25 2.5 2.31 4.863 0 8 0s5.5 2.31 5.5 5.25c0 1.516-.701 2.5-1.328 3.259-.095.115-.184.22-.268.319-.207.245-.383.453-.541.681-.208.3-.33.565-.37.847a.751.751 0 0 1-1.485-.212c.084-.593.337-1.078.621-1.489.203-.292.45-.584.673-.848.075-.088.147-.173.213-.253.561-.679.985-1.32.985-2.304 0-2.06-1.637-3.75-4-3.75ZM5.75 12h4.5a.75.75 0 0 1 0 1.5h-4.5a.75.75 0 0 1 0-1.5ZM6 15.25a.75.75 0 0 1 .75-.75h2.5a.75.75 0 0 1 0 1.5h-2.5a.75.75 0 0 1-.75-.75Z"></path></svg>Tip</p>
+<p>理论依据：市场本来处于上升的趋势中，并且这一天的开市价同前一天的收市价相比，是向上跳空的，可是市场并不能维持这个新高水平，结果当天反而形成了一个红色的蜡烛线。</p>
+</div>
+<h3 id="三只乌鸦">三只乌鸦<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#三只乌鸦"></a></h3>
+<p><img src="https://media.githubusercontent.com/media/fwqaaq/fwqaaq.github.io/dev/src/picture/candlestick/three_crows.png" alt="三只乌鸦"></p>
+<p>如果连续出现了三根依次下降的红色蜡烛线，则构成了所谓的<strong>三只乌鸦形态</strong>。如果三只乌鸦形态出现在高价格水平上，或者出现在经历了充分延伸的上涨行情中，就预示着价格要下跌。因此，三只乌鸦有看跌的意味。</p>
+<div class="markdown-alert markdown-alert-note">
+<p class="markdown-alert-title"><svg class="octicon octicon-info mr-2" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8Zm8-6.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13ZM6.5 7.75A.75.75 0 0 1 7.25 7h1a.75.75 0 0 1 .75.75v2.75h.25a.75.75 0 0 1 0 1.5h-2a.75.75 0 0 1 0-1.5h.25v-2h-.25a.75.75 0 0 1-.75-.75ZM8 6a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"></path></svg>Note</p>
+<p>三只乌鸦的形态可能对长线交易着更有用处。这是因为本形态在第三根蜡烛哦线才能完成。</p>
+</div>
+<h3 id="白三兵挺进形态">白三兵挺进形态<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#白三兵挺进形态"></a></h3>
+<p><img src="https://media.githubusercontent.com/media/fwqaaq/fwqaaq.github.io/dev/src/picture/candlestick/three_white_soldiers.png" alt="白色挺进形态"></p>
+<p><strong>白色三兵挺进形态</strong>（白三兵形态）是与三只乌鸦形态相对的形态。本形态是由接连出现的三根白色蜡烛线组成的，他们的收市价格依次上升。当市场在某个低价位稳定了一段时间后，如果出现了这样的形态，就标志市场即将转强。（如果这些绿色蜡烛线伸展得过长，那么我们应当对市场的超买状态有所戒备。）</p>
+<p>如果其中的第二根和第三根蜡烛线，活着仅仅是第三根蜡烛线，表现出上涨势头减弱的迹象，那就构成了<strong>前方受阻形态</strong>。多头头村应该采取一些保护措施。</p>
+<p>如果在后两根蜡烛线中，前一根为长长的绿色实体，并且向上创出了新高，后一根只是一个小的绿色蜡烛线，那么就构成了**停顿形态。在本形态中，最后一根小的绿色蜡烛线从一根小的绿色蜡烛线可能从前一根长长的绿色蜡烛线向上跳空（在这种情况下，该蜡烛线就变成了星线）。</p>
+<div class="markdown-alert markdown-alert-note">
+<p class="markdown-alert-title"><svg class="octicon octicon-info mr-2" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8Zm8-6.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13ZM6.5 7.75A.75.75 0 0 1 7.25 7h1a.75.75 0 0 1 .75.75v2.75h.25a.75.75 0 0 1 0 1.5h-2a.75.75 0 0 1 0-1.5h.25v-2h-.25a.75.75 0 0 1-.75-.75ZM8 6a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"></path></svg>Note</p>
+<p></p>
+<ul class="remark-unordered-list">
+<li>虽然前方受阻形态与停顿形态在一般情况下都不属于顶部反转形态，但有时候也会引导出不容忽视的下跌航行情。一般情况下，这两类形态出现在较高的价格水平则更有意义。</li>
+<li>关于白三兵形态，如果三根蜡烛线的每一根的收市价都位于活着接近本时段的最高价，则最具有建设性。</li>
+<li>如果后两根蜡烛线表现出犹豫的迹象，是小实体或者是上影线，那么上冲行情正在变弱。</li>
+</ul>
+</div>
+<h3 id="三山形态和三川形态">三山形态和三川形态<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#三山形态和三川形态"></a></h3>
+<blockquote>
+<p>蜡烛图中有一些较长期的顶部反转形态和底部反转形态，包括三山形、三川形、三尊顶部形态、倒三尊底部形态、圆形顶部形态、平底锅形态以及塔形顶部和塔形底部形态。</p>
+</blockquote>
+<p><img src="https://media.githubusercontent.com/media/fwqaaq/fwqaaq.github.io/dev/src/picture/candlestick/three_rivers.png" alt="三山形态和三川形态"></p>
+<p><strong>三山形态</strong>构成了一种主要顶部反转的过程。如果市场先后三次均从某一个高价位上回落下来，或者市场对某一个高价位向上进行了三次尝试都失败了，那么就构成三山顶部形态。在三山顶部形态的最后一座山的高点，还应该出现一种看跌的蜡烛图指标（例如一根十字线，或者乌云盖顶形态）。</p>
+<p>在三山的形态中，如果中间的山峰高于两侧的山峰，则构成了一种特殊的三山形态，称为<strong>三尊顶部形态</strong>。</p>
+<p><strong>三川底部形态</strong>是三山顶部形态的反面。在市场三度探底某个底部水平之后，就形成了这类形态。变体三川形态就是<strong>倒三尊底部形态</strong>。</p>
+<h3 id="反击线形态约会线形态">反击线形态（约会线形态）<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#反击线形态约会线形态"></a></h3>
+<p>当两根颜色相反的蜡烛线具有相同的收市价时，就形成了一个<strong>反击线形态</strong>（约会线形态）。</p>
+<p>在<strong>看涨反击蜡烛线</strong>中，第一根蜡烛线是一根长长的红色实体。而第二根蜡烛线开市的时候急剧地向下跳空。然而当空头志满意得的时候，空头发动了反攻，将市场推向了前一天收市价的水平。</p>
+<p>将看涨反击蜡烛线与看涨刺透形态比较：它们之间的主要区别是，看涨反击线通常不会将收市价向上推进前一天的红色实体内部，而是仅仅回升到前一天收市价的位置。而刺透形态中，第二根蜡烛线深深地向上穿入前一个红色实体的内部。<strong>刺透形态</strong>是比看涨反击形态更为重要的反转信号。</p>
+<p><img src="https://media.githubusercontent.com/media/fwqaaq/fwqaaq.github.io/dev/src/picture/candlestick/counter_attack.png" alt="反击线形态"></p>
+<p>在<strong>看跌反击蜡烛线</strong>中，第一根蜡烛线是一根长长的绿色实体。而第二根蜡烛线市场开始的时候出现向上跳空。但此时多头无法维持市场的高位，市场最终在前一天的收市价附近收市。</p>
+<p>看跌反击线与乌云盖顶形态的关系：在理想的看跌反击形态中，第二天的开市价高于前一天的最高点，这一点与乌云盖顶形态类似。但是，与乌云盖顶形态不同的是，这一天的收市价并没有向下穿入前一天的绿色实体内部。乌云盖顶形态是一个更为重要的反转信号。</p>
+<div class="markdown-alert markdown-alert-note">
+<p class="markdown-alert-title"><svg class="octicon octicon-info mr-2" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8Zm8-6.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13ZM6.5 7.75A.75.75 0 0 1 7.25 7h1a.75.75 0 0 1 .75.75v2.75h.25a.75.75 0 0 1 0 1.5h-2a.75.75 0 0 1 0-1.5h.25v-2h-.25a.75.75 0 0 1-.75-.75ZM8 6a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"></path></svg>Note</p>
+<p>在反击形态中，第二天的开市价是否强劲地上升到较高的水平（在看跌反击形态中），或者是否剧烈地下降到较低的水平（在看涨反击线形态中）。</p>
+</div>
+<h3 id="圆形顶部形态和平底锅底部形态圆形底部形态">圆形顶部形态和平底锅底部形态（圆形底部形态）<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#圆形顶部形态和平底锅底部形态圆形底部形态"></a></h3>
+<p><img src="https://media.githubusercontent.com/media/fwqaaq/fwqaaq.github.io/dev/src/picture/candlestick/round_top_bottom.png" alt="圆形顶部形态和平底锅底部形态"></p>
+<p>在<strong>圆形顶部形</strong>态中，市场逐步形成向上凸起的圆弧状图案，在这个过程中，通常出现的是一些较小的实体。最后，当市场向下跳空时，就证明圆形顶部形态已经完成。</p>
+<p><strong>平底锅底部形态</strong>反映出市场正处于底部反转过程中，市场逐步呈现出向下凹进的圆弧图案，然后市场向上跳空（打开一个向上的窗口）。</p>
+<p>在平底锅底部形态中，市场从更低点转向相同的地点，再转为更高的低点。这个过程形象地证明了空头正在逐步地丧失立足之地。然后再来一个向上的跳空，带来进一步的证据。</p>
+<p>对圆形顶部形态中，道理相同，方向相反。</p>
+<h3 id="塔形顶部和塔形底部形态">塔形顶部和塔形底部形态<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#塔形顶部和塔形底部形态"></a></h3>
+<p><img src="https://media.githubusercontent.com/media/fwqaaq/fwqaaq.github.io/dev/src/picture/candlestick/tower_top_bottom.png" alt="塔形顶部和塔形底部形态"></p>
+<p><strong>塔形顶部形态</strong>出现在高价格水平上。市场本来出现在上升趋势中，在某刻出现了坚挺的<em>绿色蜡烛线</em>或者一系列<em>绿色蜡烛线</em>，然后市场放缓了上涨的步伐，接着出现一根或者数根大的红色方蜡烛线，于是塔形顶部就完成了。</p>
+<p><strong>搭形底部形态</strong>发生在下跌行情中。市场形成了一根或者数根长长的红色蜡烛线，表示空方动力丝毫不减。后来出现了几根小实体，缓和了行情看跌的气氛，最后出现了一根长长的绿色蜡烛线，完成了塔形底部形态。</p>
+<p>塔形形态与三只乌鸦形态也是相似的。塔形形态常常在行情变化的后期才能完成，可能对长线交易者更适用。</p>
+<p>塔形底部形态与平底锅底部形态也有相似的地方，而塔形顶部形态则与圆形顶部形态有相似之处。两者最主要的区别是，在塔形形态中，市场反转之前和反转之后，出现的都是长长的绿色或者红色实体，但不需要跳空；而在圆形顶部形态和平底锅形态中需要窗口。</p>
+<div class="sponsor-container">
+  <button class="sponsor-btn">
+    <a href="https://stripe.fwqaaq.workers.dev/Personal-Website-Sponsor/checkout?mode=once" target="_blank" rel="noopener noreferrer" class="">
+      <span class="sponsor-icon">☕</span>
+      <span>请博主喝杯咖啡</span>
+  </a>
+  </button>
+</div>
+          </article>
+        </main><script src="https://giscus.app/client.js"
+        data-repo="fwqaaq/fwqaaq.github.io"
+        data-repo-id="R_kgDOHCFK2A"
+        data-category="Show and tell"
+        data-category-id="DIC_kwDOHCFK2M4CYOLh"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="1"
+        data-input-position="bottom"
+        data-theme="preferred_color_scheme"
+        data-lang="zh-CN"
+        crossorigin="anonymous"
+        async></script><footer class="blog-footer">
+  <div class="footer-container">
+    <p class="text-center"><a class="decoration-line"
+        href="https://creativecommons.org/licenses/by-sa/3.0/deed.zh-hans">© CC BY-SA</a> 2021 -
+      2025 <a class="decoration-line" href="https://github.com/fwqaaq">fwqaaq</a>.
+      Powered by <a class="decoration-line" href="https://deno.com">Deno</a>
+    </p>
+  </div>
+  <div class="footer-icons-container">
+    <a class="icon" href="https://github.com/fwqaaq">
+      <i class="fa-brands fa-github"></i>
+    </a>
+    <a class="icon" href="mailto:fwqaaq@gmail">
+      <i class="fa-solid fa-envelope"></i>
+    </a>
+    <a class="icon" href="https://www.fwqaaq.com/feed.xml">
+      <i class="fa-solid fa-rss"></i>
+    </a>
+    <a class="icon" href="https://t.me/fwqaaq">
+      <i class="fa-brands fa-telegram"></i>
+    </a>
+  </div>
+</footer>

@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#F3F7F6">
+  <meta name="description" content="height 动画效果  众所周知，在之前的 CSS 中，例如 height 属性是不能直接进行动画效果的，需要使用 max-height 配合 transition 或者 ani...">
+  <meta name="keywords" content="CSS">
+  <meta name="author" content="fwqaaq">
+  <meta property="og:site_name" content="fwqaaq 的博客">
+  <meta property="og:locale" content="zh_CN">
+  <meta property="og:title" content="动画效果">
+  <meta property="og:description" content="height 动画效果  众所周知，在之前的 CSS 中，例如 height 属性是不能直接进行动画效果的，需要使用 max-height 配合 transition 或者 ani...">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://www.fwqaaq.com//posts/20241230083003/">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="fwqaaq 的博客">
+  <meta name=application-name content="fwqaaq 的博客">
+  <meta name=apple-mobile-web-app-title content="fwqaaq 的博客">
+  <title>
+    动画效果
+  </title>
+  <link rel="shortcut icon" href="/public/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="/public/css/base.849580.css">
+  <link rel="stylesheet" href="/public/css/index.849580.css">
+  <link rel="stylesheet" href="/public/css/markdown.849580.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+  <script src="/public/JavaScript/index.849580.js"></script>
+  <script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit" defer></script>
+</head>
+
+</html>
+<header class="blog-header">
+    <i id="switch-icon" class="fa-solid fa-bars"></i>
+    <a href="https://github.com/fwqaaq" target="_blank">
+        <img src="https://avatars.githubusercontent.com/u/82551626?v=4" loading="lazy" alt="me" srcset="">
+    </a>
+    <div class="wrap-background">
+        <nav class="header-nav">
+            <a class="decoration-line" href="/"><i class="fa-solid fa-house-chimney fa-xs"></i>
+                <span class="disappear">首页</span>
+            </a>
+            <a class="decoration-line" href="/./about/index.html"><i class="fa-solid fa-address-card fa-xs"></i>
+                <span class="disappear">关于</span></a>
+            <a class="decoration-line" href="/./archive/index.html"><i class="fa-solid fa-box-archive fa-xs"></i> <span
+                    class="disappear">归档</span></a>
+            <a class="decoration-line" href="/./tags/index.html"><i class="fa-solid fa-tag fa-xs"></i>
+                <span class="disappear">标签</span></a>
+            <a class="decoration-line" onclick="sponsor(199)">
+                <i class="fa-solid fa-circle-dollar-to-slot fa-xs"></i>
+                <span class="disappear">赞助</span></a>
+            <div class="language-switcher notranslate">
+                <button class="language-toggle" type="button" aria-label="切换语言" aria-expanded="false"
+                    aria-controls="language-menu">
+                    <i class="fa-solid fa-globe fa-xs" aria-hidden="true"></i>
+                    <span class="disappear" translate="yes">语言</span>
+                </button>
+                <div class="language-menu" id="language-menu" role="menu" hidden>
+                    <button class="language-option" type="button" role="menuitemradio" data-lang=""
+                        aria-checked="true">原文</button>
+                    <button class="language-option" type="button" role="menuitemradio" data-lang="en"
+                        aria-checked="false">English</button>
+                    <button class="language-option" type="button" role="menuitemradio" data-lang="ja"
+                        aria-checked="false">日本語</button>
+                    <button class="language-option" type="button" role="menuitemradio" data-lang="ko"
+                        aria-checked="false">한국어</button>
+                    <button class="language-option" type="button" role="menuitemradio" data-lang="fr"
+                        aria-checked="false">Français</button>
+                    <button class="language-option" type="button" role="menuitemradio" data-lang="de"
+                        aria-checked="false">Deutsch</button>
+                    <button class="language-option" type="button" role="menuitemradio" data-lang="es"
+                        aria-checked="false">Español</button>
+                    <button class="language-option" type="button" role="menuitemradio" data-lang="ru"
+                        aria-checked="false">Русский</button>
+                    <button class="language-option" type="button" role="menuitemradio" data-lang="zh-TW"
+                        aria-checked="false">繁體中文</button>
+                </div>
+            </div>
+            <div id="google_translate_element" class="google-translate-element notranslate" aria-hidden="true"></div>
+            <a class="decoration-line model" href="#" aria-label="切换深浅色主题"><i class="fa-solid fa-sun fa-xs"></i></a>
+        </nav>
+    </div>
+</header>
+        <main class="blog-main">
+          <article class="blog-article">
+            <h1>动画效果</h1>
+          <div class="post-meta post-meta-flex-around">
+              <div class="post-author" href="/./about/"><i class="fa-solid fa-user"></i> fwqaaq</div> 
+              <div class="post-time"><i class="fa-solid fa-clock"></i> 2024-12-30</div> 
+              <div class="post-update-time"><i class="fa-solid fa-clock-rotate-left"></i> 2025-11-09</div>
+            </div>
+            <hr>
+            <details class="remark-toc-details"><summary class="remark-toc-summary">目录</summary><ul class="remark-toc">
+<li>
+<p><a href="#height-%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C">height 动画效果</a></p>
+</li>
+<li>
+<p><a href="#view-transitions-api">View Transitions API</a></p>
+<ul>
+<li><a href="#javascript-%E7%9B%B8%E5%85%B3%E7%9A%84-api">JavaScript 相关的 API</a></li>
+<li><a href="#%E8%BF%87%E6%B8%A1%E5%8A%A8%E7%94%BB">过渡动画</a></li>
+</ul>
+</li>
+</ul></details>
+<h2 id="height-动画效果">height 动画效果<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#height-动画效果"></a></h2>
+<p>众所周知，在之前的 CSS 中，例如 height 属性是不能直接进行动画效果的，需要使用 max-height 配合 transition 或者 animation 来实现该效果。</p>
+<p>现在可以使用以下两个属性来实现 height 的动画效果：</p>
+<ul class="remark-ordered-list">
+<li><code>calc-size(&#x3C;calc-size-basis>, &#x3C;calc-sum>)</code>: <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/calc-size">https://developer.mozilla.org/en-US/docs/Web/CSS/calc-size</a>，该函数可以接受两个属性，其中第一个属性是初始值，第二个属性是 CSS 数学函数中可计算的值，例如 <code>height: calc-size(auto, size + 100px);</code>。（该属性仅针对尺寸属性有效果）</li>
+<li><code>interpolate-size</code>: <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/interpolate-size">https://developer.mozilla.org/en-US/docs/Web/CSS/interpolate-size</a>，该属性用于在 <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/length-percentage"><code>&#x3C;length-percentage></code></a> 和<a href="https://developer.mozilla.org/en-US/docs/Glossary/Intrinsic_Size">固有尺寸</a>之间使用 animation 和 transition 效果。接受两个关键字，一个是 <code>allow-keywords</code> 该属性接受某个<a href="https://developer.mozilla.org/zh-CN/docs/Glossary/Interpolation">插值</a>，另一个是 <code>numeric-only</code>，该属性为<strong>默认值</strong>不接受插值。</li>
+</ul>
+<p>示例：可以看该提交是如何修改 height 动画 <a href="https://github.com/fwqaaq/fwqaaq.github.io/commit/068be22f827e8b75070f78a8ab5c05875842ce80">https://github.com/fwqaaq/fwqaaq.github.io/commit/068be22f827e8b75070f78a8ab5c05875842ce80</a></p>
+<p>参见：<a href="https://developer.chrome.com/docs/css-ui/animate-to-height-auto">https://developer.chrome.com/docs/css-ui/animate-to-height-auto</a>、<a href="https://developer.mozilla.org/en-US/docs/Web/CSS/calc-sum"><code>&#x3C;calc-sum></code></a></p>
+<h2 id="view-transitions-api"><a href="https://developer.mozilla.org/en-US/docs/Web/API/View_Transition_API">View Transitions API</a><a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#view-transitions-api"></a></h2>
+<p>这是一个用于实现在不同 DOM 之间转换的动画效果的 API，并且可以实现非常平滑的过渡效果，它主要是对于 Transition API 的扩展，并且可以实现更加复杂的过渡效果。</p>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-txt"><span class="line"><span>::view-transition</span></span>
+<span class="line"><span>└─ ::view-transition-group(root)</span></span>
+<span class="line"><span>   └─ ::view-transition-image-pair(root)</span></span>
+<span class="line"><span>      ├─ ::view-transition-old(root)</span></span>
+<span class="line"><span>      └─ ::view-transition-new(root)</span></span>
+<span class="line"><span></span></span></code></pre>
+<p>对于该 API 的使用，主要的参数分类分别是：<code>*</code>（匹配所有过渡的元素）、<code>root</code>（匹配过渡的根元素）以及 <a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/custom-ident"><code>&#x3C;custom-ident></code></a>（通过 <a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/view-transition-name">view-transition-name</a> 属性分配给某个元素从而达到过渡效果）。</p>
+<p>示例：</p>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-css"><span class="line"><span style="color:#F92672">header</span><span style="color:#D5CED9"> {</span></span>
+<span class="line"><span style="color:#D5CED9">  view-transition-name: header-card;</span></span>
+<span class="line"><span style="color:#D5CED9">}</span></span>
+<span class="line"><span style="color:#A0A1A7CC">/**带有 header-card 的都会实现以下基础的过渡效果*/</span></span>
+<span class="line"><span style="color:#D5CED9">::view-transition-group(</span><span style="color:#F92672">header-card</span><span style="color:#D5CED9">) {</span></span>
+<span class="line"><span style="color:#D5CED9">  animation-duration: </span><span style="color:#F39C12">0.5s</span><span style="color:#D5CED9">;</span></span>
+<span class="line"><span style="color:#D5CED9">}</span></span>
+<span class="line"></span></code></pre>
+<p>这里需要注意的是，主要用的是 <code>::view-transition-old</code> 和 <code>::view-transition-new</code> 这两个伪元素，浏览器会在后台为这两个元素创建快照，old 表示过渡之前的快照，new 表示过渡之后的快照。</p>
+<p>在过渡过程中，浏览器会同时显示旧页面和新页面的元素，并根据计算好的动画路径对元素进行平滑的变换。例如，如果一个元素的位置、大小或颜色发生了变化，浏览器会以流畅的动画方式来展示这种变化，而不是突然的切换。</p>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-css"><span class="line"><span style="color:#D5CED9">::view-transition-new(root) {</span></span>
+<span class="line"><span style="color:#D5CED9">  animation: turnOn </span><span style="color:#F39C12">800ms</span><span style="color:#EE5D43"> ease-in-out</span><span style="color:#D5CED9">;</span></span>
+<span class="line"><span style="color:#D5CED9">  mix-blend-mode: </span><span style="color:#EE5D43">normal</span><span style="color:#D5CED9">;</span></span>
+<span class="line"><span style="color:#D5CED9">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#D5CED9">::view-transition-old(root) {</span></span>
+<span class="line"><span style="color:#D5CED9">  animation: </span><span style="color:#EE5D43">none</span><span style="color:#D5CED9">;</span></span>
+<span class="line"><span style="color:#D5CED9">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#A0A1A7CC">/* 新视图过渡 */</span></span>
+<span class="line"><span style="color:#C74DED">@keyframes</span><span style="color:#00E8C6"> turnOn</span><span style="color:#D5CED9"> {</span></span>
+<span class="line"><span style="color:#D5CED9">  0% {</span></span>
+<span class="line"><span style="color:#D5CED9">    clip-path: </span><span style="color:#EE5D43">circle</span><span style="color:#D5CED9">(</span><span style="color:#F39C12">0%</span><span style="color:#EE5D43"> at</span><span style="color:#EE5D43"> var</span><span style="color:#D5CED9">(</span><span style="color:#00E8C6">--click-x</span><span style="color:#D5CED9">) </span><span style="color:#EE5D43">var</span><span style="color:#D5CED9">(</span><span style="color:#00E8C6">--click-y</span><span style="color:#D5CED9">));</span></span>
+<span class="line"><span style="color:#D5CED9">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#D5CED9">  100% {</span></span>
+<span class="line"><span style="color:#D5CED9">    clip-path: </span><span style="color:#EE5D43">circle</span><span style="color:#D5CED9">(</span><span style="color:#EE5D43">var</span><span style="color:#D5CED9">(</span><span style="color:#00E8C6">--end-radius</span><span style="color:#D5CED9">) </span><span style="color:#EE5D43">at</span><span style="color:#EE5D43"> var</span><span style="color:#D5CED9">(</span><span style="color:#00E8C6">--click-x</span><span style="color:#D5CED9">) </span><span style="color:#EE5D43">var</span><span style="color:#D5CED9">(</span><span style="color:#00E8C6">--click-y</span><span style="color:#D5CED9">));</span></span>
+<span class="line"><span style="color:#D5CED9">  }</span></span>
+<span class="line"><span style="color:#D5CED9">}</span></span>
+<span class="line"></span></code></pre>
+<p>可以完全使用 CSS 的伪元素配合增加或者移除<strong>类</strong>来实现过渡效果，但是使用 JavaScript 控制会更加灵活。</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>特性</th><th>自动触发 <code>startViewTransition</code></th><th>手动触发</th></tr></thead><tbody><tr><td>适用场景</td><td>简单的状态类切换</td><td>复杂的 DOM 变更或跨页面动画</td></tr><tr><td>动画控制</td><td>受限于 CSS 动画定义</td><td>完全可控，可插入任意逻辑</td></tr><tr><td>实现复杂性</td><td>更简单</td><td>需要额外的 JS 代码</td></tr></tbody></table>
+<h3 id="javascript-相关的-api"><a href="https://developer.mozilla.org/zh-CN/docs/Web/API/Document/startViewTransition">JavaScript 相关的 API</a><a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#javascript-相关的-api"></a></h3>
+<p><code>document.startViewTransition</code> 会接受一个改变当前 DOM 的回调函数，该回调函数完成兑现时，会返回一个 <code>ViewTransition</code> 对象。该对象可以的 <code>ready</code> 方法会在伪元素树被创建且过渡动画即将开始时兑现，如果过渡已经完成，则 <code>finished</code> 方法会返回一个已兑现的 <code>Promise</code>。</p>
+<p>配合以上的 CSS 代码，就可以实现一个非常流畅的黑暗模式切换效果。</p>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-js"><span class="line"><span style="color:#F39C12">document</span><span style="color:#D5CED9">.</span><span style="color:#FFE66D">startViewTransition</span><span style="color:#D5CED9">(</span></span>
+<span class="line"><span style="color:#D5CED9">  () </span><span style="color:#C74DED">=></span><span style="color:#FFE66D"> toggleColor</span><span style="color:#D5CED9">(</span><span style="color:#00E8C6">darkMode</span><span style="color:#EE5D43"> ===</span><span style="color:#96E072"> 'dark'</span><span style="color:#D5CED9">, </span><span style="color:#00E8C6">darkIcon</span><span style="color:#D5CED9">),</span></span>
+<span class="line"><span style="color:#D5CED9">)</span></span>
+<span class="line"><span style="color:#D5CED9">;[</span></span>
+<span class="line"><span style="color:#D5CED9">  [</span><span style="color:#96E072">'--click-x'</span><span style="color:#D5CED9">, </span><span style="color:#96E072">`</span><span style="color:#F92672">${</span><span style="color:#00E8C6">x</span><span style="color:#F92672">}</span><span style="color:#96E072">px`</span><span style="color:#D5CED9">],</span></span>
+<span class="line"><span style="color:#D5CED9">  [</span><span style="color:#96E072">'--click-y'</span><span style="color:#D5CED9">, </span><span style="color:#96E072">`</span><span style="color:#F92672">${</span><span style="color:#00E8C6">y</span><span style="color:#F92672">}</span><span style="color:#96E072">px`</span><span style="color:#D5CED9">],</span></span>
+<span class="line"><span style="color:#D5CED9">  [</span><span style="color:#96E072">'--end-radius'</span><span style="color:#D5CED9">, </span><span style="color:#96E072">`</span><span style="color:#F92672">${</span><span style="color:#00E8C6">endRadius</span><span style="color:#F92672">}</span><span style="color:#96E072">px`</span><span style="color:#D5CED9">]</span></span>
+<span class="line"><span style="color:#D5CED9">].</span><span style="color:#FFE66D">forEach</span><span style="color:#D5CED9">(([</span><span style="color:#00E8C6">v</span><span style="color:#D5CED9">, </span><span style="color:#00E8C6">c</span><span style="color:#D5CED9">]) </span><span style="color:#C74DED">=></span><span style="color:#F39C12"> document</span><span style="color:#D5CED9">.</span><span style="color:#00E8C6">documentElement</span><span style="color:#D5CED9">.</span><span style="color:#00E8C6">style</span><span style="color:#D5CED9">.</span><span style="color:#FFE66D">setProperty</span><span style="color:#D5CED9">(</span><span style="color:#00E8C6">v</span><span style="color:#D5CED9">, </span><span style="color:#00E8C6">c</span><span style="color:#D5CED9">))</span></span>
+<span class="line"></span></code></pre>
+<h3 id="过渡动画">过渡动画<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#过渡动画"></a></h3>
+<p>在过渡动画中，经常可以看到在 AJAX 请求中，有一个圆圈过渡的动画，这个实现也是非常简单。</p>
+<ul class="remark-ordered-list">
+<li>
+<p>圆圈动画的实现，实际上就是少了一个 border 的圆圈在不停的旋转：</p>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-css"><span class="line"><span style="color:#FFE66D">.loading::after</span><span style="color:#D5CED9"> {</span></span>
+<span class="line"><span style="color:#D5CED9">  content: </span><span style="color:#96E072">""</span><span style="color:#D5CED9">;</span></span>
+<span class="line"><span style="color:#D5CED9">  display: </span><span style="color:#EE5D43">block</span><span style="color:#D5CED9">;</span></span>
+<span class="line"><span style="color:#D5CED9">  position: </span><span style="color:#EE5D43">absolute</span><span style="color:#D5CED9">;</span></span>
+<span class="line"><span style="color:#D5CED9">  top: </span><span style="color:#F39C12">50vh</span><span style="color:#D5CED9">;</span></span>
+<span class="line"><span style="color:#D5CED9">  left: </span><span style="color:#F39C12">50%</span><span style="color:#D5CED9">;</span></span>
+<span class="line"><span style="color:#D5CED9">  width: </span><span style="color:#F39C12">60px</span><span style="color:#D5CED9">;</span></span>
+<span class="line"><span style="color:#D5CED9">  height: </span><span style="color:#F39C12">60px</span><span style="color:#D5CED9">;</span></span>
+<span class="line"><span style="color:#D5CED9">  margin: </span><span style="color:#F39C12">-30px</span><span style="color:#F39C12"> 0</span><span style="color:#F39C12"> 0</span><span style="color:#F39C12"> -30px</span><span style="color:#D5CED9">;</span></span>
+<span class="line"><span style="color:#D5CED9">  border-radius: </span><span style="color:#F39C12">50%</span><span style="color:#D5CED9">;</span></span>
+<span class="line"><span style="color:#D5CED9">  border-style: </span><span style="color:#EE5D43">solid</span><span style="color:#D5CED9">;</span></span>
+<span class="line"><span style="color:#D5CED9">  border-color: </span><span style="color:#EE5D43">var</span><span style="color:#D5CED9">(</span><span style="color:#00E8C6">--theme-color</span><span style="color:#D5CED9">) </span><span style="color:#EE5D43">var</span><span style="color:#D5CED9">(</span><span style="color:#00E8C6">--theme-color</span><span style="color:#D5CED9">) </span><span style="color:#EE5D43">var</span><span style="color:#D5CED9">(</span><span style="color:#00E8C6">--theme-color</span><span style="color:#D5CED9">) </span><span style="color:#EE5D43">transparent</span><span style="color:#D5CED9">;</span></span>
+<span class="line"><span style="color:#D5CED9">  animation: spin </span><span style="color:#F39C12">1s</span><span style="color:#EE5D43"> ease-in-out</span><span style="color:#EE5D43"> infinite</span><span style="color:#D5CED9">;</span></span>
+<span class="line"><span style="color:#D5CED9">  z-index: </span><span style="color:#F39C12">1</span><span style="color:#D5CED9">;</span></span>
+<span class="line"><span style="color:#D5CED9">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#C74DED">@keyframes</span><span style="color:#00E8C6"> spin</span><span style="color:#D5CED9"> {</span></span>
+<span class="line"><span style="color:#D5CED9">  0% {</span></span>
+<span class="line"><span style="color:#D5CED9">    transform: </span><span style="color:#EE5D43">rotate</span><span style="color:#D5CED9">(</span><span style="color:#F39C12">0deg</span><span style="color:#D5CED9">);</span></span>
+<span class="line"><span style="color:#D5CED9">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#D5CED9">  100% {</span></span>
+<span class="line"><span style="color:#D5CED9">    transform: </span><span style="color:#EE5D43">rotate</span><span style="color:#D5CED9">(</span><span style="color:#F39C12">360deg</span><span style="color:#D5CED9">)</span></span>
+<span class="line"><span style="color:#D5CED9">  }</span></span>
+<span class="line"><span style="color:#D5CED9">}</span></span>
+<span class="line"></span></code></pre>
+</li>
+<li>
+<p>在 AJAX 请求中，要选择对时机，在请求开始的时候添加 <code>.loading</code> 类，请求结束的时候移除 <code>.loading</code> 类。参见：<a href="https://github.com/fwqaaq/fwqaaq.github.io/blob/13aab4ed811fa89898321e470382479ab053e5d8/public/JavaScript/index.js#L196-L204">https://github.com/fwqaaq/fwqaaq.github.io/blob/13aab4ed811fa89898321e470382479ab053e5d8/public/JavaScript/index.js#L196-L204</a></p>
+</li>
+</ul>
+<div class="sponsor-container">
+  <button class="sponsor-btn">
+    <a href="https://stripe.fwqaaq.workers.dev/Personal-Website-Sponsor/checkout?mode=once" target="_blank" rel="noopener noreferrer" class="">
+      <span class="sponsor-icon">☕</span>
+      <span>请博主喝杯咖啡</span>
+  </a>
+  </button>
+</div>
+          </article>
+        </main><script src="https://giscus.app/client.js"
+        data-repo="fwqaaq/fwqaaq.github.io"
+        data-repo-id="R_kgDOHCFK2A"
+        data-category="Show and tell"
+        data-category-id="DIC_kwDOHCFK2M4CYOLh"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="1"
+        data-input-position="bottom"
+        data-theme="preferred_color_scheme"
+        data-lang="zh-CN"
+        crossorigin="anonymous"
+        async></script><footer class="blog-footer">
+  <div class="footer-container">
+    <p class="text-center"><a class="decoration-line"
+        href="https://creativecommons.org/licenses/by-sa/3.0/deed.zh-hans">© CC BY-SA</a> 2021 -
+      2025 <a class="decoration-line" href="https://github.com/fwqaaq">fwqaaq</a>.
+      Powered by <a class="decoration-line" href="https://deno.com">Deno</a>
+    </p>
+  </div>
+  <div class="footer-icons-container">
+    <a class="icon" href="https://github.com/fwqaaq">
+      <i class="fa-brands fa-github"></i>
+    </a>
+    <a class="icon" href="mailto:fwqaaq@gmail">
+      <i class="fa-solid fa-envelope"></i>
+    </a>
+    <a class="icon" href="https://www.fwqaaq.com/feed.xml">
+      <i class="fa-solid fa-rss"></i>
+    </a>
+    <a class="icon" href="https://t.me/fwqaaq">
+      <i class="fa-brands fa-telegram"></i>
+    </a>
+  </div>
+</footer>

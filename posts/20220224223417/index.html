@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#F3F7F6">
+  <meta name="description" content="柯里化  > [!NOTE] > 什么是函数柯里化？ > > 在计算机中，柯里化是将使用多个参数的一个函数转换成一些列使用一个参数的函数  - 例如：  ```ts functio...">
+  <meta name="keywords" content="JavaScript, TypeScript">
+  <meta name="author" content="fwqaaq">
+  <meta property="og:site_name" content="fwqaaq 的博客">
+  <meta property="og:locale" content="zh_CN">
+  <meta property="og:title" content="函数柯里化、偏函数以及惰性函数">
+  <meta property="og:description" content="柯里化  > [!NOTE] > 什么是函数柯里化？ > > 在计算机中，柯里化是将使用多个参数的一个函数转换成一些列使用一个参数的函数  - 例如：  ```ts functio...">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://www.fwqaaq.com//posts/20220224223417/">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="fwqaaq 的博客">
+  <meta name=application-name content="fwqaaq 的博客">
+  <meta name=apple-mobile-web-app-title content="fwqaaq 的博客">
+  <title>
+    函数柯里化、偏函数以及惰性函数
+  </title>
+  <link rel="shortcut icon" href="/public/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="/public/css/base.849580.css">
+  <link rel="stylesheet" href="/public/css/index.849580.css">
+  <link rel="stylesheet" href="/public/css/markdown.849580.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+  <script src="/public/JavaScript/index.849580.js"></script>
+  <script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit" defer></script>
+</head>
+
+</html>
+<header class="blog-header">
+    <i id="switch-icon" class="fa-solid fa-bars"></i>
+    <a href="https://github.com/fwqaaq" target="_blank">
+        <img src="https://avatars.githubusercontent.com/u/82551626?v=4" loading="lazy" alt="me" srcset="">
+    </a>
+    <div class="wrap-background">
+        <nav class="header-nav">
+            <a class="decoration-line" href="/"><i class="fa-solid fa-house-chimney fa-xs"></i>
+                <span class="disappear">首页</span>
+            </a>
+            <a class="decoration-line" href="/./about/index.html"><i class="fa-solid fa-address-card fa-xs"></i>
+                <span class="disappear">关于</span></a>
+            <a class="decoration-line" href="/./archive/index.html"><i class="fa-solid fa-box-archive fa-xs"></i> <span
+                    class="disappear">归档</span></a>
+            <a class="decoration-line" href="/./tags/index.html"><i class="fa-solid fa-tag fa-xs"></i>
+                <span class="disappear">标签</span></a>
+            <a class="decoration-line" onclick="sponsor(199)">
+                <i class="fa-solid fa-circle-dollar-to-slot fa-xs"></i>
+                <span class="disappear">赞助</span></a>
+            <div class="language-switcher notranslate">
+                <button class="language-toggle" type="button" aria-label="切换语言" aria-expanded="false"
+                    aria-controls="language-menu">
+                    <i class="fa-solid fa-globe fa-xs" aria-hidden="true"></i>
+                    <span class="disappear" translate="yes">语言</span>
+                </button>
+                <div class="language-menu" id="language-menu" role="menu" hidden>
+                    <button class="language-option" type="button" role="menuitemradio" data-lang=""
+                        aria-checked="true">原文</button>
+                    <button class="language-option" type="button" role="menuitemradio" data-lang="en"
+                        aria-checked="false">English</button>
+                    <button class="language-option" type="button" role="menuitemradio" data-lang="ja"
+                        aria-checked="false">日本語</button>
+                    <button class="language-option" type="button" role="menuitemradio" data-lang="ko"
+                        aria-checked="false">한국어</button>
+                    <button class="language-option" type="button" role="menuitemradio" data-lang="fr"
+                        aria-checked="false">Français</button>
+                    <button class="language-option" type="button" role="menuitemradio" data-lang="de"
+                        aria-checked="false">Deutsch</button>
+                    <button class="language-option" type="button" role="menuitemradio" data-lang="es"
+                        aria-checked="false">Español</button>
+                    <button class="language-option" type="button" role="menuitemradio" data-lang="ru"
+                        aria-checked="false">Русский</button>
+                    <button class="language-option" type="button" role="menuitemradio" data-lang="zh-TW"
+                        aria-checked="false">繁體中文</button>
+                </div>
+            </div>
+            <div id="google_translate_element" class="google-translate-element notranslate" aria-hidden="true"></div>
+            <a class="decoration-line model" href="#" aria-label="切换深浅色主题"><i class="fa-solid fa-sun fa-xs"></i></a>
+        </nav>
+    </div>
+</header>
+        <main class="blog-main">
+          <article class="blog-article">
+            <h1>函数柯里化、偏函数以及惰性函数</h1>
+          <div class="post-meta post-meta-flex-around">
+              <div class="post-author" href="/./about/"><i class="fa-solid fa-user"></i> fwqaaq</div> 
+              <div class="post-time"><i class="fa-solid fa-clock"></i> 2022-02-24</div> 
+              <div class="post-update-time"><i class="fa-solid fa-clock-rotate-left"></i> 2025-11-09</div>
+            </div>
+            <hr>
+            <details class="remark-toc-details"><summary class="remark-toc-summary">目录</summary><ul class="remark-toc">
+<li>
+<p><a href="#%E6%9F%AF%E9%87%8C%E5%8C%96">柯里化</a></p>
+</li>
+<li>
+<p><a href="#%E5%81%8F%E5%87%BD%E6%95%B0-partial-function">偏函数 (Partial Function)</a></p>
+</li>
+<li>
+<p><a href="#%E6%83%B0%E6%80%A7%E5%87%BD%E6%95%B0">惰性函数</a></p>
+<ul>
+<li><a href="#%E6%83%B0%E6%80%A7%E6%B1%82%E5%80%BC-lazy-evaluation">惰性求值 (Lazy evaluation)</a></li>
+</ul>
+</li>
+<li>
+<p><a href="#%E7%BA%AF%E5%87%BD%E6%95%B0-purity">纯函数 (Purity)</a></p>
+</li>
+<li>
+<p><a href="#%E5%B9%82%E7%AD%89%E6%80%A7">幂等性</a></p>
+</li>
+<li>
+<p><a href="#%E5%87%BD%E6%95%B0%E7%BB%84%E5%90%88-function-composing">函数组合 (Function Composing)</a></p>
+<ul>
+<li><a href="#%E7%94%9F%E6%88%90%E5%99%A8%E7%9A%84%E6%96%B9%E5%BC%8F">生成器的方式</a></li>
+<li><a href="#pointfree">Pointfree</a></li>
+</ul>
+</li>
+<li>
+<p><a href="#%E5%87%BD%E6%95%B0%E8%AE%B0%E5%BF%86">函数记忆</a></p>
+</li>
+</ul></details>
+<h2 id="柯里化">柯里化<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#柯里化"></a></h2>
+<div class="markdown-alert markdown-alert-note">
+<p class="markdown-alert-title"><svg class="octicon octicon-info mr-2" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8Zm8-6.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13ZM6.5 7.75A.75.75 0 0 1 7.25 7h1a.75.75 0 0 1 .75.75v2.75h.25a.75.75 0 0 1 0 1.5h-2a.75.75 0 0 1 0-1.5h.25v-2h-.25a.75.75 0 0 1-.75-.75ZM8 6a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"></path></svg>Note</p>
+<p>什么是函数柯里化？</p>
+<p>在计算机中，柯里化是将使用多个参数的一个函数转换成一些列使用一个参数的函数</p>
+</div>
+<ul class="remark-unordered-list">
+<li>例如：</li>
+</ul>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-ts"><span class="line"><span style="color:#C74DED">function</span><span style="color:#FFE66D"> add</span><span style="color:#D5CED9">(</span><span style="color:#00E8C6">a</span><span style="color:#EE5D43">:</span><span style="color:#D5CED9"> number, </span><span style="color:#00E8C6">b</span><span style="color:#EE5D43">:</span><span style="color:#D5CED9"> number) {</span></span>
+<span class="line"><span style="color:#C74DED">  return</span><span style="color:#00E8C6"> a</span><span style="color:#EE5D43"> +</span><span style="color:#00E8C6"> b</span><span style="color:#D5CED9">;</span></span>
+<span class="line"><span style="color:#D5CED9">}</span></span>
+<span class="line"><span style="color:#A0A1A7CC">//执行 add 函数，依次传入两个参数</span></span>
+<span class="line"><span style="color:#FFE66D">add</span><span style="color:#D5CED9">(</span><span style="color:#F39C12">1</span><span style="color:#D5CED9">, </span><span style="color:#F39C12">2</span><span style="color:#D5CED9">);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#A0A1A7CC">//如果有一个 carry 函数，可以做到柯里化</span></span>
+<span class="line"><span style="color:#C74DED">let</span><span style="color:#00E8C6"> addCurry</span><span style="color:#EE5D43"> =</span><span style="color:#FFE66D"> curry</span><span style="color:#D5CED9">(</span><span style="color:#00E8C6">add</span><span style="color:#D5CED9">);</span></span>
+<span class="line"><span style="color:#FFE66D">addCurry</span><span style="color:#D5CED9">(</span><span style="color:#F39C12">1</span><span style="color:#D5CED9">)(</span><span style="color:#F39C12">2</span><span style="color:#D5CED9">);</span></span>
+<span class="line"></span></code></pre>
+<blockquote>
+<p>柯里化的用途可以理解为参数复用，本质上是降低通用性，提高适用性</p>
+</blockquote>
+<ul class="remark-unordered-list">
+<li>例如有一段这样的数据</li>
+</ul>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-ts"><span class="line"><span style="color:#C74DED">const</span><span style="color:#00E8C6"> person</span><span style="color:#EE5D43"> =</span><span style="color:#D5CED9"> [{ name: </span><span style="color:#96E072">"zhangsan"</span><span style="color:#D5CED9"> }, { name: </span><span style="color:#96E072">"lisi"</span><span style="color:#D5CED9"> }];</span></span>
+<span class="line"></span></code></pre>
+<ul class="remark-ordered-list">
+<li>
+<p>使用 map 函数</p>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-ts"><span class="line"><span style="color:#C74DED">let</span><span style="color:#00E8C6"> names</span><span style="color:#EE5D43"> =</span><span style="color:#00E8C6"> person</span><span style="color:#D5CED9">.</span><span style="color:#FFE66D">map</span><span style="color:#D5CED9">(</span><span style="color:#C74DED">function</span><span style="color:#D5CED9"> (</span><span style="color:#00E8C6">item</span><span style="color:#D5CED9">) {</span></span>
+<span class="line"><span style="color:#C74DED">  return</span><span style="color:#00E8C6"> item</span><span style="color:#D5CED9">.</span><span style="color:#00E8C6">name</span><span style="color:#D5CED9">;</span></span>
+<span class="line"><span style="color:#D5CED9">});</span></span>
+<span class="line"></span></code></pre>
+</li>
+<li>
+<p>如果对象中有多个属性，那就要写多个 map 才行</p>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-ts"><span class="line"><span style="color:#C74DED">let</span><span style="color:#00E8C6"> prop</span><span style="color:#EE5D43"> =</span><span style="color:#FFE66D"> curry</span><span style="color:#D5CED9">((</span><span style="color:#00E8C6">key</span><span style="color:#D5CED9">, </span><span style="color:#00E8C6">obj</span><span style="color:#D5CED9">) </span><span style="color:#C74DED">=></span><span style="color:#D5CED9"> {</span></span>
+<span class="line"><span style="color:#00E8C6">  obj</span><span style="color:#D5CED9">[</span><span style="color:#00E8C6">key</span><span style="color:#D5CED9">];</span></span>
+<span class="line"><span style="color:#D5CED9">});</span></span>
+<span class="line"><span style="color:#C74DED">let</span><span style="color:#00E8C6"> name</span><span style="color:#EE5D43"> =</span><span style="color:#00E8C6"> person</span><span style="color:#D5CED9">.</span><span style="color:#FFE66D">map</span><span style="color:#D5CED9">(</span><span style="color:#FFE66D">prop</span><span style="color:#D5CED9">(</span><span style="color:#96E072">"name"</span><span style="color:#D5CED9">));</span></span>
+<span class="line"></span></code></pre>
+</li>
+</ul>
+<ul class="remark-unordered-list">
+<li>这样就体现出柯里化的重要性</li>
+</ul>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-ts"><span class="line"><span style="color:#C74DED">function</span><span style="color:#FFE66D"> curry</span><span style="color:#D5CED9">&#x3C;</span><span style="color:#FFE66D">T</span><span style="color:#D5CED9">>(</span><span style="color:#FFE66D">fn</span><span style="color:#EE5D43">:</span><span style="color:#FFE66D"> Function</span><span style="color:#D5CED9">)</span><span style="color:#EE5D43">:</span><span style="color:#FFE66D"> Function</span><span style="color:#D5CED9"> {</span></span>
+<span class="line"><span style="color:#C74DED">  return</span><span style="color:#C74DED"> function</span><span style="color:#D5CED9"> (</span><span style="color:#EE5D43">...</span><span style="color:#00E8C6">args</span><span style="color:#EE5D43">:</span><span style="color:#FFE66D"> T</span><span style="color:#D5CED9">[]) {</span></span>
+<span class="line"><span style="color:#C74DED">    if</span><span style="color:#D5CED9"> (</span><span style="color:#00E8C6">args</span><span style="color:#D5CED9">.</span><span style="color:#00E8C6">length</span><span style="color:#EE5D43"> &#x3C;</span><span style="color:#00E8C6"> fn</span><span style="color:#D5CED9">.</span><span style="color:#00E8C6">length</span><span style="color:#D5CED9">) {</span></span>
+<span class="line"><span style="color:#C74DED">      return</span><span style="color:#FFE66D"> curry</span><span style="color:#D5CED9">(</span><span style="color:#00E8C6">fn</span><span style="color:#D5CED9">.</span><span style="color:#FFE66D">bind</span><span style="color:#D5CED9">(</span><span style="color:#00E8C6">this</span><span style="color:#D5CED9">, </span><span style="color:#EE5D43">...</span><span style="color:#00E8C6">args</span><span style="color:#D5CED9">));</span></span>
+<span class="line"><span style="color:#D5CED9">    } </span><span style="color:#C74DED">else</span><span style="color:#D5CED9"> {</span></span>
+<span class="line"><span style="color:#C74DED">      return</span><span style="color:#FFE66D"> fn</span><span style="color:#D5CED9">(</span><span style="color:#EE5D43">...</span><span style="color:#00E8C6">args</span><span style="color:#D5CED9">);</span></span>
+<span class="line"><span style="color:#D5CED9">    }</span></span>
+<span class="line"><span style="color:#D5CED9">  };</span></span>
+<span class="line"><span style="color:#D5CED9">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#C74DED">function</span><span style="color:#FFE66D"> add</span><span style="color:#D5CED9">(</span><span style="color:#00E8C6">a</span><span style="color:#EE5D43">:</span><span style="color:#D5CED9"> number, </span><span style="color:#00E8C6">b</span><span style="color:#EE5D43">:</span><span style="color:#D5CED9"> number, </span><span style="color:#00E8C6">c</span><span style="color:#EE5D43">:</span><span style="color:#D5CED9"> number) {</span></span>
+<span class="line"><span style="color:#C74DED">  return</span><span style="color:#00E8C6"> a</span><span style="color:#EE5D43"> +</span><span style="color:#00E8C6"> b</span><span style="color:#EE5D43"> +</span><span style="color:#00E8C6"> c</span><span style="color:#D5CED9">;</span></span>
+<span class="line"><span style="color:#D5CED9">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#C74DED">let</span><span style="color:#00E8C6"> curryAdd</span><span style="color:#EE5D43"> =</span><span style="color:#FFE66D"> curry</span><span style="color:#D5CED9">(</span><span style="color:#00E8C6">add</span><span style="color:#D5CED9">);</span></span>
+<span class="line"><span style="color:#00E8C6">console</span><span style="color:#D5CED9">.</span><span style="color:#FFE66D">log</span><span style="color:#D5CED9">(</span><span style="color:#FFE66D">curryAdd</span><span style="color:#D5CED9">(</span><span style="color:#F39C12">1</span><span style="color:#D5CED9">, </span><span style="color:#F39C12">3</span><span style="color:#D5CED9">)(</span><span style="color:#F39C12">3</span><span style="color:#D5CED9">));</span></span>
+<span class="line"></span></code></pre>
+<ul class="remark-unordered-list">
+<li><code>fn.length</code>就是被柯里化函数的</li>
+<li><code>...args</code>是被柯里化函数的返回值 (curryAdd) 传入的个数。理想状态是只传一个</li>
+<li><code>curryAdd</code>本质上来讲就是 curry 函数的返回值，只有 curryAdd 有实参，args 才会有值</li>
+</ul>
+<ul class="remark-ordered-list">
+<li>
+<p>执行<code>let curryAdd = curry(add)</code>,返回一个闭包</p>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-ts"><span class="line"><span style="color:#C74DED">function</span><span style="color:#D5CED9"> (</span><span style="color:#EE5D43">...</span><span style="color:#00E8C6">args</span><span style="color:#EE5D43">:</span><span style="color:#FFE66D"> T</span><span style="color:#D5CED9">[]) {</span></span>
+<span class="line"><span style="color:#C74DED">    if</span><span style="color:#D5CED9"> (</span><span style="color:#00E8C6">args</span><span style="color:#D5CED9">.</span><span style="color:#00E8C6">length</span><span style="color:#EE5D43"> &#x3C;</span><span style="color:#00E8C6"> fn</span><span style="color:#D5CED9">.</span><span style="color:#00E8C6">length</span><span style="color:#D5CED9">) {</span></span>
+<span class="line"><span style="color:#C74DED">      return</span><span style="color:#FFE66D"> curry</span><span style="color:#D5CED9">(</span><span style="color:#00E8C6">fn</span><span style="color:#D5CED9">.</span><span style="color:#FFE66D">bind</span><span style="color:#D5CED9">(</span><span style="color:#EE5D43">null</span><span style="color:#D5CED9">, </span><span style="color:#EE5D43">...</span><span style="color:#00E8C6">args</span><span style="color:#D5CED9">))</span></span>
+<span class="line"><span style="color:#D5CED9">    } </span><span style="color:#C74DED">else</span><span style="color:#D5CED9"> {</span></span>
+<span class="line"><span style="color:#C74DED">      return</span><span style="color:#FFE66D"> fn</span><span style="color:#D5CED9">(</span><span style="color:#EE5D43">...</span><span style="color:#00E8C6">args</span><span style="color:#D5CED9">)</span></span>
+<span class="line"><span style="color:#D5CED9">    }</span></span>
+<span class="line"><span style="color:#D5CED9">  }</span></span>
+<span class="line"></span></code></pre>
+</li>
+<li>
+<p>执行<code>curryAdd(1,3)</code>当前的<code>fn.length</code>就是 add 形参的数量 3 大于实参的数量 2</p>
+<ul class="remark-unordered-list">
+<li>同样返回了和 1 一样的一个闭包，但是 fn 发生了改变，传入的是<code>fn.bind(null, ...args)</code></li>
+<li>执行一个递归，由于 bind 函数是柯里化的，这里的<code>fn.length</code>在结束的时候就变成了 1</li>
+</ul>
+</li>
+<li>
+<p>执行<code>[curryAdd(1,3)](3)</code>当前的<code>fn.length</code>由于是会执行 else 的内容</p>
+<ul class="remark-unordered-list">
+<li><code>add.bind(this, 1 , 3)(3)</code>:这样就利用 bind 完成了一个柯里化的过程</li>
+</ul>
+</li>
+</ul>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-ts"><span class="line"><span style="color:#C74DED">type</span><span style="color:#FFE66D"> IPerson</span><span style="color:#EE5D43"> =</span><span style="color:#D5CED9"> {</span></span>
+<span class="line"><span style="color:#00E8C6">  name</span><span style="color:#EE5D43">:</span><span style="color:#D5CED9"> string;</span></span>
+<span class="line"><span style="color:#00E8C6">  age</span><span style="color:#EE5D43">:</span><span style="color:#D5CED9"> number;</span></span>
+<span class="line"><span style="color:#D5CED9">};</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#C74DED">const</span><span style="color:#00E8C6"> person</span><span style="color:#EE5D43">:</span><span style="color:#FFE66D"> IPerson</span><span style="color:#D5CED9">[] </span><span style="color:#EE5D43">=</span><span style="color:#D5CED9"> [</span></span>
+<span class="line"><span style="color:#D5CED9">  { name: </span><span style="color:#96E072">"zhangsan"</span><span style="color:#D5CED9">, age: </span><span style="color:#F39C12">12</span><span style="color:#D5CED9"> },</span></span>
+<span class="line"><span style="color:#D5CED9">  { name: </span><span style="color:#96E072">"lisi"</span><span style="color:#D5CED9">, age: </span><span style="color:#F39C12">100</span><span style="color:#D5CED9"> },</span></span>
+<span class="line"><span style="color:#D5CED9">];</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#C74DED">let</span><span style="color:#00E8C6"> prop</span><span style="color:#EE5D43"> =</span><span style="color:#FFE66D"> curry</span><span style="color:#D5CED9">((</span><span style="color:#00E8C6">key</span><span style="color:#EE5D43">:</span><span style="color:#EE5D43"> keyof</span><span style="color:#FFE66D"> IPerson</span><span style="color:#D5CED9">, </span><span style="color:#00E8C6">obj</span><span style="color:#EE5D43">:</span><span style="color:#FFE66D"> IPerson</span><span style="color:#D5CED9">) </span><span style="color:#C74DED">=></span><span style="color:#D5CED9"> {</span></span>
+<span class="line"><span style="color:#C74DED">  return</span><span style="color:#00E8C6"> obj</span><span style="color:#D5CED9">[</span><span style="color:#00E8C6">key</span><span style="color:#D5CED9">];</span></span>
+<span class="line"><span style="color:#D5CED9">});</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#00E8C6">console</span><span style="color:#D5CED9">.</span><span style="color:#FFE66D">log</span><span style="color:#D5CED9">(</span><span style="color:#00E8C6">person</span><span style="color:#D5CED9">.</span><span style="color:#FFE66D">map</span><span style="color:#D5CED9">(</span><span style="color:#FFE66D">prop</span><span style="color:#D5CED9">(</span><span style="color:#96E072">"name"</span><span style="color:#D5CED9">)));</span></span>
+<span class="line"></span></code></pre>
+<h2 id="偏函数-partial-function">偏函数 (Partial Function)<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#偏函数-partial-function"></a></h2>
+<blockquote>
+<p>在计算机科学中，偏函数是指固定一个函数的一些参数，然后产生另一个更小元的函数。</p>
+<p>什么是元？元是指函数参数的个数，比如一个带有两个参数的函数被称为二元函数。</p>
+</blockquote>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-ts"><span class="line"><span style="color:#C74DED">function</span><span style="color:#FFE66D"> add</span><span style="color:#D5CED9">(</span><span style="color:#00E8C6">a</span><span style="color:#D5CED9">, </span><span style="color:#00E8C6">b</span><span style="color:#D5CED9">) {</span></span>
+<span class="line"><span style="color:#C74DED">  return</span><span style="color:#00E8C6"> a</span><span style="color:#EE5D43"> +</span><span style="color:#00E8C6"> b</span><span style="color:#D5CED9">;</span></span>
+<span class="line"><span style="color:#D5CED9">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#A0A1A7CC">// 执行 add 函数，一次传入两个参数即可</span></span>
+<span class="line"><span style="color:#FFE66D">add</span><span style="color:#D5CED9">(</span><span style="color:#F39C12">1</span><span style="color:#D5CED9">, </span><span style="color:#F39C12">2</span><span style="color:#D5CED9">); </span><span style="color:#A0A1A7CC">// 3</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#A0A1A7CC">// 假设有一个 partial 函数可以做到局部应用</span></span>
+<span class="line"><span style="color:#C74DED">const</span><span style="color:#00E8C6"> addOne</span><span style="color:#EE5D43"> =</span><span style="color:#FFE66D"> partial</span><span style="color:#D5CED9">(</span><span style="color:#00E8C6">add</span><span style="color:#D5CED9">, </span><span style="color:#F39C12">1</span><span style="color:#D5CED9">);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#FFE66D">addOne</span><span style="color:#D5CED9">(</span><span style="color:#F39C12">2</span><span style="color:#D5CED9">); </span><span style="color:#A0A1A7CC">// 3</span></span>
+<span class="line"></span></code></pre>
+<blockquote>
+<p>和函数柯里化的区别</p>
+</blockquote>
+<ul class="remark-ordered-list">
+<li>柯里化是将一个多参数函数转换成多个单参数函数，也就是将一个 n 元函数转换成 n 个一元函数</li>
+<li>偏函数则是固定一个函数的一个或者多个参数，也就是将一个 n 元函数转换成一个 n-x 元函数</li>
+</ul>
+<ul class="remark-unordered-list">
+<li>柯里化和偏函数的关系：<strong>柯里化通过偏函数来实现</strong></li>
+</ul>
+<blockquote>
+<p>当然也可以使用<code>bind</code>函数来实现偏函数</p>
+</blockquote>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-ts"><span class="line"><span style="color:#C74DED">function</span><span style="color:#FFE66D"> test</span><span style="color:#D5CED9">(</span><span style="color:#00E8C6">a</span><span style="color:#EE5D43">:</span><span style="color:#D5CED9"> number, </span><span style="color:#00E8C6">b</span><span style="color:#EE5D43">:</span><span style="color:#D5CED9"> number, </span><span style="color:#00E8C6">c</span><span style="color:#EE5D43">:</span><span style="color:#D5CED9"> number) {</span></span>
+<span class="line"><span style="color:#C74DED">  return</span><span style="color:#00E8C6"> a</span><span style="color:#EE5D43"> +</span><span style="color:#00E8C6"> b</span><span style="color:#EE5D43"> +</span><span style="color:#00E8C6"> c</span><span style="color:#D5CED9">;</span></span>
+<span class="line"><span style="color:#D5CED9">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#C74DED">let</span><span style="color:#00E8C6"> bindOne</span><span style="color:#EE5D43"> =</span><span style="color:#00E8C6"> test</span><span style="color:#D5CED9">.</span><span style="color:#FFE66D">bind</span><span style="color:#D5CED9">(</span><span style="color:#EE5D43">null</span><span style="color:#D5CED9">, </span><span style="color:#F39C12">1</span><span style="color:#D5CED9">);</span></span>
+<span class="line"><span style="color:#00E8C6">console</span><span style="color:#D5CED9">.</span><span style="color:#FFE66D">log</span><span style="color:#D5CED9">(</span><span style="color:#FFE66D">bindOne</span><span style="color:#D5CED9">(</span><span style="color:#F39C12">2</span><span style="color:#D5CED9">, </span><span style="color:#F39C12">3</span><span style="color:#D5CED9">));</span></span>
+<span class="line"></span></code></pre>
+<ul class="remark-unordered-list">
+<li>但是这会直接改变 this 的指向</li>
+</ul>
+<blockquote>
+<p>手动实现</p>
+</blockquote>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-ts"><span class="line"><span style="color:#C74DED">function</span><span style="color:#FFE66D"> partical</span><span style="color:#D5CED9">(</span><span style="color:#FFE66D">fn</span><span style="color:#EE5D43">:</span><span style="color:#FFE66D"> Function</span><span style="color:#D5CED9">, </span><span style="color:#EE5D43">...</span><span style="color:#00E8C6">args</span><span style="color:#EE5D43">:</span><span style="color:#D5CED9"> any[])</span><span style="color:#EE5D43">:</span><span style="color:#FFE66D"> Function</span><span style="color:#D5CED9"> {</span></span>
+<span class="line"><span style="color:#C74DED">  return</span><span style="color:#C74DED"> function</span><span style="color:#D5CED9"> (</span><span style="color:#EE5D43">...</span><span style="color:#00E8C6">moreArgs</span><span style="color:#EE5D43">:</span><span style="color:#D5CED9"> any[]) {</span></span>
+<span class="line"><span style="color:#C74DED">    return</span><span style="color:#FFE66D"> fn</span><span style="color:#D5CED9">(</span><span style="color:#EE5D43">...</span><span style="color:#00E8C6">args</span><span style="color:#D5CED9">, </span><span style="color:#EE5D43">...</span><span style="color:#00E8C6">moreArgs</span><span style="color:#D5CED9">);</span></span>
+<span class="line"><span style="color:#D5CED9">  };</span></span>
+<span class="line"><span style="color:#D5CED9">}</span></span>
+<span class="line"></span></code></pre>
+<h2 id="惰性函数">惰性函数<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#惰性函数"></a></h2>
+<blockquote>
+<p>惰性函数就是说函数执行一次后，之后调用函数都是相同的作用，直接返回第一次执行函数。很多时候只需要执行一次，因为之后每次调用函数执行的结果都一样。所以如果函数语句不必每次执行，我们可以使用称之为惰性函数的技巧来进行优化。</p>
+</blockquote>
+<ul class="remark-unordered-list">
+<li>如果我们现在需要写一个 foo 函数，这个函数返回首次调用时的 Date
+对象，注意是首次</li>
+</ul>
+<ul class="remark-ordered-list">
+<li>
+<p>闭包的写法</p>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-ts"><span class="line"><span style="color:#C74DED">let</span><span style="color:#FFE66D"> foo</span><span style="color:#EE5D43">:</span><span style="color:#D5CED9"> () </span><span style="color:#C74DED">=></span><span style="color:#FFE66D"> Function</span><span style="color:#EE5D43"> =</span><span style="color:#C74DED"> function</span><span style="color:#D5CED9"> () {</span></span>
+<span class="line"><span style="color:#C74DED">  let</span><span style="color:#00E8C6"> time</span><span style="color:#EE5D43">:</span><span style="color:#FFE66D"> Date</span><span style="color:#EE5D43"> =</span><span style="color:#EE5D43"> new</span><span style="color:#FFE66D"> Date</span><span style="color:#D5CED9">();</span></span>
+<span class="line"><span style="color:#C74DED">  return</span><span style="color:#C74DED"> function</span><span style="color:#D5CED9"> () {</span></span>
+<span class="line"><span style="color:#C74DED">    if</span><span style="color:#D5CED9"> (</span><span style="color:#00E8C6">time</span><span style="color:#D5CED9">) </span><span style="color:#00E8C6">time</span><span style="color:#D5CED9">;</span></span>
+<span class="line"><span style="color:#C74DED">    return</span><span style="color:#00E8C6"> time</span><span style="color:#D5CED9">;</span></span>
+<span class="line"><span style="color:#D5CED9">  };</span></span>
+<span class="line"><span style="color:#D5CED9">};</span></span>
+<span class="line"></span></code></pre>
+</li>
+<li>
+<p>惰性函数：惰性函数就是解决每次都要进行判断的这个问题，解决原理很简单，重写函数</p>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-ts"><span class="line"><span style="color:#C74DED">let</span><span style="color:#FFE66D"> foo</span><span style="color:#EE5D43">:</span><span style="color:#D5CED9"> () </span><span style="color:#C74DED">=></span><span style="color:#FFE66D"> Function</span><span style="color:#EE5D43"> |</span><span style="color:#FFE66D"> Date</span><span style="color:#EE5D43"> =</span><span style="color:#C74DED"> function</span><span style="color:#D5CED9"> () {</span></span>
+<span class="line"><span style="color:#C74DED">  let</span><span style="color:#00E8C6"> time</span><span style="color:#EE5D43">:</span><span style="color:#FFE66D"> Date</span><span style="color:#EE5D43"> =</span><span style="color:#EE5D43"> new</span><span style="color:#FFE66D"> Date</span><span style="color:#D5CED9">();</span></span>
+<span class="line"><span style="color:#FFE66D">  foo</span><span style="color:#EE5D43"> =</span><span style="color:#C74DED"> function</span><span style="color:#D5CED9"> () {</span></span>
+<span class="line"><span style="color:#C74DED">    return</span><span style="color:#00E8C6"> time</span><span style="color:#D5CED9">;</span></span>
+<span class="line"><span style="color:#D5CED9">  };</span></span>
+<span class="line"><span style="color:#C74DED">  return</span><span style="color:#FFE66D"> foo</span><span style="color:#D5CED9">();</span></span>
+<span class="line"><span style="color:#D5CED9">};</span></span>
+<span class="line"></span></code></pre>
+</li>
+</ul>
+<h3 id="惰性求值-lazy-evaluation">惰性求值 (Lazy evaluation)<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#惰性求值-lazy-evaluation"></a></h3>
+<blockquote>
+<p>按需求值机制，只有当需要计算所得值时才会计算</p>
+</blockquote>
+<ul class="remark-unordered-list">
+<li>利用生成器机制可以很容易写出</li>
+</ul>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-ts"><span class="line"><span style="color:#C74DED">const</span><span style="color:#FFE66D"> rand</span><span style="color:#EE5D43"> =</span><span style="color:#C74DED"> function*</span><span style="color:#D5CED9"> () {</span></span>
+<span class="line"><span style="color:#C74DED">  while</span><span style="color:#D5CED9"> (</span><span style="color:#EE5D43">true</span><span style="color:#D5CED9">) {</span></span>
+<span class="line"><span style="color:#C74DED">    yield</span><span style="color:#00E8C6"> Math</span><span style="color:#D5CED9">.</span><span style="color:#FFE66D">random</span><span style="color:#D5CED9">();</span></span>
+<span class="line"><span style="color:#D5CED9">  }</span></span>
+<span class="line"><span style="color:#D5CED9">};</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#C74DED">const</span><span style="color:#00E8C6"> randIter</span><span style="color:#EE5D43"> =</span><span style="color:#FFE66D"> rand</span><span style="color:#D5CED9">();</span></span>
+<span class="line"><span style="color:#00E8C6">randIter</span><span style="color:#D5CED9">.</span><span style="color:#FFE66D">next</span><span style="color:#D5CED9">();</span></span>
+<span class="line"></span></code></pre>
+<h2 id="纯函数-purity">纯函数 (Purity)<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#纯函数-purity"></a></h2>
+<ul class="remark-ordered-list">
+<li>应始终返回相同的值。不管调用该函数多少次，或者什么时候调用都是一样的</li>
+<li>自包含 (不包含全局变量)</li>
+<li>不应修改程序的状态或引起副作用 (修改全局变量)</li>
+</ul>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-ts"><span class="line"><span style="color:#A0A1A7CC">//纯函数</span></span>
+<span class="line"><span style="color:#C74DED">const</span><span style="color:#FFE66D"> greet</span><span style="color:#EE5D43"> =</span><span style="color:#D5CED9"> (</span><span style="color:#00E8C6">name</span><span style="color:#EE5D43">:</span><span style="color:#D5CED9"> string) </span><span style="color:#C74DED">=></span><span style="color:#96E072"> `hello, </span><span style="color:#F92672">${</span><span style="color:#00E8C6">name</span><span style="color:#F92672">}</span><span style="color:#96E072">`</span><span style="color:#D5CED9">;</span></span>
+<span class="line"><span style="color:#FFE66D">greet</span><span style="color:#D5CED9">(</span><span style="color:#96E072">"world"</span><span style="color:#D5CED9">);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#A0A1A7CC">//不是纯函数，修改了外部的状态</span></span>
+<span class="line"><span style="color:#C74DED">let</span><span style="color:#00E8C6"> greeting</span><span style="color:#EE5D43">:</span><span style="color:#D5CED9"> string;</span></span>
+<span class="line"><span style="color:#C74DED">const</span><span style="color:#FFE66D"> greet</span><span style="color:#EE5D43"> =</span><span style="color:#D5CED9"> (</span><span style="color:#00E8C6">name</span><span style="color:#EE5D43">:</span><span style="color:#D5CED9"> string) </span><span style="color:#C74DED">=></span><span style="color:#D5CED9"> {</span></span>
+<span class="line"><span style="color:#00E8C6">  greeting</span><span style="color:#EE5D43"> =</span><span style="color:#96E072"> `hello, </span><span style="color:#F92672">${</span><span style="color:#00E8C6">name</span><span style="color:#F92672">}</span><span style="color:#96E072">`</span><span style="color:#D5CED9">;</span></span>
+<span class="line"><span style="color:#D5CED9">};</span></span>
+<span class="line"><span style="color:#FFE66D">greet</span><span style="color:#D5CED9">(</span><span style="color:#96E072">"world"</span><span style="color:#D5CED9">);</span></span>
+<span class="line"></span></code></pre>
+<blockquote>
+<p>副作用 (Side effects):如果函数与外部可变状态进行交互，则它就是具有副作用的</p>
+</blockquote>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-ts"><span class="line"><span style="color:#A0A1A7CC">//Date 对象就是一个很常见的具有副作用的函数</span></span>
+<span class="line"><span style="color:#C74DED">const</span><span style="color:#00E8C6"> differentEveryTime</span><span style="color:#EE5D43"> =</span><span style="color:#EE5D43"> new</span><span style="color:#FFE66D"> Date</span><span style="color:#D5CED9">();</span></span>
+<span class="line"></span></code></pre>
+<h2 id="幂等性">幂等性<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#幂等性"></a></h2>
+<blockquote>
+<p>幂等性和纯函数还是有很大区别的，甚至说可以说是毫无无关系</p>
+</blockquote>
+<ul class="remark-ordered-list">
+<li>幂等性函数可以具有副作用</li>
+<li>函数执行多次返回相同的结果 (<code>f(f(x))=f(x)</code>),则此函数具有幂等性</li>
+</ul>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-ts"><span class="line"><span style="color:#00E8C6">Math</span><span style="color:#D5CED9">.</span><span style="color:#FFE66D">abs</span><span style="color:#D5CED9">(</span><span style="color:#00E8C6">Math</span><span style="color:#D5CED9">.</span><span style="color:#FFE66D">abs</span><span style="color:#D5CED9">(</span><span style="color:#EE5D43">-</span><span style="color:#F39C12">10</span><span style="color:#D5CED9">));</span></span>
+<span class="line"></span></code></pre>
+<h2 id="函数组合-function-composing">函数组合 (Function Composing)<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#函数组合-function-composing"></a></h2>
+<blockquote>
+<p>接收多个函数作为参数，从右到左，一个函数的输入为以一个函数的输出</p>
+</blockquote>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-ts"><span class="line"><span style="color:#C74DED">const</span><span style="color:#00E8C6"> compose</span><span style="color:#EE5D43"> =</span></span>
+<span class="line"><span style="color:#D5CED9">  (</span><span style="color:#FFE66D">f</span><span style="color:#EE5D43">:</span><span style="color:#FFE66D"> Function</span><span style="color:#D5CED9">, </span><span style="color:#FFE66D">g</span><span style="color:#EE5D43">:</span><span style="color:#FFE66D"> Function</span><span style="color:#D5CED9">)</span><span style="color:#EE5D43">:</span><span style="color:#FFE66D"> Function</span><span style="color:#C74DED"> =></span><span style="color:#D5CED9"> (</span><span style="color:#FFE66D">a</span><span style="color:#EE5D43">:</span><span style="color:#FFE66D"> Function</span><span style="color:#D5CED9">)</span><span style="color:#EE5D43">:</span><span style="color:#FFE66D"> Function</span><span style="color:#C74DED"> =></span><span style="color:#FFE66D"> f</span><span style="color:#D5CED9">(</span><span style="color:#FFE66D">g</span><span style="color:#D5CED9">(</span><span style="color:#00E8C6">a</span><span style="color:#D5CED9">));</span></span>
+<span class="line"></span></code></pre>
+<ul class="remark-unordered-list">
+<li>做一个反转函数，并且获取第一个索引的例子</li>
+</ul>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-ts"><span class="line"><span style="color:#A0A1A7CC">//不能确定返回索引的类型，可以使用泛型，这里就用 any 了</span></span>
+<span class="line"><span style="color:#C74DED">function</span><span style="color:#FFE66D"> first</span><span style="color:#D5CED9">&#x3C;</span><span style="color:#FFE66D">T</span><span style="color:#D5CED9">>(</span><span style="color:#00E8C6">arr</span><span style="color:#EE5D43">:</span><span style="color:#FFE66D"> T</span><span style="color:#D5CED9">[])</span><span style="color:#EE5D43">:</span><span style="color:#D5CED9"> any {</span></span>
+<span class="line"><span style="color:#C74DED">  return</span><span style="color:#00E8C6"> arr</span><span style="color:#D5CED9">[</span><span style="color:#F39C12">0</span><span style="color:#D5CED9">];</span></span>
+<span class="line"><span style="color:#D5CED9">}</span></span>
+<span class="line"><span style="color:#C74DED">function</span><span style="color:#FFE66D"> reverse</span><span style="color:#D5CED9">&#x3C;</span><span style="color:#FFE66D">T</span><span style="color:#D5CED9">>(</span><span style="color:#00E8C6">arr</span><span style="color:#EE5D43">:</span><span style="color:#FFE66D"> T</span><span style="color:#D5CED9">[])</span><span style="color:#EE5D43">:</span><span style="color:#FFE66D"> T</span><span style="color:#D5CED9">[] {</span></span>
+<span class="line"><span style="color:#C74DED">  return</span><span style="color:#00E8C6"> arr</span><span style="color:#D5CED9">.</span><span style="color:#FFE66D">reverse</span><span style="color:#D5CED9">();</span></span>
+<span class="line"><span style="color:#D5CED9">}</span></span>
+<span class="line"><span style="color:#C74DED">let</span><span style="color:#00E8C6"> last</span><span style="color:#EE5D43"> =</span><span style="color:#FFE66D"> compose</span><span style="color:#D5CED9">(</span><span style="color:#00E8C6">first</span><span style="color:#D5CED9">, </span><span style="color:#00E8C6">reverse</span><span style="color:#D5CED9">);</span></span>
+<span class="line"><span style="color:#00E8C6">console</span><span style="color:#D5CED9">.</span><span style="color:#FFE66D">log</span><span style="color:#D5CED9">(</span><span style="color:#FFE66D">last</span><span style="color:#D5CED9">([</span><span style="color:#F39C12">1</span><span style="color:#D5CED9">, </span><span style="color:#F39C12">2</span><span style="color:#D5CED9">, </span><span style="color:#F39C12">3</span><span style="color:#D5CED9">, </span><span style="color:#F39C12">4</span><span style="color:#D5CED9">, </span><span style="color:#F39C12">5</span><span style="color:#D5CED9">]));</span></span>
+<span class="line"></span></code></pre>
+<blockquote>
+<p>当然 redux 给出了一个更好的实现 (将函数的个数情况也考虑周全了)</p>
+</blockquote>
+<ul class="remark-unordered-list">
+<li>其实还有一个问题就是在闭包中写泛型其实是没有检查的效果</li>
+</ul>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-ts"><span class="line"><span style="color:#C74DED">function</span><span style="color:#FFE66D"> compose</span><span style="color:#D5CED9">(</span><span style="color:#EE5D43">...</span><span style="color:#FFE66D">fns</span><span style="color:#EE5D43">:</span><span style="color:#FFE66D"> Function</span><span style="color:#D5CED9">[]) {</span></span>
+<span class="line"><span style="color:#C74DED">  if</span><span style="color:#D5CED9"> (</span><span style="color:#00E8C6">fns</span><span style="color:#D5CED9">.</span><span style="color:#00E8C6">length</span><span style="color:#EE5D43"> ===</span><span style="color:#F39C12"> 0</span><span style="color:#D5CED9">) {</span></span>
+<span class="line"><span style="color:#C74DED">    return</span><span style="color:#D5CED9"> (</span><span style="color:#FFE66D">arg</span><span style="color:#EE5D43">:</span><span style="color:#FFE66D"> Function</span><span style="color:#D5CED9">) </span><span style="color:#C74DED">=></span><span style="color:#00E8C6"> arg</span><span style="color:#D5CED9">;</span></span>
+<span class="line"><span style="color:#D5CED9">  }</span></span>
+<span class="line"><span style="color:#C74DED">  if</span><span style="color:#D5CED9"> (</span><span style="color:#00E8C6">fns</span><span style="color:#D5CED9">.</span><span style="color:#00E8C6">length</span><span style="color:#EE5D43"> ===</span><span style="color:#F39C12"> 1</span><span style="color:#D5CED9">) {</span></span>
+<span class="line"><span style="color:#C74DED">    return</span><span style="color:#00E8C6"> fns</span><span style="color:#D5CED9">[</span><span style="color:#F39C12">0</span><span style="color:#D5CED9">];</span></span>
+<span class="line"><span style="color:#D5CED9">  }</span></span>
+<span class="line"><span style="color:#C74DED">  return</span><span style="color:#00E8C6"> fns</span><span style="color:#D5CED9">.</span><span style="color:#FFE66D">reduce</span><span style="color:#D5CED9">(</span></span>
+<span class="line"><span style="color:#D5CED9">    (</span><span style="color:#00E8C6">a</span><span style="color:#D5CED9">, </span><span style="color:#00E8C6">b</span><span style="color:#D5CED9">) </span><span style="color:#C74DED">=></span></span>
+<span class="line"><span style="color:#A0A1A7CC">    //Writing a type here won't do any good</span></span>
+<span class="line"><span style="color:#D5CED9">    &#x3C;</span><span style="color:#FFE66D">T</span><span style="color:#D5CED9">>(</span><span style="color:#EE5D43">...</span><span style="color:#00E8C6">args</span><span style="color:#EE5D43">:</span><span style="color:#FFE66D"> T</span><span style="color:#D5CED9">[])</span><span style="color:#EE5D43">:</span><span style="color:#FFE66D"> Function</span><span style="color:#C74DED"> =></span><span style="color:#FFE66D"> a</span><span style="color:#D5CED9">(</span><span style="color:#FFE66D">b</span><span style="color:#D5CED9">(</span><span style="color:#EE5D43">...</span><span style="color:#00E8C6">args</span><span style="color:#D5CED9">)),</span></span>
+<span class="line"><span style="color:#D5CED9">  );</span></span>
+<span class="line"><span style="color:#D5CED9">}</span></span>
+<span class="line"></span></code></pre>
+<h3 id="生成器的方式">生成器的方式<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#生成器的方式"></a></h3>
+<blockquote>
+<p>实现 <code>map</code>
+映射函数，由于生成器的<code>yield</code>接受的是上一次的结果，所以第一次的迭代效果是无效的</p>
+</blockquote>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-ts"><span class="line"><span style="color:#C74DED">function*</span><span style="color:#FFE66D"> genMap</span><span style="color:#D5CED9">(</span><span style="color:#FFE66D">iteratee</span><span style="color:#EE5D43">:</span><span style="color:#FFE66D"> Function</span><span style="color:#D5CED9">)</span><span style="color:#EE5D43">:</span><span style="color:#FFE66D"> Generator</span><span style="color:#D5CED9">&#x3C;string </span><span style="color:#EE5D43">|</span><span style="color:#D5CED9"> null, any> {</span></span>
+<span class="line"><span style="color:#C74DED">  let</span><span style="color:#00E8C6"> input</span><span style="color:#EE5D43"> =</span><span style="color:#C74DED"> yield</span><span style="color:#EE5D43"> null</span><span style="color:#D5CED9">;</span></span>
+<span class="line"><span style="color:#C74DED">  while</span><span style="color:#D5CED9"> (</span><span style="color:#EE5D43">true</span><span style="color:#D5CED9">) {</span></span>
+<span class="line"><span style="color:#00E8C6">    input</span><span style="color:#EE5D43"> =</span><span style="color:#C74DED"> yield</span><span style="color:#FFE66D"> iteratee</span><span style="color:#D5CED9">(</span><span style="color:#00E8C6">input</span><span style="color:#D5CED9">);</span></span>
+<span class="line"><span style="color:#D5CED9">  }</span></span>
+<span class="line"><span style="color:#D5CED9">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#C74DED">const</span><span style="color:#00E8C6"> gen</span><span style="color:#EE5D43"> =</span><span style="color:#FFE66D"> genMap</span><span style="color:#D5CED9">((</span><span style="color:#00E8C6">x</span><span style="color:#EE5D43">:</span><span style="color:#D5CED9"> string) </span><span style="color:#C74DED">=></span><span style="color:#00E8C6"> x</span><span style="color:#D5CED9">.</span><span style="color:#FFE66D">toUpperCase</span><span style="color:#D5CED9">());</span></span>
+<span class="line"><span style="color:#C74DED">const</span><span style="color:#00E8C6"> arr</span><span style="color:#EE5D43"> =</span><span style="color:#D5CED9"> [</span><span style="color:#96E072">"a"</span><span style="color:#D5CED9">, </span><span style="color:#96E072">"b"</span><span style="color:#D5CED9">, </span><span style="color:#96E072">"c"</span><span style="color:#D5CED9">];</span></span>
+<span class="line"><span style="color:#00E8C6">console</span><span style="color:#D5CED9">.</span><span style="color:#FFE66D">log</span><span style="color:#D5CED9">(</span><span style="color:#00E8C6">gen</span><span style="color:#D5CED9">.</span><span style="color:#FFE66D">next</span><span style="color:#D5CED9">());</span></span>
+<span class="line"><span style="color:#C74DED">for</span><span style="color:#D5CED9"> (</span><span style="color:#C74DED">let</span><span style="color:#00E8C6"> i</span><span style="color:#EE5D43"> of</span><span style="color:#00E8C6"> arr</span><span style="color:#D5CED9">) {</span></span>
+<span class="line"><span style="color:#00E8C6">  console</span><span style="color:#D5CED9">.</span><span style="color:#FFE66D">log</span><span style="color:#D5CED9">(</span><span style="color:#00E8C6">gen</span><span style="color:#D5CED9">.</span><span style="color:#FFE66D">next</span><span style="color:#D5CED9">(</span><span style="color:#00E8C6">i</span><span style="color:#D5CED9">));</span></span>
+<span class="line"><span style="color:#D5CED9">}</span></span>
+<span class="line"></span></code></pre>
+<ul class="remark-unordered-list">
+<li>这种效率是比较低的，并且第一次是浪费的</li>
+</ul>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-ts"><span class="line"><span style="color:#C74DED">function*</span><span style="color:#FFE66D"> genMap</span><span style="color:#D5CED9">(</span></span>
+<span class="line"><span style="color:#00E8C6">  iterable</span><span style="color:#EE5D43">:</span><span style="color:#FFE66D"> Iterable</span><span style="color:#D5CED9">&#x3C;any>,</span></span>
+<span class="line"><span style="color:#FFE66D">  iteratee</span><span style="color:#EE5D43">:</span><span style="color:#FFE66D"> Function</span><span style="color:#D5CED9">,</span></span>
+<span class="line"><span style="color:#D5CED9">)</span><span style="color:#EE5D43">:</span><span style="color:#FFE66D"> Generator</span><span style="color:#D5CED9">&#x3C;string </span><span style="color:#EE5D43">|</span><span style="color:#D5CED9"> null, any> {</span></span>
+<span class="line"><span style="color:#C74DED">  for</span><span style="color:#D5CED9"> (</span><span style="color:#C74DED">let</span><span style="color:#00E8C6"> i</span><span style="color:#EE5D43"> of</span><span style="color:#00E8C6"> iterable</span><span style="color:#D5CED9">) {</span></span>
+<span class="line"><span style="color:#C74DED">    yield</span><span style="color:#FFE66D"> iteratee</span><span style="color:#D5CED9">(</span><span style="color:#00E8C6">i</span><span style="color:#D5CED9">);</span></span>
+<span class="line"><span style="color:#D5CED9">  }</span></span>
+<span class="line"><span style="color:#D5CED9">}</span></span>
+<span class="line"><span style="color:#C74DED">const</span><span style="color:#00E8C6"> gen</span><span style="color:#EE5D43"> =</span><span style="color:#FFE66D"> genMap</span><span style="color:#D5CED9">([</span><span style="color:#96E072">"a"</span><span style="color:#D5CED9">, </span><span style="color:#96E072">"b"</span><span style="color:#D5CED9">, </span><span style="color:#96E072">"c"</span><span style="color:#D5CED9">], (</span><span style="color:#00E8C6">x</span><span style="color:#EE5D43">:</span><span style="color:#D5CED9"> string) </span><span style="color:#C74DED">=></span><span style="color:#00E8C6"> x</span><span style="color:#D5CED9">.</span><span style="color:#FFE66D">toUpperCase</span><span style="color:#D5CED9">());</span></span>
+<span class="line"></span></code></pre>
+<blockquote>
+<p>使用 <code>yield*</code> 来调用另一个生成器的方式来进行函数组合，
+<code>iterable</code>会不停的叠加作用域</p>
+</blockquote>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-ts"><span class="line"><span style="color:#C74DED">function*</span><span style="color:#FFE66D"> genCompose</span><span style="color:#D5CED9">(</span></span>
+<span class="line"><span style="color:#00E8C6">  iterable</span><span style="color:#EE5D43">:</span><span style="color:#FFE66D"> Iterable</span><span style="color:#D5CED9">&#x3C;any>,</span></span>
+<span class="line"><span style="color:#EE5D43">  ...</span><span style="color:#FFE66D">fns</span><span style="color:#EE5D43">:</span><span style="color:#FFE66D"> Function</span><span style="color:#D5CED9">[]</span></span>
+<span class="line"><span style="color:#D5CED9">)</span><span style="color:#EE5D43">:</span><span style="color:#FFE66D"> Generator</span><span style="color:#D5CED9">&#x3C;any, any, any> {</span></span>
+<span class="line"><span style="color:#C74DED">  for</span><span style="color:#D5CED9"> (</span><span style="color:#C74DED">let</span><span style="color:#00E8C6"> fn</span><span style="color:#EE5D43"> of</span><span style="color:#00E8C6"> fns</span><span style="color:#D5CED9">) {</span></span>
+<span class="line"><span style="color:#00E8C6">    iterable</span><span style="color:#EE5D43"> =</span><span style="color:#FFE66D"> genMap</span><span style="color:#D5CED9">(</span><span style="color:#00E8C6">iterable</span><span style="color:#D5CED9">, </span><span style="color:#00E8C6">fn</span><span style="color:#D5CED9">);</span></span>
+<span class="line"><span style="color:#D5CED9">  }</span></span>
+<span class="line"><span style="color:#C74DED">  yield*</span><span style="color:#00E8C6"> iterable</span><span style="color:#D5CED9">;</span></span>
+<span class="line"><span style="color:#D5CED9">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#C74DED">const</span><span style="color:#00E8C6"> composed</span><span style="color:#EE5D43"> =</span><span style="color:#FFE66D"> genCompose</span><span style="color:#D5CED9">(</span></span>
+<span class="line"><span style="color:#D5CED9">  [</span><span style="color:#F39C12">1</span><span style="color:#D5CED9">, </span><span style="color:#F39C12">2</span><span style="color:#D5CED9">, </span><span style="color:#F39C12">3</span><span style="color:#D5CED9">],</span></span>
+<span class="line"><span style="color:#D5CED9">  (</span><span style="color:#00E8C6">x</span><span style="color:#EE5D43">:</span><span style="color:#D5CED9"> number) </span><span style="color:#C74DED">=></span><span style="color:#00E8C6"> x</span><span style="color:#EE5D43"> +</span><span style="color:#F39C12"> 1</span><span style="color:#D5CED9">,</span></span>
+<span class="line"><span style="color:#D5CED9">  (</span><span style="color:#00E8C6">x</span><span style="color:#EE5D43">:</span><span style="color:#D5CED9"> number) </span><span style="color:#C74DED">=></span><span style="color:#00E8C6"> x</span><span style="color:#EE5D43"> *</span><span style="color:#00E8C6"> x</span><span style="color:#D5CED9">,</span></span>
+<span class="line"><span style="color:#D5CED9">  (</span><span style="color:#00E8C6">x</span><span style="color:#EE5D43">:</span><span style="color:#D5CED9"> number) </span><span style="color:#C74DED">=></span><span style="color:#00E8C6"> x</span><span style="color:#EE5D43"> -</span><span style="color:#F39C12"> 2</span><span style="color:#D5CED9">,</span></span>
+<span class="line"><span style="color:#D5CED9">);</span></span>
+<span class="line"></span></code></pre>
+<h3 id="pointfree"><a href="https://www.ruanyifeng.com/blog/2017/03/pointfree.html">Pointfree</a><a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#pointfree"></a></h3>
+<blockquote>
+<p>这是函数式编程的答案，利用函数组合和柯里化可以达到一个很好的函数式效果</p>
+</blockquote>
+<ul class="remark-unordered-list">
+<li><a href="https://ramdajs.com/">ramda</a>中所有的函数都支持柯里化</li>
+<li>阮老师的教程:<a href="https://www.ruanyifeng.com/blog/2017/03/ramda.html">https://www.ruanyifeng.com/blog/2017/03/ramda.html</a></li>
+</ul>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-js"><span class="line"><span style="color:#A0A1A7CC">//ramda</span></span>
+<span class="line"><span style="color:#00E8C6">fn</span><span style="color:#EE5D43"> =</span><span style="color:#00E8C6"> R</span><span style="color:#D5CED9">.</span><span style="color:#FFE66D">pipe</span><span style="color:#D5CED9">(</span><span style="color:#00E8C6">f1</span><span style="color:#D5CED9">, </span><span style="color:#00E8C6">f2</span><span style="color:#D5CED9">, </span><span style="color:#00E8C6">f3</span><span style="color:#D5CED9">);</span></span>
+<span class="line"></span></code></pre>
+<ul class="remark-unordered-list">
+<li>定义<code>f1</code>,<code>f2</code>,<code>f3</code>可以推算出<code>fn</code>.整个过程中。根本不需要知到其中的参数变化</li>
+<li>换一种当时可以理解为，只需要将一些简单的步骤合成到一起，定义成一种参数无关的合成运算</li>
+<li>这种风格就是<code>Pointfree</code>.例如上面的例子就是一个<code>Pointfree</code></li>
+</ul>
+<blockquote>
+<p><code>Pointfree</code>的本质就是使用一些通用的函数，组合除各种复杂的运算.shang 层运算不直接操作数据</p>
+</blockquote>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-ts"><span class="line"><span style="color:#C74DED">interface</span><span style="color:#FFE66D"> Iperson</span><span style="color:#D5CED9"> {</span></span>
+<span class="line"><span style="color:#00E8C6">  name</span><span style="color:#EE5D43">:</span><span style="color:#D5CED9"> string;</span></span>
+<span class="line"><span style="color:#00E8C6">  role</span><span style="color:#EE5D43">:</span><span style="color:#D5CED9"> string;</span></span>
+<span class="line"><span style="color:#D5CED9">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#C74DED">const</span><span style="color:#00E8C6"> data</span><span style="color:#EE5D43">:</span><span style="color:#FFE66D"> Iperson</span><span style="color:#D5CED9">[] </span><span style="color:#EE5D43">=</span><span style="color:#D5CED9"> [</span></span>
+<span class="line"><span style="color:#D5CED9">  { name: </span><span style="color:#96E072">"张三"</span><span style="color:#D5CED9">, role: </span><span style="color:#96E072">"worker"</span><span style="color:#D5CED9"> },</span></span>
+<span class="line"><span style="color:#D5CED9">  { name: </span><span style="color:#96E072">"李四"</span><span style="color:#D5CED9">, role: </span><span style="color:#96E072">"worker"</span><span style="color:#D5CED9"> },</span></span>
+<span class="line"><span style="color:#D5CED9">  { name: </span><span style="color:#96E072">"王五"</span><span style="color:#D5CED9">, role: </span><span style="color:#96E072">"manager"</span><span style="color:#D5CED9"> },</span></span>
+<span class="line"><span style="color:#D5CED9">];</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#C74DED">type</span><span style="color:#FFE66D"> Iper</span><span style="color:#EE5D43"> =</span><span style="color:#EE5D43"> keyof</span><span style="color:#FFE66D"> Iperson</span><span style="color:#D5CED9">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#C74DED">const</span><span style="color:#FFE66D"> isWorker</span><span style="color:#EE5D43"> =</span><span style="color:#D5CED9"> (</span><span style="color:#00E8C6">s</span><span style="color:#EE5D43">:</span><span style="color:#D5CED9"> string) </span><span style="color:#C74DED">=></span><span style="color:#00E8C6"> s</span><span style="color:#EE5D43"> ===</span><span style="color:#96E072"> "worker"</span><span style="color:#D5CED9">;</span></span>
+<span class="line"><span style="color:#A0A1A7CC">//定义查找角色的函数，在这里嵌套会增加耦合</span></span>
+<span class="line"><span style="color:#C74DED">const</span><span style="color:#FFE66D"> prop</span><span style="color:#EE5D43"> =</span><span style="color:#D5CED9"> (</span><span style="color:#00E8C6">p</span><span style="color:#EE5D43">:</span><span style="color:#FFE66D"> Iper</span><span style="color:#D5CED9">, </span><span style="color:#00E8C6">obj</span><span style="color:#EE5D43">:</span><span style="color:#FFE66D"> Iperson</span><span style="color:#D5CED9">) </span><span style="color:#C74DED">=></span><span style="color:#FFE66D"> isWorker</span><span style="color:#D5CED9">(</span><span style="color:#00E8C6">obj</span><span style="color:#D5CED9">[</span><span style="color:#00E8C6">p</span><span style="color:#D5CED9">]);</span></span>
+<span class="line"><span style="color:#A0A1A7CC">//指定读取 role 的值</span></span>
+<span class="line"><span style="color:#C74DED">const</span><span style="color:#00E8C6"> propRole</span><span style="color:#EE5D43"> =</span><span style="color:#FFE66D"> curry</span><span style="color:#D5CED9">(</span><span style="color:#00E8C6">prop</span><span style="color:#D5CED9">)(</span><span style="color:#96E072">"role"</span><span style="color:#D5CED9">);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#00E8C6">data</span><span style="color:#D5CED9">.</span><span style="color:#FFE66D">filter</span><span style="color:#D5CED9">(</span><span style="color:#00E8C6">propRole</span><span style="color:#D5CED9">);</span></span>
+<span class="line"></span></code></pre>
+<ul class="remark-unordered-list">
+<li>如果不适用<code>compose Function</code>会大大增加函数的耦合度。这就可以使用函数组合的思想降低耦合，避免洋葱模型</li>
+</ul>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-ts"><span class="line"><span style="color:#C74DED">const</span><span style="color:#FFE66D"> prop</span><span style="color:#EE5D43"> =</span><span style="color:#D5CED9"> (</span><span style="color:#00E8C6">p</span><span style="color:#EE5D43">:</span><span style="color:#FFE66D"> Iper</span><span style="color:#D5CED9">, </span><span style="color:#00E8C6">obj</span><span style="color:#EE5D43">:</span><span style="color:#FFE66D"> Iperson</span><span style="color:#D5CED9">) </span><span style="color:#C74DED">=></span><span style="color:#00E8C6"> obj</span><span style="color:#D5CED9">[</span><span style="color:#00E8C6">p</span><span style="color:#D5CED9">];</span></span>
+<span class="line"><span style="color:#00E8C6">console</span><span style="color:#D5CED9">.</span><span style="color:#FFE66D">log</span><span style="color:#D5CED9">(</span></span>
+<span class="line"><span style="color:#00E8C6">  data</span><span style="color:#D5CED9">.</span><span style="color:#FFE66D">filter</span><span style="color:#D5CED9">((</span><span style="color:#00E8C6">_</span><span style="color:#D5CED9">, </span><span style="color:#00E8C6">index</span><span style="color:#D5CED9">) </span><span style="color:#C74DED">=></span><span style="color:#FFE66D"> compose</span><span style="color:#D5CED9">(</span><span style="color:#00E8C6">isWorker</span><span style="color:#D5CED9">, </span><span style="color:#00E8C6">propRole</span><span style="color:#D5CED9">)(</span><span style="color:#00E8C6">data</span><span style="color:#D5CED9">[</span><span style="color:#00E8C6">index</span><span style="color:#D5CED9">])),</span></span>
+<span class="line"><span style="color:#D5CED9">);</span></span>
+<span class="line"></span></code></pre>
+<h2 id="函数记忆">函数记忆<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#函数记忆"></a></h2>
+<blockquote>
+<p>只要把参数和对应的结果数据存到一个对象中，调用时，判断参数对应的数据是否存在，存在就返回对应的值</p>
+</blockquote>
+<ul class="remark-unordered-list">
+<li>如果需要大量重复的计算又依赖于之前的计算，可以考虑函数记忆</li>
+<li>利用 Map,Set 或者是数组做字典都是一种函数记忆</li>
+<li>谨慎使用，消耗性很大</li>
+</ul>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-ts"><span class="line"><span style="color:#C74DED">const</span><span style="color:#FFE66D"> memoize</span><span style="color:#EE5D43"> =</span><span style="color:#C74DED"> function</span><span style="color:#D5CED9"> (</span><span style="color:#FFE66D">fn</span><span style="color:#EE5D43">:</span><span style="color:#FFE66D"> Function</span><span style="color:#D5CED9">, </span><span style="color:#FFE66D">hasher</span><span style="color:#EE5D43">?:</span><span style="color:#FFE66D"> Function</span><span style="color:#D5CED9">) {</span></span>
+<span class="line"><span style="color:#C74DED">  let</span><span style="color:#00E8C6"> cache</span><span style="color:#EE5D43">:</span><span style="color:#D5CED9"> any </span><span style="color:#EE5D43">=</span><span style="color:#D5CED9"> {};</span></span>
+<span class="line"><span style="color:#C74DED">  const</span><span style="color:#FFE66D"> menoize</span><span style="color:#EE5D43"> =</span><span style="color:#C74DED"> function</span><span style="color:#D5CED9"> (</span><span style="color:#EE5D43">...</span><span style="color:#00E8C6">args</span><span style="color:#EE5D43">:</span><span style="color:#D5CED9"> any[]) {</span></span>
+<span class="line"><span style="color:#C74DED">    const</span><span style="color:#00E8C6"> address</span><span style="color:#EE5D43"> =</span><span style="color:#96E072"> ""</span><span style="color:#EE5D43"> +</span><span style="color:#D5CED9"> (</span><span style="color:#00E8C6">hasher</span><span style="color:#EE5D43"> ?</span><span style="color:#00E8C6"> hasher</span><span style="color:#D5CED9">.</span><span style="color:#FFE66D">apply</span><span style="color:#D5CED9">(</span><span style="color:#EE5D43">null</span><span style="color:#D5CED9">, </span><span style="color:#00E8C6">args</span><span style="color:#D5CED9">) </span><span style="color:#EE5D43">:</span><span style="color:#00E8C6"> args</span><span style="color:#D5CED9">);</span></span>
+<span class="line"><span style="color:#C74DED">    if</span><span style="color:#D5CED9"> (</span><span style="color:#EE5D43">!</span><span style="color:#00E8C6">cache</span><span style="color:#D5CED9">[</span><span style="color:#00E8C6">address</span><span style="color:#D5CED9">]) {</span></span>
+<span class="line"><span style="color:#00E8C6">      cache</span><span style="color:#D5CED9">[</span><span style="color:#00E8C6">address</span><span style="color:#D5CED9">] </span><span style="color:#EE5D43">=</span><span style="color:#00E8C6"> fn</span><span style="color:#D5CED9">.</span><span style="color:#FFE66D">apply</span><span style="color:#D5CED9">(</span><span style="color:#EE5D43">null</span><span style="color:#D5CED9">, </span><span style="color:#00E8C6">args</span><span style="color:#D5CED9">);</span></span>
+<span class="line"><span style="color:#D5CED9">    }</span></span>
+<span class="line"><span style="color:#C74DED">    return</span><span style="color:#00E8C6"> cache</span><span style="color:#D5CED9">[</span><span style="color:#00E8C6">address</span><span style="color:#D5CED9">];</span></span>
+<span class="line"><span style="color:#D5CED9">  };</span></span>
+<span class="line"><span style="color:#C74DED">  return</span><span style="color:#00E8C6"> menoize</span><span style="color:#D5CED9">;</span></span>
+<span class="line"><span style="color:#D5CED9">};</span></span>
+<span class="line"></span></code></pre>
+<blockquote>
+<p>当然，抄袭<code>underscore</code>的使用 ts 重够了一下很快</p>
+</blockquote>
+<ul class="remark-unordered-list">
+<li>当没有 hansher(作为键的函数时),会让 args 作为键</li>
+</ul>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-ts"><span class="line"><span style="color:#C74DED">let</span><span style="color:#FFE66D"> add</span><span style="color:#EE5D43"> =</span><span style="color:#C74DED"> function</span><span style="color:#D5CED9"> (</span><span style="color:#00E8C6">a</span><span style="color:#EE5D43">:</span><span style="color:#D5CED9"> number, </span><span style="color:#00E8C6">b</span><span style="color:#EE5D43">:</span><span style="color:#D5CED9"> number, </span><span style="color:#00E8C6">c</span><span style="color:#EE5D43">:</span><span style="color:#D5CED9"> number) {</span></span>
+<span class="line"><span style="color:#C74DED">  return</span><span style="color:#00E8C6"> a</span><span style="color:#EE5D43"> +</span><span style="color:#00E8C6"> b</span><span style="color:#EE5D43"> +</span><span style="color:#00E8C6"> c</span><span style="color:#D5CED9">;</span></span>
+<span class="line"><span style="color:#D5CED9">};</span></span>
+<span class="line"><span style="color:#C74DED">let</span><span style="color:#00E8C6"> memoizedAdd</span><span style="color:#EE5D43"> =</span><span style="color:#FFE66D"> memoize</span><span style="color:#D5CED9">(</span><span style="color:#00E8C6">add</span><span style="color:#D5CED9">);</span></span>
+<span class="line"><span style="color:#00E8C6">console</span><span style="color:#D5CED9">.</span><span style="color:#FFE66D">log</span><span style="color:#D5CED9">(</span><span style="color:#FFE66D">memoizedAdd</span><span style="color:#D5CED9">(</span><span style="color:#F39C12">1</span><span style="color:#D5CED9">, </span><span style="color:#F39C12">2</span><span style="color:#D5CED9">, </span><span style="color:#F39C12">3</span><span style="color:#D5CED9">));</span></span>
+<span class="line"></span></code></pre>
+<blockquote>
+<p>测试一下是，没有问题的。但是我们如果想要使用一个生成键的函数<code>hasher</code></p>
+</blockquote>
+<ul class="remark-unordered-list">
+<li>如果并不想要数组的全部内容，可以使用 slice 截取数组中的第一个作为键</li>
+<li>当然也可以使用别的函数作为键</li>
+</ul>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-ts"><span class="line"><span style="color:#C74DED">const</span><span style="color:#00E8C6"> memoizedAdd</span><span style="color:#EE5D43"> =</span><span style="color:#FFE66D"> memoize</span><span style="color:#D5CED9">(</span><span style="color:#00E8C6">add</span><span style="color:#D5CED9">, </span><span style="color:#C74DED">function</span><span style="color:#D5CED9"> () {</span></span>
+<span class="line"><span style="color:#C74DED">  const</span><span style="color:#00E8C6"> args</span><span style="color:#EE5D43"> =</span><span style="color:#EE5D43"> Array</span><span style="color:#D5CED9">.</span><span style="color:#00E8C6">prototype</span><span style="color:#D5CED9">.</span><span style="color:#00E8C6">slice</span><span style="color:#D5CED9">.</span><span style="color:#FFE66D">call</span><span style="color:#D5CED9">(</span><span style="color:#00E8C6">arguments</span><span style="color:#D5CED9">, </span><span style="color:#F39C12">0</span><span style="color:#D5CED9">, </span><span style="color:#F39C12">1</span><span style="color:#D5CED9">);</span></span>
+<span class="line"><span style="color:#C74DED">  return</span><span style="color:#00E8C6"> JSON</span><span style="color:#D5CED9">.</span><span style="color:#FFE66D">stringify</span><span style="color:#D5CED9">(</span><span style="color:#00E8C6">args</span><span style="color:#D5CED9">);</span></span>
+<span class="line"><span style="color:#D5CED9">});</span></span>
+<span class="line"></span></code></pre>
+<div class="sponsor-container">
+  <button class="sponsor-btn">
+    <a href="https://stripe.fwqaaq.workers.dev/Personal-Website-Sponsor/checkout?mode=once" target="_blank" rel="noopener noreferrer" class="">
+      <span class="sponsor-icon">☕</span>
+      <span>请博主喝杯咖啡</span>
+  </a>
+  </button>
+</div>
+          </article>
+        </main><script src="https://giscus.app/client.js"
+        data-repo="fwqaaq/fwqaaq.github.io"
+        data-repo-id="R_kgDOHCFK2A"
+        data-category="Show and tell"
+        data-category-id="DIC_kwDOHCFK2M4CYOLh"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="1"
+        data-input-position="bottom"
+        data-theme="preferred_color_scheme"
+        data-lang="zh-CN"
+        crossorigin="anonymous"
+        async></script><footer class="blog-footer">
+  <div class="footer-container">
+    <p class="text-center"><a class="decoration-line"
+        href="https://creativecommons.org/licenses/by-sa/3.0/deed.zh-hans">© CC BY-SA</a> 2021 -
+      2025 <a class="decoration-line" href="https://github.com/fwqaaq">fwqaaq</a>.
+      Powered by <a class="decoration-line" href="https://deno.com">Deno</a>
+    </p>
+  </div>
+  <div class="footer-icons-container">
+    <a class="icon" href="https://github.com/fwqaaq">
+      <i class="fa-brands fa-github"></i>
+    </a>
+    <a class="icon" href="mailto:fwqaaq@gmail">
+      <i class="fa-solid fa-envelope"></i>
+    </a>
+    <a class="icon" href="https://www.fwqaaq.com/feed.xml">
+      <i class="fa-solid fa-rss"></i>
+    </a>
+    <a class="icon" href="https://t.me/fwqaaq">
+      <i class="fa-brands fa-telegram"></i>
+    </a>
+  </div>
+</footer>

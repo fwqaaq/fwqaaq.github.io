@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#F3F7F6">
+  <meta name="description" content="获取标签属性  - `console.dir`:打印标签的属性  > 获取 display:行内元素还是块级元素  ```js function getDisplay(obj) {...">
+  <meta name="keywords" content="HTML, JavaScript">
+  <meta name="author" content="fwqaaq">
+  <meta property="og:site_name" content="fwqaaq 的博客">
+  <meta property="og:locale" content="zh_CN">
+  <meta property="og:title" content="HTML5 标签">
+  <meta property="og:description" content="获取标签属性  - `console.dir`:打印标签的属性  > 获取 display:行内元素还是块级元素  ```js function getDisplay(obj) {...">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://www.fwqaaq.com//posts/20211031211540/">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="fwqaaq 的博客">
+  <meta name=application-name content="fwqaaq 的博客">
+  <meta name=apple-mobile-web-app-title content="fwqaaq 的博客">
+  <title>
+    HTML5 标签
+  </title>
+  <link rel="shortcut icon" href="/public/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="/public/css/base.849580.css">
+  <link rel="stylesheet" href="/public/css/index.849580.css">
+  <link rel="stylesheet" href="/public/css/markdown.849580.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+  <script src="/public/JavaScript/index.849580.js"></script>
+  <script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit" defer></script>
+</head>
+
+</html>
+<header class="blog-header">
+    <i id="switch-icon" class="fa-solid fa-bars"></i>
+    <a href="https://github.com/fwqaaq" target="_blank">
+        <img src="https://avatars.githubusercontent.com/u/82551626?v=4" loading="lazy" alt="me" srcset="">
+    </a>
+    <div class="wrap-background">
+        <nav class="header-nav">
+            <a class="decoration-line" href="/"><i class="fa-solid fa-house-chimney fa-xs"></i>
+                <span class="disappear">首页</span>
+            </a>
+            <a class="decoration-line" href="/./about/index.html"><i class="fa-solid fa-address-card fa-xs"></i>
+                <span class="disappear">关于</span></a>
+            <a class="decoration-line" href="/./archive/index.html"><i class="fa-solid fa-box-archive fa-xs"></i> <span
+                    class="disappear">归档</span></a>
+            <a class="decoration-line" href="/./tags/index.html"><i class="fa-solid fa-tag fa-xs"></i>
+                <span class="disappear">标签</span></a>
+            <a class="decoration-line" onclick="sponsor(199)">
+                <i class="fa-solid fa-circle-dollar-to-slot fa-xs"></i>
+                <span class="disappear">赞助</span></a>
+            <div class="language-switcher notranslate">
+                <button class="language-toggle" type="button" aria-label="切换语言" aria-expanded="false"
+                    aria-controls="language-menu">
+                    <i class="fa-solid fa-globe fa-xs" aria-hidden="true"></i>
+                    <span class="disappear" translate="yes">语言</span>
+                </button>
+                <div class="language-menu" id="language-menu" role="menu" hidden>
+                    <button class="language-option" type="button" role="menuitemradio" data-lang=""
+                        aria-checked="true">原文</button>
+                    <button class="language-option" type="button" role="menuitemradio" data-lang="en"
+                        aria-checked="false">English</button>
+                    <button class="language-option" type="button" role="menuitemradio" data-lang="ja"
+                        aria-checked="false">日本語</button>
+                    <button class="language-option" type="button" role="menuitemradio" data-lang="ko"
+                        aria-checked="false">한국어</button>
+                    <button class="language-option" type="button" role="menuitemradio" data-lang="fr"
+                        aria-checked="false">Français</button>
+                    <button class="language-option" type="button" role="menuitemradio" data-lang="de"
+                        aria-checked="false">Deutsch</button>
+                    <button class="language-option" type="button" role="menuitemradio" data-lang="es"
+                        aria-checked="false">Español</button>
+                    <button class="language-option" type="button" role="menuitemradio" data-lang="ru"
+                        aria-checked="false">Русский</button>
+                    <button class="language-option" type="button" role="menuitemradio" data-lang="zh-TW"
+                        aria-checked="false">繁體中文</button>
+                </div>
+            </div>
+            <div id="google_translate_element" class="google-translate-element notranslate" aria-hidden="true"></div>
+            <a class="decoration-line model" href="#" aria-label="切换深浅色主题"><i class="fa-solid fa-sun fa-xs"></i></a>
+        </nav>
+    </div>
+</header>
+        <main class="blog-main">
+          <article class="blog-article">
+            <h1>HTML5 标签</h1>
+          <div class="post-meta post-meta-flex-around">
+              <div class="post-author" href="/./about/"><i class="fa-solid fa-user"></i> fwqaaq</div> 
+              <div class="post-time"><i class="fa-solid fa-clock"></i> 2021-10-31</div> 
+              <div class="post-update-time"><i class="fa-solid fa-clock-rotate-left"></i> 2025-11-09</div>
+            </div>
+            <hr>
+            <details class="remark-toc-details"><summary class="remark-toc-summary">目录</summary><ul class="remark-toc">
+<li>
+<p><a href="#%E8%8E%B7%E5%8F%96%E6%A0%87%E7%AD%BE%E5%B1%9E%E6%80%A7">获取标签属性</a></p>
+</li>
+<li>
+<p><a href="#html5-%E7%9A%84%E6%A0%87%E8%AE%B0%E6%96%B9%E6%B3%95">html5 的标记方法</a></p>
+</li>
+<li>
+<p><a href="#%E6%9C%89%E5%85%B3%E5%85%BC%E5%AE%B9%E6%80%A7">有关兼容性</a></p>
+</li>
+<li>
+<p><a href="#html5-%E7%BB%93%E6%9E%84">html5 结构</a></p>
+</li>
+<li>
+<p><a href="#%E6%96%B0%E5%A2%9E%E7%9A%84%E5%85%83%E7%B4%A0">新增的元素</a></p>
+<ul>
+<li><a href="#%E6%96%B0%E5%A2%9E%E7%9A%84%E7%BB%93%E6%9E%84%E5%85%83%E7%B4%A0">新增的结构元素</a></li>
+<li><a href="#%E6%96%B0%E5%A2%9E%E7%9A%84%E9%9D%9E%E4%B8%BB%E4%BD%93%E7%BB%93%E6%9E%84%E5%85%83%E7%B4%A0">新增的非主体结构元素</a></li>
+<li><a href="#%E6%96%B0%E5%A2%9E%E7%9A%84%E5%85%B6%E5%AE%83%E5%85%83%E7%B4%A0">新增的其它元素</a></li>
+<li><a href="#%E6%96%B0%E5%A2%9E%E7%9A%84-input-%E7%B1%BB%E5%9E%8B">新增的 input 类型</a></li>
+<li><a href="#%E6%96%B0%E5%A2%9E%E7%9A%84%E5%B1%9E%E6%80%A7">新增的属性</a></li>
+<li><a href="#%E5%85%A8%E5%B1%80%E5%B1%9E%E6%80%A7">全局属性</a></li>
+</ul>
+</li>
+<li>
+<p><a href="#link%E6%A0%87%E7%AD%BE">&#x3C;link>标签</a></p>
+</li>
+</ul></details>
+<h2 id="获取标签属性">获取标签属性<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#获取标签属性"></a></h2>
+<ul class="remark-unordered-list">
+<li><code>console.dir</code>:打印标签的属性</li>
+</ul>
+<blockquote>
+<p>获取 display:行内元素还是块级元素</p>
+</blockquote>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-js"><span class="line"><span style="color:#C74DED">function</span><span style="color:#FFE66D"> getDisplay</span><span style="color:#D5CED9">(</span><span style="color:#00E8C6">obj</span><span style="color:#D5CED9">) {</span></span>
+<span class="line"><span style="color:#C74DED">  return</span><span style="color:#FFE66D"> getComputedStyle</span><span style="color:#D5CED9">(</span><span style="color:#00E8C6">obj</span><span style="color:#D5CED9">).</span><span style="color:#00E8C6">display</span><span style="color:#D5CED9">;</span></span>
+<span class="line"><span style="color:#D5CED9">}</span></span>
+<span class="line"><span style="color:#C74DED">const</span><span style="color:#00E8C6"> a</span><span style="color:#EE5D43"> =</span><span style="color:#F39C12"> document</span><span style="color:#D5CED9">.</span><span style="color:#FFE66D">getElementById</span><span style="color:#D5CED9">(</span><span style="color:#96E072">"name"</span><span style="color:#D5CED9">);</span></span>
+<span class="line"><span style="color:#F39C12">console</span><span style="color:#D5CED9">.</span><span style="color:#FFE66D">log</span><span style="color:#D5CED9">(</span><span style="color:#FFE66D">getDisplay</span><span style="color:#D5CED9">(</span><span style="color:#00E8C6">a</span><span style="color:#D5CED9">));</span></span>
+<span class="line"></span></code></pre>
+<h2 id="html5-的标记方法">html5 的标记方法<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#html5-的标记方法"></a></h2>
+<ul class="remark-unordered-list">
+<li>
+<p>html5 的内容类型</p>
+<ul class="remark-unordered-list">
+<li><code>ContentType</code>任然为<code>text/html</code></li>
+</ul>
+</li>
+<li>
+<p><code>DOCTYPE</code>声明</p>
+<ul class="remark-unordered-list">
+<li>&#x3C;!DOCTYPE html>:不需要指定版本</li>
+</ul>
+</li>
+<li>
+<p>指定字符编码</p>
+<ul class="remark-unordered-list">
+<li>&#x3C;meta charset="UTF-8">,可以直接追加 charest 属性的方式来指定</li>
+<li>注意：不能将 html4 中的<code>content</code>元素属性指定和 html5 中<code>charset</code>指定混写</li>
+</ul>
+</li>
+</ul>
+<h2 id="有关兼容性">有关兼容性<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#有关兼容性"></a></h2>
+<blockquote>
+<p>HTML5 的语法是为了保证之前的 HTML 语法达到最大的兼容性而设计</p>
+</blockquote>
+<ul class="remark-unordered-list">
+<li>
+<p>不允许写结束标记的元素：</p>
+<ul class="remark-unordered-list">
+<li>br,hr,img,input,link,meta...</li>
+</ul>
+</li>
+<li>
+<p>可以省略结束标记的元素：</p>
+<ul class="remark-unordered-list">
+<li>li,p,option,tr,td,th...</li>
+</ul>
+</li>
+<li>
+<p>可以省略全部标记的元素：</p>
+<ul class="remark-unordered-list">
+<li>html,body,head,colgroup,tbody.</li>
+</ul>
+</li>
+<li>
+<p>例：<code>&#x3C;br>...&#x3C;/br></code>是错误的，正确的是&#x3C;/br>,HTML  5 之前的&#x3C;br>也是可以的</p>
+</li>
+<li>
+<p>例：可以省略全部标记的元素，如将<code>body</code>元素省略不写，但是他在文档结构中还是存在，可以使用<code>document.html</code>访问到</p>
+</li>
+</ul>
+<blockquote>
+<p>具有<code>boolean</code>值的属性</p>
+</blockquote>
+<ul class="remark-unordered-list">
+<li>
+<p>设置属性为 true:</p>
+<ul class="remark-unordered-list">
+<li>不写属性值:&#x3C;input type="checkbox" checked></li>
+<li>属性值=属性名:&#x3C;input type="checkbox" checked="checked"></li>
+<li>属性值=空字符串:&#x3C;input type="checkbox" checked=""></li>
+</ul>
+</li>
+<li>
+<p>设置属性为 false:</p>
+<ul class="remark-unordered-list">
+<li>不写属性值:&#x3C;input type="checkbox"></li>
+</ul>
+</li>
+<li>
+<p><code>hidden</code>:元素的隐藏与显示。不会影响别的元素 (可以看做<code>display:none</code>的简写)</p>
+</li>
+<li>
+<p><code>contentEditable</code>:使元素变成可更改的。富文本操作的原理</p>
+<ul class="remark-unordered-list">
+<li><code>document.body.contentEditable=true</code>:使整个页面可更改</li>
+</ul>
+</li>
+</ul>
+<h2 id="html5-结构">html5 结构<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#html5-结构"></a></h2>
+<blockquote>
+<p>关于内容区块的编排，可以分为<strong>显示编排</strong>和<strong>隐式编排</strong></p>
+</blockquote>
+<ul class="remark-unordered-list">
+<li>显示编排值明确使用 section 等元素创建文档结构</li>
+<li>隐式编排值不明确使用 section 等元素</li>
+</ul>
+<blockquote>
+<p>标题分级</p>
+</blockquote>
+<ul class="remark-unordered-list">
+<li>隐式编排的规则
+<ul class="remark-unordered-list">
+<li>如果新出现的标题比上一个标题级别低，生成下级内容区块</li>
+<li>如果新出现的标题比上一个标题级别搞或相等，生成新的内容区块</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>不同内容的区块可以使用相同级别的标题</p>
+</blockquote>
+<ul class="remark-unordered-list">
+<li>父内容区块和子内容区块可以使用相同级别的标题，例如 h1
+<ul class="remark-unordered-list">
+<li>优点：每个级别的标题都可以单独设计</li>
+</ul>
+</li>
+</ul>
+<h2 id="新增的元素">新增的元素<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#新增的元素"></a></h2>
+<h3 id="新增的结构元素">新增的结构元素<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#新增的结构元素"></a></h3>
+<blockquote>
+<p>章节，页眉，页脚或页面中的其它部分，可以与 h1、h2、h3、h4、h5、h6</p>
+<p>取代的是&#x3C;div>...&#x3C;/div></p>
+</blockquote>
+<ul class="remark-ordered-list">
+<li>&#x3C;section>...&#x3C;/section>:<strong>分段分块</strong>
+<ul class="remark-unordered-list">
+<li>对网站或者应用程序中页面上的内容进行分块</li>
+<li>注意：
+<ul class="remark-unordered-list">
+<li>当一个容器需要被直接定义样式或者通过脚本定义行为是，推荐使用 div 而非 section</li>
+<li>不推荐为那些没有标题的内同使用 section</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>&#x3C;article>...&#x3C;/article>:<strong>强调独立性</strong>
+<ul class="remark-unordered-list">
+<li>代表文档，页面或者应用程序中独立的，完整的，可以独自被外部引用的内容</li>
+<li>可以为博客或报刊中的文中，独立的帖子，独立的插件或者任意独立的内容</li>
+<li>注意：
+<ul class="remark-ordered-list">
+<li>将所有页面从属部分，譬如导航条，菜单，版权说明等包含在一个统一的页面，以便统一使用 CSS 样式来进行装饰</li>
+<li>不要将 section 元素用作设置样式的页面容器，那是 div 元素的工作</li>
+<li>如果 article,aside 或 nav 更符合使用条件，不要使用 section 元素</li>
+<li>不要为没有标题的内容区块使用 section 元素</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>&#x3C;nav>...&#x3C;/nav> 取代的是:&#x3C;ul>&#x3C;/ul>
+<ul class="remark-unordered-list">
+<li>用作页面导航的链接组</li>
+<li>只需要将主要的，基本的链接组放进 nav 元素</li>
+<li>一个页面可以使用多个 nav</li>
+</ul>
+</li>
+<li>&#x3C;aside>...&#x3C;/aside>
+<ul class="remark-unordered-list">
+<li>表示当前页面的附属信息部分</li>
+<li>可以包含当前页面或主要内容相关的引用，侧边栏，广告等有别于主要内容</li>
+</ul>
+</li>
+<li>&#x3C;time>&#x3C;/time>：取代的&#x3C;span>&#x3C;/span>
+<ul class="remark-unordered-list">
+<li>表示 24 小时某个时刻或者某个日期</li>
+</ul>
+</li>
+</ul>
+<h3 id="新增的非主体结构元素">新增的非主体结构元素<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#新增的非主体结构元素"></a></h3>
+<ul class="remark-unordered-list">
+<li>&#x3C;header>...&#x3C;/header>
+<ul class="remark-unordered-list">
+<li>引导和导航作用的结构元素，通常防止整个页面或页面中的一个内容区块的标题</li>
+<li>例如数据表格，搜索表单或相关的 logo</li>
+</ul>
+</li>
+<li>&#x3C;hgroup>...&#x3C;/hgroup>
+<ul class="remark-unordered-list">
+<li>将标题极其子标题进行分组的元素</li>
+</ul>
+</li>
+<li>&#x3C;footer>...&#x3C;/footer>
+<ul class="remark-unordered-list">
+<li>可以作为上层父级内容区块或是一个跟区块的脚注</li>
+<li>通常包括起教官区块的脚注信息，如作者，相关阅读链接等</li>
+</ul>
+</li>
+<li>&#x3C;address>...&#x3C;/address>
+<ul class="remark-unordered-list">
+<li>用来在文档中呈现联系信息，包括文档作者或文档维护者的网站链接，电子邮箱，名字，手机号等</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>figure 元素：表示一段独立的流内容，一般表示文档主体流内容中的一个独立单元。使用<code>figcaption</code>元素为 figure 元素组添加标签</p>
+</blockquote>
+<ul class="remark-unordered-list">
+<li>html5 中代码示例</li>
+</ul>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-html"><span class="line"><span style="color:#D5CED9">&#x3C;</span><span style="color:#F92672">figure</span><span style="color:#D5CED9">></span></span>
+<span class="line"><span style="color:#D5CED9">  &#x3C;</span><span style="color:#F92672">figcaption</span><span style="color:#D5CED9">>PRC&#x3C;/</span><span style="color:#F92672">figcaption</span><span style="color:#D5CED9">></span></span>
+<span class="line"><span style="color:#D5CED9">  &#x3C;</span><span style="color:#F92672">p</span><span style="color:#D5CED9">>zzzzzzzzz&#x3C;/</span><span style="color:#F92672">p</span><span style="color:#D5CED9">></span></span>
+<span class="line"><span style="color:#D5CED9">&#x3C;/</span><span style="color:#F92672">figure</span><span style="color:#D5CED9">></span></span>
+<span class="line"></span></code></pre>
+<blockquote>
+<p>html4 中代码示例：</p>
+</blockquote>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-html"><span class="line"><span style="color:#D5CED9">&#x3C;</span><span style="color:#F92672">dl</span><span style="color:#D5CED9">></span></span>
+<span class="line"><span style="color:#D5CED9">  &#x3C;</span><span style="color:#F92672">h1</span><span style="color:#D5CED9">>prc&#x3C;/</span><span style="color:#F92672">h1</span><span style="color:#D5CED9">></span></span>
+<span class="line"><span style="color:#D5CED9">  &#x3C;</span><span style="color:#F92672">p</span><span style="color:#D5CED9">>zzzzzzzzz&#x3C;/</span><span style="color:#F92672">p</span><span style="color:#D5CED9">></span></span>
+<span class="line"><span style="color:#D5CED9">&#x3C;/</span><span style="color:#F92672">dl</span><span style="color:#D5CED9">></span></span>
+<span class="line"></span></code></pre>
+<h3 id="新增的其它元素">新增的其它元素<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#新增的其它元素"></a></h3>
+<ul class="remark-unordered-list">
+<li>video 元素定义视频，比如电影片段或其它视频流：
+<ul class="remark-unordered-list">
+<li>&#x3C;video src="moive.ogg" controls="controls">video 元素</li>
+</ul>
+</li>
+<li>audio 元素定义音频：
+<ul class="remark-unordered-list">
+<li>&#x3C;audio src="someaudio.wav">audio 元素</li>
+</ul>
+</li>
+<li>embed 元素用来插入各种多媒体，格式可以是 Midi、Wav、AIFF、AU、MP3:
+<ul class="remark-unordered-list">
+<li>&#x3C;embed src="horse.wav">&#x3C;/embed></li>
+</ul>
+</li>
+<li>mark 元素主要用来在视觉上向用户呈现那些需要突出显示或高亮显示的文字
+<ul class="remark-unordered-list">
+<li>&#x3C;mark>&#x3C;/mark>取代&#x3C;span>&#x3C;/span></li>
+</ul>
+</li>
+<li>progress 元素表示 JavaScript 中耗费时间的函数的进程
+<ul class="remark-unordered-list">
+<li>&#x3C;progress>,需要使用 js 脚本控制</li>
+</ul>
+</li>
+<li>meter 元素规定范围内的数值
+<ul class="remark-unordered-list">
+<li>&#x3C;meter>&#x3C;/meter></li>
+</ul>
+</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>属性</th><th>描述</th></tr></thead><tbody><tr><td>value</td><td>表示出来的实际值</td></tr><tr><td>min</td><td>规定范围是允许使用的最小值</td></tr><tr><td>max</td><td>规定范围是允许使用的最大值</td></tr><tr><td>low</td><td>规定范围的下限值，必须小于 high 属性值</td></tr><tr><td>high</td><td>规定范围上限值</td></tr><tr><td>optimum</td><td>最佳值，属性值必须在 min 与 max 之间</td></tr></tbody></table>
+<ul class="remark-unordered-list">
+<li>
+<p>注意：</p>
+<ul class="remark-unordered-list">
+<li>如果 low 属性值小于 min 属性值，把 min 属性值视为 low 属性的值</li>
+<li>如果 high 属性大于 max 属性，把 max 属性的值视为 high 属性的值</li>
+</ul>
+</li>
+<li>
+<p>wbr 元素表示软换行，</p>
+<ul class="remark-unordered-list">
+<li>br 是必须换行</li>
+<li>wbr 是浏览器窗口或父级元素的宽度足够宽时 (没必要换行时),不进行换行，当宽度不够，主动进行换行 (对中文没有啥用)</li>
+</ul>
+</li>
+<li>
+<p>canvas:本身没有行为，只提供一块画布，但他把一块绘图 api 展现给客户端 js，使脚本能够把向蕙质的东西绘制这块画布上</p>
+</li>
+<li>
+<p>command 元素表示命令暗流，比如单选框，复选框，或者按钮 (只有 ie 支持)</p>
+<ul class="remark-unordered-list">
+<li>该元素必须在 menu 元素中</li>
+</ul>
+</li>
+<li>
+<p>menu 指元素表示菜单列表。希望列出表单控件时使用该元素</p>
+</li>
+</ul>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-html"><span class="line"><span style="color:#D5CED9">&#x3C;</span><span style="color:#F92672">menu</span><span style="color:#D5CED9">></span></span>
+<span class="line"><span style="color:#D5CED9">  &#x3C;</span><span style="color:#F92672">command</span><span style="color:#FFE66D"> type</span><span style="color:#D5CED9">=</span><span style="color:#96E072">"command"</span><span style="color:#FFE66D"> label</span><span style="color:#D5CED9">=</span><span style="color:#96E072">"Save"</span><span style="color:#FFE66D"> onclick</span><span style="color:#D5CED9">=</span><span style="color:#96E072">"save()"</span><span style="color:#D5CED9">>Save&#x3C;/</span><span style="color:#F92672">command</span><span style="color:#D5CED9">></span></span>
+<span class="line"><span style="color:#D5CED9">&#x3C;/</span><span style="color:#F92672">menu</span><span style="color:#D5CED9">></span></span>
+<span class="line"></span></code></pre>
+<ul class="remark-unordered-list">
+<li>datalist 元素表示可选数据列表，与 input 元素配合使用，可以制作输入值的下拉列表
+<ul class="remark-unordered-list">
+<li>&#x3C;datalist>&#x3C;/datalist></li>
+</ul>
+</li>
+<li>datagrid 表示可选数据列表，他以树形列表的形式来显示
+<ul class="remark-unordered-list">
+<li>&#x3C;datagrid>&#x3C;/datagrid></li>
+</ul>
+</li>
+<li>keygen 元素表示生成密钥
+<ul class="remark-unordered-list">
+<li>&#x3C;keygen></li>
+</ul>
+</li>
+<li>source 元素为媒介元素 (如 &#x3C;video> 和 &#x3C;audio>) 定义媒介资源
+<ul class="remark-unordered-list">
+<li>&#x3C;source></li>
+</ul>
+</li>
+</ul>
+<h3 id="新增的-input-类型">新增的 input 类型<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#新增的-input-类型"></a></h3>
+<blockquote>
+<p>表示必须输入什么样的类型</p>
+</blockquote>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>email</th><th>邮件地址</th></tr></thead><tbody><tr><td>url</td><td>URL 地址</td></tr><tr><td>number</td><td>数值的文本输入框</td></tr><tr><td>range</td><td>一定范围内数字值的文本输入框</td></tr><tr><td>Date</td><td>日期类...</td></tr><tr><td>file</td><td>上传文件</td></tr></tbody></table>
+<h3 id="新增的属性">新增的属性<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#新增的属性"></a></h3>
+<blockquote>
+<p>链接相关的属性</p>
+</blockquote>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>属性</th><th>描述</th><th>适用于标签</th></tr></thead><tbody><tr><td>media</td><td>规定目标 url 时为什么类型的媒介进行优化，只能在 href 属性存在时使用</td><td>a</td></tr><tr><td>sizes</td><td>与 icons 元素结合使用 (通过 rel 属性),指定关联 (icons 元素) 的大小</td><td>link</td></tr></tbody></table>
+<blockquote>
+<p>其它属性</p>
+</blockquote>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>属性</th><th>描述</th><th>适用于标签</th></tr></thead><tbody><tr><td>reversed</td><td>列表倒序显示</td><td>ol</td></tr><tr><td>charset</td><td>文档的字符编码</td><td>meta</td></tr><tr><td>scoped</td><td>规定样式的作用域范围</td><td>style</td></tr><tr><td>async</td><td>脚本是否异步执行</td><td>script</td></tr><tr><td>sandbox,seamless,srcdoc</td><td>提高页面的安全性</td><td>iframe</td></tr></tbody></table>
+<h3 id="全局属性">全局属性<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#全局属性"></a></h3>
+<blockquote>
+<p><strong>hidden</strong> 属性：通值浏览器不渲染该元素，使用元素处于不可见状态</p>
+</blockquote>
+<ul class="remark-unordered-list">
+<li>允许使用 js 脚本将该属性取消
+<ul class="remark-unordered-list">
+<li>设置为 true：元素处于不可见的状态</li>
+<li>设置为 false：元素处于可见的状态</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p><strong>spellcheck</strong>：针对 <code>input</code> 和 <code>textarea</code>，对用户输入的文本内容进行拼写和语法检查</p>
+</blockquote>
+<ul class="remark-unordered-list">
+<li>必须明确提供 true 和 false
+<ul class="remark-unordered-list">
+<li>正确:&#x3C;textarea spellcheck="true"></li>
+<li>错误:&#x3C;textarea spellcheck></li>
+</ul>
+</li>
+<li>注意：如果元素的 <code>readOnly</code> 或者 <code>disabled</code> 属性设为 true，则不进行检查</li>
+</ul>
+<blockquote>
+<p><strong>designMode</strong> 和 <strong>contentEditable</strong>(略)</p>
+</blockquote>
+<h2 id="link标签">&#x3C;link>标签<a class="anchor" aria-label="Anchor" aria-hidden="true" data-anchorjs-icon="🔗" href="#link标签"></a></h2>
+<blockquote>
+<p>link 标签用于规定当前文档与外部资源的关系。该元素常用于链接<strong>样式表</strong>,此外也可以被用来创建站点图标</p>
+</blockquote>
+<ul class="remark-ordered-list">
+<li>
+<p>用来加载网站图标</p>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-html"><span class="line"><span style="color:#D5CED9">&#x3C;</span><span style="color:#F92672">link</span><span style="color:#FFE66D"> rel</span><span style="color:#D5CED9">=</span><span style="color:#96E072">"icon"</span><span style="color:#FFE66D"> sizes</span><span style="color:#D5CED9">=</span><span style="color:#96E072">"144x144"</span><span style="color:#FFE66D"> href</span><span style="color:#D5CED9">=</span><span style="color:#96E072">"./avatar.png"</span><span style="color:#D5CED9">></span></span>
+<span class="line"></span></code></pre>
+<ul class="remark-unordered-list">
+<li>如果是移动平台</li>
+</ul>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-html"><span class="line"><span style="color:#D5CED9">&#x3C;</span><span style="color:#F92672">link</span><span style="color:#FFE66D"> rel</span><span style="color:#D5CED9">=</span><span style="color:#96E072">"apple-touch-icon-precomposed"</span><span style="color:#FFE66D"> sizes</span><span style="color:#D5CED9">=</span><span style="color:#96E072">"114x114"</span></span>
+<span class="line"><span style="color:#FFE66D">     href</span><span style="color:#D5CED9">=</span><span style="color:#96E072">"apple-icon-114.png"</span><span style="color:#FFE66D"> type</span><span style="color:#D5CED9">=</span><span style="color:#96E072">"image/png"</span><span style="color:#D5CED9">></span></span>
+<span class="line"></span></code></pre>
+<ul class="remark-unordered-list">
+<li><code>sizes</code> 属性表示图标大小，<code>type</code> 属性包含了链接资源的 MIME 类型</li>
+</ul>
+</li>
+<li>
+<p>加载 css 资源，同时可以使用 <code>medias</code> 属性内部进行查询</p>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-html"><span class="line"><span style="color:#D5CED9">&#x3C;</span><span style="color:#F92672">link</span><span style="color:#FFE66D"> href</span><span style="color:#D5CED9">=</span><span style="color:#96E072">"print.css"</span><span style="color:#FFE66D"> rel</span><span style="color:#D5CED9">=</span><span style="color:#96E072">"stylesheet"</span><span style="color:#FFE66D"> media</span><span style="color:#D5CED9">=</span><span style="color:#96E072">"print"</span><span style="color:#D5CED9">></span></span>
+<span class="line"><span style="color:#D5CED9">&#x3C;</span><span style="color:#F92672">link</span><span style="color:#FFE66D"> href</span><span style="color:#D5CED9">=</span><span style="color:#96E072">"mobile.css"</span><span style="color:#FFE66D"> rel</span><span style="color:#D5CED9">=</span><span style="color:#96E072">"stylesheet"</span><span style="color:#FFE66D"> media</span><span style="color:#D5CED9">=</span><span style="color:#96E072">"screen and (max-width: 600px)"</span><span style="color:#D5CED9">></span></span>
+<span class="line"></span></code></pre>
+</li>
+<li>
+<p>使用 <code>rel="preload"</code> 或者 <code>rel="prefetch"</code>：使用 fetch
+请求，指定页面资源在页面生命周期的早期就开始加载。还需要设置以下值</p>
+<ul class="remark-unordered-list">
+<li><code>href</code>：属性中的资源路径</li>
+<li><code>as</code>：属性中的资源类型</li>
+</ul>
+<pre class="shiki andromeeda" style="background-color:#23262E;color:#D5CED9" tabindex="0"><code class="language-html"><span class="line"><span style="color:#D5CED9">&#x3C;</span><span style="color:#F92672">link</span><span style="color:#FFE66D"> rel</span><span style="color:#D5CED9">=</span><span style="color:#96E072">"preload"</span><span style="color:#FFE66D"> href</span><span style="color:#D5CED9">=</span><span style="color:#96E072">"style.css"</span><span style="color:#FFE66D"> as</span><span style="color:#D5CED9">=</span><span style="color:#96E072">"style"</span><span style="color:#D5CED9">></span></span>
+<span class="line"><span style="color:#D5CED9">&#x3C;</span><span style="color:#F92672">link</span><span style="color:#FFE66D"> rel</span><span style="color:#D5CED9">=</span><span style="color:#96E072">"preload"</span><span style="color:#FFE66D"> href</span><span style="color:#D5CED9">=</span><span style="color:#96E072">"main.js"</span><span style="color:#FFE66D"> as</span><span style="color:#D5CED9">=</span><span style="color:#96E072">"script"</span><span style="color:#D5CED9">></span></span>
+<span class="line"></span></code></pre>
+</li>
+</ul>
+<blockquote>
+<p>as 可以预加载以下内容</p>
+</blockquote>
+<ul class="remark-unordered-list">
+<li>
+<p><code>audio</code>：音频文件，通常用于 &#x3C;audio></p>
+</li>
+<li>
+<p><code>document</code>：旨在由 &#x3C;frame> 或 &#x3C;iframe> 嵌入的 HTML 文档</p>
+</li>
+<li>
+<p><code>embed</code>：要嵌入到 &#x3C;embed> 元素中的资源</p>
+</li>
+<li>
+<p><code>fetch</code>：由 fetch 或 XHR 请求访问的资源，例如 ArrayBuffer 或 JSON 文件</p>
+</li>
+<li>
+<p><code>font</code>：字体文件</p>
+</li>
+<li>
+<p><code>image</code>：图像文件</p>
+</li>
+<li>
+<p><code>object</code>：要嵌入到 &#x3C;object> 元素中的资源</p>
+</li>
+<li>
+<p><code>script</code>：JavaScript 文件</p>
+</li>
+<li>
+<p><code>style</code>：CSS 样式表</p>
+</li>
+<li>
+<p><code>track</code>：WebVTT 文件</p>
+</li>
+<li>
+<p><code>worker</code>：JavaScript Web worker 或 shared worker</p>
+</li>
+<li>
+<p><code>video</code>：视频文件，通常用于 &#x3C;video></p>
+</li>
+<li>
+<p><code>rel</code>：参考<a href="https://developer.mozilla.org/zh-CN/docs/Web/HTML/Link_types">https://developer.mozilla.org/zh-CN/docs/Web/HTML/Link_types</a></p>
+</li>
+</ul>
+<div class="sponsor-container">
+  <button class="sponsor-btn">
+    <a href="https://stripe.fwqaaq.workers.dev/Personal-Website-Sponsor/checkout?mode=once" target="_blank" rel="noopener noreferrer" class="">
+      <span class="sponsor-icon">☕</span>
+      <span>请博主喝杯咖啡</span>
+  </a>
+  </button>
+</div>
+          </article>
+        </main><script src="https://giscus.app/client.js"
+        data-repo="fwqaaq/fwqaaq.github.io"
+        data-repo-id="R_kgDOHCFK2A"
+        data-category="Show and tell"
+        data-category-id="DIC_kwDOHCFK2M4CYOLh"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="1"
+        data-input-position="bottom"
+        data-theme="preferred_color_scheme"
+        data-lang="zh-CN"
+        crossorigin="anonymous"
+        async></script><footer class="blog-footer">
+  <div class="footer-container">
+    <p class="text-center"><a class="decoration-line"
+        href="https://creativecommons.org/licenses/by-sa/3.0/deed.zh-hans">© CC BY-SA</a> 2021 -
+      2025 <a class="decoration-line" href="https://github.com/fwqaaq">fwqaaq</a>.
+      Powered by <a class="decoration-line" href="https://deno.com">Deno</a>
+    </p>
+  </div>
+  <div class="footer-icons-container">
+    <a class="icon" href="https://github.com/fwqaaq">
+      <i class="fa-brands fa-github"></i>
+    </a>
+    <a class="icon" href="mailto:fwqaaq@gmail">
+      <i class="fa-solid fa-envelope"></i>
+    </a>
+    <a class="icon" href="https://www.fwqaaq.com/feed.xml">
+      <i class="fa-solid fa-rss"></i>
+    </a>
+    <a class="icon" href="https://t.me/fwqaaq">
+      <i class="fa-brands fa-telegram"></i>
+    </a>
+  </div>
+</footer>
