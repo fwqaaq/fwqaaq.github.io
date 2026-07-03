@@ -70,6 +70,7 @@ function gate(env: Env, routeKey: string, price: string, description: string) {
       resourceServer(env),
       { appName: 'fwqaaq 的博客', testnet: env.NETWORK !== 'eip155:8453' },
       browserPaywall,
+      false,
     )
     gateCache.set(cacheKey, middleware)
   }
