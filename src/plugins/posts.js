@@ -1,6 +1,6 @@
 import { markdown } from '../util/remark/markdown.js'
 import { giscus } from '../util/template.js'
-import { templateArticle } from '../util/template.js'
+import { templateArticle, templateTeaser } from '../util/template.js'
 import { handleUTC, parseYaml, replaceHead } from '../util/utils.js'
 import { ensureFile, exists } from '@std/fs'
 import { readAll } from '@std/io'
@@ -15,6 +15,12 @@ export const postPlugin = {
   name: 'post',
   /**@type {import("../util/type.js").MetaData[]} */
   metaData: [],
+  /**
+   * Full rendered HTML of paid posts, keyed by slug. Consumed by the
+   * api-content plugin and served by the Worker only after payment.
+   * @type {Record<string, { title: string, html: string }>}
+   */
+  premiumPages: {},
   /**@param {import("./core.js").Core} core  */
   apply(core) {
     core.addhook(
@@ -50,7 +56,9 @@ export const postPlugin = {
           if (code !== 0) {
             throw new Error(`Git command failed: ${decoder.decode(stderr)}`)
           }
-          const updated = formatDate(decoder.decode(stdout).trim())
+          // Untracked/uncommitted posts have no git date; keep frontmatter's.
+          const gitDate = decoder.decode(stdout).trim()
+          const updated = gitDate ? formatDate(gitDate) : null
 
           using file = await Deno.open(filePath, {
             read: true,
@@ -66,8 +74,8 @@ export const postPlugin = {
           const oneDay = 24 * 60 * 60 * 1000
 
           if (
-            !updateAt ||
-            +new Date(updateAt) + oneDay < +new Date(updated)
+            updated &&
+            (!updateAt || +new Date(updateAt) + oneDay < +new Date(updated))
           ) {
             postContent = postContent.replace(
               updateRegex,
@@ -80,8 +88,11 @@ export const postPlugin = {
           }
 
           const [meta, md] = parseYaml(postContent)
-          const description = md.trim().slice(10, 100).replace(/\n/g, ' ') +
-            '...'
+          const slug = value.name.replace(/\.md$/, '')
+          // Paid posts must not leak body text into the meta description.
+          const description = meta.paid
+            ? (meta.summary ?? '')
+            : md.trim().slice(10, 100).replace(/\n/g, ' ') + '...'
           const { title, date, tags } = meta
 
           // Handle the posts
@@ -114,7 +125,22 @@ export const postPlugin = {
             giscus,
             postMeta,
           })
-          const post = `${newHead}${header}${content}${footer}`
+          const fullPost = `${newHead}${header}${content}${footer}`
+
+          let post = fullPost
+          if (meta.paid) {
+            const price = meta.price
+            // Stash the full page for the Worker; write only a teaser to dist.
+            this.premiumPages[slug] = { title, html: fullPost, price }
+            const teaser = templateTeaser({
+              title,
+              postMeta,
+              summary: meta.summary ?? '',
+              slug,
+              price: price ? `（${price}）` : '',
+            })
+            post = `${newHead}${header}${teaser}${footer}`
+          }
 
           await Deno.writeTextFile(postDist, post)
 

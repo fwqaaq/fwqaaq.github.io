@@ -9,6 +9,13 @@ lerna-debug.log*
 
 node_modules
 dist
+
+# Generated at build time, bundled into the Worker (never committed)
+worker/content.generated.js
+# Wrangler local dev state
+.wrangler
+# Worker secrets for local dev
+.dev.vars
 deno.lock
 dist-ssr
 *.local

@@ -1,3 +1,4 @@
+import { apiContentPlugin } from './src/plugins/api-content.js'
 import { assertPlugin } from './src/plugins/asserts.js'
 import { Core } from './src/plugins/core.js'
 import { feedPlugin } from './src/plugins/feed.js'
@@ -40,6 +41,7 @@ async function main() {
   }
   const core = new Core()
   core.use(postPlugin)
+    .use(apiContentPlugin)
     .use(assertPlugin)
     .use(feedPlugin)
     .use(pagesPlugin)

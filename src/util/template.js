@@ -40,6 +40,20 @@ export const templateArticle = handleTemplate`
           </article>
         </main>${'giscus'}`
 
+export const templateTeaser = handleTemplate`
+        <main class="blog-main">
+          <article class="blog-article">
+            <h1>${'title'}</h1>
+          ${'postMeta'}
+            <hr>
+            <p>${'summary'}</p>
+            <div class="paywall-teaser">
+              <p>🔒 这是一篇付费文章，解锁后可阅读全文。</p>
+              <a class="paywall-unlock" href="/premium/${'slug'}">解锁全文${'price'}</a>
+            </div>
+          </article>
+        </main>`
+
 export const giscus = `<script src="https://giscus.app/client.js"
         data-repo="fwqaaq/fwqaaq.github.io"
         data-repo-id="R_kgDOHCFK2A"

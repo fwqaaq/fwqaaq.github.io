@@ -3,8 +3,22 @@
     "new-post": "deno run -A scripts/new-post.ts",
     "dev": "deno run -A src/util/resume/index.js &&MODE=DEV deno run -A --unstable-hmr main.js",
     "build": "deno run -A src/util/resume/index.js &&MODE=PRO deno run -A main.js",
-    "preview": "MODE=PRE deno run -A --unstable-hmr main.js"
+    "preview": "MODE=PRE deno run -A --unstable-hmr main.js",
+    "deploy": "deno task worker:deploy",
+    "worker:dev": "./node_modules/.bin/wrangler dev --port 8787",
+    "worker:deploy": "deno task build && ./node_modules/.bin/wrangler deploy",
+    "worker:dry-run": "deno task build && ./node_modules/.bin/wrangler deploy --dry-run"
   },
+  // The worker/ dir targets the Cloudflare Workers runtime (Node/npm tooling),
+  // not Deno. Exclude it and build output from Deno lint/check/lsp.
+  "exclude": [
+    "worker",
+    "dist",
+    "node_modules"
+  ],
+  // The worker's node_modules (for wrangler) must not hijack Deno's own npm
+  // resolution — keep Deno on its global cache.
+  "nodeModulesDir": "none",
   "fmt": {
     "semiColons": false,
     "singleQuote": true,
@@ -42,8 +56,10 @@
     "postcss": "npm:postcss@^8.5.6",
     "autoprefixer": "npm:autoprefixer@^10.4.21",
     "postcss-preset-env": "npm:postcss-preset-env@^10.4.0",
-    "@cloudflare/workers-types": "https://cdn.jsdelivr.net/npm/@cloudflare/workers-types@latest/index.ts",
     "pdf-lib": "https://unpkg.com/pdf-lib@1.17.1/es/index.d.ts",
-    "dotenv": "jsr:@std/dotenv"
+    "dotenv": "jsr:@std/dotenv",
+    "@x402/fetch": "npm:@x402/fetch@^2.17",
+    "@x402/evm": "npm:@x402/evm@^2.17",
+    "viem": "npm:viem@^2"
   }
 }
