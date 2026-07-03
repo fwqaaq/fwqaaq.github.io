@@ -5,7 +5,7 @@ import { createPaywall } from '@x402/paywall'
 import { evmPaywall } from '@x402/paywall/evm'
 import { content, premium } from './content.generated.js'
 import { isAiCrawler } from './crawlers'
-import { hasValidPass, issueToken, passCookie } from './access'
+import { hasValidPass, hasValidPassToken, issueToken, passCookie } from './access'
 import { getFacilitator } from './facilitator'
 
 interface Env {
@@ -76,6 +76,22 @@ function gate(env: Env, routeKey: string, price: string, description: string) {
   return middleware
 }
 
+function premiumUrl(slug: string): string {
+  return `/premium/${encodeURIComponent(slug)}`
+}
+
+function accessUrl(slug: string, token: string): string {
+  return `/access/${encodeURIComponent(slug)}?token=${encodeURIComponent(token)}`
+}
+
+function addRecoveryLink(html: string, slug: string, token: string): string {
+  const link = accessUrl(slug, token)
+  const note = `<div class="paywall-recovery" style="margin:1rem 0;padding:1rem;border:1px solid currentColor"><p>如果浏览器没有保存 cookie，请保存下面的恢复链接，之后可用它恢复本文访问，不需要再次付款。</p><p><a href="${link}">恢复访问链接</a></p></div>`
+  return html.includes('<article class="blog-article">')
+    ? html.replace('<article class="blog-article">', `<article class="blog-article">${note}`)
+    : `${note}${html}`
+}
+
 app.use('/api/content/*', async (c, next) => {
   const slug = c.req.path.split('/').pop() ?? ''
   if (!(slug in articles)) return c.json({ error: 'Not found', slug }, 404)
@@ -107,6 +123,26 @@ app.use('/posts/*', async (c, next) => {
     return r
   }
   return res
+})
+
+app.get('/access/:slug', async (c) => {
+  const slug = c.req.param('slug')
+  if (!(slug in premiumArticles)) return c.text('Not found', 404)
+
+  if (await hasValidPass(c.req.header('cookie'), slug, c.env.ACCESS_TOKEN_SECRET)) {
+    return c.redirect(premiumUrl(slug), 302)
+  }
+
+  const token = c.req.query('token')
+  if (!(await hasValidPassToken(token, slug, c.env.ACCESS_TOKEN_SECRET))) {
+    return c.redirect(premiumUrl(slug), 302)
+  }
+
+  const ttl = Number(c.env.PASS_TTL_SECONDS)
+  const secure = new URL(c.req.url).protocol === 'https:'
+  c.header('Set-Cookie', passCookie(slug, token!, ttl, secure))
+  c.header('Cache-Control', 'no-store')
+  return c.redirect(premiumUrl(slug), 302)
 })
 
 app.use('/premium/*', async (c, next) => {
@@ -147,7 +183,10 @@ app.use('/premium/*', async (c, next) => {
     const ttl = Number(c.env.PASS_TTL_SECONDS)
     const token = await issueToken(slug, c.env.ACCESS_TOKEN_SECRET, ttl)
     const secure = new URL(c.req.url).protocol === 'https:'
-    out.headers.append('Set-Cookie', passCookie(slug, token, ttl, secure))
+    const paid = new Response(addRecoveryLink(await out.text(), slug, token), out)
+    paid.headers.delete('Content-Length')
+    paid.headers.append('Set-Cookie', passCookie(slug, token, ttl, secure))
+    return paid
   }
 
   return out
