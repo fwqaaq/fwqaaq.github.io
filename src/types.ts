@@ -1,5 +1,3 @@
-import type { Hono } from 'hono'
-
 export interface SiteProfile {
   name?: string
   avatar?: string
@@ -44,9 +42,6 @@ export interface BuildConfig {
   port?: string | number
   version: number
   site: SiteConfig
-  header: string
-  footer: string
-  head: string
 }
 
 export interface MetaData {
@@ -59,13 +54,12 @@ export interface MetaData {
   price?: string
 }
 
-export interface CollectedPost {
+export interface Post {
   slug: string
   dateSlug: string
   meta: MetaData
   markdown: string
-  publicHtml: string
-  premiumPage: PremiumContent | null
+  contentHtml: string
 }
 
 export interface ApiContent {
@@ -84,19 +78,7 @@ export interface PremiumContent {
   price?: string
 }
 
-export interface RouteManifestEntry {
-  path: string
-  file: string
-  allowStatus?: number
-}
-
 export interface BlogData {
-  posts: CollectedPost[]
-  meta: MetaData[]
-  tags: Record<string, Array<MetaData & { author: string; tag: string }>>
-  content: Record<string, ApiContent>
-  premium: Record<string, PremiumContent>
-  routeManifest: RouteManifestEntry[]
+  posts: Post[]
+  tags: Record<string, MetaData[]>
 }
-
-export type BlogApp = Hono

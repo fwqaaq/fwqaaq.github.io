@@ -9,6 +9,50 @@ export function Raw({ html = '' }) {
   return raw(html)
 }
 
+export function Icon({ icon }: { icon?: string }) {
+  return icon ? <i class={icon} aria-hidden="true" /> : null
+}
+
+export function createGiscus(giscus: any = {}): string {
+  if (!giscus.enabled) return ''
+
+  const dataset = {
+    repo: giscus.repo,
+    repoId: giscus.repoId,
+    category: giscus.category,
+    categoryId: giscus.categoryId,
+    mapping: giscus.mapping ?? 'pathname',
+    strict: giscus.strict ?? '0',
+    reactionsEnabled: giscus.reactionsEnabled ?? '1',
+    emitMetadata: giscus.emitMetadata ?? '1',
+    inputPosition: giscus.inputPosition ?? 'bottom',
+    theme: giscus.theme ?? 'preferred_color_scheme',
+    lang: giscus.lang ?? 'zh-CN',
+  }
+
+  if (
+    !dataset.repo || !dataset.repoId || !dataset.category || !dataset.categoryId
+  ) {
+    return ''
+  }
+
+  const attributes = Object.fromEntries(
+    Object.entries(dataset).map(([key, value]) => [
+      `data-${key.replace(/[A-Z]/g, (char) => `-${char.toLowerCase()}`)}`,
+      String(value),
+    ]),
+  )
+
+  return renderJsx(
+    <script
+      src="https://giscus.app/client.ts"
+      {...attributes}
+      crossorigin="anonymous"
+      async
+    />,
+  )
+}
+
 export function PostMeta({ author, date, updateAt }) {
   return <div class="post-meta post-meta-flex-around">
     <div class="post-author" href="/./about/"><i class="fa-solid fa-user" /> {author}</div>{' '}

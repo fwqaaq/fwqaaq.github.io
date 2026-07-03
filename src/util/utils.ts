@@ -1,4 +1,3 @@
-import { readFileSync } from 'node:fs'
 import { readFile } from 'node:fs/promises'
 import { createServer, type IncomingMessage } from 'node:http'
 import { gzipSync } from 'node:zlib'
@@ -6,7 +5,6 @@ import postcss from 'postcss'
 import postcssPresetEnv from 'postcss-preset-env'
 import postcssMinify from '@csstools/postcss-minify'
 import { parse } from 'yaml'
-import { toPath } from './node-fs.ts'
 import type { MetaData } from '../types.ts'
 
 export const format = (date: Date | string | number, pattern: string): string => {
@@ -36,37 +34,6 @@ export const convertToUSA = (date: string): string => {
     year: 'numeric',
     month: 'short',
   })
-}
-
-export interface HeadParams {
-  keywords?: string
-  description?: string
-  title?: string
-  version: string | number
-  url?: string
-  author?: string
-}
-
-export const replaceHead = (
-  { keywords = '', description = '', title = '', version, url = '', author = '' }: HeadParams,
-  head: string,
-): string => head
-  .replaceAll('<!-- keywords -->', keywords)
-  .replaceAll('<!-- author -->', author)
-  .replaceAll('<!-- description -->', description)
-  .replaceAll('<!-- title -->', title)
-  .replace('<!-- url -->', url)
-  .replace('<!-- base.css -->', `/public/css/base.${version}.css`)
-  .replace('<!-- index.css -->', `/public/css/index.${version}.css`)
-  .replace('<!-- markdown.css -->', `/public/css/markdown.${version}.css`)
-  .replace('<!-- index.js -->', `/public/JavaScript/index.${version}.js`)
-
-export const replaceBody = (head: string, header: string, footer: string, src: URL): string => {
-  const body = readFileSync(toPath(src), 'utf8')
-  return body
-    .replace('<!-- Head -->', head)
-    .replace('<!-- Header -->', header)
-    .replace('<!-- Footer -->', footer)
 }
 
 export function createProcessor(): postcss.Processor {
