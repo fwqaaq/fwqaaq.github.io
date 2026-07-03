@@ -1,10 +1,3 @@
-/**
- * Signed access passes for paid articles. After a successful payment the Worker
- * issues an HMAC-SHA256 signed, slug-scoped, expiring token stored as a cookie,
- * so the reader isn't charged again on reload within its TTL. The signing key
- * (ACCESS_TOKEN_SECRET) is a Worker secret, never committed.
- */
-
 const COOKIE_PREFIX = 'premium_'
 const encoder = new TextEncoder()
 
@@ -49,7 +42,10 @@ function parseCookie(header: string, name: string): string | undefined {
   return undefined
 }
 
-/** Issue a slug-scoped token valid for ttlSeconds. */
+export function passName(slug: string): string {
+  return `${COOKIE_PREFIX}${slug}`
+}
+
 export async function issueToken(
   slug: string,
   secret: string,
@@ -62,11 +58,6 @@ export async function issueToken(
   return `${payload}.${sig}`
 }
 
-/**
- * Set-Cookie header value scoping the pass to this article's premium path.
- * `Secure` is only added over HTTPS — Safari refuses to store Secure cookies
- * on http://localhost, which would break the pass during local dev.
- */
 export function passCookie(
   slug: string,
   token: string,
@@ -74,17 +65,14 @@ export function passCookie(
   secure: boolean,
 ): string {
   const attrs = `Path=/premium/${slug}; Max-Age=${ttlSeconds}; HttpOnly; SameSite=Lax`
-  return `${COOKIE_PREFIX}${slug}=${token}; ${attrs}${secure ? '; Secure' : ''}`
+  return `${passName(slug)}=${token}; ${attrs}${secure ? '; Secure' : ''}`
 }
 
-/** True if the Cookie header carries a valid, unexpired pass for slug. */
-export async function hasValidPass(
-  cookieHeader: string | undefined,
+export async function hasValidPassToken(
+  token: string | undefined,
   slug: string,
   secret: string,
 ): Promise<boolean> {
-  if (!cookieHeader) return false
-  const token = parseCookie(cookieHeader, `${COOKIE_PREFIX}${slug}`)
   if (!token) return false
   const [payload, sig] = token.split('.')
   if (!payload || !sig) return false
@@ -98,4 +86,13 @@ export async function hasValidPass(
   } catch {
     return false
   }
+}
+
+export async function hasValidPass(
+  cookieHeader: string | undefined,
+  slug: string,
+  secret: string,
+): Promise<boolean> {
+  if (!cookieHeader) return false
+  return hasValidPassToken(parseCookie(cookieHeader, passName(slug)), slug, secret)
 }
