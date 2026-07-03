@@ -28,6 +28,11 @@ const defaultSiteConfig = {
   sponsor: {
     url: '',
   },
+  ads: {
+    enabled: false,
+    title: '推荐链接',
+    items: [],
+  },
   giscus: {
     enabled: false,
   },
@@ -91,6 +96,20 @@ const escapeHtml = (value) =>
 
 const normalizeUrl = (value) => String(value ?? '').trim()
 
+const withUrlProtocol = (value) => {
+  const url = normalizeUrl(value)
+  if (!url) return ''
+  return /^[a-z][a-z\d+.-]*:/i.test(url) ? url : `https://${url}`
+}
+
+const getUrlHost = (url) => {
+  try {
+    return new URL(url).hostname
+  } catch {
+    return url
+  }
+}
+
 const renderIcon = (icon) =>
   icon ? `<i class="${escapeHtml(icon)}" aria-hidden="true"></i>` : ''
 
@@ -137,6 +156,43 @@ const renderProjects = (projects = []) =>
           </a>`
   ).join('')
 
+const renderAds = (ads = {}) => {
+  if (!ads.enabled || !Array.isArray(ads.items) || ads.items.length === 0) {
+    return ''
+  }
+
+  const items = ads.items
+    .map(({ title, url, description }) => {
+      const href = withUrlProtocol(url)
+      if (!href) return ''
+
+      const displayUrl = getUrlHost(href)
+      const adTitle = title || displayUrl
+      const desc = description
+        ? `<p class="site-ad-desc">${escapeHtml(description)}</p>`
+        : ''
+
+      return `<a class="site-ad-card" href="${
+        escapeHtml(href)
+      }" target="_blank" rel="noopener noreferrer sponsored">
+        <span class="site-ad-label">AD</span>
+        <span class="site-ad-title">${escapeHtml(adTitle)}</span>
+        ${desc}
+        <span class="site-ad-url">${escapeHtml(displayUrl)}</span>
+      </a>`
+    })
+    .join('')
+
+  if (!items) return ''
+
+  return `<aside class="site-ads" aria-label="${escapeHtml(ads.title)}">
+    <div class="site-ads-inner">
+      <h2 class="site-ads-title">${escapeHtml(ads.title)}</h2>
+      <div class="site-ads-grid">${items}</div>
+    </div>
+  </aside>`
+}
+
 export function renderSiteConfigScript(site) {
   const json = JSON.stringify({
     sponsor: site.sponsor,
@@ -172,6 +228,10 @@ export function renderSiteTemplate(template, site) {
   let rendered = template
   for (const [key, value] of Object.entries(escapedReplacements)) {
     rendered = rendered.replaceAll(key, escapeHtml(value))
+    rendered = rendered.replaceAll(
+      key.replace('{{', '{{ ').replace('}}', ' }}'),
+      escapeHtml(value),
+    )
   }
   for (
     const [key, value] of Object.entries({
@@ -179,6 +239,7 @@ export function renderSiteTemplate(template, site) {
       '<!-- profile.skills -->': renderSkills(profile.skills),
       '<!-- profile.projects -->': renderProjects(profile.projects),
       '<!-- profile.socials -->': renderSocialLinks(profile.socials),
+      '<!-- site.ads -->': renderAds(site.ads),
       '<!-- site-config -->': renderSiteConfigScript(site),
     })
   ) {

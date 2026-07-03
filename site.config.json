@@ -93,6 +93,20 @@
   "sponsor": {
     "url": "https://stripe.fwqaaq.workers.dev/Personal-Website-Sponsor/checkout?mode=once"
   },
+  "ads": {
+    "enabled": true,
+    "title": "推荐链接",
+    "items": [
+      {
+        "title": "Spark Downloader",
+        "url": "https://sparkdownloader.fwqaaq.com"
+      },
+      {
+        "title": "Subscription Claude",
+        "url": "https://www.subscriptionclaude.com"
+      }
+    ]
+  },
   "giscus": {
     "enabled": true,
     "repo": "fwqaaq/fwqaaq.github.io",

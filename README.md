@@ -197,6 +197,7 @@ mock 会无条件放行付款，只能用于本地开发，不要指向生产。
 - `profile`：头像、主页链接、about 页签名、标签、技术栈、项目和社交链接。
 - `footer`：版权年份、协议链接和 Powered by 文案。
 - `sponsor.url`：导航栏赞助按钮和文章赞助按钮跳转地址；留空则文章页不插入赞助按钮。
+- `ads`：页脚前的外链广告配置；`enabled: false` 可关闭广告，`items` 中每项支持 `title`、`url` 和可选 `description`。
 - `giscus`：评论区配置；`enabled: false` 可关闭评论。
 
 `.env` 只保留本地运行相关的小型覆盖项：
