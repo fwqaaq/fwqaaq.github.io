@@ -96,3 +96,44 @@ export async function hasValidPass(
   if (!cookieHeader) return false
   return hasValidPassToken(parseCookie(cookieHeader, passName(slug)), slug, secret)
 }
+
+/**
+ * Restore-access challenge: a self-contained, HMAC-signed message the wallet
+ * signs with personal_sign to prove address ownership. No server storage; the
+ * HMAC covers slug+address+expiry so it can't be replayed for other articles,
+ * addresses, or after CHALLENGE_TTL_MS.
+ */
+const CHALLENGE_TTL_MS = 5 * 60 * 1000
+
+export async function issueChallenge(
+  slug: string,
+  address: string,
+  secret: string,
+): Promise<string> {
+  const exp = Date.now() + CHALLENGE_TTL_MS
+  const body = `fwqaaq-blog premium access\nslug=${slug}\naddress=${address.toLowerCase()}\nexp=${exp}`
+  const sig = base64url(await hmac(secret, body))
+  return `${body}\nsig=${sig}`
+}
+
+export async function verifyChallenge(
+  challenge: string,
+  slug: string,
+  address: string,
+  secret: string,
+): Promise<boolean> {
+  const idx = challenge.lastIndexOf('\nsig=')
+  if (idx < 0) return false
+  const body = challenge.slice(0, idx)
+  const sig = challenge.slice(idx + 5)
+
+  const expected = base64url(await hmac(secret, body))
+  if (!timingSafeEqual(sig, expected)) return false
+
+  const lines = Object.fromEntries(
+    body.split('\n').slice(1).map((l) => l.split('=') as [string, string]),
+  )
+  return lines.slug === slug &&
+    lines.address === address.toLowerCase() &&
+    Number(lines.exp) > Date.now()
+}

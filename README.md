@@ -20,7 +20,7 @@
 - **静态博客**。响应式页面，支持标签、归档、RSS。
 - **agent 付费 API**（`/api/content/:slug`）。把免费文章以结构化 JSON 提供给 agent，按次付费调用。
 - **爬虫付费门**（`/posts/*`）。已知 AI 爬虫按 User-Agent 识别后付费读全文，真人浏览免费。
-- **人类付费文章**（`/premium/:slug`）。真人在浏览器里连钱包付款读全文，付款后签发通行证，有效期内免重付。
+- **人类付费文章**（`/premium/:slug`）。真人在浏览器里连钱包付款读全文，付款后签发通行证，有效期内免重付。购买记录写入 KV，清 cookie 或换设备后可用钱包签名免费恢复访问。
 
 ## 快速开始
 
@@ -146,7 +146,22 @@ PRIVATE_KEY=<测试钱包私钥> deno run -A scripts/crawl-test.ts
 
 # 人类付费文章：付款页、摘要页、付款、通行证免重付
 PRIVATE_KEY=<测试钱包私钥> deno run -A scripts/premium-test.ts
+
+# 钱包恢复访问（零费用）：预置 KV 购买记录 + 签名恢复 + 未购地址被拒
+deno run -A scripts/restore-test.ts
 ```
+
+**零费用测试付款成功路径**：`scripts/mock-facilitator.ts` 是一个对所有 verify/settle 都放行的本地 mock，用来在不花测试币的情况下走通「结算成功 → 发通行证 → 写购买记录」：
+
+```bash
+# 终端 1：起 mock（监听 :4402）
+deno run -A scripts/mock-facilitator.ts
+
+# 把 .dev.vars 的 FACILITATOR_URL 临时改为 http://localhost:4402，
+# 重启 wrangler dev 后即可用任意签名走完付款成功路径。测完记得改回。
+```
+
+mock 会无条件放行付款，只能用于本地开发，不要指向生产。
 
 ## 配置
 
@@ -166,6 +181,15 @@ PRIVATE_KEY=<测试钱包私钥> deno run -A scripts/premium-test.ts
 
 - `ACCESS_TOKEN_SECRET`：通行证的 HMAC 签名密钥。本地放 `.dev.vars`，生产用 `npx wrangler secret put ACCESS_TOKEN_SECRET`。
 - `CDP_API_KEY_ID`、`CDP_API_KEY_SECRET`：生产主网用 Coinbase CDP facilitator 验证与结算真实 USDC，本地测试网不需要。
+
+`kv_namespaces` 里的 `PURCHASES` 绑定保存付费文章的购买记录（钱包即账户）：
+
+- 本地 `wrangler dev` 由 miniflare 自动模拟，无需创建。
+- 生产部署前需要创建命名空间，并把返回的 id 填进 `wrangler.jsonc`：
+
+  ```bash
+  npx wrangler kv namespace create PURCHASES
+  ```
 
 站点公开信息配置在 `site.config.json`：
 
@@ -202,17 +226,37 @@ PORT=3000
 
 ## 部署
 
-构建产物与 Worker 内容模块由同一条命令生成：
+首次部署按以下步骤执行：
 
-```bash
-deno task build   # 生成 dist/ 与 worker/content.generated.js
-```
+1. 创建购买记录的 KV 命名空间，并把输出的 id 填进 `wrangler.jsonc` 的 `kv_namespaces`：
 
-部署到 Cloudflare Workers：
+   ```bash
+   npx wrangler kv namespace create PURCHASES
+   ```
 
-```bash
-deno task worker:deploy
-```
+2. 写入三个生产机密：
+
+   ```bash
+   npx wrangler secret put ACCESS_TOKEN_SECRET
+   npx wrangler secret put CDP_API_KEY_ID
+   npx wrangler secret put CDP_API_KEY_SECRET
+   ```
+
+3. 确认 `wrangler.jsonc` 里的 `PAY_TO_ADDRESS` 是你控制的收款地址，`PRICE`、`CRAWL_PRICE`、`PREMIUM_PRICE` 是想实收的价格。
+
+4. 构建产物与 Worker 内容模块由同一条命令生成：
+
+   ```bash
+   deno task build   # 生成 dist/ 与 worker/content.generated.js
+   ```
+
+5. 部署到 Cloudflare Workers：
+
+   ```bash
+   deno task worker:deploy
+   ```
+
+后续更新只需重复第 4、5 步。
 
 只想验证 Worker 能否被 Wrangler 打包时，可以运行：
 

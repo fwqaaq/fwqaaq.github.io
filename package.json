@@ -13,7 +13,8 @@
     "@x402/evm": "^2.17.0",
     "@x402/hono": "^2.17.0",
     "@x402/paywall": "^2.17.0",
-    "hono": "^4.12.27"
+    "hono": "^4.12.27",
+    "viem": "^2.54.2"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "4.20260702.1",

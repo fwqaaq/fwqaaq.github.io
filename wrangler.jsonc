@@ -1,31 +1,41 @@
 {
-  "name": "fwqaaq-blog",
-  "main": "worker/index.ts",
-  "compatibility_date": "2025-01-01",
-  "compatibility_flags": [
-    "nodejs_compat"
-  ],
-  "assets": {
-    "directory": "./dist",
-    "binding": "ASSETS",
-    // Article HTML pages are real static assets; without this the asset layer
-    // serves them directly and the Worker's pay-per-crawl gate never runs.
-    "run_worker_first": [
-      "/posts/*"
-    ]
-  },
-  "vars": {
-    // Production = Base mainnet. Local `wrangler dev` overrides NETWORK to
-    // eip155:84532 via .dev.vars, keeping local on testnet (no CDP keys, no
-    // real funds). Mainnet needs CDP_API_KEY_ID/SECRET as Worker secrets.
-    "NETWORK": "eip155:8453",
-    "FACILITATOR_URL": "https://x402.org/facilitator",
-    "PRICE": "$0.1",
-    "CRAWL_PRICE": "$0.01",
-    "PREMIUM_PRICE": "$1",
-    "PASS_TTL_SECONDS": "2592000",
-    // TODO: MAINNET — before deploying, set a Base mainnet address you fully
-    // control and can withdraw real USDC from. Real funds land here.
-    "PAY_TO_ADDRESS": "0xD5b1f25B752ea74AF699f12dD315A667e9Ba037d"
-  }
+	"name": "fwqaaq-blog",
+	"main": "worker/index.ts",
+	"compatibility_date": "2025-01-01",
+	"compatibility_flags": [
+		"nodejs_compat"
+	],
+	// Permanent purchase records (wallet-as-account). Local dev uses miniflare's
+	// simulated KV. For production: `npx wrangler kv namespace create PURCHASES`
+	// and put the returned id here.
+	"kv_namespaces": [
+		{
+			"binding": "PURCHASES",
+			"id": "271ef1ad8e20490c995eea9beb5494d7",
+			"remote": true
+		}
+	],
+	"assets": {
+		"directory": "./dist",
+		"binding": "ASSETS",
+		// Article HTML pages are real static assets; without this the asset layer
+		// serves them directly and the Worker's pay-per-crawl gate never runs.
+		"run_worker_first": [
+			"/posts/*"
+		]
+	},
+	"vars": {
+		// Production = Base mainnet. Local `wrangler dev` overrides NETWORK to
+		// eip155:84532 via .dev.vars, keeping local on testnet (no CDP keys, no
+		// real funds). Mainnet needs CDP_API_KEY_ID/SECRET as Worker secrets.
+		"NETWORK": "eip155:8453",
+		"FACILITATOR_URL": "https://x402.org/facilitator",
+		"PRICE": "$0.1",
+		"CRAWL_PRICE": "$0.01",
+		"PREMIUM_PRICE": "$1",
+		"PASS_TTL_SECONDS": "2592000",
+		// TODO: MAINNET — before deploying, set a Base mainnet address you fully
+		// control and can withdraw real USDC from. Real funds land here.
+		"PAY_TO_ADDRESS": "0xD5b1f25B752ea74AF699f12dD315A667e9Ba037d"
+	}
 }
