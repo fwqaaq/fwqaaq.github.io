@@ -9,33 +9,6 @@ permissions:
   contents: write
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - name: Set Deno
-        uses: denoland/setup-deno@v2
-        with:
-          deno-version: lts
-      - name: Generate dist dir
-        run: |
-          deno task build
-      - name: Get cache DIR
-        run: |
-          echo "DENO_DIR=$(deno info | grep DENO_DIR | awk '{print $3}')" >> $GITHUB_ENV
-      - name: Set cache
-        uses: actions/cache@v4
-        with:
-          path: ${{ env.DENO_DIR }}
-          key: ${{ hashFiles('deno.lock') }}
-      - name: deploy gh-pages
-        uses: crazy-max/ghaction-github-pages@v3.0.0
-        with:
-          target_branch: gh-pages
-          build_dir: dist
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
   # Deploys the static site + x402 content API to Cloudflare Workers.
   # No-ops until CLOUDFLARE_API_TOKEN is configured, so it never breaks CI.
   deploy-worker:

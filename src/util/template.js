@@ -54,34 +54,25 @@ export const templateTeaser = handleTemplate`
           </article>
         </main>`
 
-export const giscus = `<script src="https://giscus.app/client.js"
-        data-repo="fwqaaq/fwqaaq.github.io"
-        data-repo-id="R_kgDOHCFK2A"
-        data-category="Show and tell"
-        data-category-id="DIC_kwDOHCFK2M4CYOLh"
-        data-mapping="pathname"
-        data-strict="0"
-        data-reactions-enabled="1"
-        data-emit-metadata="1"
-        data-input-position="bottom"
-        data-theme="preferred_color_scheme"
-        data-lang="zh-CN"
-        crossorigin="anonymous"
-        async></script>`
-
 /**
  * @param {string} author
  * @param {string} website
  * @param {string} items
+ * @param {string} description
  * @returns
  */
-export const getRss = (author, website, items) =>
+export const getRss = (
+  author,
+  website,
+  items,
+  description = '',
+) =>
   `<?xml version="1.0" encoding="UTF-8" ?>
 <rss version="2.0">
 <channel>
   <title>${author}'s blog</title>
   <link>${website}</link>
-  <description>这真的是一个废物的博客啦</description>
+  <description>${description}</description>
   ${items}
 </channel>
 </rss>

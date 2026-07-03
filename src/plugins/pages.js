@@ -9,6 +9,7 @@ import {
   replaceHead,
 } from '../util/utils.js'
 import { templateBox, templateProcess } from '../util/template.js'
+import { renderSiteTemplate } from '../util/site.js'
 
 export const pagesPlugin = {
   name: 'pages',
@@ -22,9 +23,10 @@ export const pagesPlugin = {
         const { dist, version, header, footer, src, author, website, head } =
           config
         const newHead = replaceHead({
-          keywords: 'fwqaaq, blog, about, fwqaaq blog',
-          description: 'fwqaaq 的个人博客',
-          title: 'fwqaaq 的博客',
+          keywords: config.site?.keywords?.join(', ') ??
+            `${author}, blog, ${author} blog`,
+          description: config.site?.description ?? `${author} 的个人博客`,
+          title: config.site?.title ?? `${author} 的博客`,
           version,
           url: website,
           author,
@@ -32,7 +34,10 @@ export const pagesPlugin = {
 
         // handle the about page
         const aboutURL = new URL('./about/index.html', src)
-        const aboutPage = replaceBody(newHead, header, footer, aboutURL)
+        const aboutPage = renderSiteTemplate(
+          replaceBody(newHead, header, footer, aboutURL),
+          config.site,
+        )
         await ensureDir(new URL('./about/', dist))
         await Deno.writeTextFile(new URL('./about/index.html', dist), aboutPage)
 

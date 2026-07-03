@@ -7,7 +7,7 @@ tags:
    - Economics
    - Others
 summary: 从美国城市空心化看中国三四线城市的过度基建风险
-updateAt: 2026-06-25 05:51:48
+updateAt: 2026-07-03 20:14:53
 ---
 
 [TOC]

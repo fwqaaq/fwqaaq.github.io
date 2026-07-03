@@ -73,6 +73,8 @@ const themeTokens = {
   ],
 }
 
+const blogConfig = globalThis.__BLOG_CONFIG__ ?? {}
+
 const languageCodes = new Set([
   '',
   'en',
@@ -349,32 +351,34 @@ document.addEventListener('DOMContentLoaded', () => {
  */
 // deno-lint-ignore no-unused-vars
 function sponsor(amount) {
-  globalThis.location.href =
-    `https://stripe.fwqaaq.workers.dev/Personal-Website-Sponsor/checkout?mode=once`
+  const url = blogConfig.sponsor?.url
+  if (!url) return
+  globalThis.location.href = url
 }
 
 function loadGiscus() {
   if (document.querySelector('.giscus')) return
+  const giscusConfig = blogConfig.giscus
+  if (!giscusConfig?.enabled) return
 
   const script = document.createElement('script')
   const dataset = {
-    repo: 'fwqaaq/fwqaaq.github.io',
-    repoId: 'R_kgDOHCFK2A',
-    category: 'Show and tell',
-    categoryId: 'DIC_kwDOHCFK2M4CYOLh',
     mapping: 'pathname',
     strict: '0',
     reactionsEnabled: '1',
     emitMetadata: '1',
     inputPosition: 'bottom',
-    theme: globalThis.localStorage.getItem('darkMode') ??
-      'preferred_color_scheme',
     lang: 'zh-CN',
+    ...giscusConfig,
+    theme: globalThis.localStorage.getItem('darkMode') ??
+      giscusConfig.theme ?? 'preferred_color_scheme',
   }
+  delete dataset.enabled
   script.src = 'https://giscus.app/client.js'
   script.crossOrigin = 'anonymous'
   script.async = true
   for (const [key, value] of Object.entries(dataset)) {
+    if (value === undefined || value === null || value === '') continue
     script.dataset[key] = value
   }
 

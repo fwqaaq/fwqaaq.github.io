@@ -14,9 +14,7 @@ import remarkList from './remark-list.js'
 import remarkToc from './remark-toc.js'
 import remarkSponsor from './remark-sponsor.js'
 
-const sponsorAddress = 'https://stripe.fwqaaq.workers.dev/Personal-Website-Sponsor/checkout?mode=once'
-
-export const markdown = async (file) =>
+export const markdown = async (file, options = {}) =>
   await unified()
     .use(remarkParse, { commonmark: true })
     .use(remarkGfm)
@@ -24,7 +22,7 @@ export const markdown = async (file) =>
     .use(remarkList)
     .use(remarkToc)
     .use(remarkSponsor, {
-      address: sponsorAddress
+      address: options.sponsorUrl ?? '',
     })
     .use(remarkRehype, { allowDangerousHtml: true })
     .use(rehypeShiki, {

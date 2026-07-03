@@ -27,6 +27,7 @@
  * @property {string} website
  * @property {number} port
  * @property {number} version
+ * @property {Record<string, unknown>} site
  * @property {string} header
  * @property {string} footer
  * @property {string} head

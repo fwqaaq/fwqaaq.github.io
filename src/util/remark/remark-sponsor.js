@@ -1,6 +1,3 @@
-
-
-
 /**
  * @typedef {Object} RemarkSponsorOptions
  * @property {string} address - The address to redirect when click the sponsor button.
@@ -10,7 +7,9 @@
 const remarkSponsor = (options) => {
   const { address } = options
 
-  return (tree/**@type {import('type-mdast').Root}*/) => {
+  return (tree /**@type {import('type-mdast').Root}*/) => {
+    if (!address) return tree
+
     const sponsorNode = {
       type: 'html',
       value: `
@@ -21,12 +20,11 @@ const remarkSponsor = (options) => {
       <span>请博主喝杯咖啡</span>
   </a>
   </button>
-</div>`.trim()
+</div>`.trim(),
     }
     tree.children.push(sponsorNode)
     return tree
   }
-
 }
 
 export default remarkSponsor

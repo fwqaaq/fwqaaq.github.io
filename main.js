@@ -7,28 +7,40 @@ import { postPlugin } from './src/plugins/posts.js'
 import { existsSync } from '@std/fs'
 import { startServer } from './src/util/utils.js'
 import { load } from 'dotenv'
+import {
+  loadSiteConfig,
+  renderSiteTemplate,
+  withEnvSiteConfig,
+} from './src/util/site.js'
 
 async function createConfig() {
   await load({ export: true, defaults: true })
+  const site = withEnvSiteConfig(
+    await loadSiteConfig(new URL('./site.config.json', import.meta.url)),
+  )
 
   const baseConfig = {
     dist: import.meta.resolve('./dist/'),
     src: import.meta.resolve('./src/'),
-    website: Deno.env.get('WEBSITE'),
-    author: Deno.env.get('AUTHOR'),
+    website: site.website,
+    author: site.author,
     port: Deno.env.get('PORT'),
     version: Math.floor(Math.random() * 1000000),
+    site,
   }
 
-  const head = await Deno.readTextFile(
-    new URL('./util/head.html', baseConfig.src),
+  const head = renderSiteTemplate(
+    await Deno.readTextFile(new URL('./util/head.html', baseConfig.src)),
+    site,
   )
 
-  const header = await Deno.readTextFile(
-    new URL('./util/header.html', baseConfig.src),
+  const header = renderSiteTemplate(
+    await Deno.readTextFile(new URL('./util/header.html', baseConfig.src)),
+    site,
   )
-  const footer = await Deno.readTextFile(
-    new URL('./util/footer.html', baseConfig.src),
+  const footer = renderSiteTemplate(
+    await Deno.readTextFile(new URL('./util/footer.html', baseConfig.src)),
+    site,
   )
 
   return { ...baseConfig, header, footer, head }

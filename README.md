@@ -167,7 +167,23 @@ PRIVATE_KEY=<测试钱包私钥> deno run -A scripts/premium-test.ts
 - `ACCESS_TOKEN_SECRET`：通行证的 HMAC 签名密钥。本地放 `.dev.vars`，生产用 `npx wrangler secret put ACCESS_TOKEN_SECRET`。
 - `CDP_API_KEY_ID`、`CDP_API_KEY_SECRET`：生产主网用 Coinbase CDP facilitator 验证与结算真实 USDC，本地测试网不需要。
 
-站点自身配置在 `.env`：`WEBSITE`、`AUTHOR`、`PORT`。
+站点公开信息配置在 `site.config.json`：
+
+- `author`、`website`、`title`、`description`、`keywords`：站点基础元信息。
+- `profile`：头像、主页链接、about 页签名、标签、技术栈、项目和社交链接。
+- `footer`：版权年份、协议链接和 Powered by 文案。
+- `sponsor.url`：导航栏赞助按钮和文章赞助按钮跳转地址；留空则文章页不插入赞助按钮。
+- `giscus`：评论区配置；`enabled: false` 可关闭评论。
+
+`.env` 只保留本地运行相关的小型覆盖项：
+
+```txt
+WEBSITE=https://www.example.com/
+AUTHOR=your-name
+PORT=3000
+```
+
+`WEBSITE` 和 `AUTHOR` 会覆盖 `site.config.json` 的同名字段，方便本地和部署环境用不同域名。构建器不再生成 `dist/CNAME`；如果你仍使用 GitHub Pages 自定义域名，请在部署平台或仓库设置里维护 CNAME。
 
 ## 测试网 vs 主网
 
@@ -223,6 +239,7 @@ deno task worker:dry-run
 ```bash
 .
 ├── main.js              # 构建入口
+├── site.config.json     # 站点公开 profile、社交链接、评论与赞助配置
 ├── wrangler.jsonc       # Cloudflare Worker 配置
 ├── worker               # Worker 源码（Cloudflare 运行时）
 │   ├── index.ts         # 路由与 x402 付款门

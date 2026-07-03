@@ -1,0 +1,110 @@
+{
+  "author": "fwqaaq",
+  "website": "https://www.fwqaaq.com/",
+  "title": "fwqaaq 的博客",
+  "description": "fwqaaq 的个人博客",
+  "keywords": ["fwqaaq", "blog", "x402", "Deno"],
+  "rssDescription": "这真的是一个废物的博客啦",
+  "profile": {
+    "name": "fwqaaq",
+    "avatar": "https://avatars.githubusercontent.com/u/82551626?v=4",
+    "homepage": "https://github.com/fwqaaq",
+    "tagline": "最爱 Rust，最擅长 JavaScript",
+    "chips": [
+      { "icon": "fa-solid fa-location-dot", "label": "US" },
+      { "icon": "fa-solid fa-graduation-cap", "label": "留学中" },
+      { "icon": "fa-brands fa-github", "label": "Open Source" }
+    ],
+    "quote": {
+      "text": "所以你会选择乡下的老鼠还是城里的老鼠呢",
+      "cite": "Reze"
+    },
+    "skills": [
+      {
+        "label": "Languages",
+        "items": ["HTML", "CSS", "JavaScript", "TypeScript", "Rust", "C"]
+      },
+      {
+        "label": "Runtime & Frameworks",
+        "items": ["Deno", "Node.js", "WebAssembly", "Vue", "Sass"],
+        "accent": ["Deno"]
+      },
+      {
+        "label": "Tools",
+        "items": ["Git", "VS Code", "Shell", "Docker"]
+      }
+    ],
+    "projects": [
+      {
+        "title": "博客",
+        "description": "使用 Deno 搭建的简易博客模板",
+        "href": "https://github.com/fwqaaq/fwqaaq.github.io",
+        "icon": "fa-solid fa-blog"
+      },
+      {
+        "title": "在线简历",
+        "description": "一份在 23 年还能说得过去的简历，作者已于 24 年留美停更",
+        "href": "https://www.fwqaaq.com/public/resume/",
+        "icon": "fa-solid fa-address-card"
+      },
+      {
+        "title": "Telegram-to-R2",
+        "description": "Telegram bot 用于管理 Cloudflare R2",
+        "href": "https://github.com/fwqaaq/telegram-to-r2",
+        "icon": "fa-brands fa-cloudflare"
+      },
+      {
+        "title": "Scripts",
+        "description": "bilibili 视频下载等实用脚本",
+        "href": "https://github.com/fwqaaq/scripts",
+        "icon": "fa-solid fa-scroll"
+      }
+    ],
+    "socials": [
+      {
+        "label": "GitHub",
+        "href": "https://github.com/fwqaaq",
+        "icon": "fa-brands fa-github"
+      },
+      {
+        "label": "Email",
+        "href": "mailto:fwqaaq@gmail.com",
+        "icon": "fa-solid fa-envelope"
+      },
+      {
+        "label": "RSS",
+        "href": "https://www.fwqaaq.com/feed.xml",
+        "icon": "fa-solid fa-rss"
+      },
+      {
+        "label": "Telegram",
+        "href": "https://t.me/fwqaaq",
+        "icon": "fa-brands fa-telegram"
+      }
+    ]
+  },
+  "footer": {
+    "startYear": 2021,
+    "licenseText": "© CC BY-SA",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/deed.zh-hans",
+    "poweredByText": "Deno",
+    "poweredByUrl": "https://deno.com"
+  },
+  "sponsor": {
+    "url": "https://stripe.fwqaaq.workers.dev/Personal-Website-Sponsor/checkout?mode=once"
+  },
+  "giscus": {
+    "enabled": true,
+    "repo": "fwqaaq/fwqaaq.github.io",
+    "repoId": "R_kgDOHCFK2A",
+    "category": "Show and tell",
+    "categoryId": "DIC_kwDOHCFK2M4CYOLh",
+    "mapping": "pathname",
+    "strict": "0",
+    "reactionsEnabled": "1",
+    "emitMetadata": "1",
+    "inputPosition": "bottom",
+    "theme": "preferred_color_scheme",
+    "lang": "zh-CN"
+  }
+}

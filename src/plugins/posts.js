@@ -1,7 +1,7 @@
 import { markdown } from '../util/remark/markdown.js'
-import { giscus } from '../util/template.js'
 import { templateArticle, templateTeaser } from '../util/template.js'
 import { handleUTC, parseYaml, replaceHead } from '../util/utils.js'
+import { createGiscus } from '../util/site.js'
 import { ensureFile, exists } from '@std/fs'
 import { readAll } from '@std/io'
 import { format } from '@std/datetime'
@@ -114,15 +114,19 @@ export const postPlugin = {
           }, head)
           const postMeta = `<div class="post-meta post-meta-flex-around">
               <div class="post-author" href="/./about/"><i class="fa-solid fa-user"></i> ${author}</div> 
-              <div class="post-time"><i class="fa-solid fa-clock"></i> ${formatDate(date).slice(0, 10)
-            }</div> 
-              <div class="post-update-time"><i class="fa-solid fa-clock-rotate-left"></i> ${updateAt.slice(0, 10)
-            }</div>
+              <div class="post-time"><i class="fa-solid fa-clock"></i> ${
+            formatDate(date).slice(0, 10)
+          }</div> 
+              <div class="post-update-time"><i class="fa-solid fa-clock-rotate-left"></i> ${
+            updateAt.slice(0, 10)
+          }</div>
             </div>`
           const content = templateArticle({
-            content: await markdown(md),
+            content: await markdown(md, {
+              sponsorUrl: config.site?.sponsor?.url,
+            }),
             title,
-            giscus,
+            giscus: createGiscus(config.site?.giscus),
             postMeta,
           })
           const fullPost = `${newHead}${header}${content}${footer}`
