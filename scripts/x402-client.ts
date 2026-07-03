@@ -32,7 +32,7 @@ export function makePaidFetch(
   const account = privateKeyToAccount(privateKey)
   const chain = caip2Network === 'eip155:8453' ? base : baseSepolia
   const publicClient = createPublicClient({ chain, transport: http() })
-  const signer = toClientEvmSigner(account, publicClient)
+  const signer = toClientEvmSigner(account, publicClient as any)
   const client = new x402Client().register(
     caip2Network,
     new ExactEvmScheme(signer),

@@ -3,45 +3,85 @@ body {
   padding: 0;
   margin: 0;
   scroll-behavior: smooth;
-  font-family: -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  font-family: var(--font-system);
 }
 
 :root {
+  color-scheme: light dark;
+  --font-system: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", system-ui, sans-serif;
+  --font-editorial: ui-serif, "New York", Georgia, "Times New Roman", serif;
+  --font-mono: "SF Mono", ui-monospace, Menlo, Consolas, monospace;
+
   --header-height: 44px;
   --footer-height: 4rem;
   --page-width: 48rem;
   --max-about-width: 80rem;
 
-  /* Apple Semantic Colors — Light */
-  --color-label: #000000;
-  --color-secondary-label: rgba(60, 60, 67, 0.6);
-  --color-tertiary-label: rgba(60, 60, 67, 0.3);
-  --color-tint: #007A78;
-  --color-tint-hover: #005F5D;
-  --color-tint-soft: rgba(0, 122, 120, 0.12);
-  --color-tint-softer: rgba(0, 122, 120, 0.07);
-  --color-tint-strong: rgba(0, 122, 120, 0.2);
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.25rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+  --space-10: 2.5rem;
+
+  --radius-sm: 0.5rem;
+  --radius-md: 0.75rem;
+  --radius-lg: 1rem;
+  --radius-xl: 1.25rem;
+  --radius-pill: 999px;
+
+  --shadow-card: 0 1px 2px rgba(0, 0, 0, 0.05), 0 10px 34px rgba(15, 23, 42, 0.07);
+  --shadow-card-hover: 0 16px 46px rgba(15, 23, 42, 0.12), 0 2px 8px rgba(15, 23, 42, 0.08);
+  --motion-snappy: 180ms cubic-bezier(0.2, 0.8, 0.2, 1);
+  --motion-smooth: 360ms cubic-bezier(0.32, 0.72, 0, 1);
+
+  /* Editorial HIG semantic color tokens — Light */
+  --color-accent: #007A78;
+  --color-accent-hover: #005F5D;
+  --color-accent-soft: rgba(0, 122, 120, 0.12);
+  --color-accent-softer: rgba(0, 122, 120, 0.07);
+  --color-accent-strong: rgba(0, 122, 120, 0.2);
   --color-focus-ring: rgba(0, 122, 120, 0.28);
-  --color-separator: rgba(60, 67, 67, 0.24);
 
-  /* Backgrounds */
-  --bg-primary: #FFFFFF;
-  --bg-secondary: #F3F7F6;
-  --bg-tertiary: #F9FCFB;
-  --bg-elevated: rgba(255, 255, 255, 0.86);
-  --code-bg: #172224;
-  --header-bg: rgba(250, 253, 252, 0.76);
-  --chip-bg: rgba(0, 122, 120, 0.1);
+  --color-text-primary: #111817;
+  --color-text-secondary: rgba(60, 60, 67, 0.68);
+  --color-text-tertiary: rgba(60, 60, 67, 0.36);
+  --color-separator: rgba(60, 67, 67, 0.22);
 
-  /* Legacy aliases */
-  --theme-color: #000000;
-  --bg-color: #F3F7F6;
-  --color-a-link: var(--color-tint);
-  --color-a-link-hover: var(--color-tint-hover);
-  --list-color: var(--color-tint);
+  --color-surface-page: #F3F7F6;
+  --color-surface: #FFFFFF;
+  --color-surface-subtle: #F9FCFB;
+  --color-surface-elevated: rgba(255, 255, 255, 0.86);
+  --color-surface-code: #172224;
+  --color-surface-header: rgba(250, 253, 252, 0.76);
+  --color-surface-chip: rgba(0, 122, 120, 0.1);
+  --material-blur: blur(20px) saturate(180%);
+
+  /* Legacy aliases kept for runtime theme toggle and old selectors. */
+  --theme-color: var(--color-text-primary);
+  --color-label: var(--color-text-primary);
+  --color-secondary-label: var(--color-text-secondary);
+  --color-tertiary-label: var(--color-text-tertiary);
+  --color-tint: var(--color-accent);
+  --color-tint-hover: var(--color-accent-hover);
+  --color-tint-soft: var(--color-accent-soft);
+  --color-tint-softer: var(--color-accent-softer);
+  --color-tint-strong: var(--color-accent-strong);
+  --bg-color: var(--color-surface-page);
+  --bg-primary: var(--color-surface);
+  --bg-secondary: var(--color-surface-page);
+  --bg-tertiary: var(--color-surface-subtle);
+  --bg-elevated: var(--color-surface-elevated);
+  --code-bg: var(--color-surface-code);
+  --header-bg: var(--color-surface-header);
+  --chip-bg: var(--color-surface-chip);
+  --color-a-link: var(--color-accent);
+  --color-a-link-hover: var(--color-accent-hover);
+  --list-color: var(--color-accent);
   --table-border-color: var(--color-separator);
 
-  /* Alert colors */
   --color-note: #007A78;
   --color-tip: #34C759;
   --color-warning: #FF9500;
@@ -49,16 +89,21 @@ body {
   --color-caution: #FF3B30;
   --color-important: #AF52DE;
 
-  line-height: 1.5;
+  line-height: 1.55;
+  font-size: 17px;
 }
 
 body {
-  background-color: var(--bg-secondary);
+  min-width: 320px;
+  background:
+    radial-gradient(circle at 12% -10%, color-mix(in srgb, var(--color-accent) 9%, transparent), transparent 32rem),
+    var(--color-surface-page);
   position: relative;
-  color: var(--color-label);
-  padding-block-start: calc(var(--header-height) + 12px);
+  color: var(--color-text-primary);
+  padding-block-start: calc(var(--header-height) + var(--space-3));
   padding-bottom: env(safe-area-inset-bottom);
   word-break: break-word;
+  text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 
@@ -71,16 +116,13 @@ main {
   min-height: calc(100vh - var(--header-height) - var(--footer-height));
 }
 
-/* ========================================
-   Headings — Apple HIG semantic color hierarchy
-   ======================================== */
 h1 {
   text-align: center;
-  font-size: 28px;
-  font-weight: 700;
-  line-height: 1.2;
-  letter-spacing: -0.022em;
-  color: var(--color-tint);
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 750;
+  line-height: 1.08;
+  letter-spacing: -0.04em;
+  color: var(--color-text-primary);
 }
 
 h2,
@@ -88,7 +130,8 @@ h3,
 h4,
 h5,
 h6 {
-  line-height: 1.2;
+  line-height: 1.22;
+  text-wrap: balance;
 
   &:hover a[class="anchor"]::after {
     content: attr(data-anchorjs-icon);
@@ -96,82 +139,80 @@ h6 {
 }
 
 h2 {
-  font-size: 22px;
-  font-weight: 700;
-  letter-spacing: -0.016em;
-  color: var(--color-tint);
-  margin-top: 32px;
+  font-size: clamp(1.45rem, 2.4vw, 1.8rem);
+  font-weight: 720;
+  letter-spacing: -0.024em;
+  color: var(--color-accent);
+  margin-top: var(--space-10);
 
-  &:first-child {
-    margin-top: 0;
-  }
+  &:first-child { margin-top: 0; }
 }
 
 h3 {
-  font-size: 20px;
-  font-weight: 600;
-  letter-spacing: -0.01em;
-  color: var(--color-secondary-label);
-  margin-top: 24px;
+  font-size: 1.18rem;
+  font-weight: 650;
+  letter-spacing: -0.014em;
+  color: var(--color-text-primary);
+  margin-top: var(--space-8);
 
-  &:first-child {
-    margin-top: 0;
-  }
+  &:first-child { margin-top: 0; }
 }
 
-h4 {
-  font-size: 17px;
-  font-weight: 600;
-  color: var(--color-secondary-label);
-  margin-top: 20px;
-
-  &:first-child {
-    margin-top: 0;
-  }
-}
-
+h4,
 h5 {
-  font-size: 15px;
-  font-weight: 600;
-  color: var(--color-secondary-label);
-  margin-top: 16px;
+  font-weight: 650;
+  color: var(--color-text-secondary);
+  margin-top: var(--space-6);
 
-  &:first-child {
-    margin-top: 0;
-  }
+  &:first-child { margin-top: 0; }
 }
 
+h4 { font-size: 1rem; }
+h5 { font-size: 0.9rem; }
 h6 {
-  font-size: 13px;
-  font-weight: 600;
-  color: var(--color-tertiary-label);
-  margin-top: 16px;
+  font-size: 0.82rem;
+  font-weight: 650;
+  color: var(--color-text-tertiary);
+  margin-top: var(--space-5);
 
-  &:first-child {
-    margin-top: 0;
-  }
+  &:first-child { margin-top: 0; }
 }
 
 a {
+  color: inherit;
   text-decoration: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+a:focus-visible,
+button:focus-visible,
+summary:focus-visible,
+[tabindex]:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3.5px var(--color-focus-ring);
 }
 
 img {
   max-width: 100%;
+  height: auto;
+}
+
+input,
+button {
+  font: inherit;
 }
 
 input {
   outline: none;
   border: 0.5px solid var(--color-separator);
-  border-radius: 10px;
+  border-radius: var(--radius-md);
   padding: 10px 12px;
-  font-size: 17px;
+  font-size: 1rem;
   font-weight: 400;
-  background: var(--bg-tertiary);
-  color: var(--color-label);
-  font-family: inherit;
+  background: var(--color-surface-subtle);
+  color: var(--color-text-primary);
 
-  &:focus {
+  &:focus-visible {
     box-shadow: 0 0 0 3.5px var(--color-focus-ring);
   }
 }
@@ -179,7 +220,7 @@ input {
 .loading::after {
   content: "";
   display: block;
-  position: absolute;
+  position: fixed;
   top: 50vh;
   left: 50%;
   width: 32px;
@@ -187,23 +228,21 @@ input {
   margin: -16px 0 0 -16px;
   border-radius: 50%;
   border: 3px solid var(--color-separator);
-  border-top-color: var(--color-tint);
+  border-top-color: var(--color-accent);
   animation: spin 0.8s linear infinite;
-  z-index: 1;
+  z-index: 200;
 }
 
 @keyframes spin {
-  to {
-    transform: rotate(360deg);
-  }
+  to { transform: rotate(360deg); }
 }
 
-.text-center {
-  text-align: center;
-}
+.text-center { text-align: center; }
+i { vertical-align: baseline !important; }
 
-i {
-  vertical-align: baseline !important;
+::selection {
+  background: var(--color-accent-soft);
+  color: var(--color-text-primary);
 }
 
 ::view-transition-new(root) {
@@ -211,23 +250,49 @@ i {
   mix-blend-mode: normal;
 }
 
-::view-transition-old(root) {
-  animation: none;
-}
+::view-transition-old(root) { animation: none; }
 
 @keyframes turnOn {
-  0% {
-    clip-path: circle(0% at var(--click-x) var(--click-y));
-  }
+  0% { clip-path: circle(0% at var(--click-x) var(--click-y)); }
+  100% { clip-path: circle(var(--end-radius) at var(--click-x) var(--click-y)); }
+}
 
-  100% {
-    clip-path: circle(var(--end-radius) at var(--click-x) var(--click-y));
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-accent: #64D2CA;
+    --color-accent-hover: #9BECE6;
+    --color-accent-soft: rgba(100, 210, 202, 0.16);
+    --color-accent-softer: rgba(100, 210, 202, 0.08);
+    --color-accent-strong: rgba(100, 210, 202, 0.24);
+    --color-focus-ring: rgba(100, 210, 202, 0.32);
+    --color-text-primary: #F5FBFA;
+    --color-text-secondary: rgba(235, 235, 245, 0.64);
+    --color-text-tertiary: rgba(235, 235, 245, 0.34);
+    --color-separator: rgba(84, 96, 98, 0.65);
+    --color-surface-page: #0B1213;
+    --color-surface: #172224;
+    --color-surface-subtle: #1D2B2D;
+    --color-surface-elevated: rgba(23, 34, 36, 0.88);
+    --color-surface-code: #0F1A1C;
+    --color-surface-header: rgba(17, 26, 28, 0.76);
+    --color-surface-chip: rgba(100, 210, 202, 0.14);
+    --shadow-card: 0 1px 1px rgba(0, 0, 0, 0.5), 0 18px 46px rgba(0, 0, 0, 0.28);
+    --shadow-card-hover: 0 22px 54px rgba(0, 0, 0, 0.36);
+    --color-note: #64D2CA;
+    --color-tip: #30D158;
+    --color-warning: #FF9F0A;
+    --color-severe: #FF6B35;
+    --color-caution: #FF453A;
+    --color-important: #BF5AF2;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  * {
+  *,
+  *::before,
+  *::after {
     animation: none !important;
     transition: none !important;
+    scroll-behavior: auto !important;
   }
 }

@@ -10,14 +10,14 @@
 
 项目由两部分组成：
 
-- **静态站点生成器**：Markdown（带 YAML frontmatter）经 Node.js 构建为 `dist/`，可托管在任意静态平台。
+- **Hono SSG 静态站点生成器**：Markdown（带 YAML frontmatter）经构建期 Hono JSX app 渲染为 `dist/`，可托管在任意静态平台。
 - **Cloudflare Worker**：托管 `dist/` 静态资源，并在边缘拦截付费路由，用 x402 协议完成基于 USDC 的按次结算。
 
 它提供四种能力：普通静态博客、面向 agent 的付费 JSON API、面向 AI 爬虫的付费门，以及面向真人的付费文章。
 
 ## 特性
 
-- **静态博客**。响应式页面，支持标签、归档、RSS。
+- **Hono SSG 静态博客**。响应式页面，支持标签、归档、RSS。
 - **agent 付费 API**（`/api/content/:slug`）。把免费文章以结构化 JSON 提供给 agent，按次付费调用。
 - **爬虫付费门**（`/posts/*`）。已知 AI 爬虫按 User-Agent 识别后付费读全文，真人浏览免费。
 - **人类付费文章**（`/premium/:slug`）。真人在浏览器里连钱包付款读全文，付款后签发通行证，有效期内免重付。购买记录写入 KV，清 cookie 或换设备后可用钱包签名免费恢复访问。
@@ -26,36 +26,37 @@
 
 前置条件：
 
-- Node.js 24+ 与 npm。
+- Node.js 24+ 与 pnpm。
 - Cloudflare 账号（可选，部署 Worker 时使用）。
 
 启动本地开发站点：
 
 ```bash
-npm run dev
+pnpm run dev
 ```
 
 其他常用任务：
 
 ```bash
-npm run build     # 构建到 dist/
-npm run preview   # 预览构建产物
+pnpm run typecheck # 检查 Node/Hono/browser 与 Worker TypeScript
+pnpm run build     # 构建到 dist/
+pnpm run preview   # 预览构建产物
 ```
 
 ### package.json
 
-项目已统一到 Node.js + npm 工具链：
+项目已统一到 Node.js + pnpm 工具链：
 
 - `package.json` 管理静态站点构建脚本、测试脚本、Worker/Wrangler 命令和全部 npm 依赖。
-- `package-lock.json` 用于锁定依赖版本，CI 通过 `npm ci` 可复现安装。
-- `scripts/*.ts` 直接用 Node.js 24+ 原生 TypeScript 支持运行，不需要 Deno、tsx 或 ts-node。
+- `pnpm-lock.yaml` 用于锁定依赖版本，CI 通过 `pnpm install --frozen-lockfile` 可复现安装。
+- 构建端、Hono SSG 与浏览器脚本已统一为 TypeScript / TSX；`main.ts` 通过 `tsx` loader 运行，`public/JavaScript/index.ts` 在构建时由 esbuild 编译为版本化浏览器脚本。
 
 ## 写文章
 
 用脚本生成一篇新文章：
 
 ```bash
-npm run new-post -- --title "标题" --categories "Tech" --tags "Node,x402" --summary "一句话摘要"
+pnpm run new-post -- --title "标题" --categories "Tech" --tags "Node,x402" --summary "一句话摘要"
 ```
 
 生成的文件位于 `src/posts/`，frontmatter 字段如下：
@@ -115,7 +116,7 @@ price: "$1"
 1. 安装 Worker 依赖：
 
    ```bash
-   npm install
+   pnpm install
    ```
 
 2. 新建 `.dev.vars`（已在 `.gitignore` 中），放入本地密钥与测试网覆盖：
@@ -129,7 +130,7 @@ price: "$1"
 3. 启动 Worker（会先自动构建 `dist/` 与 `worker/content.generated.js`）：
 
    ```bash
-   npm run worker:dev
+   pnpm run worker:dev
    ```
 
 三个端到端测试脚本用于验证付款链路（付款腿需一个持有 Base Sepolia 测试网 USDC 的钱包）。默认网络是 `eip155:84532`，需要覆盖时可设置 `X402_NETWORK`。
@@ -245,13 +246,13 @@ PORT=3000
 4. 构建产物与 Worker 内容模块由同一条命令生成：
 
    ```bash
-   npm run build   # 生成 dist/ 与 worker/content.generated.js
+   pnpm run build   # 生成 dist/ 与 worker/content.generated.js
    ```
 
 5. 部署到 Cloudflare Workers：
 
    ```bash
-   npm run worker:deploy
+   pnpm run worker:deploy
    ```
 
 后续更新只需重复第 4、5 步。
@@ -259,7 +260,7 @@ PORT=3000
 只想验证 Worker 能否被 Wrangler 打包时，可以运行：
 
 ```bash
-npm run worker:dry-run
+pnpm run worker:dry-run
 ```
 
 也可以走 GitHub Actions 的 `deploy-worker` 任务：在仓库配置 `CLOUDFLARE_API_TOKEN` 与 `CLOUDFLARE_ACCOUNT_ID` secret 后，推送即触发。
@@ -276,11 +277,11 @@ npm run worker:dry-run
 
 ## 项目结构
 
-`main.js` 位于根目录，是构建入口（无需改动，配置请改 `.env`）。
+`main.ts` 位于根目录，是构建入口：收集 Markdown 数据，创建构建期 Hono TSX app，编译 public assets，然后把路由响应写入 `dist/`。
 
 ```bash
 .
-├── main.js              # 构建入口
+├── main.ts              # 构建入口
 ├── site.config.json     # 站点公开 profile、社交链接、评论与赞助配置
 ├── wrangler.jsonc       # Cloudflare Worker 配置
 ├── worker               # Worker 源码（Cloudflare 运行时）
@@ -289,20 +290,19 @@ npm run worker:dry-run
 │   └── crawlers.ts      # AI 爬虫 UA 列表
 ├── scripts              # 建帖与端到端测试脚本
 ├── src
+│   ├── blog             # Hono SSG 构建期 app、数据收集与路由输出
+│   │   ├── data.tsx     # collectBlogData + worker/content.generated.js 输出
+│   │   ├── app.tsx      # createBlogApp，定义静态页面路由
+│   │   ├── components.tsx # Hono JSX 组件
+│   │   └── emit.ts      # emitStaticRoutes，把 Hono 响应写入 dist
+│   ├── build
+│   │   └── assets.ts    # emitAssets，处理 CSS 与浏览器 TS 版本化输出
 │   ├── about            # 关于页
 │   ├── picture          # 图片
-│   ├── plugins          # 构建插件
-│   │   ├── core.js
-│   │   ├── posts.js
-│   │   ├── api-content.js
-│   │   ├── asserts.js
-│   │   ├── feed.js
-│   │   └── pages.js
 │   ├── posts            # 博客文章
-│   └── util             # 模板与工具
-│       ├── template.js
-│       ├── utils.js
-│       ├── type.js
-│       └── remark       # remark 插件
+│   └── util             # 模板、站点配置、remark 插件与 Node 工具
+├── public
+│   ├── JavaScript/index.ts # 浏览器交互脚本，构建为 dist/public/JavaScript/index.<version>.js
+│   └── css             # Editorial HIG token-first 样式
 └── dist                 # 构建产物
 ```

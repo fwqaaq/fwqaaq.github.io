@@ -22,7 +22,7 @@ interface Env {
   ASSETS: Fetcher
   PURCHASES: KVNamespace
   PAY_TO_ADDRESS: string
-  NETWORK: string
+  NETWORK: `${string}:${string}`
   FACILITATOR_URL: string
   PRICE: string
   CRAWL_PRICE: string
@@ -65,7 +65,7 @@ function gate(env: Env, routeKey: string, price: string, description: string) {
   let middleware = gateCache.get(cacheKey)
   if (!middleware) {
     middleware = paymentMiddleware(
-      {
+      ({
         [routeKey]: {
           accepts: [
             {
@@ -77,7 +77,7 @@ function gate(env: Env, routeKey: string, price: string, description: string) {
           ],
           description,
         },
-      },
+      } as any),
       resourceServer(env),
       { appName: 'fwqaaq 的博客', testnet: env.NETWORK !== 'eip155:8453' },
       browserPaywall,
@@ -111,7 +111,7 @@ function premiumPrice(env: Env, slug: string): string {
  */
 function premiumRequirements(env: Env, slug: string) {
   const price = premiumPrice(env, slug)
-  const asset = getDefaultAsset(env.NETWORK)
+  const asset = getDefaultAsset(env.NETWORK as any)
   const amount = String(
     Math.round(parseFloat(price.replace('$', '')) * 10 ** asset.decimals),
   )

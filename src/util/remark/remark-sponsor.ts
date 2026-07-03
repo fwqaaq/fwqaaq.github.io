@@ -4,10 +4,10 @@
  */
 
 /** @type {import('unified/index.d.ts').Plugin<[RemarkSponsorOptions], import('type-mdast').Root>}*/
-const remarkSponsor = (options) => {
+const remarkSponsor = (options: any): any => {
   const { address } = options
 
-  return (tree /**@type {import('type-mdast').Root}*/) => {
+  return (tree: any) => {
     if (!address) return tree
 
     const sponsorNode = {

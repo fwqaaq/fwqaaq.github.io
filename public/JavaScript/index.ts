@@ -1,20 +1,41 @@
 ///<reference lib="dom" />
 
+declare global {
+  var googleTranslateElementInit: () => void
+  var google: any
+  var __BLOG_CONFIG__: any
+}
+
+
 // Regex to capture the full <main>…</main> element including its class attribute
 const regex = /(<main[\s\S]*<\/main>)/
 
 let isDark = globalThis.matchMedia('(prefers-color-scheme: dark)').matches
 
 // check if the browser supports view transition
-const isViewTransition = document.startViewTransition &&
+const isViewTransition = Boolean(document.startViewTransition) &&
   !globalThis.matchMedia('(prefers-reduced-motion: reduce)').matches
 
-/** @type {HTMLMetaElement}*/
-const metaTheme = document.head.querySelector("meta[name='theme-color']")
+const metaTheme = document.head.querySelector<HTMLMetaElement>("meta[name='theme-color']")
 
 const themeTokens = {
   light: [
-    ['--theme-color', '#000000'],
+    ['--color-accent', '#007A78'],
+    ['--color-accent-hover', '#005F5D'],
+    ['--color-accent-soft', 'rgba(0,122,120,0.12)'],
+    ['--color-accent-softer', 'rgba(0,122,120,0.07)'],
+    ['--color-accent-strong', 'rgba(0,122,120,0.2)'],
+    ['--color-text-primary', '#111817'],
+    ['--color-text-secondary', 'rgba(60,60,67,0.68)'],
+    ['--color-text-tertiary', 'rgba(60,60,67,0.36)'],
+    ['--color-surface-page', '#F3F7F6'],
+    ['--color-surface', '#FFFFFF'],
+    ['--color-surface-subtle', '#F9FCFB'],
+    ['--color-surface-elevated', 'rgba(255,255,255,0.86)'],
+    ['--color-surface-code', '#172224'],
+    ['--color-surface-header', 'rgba(250,253,252,0.76)'],
+    ['--color-surface-chip', 'rgba(0,122,120,0.1)'],
+    ['--theme-color', '#111817'],
     ['--color-label', '#000000'],
     ['--color-tint', '#007A78'],
     ['--color-tint-hover', '#005F5D'],
@@ -43,7 +64,22 @@ const themeTokens = {
     ['--color-important', '#AF52DE'],
   ],
   dark: [
-    ['--theme-color', '#FFFFFF'],
+    ['--color-accent', '#64D2CA'],
+    ['--color-accent-hover', '#9BECE6'],
+    ['--color-accent-soft', 'rgba(100,210,202,0.16)'],
+    ['--color-accent-softer', 'rgba(100,210,202,0.08)'],
+    ['--color-accent-strong', 'rgba(100,210,202,0.24)'],
+    ['--color-text-primary', '#F5FBFA'],
+    ['--color-text-secondary', 'rgba(235,235,245,0.64)'],
+    ['--color-text-tertiary', 'rgba(235,235,245,0.34)'],
+    ['--color-surface-page', '#0B1213'],
+    ['--color-surface', '#172224'],
+    ['--color-surface-subtle', '#1D2B2D'],
+    ['--color-surface-elevated', 'rgba(23,34,36,0.88)'],
+    ['--color-surface-code', '#0F1A1C'],
+    ['--color-surface-header', 'rgba(17,26,28,0.76)'],
+    ['--color-surface-chip', 'rgba(100,210,202,0.14)'],
+    ['--theme-color', '#F5FBFA'],
     ['--color-label', '#FFFFFF'],
     ['--color-tint', '#64D2CA'],
     ['--color-tint-hover', '#9BECE6'],
@@ -106,21 +142,21 @@ globalThis.googleTranslateElementInit = () => {
  * @param {boolean} isDarkTheme
  * @param {Element} e
  */
-function toggleColor(isDarkTheme, e) {
+function toggleColor(isDarkTheme: boolean, e: Element) {
   e.classList.toggle('fa-sun', !isDarkTheme)
   e.classList.toggle('fa-moon', isDarkTheme)
   globalThis.localStorage.setItem('darkMode', isDarkTheme ? 'dark' : 'light')
   themeTokens[isDarkTheme ? 'dark' : 'light'].forEach(([v, c]) =>
     document.documentElement.style.setProperty(v, c)
   )
-  metaTheme.content = isDarkTheme ? '#0B1213' : '#F3F7F6'
+  if (metaTheme) metaTheme.content = isDarkTheme ? '#0B1213' : '#F3F7F6'
 }
 
-function getGoogleCombo() {
-  return document.querySelector('.goog-te-combo')
+function getGoogleCombo(): HTMLSelectElement | null {
+  return document.querySelector<HTMLSelectElement>('.goog-te-combo')
 }
 
-function setTranslateCookie(value) {
+function setTranslateCookie(value: string) {
   const expires = new Date(Date.now() + 365 * 24 * 60 * 60 * 1000)
     .toUTCString()
   const cookie = `googtrans=${value}; expires=${expires}; path=/`
@@ -145,8 +181,8 @@ function setTranslateCookie(value) {
   }
 }
 
-function updateLanguageOptions(language) {
-  document.querySelectorAll('.language-option').forEach((option) => {
+function updateLanguageOptions(language: string) {
+  document.querySelectorAll<HTMLElement>('.language-option').forEach((option) => {
     option.setAttribute(
       'aria-checked',
       option.dataset.lang === language ? 'true' : 'false',
@@ -154,7 +190,7 @@ function updateLanguageOptions(language) {
   })
 }
 
-function applyLanguage(language, shouldReload = false) {
+function applyLanguage(language: string, shouldReload = false) {
   if (!languageCodes.has(language)) return
 
   preferredLanguage = language
@@ -194,7 +230,7 @@ function applyLanguage(language, shouldReload = false) {
   }
 }
 
-function detectPreferredLanguage() {
+function detectPreferredLanguage(): string {
   const saved = globalThis.localStorage.getItem('preferredLanguage')
   if (languageCodes.has(saved)) return saved
 
@@ -221,8 +257,8 @@ function closeLanguageMenu() {
   languageMenu.hidden = true
 }
 
-function closestElement(target, selector) {
-  return target instanceof Element ? target.closest(selector) : null
+function closestElement<T extends Element = Element>(target: EventTarget | null, selector: string): T | null {
+  return target instanceof Element ? target.closest<T>(selector) : null
 }
 
 function initTranslationControls() {
@@ -238,7 +274,7 @@ function initTranslationControls() {
   })
 
   languageMenu.addEventListener('click', (e) => {
-    const option = closestElement(e.target, '.language-option')
+    const option = closestElement<HTMLElement>(e.target, '.language-option')
     if (!option) return
 
     applyLanguage(option.dataset.lang, true)
@@ -262,13 +298,14 @@ document.addEventListener('DOMContentLoaded', () => {
   const localDarkMode = globalThis.localStorage.getItem('darkMode')
   isDark = localDarkMode === null ? isDark : localDarkMode === 'dark'
 
-  const model = document.querySelector('a.model')
-  const darkIcon = model.querySelector('i')
+  const model = document.querySelector<HTMLAnchorElement>('a.model')
+  const darkIcon = model?.querySelector<HTMLElement>('i')
+  if (!model || !darkIcon) return
 
   toggleColor(isDark, darkIcon)
   initTranslationControls()
 
-  model.addEventListener('click', (e) => {
+  model.addEventListener('click', (e: MouseEvent) => {
     e.preventDefault()
     const darkMode = globalThis.localStorage.getItem('darkMode') === 'dark'
       ? 'light'
@@ -286,7 +323,7 @@ document.addEventListener('DOMContentLoaded', () => {
       Math.max(y, innerHeight - y),
     )
 
-    document.startViewTransition(
+    document.startViewTransition?.(
       () => toggleColor(darkMode === 'dark', darkIcon),
     )
     ;[
@@ -296,14 +333,14 @@ document.addEventListener('DOMContentLoaded', () => {
     ].forEach(([v, c]) => document.documentElement.style.setProperty(v, c))
   })
 
-  const header = document.querySelector('header')
-  const nav = header.querySelector('nav')
+  const header = document.querySelector<HTMLElement>('header')
+  const nav = header?.querySelector<HTMLElement>('nav')
   const switchIcon = document.getElementById('switch-icon')
+  if (!header || !nav || !switchIcon || !nav.parentElement) return
   const isMobile = globalThis.matchMedia('(max-width: 480px)').matches
   if (!isMobile) switchIcon.hidden = true
 
-  /**@param {HTMLElement | null} target*/
-  const isRouterTag = (target) => {
+    const isRouterTag = (target: HTMLElement | null | undefined): boolean => {
     if (!target) return false
     return target.matches('a') &&
       (target.getAttribute('href') ?? '').startsWith('/./')
@@ -319,11 +356,11 @@ document.addEventListener('DOMContentLoaded', () => {
     if (e.target === switchIcon) {
       switchIcon.classList.toggle('fa-bars')
       switchIcon.classList.toggle('fa-xmark')
-      nav.parentElement.classList.toggle('show')
+      nav.parentElement?.classList.toggle('show')
       return
     }
     if (closestElement(e.target, '.language-switcher')) return
-    nav.parentElement.classList.remove('show')
+    nav.parentElement?.classList.remove('show')
     switchIcon.classList.remove('fa-xmark')
     switchIcon.classList.add('fa-bars')
   })
@@ -336,7 +373,7 @@ document.addEventListener('DOMContentLoaded', () => {
     } else {
       header.style.transform = 'translateY(-100%)'
       if (!globalThis.matchMedia('(max-width: 480px)').matches) return
-      nav.parentElement.classList.remove('show')
+      nav.parentElement?.classList.remove('show')
       switchIcon.classList.remove('fa-xmark')
       switchIcon.classList.add('fa-bars')
     }
@@ -346,10 +383,7 @@ document.addEventListener('DOMContentLoaded', () => {
   self.addEventListener('popstate', renderPage)
 })
 
-/**
- * @param {number} amount
- */
-function sponsor(amount) {
+function sponsor(amount: number) {
   const url = blogConfig.sponsor?.url
   if (!url) return
   globalThis.location.href = url
@@ -361,7 +395,7 @@ function loadGiscus() {
   if (!giscusConfig?.enabled) return
 
   const script = document.createElement('script')
-  const dataset = {
+  const dataset: Record<string, unknown> = {
     mapping: 'pathname',
     strict: '0',
     reactionsEnabled: '1',
@@ -378,12 +412,12 @@ function loadGiscus() {
   script.async = true
   for (const [key, value] of Object.entries(dataset)) {
     if (value === undefined || value === null || value === '') continue
-    script.dataset[key] = value
+    script.dataset[key] = String(value)
   }
 
   const giscus = document.createElement('div')
   giscus.className = 'giscus'
-  document.body.querySelector('main.blog-main').insertAdjacentElement(
+  document.body.querySelector<HTMLElement>('main.blog-main')?.insertAdjacentElement(
     'afterend',
     giscus,
   )
@@ -395,7 +429,7 @@ function unloadGiscus() {
   document.querySelector('script[src*="giscus"]')?.remove()
 }
 
-const renderPage = async (e) => {
+const renderPage = async (e?: Event): Promise<void> => {
   // hash change, do nothing
   if (e && e.type === 'popstate' && location.hash) return
 
@@ -404,10 +438,12 @@ const renderPage = async (e) => {
   const res = await fetch(path)
   const html = await res.text()
 
-  const [, mainHtml] = html.match(regex)
+  const [, mainHtml] = html.match(regex) ?? []
+  if (!mainHtml) return
   const temp = document.createElement('div')
   temp.innerHTML = mainHtml
-  document.body.querySelector('main').replaceWith(temp.firstElementChild)
+  const main = document.body.querySelector('main')
+  if (main && temp.firstElementChild) main.replaceWith(temp.firstElementChild)
 
   if (path.includes('posts')) {
     loadGiscus()
@@ -420,14 +456,14 @@ const renderPage = async (e) => {
   }
 }
 
-/**@param {MouseEvent} e*/
-const useRoute = async (e) => {
+const useRoute = async (e: MouseEvent): Promise<void> => {
   e.preventDefault()
-  /**@type {HTMLAnchorElement} */
-  const target = closestElement(e.target, 'a')
+    const target = closestElement<HTMLAnchorElement>(e.target, 'a')
   if (!target) return
   history.pushState({}, '', target.href)
   document.body.classList.add('loading')
   await renderPage()
   document.body.classList.remove('loading')
 }
+
+export {}

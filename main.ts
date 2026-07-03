@@ -1,28 +1,23 @@
 import { existsSync, rmSync, watch } from 'node:fs'
 import { readFile } from 'node:fs/promises'
 import { config as loadEnv } from 'dotenv'
-import { apiContentPlugin } from './src/plugins/api-content.js'
-import { assertPlugin } from './src/plugins/asserts.js'
-import { Core } from './src/plugins/core.js'
-import { feedPlugin } from './src/plugins/feed.js'
-import { pagesPlugin } from './src/plugins/pages.js'
-import { postPlugin } from './src/plugins/posts.js'
-import { startServer } from './src/util/utils.js'
-import {
-  loadSiteConfig,
-  renderSiteTemplate,
-  withEnvSiteConfig,
-} from './src/util/site.js'
+import { createBlogApp } from './src/blog/app.tsx'
+import { collectBlogData, emitWorkerContentModule } from './src/blog/data.tsx'
+import { emitStaticRoutes } from './src/blog/emit.ts'
+import { emitAssets } from './src/build/assets.ts'
+import { startServer } from './src/util/utils.ts'
+import { loadSiteConfig, renderSiteTemplate, withEnvSiteConfig } from './src/util/site.ts'
+import type { BuildConfig } from './src/types.ts'
 
-async function createConfig() {
+async function createConfig(): Promise<BuildConfig> {
   loadEnv()
   const site = withEnvSiteConfig(
     await loadSiteConfig(new URL('./site.config.json', import.meta.url)),
   )
 
   const baseConfig = {
-    dist: import.meta.resolve('./dist/'),
-    src: import.meta.resolve('./src/'),
+    dist: new URL('./dist/', import.meta.url).href,
+    src: new URL('./src/', import.meta.url).href,
     website: site.website,
     author: site.author,
     port: process.env.PORT,
@@ -34,7 +29,6 @@ async function createConfig() {
     await readFile(new URL('./util/head.html', baseConfig.src), 'utf8'),
     site,
   )
-
   const header = renderSiteTemplate(
     await readFile(new URL('./util/header.html', baseConfig.src), 'utf8'),
     site,
@@ -48,30 +42,23 @@ async function createConfig() {
 }
 
 const config = await createConfig()
-async function main() {
+
+async function buildSite(): Promise<void> {
   const distUrl = new URL(config.dist)
   if (existsSync(distUrl)) {
     rmSync(distUrl, { recursive: true, force: true })
   }
-  const core = new Core()
-  core.use(postPlugin)
-    .use(apiContentPlugin)
-    .use(assertPlugin)
-    .use(feedPlugin)
-    .use(pagesPlugin)
-  await core.runHook('beforeBuild', config)
-  await core.runHook('afterBuild', config)
+
+  const data = await collectBlogData(config)
+  await emitWorkerContentModule(config, data)
+  await emitAssets(config)
+  const app = createBlogApp(config, data)
+  await emitStaticRoutes(app, data.routeManifest, config.dist)
 }
 
-/**
- * Watch public/ for CSS/JS changes and rebuild assets in DEV mode.
- * Node --watch restarts the full process for source/template changes; this
- * watcher keeps the original fast asset-only rebuild path for public assets.
- * @param {Awaited<ReturnType<typeof createConfig>>} config
- */
-function watchPublicAssets(config) {
+function watchPublicAssets(config: BuildConfig): void {
   const publicDir = new URL('./public/', import.meta.url)
-  let timer = undefined
+  let timer: NodeJS.Timeout | undefined
 
   watch(publicDir, { recursive: true }, (_eventType, filename) => {
     if (!filename) return
@@ -79,9 +66,7 @@ function watchPublicAssets(config) {
     timer = setTimeout(async () => {
       console.log('[watcher] public/ change detected, rebuilding assets...')
       try {
-        const core = new Core()
-        core.use(assertPlugin)
-        await core.runHook('beforeBuild', config)
+        await emitAssets(config)
         console.log('[watcher] rebuild complete')
       } catch (err) {
         console.error('[watcher] rebuild failed:', err)
@@ -92,7 +77,7 @@ function watchPublicAssets(config) {
 
 const mode = process.env.MODE
 if (mode === 'DEV' || mode === 'PRO') {
-  await main()
+  await buildSite()
 }
 
 if (mode === 'DEV') {

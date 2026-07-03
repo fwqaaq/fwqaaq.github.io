@@ -1,143 +1,133 @@
-code {
-  background-color: var(--color-tint-softer);
-  color: var(--color-tint);
-  padding: 0.15rem 0.4rem;
-  border-radius: 6px;
-  font-size: 0.9em;
+.blog-article p,
+.blog-article li {
+  color: var(--color-text-primary);
 }
 
-/* clear */
+.blog-article p {
+  margin-block: 1em;
+}
+
+code {
+  background-color: var(--color-accent-softer);
+  color: var(--color-accent);
+  padding: 0.15rem 0.42rem;
+  border-radius: 6px;
+  font-family: var(--font-mono);
+  font-size: 0.88em;
+}
+
 pre code {
-  padding: 0%;
-  border-radius: 0%;
+  padding: 0;
+  border-radius: 0;
+  color: inherit;
 }
 
 blockquote {
-  line-height: 1.6;
-  border-inline-start: 3px solid var(--color-tint);
-  border-radius: 0 8px 8px 0;
-  padding-inline-start: 0.25rem;
-  padding-block: 0.3rem;
+  line-height: 1.68;
+  border-inline-start: 3px solid var(--color-accent);
+  border-radius: 0 var(--radius-md) var(--radius-md) 0;
+  padding: 0.55rem 1rem;
   margin-inline: 0;
-  background-color: var(--color-tint-softer);
+  background: linear-gradient(90deg, var(--color-accent-softer), transparent 80%);
+  color: var(--color-text-secondary);
 
   p {
-    padding-inline-start: 1rem;
+    padding-inline-start: 0;
   }
 }
 
 pre {
   overflow: auto;
-  padding: 1.5rem 1.2rem;
-  border-radius: 12px;
+  padding: 1.25rem;
+  border-radius: var(--radius-lg);
   min-height: 2rem;
-  margin: 0.2rem auto;
-  /* shiki doesn't config colorReplacements */
-  background-color: var(--code-bg) !important;
+  margin: 1.15rem auto;
+  background-color: var(--color-surface-code) !important;
+  border: 0.5px solid color-mix(in srgb, var(--color-separator) 55%, transparent);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+  -webkit-overflow-scrolling: touch;
 
   & code {
     background-color: inherit;
   }
 }
 
-ul li {
-  margin-block: 0.2rem;
-  margin-inline-start: 0rem;
+ul li,
+ol li {
+  margin-block: 0.32rem;
+  margin-inline-start: 0;
 }
 
 table {
-  margin: 0 auto;
-  /* prevent overflow */
-  word-break: break-all;
+  display: block;
+  width: 100%;
+  overflow-x: auto;
+  margin: 1.2rem auto;
+  word-break: normal;
   border-collapse: collapse;
+  -webkit-overflow-scrolling: touch;
 
   & th,
   td {
     border: 0.5px solid var(--table-border-color);
-    padding: 8px 12px;
+    padding: 0.55rem 0.75rem;
+  }
+
+  & th {
+    background: var(--color-accent-softer);
+    color: var(--color-text-primary);
+    font-weight: 650;
   }
 }
 
 p>img:only-child {
   display: block;
-  margin: 0 auto;
+  margin: 1.5rem auto;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
 }
 
-/* GitHub Alert */
 .markdown-alert {
-  padding: 0.5rem 1rem;
-  margin-bottom: 16px;
+  padding: 0.85rem 1rem;
+  margin-block: 1rem;
   color: inherit;
   border-left: 0.25em solid #888;
+  border-radius: 0 var(--radius-md) var(--radius-md) 0;
+  background: var(--color-surface-subtle);
 }
 
-.markdown-alert> :first-child {
-  margin-top: 0;
-}
-
-.markdown-alert> :last-child {
-  margin-bottom: 0;
-}
+.markdown-alert> :first-child { margin-top: 0; }
+.markdown-alert> :last-child { margin-bottom: 0; }
 
 .markdown-alert .markdown-alert-title {
   display: flex;
-  font-weight: 500;
+  gap: 0.5rem;
+  font-weight: 650;
   align-items: center;
-  line-height: 1;
+  line-height: 1.2;
 }
 
 .markdown-alert .markdown-alert-title .octicon {
-  margin-right: 0.5rem;
   display: inline-block;
   overflow: visible !important;
   vertical-align: text-bottom;
   fill: currentColor;
 }
 
-.markdown-alert.markdown-alert-note {
-  border-left-color: var(--color-note);
-}
+.markdown-alert.markdown-alert-note { border-left-color: var(--color-note); }
+.markdown-alert.markdown-alert-note .markdown-alert-title { color: var(--color-note); }
+.markdown-alert.markdown-alert-important { border-left-color: var(--color-important); }
+.markdown-alert.markdown-alert-important .markdown-alert-title { color: var(--color-important); }
+.markdown-alert.markdown-alert-warning { border-left-color: var(--color-warning); }
+.markdown-alert.markdown-alert-warning .markdown-alert-title { color: var(--color-warning); }
+.markdown-alert.markdown-alert-tip { border-left-color: var(--color-tip); }
+.markdown-alert.markdown-alert-tip .markdown-alert-title { color: var(--color-tip); }
+.markdown-alert.markdown-alert-caution { border-left-color: var(--color-caution); }
+.markdown-alert.markdown-alert-caution .markdown-alert-title { color: var(--color-caution); }
 
-.markdown-alert.markdown-alert-note .markdown-alert-title {
-  color: var(--color-note);
-}
-
-.markdown-alert.markdown-alert-important {
-  border-left-color: var(--color-important);
-}
-
-.markdown-alert.markdown-alert-important .markdown-alert-title {
-  color: var(--color-important);
-}
-
-.markdown-alert.markdown-alert-warning {
-  border-left-color: var(--color-warning);
-}
-
-.markdown-alert.markdown-alert-warning .markdown-alert-title {
-  color: var(--color-warning);
-}
-
-.markdown-alert.markdown-alert-tip {
-  border-left-color: var(--color-tip);
-}
-
-.markdown-alert.markdown-alert-tip .markdown-alert-title {
-  color: var(--color-tip);
-}
-
-.markdown-alert.markdown-alert-caution {
-  border-left-color: var(--color-caution);
-}
-
-.markdown-alert.markdown-alert-caution .markdown-alert-title {
-  color: var(--color-caution);
-}
-
-/* Remark List*/
 .remark-ordered-list {
   list-style: decimal;
-  color: var(--theme-color);
+  color: var(--color-text-primary);
 
   & li::marker {
     color: var(--list-color);
@@ -147,22 +137,27 @@ p>img:only-child {
 
 .remark-unordered-list {
   list-style: disc;
-  color: var(--theme-color);
+  color: var(--color-text-primary);
 
   & li::marker {
     color: var(--list-color);
     font-weight: 800;
-    font-size: 1.2rem;
+    font-size: 1.12rem;
   }
 }
 
 .remark-toc-details {
-  padding-block: 1rem;
+  padding: 1rem;
+  margin-block: 1rem;
+  border: 0.5px solid var(--color-separator);
+  border-radius: var(--radius-lg);
+  background: var(--color-surface-subtle);
 }
 
-.remark-toc-name {
-  font-weight: 800;
-  font-size: 1.2rem;
+.remark-toc-summary {
+  cursor: pointer;
+  font-weight: 700;
+  color: var(--color-accent);
 }
 
 .remark-toc p {

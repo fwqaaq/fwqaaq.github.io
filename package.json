@@ -5,13 +5,14 @@
   "type": "module",
   "scripts": {
     "new-post": "node scripts/new-post.ts",
-    "dev": "node src/util/resume/index.js && MODE=DEV node --watch main.js",
-    "build": "node src/util/resume/index.js && MODE=PRO node main.js",
-    "preview": "MODE=PRE node --watch main.js",
-    "deploy": "npm run worker:deploy",
-    "worker:dev": "npm run build && wrangler dev --port 8787",
-    "worker:deploy": "npm run build && wrangler deploy",
-    "worker:dry-run": "npm run build && wrangler deploy --dry-run"
+    "dev": "node --import tsx src/util/resume/index.ts && MODE=DEV node --import tsx --watch main.ts",
+    "build": "node --import tsx src/util/resume/index.ts && MODE=PRO node --import tsx main.ts",
+    "preview": "MODE=PRE node --import tsx --watch main.ts",
+    "deploy": "pnpm run worker:deploy",
+    "worker:dev": "pnpm run build && wrangler dev --port 8787",
+    "worker:deploy": "pnpm run build && wrangler deploy",
+    "worker:dry-run": "pnpm run build && wrangler deploy --dry-run",
+    "typecheck": "tsc --noEmit -p tsconfig.json && tsc --noEmit -p worker/tsconfig.json"
   },
   "dependencies": {
     "@coinbase/x402": "^2.1.0",
@@ -42,9 +43,13 @@
   "devDependencies": {
     "@cloudflare/workers-types": "5.20260703.1",
     "@types/node": "^24.10.0",
+    "esbuild": "^0.28.1",
+    "tsx": "^4.23.0",
+    "typescript": "^6.0.3",
     "wrangler": "^4"
   },
   "engines": {
     "node": ">=24"
-  }
+  },
+  "packageManager": "pnpm@10.28.2"
 }

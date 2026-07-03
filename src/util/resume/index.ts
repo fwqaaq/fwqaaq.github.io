@@ -1,8 +1,8 @@
 import { readFile, writeFile } from 'node:fs/promises'
 import { parse } from 'yaml'
-import { copy, ensureDir } from '../node-fs.js'
+import { copy, ensureDir } from '../node-fs.ts'
 
-function replaceExperience(content) {
+function replaceExperience(content: Array<any>): string {
   return content.map((item) =>
     `<div class="resume-learning-plate">
         <div class="resume-between">
@@ -16,7 +16,7 @@ function replaceExperience(content) {
   ).join('')
 }
 
-async function readYAMLFile(filePath) {
+async function readYAMLFile(filePath: string): Promise<any> {
   try {
     const fileContent = await readFile(new URL(filePath), 'utf8')
     return parse(fileContent)
@@ -26,7 +26,7 @@ async function readYAMLFile(filePath) {
   }
 }
 
-async function writeHTMLFile(filePath, content) {
+async function writeHTMLFile(filePath: string, content: string): Promise<void> {
   try {
     await writeFile(new URL(filePath), content)
   } catch (error) {
@@ -36,11 +36,11 @@ async function writeHTMLFile(filePath, content) {
 }
 
 async function generateResume() {
-  const configPath = import.meta.resolve('./resume.yaml')
-  const indexPath = import.meta.resolve('./index.html')
-  const resumePath = import.meta.resolve('./resume.html')
-  const dest = import.meta.resolve('../../../public/resume/')
-  const source = import.meta.resolve('./')
+  const configPath = new URL('./resume.yaml', import.meta.url).href
+  const indexPath = new URL('./index.html', import.meta.url).href
+  const resumePath = new URL('./resume.html', import.meta.url).href
+  const dest = new URL('../../../public/resume/', import.meta.url).href
+  const source = new URL('./', import.meta.url).href
 
   const data = await readYAMLFile(configPath)
   let template = await readFile(new URL(resumePath), 'utf8')
@@ -68,12 +68,8 @@ async function generateResume() {
 
   await ensureDir(new URL(dest))
   await Promise.all([
-    copy(new URL('index.html', source), new URL('index.html', dest), {
-      overwrite: true,
-    }),
-    copy(new URL('index.css', source), new URL('index.css', dest), {
-      overwrite: true,
-    }),
+    copy(new URL('index.html', source), new URL('index.html', dest)),
+    copy(new URL('index.css', source), new URL('index.css', dest)),
   ])
 }
 

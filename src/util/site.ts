@@ -1,5 +1,6 @@
 import { readFile } from 'node:fs/promises'
-import { exists } from './node-fs.js'
+import { exists } from './node-fs.ts'
+import type { SiteConfig } from '../types.ts'
 
 const defaultSiteConfig = {
   author: 'blog',
@@ -23,7 +24,7 @@ const defaultSiteConfig = {
     startYear: new Date().getFullYear(),
     licenseText: '© CC BY-SA',
     licenseUrl: 'https://creativecommons.org/licenses/by-sa/3.0/deed.zh-hans',
-    poweredByText: 'Node.js',
+    poweredByText: 'Node.ts',
     poweredByUrl: 'https://nodejs.org',
   },
   sponsor: {
@@ -41,7 +42,7 @@ const defaultSiteConfig = {
 
 const currentYear = new Date().getFullYear()
 
-const mergeConfig = (base, override) => {
+const mergeConfig = (base: any, override: any): any => {
   if (!override || typeof override !== 'object') return base
 
   const merged = { ...base }
@@ -63,14 +64,14 @@ const mergeConfig = (base, override) => {
   return merged
 }
 
-export async function loadSiteConfig(configUrl) {
+export async function loadSiteConfig(configUrl: URL): Promise<SiteConfig> {
   if (!await exists(configUrl)) return structuredClone(defaultSiteConfig)
 
   const userConfig = JSON.parse(await readFile(configUrl, 'utf8'))
   return mergeConfig(structuredClone(defaultSiteConfig), userConfig)
 }
 
-export function withEnvSiteConfig(site) {
+export function withEnvSiteConfig(site: SiteConfig): SiteConfig {
   const website = process.env.WEBSITE || site.website
   const author = process.env.AUTHOR || site.author
 
@@ -87,7 +88,7 @@ export function withEnvSiteConfig(site) {
   }
 }
 
-const escapeHtml = (value) =>
+const escapeHtml = (value: unknown) =>
   String(value ?? '')
     .replaceAll('&', '&amp;')
     .replaceAll('<', '&lt;')
@@ -95,15 +96,15 @@ const escapeHtml = (value) =>
     .replaceAll('"', '&quot;')
     .replaceAll("'", '&#39;')
 
-const normalizeUrl = (value) => String(value ?? '').trim()
+const normalizeUrl = (value: unknown) => String(value ?? '').trim()
 
-const withUrlProtocol = (value) => {
+const withUrlProtocol = (value: unknown): string => {
   const url = normalizeUrl(value)
   if (!url) return ''
   return /^[a-z][a-z\d+.-]*:/i.test(url) ? url : `https://${url}`
 }
 
-const getUrlHost = (url) => {
+const getUrlHost = (url: string): string => {
   try {
     return new URL(url).hostname
   } catch {
@@ -111,10 +112,10 @@ const getUrlHost = (url) => {
   }
 }
 
-const renderIcon = (icon) =>
+const renderIcon = (icon?: string) =>
   icon ? `<i class="${escapeHtml(icon)}" aria-hidden="true"></i>` : ''
 
-const renderSocialLinks = (socials = []) =>
+const renderSocialLinks = (socials: Array<any> = []) =>
   socials.map(({ href, icon, label }) =>
     `<a class="icon" href="${escapeHtml(normalizeUrl(href))}" aria-label="${
       escapeHtml(label)
@@ -123,12 +124,12 @@ const renderSocialLinks = (socials = []) =>
     </a>`
   ).join('')
 
-const renderChips = (chips = []) =>
+const renderChips = (chips: Array<any> = []) =>
   chips.map(({ icon, label }) =>
     `<span class="about-chip">${renderIcon(icon)} ${escapeHtml(label)}</span>`
   ).join('')
 
-const renderSkills = (skills = []) =>
+const renderSkills = (skills: Array<any> = []) =>
   skills.map(({ label, items = [], accent = [] }) => {
     const accents = new Set(accent)
     const pills = items.map((item) =>
@@ -143,7 +144,7 @@ const renderSkills = (skills = []) =>
         </div>`
   }).join('')
 
-const renderProjects = (projects = []) =>
+const renderProjects = (projects: Array<any> = []) =>
   projects.map(({ href, icon, title, description }) =>
     `<a class="project-card" href="${
       escapeHtml(normalizeUrl(href))
@@ -157,7 +158,7 @@ const renderProjects = (projects = []) =>
           </a>`
   ).join('')
 
-const renderAds = (ads = {}) => {
+const renderAds = (ads: any = {}) => {
   if (!ads.enabled || !Array.isArray(ads.items) || ads.items.length === 0) {
     return ''
   }
@@ -194,7 +195,7 @@ const renderAds = (ads = {}) => {
   </aside>`
 }
 
-export function renderSiteConfigScript(site) {
+export function renderSiteConfigScript(site: SiteConfig): string {
   const json = JSON.stringify({
     sponsor: site.sponsor,
     giscus: site.giscus,
@@ -203,7 +204,7 @@ export function renderSiteConfigScript(site) {
   return `<script>globalThis.__BLOG_CONFIG__=${json}</script>`
 }
 
-export function renderSiteTemplate(template, site) {
+export function renderSiteTemplate(template: string, site: SiteConfig): string {
   const profile = site.profile ?? {}
   const quote = profile.quote ?? {}
   const footer = site.footer ?? {}
@@ -250,7 +251,7 @@ export function renderSiteTemplate(template, site) {
   return rendered
 }
 
-export function createGiscus(giscus = {}) {
+export function createGiscus(giscus: any = {}): string {
   if (!giscus.enabled) return ''
 
   const dataset = {
@@ -281,7 +282,7 @@ export function createGiscus(giscus = {}) {
     )
     .join('\n        ')
 
-  return `<script src="https://giscus.app/client.js"
+  return `<script src="https://giscus.app/client.ts"
         ${attributes}
         crossorigin="anonymous"
         async></script>`

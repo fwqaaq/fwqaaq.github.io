@@ -7,15 +7,15 @@ import { toc } from 'mdast-util-toc'
  */
 
 /** @type {import('unified/index.d.ts').Plugin<[RemarkTocOptions], import('type-mdast').Root>}*/
-const remarkToc = (options = {}) => {
+const remarkToc = (options: any = {}): any => {
   const { flag = '[TOC]' } = options
-  return (tree) => {
+  return (tree: any) => {
     /** @type {{type: string, depth: number, children: []}[]}*/
     const headings = []
     visit(
       tree,
       'heading',
-      (/**@type {import("type-mdast").Node} */ node, _index) => {
+      (node: any, _index: any) => {
         /**@type {string} */
         let title = node.children[0].value
         // Using others type when heading is not a text node
@@ -32,7 +32,7 @@ const remarkToc = (options = {}) => {
     visit(
       tree,
       'paragraph',
-      (/**@type {import("type-mdast").Node} */ node, _index) => {
+      (node: any, _index: any) => {
         if (node.children?.[0]?.value !== flag) return
         const table = toc({ type: 'root', children: headings })
         // update toc node

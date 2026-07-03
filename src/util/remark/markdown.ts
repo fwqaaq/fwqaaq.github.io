@@ -9,13 +9,15 @@ import rehypeShiki from '@shikijs/rehype'
 import rehypeSlug from 'rehype-slug'
 import rehypeAutolinkHeadings from 'rehype-autolink-headings'
 import remarkGfm from 'remark-gfm'
-import remarkGithubAlerts from './remark-github-alert.js'
-import remarkList from './remark-list.js'
-import remarkToc from './remark-toc.js'
-import remarkSponsor from './remark-sponsor.js'
+import remarkGithubAlerts from './remark-github-alert.ts'
+import remarkList from './remark-list.ts'
+import remarkToc from './remark-toc.ts'
+import remarkSponsor from './remark-sponsor.ts'
 
-export const markdown = async (file, options = {}) =>
-  await unified()
+export interface MarkdownOptions { sponsorUrl?: string }
+
+export const markdown = async (file: string, options: MarkdownOptions = {}) =>
+  await (unified() as any)
     .use(remarkParse, { commonmark: true })
     .use(remarkGfm)
     .use(remarkGithubAlerts)

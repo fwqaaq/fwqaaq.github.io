@@ -30,7 +30,7 @@ const DEFAULT_GITHUB_ICONS = {
  */
 
 /** @type {import("unified/index.d.ts").Plugin<[RemarkGitHubAlertsOptions] | [], Root>}*/
-const remarkGithubAlerts = (options = {}) => {
+const remarkGithubAlerts = (options: any = {}) => {
   const {
     markers = ['TIP', 'NOTE', 'IMPORTANT', 'WARNING', 'CAUTION'],
     matchCaseSensitive = true,
@@ -46,8 +46,8 @@ const remarkGithubAlerts = (options = {}) => {
       : `^\\[\\!(${markerNameRE})\\]`,
     matchCaseSensitive ? '' : 'i',
   )
-  return (tree) => {
-    visit(tree, 'blockquote', (node, _index, _parent) => {
+  return (tree: any) => {
+    visit(tree, 'blockquote', (node: any, _index: any, _parent: any) => {
       /**@type {PhrasingContent}*/
       const firstContent = node.children?.[0].children?.[0]
       if (!firstContent || firstContent.type !== 'text') return
