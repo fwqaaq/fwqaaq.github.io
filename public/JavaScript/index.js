@@ -349,7 +349,6 @@ document.addEventListener('DOMContentLoaded', () => {
 /**
  * @param {number} amount
  */
-// deno-lint-ignore no-unused-vars
 function sponsor(amount) {
   const url = blogConfig.sponsor?.url
   if (!url) return

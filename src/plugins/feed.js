@@ -1,6 +1,7 @@
 import { getRss } from '../util/template.js'
 import { handleUTC } from '../util/utils.js'
-import { ensureFile, exists } from '@std/fs'
+import { writeFile } from 'node:fs/promises'
+import { ensureFile, exists } from '../util/node-fs.js'
 
 export const feedPlugin = {
   name: 'feed',
@@ -11,7 +12,7 @@ export const feedPlugin = {
 
     core.addhook(
       'afterBuild',
-      (/**@type {import("../util/type.js").Config} */ config) => {
+      async (/**@type {import("../util/type.js").Config} */ config) => {
         const { dist, author, website } = config
 
         // sitemap
@@ -48,14 +49,14 @@ export const feedPlugin = {
         const __robots_dist = new URL('./robots.txt', dist)
         const robotsContent =
           `User-agent: *\nAllow: /\nSitemap: ${website}sitemap.xml`
-        ;[
+        await Promise.all([
           [__sitemap_dist, itemsSitemap],
           [__rss_dist, rssContent],
           [__robots_dist, robotsContent],
-        ].forEach(async ([path, content]) => {
+        ].map(async ([path, content]) => {
           if (!await exists(path)) await ensureFile(path)
-          Deno.writeTextFile(path, content)
-        })
+          await writeFile(path, content)
+        }))
       },
     )
   },

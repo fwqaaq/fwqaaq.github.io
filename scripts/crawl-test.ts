@@ -6,32 +6,33 @@
  *   3. AI crawler UA + x402   -> 200 (article HTML)  [needs PRIVATE_KEY]
  *
  * Usage:
- *   PRIVATE_KEY=0x<testnet-key> deno run -A scripts/crawl-test.ts [postUrl]
+ *   PRIVATE_KEY=0x<testnet-key> node scripts/crawl-test.ts [postUrl]
  *
  * With no postUrl, the first post under dist/posts/ is used.
  */
+import { readdir } from 'node:fs/promises'
 import { makePaidFetch, normalizeKey } from './x402-client.ts'
 
 const BROWSER_UA =
   'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120 Safari/537.36'
 const CRAWLER_UA = 'Mozilla/5.0 (compatible; GPTBot/1.2; +https://openai.com/gptbot)'
-const BASE = (Deno.env.get('BASE_URL') ?? 'http://localhost:8787').replace(
+const BASE = (process.env.BASE_URL ?? 'http://localhost:8787').replace(
   /\/$/,
   '',
 )
 
-let url = Deno.args[0]
+let url = process.argv[2]
 if (!url) {
-  for await (const entry of Deno.readDir('dist/posts')) {
-    if (entry.isDirectory) {
+  for (const entry of await readdir('dist/posts', { withFileTypes: true })) {
+    if (entry.isDirectory()) {
       url = `${BASE}/posts/${entry.name}/`
       break
     }
   }
 }
 if (!url) {
-  console.error('No post found under dist/posts — run `deno task build` first.')
-  Deno.exit(1)
+  console.error('No post found under dist/posts — run `npm run build` first.')
+  process.exit(1)
 }
 console.log('post url:', url)
 
@@ -40,7 +41,7 @@ const human = await fetch(url, { headers: { 'user-agent': BROWSER_UA } })
 console.log(`[1] browser UA        -> ${human.status}`)
 if (human.status !== 200) {
   console.error(`  FAIL: expected 200 (free), got ${human.status}`)
-  Deno.exit(1)
+  process.exit(1)
 }
 
 // Step 2: a known crawler without payment is rejected with 402.
@@ -48,25 +49,25 @@ const bot = await fetch(url, { headers: { 'user-agent': CRAWLER_UA } })
 console.log(`[2] crawler UA, unpaid -> ${bot.status}`)
 if (bot.status !== 402) {
   console.error(`  FAIL: expected 402, got ${bot.status}`)
-  Deno.exit(1)
+  process.exit(1)
 }
 
 // Step 3: a paying crawler gets the HTML.
-const rawKey = Deno.env.get('PRIVATE_KEY')
+const rawKey = process.env.PRIVATE_KEY
 const privateKey = normalizeKey(rawKey)
 if (!privateKey) {
   if (rawKey?.trim()) {
     console.error(
       '  PRIVATE_KEY must be a 32-byte hex key (64 hex chars; 0x optional).',
     )
-    Deno.exit(1)
+    process.exit(1)
   }
   console.log('[3] skipped (set PRIVATE_KEY to test the paid crawl leg)')
   console.log('PASS (steps 1-2)')
-  Deno.exit(0)
+  process.exit(0)
 }
 
-const fetchWithPayment = makePaidFetch(privateKey, Deno.env.get('X402_NETWORK'))
+const fetchWithPayment = makePaidFetch(privateKey, process.env.X402_NETWORK)
 const paid = await fetchWithPayment(url, {
   method: 'GET',
   headers: { 'user-agent': CRAWLER_UA },
@@ -75,7 +76,7 @@ console.log(`[3] crawler UA, paid   -> ${paid.status}`)
 if (paid.status !== 200) {
   console.error(`  FAIL: expected 200, got ${paid.status}`)
   console.error('  body:', (await paid.text()).slice(0, 300))
-  Deno.exit(1)
+  process.exit(1)
 }
 const html = await paid.text()
 console.log(`  PASS. content-type: ${paid.headers.get('content-type')}, ${html.length} bytes`)

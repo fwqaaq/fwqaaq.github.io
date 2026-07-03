@@ -2,7 +2,7 @@
   <h1>Blog 📖</h1>
 </div>
 
-一个用 Deno 编写的静态博客生成器，并通过 Cloudflare Workers 接入 x402 支付协议，让 AI agent、自动化程序和真人都能按次付费访问内容。
+一个用 Node.js 编写的静态博客生成器，并通过 Cloudflare Workers 接入 x402 支付协议，让 AI agent、自动化程序和真人都能按次付费访问内容。
 
 在线站点：<https://www.fwqaaq.com>
 
@@ -10,7 +10,7 @@
 
 项目由两部分组成：
 
-- **静态站点生成器**：Markdown（带 YAML frontmatter）经 Deno 构建为 `dist/`，可托管在任意静态平台。
+- **静态站点生成器**：Markdown（带 YAML frontmatter）经 Node.js 构建为 `dist/`，可托管在任意静态平台。
 - **Cloudflare Worker**：托管 `dist/` 静态资源，并在边缘拦截付费路由，用 x402 协议完成基于 USDC 的按次结算。
 
 它提供四种能力：普通静态博客、面向 agent 的付费 JSON API、面向 AI 爬虫的付费门，以及面向真人的付费文章。
@@ -26,38 +26,36 @@
 
 前置条件：
 
-- [Deno](https://deno.com/)（构建静态站点）。
-- Node.js 与 npm（运行 Cloudflare Wrangler，仅在需要 Worker 时使用）。
+- Node.js 24+ 与 npm。
 - Cloudflare 账号（可选，部署 Worker 时使用）。
 
 启动本地开发站点：
 
 ```bash
-deno task dev
+npm run dev
 ```
 
 其他常用任务：
 
 ```bash
-deno task build     # 构建到 dist/
-deno task preview   # 预览构建产物
+npm run build     # 构建到 dist/
+npm run preview   # 预览构建产物
 ```
 
-### 为什么还有 package.json
+### package.json
 
-这个仓库保留两份清单文件，是因为它们服务不同工具链：
+项目已统一到 Node.js + npm 工具链：
 
-- `deno.jsonc` 管 Deno 任务、静态站点构建和测试脚本的 import map。
-- `package.json` 管 Cloudflare Worker 的 npm 依赖，以及 Wrangler 打包所需的 `node_modules`。
-
-Worker 源码使用 `@x402/hono`、`@x402/paywall`、`hono` 等 bare imports。Wrangler 打包 Worker 时会从 npm `node_modules` 解析它们，不会读取 `deno.jsonc` 的 import map。因此 `package.json` 不是重复配置，而是 Worker/Wrangler 的 manifest。
+- `package.json` 管理静态站点构建脚本、测试脚本、Worker/Wrangler 命令和全部 npm 依赖。
+- `package-lock.json` 用于锁定依赖版本，CI 通过 `npm ci` 可复现安装。
+- `scripts/*.ts` 直接用 Node.js 24+ 原生 TypeScript 支持运行，不需要 Deno、tsx 或 ts-node。
 
 ## 写文章
 
 用脚本生成一篇新文章：
 
 ```bash
-deno task new-post --title "标题" --categories "Tech" --tags "Deno,x402" --summary "一句话摘要"
+npm run new-post -- --title "标题" --categories "Tech" --tags "Node,x402" --summary "一句话摘要"
 ```
 
 生成的文件位于 `src/posts/`，frontmatter 字段如下：
@@ -128,34 +126,33 @@ price: "$1"
    FACILITATOR_URL=https://x402.org/facilitator
    ```
 
-3. 构建站点并启动 Worker：
+3. 启动 Worker（会先自动构建 `dist/` 与 `worker/content.generated.js`）：
 
    ```bash
-   deno task build
-   deno task worker:dev
+   npm run worker:dev
    ```
 
 三个端到端测试脚本用于验证付款链路（付款腿需一个持有 Base Sepolia 测试网 USDC 的钱包）。默认网络是 `eip155:84532`，需要覆盖时可设置 `X402_NETWORK`。
 
 ```bash
 # agent 付费 API：未付款 402，付款后 200
-PRIVATE_KEY=<测试钱包私钥> deno run -A scripts/pay-test.ts
+PRIVATE_KEY=<测试钱包私钥> node scripts/pay-test.ts
 
 # 爬虫付费门：真人 200、爬虫未付款 402、爬虫付款 200
-PRIVATE_KEY=<测试钱包私钥> deno run -A scripts/crawl-test.ts
+PRIVATE_KEY=<测试钱包私钥> node scripts/crawl-test.ts
 
 # 人类付费文章：付款页、摘要页、付款、通行证免重付
-PRIVATE_KEY=<测试钱包私钥> deno run -A scripts/premium-test.ts
+PRIVATE_KEY=<测试钱包私钥> node scripts/premium-test.ts
 
 # 钱包恢复访问（零费用）：预置 KV 购买记录 + 签名恢复 + 未购地址被拒
-deno run -A scripts/restore-test.ts
+node scripts/restore-test.ts
 ```
 
 **零费用测试付款成功路径**：`scripts/mock-facilitator.ts` 是一个对所有 verify/settle 都放行的本地 mock，用来在不花测试币的情况下走通「结算成功 → 发通行证 → 写购买记录」：
 
 ```bash
 # 终端 1：起 mock（监听 :4402）
-deno run -A scripts/mock-facilitator.ts
+node scripts/mock-facilitator.ts
 
 # 把 .dev.vars 的 FACILITATOR_URL 临时改为 http://localhost:4402，
 # 重启 wrangler dev 后即可用任意签名走完付款成功路径。测完记得改回。
@@ -248,13 +245,13 @@ PORT=3000
 4. 构建产物与 Worker 内容模块由同一条命令生成：
 
    ```bash
-   deno task build   # 生成 dist/ 与 worker/content.generated.js
+   npm run build   # 生成 dist/ 与 worker/content.generated.js
    ```
 
 5. 部署到 Cloudflare Workers：
 
    ```bash
-   deno task worker:deploy
+   npm run worker:deploy
    ```
 
 后续更新只需重复第 4、5 步。
@@ -262,10 +259,10 @@ PORT=3000
 只想验证 Worker 能否被 Wrangler 打包时，可以运行：
 
 ```bash
-deno task worker:dry-run
+npm run worker:dry-run
 ```
 
-也可以走 GitHub Actions 的 `deploy-worker` 任务：在仓库配置 `CLOUDFLARE_API_TOKEN` secret 后，推送即触发；未配置时该任务自动跳过，不影响其他流程。
+也可以走 GitHub Actions 的 `deploy-worker` 任务：在仓库配置 `CLOUDFLARE_API_TOKEN` 与 `CLOUDFLARE_ACCOUNT_ID` secret 后，推送即触发。
 
 本地开发默认通过公开 `https://x402.org/facilitator` 在 Base Sepolia（`eip155:84532`）测试，不需要 CDP keys，也不会动真实资金。生产配置使用 Base mainnet（`eip155:8453`）和 Coinbase CDP facilitator，需要设置 `CDP_API_KEY_ID`、`CDP_API_KEY_SECRET`、真实收款地址，并把域名 DNS 迁到 Cloudflare。
 

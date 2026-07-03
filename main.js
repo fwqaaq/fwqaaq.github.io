@@ -1,12 +1,13 @@
+import { existsSync, rmSync, watch } from 'node:fs'
+import { readFile } from 'node:fs/promises'
+import { config as loadEnv } from 'dotenv'
 import { apiContentPlugin } from './src/plugins/api-content.js'
 import { assertPlugin } from './src/plugins/asserts.js'
 import { Core } from './src/plugins/core.js'
 import { feedPlugin } from './src/plugins/feed.js'
 import { pagesPlugin } from './src/plugins/pages.js'
 import { postPlugin } from './src/plugins/posts.js'
-import { existsSync } from '@std/fs'
 import { startServer } from './src/util/utils.js'
-import { load } from 'dotenv'
 import {
   loadSiteConfig,
   renderSiteTemplate,
@@ -14,7 +15,7 @@ import {
 } from './src/util/site.js'
 
 async function createConfig() {
-  await load({ export: true, defaults: true })
+  loadEnv()
   const site = withEnvSiteConfig(
     await loadSiteConfig(new URL('./site.config.json', import.meta.url)),
   )
@@ -24,22 +25,22 @@ async function createConfig() {
     src: import.meta.resolve('./src/'),
     website: site.website,
     author: site.author,
-    port: Deno.env.get('PORT'),
+    port: process.env.PORT,
     version: Math.floor(Math.random() * 1000000),
     site,
   }
 
   const head = renderSiteTemplate(
-    await Deno.readTextFile(new URL('./util/head.html', baseConfig.src)),
+    await readFile(new URL('./util/head.html', baseConfig.src), 'utf8'),
     site,
   )
 
   const header = renderSiteTemplate(
-    await Deno.readTextFile(new URL('./util/header.html', baseConfig.src)),
+    await readFile(new URL('./util/header.html', baseConfig.src), 'utf8'),
     site,
   )
   const footer = renderSiteTemplate(
-    await Deno.readTextFile(new URL('./util/footer.html', baseConfig.src)),
+    await readFile(new URL('./util/footer.html', baseConfig.src), 'utf8'),
     site,
   )
 
@@ -48,8 +49,9 @@ async function createConfig() {
 
 const config = await createConfig()
 async function main() {
-  if (existsSync(new URL(config.dist))) {
-    Deno.removeSync(new URL(config.dist), { recursive: true })
+  const distUrl = new URL(config.dist)
+  if (existsSync(distUrl)) {
+    rmSync(distUrl, { recursive: true, force: true })
   }
   const core = new Core()
   core.use(postPlugin)
@@ -62,23 +64,20 @@ async function main() {
 }
 
 /**
- * Watch the public/ directory for changes and rebuild assets (CSS, JS).
- * Only active in DEV mode. Uses Deno.watchFs to detect file changes
- * that --unstable-hmr cannot see (files read via Deno.readTextFile at runtime).
+ * Watch public/ for CSS/JS changes and rebuild assets in DEV mode.
+ * Node --watch restarts the full process for source/template changes; this
+ * watcher keeps the original fast asset-only rebuild path for public assets.
  * @param {Awaited<ReturnType<typeof createConfig>>} config
  */
-async function watchPublicAssets(config) {
+function watchPublicAssets(config) {
   const publicDir = new URL('./public/', import.meta.url)
-  const watcher = Deno.watchFs(publicDir.pathname, { recursive: true })
   let timer = undefined
 
-  for await (const event of watcher) {
-    if (event.kind === 'access') continue
+  watch(publicDir, { recursive: true }, (_eventType, filename) => {
+    if (!filename) return
     if (timer) clearTimeout(timer)
     timer = setTimeout(async () => {
-      console.log(
-        '[watcher] public/ change detected, rebuilding assets...',
-      )
+      console.log('[watcher] public/ change detected, rebuilding assets...')
       try {
         const core = new Core()
         core.use(assertPlugin)
@@ -88,20 +87,18 @@ async function watchPublicAssets(config) {
         console.error('[watcher] rebuild failed:', err)
       }
     }, 300)
-  }
+  })
 }
 
-// Handle the http server
-const mode = Deno.env.get('MODE')
+const mode = process.env.MODE
 if (mode === 'DEV' || mode === 'PRO') {
-  main()
+  await main()
 }
 
 if (mode === 'DEV') {
-  // Watch public/ for CSS/JS changes (not covered by --unstable-hmr)
   watchPublicAssets(config)
 }
 
 if (mode === 'DEV' || mode === 'PRE') {
-  startServer(config.port)
+  startServer(config.port, config.version)
 }

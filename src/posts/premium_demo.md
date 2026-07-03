@@ -133,7 +133,7 @@ agent
 包一层：先正常请求，遇到 `402` 后读取付款要求，再用钱包签名、带 `X-PAYMENT`
 重发，最后把 `200` 响应交回。
 
-下面是一个可运行的 Deno 示例。它和本仓库 `scripts/x402-client.ts`
+下面是一个可运行的 Node.js 示例。它和本仓库 `scripts/x402-client.ts`
 的思路一致，只保留最核心的路径：
 
 ```ts
@@ -179,8 +179,8 @@ export function paidFetch(privateKey: `0x${string}`, network?: string) {
 }
 
 const fetchWithPayment = paidFetch(
-  normalizeKey(Deno.env.get('PRIVATE_KEY')),
-  Deno.env.get('X402_NETWORK'),
+  normalizeKey(process.env.PRIVATE_KEY),
+  process.env.X402_NETWORK,
 )
 
 const res = await fetchWithPayment(
@@ -213,8 +213,8 @@ JSON，而不是整页 HTML。agent 拿到后可以摘要、检索、引用或�
 
 ```ts
 const fetchWithPayment = paidFetch(
-  normalizeKey(Deno.env.get('PRIVATE_KEY')),
-  Deno.env.get('X402_NETWORK'),
+  normalizeKey(process.env.PRIVATE_KEY),
+  process.env.X402_NETWORK,
 )
 
 const res = await fetchWithPayment(
@@ -256,8 +256,8 @@ agent 付款读取本文全文的代码如下：
 
 ```ts
 const fetchWithPayment = paidFetch(
-  normalizeKey(Deno.env.get('PRIVATE_KEY')),
-  Deno.env.get('X402_NETWORK'),
+  normalizeKey(process.env.PRIVATE_KEY),
+  process.env.X402_NETWORK,
 )
 
 const res = await fetchWithPayment(
@@ -306,8 +306,8 @@ const crawlerUA =
   'Mozilla/5.0 (compatible; GPTBot/1.2; +https://openai.com/gptbot)'
 
 const fetchWithPayment = paidFetch(
-  normalizeKey(Deno.env.get('PRIVATE_KEY')),
-  Deno.env.get('X402_NETWORK'),
+  normalizeKey(process.env.PRIVATE_KEY),
+  process.env.X402_NETWORK,
 )
 
 const res = await fetchWithPayment(

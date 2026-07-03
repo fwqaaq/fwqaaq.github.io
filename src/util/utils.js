@@ -1,10 +1,25 @@
-import { ensureFile, exists } from '@std/fs'
-import { parse } from '@std/yaml'
-import { format } from '@std/datetime'
+import { readFileSync } from 'node:fs'
+import { readFile, writeFile } from 'node:fs/promises'
+import { createServer } from 'node:http'
+import { gzipSync } from 'node:zlib'
+import { parse } from 'yaml'
+import { ensureFile, exists, toPath } from './node-fs.js'
 import { templateArticle } from './template.js'
 import postcss from 'postcss'
 import postcssPresetEnv from 'postcss-preset-env'
 import postcssMinify from '@csstools/postcss-minify'
+
+export const format = (date, pattern) => {
+  const d = new Date(date)
+  const pad = (value) => String(value).padStart(2, '0')
+  return pattern
+    .replaceAll('yyyy', String(d.getFullYear()))
+    .replaceAll('MM', pad(d.getMonth() + 1))
+    .replaceAll('dd', pad(d.getDate()))
+    .replaceAll('HH', pad(d.getHours()))
+    .replaceAll('mm', pad(d.getMinutes()))
+    .replaceAll('ss', pad(d.getSeconds()))
+}
 
 const regxYaml = /---(\n[\s\S]*?\n)---/
 
@@ -59,7 +74,7 @@ export const replaceHead = (
  * @param {URL} src the source of the body template
  */
 export const replaceBody = (head, header, footer, src) => {
-  const body = Deno.readTextFileSync(src)
+  const body = readFileSync(toPath(src), 'utf8')
   return body
     .replace('<!-- Head -->', head)
     .replace('<!-- Header -->', header)
@@ -213,7 +228,7 @@ export async function generateArchiveTimelinePage(
   })
 
   if (!await exists(url)) await ensureFile(url)
-  await Deno.writeTextFile(url, `${archiveHead}${header}${body}${footer}`)
+  await writeFile(url, `${archiveHead}${header}${body}${footer}`)
 }
 
 /**@param {import("./type.js").GeneratePageOptions}*/
@@ -241,7 +256,7 @@ export async function generatePage(
   })
   const article = `${mainHead}${header}${body}${footer}`
   if (!await exists(url)) await ensureFile(url)
-  await Deno.writeTextFile(url, article)
+  await writeFile(url, article)
 
   for (const [key, items] of Object.entries(group)) {
     const itemUrl = new URL(`./${basePath}/${key}/index.html`, dist)
@@ -268,7 +283,7 @@ export async function generatePage(
     const itemBody = `${itemHead}${header}${
       templateArticle({ title: key, content: `<div class="tag-post-list">${postList}</div>` })
     }${footer}`
-    await Deno.writeTextFile(itemUrl, itemBody)
+    await writeFile(itemUrl, itemBody)
   }
 }
 
@@ -290,34 +305,46 @@ export function createProcessor() {
 }
 
 export function startServer(
-  /**@type {number} */ port,
+  /**@type {number | string | undefined} */ port = 3000,
   /**@type {number}*/ version,
 ) {
-  try {
-    Deno.serve({
-      port,
-      hostname: '127.0.0.1',
-      onListen({ hostname, port }) {
-        console.log(`Server started at http://${hostname}:${port}`)
-      },
-    }, (request) => handler(request, version))
-  } catch (e) {
-    if (e instanceof Deno.errors.AddrInUse) {
-      console.log(`Port ${port} in use, try another port`)
-      setTimeout(startServer, 1000)
-    } else {
-      throw e
+  const listenPort = Number(port) || 3000
+  const server = createServer(async (request, response) => {
+    try {
+      const res = await handler(request, version)
+      response.writeHead(res.status, Object.fromEntries(res.headers.entries()))
+      const body = res.body ? Buffer.from(await res.arrayBuffer()) : undefined
+      response.end(body)
+    } catch (error) {
+      console.error(error)
+      response.writeHead(500, { 'Content-Type': 'text/plain; charset=utf-8' })
+      response.end('Internal Server Error')
     }
-  }
+  })
+
+  server.on('error', (error) => {
+    if (error.code === 'EADDRINUSE') {
+      console.log(`Port ${listenPort} in use, try another port`)
+      setTimeout(() => startServer(listenPort, version), 1000)
+      return
+    }
+    throw error
+  })
+
+  server.listen(listenPort, '127.0.0.1', () => {
+    const address = server.address()
+    const actualPort = typeof address === 'object' && address ? address.port : listenPort
+    console.log(`Server started at http://127.0.0.1:${actualPort}`)
+  })
 }
 
 /**
- * @param {Request} request
+ * @param {import('node:http').IncomingMessage} request
  * @param {string} version
- * @returns {Response}
+ * @returns {Promise<Response>}
  */
 const handler = async (request, version) => {
-  let reqUrl = new URL(request.url).pathname
+  let reqUrl = new URL(request.url ?? '/', 'http://127.0.0.1').pathname
   let ext = reqUrl.split('.').pop()
   if (ext === 'css') ext = 'text/css'
   else if (ext === 'js') ext = 'text/javascript'
@@ -327,31 +354,25 @@ const handler = async (request, version) => {
 
   const headers = new Headers({ 'Content-Type': ext })
 
-  if (reqUrl.includes(version)) {
+  if (version && reqUrl.includes(version)) {
     reqUrl = reqUrl.replace(`.${version}`, '')
   }
 
-  let file, status = 200
+  let content, status = 200
 
   try {
-    file = await Deno.open(`./dist${reqUrl}`)
+    content = await readFile(`./dist${reqUrl}`)
   } catch {
     status = 404
-    file = await Deno.open(`./dist/404.html`)
+    content = await readFile('./dist/404.html')
   }
 
-  const contentEncoding = request.headers.get('Accept-Encoding')
+  const contentEncoding = request.headers['accept-encoding']
 
-  // browser doesn't support gzip
   if (!contentEncoding || !contentEncoding.includes('gzip')) {
-    return new Response(file.readable, { headers })
+    return new Response(content, { headers, status })
   }
 
   headers.set('Content-Encoding', 'gzip')
-
-  // encode with gzip
-  const compress = new CompressionStream('gzip')
-  file.readable.pipeThrough(compress)
-
-  return new Response(compress.readable, { headers, status })
+  return new Response(gzipSync(content), { headers, status })
 }

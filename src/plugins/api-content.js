@@ -1,3 +1,4 @@
+import { mkdir, readFile, readdir, writeFile } from 'node:fs/promises'
 import { parseYaml } from '../util/utils.js'
 
 const decoder = new TextDecoder()
@@ -23,12 +24,12 @@ export const apiContentPlugin = {
         /**@type {Record<string, object>} */
         const content = {}
 
-        for await (const entry of Deno.readDir(posts)) {
+        for (const entry of await readdir(posts, { withFileTypes: true })) {
           if (!entry.isFile || !entry.name.endsWith('.md')) continue
 
           const slug = entry.name.replace(/\.md$/, '')
           const raw = decoder.decode(
-            await Deno.readFile(new URL(entry.name, posts)),
+            await readFile(new URL(entry.name, posts)),
           )
           const [meta, md] = parseYaml(raw)
           if (meta.paid) continue // paid posts go in `premium`, not the API map
@@ -55,8 +56,8 @@ export const apiContentPlugin = {
           `export const premium = ${JSON.stringify(premium, null, 2)}\n`
 
         const workerDir = new URL('../worker/', src)
-        await Deno.mkdir(workerDir, { recursive: true })
-        await Deno.writeTextFile(
+        await mkdir(workerDir, { recursive: true })
+        await writeFile(
           new URL('content.generated.js', workerDir),
           module,
         )

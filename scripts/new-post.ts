@@ -1,4 +1,4 @@
-import { Command } from '@cliffy/command'
+import { stat, writeFile } from 'node:fs/promises'
 
 /**
  * 从标题生成 slug（文件名用）
@@ -7,10 +7,27 @@ import { Command } from '@cliffy/command'
 function toSlug(title: string): string {
   return title
     .toLowerCase()
-    .replace(/[^\w\s]/g, '') // 去掉特殊字符
-    .replace(/\s+/g, '_') // 空格替换为下划线
-    .replace(/_+/g, '_') // 合并连续下划线
-    .replace(/^_|_$/g, '') // 去掉首尾下划线
+    .replace(/[^\w\s]/g, '')
+    .replace(/\s+/g, '_')
+    .replace(/_+/g, '_')
+    .replace(/^_|_$/g, '')
+}
+
+function parseArgs(args: string[]): Record<string, string | boolean> {
+  const out: Record<string, string | boolean> = {}
+  for (let i = 0; i < args.length; i++) {
+    const arg = args[i]
+    if (!arg.startsWith('--')) continue
+    const key = arg.slice(2)
+    const next = args[i + 1]
+    if (!next || next.startsWith('--')) {
+      out[key] = true
+    } else {
+      out[key] = next
+      i++
+    }
+  }
+  return out
 }
 
 /**
@@ -51,73 +68,50 @@ updateAt: ${date}
 `
 }
 
-if (import.meta.main) {
-  await new Command()
-    .name('new-post')
-    .description('Generate a new blog post markdown file in src/posts/')
-    .option('--title <title: string>', 'Post title', { required: true })
-    .option('--categories <categories: string>', 'Category, e.g. "Tech"', {
-      required: true,
-    })
-    .option(
-      '--tags <tags: string>',
-      'Comma-separated tags, e.g. "JavaScript,Deno"',
-    )
-    .option('--summary <summary: string>', 'Post summary / description')
-    .option(
-      '--slug <slug: string>',
-      'Custom filename slug (without .md extension). Default: auto-generated from title',
-    )
-    .action(async (options: Record<string, unknown>) => {
-      const {
-        title,
-        categories,
-        tags: tagsStr,
-        summary,
-        slug: customSlug,
-      } = options as {
-        title: string
-        categories: string
-        tags?: string
-        summary?: string
-        slug?: string
-      }
+const options = parseArgs(process.argv.slice(2))
 
-      if (!summary) {
-        console.error('Error: --summary is required')
-        Deno.exit(1)
-      }
+const title = options.title as string | undefined
+const categories = options.categories as string | undefined
+const tagsStr = options.tags as string | undefined
+const summary = options.summary as string | undefined
+const customSlug = options.slug as string | undefined
 
-      const tags = tagsStr
-        ? tagsStr
-            .split(',')
-            .map((t: string) => t.trim())
-            .filter(Boolean)
-        : []
-
-      const slug = customSlug || toSlug(title)
-      const filename = `${slug}.md`
-      const filepath = `src/posts/${filename}`
-
-      // 检查是否已存在
-      try {
-        const stat = await Deno.stat(filepath)
-        if (stat.isFile) {
-          console.error(`Error: File already exists: ${filepath}`)
-          Deno.exit(1)
-        }
-      } catch {
-        // 文件不存在，继续
-      }
-
-      const content = generateContent({ title, categories, tags, summary })
-
-      await Deno.writeTextFile(filepath, content)
-
-      console.log(`✅ Created: ${filepath}`)
-      console.log()
-      console.log('--- preview ---')
-      console.log(content)
-    })
-    .parse(Deno.args)
+if (!title || !categories) {
+  console.error('Usage: node scripts/new-post.ts --title <title> --categories <category> --summary <summary> [--tags a,b] [--slug slug]')
+  process.exit(1)
 }
+
+if (!summary) {
+  console.error('Error: --summary is required')
+  process.exit(1)
+}
+
+const tags = tagsStr
+  ? tagsStr
+      .split(',')
+      .map((t: string) => t.trim())
+      .filter(Boolean)
+  : []
+
+const slug = customSlug || toSlug(title)
+const filename = `${slug}.md`
+const filepath = `src/posts/${filename}`
+
+try {
+  const fileStat = await stat(filepath)
+  if (fileStat.isFile()) {
+    console.error(`Error: File already exists: ${filepath}`)
+    process.exit(1)
+  }
+} catch {
+  // 文件不存在，继续
+}
+
+const content = generateContent({ title, categories, tags, summary })
+
+await writeFile(filepath, content)
+
+console.log(`✅ Created: ${filepath}`)
+console.log()
+console.log('--- preview ---')
+console.log(content)

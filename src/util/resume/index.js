@@ -1,5 +1,6 @@
-import { parse } from '@std/yaml'
-import { copy, ensureDir } from '@std/fs'
+import { readFile, writeFile } from 'node:fs/promises'
+import { parse } from 'yaml'
+import { copy, ensureDir } from '../node-fs.js'
 
 function replaceExperience(content) {
   return content.map((item) =>
@@ -17,7 +18,7 @@ function replaceExperience(content) {
 
 async function readYAMLFile(filePath) {
   try {
-    const fileContent = await Deno.readTextFile(new URL(filePath))
+    const fileContent = await readFile(new URL(filePath), 'utf8')
     return parse(fileContent)
   } catch (error) {
     console.error('Error reading YAML file:', error)
@@ -27,7 +28,7 @@ async function readYAMLFile(filePath) {
 
 async function writeHTMLFile(filePath, content) {
   try {
-    await Deno.writeTextFile(new URL(filePath), content)
+    await writeFile(new URL(filePath), content)
   } catch (error) {
     console.error('Error writing HTML file:', error)
     throw error
@@ -42,7 +43,7 @@ async function generateResume() {
   const source = import.meta.resolve('./')
 
   const data = await readYAMLFile(configPath)
-  let template = await Deno.readTextFile(new URL(resumePath))
+  let template = await readFile(new URL(resumePath), 'utf8')
 
   template = template.replace(/<!-- (.*?) -->/g, (_match, p1) => {
     switch (p1) {

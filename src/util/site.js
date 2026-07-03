@@ -1,4 +1,5 @@
-import { exists } from '@std/fs'
+import { readFile } from 'node:fs/promises'
+import { exists } from './node-fs.js'
 
 const defaultSiteConfig = {
   author: 'blog',
@@ -22,8 +23,8 @@ const defaultSiteConfig = {
     startYear: new Date().getFullYear(),
     licenseText: '© CC BY-SA',
     licenseUrl: 'https://creativecommons.org/licenses/by-sa/3.0/deed.zh-hans',
-    poweredByText: 'Deno',
-    poweredByUrl: 'https://deno.com',
+    poweredByText: 'Node.js',
+    poweredByUrl: 'https://nodejs.org',
   },
   sponsor: {
     url: '',
@@ -65,13 +66,13 @@ const mergeConfig = (base, override) => {
 export async function loadSiteConfig(configUrl) {
   if (!await exists(configUrl)) return structuredClone(defaultSiteConfig)
 
-  const userConfig = JSON.parse(await Deno.readTextFile(configUrl))
+  const userConfig = JSON.parse(await readFile(configUrl, 'utf8'))
   return mergeConfig(structuredClone(defaultSiteConfig), userConfig)
 }
 
 export function withEnvSiteConfig(site) {
-  const website = Deno.env.get('WEBSITE') || site.website
-  const author = Deno.env.get('AUTHOR') || site.author
+  const website = process.env.WEBSITE || site.website
+  const author = process.env.AUTHOR || site.author
 
   return {
     ...site,

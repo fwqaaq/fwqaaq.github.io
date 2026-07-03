@@ -6,8 +6,6 @@ yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
-package-lock.json
-
 node_modules
 dist
 
@@ -17,7 +15,6 @@ worker/content.generated.js
 .wrangler
 # Worker secrets for local dev
 .dev.vars
-deno.lock
 dist-ssr
 *.local
 

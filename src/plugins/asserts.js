@@ -1,4 +1,5 @@
-import { copy, ensureDir, walk } from '@std/fs'
+import { readFile, writeFile } from 'node:fs/promises'
+import { copy, ensureDir, walk } from '../util/node-fs.js'
 import { createProcessor } from '../util/utils.js'
 
 export const assertPlugin = {
@@ -17,10 +18,10 @@ export const assertPlugin = {
           const __dist_p = entry.path.replace('public', 'dist/public')
 
           if (entry.name.includes('css') && entry.isFile) {
-            const css = await Deno.readTextFile(entry.path)
+            const css = await readFile(entry.path, 'utf8')
             const result = await postcssor.process(css, { from: entry.path })
 
-            await Deno.writeTextFile(
+            await writeFile(
               __dist_p.replace('.css', `.${version}.css`),
               result.css,
             )
@@ -36,11 +37,11 @@ export const assertPlugin = {
           }
 
           if (entry.path.includes('resume/index.html') && entry.isFile) {
-            const html = (await Deno.readTextFile(entry.path)).replace(
+            const html = (await readFile(entry.path, 'utf8')).replace(
               '<?-- index.css -->',
               `/public/resume/index.${version}.css`,
             )
-            await Deno.writeTextFile(__dist_p, html)
+            await writeFile(__dist_p, html)
             continue
           }
 

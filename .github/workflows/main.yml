@@ -20,21 +20,17 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Set up Deno
-        uses: denoland/setup-deno@v2
-        with:
-          deno-version: lts
-
-      - name: Build dist + generate worker content
-        run: deno task build
-
       - name: Set up Node
         uses: actions/setup-node@v4
         with:
-          node-version: latest
+          node-version: 24
+          cache: npm
 
-      - name: Install Worker deps
-        run: npm install --no-package-lock --no-audit --no-fund
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build dist + generate worker content
+        run: npm run build
 
       - name: Deploy to Cloudflare Workers
         uses: cloudflare/wrangler-action@v3

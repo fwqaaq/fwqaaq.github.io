@@ -3,7 +3,7 @@
   "website": "https://www.fwqaaq.com/",
   "title": "fwqaaq 的博客",
   "description": "fwqaaq 的个人博客",
-  "keywords": ["fwqaaq", "blog", "x402", "Deno"],
+  "keywords": ["fwqaaq", "blog", "x402", "Node.js"],
   "rssDescription": "这真的是一个废物的博客啦",
   "profile": {
     "name": "fwqaaq",
@@ -26,8 +26,8 @@
       },
       {
         "label": "Runtime & Frameworks",
-        "items": ["Deno", "Node.js", "WebAssembly", "Vue", "Sass"],
-        "accent": ["Deno"]
+        "items": ["Node.js", "WebAssembly", "Vue", "Sass"],
+        "accent": ["Node.js"]
       },
       {
         "label": "Tools",
@@ -37,7 +37,7 @@
     "projects": [
       {
         "title": "博客",
-        "description": "使用 Deno 搭建的简易博客模板",
+        "description": "使用 Node.js 搭建的简易博客模板",
         "href": "https://github.com/fwqaaq/fwqaaq.github.io",
         "icon": "fa-solid fa-blog"
       },
@@ -87,8 +87,8 @@
     "startYear": 2021,
     "licenseText": "© CC BY-SA",
     "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/deed.zh-hans",
-    "poweredByText": "Deno",
-    "poweredByUrl": "https://deno.com"
+    "poweredByText": "Node.js",
+    "poweredByUrl": "https://nodejs.org"
   },
   "sponsor": {
     "url": "https://stripe.fwqaaq.workers.dev/Personal-Website-Sponsor/checkout?mode=once"

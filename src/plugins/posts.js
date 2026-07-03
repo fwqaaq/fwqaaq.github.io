@@ -2,14 +2,16 @@ import { markdown } from '../util/remark/markdown.js'
 import { templateArticle, templateTeaser } from '../util/template.js'
 import { handleUTC, parseYaml, replaceHead } from '../util/utils.js'
 import { createGiscus } from '../util/site.js'
-import { ensureFile, exists } from '@std/fs'
-import { readAll } from '@std/io'
-import { format } from '@std/datetime'
+import { execFile } from 'node:child_process'
+import { readFile, readdir, writeFile } from 'node:fs/promises'
+import { fileURLToPath } from 'node:url'
+import { promisify } from 'node:util'
+import { ensureFile, exists } from '../util/node-fs.js'
+import { format } from '../util/utils.js'
 
 const formatDate = (date) => format(new Date(date), 'yyyy-MM-dd HH:mm:ss')
 const updateRegex = /^(updateAt:\s*)(.+)$/m
-const decoder = new TextDecoder()
-const encoder = new TextEncoder()
+const execFileAsync = promisify(execFile)
 
 export const postPlugin = {
   name: 'post',
@@ -30,44 +32,31 @@ export const postPlugin = {
           config
 
         const posts = new URL('./posts/', src)
-        const iter = Deno.readDir(posts)[Symbol.asyncIterator]()
+        const entries = await readdir(posts, { withFileTypes: true })
 
-        while (true) {
-          const { value, done } = await iter.next()
-          if (done) break
+        for (const value of entries) {
+          if (!value.isFile() || !value.name.endsWith('.md')) continue
 
-          const filePath = import.meta.resolve(new URL(value.name, posts))
-            .slice(7)
+          const filePath = fileURLToPath(new URL(value.name, posts))
           // Get updated date
-          const command = new Deno.Command('git', {
-            args: [
+          let gitDate = ''
+          try {
+            const { stdout } = await execFileAsync('git', [
               'log',
               '-1',
               '--format=%ad',
               '--date=iso-strict',
               '--',
               filePath,
-            ],
-            stdout: 'piped',
-          })
-
-          const { code, stdout, stderr } = await command.output()
-
-          if (code !== 0) {
-            throw new Error(`Git command failed: ${decoder.decode(stderr)}`)
+            ])
+            gitDate = stdout.trim()
+          } catch (error) {
+            throw new Error(`Git command failed: ${error.stderr ?? error.message}`)
           }
           // Untracked/uncommitted posts have no git date; keep frontmatter's.
-          const gitDate = decoder.decode(stdout).trim()
           const updated = gitDate ? formatDate(gitDate) : null
 
-          using file = await Deno.open(filePath, {
-            read: true,
-            write: true,
-          })
-
-          // Read file: don't use getReader, as it will release the file resource when done
-          const fileBytes = await readAll(file)
-          let postContent = decoder.decode(fileBytes)
+          let postContent = await readFile(filePath, 'utf8')
 
           const matches = postContent.match(updateRegex)
           const updateAt = matches ? matches[2].trim() : null
@@ -81,10 +70,7 @@ export const postPlugin = {
               updateRegex,
               `updateAt: ${updated}`,
             )
-            await file.seek(0, Deno.SeekMode.Start)
-
-            await file.truncate(0)
-            await file.write(encoder.encode(postContent))
+            await writeFile(filePath, postContent)
           }
 
           const [meta, md] = parseYaml(postContent)
@@ -146,7 +132,7 @@ export const postPlugin = {
             post = `${newHead}${header}${teaser}${footer}`
           }
 
-          await Deno.writeTextFile(postDist, post)
+          await writeFile(postDist, post)
 
           this.metaData.push(meta)
         }

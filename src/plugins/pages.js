@@ -1,4 +1,5 @@
-import { ensureDir } from '@std/fs'
+import { writeFile } from 'node:fs/promises'
+import { ensureDir } from '../util/node-fs.js'
 import {
   convertToUSA,
   generateArchiveTimelinePage,
@@ -39,7 +40,7 @@ export const pagesPlugin = {
           config.site,
         )
         await ensureDir(new URL('./about/', dist))
-        await Deno.writeTextFile(new URL('./about/index.html', dist), aboutPage)
+        await writeFile(new URL('./about/index.html', dist), aboutPage)
 
         // Handle the tags
         const groupTags = Object.groupBy(
@@ -70,7 +71,7 @@ export const pagesPlugin = {
         <p>抱歉，您请求的页面不存在或已被移除。</p>
         </section>`,
         )
-        await Deno.writeTextFile(new URL('./404.html', dist), notFound)
+        await writeFile(new URL('./404.html', dist), notFound)
 
         // Handle the home
         const POST_PER_PAGE = 8
@@ -109,7 +110,7 @@ export const pagesPlugin = {
           if (index !== 0) {
             await ensureDir(new URL(`./home/${index + 1}/`, dist))
           }
-          await Deno.writeTextFile(url, home)
+          await writeFile(url, home)
         }
       },
     )
