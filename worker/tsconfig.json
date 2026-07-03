@@ -5,10 +5,12 @@
     "moduleResolution": "Bundler",
     "lib": ["ES2022"],
     "types": ["@cloudflare/workers-types"],
+    "jsx": "react-jsx",
+    "jsxImportSource": "hono/jsx",
     "strict": true,
     "skipLibCheck": true,
     "noEmit": true,
     "allowJs": true
   },
-  "include": ["index.ts", "content.generated.js"]
+  "include": ["index.ts", "*.tsx", "content.generated.js"]
 }

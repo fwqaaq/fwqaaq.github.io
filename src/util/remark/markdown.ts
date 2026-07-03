@@ -14,7 +14,9 @@ import remarkList from './remark-list.ts'
 import remarkToc from './remark-toc.ts'
 import remarkSponsor from './remark-sponsor.ts'
 
-export interface MarkdownOptions { sponsorUrl?: string }
+export interface MarkdownOptions {
+  sponsorUrl?: string
+}
 
 export const markdown = async (file: string, options: MarkdownOptions = {}) =>
   await (unified() as any)

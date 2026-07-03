@@ -1,5 +1,7 @@
+/** @jsxImportSource hono/jsx */
 import { readFile } from 'node:fs/promises'
 import { exists } from './node-fs.ts'
+import { renderJsx } from '../blog/components.tsx'
 import type { SiteConfig } from '../types.ts'
 
 const defaultSiteConfig = {
@@ -112,51 +114,51 @@ const getUrlHost = (url: string): string => {
   }
 }
 
-const renderIcon = (icon?: string) =>
-  icon ? `<i class="${escapeHtml(icon)}" aria-hidden="true"></i>` : ''
+const Icon = ({ icon }: { icon?: string }) =>
+  icon ? <i class={icon} aria-hidden="true" /> : null
 
 const renderSocialLinks = (socials: Array<any> = []) =>
-  socials.map(({ href, icon, label }) =>
-    `<a class="icon" href="${escapeHtml(normalizeUrl(href))}" aria-label="${
-      escapeHtml(label)
-    }">
-      ${renderIcon(icon)}
-    </a>`
-  ).join('')
+  renderJsx(<>
+    {socials.map(({ href, icon, label }) =>
+      <a class="icon" href={normalizeUrl(href)} aria-label={label}>
+        <Icon icon={icon} />
+      </a>)}
+  </>)
 
 const renderChips = (chips: Array<any> = []) =>
-  chips.map(({ icon, label }) =>
-    `<span class="about-chip">${renderIcon(icon)} ${escapeHtml(label)}</span>`
-  ).join('')
+  renderJsx(<>
+    {chips.map(({ icon, label }) =>
+      <span class="about-chip"><Icon icon={icon} /> {label}</span>)}
+  </>)
 
 const renderSkills = (skills: Array<any> = []) =>
-  skills.map(({ label, items = [], accent = [] }) => {
-    const accents = new Set(accent)
-    const pills = items.map((item) =>
-      `<span class="skill-pill${
-        accents.has(item) ? ' skill-pill-accent' : ''
-      }">${escapeHtml(item)}</span>`
-    ).join('')
-
-    return `<div class="skill-category">
-          <span class="skill-category-label">${escapeHtml(label)}</span>
-          <div class="skill-group">${pills}</div>
-        </div>`
-  }).join('')
+  renderJsx(<>
+    {skills.map(({ label, items = [], accent = [] }) => {
+      const accents = new Set(accent)
+      return <div class="skill-category">
+        <span class="skill-category-label">{label}</span>
+        <div class="skill-group">
+          {items.map((item) =>
+            <span class={`skill-pill${accents.has(item) ? ' skill-pill-accent' : ''}`}>
+              {item}
+            </span>)}
+        </div>
+      </div>
+    })}
+  </>)
 
 const renderProjects = (projects: Array<any> = []) =>
-  projects.map(({ href, icon, title, description }) =>
-    `<a class="project-card" href="${
-      escapeHtml(normalizeUrl(href))
-    }" target="_blank" rel="noopener">
-            <div class="project-card-icon">${renderIcon(icon)}</div>
-            <div class="project-card-body">
-              <h3 class="project-card-title">${escapeHtml(title)}</h3>
-              <p class="project-card-desc">${escapeHtml(description)}</p>
-            </div>
-            <i class="fa-solid fa-arrow-up-right-from-square project-card-link-icon" aria-hidden="true"></i>
-          </a>`
-  ).join('')
+  renderJsx(<>
+    {projects.map(({ href, icon, title, description }) =>
+      <a class="project-card" href={normalizeUrl(href)} target="_blank" rel="noopener">
+        <div class="project-card-icon"><Icon icon={icon} /></div>
+        <div class="project-card-body">
+          <h3 class="project-card-title">{title}</h3>
+          <p class="project-card-desc">{description}</p>
+        </div>
+        <i class="fa-solid fa-arrow-up-right-from-square project-card-link-icon" aria-hidden="true" />
+      </a>)}
+  </>)
 
 const renderAds = (ads: any = {}) => {
   if (!ads.enabled || !Array.isArray(ads.items) || ads.items.length === 0) {
@@ -166,33 +168,28 @@ const renderAds = (ads: any = {}) => {
   const items = ads.items
     .map(({ title, url, description }) => {
       const href = withUrlProtocol(url)
-      if (!href) return ''
+      if (!href) return null
 
       const displayUrl = getUrlHost(href)
       const adTitle = title || displayUrl
-      const desc = description
-        ? `<p class="site-ad-desc">${escapeHtml(description)}</p>`
-        : ''
 
-      return `<a class="site-ad-card" href="${
-        escapeHtml(href)
-      }" target="_blank" rel="noopener noreferrer sponsored">
+      return <a class="site-ad-card" href={href} target="_blank" rel="noopener noreferrer sponsored">
         <span class="site-ad-label">AD</span>
-        <span class="site-ad-title">${escapeHtml(adTitle)}</span>
-        ${desc}
-        <span class="site-ad-url">${escapeHtml(displayUrl)}</span>
-      </a>`
+        <span class="site-ad-title">{adTitle}</span>
+        {description ? <p class="site-ad-desc">{description}</p> : null}
+        <span class="site-ad-url">{displayUrl}</span>
+      </a>
     })
-    .join('')
+    .filter(Boolean)
 
-  if (!items) return ''
+  if (items.length === 0) return ''
 
-  return `<aside class="site-ads" aria-label="${escapeHtml(ads.title)}">
+  return renderJsx(<aside class="site-ads" aria-label={ads.title}>
     <div class="site-ads-inner">
-      <h2 class="site-ads-title">${escapeHtml(ads.title)}</h2>
-      <div class="site-ads-grid">${items}</div>
+      <h2 class="site-ads-title">{ads.title}</h2>
+      <div class="site-ads-grid">{items}</div>
     </div>
-  </aside>`
+  </aside>)
 }
 
 export function renderSiteConfigScript(site: SiteConfig): string {
@@ -201,7 +198,13 @@ export function renderSiteConfigScript(site: SiteConfig): string {
     giscus: site.giscus,
   }).replaceAll('</', '<\\/')
 
-  return `<script>globalThis.__BLOG_CONFIG__=${json}</script>`
+  return renderJsx(
+    <script
+      dangerouslySetInnerHTML={{
+        __html: `globalThis.__BLOG_CONFIG__=${json}`,
+      }}
+    />,
+  )
 }
 
 export function renderSiteTemplate(template: string, site: SiteConfig): string {
@@ -274,16 +277,19 @@ export function createGiscus(giscus: any = {}): string {
     return ''
   }
 
-  const attributes = Object.entries(dataset)
-    .map(([key, value]) =>
-      `data-${key.replace(/[A-Z]/g, (char) => `-${char.toLowerCase()}`)}="${
-        escapeHtml(value)
-      }"`
-    )
-    .join('\n        ')
+  const attributes = Object.fromEntries(
+    Object.entries(dataset).map(([key, value]) => [
+      `data-${key.replace(/[A-Z]/g, (char) => `-${char.toLowerCase()}`)}`,
+      String(value),
+    ]),
+  )
 
-  return `<script src="https://giscus.app/client.ts"
-        ${attributes}
-        crossorigin="anonymous"
-        async></script>`
+  return renderJsx(
+    <script
+      src="https://giscus.app/client.ts"
+      {...attributes}
+      crossorigin="anonymous"
+      async
+    />,
+  )
 }

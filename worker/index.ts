@@ -16,7 +16,7 @@ import {
   verifyChallenge,
 } from './access'
 import { getFacilitator } from './facilitator'
-import { paywallHtml } from './paywall'
+import { paywallHtml, recoveryNoteHtml } from './paywall'
 
 interface Env {
   ASSETS: Fetcher
@@ -140,7 +140,7 @@ function payerFromRequest(header: string | undefined): string | undefined {
 
 function addRecoveryLink(html: string, slug: string, token: string): string {
   const link = accessUrl(slug, token)
-  const note = `<div class="paywall-recovery" style="margin:1rem 0;padding:1rem;border:1px solid currentColor"><p>如果浏览器没有保存 cookie，请保存下面的恢复链接，之后可用它恢复本文访问，不需要再次付款。</p><p><a href="${link}">恢复访问链接</a></p></div>`
+  const note = recoveryNoteHtml(link)
   return html.includes('<article class="blog-article">')
     ? html.replace('<article class="blog-article">', `<article class="blog-article">${note}`)
     : `${note}${html}`

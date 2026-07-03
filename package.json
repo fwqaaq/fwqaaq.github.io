@@ -5,8 +5,8 @@
   "type": "module",
   "scripts": {
     "new-post": "node scripts/new-post.ts",
-    "dev": "node --import tsx src/util/resume/index.ts && MODE=DEV node --import tsx --watch main.ts",
-    "build": "node --import tsx src/util/resume/index.ts && MODE=PRO node --import tsx main.ts",
+    "dev": "node --import tsx src/util/resume/index.tsx && MODE=DEV node --import tsx --watch main.ts",
+    "build": "node --import tsx src/util/resume/index.tsx && MODE=PRO node --import tsx main.ts",
     "preview": "MODE=PRE node --import tsx --watch main.ts",
     "deploy": "pnpm run worker:deploy",
     "worker:dev": "pnpm run build && wrangler dev --port 8787",
@@ -42,8 +42,11 @@
   },
   "devDependencies": {
     "@cloudflare/workers-types": "5.20260703.1",
+    "@types/mdast": "^4.0.4",
     "@types/node": "^24.10.0",
     "esbuild": "^0.28.1",
+    "i": "^0.3.7",
+    "npm": "^11.18.0",
     "tsx": "^4.23.0",
     "typescript": "^6.0.3",
     "wrangler": "^4"

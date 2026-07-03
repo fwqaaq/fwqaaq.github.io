@@ -6,7 +6,7 @@ import { collectBlogData, emitWorkerContentModule } from './src/blog/data.tsx'
 import { emitStaticRoutes } from './src/blog/emit.ts'
 import { emitAssets } from './src/build/assets.ts'
 import { startServer } from './src/util/utils.ts'
-import { loadSiteConfig, renderSiteTemplate, withEnvSiteConfig } from './src/util/site.ts'
+import { loadSiteConfig, renderSiteTemplate, withEnvSiteConfig } from './src/util/site.tsx'
 import type { BuildConfig } from './src/types.ts'
 
 async function createConfig(): Promise<BuildConfig> {

@@ -1,19 +1,26 @@
+/** @jsxImportSource hono/jsx */
 import { readFile, writeFile } from 'node:fs/promises'
 import { parse } from 'yaml'
 import { copy, ensureDir } from '../node-fs.ts'
+import { renderJsx } from '../../blog/components.tsx'
 
 function replaceExperience(content: Array<any>): string {
-  return content.map((item) =>
-    `<div class="resume-learning-plate">
+  return renderJsx(<>
+    {content.map((item) =>
+      <div class="resume-learning-plate">
         <div class="resume-between">
-          <span class="font-weight-600">${item.position}</span>
-          <span>${item.time}</span>
+          <span class="font-weight-600">{item.position}</span>
+          <span>{item.time}</span>
         </div>
         <div class="resume-learning-content">
-          ${item.content.map((item) => `<p>${item}</p>`).join('')}
+          {item.content.map((line) => <p>{line}</p>)}
         </div>
-      </div>`
-  ).join('')
+      </div>)}
+  </>)
+}
+
+function replaceListItems(items: Array<any>): string {
+  return renderJsx(<>{items.map((item) => <li>{item}</li>)}</>)
 }
 
 async function readYAMLFile(filePath: string): Promise<any> {
@@ -50,16 +57,16 @@ async function generateResume() {
       case 'experience':
         return replaceExperience(data[p1])
       case 'skills':
-        return data[p1].map((item) => `<li>${item}</li>`).join('')
+        return replaceListItems(data[p1])
       case 'others':
-        return data[p1].map((item) => `<li>${item}</li>`).join('')
+        return replaceListItems(data[p1])
       case 'projects':
-        return data[p1].map((item) => `<li>${item}</li>`).join('')
+        return replaceListItems(data[p1])
     }
 
     const [prefix, postfix] = p1.split('-')
     if (postfix === 'favourite') {
-      return data[prefix][postfix].map((item) => `<li>${item}</li>`).join('')
+      return replaceListItems(data[prefix][postfix])
     }
     return data[prefix][postfix]
   })

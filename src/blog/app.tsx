@@ -7,7 +7,7 @@ import {
   replaceHead,
 } from '../util/utils.ts'
 import { getRss } from '../util/template.ts'
-import { renderSiteTemplate } from '../util/site.ts'
+import { renderSiteTemplate } from '../util/site.tsx'
 import type { BuildConfig, BlogData, MetaData } from '../types.ts'
 import {
   ArchiveTimeline,

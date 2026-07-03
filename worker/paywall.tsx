@@ -1,3 +1,4 @@
+/** @jsxImportSource hono/jsx */
 /**
  * Lightweight browser paywall (<30KB vs the official 2.3MB bundle). Vanilla JS
  * talking to injected wallets (window.ethereum: MetaMask/Rabby/OKX...) only —
@@ -26,15 +27,9 @@ export interface PaywallData {
   accepts: PaywallRequirements[]
 }
 
-export function paywallHtml(data: PaywallData): string {
-  const json = JSON.stringify(data).replace(/</g, '\\u003c')
-  return `<!DOCTYPE html>
-<html lang="zh-CN">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>解锁付费文章 · ${escapeHtml(data.title)}</title>
-<style>
+const renderJsx = (node: unknown): string => String(node)
+
+const paywallCss = `
   :root { color-scheme: light dark; }
   body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
          display: flex; min-height: 100vh; margin: 0; align-items: center;
@@ -52,18 +47,11 @@ export function paywallHtml(data: PaywallData): string {
   #restore { background: transparent; color: #0071e3; }
   #status { font-size: 13px; min-height: 20px; margin-top: 12px; white-space: pre-wrap; }
   .err { color: #d70015; }
-</style>
-</head>
-<body>
-<div class="card">
-  <h1>🔒 ${escapeHtml(data.title)}</h1>
-  <p>这是一篇付费文章。使用浏览器插件钱包（MetaMask、Rabby、OKX 等）以 USDC 支付即可阅读全文。付款记录永久有效。</p>
-  <div class="price">${escapeHtml(data.priceLabel)} <span style="font-size:14px;font-weight:400">USDC</span></div>
-  <button id="pay">连接钱包并付款</button>
-  <button id="restore">已购买过？用钱包恢复访问</button>
-  <div id="status"></div>
-</div>
-<script>
+`
+
+// Inline client script — plain browser JS, kept as a string on purpose (JSX
+// can only wrap the <script> tag, not its code).
+const paywallScript = (json: string) => `
 const DATA = ${json};
 const REQ = DATA.accepts[0];
 const CHAIN_ID = parseInt(REQ.network.split(':')[1], 10);
@@ -212,11 +200,43 @@ document.getElementById('restore').onclick = async () => {
     else say('恢复失败（' + rres.status + '）：' + (await rres.text()).slice(0, 200), true);
   } catch (e) { say(e && e.message ? e.message : String(e), true); }
 };
-</script>
-</body>
-</html>`
+`
+
+export function paywallHtml(data: PaywallData): string {
+  const json = JSON.stringify(data).replace(/</g, '\\u003c')
+  return '<!DOCTYPE html>\n' + renderJsx(
+    <html lang="zh-CN">
+      <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>解锁付费文章 · {data.title}</title>
+        <style dangerouslySetInnerHTML={{ __html: paywallCss }} />
+      </head>
+      <body>
+        <div class="card">
+          <h1>🔒 {data.title}</h1>
+          <p>这是一篇付费文章。使用浏览器插件钱包（MetaMask、Rabby、OKX 等）以 USDC 支付即可阅读全文。付款记录永久有效。</p>
+          <div class="price">
+            {data.priceLabel} <span style="font-size:14px;font-weight:400">USDC</span>
+          </div>
+          <button id="pay">连接钱包并付款</button>
+          <button id="restore">已购买过？用钱包恢复访问</button>
+          <div id="status"></div>
+        </div>
+        <script dangerouslySetInnerHTML={{ __html: paywallScript(json) }} />
+      </body>
+    </html>,
+  )
 }
 
-function escapeHtml(s: string): string {
-  return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+export function recoveryNoteHtml(link: string): string {
+  return renderJsx(
+    <div
+      class="paywall-recovery"
+      style="margin:1rem 0;padding:1rem;border:1px solid currentColor"
+    >
+      <p>如果浏览器没有保存 cookie，请保存下面的恢复链接，之后可用它恢复本文访问，不需要再次付款。</p>
+      <p><a href={link}>恢复访问链接</a></p>
+    </div>,
+  )
 }
