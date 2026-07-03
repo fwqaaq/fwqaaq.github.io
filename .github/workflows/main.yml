@@ -30,7 +30,7 @@ jobs:
         with:
           node-version: 22
       - name: Install worker deps
-        run: npm ci
+        run: npm install --no-package-lock --no-audit --no-fund
       - name: Deploy to Cloudflare Workers
         if: ${{ env.CLOUDFLARE_API_TOKEN != '' }}
         run: npx wrangler deploy
