@@ -3,7 +3,7 @@ date: 2026-07-03 10:00:00
 title: 付费文章演示：x402 是如何工作的
 categories: Other
 paid: true
-price: "$1"
+price: "$0.1"
 tags:
   - Chore
   - x402
