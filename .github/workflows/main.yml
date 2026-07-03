@@ -31,7 +31,7 @@ jobs:
       - name: Set up Node
         uses: actions/setup-node@v4
         with:
-          node-version: 22
+          node-version: latest
 
       - name: Install Worker deps
         run: npm install --no-package-lock --no-audit --no-fund
@@ -39,6 +39,6 @@ jobs:
       - name: Deploy to Cloudflare Workers
         uses: cloudflare/wrangler-action@v3
         with:
-          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          apiToken: ${{ secrets['CLOUDFLARE_API_TOKEN'] }}
+          accountId: ${{ secrets['CLOUDFLARE_ACCOUNT_ID'] }}
           command: deploy --config wrangler.jsonc
