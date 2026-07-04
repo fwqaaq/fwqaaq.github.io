@@ -20,14 +20,14 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: Enable pnpm
+        run: corepack enable pnpm
+
       - name: Set up Node
         uses: actions/setup-node@v5
         with:
           node-version: 24
           cache: pnpm
-
-      - name: Enable pnpm
-        run: corepack enable pnpm
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
