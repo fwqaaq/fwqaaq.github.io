@@ -12,7 +12,7 @@ import remarkGfm from 'remark-gfm'
 import remarkGithubAlerts from './remark-github-alert.ts'
 import remarkList from './remark-list.ts'
 import remarkToc from './remark-toc.ts'
-import remarkSponsor from './remark-sponsor.tsx'
+import remarkSponsor from './remark-sponsor.ts'
 
 export interface MarkdownOptions {
   sponsorUrl?: string

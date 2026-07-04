@@ -4,11 +4,9 @@ declare global {
   var googleTranslateElementInit: () => void
   var google: any
   var __BLOG_CONFIG__: any
+  var sponsor: (amount: number) => void
 }
 
-
-// Regex to capture the full <main>…</main> element including its class attribute
-const regex = /(<main[\s\S]*<\/main>)/
 
 let isDark = globalThis.matchMedia('(prefers-color-scheme: dark)').matches
 
@@ -383,7 +381,7 @@ document.addEventListener('DOMContentLoaded', () => {
   self.addEventListener('popstate', renderPage)
 })
 
-function sponsor(amount: number) {
+globalThis.sponsor = (amount: number) => {
   const url = blogConfig.sponsor?.url
   if (!url) return
   globalThis.location.href = url
@@ -438,12 +436,11 @@ const renderPage = async (e?: Event): Promise<void> => {
   const res = await fetch(path)
   const html = await res.text()
 
-  const [, mainHtml] = html.match(regex) ?? []
-  if (!mainHtml) return
-  const temp = document.createElement('div')
-  temp.innerHTML = mainHtml
+  const newMain = new DOMParser().parseFromString(html, 'text/html')
+    .querySelector('main')
+  if (!newMain) return
   const main = document.body.querySelector('main')
-  if (main && temp.firstElementChild) main.replaceWith(temp.firstElementChild)
+  if (main) main.replaceWith(newMain)
 
   if (path.includes('posts')) {
     loadGiscus()

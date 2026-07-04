@@ -84,6 +84,9 @@ importers:
       '@cloudflare/workers-types':
         specifier: 5.20260703.1
         version: 5.20260703.1
+      '@hono/node-server':
+        specifier: ^2.0.8
+        version: 2.0.8(hono@4.12.27)
       '@types/mdast':
         specifier: ^4.0.4
         version: 4.0.4
@@ -721,6 +724,12 @@ packages:
     resolution: {integrity: sha512-Z4aHi3ECFf5oWYWM3F1rW83GJfB9OvhBYPTmb5q+VyK3uvzvS48lwo+jwh2eOoCRWEuT/crpb9Vwp2QaS5JqgQ==}
     peerDependencies:
       viem: '>=2.0.0'
+
+  '@hono/node-server@2.0.8':
+    resolution: {integrity: sha512-GuCWzLxwg218fy1JaHculFsdcuY12hxit83V+algozTPnwhNjLrRL/Alg9OYjLZLoUZ1rw/S4CdTMsnkSKCmFA==}
+    engines: {node: '>=20'}
+    peerDependencies:
+      hono: ^4
 
   '@img/colour@1.1.0':
     resolution: {integrity: sha512-Td76q7j57o/tLVdgS746cYARfSyxk8iEfRxewL9h4OMzYhbW4TAcppl0mT4eyqXddh6L/jwoM75mo7ixa/pCeQ==}
@@ -5113,6 +5122,10 @@ snapshots:
       viem: 2.54.2(bufferutil@4.1.0)(typescript@6.0.3)(utf-8-validate@5.0.10)(zod@4.4.3)
     transitivePeerDependencies:
       - supports-color
+
+  '@hono/node-server@2.0.8(hono@4.12.27)':
+    dependencies:
+      hono: 4.12.27
 
   '@img/colour@1.1.0': {}
 

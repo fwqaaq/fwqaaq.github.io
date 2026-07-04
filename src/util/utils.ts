@@ -1,6 +1,8 @@
 import { readFile } from 'node:fs/promises'
-import { createServer, type IncomingMessage } from 'node:http'
-import { gzipSync } from 'node:zlib'
+import { serve } from '@hono/node-server'
+import { serveStatic } from '@hono/node-server/serve-static'
+import { Hono } from 'hono'
+import { compress } from 'hono/compress'
 import postcss from 'postcss'
 import postcssPresetEnv from 'postcss-preset-env'
 import postcssMinify from '@csstools/postcss-minify'
@@ -53,17 +55,17 @@ export function createProcessor(): postcss.Processor {
 
 export function startServer(port: number | string | undefined = 3000, version: number): void {
   const listenPort = Number(port) || 3000
-  const server = createServer(async (request, response) => {
-    try {
-      const res = await handler(request, version)
-      response.writeHead(res.status, Object.fromEntries(res.headers.entries()))
-      const body = res.body ? Buffer.from(await res.arrayBuffer()) : undefined
-      response.end(body)
-    } catch (error) {
-      console.error(error)
-      response.writeHead(500, { 'Content-Type': 'text/plain; charset=utf-8' })
-      response.end('Internal Server Error')
-    }
+
+  const app = new Hono()
+  app.use(compress())
+  app.use('*', serveStatic({
+    root: './dist',
+    rewriteRequestPath: (path) => path.replace(`.${version}`, ''),
+  }))
+  app.notFound(async (c) => c.html(await readFile('./dist/404.html', 'utf8'), 404))
+
+  const server = serve({ fetch: app.fetch, port: listenPort, hostname: '127.0.0.1' }, (info) => {
+    console.log(`Server started at http://127.0.0.1:${info.port}`)
   })
 
   server.on('error', (error: NodeJS.ErrnoException) => {
@@ -74,48 +76,4 @@ export function startServer(port: number | string | undefined = 3000, version: n
     }
     throw error
   })
-
-  server.listen(listenPort, '127.0.0.1', () => {
-    const address = server.address()
-    const actualPort = typeof address === 'object' && address ? address.port : listenPort
-    console.log(`Server started at http://127.0.0.1:${actualPort}`)
-  })
-}
-
-const handler = async (request: IncomingMessage, version: number): Promise<Response> => {
-  let reqUrl = new URL(request.url ?? '/', 'http://127.0.0.1').pathname
-  const rawExt = reqUrl.endsWith('/') ? 'html' : reqUrl.split('.').pop()
-  const contentType = rawExt === 'css'
-    ? 'text/css'
-    : rawExt === 'js'
-      ? 'text/javascript'
-      : rawExt === 'html'
-        ? 'text/html'
-        : '*/*'
-
-  if (reqUrl.endsWith('/')) reqUrl += 'index.html'
-
-  const headers = new Headers({ 'Content-Type': contentType })
-
-  if (version && reqUrl.includes(String(version))) {
-    reqUrl = reqUrl.replace(`.${version}`, '')
-  }
-
-  let content: Buffer
-  let status = 200
-
-  try {
-    content = await readFile(`./dist${reqUrl}`)
-  } catch {
-    status = 404
-    content = await readFile('./dist/404.html')
-  }
-
-  const contentEncoding = request.headers['accept-encoding']
-  if (!contentEncoding || !contentEncoding.includes('gzip')) {
-    return new Response(content as BodyInit, { headers, status })
-  }
-
-  headers.set('Content-Encoding', 'gzip')
-  return new Response(gzipSync(content) as BodyInit, { headers, status })
 }
